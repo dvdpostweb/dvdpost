@@ -24,10 +24,6 @@ class Token < ActiveRecord::Base
       token_ips = token.token_ips
       select = token_ips.find_by_ip(ip)
     end
-    logger.debug('@@@')
-    logger.debug(token.inspect)
-    logger.debug(select)
-    logger.debug(filename_select)
     if token && select && !filename_select.blank?
       1
     else
