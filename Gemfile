@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '2.3.10' # This should become 2.3.8
+gem 'rails', '~> 2.3.11' 
 gem 'mysql', :group => :bundle
 
 gem 'rmagick'

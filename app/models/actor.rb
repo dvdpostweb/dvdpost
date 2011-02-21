@@ -10,4 +10,6 @@ class Actor < ActiveRecord::Base
   
 
   has_and_belongs_to_many :products, :join_table => :products_to_actors, :foreign_key => :actors_id, :association_foreign_key => :products_id
+  
+  default_scope :conditions => ["actors_type = ?", 'DVD_NORM']
 end

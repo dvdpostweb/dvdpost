@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   @@per_page = 20
 
   set_primary_key :products_id
-
+  
   alias_attribute :availability,    :products_availability
   alias_attribute :available_at,    :products_date_available
   alias_attribute :created_at,      :products_date_added
@@ -164,7 +164,8 @@ class Product < ActiveRecord::Base
      
      sort
   end
-
+  
+  
   def self.filter(filter, options={})
     
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
@@ -288,6 +289,11 @@ class Product < ActiveRecord::Base
     descriptions.by_language(I18n.locale).first
   end
 
+  def to_param
+    desc = descriptions.by_language(I18n.locale).first
+    desc && !desc.cached_name.empty? ? "#{id}-#{desc.cached_name}" : id
+  end
+
   def title
     description ? description.title : products_title
   end
@@ -358,7 +364,7 @@ class Product < ActiveRecord::Base
   def views_increment
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
-    connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{to_param}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{id}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
     day = product_views.daily.first
     if !day.nil?
       day.update_attributes(:number => (day.number + 1))

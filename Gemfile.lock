@@ -33,16 +33,16 @@ GEM
   remote: http://rubygems.org/
   specs:
     aaronh-chronic (0.3.9)
-    actionmailer (2.3.10)
-      actionpack (= 2.3.10)
-    actionpack (2.3.10)
-      activesupport (= 2.3.10)
+    actionmailer (2.3.11)
+      actionpack (= 2.3.11)
+    actionpack (2.3.11)
+      activesupport (= 2.3.11)
       rack (~> 1.1.0)
-    activerecord (2.3.10)
-      activesupport (= 2.3.10)
-    activeresource (2.3.10)
-      activesupport (= 2.3.10)
-    activesupport (2.3.10)
+    activerecord (2.3.11)
+      activesupport (= 2.3.11)
+    activeresource (2.3.11)
+      activesupport (= 2.3.11)
+    activesupport (2.3.11)
     addressable (2.2.4)
     babosa (0.2.2)
     builder (3.0.0)
@@ -78,12 +78,12 @@ GEM
       net-ssh (>= 1.99.1)
     orderedhash (0.0.6)
     rack (1.1.0)
-    rails (2.3.10)
-      actionmailer (= 2.3.10)
-      actionpack (= 2.3.10)
-      activerecord (= 2.3.10)
-      activeresource (= 2.3.10)
-      activesupport (= 2.3.10)
+    rails (2.3.11)
+      actionmailer (= 2.3.11)
+      actionpack (= 2.3.11)
+      activerecord (= 2.3.11)
+      activeresource (= 2.3.11)
+      activesupport (= 2.3.11)
       rake (>= 0.8.3)
     rake (0.8.7)
     rmagick (2.13.1)
@@ -111,7 +111,7 @@ DEPENDENCIES
   mysql
   oauth2!
   orderedhash
-  rails (= 2.3.10)
+  rails (~> 2.3.11)
   rails_warden!
   rmagick
   timed_fragment_cache
