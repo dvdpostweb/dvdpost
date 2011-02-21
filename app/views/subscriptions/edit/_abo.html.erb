@@ -1,0 +1,22 @@
+<% if (current_customer.free_upgrade == 0 ) || (current_customer.free_upgrade == 1 && selected_abo < abo.id ) %>
+  <% if selected_abo < abo.id %>
+    <% new_abo = ProductAbo.find(:first, :conditions => {:allowed_public_group => 4, :qty_credit => abo.credits}) %>
+    <% if new_abo %>
+      <% old_abo = abo %>
+      <% abo = new_abo %>
+    <% end %>
+  <% end %>
+  <% showing = @showing_abo > 0 ? true : false %>
+  <tr style="display: table-row;" class="abo<%= " abo_freeupgrade" if abo.ordered == @free_upgrade%>">
+    <td width="33"><div class="check" id ='<%= abo.id %>'></div></td>
+    <td><img align="absmiddle" src="/images/<%= abo.credits %>films.png" /></td>
+    <td width="155">
+      <b><%= t '.film', :count => abo.credits %>
+      <%= '<img align="middle" src="/images/freeupgradelogo.gif">' if abo.ordered == @free_upgrade %>
+    </td>
+    <td align="right"><strong><span class="title_prices"><%= "<span style='text-decoration:line-through;'>€ #{old_abo.product.price}</span>" if old_abo %> € <%= abo.product.price %></span></strong></td>
+  </tr>
+  <tr style="display: table-row;" class="sep">
+    <td class="separtions" colspan="5"></td>
+  </tr>
+<% end %>

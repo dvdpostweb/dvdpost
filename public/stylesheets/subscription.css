@@ -1,0 +1,28 @@
+.upgrade {
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    min-height: 700px;
+    width: 800px;
+}
+.table_abo_upgrade {
+	background: url("/images/bg_upgrade.gif") no-repeat scroll 0 0 transparent;
+	padding: 10px 20px;
+	width:540px;
+	height:463px;
+}
+.title_formule {
+	color: #454545;
+	font-size:17px;
+	font-weight:bold;
+}
+.abo_freeupgrade {
+  background-color:#97dfeb;
+}
+.abo
+{
+  height: 48px;
+}
+.sep
+{
+  height:1px;
+}
