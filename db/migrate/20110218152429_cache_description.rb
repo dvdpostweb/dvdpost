@@ -1,4 +1,4 @@
-class CacheProductDescription < ActiveRecord::Migration
+class CacheDescription < ActiveRecord::Migration
   def self.up
       add_column :products_description, :cached_name, :string
     end
