@@ -5,7 +5,7 @@
     <% title = title_remove_from_wishlist(text) %>
     <% long_title = title_remove_from_wishlist(:long) %>
   
-    <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.to_param) %>
+    <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.id) %>
     <% submit_id = "p_#{product.to_param}_#{rand(10)}"%>
     <%= "<span class='remove' id='#{submit_id}'>" %>
     <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param, :text => text, :list => 1, :source => source, :submit_id => submit_id, :load_color => load_color), :class => 'btn_remove wishlist_button', :title => long_title %>
