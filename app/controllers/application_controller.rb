@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale_from_params
   before_filter :set_country
   before_filter :get_wishlist_source
+  before_filter :check_host
   before_filter :last_login, :unless => :is_it_js?
   
 
@@ -33,7 +34,10 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
-  
+
+  def check_host
+    @host_ok = request.host == 'public.dvdpost.com'    
+  end
   def is_it_js?
     request.format.js?
   end
