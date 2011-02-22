@@ -2,8 +2,7 @@ class FiltersController < ApplicationController
   def create
     if params[:filter]
       expiration_recommendation_cache()
-      customer = current_customer ? current_custoemr : Customer.find(1)
-      filter = customer.filter || customer.build_filter
+      filter = current_customer.filter || customer.build_filter
       filter.update_with_defaults(params[:filter])
     end
     if params[:search] == t('products.left_column.search')
