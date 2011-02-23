@@ -26,6 +26,6 @@ class SubscriptionsController < ApplicationController
       end
       old_abo = ProductAbo.available(1).find_by_qty_credit(new_abo.credits)
       flash[:notice] = t('subscriptions.ok',  :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :next_abo_price => new_abo.product.price, :next_abo_credits => new_abo.credits, :classic_abo_price => old_abo.product.price)
-      redirect_to root_path
+      redirect_to customer_path(:id => current_customer.to_param)
   end
 end
