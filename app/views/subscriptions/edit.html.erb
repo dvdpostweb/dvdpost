@@ -1,4 +1,4 @@
-<div class="upgrade">
+<!--<div class="upgrade">
   <table  cellspacing="0" cellpadding="0" border="0" >
     <tbody>
       <tr>
@@ -30,4 +30,52 @@
     <div id='div_selected'>2</div>
     <div id='error2'><%= t '.abo_missing' %></div>
   </div>
+</div>
+-->
+
+
+
+<div class="upgrade_fevr">
+<% form_for(:customer, :url => customer_subscription_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
+<%= f.hidden_field :next_abo_type_id %>
+<table  cellspacing="0" cellpadding="0" border="0" >
+  <tbody>
+    <tr>
+      <td colspan="2">
+        <div class="title_formule"><%= t('.formula').upcase %></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table width="260" height="114" cellspacing="0" cellpadding="0" border="0" class="abo_actu">
+          <tbody>
+            <tr>
+              <td valign="top" align="center"><span class="text_nb_movie"><%= t '.film' , :count => current_customer.credit_per_month %><br />
+                <span class="text_prices"><strong>€ <%= current_customer.price_per_month %></strong></span></td>
+            </tr>
+          </tbody>
+        </table></td>
+      <td  class="texte_intro_upgrade"><%= t '.special_forumala' %></td>
+    </tr>
+  </tbody>
+</table>
+<p class="title_formule_fevr"><%= t '.special_choose' %></p>
+<table  cellspacing="0" cellpadding="0" border="0" class="table_abo_upgrade"  width="540"  >
+<tbody>
+  <%= render :partial => 'subscriptions/edit/special_abo', :collection => @list_abo, :locals => { :selected_abo => @selected_abo}%>
+<tr height='88'>
+  <td  colspan="5">
+    <div  align="right" >
+      <button type="submit" class="button_confirm"><%= t '.special_confirm' %></button>
+    </div>
+  </td>
+</tr>
+</tbody>
+</table>
+<% end %>
+<div class="footer_upgrade"><%= t '.special_footer' %></div>
+</div>
+<div style='display:none'>
+  <div id='div_selected'>2</div>
+  <div id='error2'><%= t '.abo_missing' %></div>
 </div>
