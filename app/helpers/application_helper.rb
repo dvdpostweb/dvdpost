@@ -257,5 +257,17 @@ module ApplicationHelper
     options
   end
 
-
+  def get_current_filter(options = {})
+    if cookies[:filter_id]
+      current_filter = SearchFilter.get_filter(cookies[:filter_id])
+      if !options.empty?
+        current_filter.update_with_defaults(options)
+      end
+    else
+      current_filter = SearchFilter.get_filter(nil)
+      current_filter.update_with_defaults(options)
+      cookies[:filter_id] = { :value => current_filter.to_param, :expires => 1.year.from_now }
+    end
+    current_filter
+  end
 end

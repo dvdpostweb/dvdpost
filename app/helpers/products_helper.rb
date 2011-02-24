@@ -229,7 +229,7 @@ module ProductsHelper
   end
 
   def filter_checkbox_tag(attribute, sub_attribute, checked=false)
-    check_box_tag "filter[#{attribute}[#{sub_attribute}]]", true, checked
+    check_box_tag "search_filter[#{attribute}[#{sub_attribute}]]", true, checked
   end
 
   def products_index_title

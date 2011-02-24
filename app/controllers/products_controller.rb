@@ -2,8 +2,7 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
-    customer = current_customer ?  current_customer : Customer.find(1)
-    @filter = customer.filter || customer.build_filter
+    @filter = get_current_filter({})
     params.delete(:search) if params[:search] == t('products.left_column.search')
     if params['actor_id']
       actor = Actor.find(params['actor_id'])
