@@ -50,7 +50,6 @@ class Customer < ActiveRecord::Base
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
-  has_one :filter
   has_one :beta_test
   has_one :cable_order
   has_one :customer_attribute

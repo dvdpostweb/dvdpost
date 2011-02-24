@@ -106,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
       
     end
 
-    localized.resources :filters, :only => [:create, :destroy]
+    localized.resources :search_filters, :only => [:create, :destroy]
 
     localized.resource :sponsorships do |sponsorship|
       sponsorship.gifts 'gifts', :controller => :sponsorships, :action => :gifts, :conditions => {:method => :get}
