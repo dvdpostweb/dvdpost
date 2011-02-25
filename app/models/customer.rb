@@ -168,11 +168,11 @@ class Customer < ActiveRecord::Base
       results = if recommendation_ids
         hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
         result_ids = recommendation_ids - hidden_ids
-        build_filter unless filter
+        filter = get_current_filter
         filter.update_attributes(:recommended_ids => result_ids)
         options.merge!(:subtitles => [2]) if I18n.locale == :nl
         options.merge!(:audio => [1]) if I18n.locale == :fr
-        filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
+        filter.update_attributes(:recommended_ids => result_ids)
         Product.filter(filter, options.merge(:view_mode => :recommended))
       else
         []
@@ -194,7 +194,7 @@ class Customer < ActiveRecord::Base
   def popular(options={})
     options.merge!(:subtitles => [2]) if I18n.locale == :nl
     options.merge!(:audio => [1]) if I18n.locale == :fr
-    build_filter unless filter
+    filter = get_current_filter
     popular = Product.filter(filter, options.merge(:view_mode => :popular))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular - hidden_products

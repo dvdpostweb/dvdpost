@@ -24,6 +24,8 @@ gem 'orderedhash'
 gem 'will_paginate', '~> 2.3.12'
 gem 'timed_fragment_cache'
 gem 'whenever'
+gem 'i18n', '0.5.0'
+gem 'thinking-sphinx'
 
 gem 'bullet', :group => :development
 gem "friendly_id", "~> 3.2.1"
