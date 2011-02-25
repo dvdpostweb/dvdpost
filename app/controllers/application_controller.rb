@@ -120,11 +120,12 @@ class ApplicationController < ActionController::Base
     fragment_name = fragment_name_by_customer
     Product.search()
     recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
+      
       begin
-        Marshal.dump(current_customer.recommendations(options))
+        Marshal.dump(current_customer.recommendations(get_current_filter(options),options))
       rescue => e
         logger.error "Homepage recommendations unavailable: #{e.message}"
-        expire_fragment_with_meta(fragment_name)
+        expire_fragment_with(fragment_name)
         false
       end
     end

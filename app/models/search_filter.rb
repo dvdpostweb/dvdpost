@@ -10,7 +10,10 @@ class SearchFilter < ActiveRecord::Base
 
   def self.get_filter(id)
     if !id.nil?
-      current_filter = find(id)
+      current_filter = find_by_id(id)
+      unless current_filter
+        current_filter = self.new
+      end
     else
       current_filter = self.new
     end

@@ -20,11 +20,12 @@ class RatingsController < ApplicationController
              render :partial => 'home/index/facebook_like'
           end
         when 'wishlist_start_list'
+          filter = get_current_filter
           popular_page = session[:popular_page] || 1
-          popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
+          popular = current_customer.popular(filter).paginate(:page => popular_page, :per_page => 8)
           if popular_page.to_i > 1 && popular.size == 0
             session[:popular_page] = popular_page.to_i - 1
-            popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+            popular = current_customer.popular(filter).paginate(:page => session[:popular_page], :per_page => 8)
           end
           render :partial => 'wishlist_items/popular', :locals => {:products => popular, :id => :popular_tab}
         else
