@@ -15,6 +15,7 @@ class SearchFiltersController < ApplicationController
     filter = get_current_filter({})
     if filter
       filter.destroy
+      current_customer.customer_attribute.update_attributes(:filter_id => nil)
       cookies.delete :filter_id
     end
     redirect_back_or(products_path)

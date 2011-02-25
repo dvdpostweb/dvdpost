@@ -161,18 +161,16 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def recommendations(options={})
+  def recommendations(filter, options)
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self)
       results = if recommendation_ids
         hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
         result_ids = recommendation_ids - hidden_ids
-        filter = get_current_filter
         filter.update_attributes(:recommended_ids => result_ids)
         options.merge!(:subtitles => [2]) if I18n.locale == :nl
         options.merge!(:audio => [1]) if I18n.locale == :fr
-        filter.update_attributes(:recommended_ids => result_ids)
         Product.filter(filter, options.merge(:view_mode => :recommended))
       else
         []
@@ -191,10 +189,9 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def popular(options={})
+  def popular(filter, options={})
     options.merge!(:subtitles => [2]) if I18n.locale == :nl
     options.merge!(:audio => [1]) if I18n.locale == :fr
-    filter = get_current_filter
     popular = Product.filter(filter, options.merge(:view_mode => :popular))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular - hidden_products

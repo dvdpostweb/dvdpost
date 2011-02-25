@@ -194,12 +194,12 @@ $(function() {
     range: true,
     min: 0,
     max: 4,
-    values: [audience_slider_values[$("#filter_audience_min").val()], audience_slider_values[$("#filter_audience_max").val()]],
+    values: [audience_slider_values[$("#search_filter_audience_min").val()], audience_slider_values[$("#search_filter_audience_max").val()]],
     step: 1,
     slide: function(event, ui) {
       actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
-      $("#filter_audience_min").val(actual_audience_values[ui.values[0]]);
-      $("#filter_audience_max").val(actual_audience_values[ui.values[1]]);
+      $("#search_filter_audience_min").val(actual_audience_values[ui.values[0]]);
+      $("#search_filter_audience_max").val(actual_audience_values[ui.values[1]]);
     }
   });
 
@@ -208,12 +208,12 @@ $(function() {
     range: true,
     min: 0,
     max: 8,
-    values: [year_slider_values[$("#filter_year_min").val()], year_slider_values[$("#filter_year_max").val()]],
+    values: [year_slider_values[$("#search_filter_year_min").val()], year_slider_values[$("#search_filter_year_max").val()]],
     step: 1,
     slide: function(event, ui) {
       actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
-      $("#filter_year_min").val(actual_year_values[ui.values[0]]);
-      $("#filter_year_max").val(actual_year_values[ui.values[1]]);
+      $("#search_filter_year_min").val(actual_year_values[ui.values[0]]);
+      $("#search_filter_year_max").val(actual_year_values[ui.values[1]]);
     }
   });
 
@@ -221,11 +221,11 @@ $(function() {
     range: true,
     min: 0,
     max: 5,
-    values: [$("#filter_rating_min").val(),$("#filter_rating_max").val()],
+    values: [$("#search_filter_rating_min").val(),$("#search_filter_rating_max").val()],
     step: 1,
     slide: function(event, ui) {
-      $("#filter_rating_min").val(ui.values[0]);
-      $("#filter_rating_max").val(ui.values[1]);
+      $("#search_filter_rating_min").val(ui.values[0]);
+      $("#search_filter_rating_max").val(ui.values[1]);
     }
   });
 
