@@ -47,8 +47,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    customer = current_customer ?  current_customer : Customer.find(1)
-    @filter = customer.filter || customer.build_filter
+    @filter = get_current_filter({})
     @product = Product.normal_available.find(params[:id])
     @product.views_increment
     @public_url = "http://www.dvdpost.be/product_info_public.php?products_id=#{@product.to_param}"

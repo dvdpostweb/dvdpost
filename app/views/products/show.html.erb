@@ -1,6 +1,6 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
-  <%= render :partial => 'layouts/filters' %>
+  <%= render :partial => 'layouts/filters', :locals => {:filter => @filter } %>
   <div id="detail-wrap">
     <div class="top"></div>
     <!-- Detail -->
