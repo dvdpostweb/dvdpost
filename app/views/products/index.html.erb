@@ -1,7 +1,6 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
   <div id="title"><%= products_index_title %></div>
-  <% Rails.logger.debug { "@@@filter#{@filter}" }%>
   <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
   <% if params[:category_id] %>
     <%= render :partial => 'products/index/streaming', :locals => {:products => @popular} %>
