@@ -1,0 +1,115 @@
+.upgrade {
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    min-height: 700px;
+    width: 800px;
+}
+.table_abo_upgrade {
+	background: url("/images/bg_upgrade.gif") no-repeat scroll 0 0 transparent;
+	padding: 10px 20px;
+	width:540px;
+	height:463px;
+}
+.title_formule {
+	color: #454545;
+	font-size:17px;
+	font-weight:bold;
+	padding:5px 0;
+}
+.abo_freeupgrade {
+  background-color:#97dfeb;
+}
+.abo
+{
+  /*height: 48px;*/
+}
+.sep
+{
+  height:1px;
+}
+.upgrade_fevr {
+	  background: url("/images/special_abo/bg_upgrade.jpg") #d39810 no-repeat scroll 0 0 ;
+    margin: 20px auto;
+    padding:10px 0;
+    width: 800px;
+}
+.upgrade_fevr .table_abo_upgrade {
+    background: url("/images/special_abo/bg_upgrade_fevr.png") no-repeat scroll 0 0 transparent;
+    height: 463px;
+    margin-left: 250px;
+    padding: 10px 6px;
+    width: 541px;
+}
+.upgrade_fevr .title_formule {
+    color: #454545;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 232px;
+}
+
+.upgrade_fevr .title_formule_fevr {
+    color: #454545;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 250px;
+}
+
+
+.upgrade_fevr .abo_actu {
+  background:url("http://private.dvdpost.com/images/bg_white.png") no-repeat scroll 0 50% transparent;
+  margin:0 0 0 244px;
+  padding:22px 0 0 0;
+  width:223px;
+}
+
+
+.abo_freeupgrade {
+background-color:#97dfeb;
+
+}
+
+.upgrade_fevr .button_confirm {
+    background: url("/images/special_abo/button-upgrade.png") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    height: 88px;
+    text-shadow: 1px 1px 1px #333333;
+    width: 280px;
+}
+
+.upgrade_fevr .button_confirm:hover {
+	background:url("/images/special_abo/button-upgrade.png") no-repeat scroll 0 -84px transparent;
+	border:medium none;
+	color:white;
+	font-weight:bold;
+	  height: 88px;
+	text-shadow:1px 1px 1px #333333;
+	 width: 280px;
+}
+
+
+.upgrade_fevr .title_prices {
+    color: #af070d;
+    font-size: 30px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.upgrade_fevr .text_prices {
+    color: #af070d;
+    font-size: 36px;
+}
+
+.texte_intro_upgrade {
+ font-size: 18px;
+ text-align:center;
+ width:312px;
+}
+.footer_upgrade {
+    background-color: #D39810;
+    padding: 10px 30px 20px;
+    width: 740px;
+}

@@ -469,7 +469,7 @@ class Customer < ActiveRecord::Base
   end
   
   def abo_history(action, new_abo_type = 0)
-    Subscription.create(:customer_id => self.to_param, :Action => action, :Date => Time.now().to_s(:db), :product_id => (new_abo_type > 0 ? new_abo_type : self.abo_type_id), :site => 1, :payment_method => subscription_payment_method.name.upcase)
+    Subscription.create(:customer_id => self.to_param, :Action => action, :Date => Time.now().to_s(:db), :product_id => (new_abo_type.to_i > 0 ? new_abo_type : self.abo_type_id), :site => 1, :payment_method => subscription_payment_method.name.upcase)
   end
 
   def is_freetest?
@@ -537,7 +537,7 @@ class Customer < ActiveRecord::Base
   end
 
   def get_list_abo
-    group = (nederlands? ? 2 : 1)
+    group = 1
     ProductAbo.get_list(group)
   end
   

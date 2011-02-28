@@ -1,0 +1,12 @@
+<% if selected_abo.ordered < special_abo.ordered  %>
+  <tr class="abo">
+    <td width="33"><div class="check" id ='<%= special_abo.id %>'></div></td>
+    <td><img align="absmiddle" src="/images/special_abo/<%= special_abo.credits %>films.png" /></td>
+    <td width="120"><%= t 'subscriptions.edit.abo.film', :count => special_abo.credits %></td>
+    <td><img align="absmiddle" src="/images/special_abo/price<%= special_abo.credits %>.png" /></td>
+    <td align="right"><strong><span class="title_prices">€ <%= special_abo.product.price %></span></strong></td>
+  </tr>
+  <tr class="sep">
+    <td class="separtions" colspan="6"></td>
+  </tr>
+<% end %>
