@@ -120,10 +120,6 @@ module ApplicationHelper
     "#{result}#{result.include?('?') ? '&' : '?'}language=#{I18n.locale}"
   end
 
-  def limited_subscription_change_path
-    php_path 'subscription_change_limited.php'
-  end
-
   def product_shop_path(product)
     php_path "product_info_shop.php?products_id=#{product.to_param}"
   end

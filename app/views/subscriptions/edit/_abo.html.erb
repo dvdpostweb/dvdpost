@@ -1,0 +1,15 @@
+<% if (current_customer.free_upgrade == 0 ) || (current_customer.free_upgrade == 1 && selected_abo < abo.id ) %>
+  <% showing = @showing_abo > 0 ? true : false %>
+  <tr style="display: table-row;" class="abo<%= " abo_freeupgrade" if abo.ordered == @free_upgrade%>">
+    <td width="33"><div class="check" id ='<%= abo.id %>'></div></td>
+    <td><img align="absmiddle" src="/images/<%= abo.credits %>films.png" /></td>
+    <td width="155">
+      <b><%= t '.film', :count => abo.credits %>
+      <%= '<img align="middle" src="/images/freeupgradelogo.gif">' if abo.ordered == @free_upgrade %>
+    </td>
+    <td align="right"><strong><span class="title_prices"><%= abo.product.price %></span></strong></td>
+  </tr>
+  <tr style="display: table-row;" class="sep">
+    <td class="separtions" colspan="5"></td>
+  </tr>
+<% end %>
