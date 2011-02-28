@@ -42,10 +42,6 @@
     <% end %>
   <% end %>
   </table>
-  <% if !current_customer.is_freetest? %>
-    <%= render :partial => 'home/index/promo' %>
-    </div>
-  <% else %>
     <% if @offline_request.count > 0 %>
       </div>
       <%= render :partial => 'home/index/offline_request', :locals => {:offline_request => @offline_request} %>
@@ -59,7 +55,6 @@
       <%= render :partial => 'home/index/facebook_like' %>
       </div>
     <% end %>
-  <% end %>
   
 
 <div class="clear"></div>
