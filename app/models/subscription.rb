@@ -29,14 +29,19 @@ class Subscription < ActiveRecord::Base
     new_abo
   end
 
-  def self.freetest(current_customer, new_abo)
+  def self.freeupgrade(current_customer, new_abo)
     diff_order = new_abo.ordered - current_customer.subscription_type.ordered
     if current_customer.free_upgrade == 0 && diff_order == 1
       diff_credit = new_abo.credits - current_customer.subscription_type.credits
       status = current_customer.add_credit(diff_credit, 6)
       if status 
         current_customer.update_attribute(:free_upgrade, 1)
+        return true
+      else
+        return false
       end
+    else
+      return false
     end
   end
 

@@ -114,6 +114,14 @@
   width:250px;
   margin: 0 auto 5px;
 }
+.abo_actu_sub 
+{
+  background:url("../images/bg_white.png") no-repeat scroll 0 50% transparent;
+  margin:0 21px 5px;
+  padding:20px 0 0;
+  text-align:center;
+  width:220px;
+}
 .monthquote {
 	font-size:13px;
 	text-align:center;
