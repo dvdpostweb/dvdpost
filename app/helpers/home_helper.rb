@@ -1,29 +1,33 @@
 module HomeHelper
-  def link_to_banner_image(type)
-    case type
-      when 'quizz'
-        link_to image_tag(@quizz.image), quizzes_path
-      when 'contest'
-        link_to image_tag(@contest.image), new_contest_path
-      when 'shop'
-        link_to image_tag(@shop.image), shop_path(@shop.url)
-      when 'stvalentin'
-        link_to image_tag("#{I18n.locale}/stvalentin.gif", :alt => 'Theme st-valentin'), themes_path(:page_name => 'stvalentin')
-      when 'oscar'
-        link_to image_tag("#{I18n.locale}/oscar.gif", :alt => 'Theme oscar'), themes_path(:page_name => 'oscars_cesar')
-      when 'community'
-        case rand(4)
-        when 0
-          link_to image_tag('banner_blog.gif', :alt => 'blog dvdpost'), blog_url
-        when 1
-          link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), fb_url
-        when 2
-          link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsorships_path
-        when 3
-          link_to image_tag('banner_twitter.gif', :alt => 'twitter dvdpost'), twitter_url
-        end
-      else
-        'other'
+  def link_to_banner_image(type,theme)
+    if theme && theme.banner_hp && type == 'shop'
+      link_to image_tag("#{DVDPost.images_path}/themes/#{I18n.locale}/banner/#{theme.to_param}.gif", :alt => theme.name), themes_path(:page_name => theme.name)
+    else  
+      case type
+        when 'quizz'
+          link_to image_tag(@quizz.image), quizzes_path
+        when 'contest'
+          link_to image_tag(@contest.image), new_contest_path
+        when 'shop'
+          link_to image_tag(@shop.image), shop_path(@shop.url)
+        when 'stvalentin'
+          link_to image_tag("#{I18n.locale}/stvalentin.gif", :alt => 'Theme st-valentin'), themes_path(:page_name => 'stvalentin')
+        when 'oscar'
+          link_to image_tag("#{I18n.locale}/oscar.gif", :alt => 'Theme oscar'), themes_path(:page_name => 'oscars_cesar')
+        when 'community'
+          case rand(4)
+          when 0
+            link_to image_tag('banner_blog.gif', :alt => 'blog dvdpost'), blog_url
+          when 1
+            link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), fb_url
+          when 2
+            link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsorships_path
+          when 3
+            link_to image_tag('banner_twitter.gif', :alt => 'twitter dvdpost'), twitter_url
+          end
+        else
+          'other'
+      end
     end
   end
 

@@ -1,1 +1,1 @@
-<%= render(:partial => "themes/#{params['page_name']}") %>
+<%= render(:partial => "themes/#{params['page_name']}", :locals => {:theme => @theme}) %>

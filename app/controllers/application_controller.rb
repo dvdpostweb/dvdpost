@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_country
   before_filter :get_wishlist_source
   before_filter :last_login, :unless => :is_it_js?
+  before_filter :theme_actif, :unless => :is_it_js?
   
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
@@ -36,6 +37,10 @@ class ApplicationController < ActionController::Base
   
   def is_it_js?
     request.format.js?
+  end
+
+  def theme_actif
+    @theme = ThemesEvent.selected.last
   end
 
   def is_special_page?
