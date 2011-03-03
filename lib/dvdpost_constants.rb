@@ -192,8 +192,8 @@ module DVDPost
     def email
       HashWithIndifferentAccess.new.merge({
         :sponsorships_invitation    => 446,
-        :streaming_product    => 451,
-        :streaming_product_free    => 564,
+        :streaming_product    => 571,
+        :streaming_product_free    => 571,
       })
     end
 
@@ -253,6 +253,19 @@ module DVDPost
         :high   => 1.8,
         :low    => 1
       })
+    end
+
+    def mail_recommendation_dvd_to_dvd(customer_id, product_id, limit = 7)
+      data = open("http://www.dvdpost.be/webservice/recommendations_dvd_to_dvd.php?product_id=#{product_id}&limit=#{limit}&customer_id=#{customer_id}").read
+    end
+
+    def mail_movie_detail(customer_id, product_id, type = 'vod')
+      data = open("http://www.dvdpost.be/webservice/movie_detail.php?product_id=#{product_id}&type=#{type}&customer_id=#{customer_id}").read
+      Iconv.conv('utf-8','ISO-8859-1',  data)
+    end
+
+    def mail_vod_selection(customer_id,  limit = 7)
+      data = open("http://www.dvdpost.be/webservice/vod_selection.php?limit=#{limit}&customer_id=#{customer_id}").read
     end
     
   end
