@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_customer
 
   before_filter :save_attempted_path
+  before_filter :check_host
   before_filter :authenticate!, :unless => :is_special_page?
   before_filter :wishlist_size
   before_filter :indicator_close?
@@ -22,7 +23,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale_from_params
   before_filter :set_country
   before_filter :get_wishlist_source
-  before_filter :check_host
   before_filter :last_login, :unless => :is_it_js?
   
 
@@ -33,17 +33,15 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
   protected
 
-  def check_host
-    @host_ok = (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')    
-  end
   def is_it_js?
     request.format.js?
   end
 
   def is_special_page?
-    test = (request.host == 'public.dvdpost.com' || request.host == 'staging.public.dvdpost.com') && (request.parameters['page_name'] == 'get_connected' || ( request.parameters['controller'] == 'streaming_products' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' && request.parameters['action'] == 'index') || (request.parameters['controller'] == 'products' && request.parameters['action'] == 'show') || request.parameters['controller'] == 'themes' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index'))
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' || ( request.parameters['controller'] == 'streaming_products' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || request.parameters['controller'] == 'themes' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index'))
     return test
   end
 
