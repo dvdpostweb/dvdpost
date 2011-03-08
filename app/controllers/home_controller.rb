@@ -53,9 +53,11 @@ class HomeController < ApplicationController
     end
     @recommendations = retrieve_recommendations(params[:recommendation_page])
     @popular = retrieve_popular
-    
-    @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:desc).limit(5)
-    @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
+    if Rails.env == "pre_production"
+      @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
+    else
+      @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+    end
     @streaming_available = current_customer.get_all_tokens
   end
 
