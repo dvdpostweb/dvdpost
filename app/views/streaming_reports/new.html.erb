@@ -5,6 +5,7 @@
 <% form_for @message do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field(:category_id, :value =>  DVDPost.message_categories[:vod]) %>
+  <%= f.hidden_field(:products_id, :value =>  @product.to_param) %>
   <%= f.text_area 'question', :cols => 44, :rows => 5 %>
   <p id='submit_align'>
     <% content_tag :button, :type => :submit, :id => :submit_report, :title => t('.send') do %>
