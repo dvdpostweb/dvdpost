@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_host
-    @host_ok = request.host == 'public.dvdpost.com'    
+    @host_ok = (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')    
   end
   def is_it_js?
     request.format.js?
