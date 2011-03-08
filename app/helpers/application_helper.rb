@@ -275,4 +275,12 @@ module ApplicationHelper
     end
     current_filter
   end
+  def check_host
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  
+      ENV['HOST_OK'] = "1"
+    else
+      ENV['HOST_OK'] = "0"
+    end
+  end
+  
 end

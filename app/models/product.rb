@@ -290,12 +290,13 @@ class Product < ActiveRecord::Base
   end
 
   def to_param
-    if @host_ok 
+    if ENV['HOST_OK'] == "1"
       desc = descriptions.by_language(I18n.locale).first
       desc && !desc.cached_name.empty? ? "#{id}-#{desc.cached_name}" : id
     else
       id
     end
+    
   end
 
   def title
