@@ -337,7 +337,7 @@ class Customer < ActiveRecord::Base
   end
 
   def create_token(imdb_id, product, current_ip)
-    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0
+    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || super_user?
       Token.transaction do
         token = Token.create(
           :customer_id => id,
@@ -473,7 +473,11 @@ class Customer < ActiveRecord::Base
   end
 
   def is_freetest?
-    actions.reconduction.last.action == 17 if actions && actions.reconduction && actions.reconduction.last
+    if actions && actions.reconduction && actions.reconduction.last.action == 7
+      false
+    else
+      true
+    end
   end
 
   def nederlands?
@@ -540,7 +544,16 @@ class Customer < ActiveRecord::Base
     group = 1
     ProductAbo.get_list(group)
   end
-  
+
+  def super_user?
+    DVDPost.dvdpost_super_user.each do |super_id| 
+      if to_param.to_i == super_id.to_i
+        return true
+      end
+    end
+    return false
+  end
+
   private
   def convert_created_at
     begin
