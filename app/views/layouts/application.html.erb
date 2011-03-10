@@ -8,6 +8,7 @@
   <link rel="SHORTCUT ICON" href="/favicon.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <%= stylesheet_link_tag 'style', :media => :all %>
+  <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
   <%= stylesheet_link_tag 'facebox', :media => :all %>
   <%= stylesheet_link_tag 'messages', :media => :all %>
   <%= stylesheet_link_tag 'fonts', :media => :all %>
@@ -34,7 +35,8 @@
 <body id="<%= yield :body_id %>" <%= "style=\"background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/wallpaper/#{@theme.to_param}.jpg') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image %> <%= yield :option %>>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
-    <%= render :partial => 'layouts/header' %>
+		
+    <%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
       <% if flash[:notice] %>
@@ -47,6 +49,7 @@
           <%= flash[:error] %>
         </p>
       <% end %>
+			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" %>
       <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->

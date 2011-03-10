@@ -117,7 +117,11 @@ class ApplicationController < ActionController::Base
   end
 
   def fragment_name_by_customer()
-    "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
+    if current_customer
+      "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
+    else
+      "#{I18n.locale.to_s}/home/recommendations/public"
+    end
   end
 
   def retrieve_recommendations(page, options = {})
@@ -126,10 +130,11 @@ class ApplicationController < ActionController::Base
     recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
       
       begin
+        current_customer=Customer.find(1)
         Marshal.dump(current_customer.recommendations(get_current_filter(options),options))
       rescue => e
         logger.error "Homepage recommendations unavailable: #{e.message}"
-        expire_fragment_with(fragment_name)
+        expire_fragment(fragment_name)
         false
       end
     end
