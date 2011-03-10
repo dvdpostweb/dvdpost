@@ -4251,30 +4251,34 @@ position:relative;
 }
 
 .category_theme h3 {
-background:url(http://www.dvdpost.be/images/themes/valentine_title.gif) no-repeat;
-color:#FFFFFF;
-text-transform:uppercase;
-font-family: Arial, Helvetica, sans-serif;
-font-size: 18px;
-margin:20px;
-padding: 10px 42px 10px;
+  background:url("http://www.dvdpost.be/images/themes/valentine_title.gif") no-repeat scroll 0 0 transparent;
+  color:#FFFFFF;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:18px;
+  height:18px;
+  margin: 24px 20px 0;
+  padding:25px 72px 10px;
+  text-transform:uppercase;
 }
 
 .category_theme {
 	width:915px;
 	margin:10px;
 }
+.category_theme .center{
+  margin: 0 0 0 20px;
+}
 .selection_theme { 
-border:#d61b2b solid 1px;
-height:270px;
- width: 915px;
-margin-top:-24px;
-margin-left:20px;
+  border:#d61b2b solid 1px;
+  height:270px;
+  width: 915px;
+  margin-left:20px;
 }
 .selection_theme#carousel
 {
   background: none;
   width:855px;
+  height:100% !important;
 }
 .selection_theme#carousel li .dvd {
   background: url(../images/dvd-cover-theme.png) 0 0 no-repeat;
@@ -4287,5 +4291,7 @@ margin-left:20px;
 }
 .selection_theme#carousel li {
   width:98px;
-  height:242px;
+}
+.selection_theme#carousel ul {
+position:relative !important;
 }
