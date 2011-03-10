@@ -164,13 +164,13 @@ module ProductsHelper
       if product.dvd?
         bluray = product.media_alternative(:blueray)
         if bluray
-          path = recommendation.to_i > 0 ? product_path(:id => bluray, :recommendation => recommendation) : product_path(:id => bluray)
+          path = recommendation.to_i > 0 ? product_path(:id => bluray.to_param, :recommendation => recommendation) : product_path(:id => bluray.to_param)
           link_to(t('.dispo_bluray'), path, :id => 'bluray-btn') 
         end
       elsif product.bluray?
         dvd = product.media_alternative(:dvd)
         if dvd
-          path = recommendation.to_i > 0 ? product_path(:id => dvd, :recommendation => recommendation) : product_path(:id => dvd)
+          path = recommendation.to_i > 0 ? product_path(:id => dvd.to_param, :recommendation => recommendation) : product_path(:id => dvd.to_param)
           link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
         end
       else
