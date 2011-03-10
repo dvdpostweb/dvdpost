@@ -1,16 +1,18 @@
 <div id='home_recommendations' class="home">
+  <% if ENV['HOST_OK'] != "1" %>
   <ul class="ttls-nav" id="recom">
-    <li>
-      <h3>
-        <%= t '.title' %>
-      </h3>
-    </li>
-    <% if products && products.size > 0 %>
       <li>
-        <%= link_to t('.see_all'), products_path(:view_mode => :recommended) %>
+        <h3>
+          <%= t '.title' %>
+        </h3>
       </li>
-    <% end %>
+      <% if products && products.size > 0 %>
+        <li>
+          <%= link_to t('.see_all'), products_path(:view_mode => :recommended) %>
+        </li>
+      <% end %>
   </ul>
+  <% end %>
   <!-- Carousel -->
   <div id="carousel-wrap-hp">
     <div id="carousel">

@@ -200,7 +200,7 @@ module ApplicationHelper
   end
 
   def streaming_access?
-    (current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')) || current_customer.super_user?
+    !current_customer || ((current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')) || current_customer.super_user?)
   end
 
   def display_btn_tops
@@ -276,7 +276,7 @@ module ApplicationHelper
     current_filter
   end
   def check_host
-    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  || (request.host == 'dvdpost.dev')
       ENV['HOST_OK'] = "1"
     else
       ENV['HOST_OK'] = "0"

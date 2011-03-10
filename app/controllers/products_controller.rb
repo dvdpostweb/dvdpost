@@ -2,6 +2,12 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
+    if Rails.env == "pre_production"
+      @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
+    else
+      @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+    end
+    @recommendations = retrieve_recommendations(params[:recommendation_page])
     @filter = get_current_filter({})
     params.delete(:search) if params[:search] == t('products.left_column.search')
     if params['actor_id']

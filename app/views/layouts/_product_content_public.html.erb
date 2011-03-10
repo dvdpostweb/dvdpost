@@ -1,0 +1,14 @@
+<div class="content_step">
+  <div id="catalogue">
+    <h3>DEcouvrez notre catalogue</h3>
+       <div id="banners_imu"><img src="/images/public/mpubanner.gif" /></div>
+    <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
+    <div style="clear:both;"></div>
+    <h3>Recommandations personnalisees</h3>
+    <p class="text_intro">Grâce à notre système de recommandations personnalisées, nous vous suggérons régulièrement des titres adaptés à vos goûts. Laissez-vous guider...</p>
+ <p align="center"><%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %></p>
+
+  <div style="clear:both;"></div>
+  <h3>Un puissant moteur de recherche</h3>
+<p class="text_intro">Tous vos films, séries, documentaires, acteurs, réalisateurs préférés, trouvez-les tous grâce nos puissants outils de recherche.</p>
+</div>

@@ -1,4 +1,6 @@
 <%= javascript 'products','reviews' %>
+<%= javascript 'home' if ENV['HOST_OK'] == "1" %>
+
 <% content_for :body_id do %>product_body<% end %>
 <% if @product &&  @product.description %>
   <% content_for :facebook do %>
@@ -14,5 +16,7 @@
     <%= @product.description.text %>
   <% end%>
 <% end %>
+<%= render :partial => 'layouts/product_content_public' if ENV['HOST_OK'] == "1" && (request.parameters['controller'] == 'products' and request.parameters['action']=="index")%>
+
 <%= yield %>
 <% parent_layout 'application' %>
