@@ -120,7 +120,7 @@ class ApplicationController < ActionController::Base
     if current_customer
       "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
     else
-      "#{I18n.locale.to_s}/home/recommendations/customers/all"
+      "#{I18n.locale.to_s}/home/recommendations/public"
     end
   end
 
@@ -132,17 +132,8 @@ class ApplicationController < ActionController::Base
         if current_customer
           Marshal.dump(current_customer.recommendations(get_current_filter(options),options))
         else
-          filter = get_current_filter({})
-          recommendation_ids = DVDPost.home_page_recommendations(999999999)
-          results = if recommendation_ids
-            filter.update_attributes(:recommended_ids => recommendation_ids)
-            options.merge!(:subtitles => [2]) if I18n.locale == :nl
-            options.merge!(:audio => [1]) if I18n.locale == :fr
-            Product.filter(filter, options.merge(:view_mode => :recommended))
-          else
-            []
-          end  
-          Marshal.dump(results)
+            
+          Marshal.dump(recommendation_public(options))
         end
       rescue => e
         logger.error "Homepage recommendations unavailable: #{e.message}"
@@ -153,7 +144,11 @@ class ApplicationController < ActionController::Base
     if recommendation_items_serialize
       recommendation_items = Marshal.load(recommendation_items_serialize)
     else
-      recommendation_items = false
+      recommendation_items = if current_customer
+        current_customer.recommendations(get_current_filter(options),options)
+      else
+       recommendation_public(options)
+      end
       expire_fragment(fragment_name_by_customer)
     end
     if recommendation_items
@@ -185,6 +180,20 @@ class ApplicationController < ActionController::Base
       logger.error(e.backtrace)
     end
   end
+  
+  def recommendation_public(options)
+    filter = get_current_filter({})
+    recommendation_ids = DVDPost.home_page_recommendations(999999999)
+    results = if recommendation_ids
+      filter.update_attributes(:recommended_ids => recommendation_ids)
+      options.merge!(:subtitles => [2]) if I18n.locale == :nl
+      options.merge!(:audio => [1]) if I18n.locale == :fr
+      Product.filter(filter, options.merge(:view_mode => :recommended))
+    else
+      []
+    end
+  end
+  
   
 end
 

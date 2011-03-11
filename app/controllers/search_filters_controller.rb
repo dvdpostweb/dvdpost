@@ -5,7 +5,7 @@ class SearchFiltersController < ApplicationController
       get_current_filter(params[:search_filter])
     end
     if params[:search] == t('products.left_column.search')
-      redirect_to products_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id])
+      redirect_to products_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id])
     else
       redirect_to products_path(:search => params[:search])
     end

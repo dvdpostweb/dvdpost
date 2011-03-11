@@ -16,6 +16,13 @@ class ProductsController < ApplicationController
       actor = Actor.find(params['actor_id'])
       params['actor_id'] = actor.id
     end
+    if params['director_id']
+      director = Director.find(params['director_id'])
+      params['director_id'] = director.id
+      
+      Rails.logger.debug { "@@@#{director.inspect}" }
+      Rails.logger.debug { "@@@#{params['director_id']}" }
+    end
     
     if params[:category_id]
       @popular = current_customer.streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
