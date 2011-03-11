@@ -25,8 +25,12 @@
 	
 	
 }
-
-
+#carousel ul {
+  left: 7px !important;
+}
+#carousel li {
+margin:0 4px 24px !important;;
+}
 .selection_theme_oscar { 
 
 border:#c1a049 solid 1px;
