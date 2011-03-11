@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_special_page?
-    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' || ( request.parameters['controller'] == 'streaming_products' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || request.parameters['controller'] == 'themes' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index'))
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || request.parameters['controller'] == 'themes' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index'))
     return test
   end
 
@@ -120,7 +120,7 @@ class ApplicationController < ActionController::Base
     if current_customer
       "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
     else
-      "#{I18n.locale.to_s}/home/recommendations/public"
+      "#{I18n.locale.to_s}/home/recommendations/customers/all"
     end
   end
 
@@ -128,17 +128,34 @@ class ApplicationController < ActionController::Base
     fragment_name = fragment_name_by_customer
     Product.search()
     recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
-      
       begin
-        current_customer=Customer.find(1)
-        Marshal.dump(current_customer.recommendations(get_current_filter(options),options))
+        if current_customer
+          Marshal.dump(current_customer.recommendations(get_current_filter(options),options))
+        else
+          filter = get_current_filter({})
+          recommendation_ids = DVDPost.home_page_recommendations(999999999)
+          results = if recommendation_ids
+            filter.update_attributes(:recommended_ids => recommendation_ids)
+            options.merge!(:subtitles => [2]) if I18n.locale == :nl
+            options.merge!(:audio => [1]) if I18n.locale == :fr
+            Product.filter(filter, options.merge(:view_mode => :recommended))
+          else
+            []
+          end  
+          Marshal.dump(results)
+        end
       rescue => e
         logger.error "Homepage recommendations unavailable: #{e.message}"
         expire_fragment(fragment_name)
         false
-      end
+      end        
     end
-    recommendation_items = Marshal.load(recommendation_items_serialize)
+    if recommendation_items_serialize
+      recommendation_items = Marshal.load(recommendation_items_serialize)
+    else
+      recommendation_items = false
+      expire_fragment(fragment_name_by_customer)
+    end
     if recommendation_items
       data = recommendation_items.paginate(:per_page => 8, :page => page)
       page = params[:recommendation_page].to_i

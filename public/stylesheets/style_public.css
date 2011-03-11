@@ -739,16 +739,6 @@ a.moreabout_vod {
 	text-align: left;
 	width: 345px;
 }
-.footer, .push {
-	height: 140px;
-}
-.footer {
-	position: relative;
-	background:  url("/images/public/images/bg_footer.png") no-repeat scroll;
-	margin: 0 auto;
-	background-repeat: repeat-x;
-	width:970px;
-}
 .banner_step {
     background: url("/images/public/bg_bannerdiscover_step.jpg") no-repeat scroll 32px 0 transparent;
     font-size: 20px;
@@ -1065,4 +1055,7 @@ margin-left:40px;
 }
 #leftcolumn {
   margin:23px 0 0 43px;
+}
+#facebox td.body {
+background-color:#FFFFFF;
 }

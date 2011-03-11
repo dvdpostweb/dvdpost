@@ -116,6 +116,7 @@ class Product < ActiveRecord::Base
 
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
+  sphinx_scope(:by_products_id)     {|products_id|      {:with =>       {:id => products_id}}}
   sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
