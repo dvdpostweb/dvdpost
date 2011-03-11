@@ -2,12 +2,14 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
-    if Rails.env == "pre_production"
-      @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
-    else
-      @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+    if ENV['HOST_OK'] == "1"
+      if Rails.env == "pre_production"
+        @carousel = Landing.by_language_beta(I18n.locale).not_expirated.public.order(:asc).limit(5)
+      else
+        @carousel = Landing.by_language(I18n.locale).not_expirated.public.order(:asc).limit(5)
+      end
+      @recommendations = retrieve_recommendations(params[:recommendation_page])
     end
-    @recommendations = retrieve_recommendations(params[:recommendation_page])
     @filter = get_current_filter({})
     params.delete(:search) if params[:search] == t('products.left_column.search')
     if params['actor_id']
@@ -21,7 +23,7 @@ class ProductsController < ApplicationController
     if params[:sort].nil?
       params[:sort] = 'normal'
     end
-    
+    @countries = ProductCountry.visible.order
     respond_to do |format|
       format.html do
         @products = if params[:view_mode] == 'recommended'
@@ -36,7 +38,7 @@ class ProductsController < ApplicationController
         end
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
-        @countries = ProductCountry.visible.order
+        
         
         @jacket_mode = Product.get_jacket_mode(params)
         if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
@@ -47,6 +49,8 @@ class ProductsController < ApplicationController
       format.js {
         if params[:category_id]
           render :partial => 'products/index/streaming', :locals => {:products => @popular}
+        elsif params[:recommendation_page]
+          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}  
         end
       }
     end  
