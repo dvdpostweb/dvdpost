@@ -6,11 +6,11 @@
         <li class="langues"><%= switch_locale_link :fr %></li>
         <li class="langues"><%= switch_locale_link :nl %></li>
         <li class="langues"><%= switch_locale_link :en %> </li>
-        <li><a class="login" href="http://www.dvdpost.be/login.php">Login membres</a></li>
+        <li><a class="login" href="http://www.dvdpost.be/login.php">Login</a></li>
       </ul>
       <div style="clear:both;"></div>
     </div>
     <div style="clear:both;"></div>
-    <div class="breadcrumb"><a href="http://www.dvdpost.be/default.php" class="link_selected">Accueil &gt;</a> <a href="<%= products_path %>">Découvez notre catalogue</a></div>
+    <div class="breadcrumb"><a href="http://www.dvdpost.be/default.php" class="link_selected"><%= t '.home' %> &gt;</a> <a href="<%= products_path %>"><%= t '.catalog' %></a></div>
   </div>
 </div>

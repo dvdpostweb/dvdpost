@@ -357,5 +357,4 @@ module ProductsHelper
       "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
     end
   end
-  
 end
