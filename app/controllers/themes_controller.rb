@@ -5,6 +5,7 @@ class ThemesController < ApplicationController
     elsif params[:page_name] == 'oscars_cesar'
       @list = ProductList.theme.special_theme(3).by_language(DVDPost.product_languages[I18n.locale])
     else
+      @theme = ThemesEvent.find_by_name(params['page_name'])
       @list = ProductList.theme.special_theme(@theme.id).by_language(DVDPost.product_languages[I18n.locale])
     end
   end
