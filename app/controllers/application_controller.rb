@@ -40,7 +40,11 @@ class ApplicationController < ActionController::Base
   end
 
   def theme_actif
-    @theme = ThemesEvent.selected.last
+    if Rails.env == "pre_production"
+      @theme = ThemesEvent.selected_beta.last
+    else
+      @theme = ThemesEvent.selected.last
+    end
   end
 
   def is_special_page?
