@@ -1,6 +1,8 @@
 <div id="header" <%= "class='small'" if @hide_menu %>>
   <h1>
-    <%= link_to t('.tagline'), root_path, :class => 'like-btn' %>
+    <% theme_logo = @theme && @theme.logo_image == 1 ? "background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/logo/#{@theme.to_param}.gif') no-repeat;" : "" %>
+    <% Rails.logger.debug { "@@@#{theme_logo}" }%>
+    <%= link_to t('.tagline'), root_path, :class => 'like-btn', :style => theme_logo %>
   </h1>
   <ul id="login" class="subnav">
     <li class="first">
