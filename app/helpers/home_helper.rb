@@ -1,6 +1,6 @@
 module HomeHelper
   def link_to_banner_image(type,theme)
-    if theme && theme.banner_hp && type == 'shop'
+    if theme && theme.banner_hp == 1 && type == 'shop'
       link_to image_tag("#{DVDPost.images_path}/themes/#{I18n.locale}/banner/#{theme.to_param}.gif", :alt => theme.name), themes_path(:page_name => theme.name)
     else  
       case type
