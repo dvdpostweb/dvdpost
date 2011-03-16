@@ -153,6 +153,14 @@ module ApplicationHelper
     end
   end
 
+  def production_public_path()
+    if session[:country_code] == 'NL'
+      'http://www.dvdpost.nl/'
+    else
+      'http://www.dvdpost.be/'
+    end
+  end
+
   def product_assigned_path(product)
     if product
       if product.products_type == DVDPost.product_kinds[:adult]

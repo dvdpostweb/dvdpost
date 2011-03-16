@@ -1,16 +1,16 @@
 <div class="jbwrapper">
   <div class="jbcontainer">
-    <div class="jblogo"><a href="http://www.dvdpost.be/default.php">DVDPost.be</a></div>
+    <div class="jblogo"><a href="<%= production_public_path %>default.php">DVDPost.be</a></div>
     <div class="jbtopnav">
       <ul class="top-nav">
         <li class="langues"><%= switch_locale_link :fr %></li>
         <li class="langues"><%= switch_locale_link :nl %></li>
         <li class="langues"><%= switch_locale_link :en %> </li>
-        <li><a class="login" href="http://www.dvdpost.be/login.php">Login</a></li>
+        <li><a class="login" href="<%= production_public_path %>login.php">Login</a></li>
       </ul>
       <div style="clear:both;"></div>
     </div>
     <div style="clear:both;"></div>
-    <div class="breadcrumb"><a href="http://www.dvdpost.be/default.php" class="link_selected"><%= t '.home' %> &gt;</a> <a href="<%= products_path %>"><%= t '.catalog' %></a></div>
+    <div class="breadcrumb"><a href="<%= production_public_path %>default.php" class="link_selected"><%= t '.home' %> &gt;</a> <a href="<%= products_path %>"><%= t '.catalog' %></a></div>
   </div>
 </div>
