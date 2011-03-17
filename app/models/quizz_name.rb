@@ -1,4 +1,6 @@
 class QuizzName < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :quizz_name
 
   set_primary_key :quizz_name_id

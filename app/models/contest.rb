@@ -1,4 +1,6 @@
 class Contest < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :contest
 
   set_primary_key :contest_id

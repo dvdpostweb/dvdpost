@@ -124,6 +124,10 @@ module ApplicationHelper
     php_path "product_info_shop.php?products_id=#{product.to_param}"
   end
 
+  def product_public_path(product)
+    "http://public.dvdpost.com/#{I18n.locale}/products/#{product.to_param}"
+  end
+
   def payment_method_change_path(type=nil)
     path = php_path 'payment_method_change.php'
     type ? "#{path}&payment=#{type}" : path
@@ -146,10 +150,18 @@ module ApplicationHelper
   end
 
   def production_path(country_id=nil)
-    if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
-      'http://www.dvdpost.be/'
+    if current_customer
+      if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
+        'http://www.dvdpost.be/'
+      else
+        'http://www.dvdpost.nl/'
+      end
     else
-      'http://www.dvdpost.nl/'
+      if session[:country_code] == 'NL'
+        'http://www.dvdpost.nl/'
+      else
+        'http://www.dvdpost.be/'
+      end
     end
   end
 
@@ -200,7 +212,7 @@ module ApplicationHelper
   end
 
   def streaming_access?
-    (current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')) || current_customer.super_user?
+    !current_customer || ((current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')) || current_customer.super_user?)
   end
 
   def display_btn_tops
@@ -238,41 +250,6 @@ module ApplicationHelper
   end
   require 'rexml/parsers/pullparser.rb'
 
-  def truncate_html2(input, len = 30, extension = "...")  
-    def attrs_to_s(attrs)  
-      return '' if attrs.empty?  
-      attrs.to_a.map { |attr| %{#{attr[0]}="#{attr[1]}"} }.join(' ')  
-    end  
-    
-    p = REXML::Parsers::PullParser.new(input)  
-      tags = []  
-      new_len = len  
-      results = ''  
-      while p.has_next? && new_len > 0  
-        p_e = p.pull  
-        case p_e.event_type  
-      when :start_element  
-        tags.push p_e[0]  
-        results << "<#{tags.last} #{attrs_to_s(p_e[1])}>"  
-      when :end_element  
-        results << "</#{tags.pop}>"  
-      when :text  
-        results << p_e[0].first(new_len)  
-        new_len -= p_e[0].length  
-      else  
-        results << "<!-- #{p_e.inspect} -->"  
-      end  
-    end  
-    
-    tags.reverse.each do |tag|  
-      results << "</#{tag}>"  
-    end  
-    
-    r=results.to_s + (input.length > len ? extension : '')
-    r=r.gsub(/<\/br>/, '')  
-    r
-  end
-
   def streaming_btn_title(type, text)
     if(type == :replay)
       text == :short ? t('.replay_short') : t('.replay')
@@ -288,4 +265,35 @@ module ApplicationHelper
     options
   end
 
+  def get_current_filter(options = {})
+    if cookies[:filter_id]
+      current_filter = SearchFilter.get_filter(cookies[:filter_id])
+      if !options.empty?
+        current_filter.update_with_defaults(options)
+      end
+    else
+      if current_customer && current_customer.customer_attribute.filter_id
+        cookies[:filter_id] = { :value => current_customer.customer_attribute.filter_id, :expires => 1.year.from_now }
+        current_filter = SearchFilter.get_filter(current_customer.customer_attribute.filter_id)
+        if !options.empty?
+          current_filter.update_with_defaults(options)
+        end
+      else
+        current_filter = SearchFilter.get_filter(nil)
+        current_filter.update_with_defaults(options)
+        cookies[:filter_id] = { :value => current_filter.to_param, :expires => 1.year.from_now }
+        current_customer.customer_attribute.update_attributes(:filter_id => current_filter.to_param) if current_customer
+      end
+    end
+    current_filter
+  end
+
+  def check_host
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  || (request.host == 'dvdpost.dev')
+      ENV['HOST_OK'] = "1"
+    else
+      ENV['HOST_OK'] = "0"
+    end
+  end
+  
 end

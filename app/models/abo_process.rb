@@ -1,5 +1,5 @@
 class AboProcess < ActiveRecord::Base
-  set_table_name :aboprocess_stats
+  db_magic :slave => :slave01
 
   set_primary_key :aboprocess_id
 

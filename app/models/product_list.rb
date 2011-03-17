@@ -1,4 +1,6 @@
 class ProductList < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   has_and_belongs_to_many :products, :join_table => :listed_products, :order => 'listed_products.order asc'
 
   named_scope :top, :conditions => {:kind => 'TOP'}

@@ -1,4 +1,6 @@
 class Customer < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :customers
 
   set_primary_key :customers_id

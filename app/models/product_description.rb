@@ -1,4 +1,6 @@
 class ProductDescription < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :products_description
 
   alias_attribute :text,    :products_description
