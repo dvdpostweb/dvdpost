@@ -124,6 +124,10 @@ module ApplicationHelper
     php_path "product_info_shop.php?products_id=#{product.to_param}"
   end
 
+  def product_public_path(product)
+    "http://public.dvdpost.com/#{I18n.locale}/products/#{product.to_param}"
+  end
+
   def payment_method_change_path(type=nil)
     path = php_path 'payment_method_change.php'
     type ? "#{path}&payment=#{type}" : path
@@ -146,18 +150,18 @@ module ApplicationHelper
   end
 
   def production_path(country_id=nil)
-    if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
-      'http://www.dvdpost.be/'
+    if current_customer
+      if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
+        'http://www.dvdpost.be/'
+      else
+        'http://www.dvdpost.nl/'
+      end
     else
-      'http://www.dvdpost.nl/'
-    end
-  end
-
-  def production_public_path()
-    if session[:country_code] == 'NL'
-      'http://www.dvdpost.nl/'
-    else
-      'http://www.dvdpost.be/'
+      if session[:country_code] == 'NL'
+        'http://www.dvdpost.nl/'
+      else
+        'http://www.dvdpost.be/'
+      end
     end
   end
 

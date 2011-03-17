@@ -19,9 +19,6 @@ class ProductsController < ApplicationController
     if params['director_id']
       director = Director.find(params['director_id'])
       params['director_id'] = director.id
-      
-      Rails.logger.debug { "@@@#{director.inspect}" }
-      Rails.logger.debug { "@@@#{params['director_id']}" }
     end
     
     if params[:category_id]
@@ -67,7 +64,7 @@ class ProductsController < ApplicationController
     @filter = get_current_filter({})
     @product = Product.normal_available.find(params[:id])
     @product.views_increment
-    @public_url = "http://www.dvdpost.be/product_info_public.php?products_id=#{@product.to_param}"
+    @public_url = product_public_path(@product)
     if @product.imdb_id == 0
       @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
       @reviews_count = @product.reviews.approved.by_language(I18n.locale).count
