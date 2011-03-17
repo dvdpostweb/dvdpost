@@ -11,6 +11,7 @@ class Subscription < ActiveRecord::Base
     action.push(:reconduction_ealier, 13)
     action.push(:abo_downgrade, 25)
     action.push(:abo_upgrade, 24)
+    action.push(:free_upgrade, 14)
 
     action
   end
@@ -36,6 +37,7 @@ class Subscription < ActiveRecord::Base
       status = current_customer.add_credit(diff_credit, 6)
       if status 
         current_customer.update_attribute(:free_upgrade, 1)
+        current_customer.abo_history(Subscription.action[:free_upgrade])
         return true
       else
         return false
