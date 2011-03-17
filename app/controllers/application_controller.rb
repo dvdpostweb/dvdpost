@@ -3,6 +3,7 @@
 require 'open-uri'
 require 'rss/2.0'
 require 'geo_ip'
+require 'db_charmer'
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time

@@ -1,4 +1,6 @@
 class Landing < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   has_one :product, :primary_key => :reference_id, :foreign_key => :products_id
 
   named_scope :order, lambda {|order| {:order => "ordered #{order}"}}

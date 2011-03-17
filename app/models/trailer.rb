@@ -1,4 +1,6 @@
 class Trailer < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :products_trailers
 
   set_primary_key :trailers_id

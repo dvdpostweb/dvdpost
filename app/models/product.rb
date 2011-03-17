@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   cattr_reader :per_page
   @@per_page = 20
 

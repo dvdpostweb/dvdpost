@@ -44,6 +44,7 @@ GEM
       activesupport (= 2.3.5)
     activesupport (2.3.5)
     addressable (2.2.2)
+    blankslate (2.1.2.4)
     builder (3.0.0)
     bullet (2.0.1)
       uniform_notifier (~> 1.0.0)
@@ -55,6 +56,9 @@ GEM
       net-ssh-gateway (>= 1.0.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
+    db-charmer (1.6.16)
+      blankslate
+      rails (~> 2.2)
     faraday (0.4.6)
       addressable (>= 2.1.1)
       rack (>= 1.0.1)
@@ -103,6 +107,7 @@ PLATFORMS
 DEPENDENCIES
   bullet
   capistrano-ext
+  db-charmer
   geo_ip!
   hoptoad_notifier (~> 2.4.0)
   hpricot (~> 0.8.2)

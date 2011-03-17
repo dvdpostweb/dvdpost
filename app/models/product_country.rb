@@ -1,4 +1,6 @@
 class ProductCountry < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :products_countries
 
   set_primary_key :countries_id

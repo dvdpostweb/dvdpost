@@ -26,3 +26,4 @@ gem 'timed_fragment_cache'
 gem 'whenever'
 
 gem 'bullet', :group => :development
+gem 'db-charmer'
