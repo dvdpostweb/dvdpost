@@ -17,10 +17,10 @@
 <input type="hidden" name="exceptionurl" value="<%= @url_back %>">
 <input type="hidden" name="cancelurl" value="<%= @url_back %>">
 <input type="hidden" name="CN" value="<%= current_customer.name %>">
-<input type="hidden" name="catalogurl" value="http://www.dvdpost.be/catalog.php">
+<input type="hidden" name="catalogurl" value="<%= php_path 'catalog.php' %>">
 <input type="hidden" name="accepturl" value="<%= @url_back %>">
 <input type="hidden" name="COM" value="<%= @com %>">
-<input type="hidden" name="TP" value="http://www.dvdpost.be/<%= @template_ogone %>">
+<input type="hidden" name="TP" value="<%= php_path @template_ogone %>">
 <input type="hidden" name="ALIAS" value="<%= current_customer.to_param %>">
 <input type="hidden" name="ALIASUSAGE" value="<%= @com %>">
 <input type="hidden" name="SHASign" value="<%= @hash %>">			
