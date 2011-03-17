@@ -1,4 +1,6 @@
 class ProductAbo < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :products_abo
   set_primary_key :products_id
   

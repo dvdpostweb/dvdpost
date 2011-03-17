@@ -1,4 +1,6 @@
 class Subtitle < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :products_undertitles
 
   set_primary_key :undertitles_id

@@ -1,4 +1,6 @@
 class Category < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_primary_key :categories_id
 
   belongs_to :parent, :class_name => 'Category', :foreign_key => :parent_id

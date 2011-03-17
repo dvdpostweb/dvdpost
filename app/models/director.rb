@@ -1,4 +1,6 @@
 class Director < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_primary_key :directors_id
 
   alias_attribute :name, :directors_name

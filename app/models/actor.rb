@@ -1,4 +1,6 @@
 class Actor < ActiveRecord::Base
+  db_magic :slave => :slave01
+  
   set_primary_key :actors_id
 
   alias_attribute :name, :actors_name
