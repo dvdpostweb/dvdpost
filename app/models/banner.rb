@@ -1,4 +1,6 @@
 class Banner < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_primary_key :banners_id
 
   alias_attribute :url, :banners_url

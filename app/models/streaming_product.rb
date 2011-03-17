@@ -1,4 +1,6 @@
 class StreamingProduct < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   has_many :subtitle, :foreign_key => :undertitles_id, :primary_key => :subtitle_id
   has_many :language, :foreign_key => :languages_id, :primary_key => :language_id
   has_many :tokens, :primary_key => :imdb_id, :foreign_key => :imdb_id

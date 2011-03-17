@@ -3,6 +3,8 @@ class Contest < ActiveRecord::Base
 
   set_primary_key :contest_id
 
+  db_magic :slave => :slave01
+
   validates_numericality_of :contest_name_id
 
   def validate

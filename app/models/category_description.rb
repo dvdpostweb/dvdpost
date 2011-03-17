@@ -1,4 +1,6 @@
 class CategoryDescription < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :categories_description
 
   alias_attribute :name, :categories_name

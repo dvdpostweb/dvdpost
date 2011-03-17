@@ -1,5 +1,8 @@
 class ProductDescription < ActiveRecord::Base
+  db_magic :slave => :slave01
+
   set_table_name :products_description
+
   set_primary_key [:prodcuts_id, :language_id]
   alias_attribute :text,    :products_description
   alias_attribute :title,   :products_name

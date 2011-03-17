@@ -1,4 +1,6 @@
 class Language < ActiveRecord::Base
+  db_magic :slave => :slave01
+  
   set_table_name :products_languages
 
   set_primary_key :languages_id
