@@ -25,5 +25,5 @@ every :reboot do
 end
  
 every 12.hours do  
-  rake "thinking_sphinx:index"  
+  rake "thinking_sphinx:reindex"  
 end
