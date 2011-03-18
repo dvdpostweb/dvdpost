@@ -326,7 +326,7 @@ module ApplicationHelper
       ENV['HOST_OK'] = "0"
     end
     ENV['APP'] = "1"
-    Rails.logger.debug { "@@@@#{ENV['APP']}" }
+    Rails.logger.warn { "@@@@#{ENV['APP']}" }
   end
   
 end

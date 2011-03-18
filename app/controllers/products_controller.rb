@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
+    Rails.logger.warn { "@@@ env #{ENV['APP']}" }
     @filter = current_customer.filter || current_customer.build_filter
     params.delete(:search) if params[:search] == t('products.left_column.search')
     
