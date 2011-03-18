@@ -325,7 +325,6 @@ module ApplicationHelper
     else
       ENV['HOST_OK'] = "0"
     end
-    ENV['APP'] = "1"
   end
   
 end
