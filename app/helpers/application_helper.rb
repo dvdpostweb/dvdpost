@@ -294,7 +294,6 @@ module ApplicationHelper
     else
       ENV['HOST_OK'] = "0"
     end
-    ENV['db_magic :slave => :slave01 if ENV['APP'] == "1"'] = "1"
   end
   
 end
