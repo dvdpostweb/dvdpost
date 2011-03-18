@@ -103,9 +103,9 @@ namespace :deploy do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
-  ENV['APP'] = "1"
+  ENV['APP'] = "0"
   EOF
-  put env_config, "/home/webapps/dvdpostapp/pre_production/current/config/environments/pre_production.rb"
+  #put env_config, "#{current_path}/config/environments/pre_production.rb"
   
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => {:no_release => true} do
