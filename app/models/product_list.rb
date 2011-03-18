@@ -1,5 +1,5 @@
 class ProductList < ActiveRecord::Base
-  db_magic :slave => :slave01 if ENV['APP'] == "1"
+  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
   has_and_belongs_to_many :products, :join_table => :listed_products, :order => 'listed_products.order asc'
 
