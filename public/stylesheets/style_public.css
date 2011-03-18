@@ -494,9 +494,10 @@ a.moreabout_vod {
 #footer_jb {
 	position: relative;
 	background:  url("/images/public/bg_footer.png") no-repeat scroll;
-	margin: 0 auto;
+  margin:0 auto -1px;
 	background-repeat: repeat-x;
 	width:970px;
+	clear:both;
 }
 #footer_jb, .push {
 	height: 140px;

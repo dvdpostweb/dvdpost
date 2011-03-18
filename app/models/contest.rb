@@ -3,7 +3,7 @@ class Contest < ActiveRecord::Base
 
   set_primary_key :contest_id
 
-  db_magic :slave => :slave01
+  db_magic :slave => :slave01 if ENV['APP'] == "1"
 
   validates_numericality_of :contest_name_id
 
