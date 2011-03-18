@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
+  db_magic :slave => :slave01 if ENV['APP'] == "1"
 
   set_table_name :customers
 

@@ -1,5 +1,5 @@
 class StreamingProduct < ActiveRecord::Base
-  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
+  db_magic :slave => :slave01 if ENV['APP'] == "1"
 
   has_many :subtitle, :foreign_key => :undertitles_id, :primary_key => :subtitle_id
   has_many :language, :foreign_key => :languages_id, :primary_key => :language_id
