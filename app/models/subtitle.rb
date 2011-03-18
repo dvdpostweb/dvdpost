@@ -1,5 +1,5 @@
 class Subtitle < ActiveRecord::Base
-  db_magic :slave => :slave01
+  db_magic :slave => :slave01 if ENV['APP'] == "1"
 
   set_table_name :products_undertitles
 

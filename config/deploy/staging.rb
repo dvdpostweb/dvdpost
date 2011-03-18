@@ -52,6 +52,14 @@ namespace :deploy do
       password: 1nterD3nt
       host: matadi
       port: 3306
+      slave01:
+        adapter: mysql
+        encoding: utf8
+        database: dvdpost_test
+        username: test_devuser
+        password: 1nterD3nt
+        host: 192.168.100.14
+        port: 3306
     EOF
     put db_config, "#{release_path}/config/database.yml"
   end
