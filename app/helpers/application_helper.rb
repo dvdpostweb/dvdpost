@@ -248,7 +248,6 @@ module ApplicationHelper
       end
     end
   end
-  require 'rexml/parsers/pullparser.rb'
 
   def streaming_btn_title(type, text)
     if(type == :replay)

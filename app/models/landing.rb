@@ -1,5 +1,5 @@
 class Landing < ActiveRecord::Base
-  db_magic :slave => :slave01 if ENV['APP'] == "1"
+  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
   has_one :product, :primary_key => :reference_id, :foreign_key => :products_id
 

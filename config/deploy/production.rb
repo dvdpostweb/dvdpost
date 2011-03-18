@@ -50,8 +50,24 @@ namespace :deploy do
       database: dvdpost_be_prod
       username: webuser
       password: 3gallfir-
-      host: matadi
+      host: 192.168.100.204
       port: 3306
+      slave01:
+        adapter: mysql
+        encoding: utf8
+        database: dvdpost_be_prod
+        username: webuser
+        password: 3gallfir-
+        host: 192.168.100.14
+        port: 3306
+      slave02:
+        adapter: mysql
+        encoding: utf8
+        database: dvdpost_be_prod
+        username: webuser
+        password: 3gallfir-
+        host: 192.168.100.204
+        port: 3306
     EOF
     put db_config, "#{release_path}/config/database.yml"
   end
@@ -68,6 +84,43 @@ namespace :deploy do
   end
 end
 
+after "deploy:restart" do
+ env_config = <<-EOF
+ # Settings specified here will take precedence over those in config/environment.rb
+
+ # The production environment is meant for finished, "live" apps.
+ # Code is not reloaded between requests
+ config.cache_classes = true
+
+ # Full error reports are disabled and caching is turned on
+ config.action_controller.consider_all_requests_local = false
+ config.action_controller.perform_caching             = true
+ config.cache_store = :file_store, RAILS_ROOT + "/tmp/cache"
+ config.action_view.cache_template_loading            = true
+ ENV['APP'] = "1"
+ # See everything in the log (default is :info)
+ # config.log_level = :debug
+
+ # Use a different logger for distributed setups
+ # config.logger = SyslogLogger.new
+
+ # Use a different cache store in production
+ # config.cache_store = :mem_cache_store
+
+ # Enable serving of images, stylesheets, and javascripts from an asset server
+ # config.action_controller.asset_host = "http://assets.example.com"
+
+ # Disable delivery errors, bad email addresses will be ignored
+ # config.action_mailer.raise_delivery_errors = false
+
+ # Enable threaded mode
+ # config.threadsafe!
+
+  EOF
+ put env_config, "#{current_path}/config/environments/production.rb"
+
+end
+
 after "deploy:symlink", "deploy:update_crontab"  
    
 namespace :deploy do  
@@ -76,6 +129,8 @@ namespace :deploy do
     run "cd #{release_path} && whenever --update-crontab #{application}"  
   end  
 end
+
+
 =begin
     production:
       adapter: mysql
