@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_wishlist_source
   before_filter :last_login, :unless => :is_it_js?
   before_filter :theme_actif, :unless => :is_it_js?
+  before_filter :check_host
   
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|

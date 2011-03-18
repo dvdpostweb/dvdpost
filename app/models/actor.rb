@@ -1,5 +1,5 @@
 class Actor < ActiveRecord::Base
-  db_magic :slave => :slave01
+  db_magic :slave => :slave01 if ENV['APP'] == "1"
 
   set_primary_key :actors_id
 
