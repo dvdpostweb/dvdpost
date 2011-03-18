@@ -50,7 +50,7 @@ namespace :deploy do
       database: dvdpost_be_prod
       username: webuser
       password: 3gallfir-
-      host: matadi
+      host: 192.168.100.204
       port: 3306
       slave01:
         adapter: mysql
@@ -59,6 +59,14 @@ namespace :deploy do
         username: webuser
         password: 3gallfir-
         host: 192.168.100.14
+        port: 3306
+      slave02:
+        adapter: mysql
+        encoding: utf8
+        database: dvdpost_be_prod
+        username: webuser
+        password: 3gallfir-
+        host: 192.168.100.204
         port: 3306
     EOF
     put db_config, "#{release_path}/config/database.yml"
