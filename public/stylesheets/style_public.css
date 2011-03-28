@@ -39,6 +39,12 @@ a:hover {
 	text-indent: -9999px;
 	width: 293px;
 }
+.jblogo a
+{
+  display:block;
+  height:103px;
+}
+
 .text-large {
 	font-size: 11pt;
 	color: #999999;

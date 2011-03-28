@@ -18,5 +18,5 @@
   <% end %>
 <% else %>
   <% title = title_add_to_wishlist(text, type_button) %>
-  <%= link_to title, 'http://www.dvdpost.be/step1.php', :class => 'btn', :id => 'normal'%>
+  <%= link_to title, php_path('step1.php'), :class => 'btn', :id => 'normal'%>
 <% end %>
