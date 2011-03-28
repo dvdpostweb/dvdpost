@@ -106,4 +106,5 @@ namespace :deploy do
    ENV['APP'] = "1"
     EOF
    put env_config, "#{current_path}/config/environments/staging.rb"
+  end
 end
