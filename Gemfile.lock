@@ -101,7 +101,7 @@ GEM
     riddle (1.2.2)
     rmagick (2.13.1)
     thinking-sphinx (1.4.3)
-      activerecord (>= 1.15.6, < 3.0.0)
+      activerecord (< 3.0.0, >= 1.15.6)
       after_commit (>= 1.0.7)
       riddle (>= 1.2.2)
     timed_fragment_cache (0.0.1)
