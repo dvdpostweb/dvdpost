@@ -16,19 +16,26 @@
   </div>
 </div>
 <% else %>
-<div id="header">
+<div id="header_old">
 	<!-- logotype -->
-	<strong class="logo"><a href="/default.php">DVDPost.be</a></strong> <span>All the film emotions you want, whenever you want! </span>
+	<strong class="logo_old"><a href="/default.php">DVDPost.be</a></strong> 
 	<!-- main menu -->
 	<ul class="top-nav">
-		<li><a href ="/faq_public.php"><Aide><%= "help" %></a></li>
-		<li><%= "TEXT_ALREADY" %> <a href="/login.php" class="login"><%= "TEXT_LOGIN_BTN" %></a></li>
+		<li class="langues"><a href ="<%= php_path 'faq_public.php' %>"><%= t ".help" %></a></li>
+		  <li class="langues"><%= switch_locale_link :fr %></li>
+      <li class="langues"><%= switch_locale_link :nl %></li>
+      <li class="langues"><%= switch_locale_link :en %> </li>
+      
+		<li><a href="<%= php_path 'login.php' %>" class="login"><%= "TEXT_LOGIN_BTN" %></a></li>
 	</ul>
 	<ul class="menu">
 		<li><a href="<%= php_path('default.php') %>" ><%= t('.default') %></a></li>
 		<li><a href="<%= php_path('how_public.php') %>" ><%= t('.how') %></a></li>
-		<li><a href="<%= products_path %>" ><%= t('.catalog') %></a></li>
+		<li><a href="<%= products_path %>" class="active"><%= t('.catalog') %></a></li>
 		<li><a href="<%= php_path('contact_public.php') %>" ><%= t('.contact') %></a></li>
+		<% if session[:country_code] != 'NL'%>
+		  <li class="last-item"><span><a href="<%= php_path('mydvdshop_public.php') %>" ><%= t('.achat') %></a></span></li>
+		<% end %>
 	</ul>
 	<!-- header -->
 </div>
