@@ -288,7 +288,7 @@ module ApplicationHelper
   end
 
   def check_host
-    if params[:jacob]
+    if params[:jacob] == 0 || params[:jacob] ==1
       session[:jacob] = params[:jacob]
       @jacob = params[:jacob]
     else
@@ -298,7 +298,7 @@ module ApplicationHelper
         @jacob = 0
       end
     end
-    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') || (request.host == 'dvdpost.dev')  
       ENV['HOST_OK'] = "1"
     else
       ENV['HOST_OK'] = "0"
