@@ -1040,34 +1040,3 @@ margin-left:40px;
 #facebox td.body {
 background-color:#FFFFFF;
 }
-
-#header .menu {
-background:url("http://www.dvdpost.be/images/dvdpost_public/bg-menu2.gif") repeat-x scroll 0 0 transparent;
-border-bottom:1px solid #636060;
-font-size:20px;
-left:0;
-line-height:54px;
-list-style:none outside none;
-margin:0;
-padding:0;
-position:absolute;
-top:43px;
-width:970px;
-}
-#header .menu li {
-background:url("http://www.dvdpost.be/images/dvdpost_public/bg-menu-sep.gif") no-repeat scroll 100% 0 transparent;
-float:left;
-padding-right:2px;
-}
-
-#header .menu a:active, #header .menu a.active {
-background:url("http://www.dvdpost.be/images/dvdpost_public/bg-menu-active.gif") repeat-x scroll 0 0 transparent !important;
-}
-#header .menu a {
-background:url("http://www.dvdpost.be/images/dvdpost_public/bg-menu.gif") repeat-x scroll 0 0 transparent;
-color:#FFFFFF;
-display:block;
-text-align:center;
-text-decoration:none;
-width:150px;
-}

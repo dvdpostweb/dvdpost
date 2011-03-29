@@ -1,4 +1,4 @@
-<% if ENV['HOST_OK'] == "0" %>
+<% if @jacob.to_i == 0 %>
 <div id="footer" >
   <div id="subfooter">
     <div id="footer-nav">
@@ -12,12 +12,12 @@
       </ul>
       <ul id="contacts">
         <li>
-          <h4><%= link_to t('.contact'), new_phone_request_path %></h4>
+          <h4><%= link_to t('.contact'), current_customer ? new_phone_request_path : php_path('contact_public.php') %></h4>
         </li>
-        <li><%= link_to t('.faq'), faq_path %></li>
-        <li><%= link_to t('.sponsor_a_friend'), sponsorships_path %></li>
-        <li><%= link_to t('.contest'), new_contest_path %></li>
-        <li><%= link_to t('.quizz'), quizzes_path %></li>
+        <li><%= link_to t('.faq'), current_customer ? faq_path : php_path('faq_public.php') %></li>
+        <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
+        <li><%= link_to t('.contest'), current_customer ? new_contest_path : php_path('quizz_public.php')%></li>
+        <li><%= link_to t('.quizz'), current_customer ? quizzes_path : php_path('contest_public.php') %></li>
       </ul>
     </div>
     <%= render :partial => 'layouts/partners', :locals => {:partners => partners} %>
