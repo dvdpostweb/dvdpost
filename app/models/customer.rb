@@ -55,7 +55,6 @@ class Customer < ActiveRecord::Base
   has_one :beta_test
   has_one :cable_order
   has_one :customer_attribute
-  has_one :search_filter
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -200,7 +199,7 @@ class Customer < ActiveRecord::Base
     pop = popular - hidden_products
   end
 
-  def streaming(options={})
+  def streaming(filter, options={})
     popular_vod = Product.filter(filter, options.merge(:view_mode => :streaming, :sort => 'token'))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular_vod - hidden_products

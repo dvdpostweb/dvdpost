@@ -375,7 +375,9 @@ class Product < ActiveRecord::Base
   def views_increment
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
-    connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{id}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    if description
+      connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{id}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    end
     day = product_views.daily.first
     if !day.nil?
       day.update_attributes(:number => (day.number + 1))
@@ -383,7 +385,7 @@ class Product < ActiveRecord::Base
       ProductView.create(:product_id => to_param,
                           :number     => 1)
     end
-    description.viewed
+    description ? description.viewed : 0
   end
 
   def media_alternative(media)
