@@ -73,7 +73,7 @@ module StreamingProductsHelper
   end
   
   def get_style(current_abo_credit, abo_credits, showing)
-    if(current_abo_credit < abo_credits)
+    if(current_abo_credit.to_i < abo_credits.to_i)
       if showing
         "table-row"
       else

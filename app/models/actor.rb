@@ -7,7 +7,7 @@ class Actor < ActiveRecord::Base
   
   named_scope :limit, lambda {|limit| {:limit => limit}}
   
-  has_friendly_id :name, :use_slug => true, :approximate_ascii => true if ENV['HOST_OK'] == "1"
+  has_friendly_id :name, :use_slug => true, :approximate_ascii => true 
   
   
 
