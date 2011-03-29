@@ -282,7 +282,7 @@ hr {
     line-height: 42px;
     padding-left: 43px;
     position: absolute;
-    right: 449px;
+    right: 387px;
     text-decoration: none;
     text-transform: uppercase;
     top: 283px;
@@ -304,7 +304,7 @@ hr {
     top: 296px;
     width: 274px;
 }
-banner_step .browse_button {
+.banner_step .browse_button {
     background: url("/images/public/button_signup_big.png") no-repeat scroll 0 -51px transparent;
     color: #000000;
     display: block;
@@ -536,7 +536,7 @@ a.moreabout_vod {
     display: block;
     font: bold 13px Arial,Helvetica,sans-serif;
     position: absolute;
-    right: 449px;
+    right: 387px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
