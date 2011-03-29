@@ -101,7 +101,7 @@ module ProductsHelper
       5.times do |i|
         i += 1
         links << rating_image_link(product, rating, i, background, size, replace, recommendation)
-        rating.to_i -= 2
+        rating -= 2
       end
       links
     end
@@ -135,17 +135,17 @@ module ProductsHelper
       name = "black-#{name}" if background == :black
     end
     if size == 'small' || size == :small
-      image_name = if rating.to_i >= 2
+      image_name = if rating >= 2
         "#{name}-on.png"
-      elsif rating.to_i == 1
+      elsif rating == 1
         "#{name}-half.png"
       else
         "#{name}-off.png"
       end
     else
-      image_name = if rating.to_i >= 2
+      image_name = if rating >= 2
         "#{name}-on.jpg"
-      elsif rating.to_i == 1
+      elsif rating == 1
         "#{name}-half.jpg"
       else
         "#{name}-off.jpg"
