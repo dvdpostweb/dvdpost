@@ -22,7 +22,8 @@ class ProductsController < ApplicationController
     end
     
     if params[:category_id]
-      @popular = current_customer.streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
+      filter = get_current_filter
+      @popular = current_customer.streaming(filter,{:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
     end
     if params[:sort].nil?
       params[:sort] = 'normal'
