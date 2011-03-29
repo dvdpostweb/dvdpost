@@ -26,6 +26,6 @@ class ReviewsController < ApplicationController
     rescue Exception => e  
       flash[:notice] = t('products.show.review.review_not_save')
     end
-    redirect_to product_path(:id => @product)
+    redirect_to product_path(:id => @product.to_param)
   end
 end

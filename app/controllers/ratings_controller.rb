@@ -8,7 +8,7 @@ class RatingsController < ApplicationController
       expiration_recommendation_cache
     end
     respond_to do |format|
-      format.html {redirect_to product_path(:id => @product)}
+      format.html {redirect_to product_path(:id => @product.to_param)}
       format.js   {
         case params[:replace]
         when 'homepage'
@@ -27,9 +27,9 @@ class RatingsController < ApplicationController
             session[:popular_page] = popular_page.to_i - 1
             popular = current_customer.popular(filter).paginate(:page => session[:popular_page], :per_page => 8)
           end
-          render :partial => 'wishlist_items/popular', :locals => {:products => popular, :id => :popular_tab}
+          render :partial => 'wishlist_items/popular', :locals => {:products => popular.to_param, :id => :popular_tab}
         else
-          render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background], :size => params[:size]}
+          render :partial => 'products/rating', :locals => {:product => @product.to_param, :background => params[:background], :size => params[:size]}
         end
       }
     end
