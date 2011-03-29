@@ -279,14 +279,16 @@ hr {
     display: block;
     font-size: 9pt;
     height: 42px;
-    line-height: 42px;
+    line-height: 47px;
     padding-left: 43px;
-    position: absolute;
-    right: 387px;
     text-decoration: none;
     text-transform: uppercase;
-    top: 283px;
-    width: 299px;
+    width: 250px;
+    margin:0 0 10px;
+}
+.banner_step .signup_button:hover {
+  background: url("/images/public/button_signup_big.png") no-repeat scroll 0 -48px transparent;
+  color:#000;
 }
 .browse_button {
     background: url("/images/public/button_signup_big.png") no-repeat scroll 0 -51px transparent;
@@ -302,22 +304,6 @@ hr {
     text-decoration: none;
     text-transform: uppercase;
     top: 296px;
-    width: 274px;
-}
-.banner_step .browse_button {
-    background: url("/images/public/button_signup_big.png") no-repeat scroll 0 -51px transparent;
-    color: #000000;
-    display: block;
-    font-size: 9pt;
-    height: 40px;
-    line-height: 36px;
-    margin-top: 5px;
-    padding-left: 43px;
-    position: absolute;
-    right: 29px;
-    text-decoration: none;
-    text-transform: uppercase;
-    top: 307px;
     width: 274px;
 }
 .signup_button a {
@@ -535,32 +521,20 @@ a.moreabout_vod {
     color: #000000;
     display: block;
     font: bold 13px Arial,Helvetica,sans-serif;
-    position: absolute;
-    right: 387px;
-    text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    top: 338px;
-    width: 397px;
+    width: 300px;
 }
 
 .banner_step #codePromo span {
     color: #C01713;
     text-decoration: underline;
 }
-
-#codePromo {
-    color: #000000;
-    display: block;
-    font: bold 13px Arial,Helvetica,sans-serif;
-    position: absolute;
-    right: 34px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    top: 473px;
-    width: 397px;
+.banner_step p
+{
+  margin: 10px 0;
 }
+
 .bannervod_nl {
 	background: url("/images/public/background_vod_nl.png") no-repeat scroll 0 0 transparent;
 	font-size: 15px;
@@ -748,14 +722,14 @@ a.moreabout_vod {
 }
 .banner_step {
     background: url("/images/public/bg_bannerdiscover_step.jpg") no-repeat scroll 32px 0 transparent;
-    font-size: 20px;
-    font-weight: bold;
-    height: 188px;
-    line-height: 20px;
-    padding-left: 623px;
-    padding-top: 15px;
-    text-align: left;
-    width: 338px;
+    font-size:18px;
+    font-weight:bold;
+    height:188px;
+    line-height:20px;
+    padding-left:617px;
+    padding-top:15px;
+    text-align:left;
+    width:310px;
 }
 .title_step2 {
 	border-bottom: 2px dotted #4D4D4D;
