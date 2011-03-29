@@ -38,6 +38,10 @@ GEM
     actionpack (2.3.11)
       activesupport (= 2.3.11)
       rack (~> 1.1.0)
+    actionwebservice (0.6.0)
+      actionpack (>= 1.5.1)
+      activerecord (>= 1.8.0)
+      activesupport (>= 1.0.1)
     activerecord (2.3.11)
       activesupport (= 2.3.11)
     activeresource (2.3.11)
@@ -118,6 +122,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionwebservice
   bullet
   capistrano-ext
   db-charmer
