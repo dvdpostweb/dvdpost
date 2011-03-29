@@ -1,5 +1,3 @@
-require 'actionwebservice'
-
 class AuthenticationController < ActionController::Base
 
   layout nil
