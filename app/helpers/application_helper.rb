@@ -304,5 +304,8 @@ module ApplicationHelper
       ENV['HOST_OK'] = "0"
     end
   end
-  
+
+  def no_param
+    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:search].nil?))
+  end
 end
