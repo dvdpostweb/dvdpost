@@ -288,9 +288,9 @@ module ApplicationHelper
   end
 
   def check_host
-    if params[:jacob] == 0 || params[:jacob] ==1
-      session[:jacob] = params[:jacob]
-      @jacob = params[:jacob]
+    if params[:jacob].to_i == 0 || params[:jacob].to_i == 1
+      session[:jacob] = params[:jacob].to_i
+      @jacob = params[:jacob].to_i
     else
       if session[:jacob] 
         @jacob = session[:session]
