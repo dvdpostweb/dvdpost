@@ -4307,3 +4307,94 @@ position:relative !important;
 {
   text-align:center;
 }
+.txt_left {
+	float: left;
+	font-size: 17px;
+	padding-left: 95px;
+	padding-top: 27px;
+	text-align: left;
+	width: 353px;
+}
+.txt_right {
+  background-image:url("http://www.dvdpost.be/images/promotion/bg2dvdto4dvd.gif");
+  background-image:url("http://www.dvdpost.be/images/promotion/bg2dvdto4dvd.gif");
+  background-repeat:no-repeat;
+  float:right;
+  font-size:18px;
+  height:299px;
+  margin:0 53px 19px 0;
+  padding:20px;
+  text-align:left;
+  width:282px;
+}
+.orange_title {
+	color:#ff855c;
+	margin:12px 0 ;
+}
+.line {
+	border-bottom: 1px solid #666666;
+	padding-bottom: 10px;
+	width: 280px;
+}
+.orange_title2 {
+  color:#FF6600;
+  font-weight:bold;
+  margin:12px 0 ;
+}
+#deuxdvdto4dvpage {
+	background-color: #FFFFFF;
+	margin: 0 auto;
+	width: 920px;
+}
+.button_confirm {
+  background:url("http://www.dvdpost.be/images/promotion/buuton_calltoaction_2dvdto4dvd.png") no-repeat scroll 0 0 transparent;
+  border:medium none;
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+  height:81px;
+  margin:0 0 0 50px;
+  text-shadow:1px 1px 1px #333333;
+  width:203px;
+}
+.button_confirm:hover {
+	background: url("http://www.dvdpost.be/images/promotion/buuton_calltoaction_2dvdto4dvd.png") no-repeat scroll 0 -75px transparent;
+	border: medium none;
+	color: white;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	height: 81px;
+	text-shadow: 1px 1px 1px #333333;
+	width: 203px;
+}
+.title_2dvdto4dvd {
+	padding-left: 84px;
+}
+#text_conditionsgenerale {
+	margin:0 auto;
+	color: #666666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	width:650px;
+	text-align:justify;
+}
+
+#text_conditionsgenerale h1 {
+	text-align:center;
+	text-transform:uppercase;
+	font-size: 22px;
+	margin: 14px 0;
+}
+
+a#condition_promo
+{
+  color: #666;
+  font-size:14px;
+}
+#text_conditionsgenerale h2 { 
+font-size: 12px;
+font-weight:normal;
+margin: 9px 0;
+
+}

@@ -1,0 +1,19 @@
+<% form_for(:customer, :url => customer_subscription_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
+  <%= f.hidden_field :next_abo_type_id, :value => 126289 %>
+<div id="deuxdvdto4dvpage">
+  <div class="title_2dvdto4dvd"><img src="<%= "#{DVDPost.images_path}/promotion/#{I18n.locale}/title_2dvdto4dvd.gif" %>"   align="left"/></div>
+  <div class="txt_left">
+    <%= t '.more' %>
+    <br /><br />
+    <%= link_to t('.conditions'), customer_promotion_path( :customer_id => current_customer.to_param ), :id => 'condition_promo' %>
+  </div>
+  
+  <div class="txt_right"><%= t '.abo' %>
+  <div class="line"></div>
+  <%= t '.next' %>
+    <button class="button_confirm" type="submit"><%= t '.button' %></button>
+  </div>
+  
+  <div class="clear"></div>
+</div>
+<% end %>

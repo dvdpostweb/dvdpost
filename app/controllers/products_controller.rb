@@ -11,7 +11,14 @@ class ProductsController < ApplicationController
       @recommendations = retrieve_recommendations(params[:recommendation_page])
     end
     @filter = get_current_filter({})
-    params.delete(:search) if params[:search] == t('products.left_column.search')
+    if params[:search] == t('products.left_column.search')
+      params.delete(:search)
+    else
+      if params[:search]
+        sub_str = params[:search].to_s
+        params[:search] = sub_str.sub(/\//,'')
+      end
+    end
     if params['actor_id']
       actor = Actor.find(params['actor_id'])
       params['actor_id'] = actor.id
