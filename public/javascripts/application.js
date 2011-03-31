@@ -82,4 +82,14 @@ $(function() {
     return false;
   });
 
+$("#condition_promo").live("click", function() {
+  a = $(this);
+  jQuery.facebox(function() {
+    $.getScript(a.attr('href'), function(data) {
+      jQuery.facebox(data);
+    });
+  });
+  return false;
+});
+
 });
