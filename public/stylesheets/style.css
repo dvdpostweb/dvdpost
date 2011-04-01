@@ -4308,24 +4308,24 @@ position:relative !important;
   text-align:center;
 }
 .txt_left {
-	float: left;
-	font-size: 17px;
-	padding-left: 95px;
-	padding-top: 27px;
-	text-align: left;
-	width: 353px;
+    float: left;
+    font-size: 17px;
+    padding-left: 10px;
+    padding-top: 27px;
+    text-align: left;
+    width: 328px;
 }
+
 .txt_right {
-  background-image:url("http://www.dvdpost.be/images/promotion/bg2dvdto4dvd.gif");
-  background-image:url("http://www.dvdpost.be/images/promotion/bg2dvdto4dvd.gif");
-  background-repeat:no-repeat;
-  float:right;
-  font-size:18px;
-  height:299px;
-  margin:0 53px 19px 0;
-  padding:20px;
-  text-align:left;
-  width:282px;
+    background-image: url("http://www.dvdpost.be/images/promotion/bg2dvdto4dvd.gif");
+    background-repeat: no-repeat;
+    float: right;
+    font-size: 18px;
+    height: 299px;
+    margin: 0 53px 19px 0;
+    padding: 20px 206px 20px 20px;
+    text-align: left;
+    width: 282px;
 }
 .orange_title {
 	color:#ff855c;
@@ -4343,7 +4343,8 @@ position:relative !important;
 }
 #deuxdvdto4dvpage {
 	background-color: #FFFFFF;
-	margin: 0 auto;
+    background: url("http://www.dvdpost.be/images/promotion/bg_poelvoord.jpg") no-repeat scroll 688px -12px transparent;
+   	margin: 0 auto;
 	width: 920px;
 }
 .button_confirm {
@@ -4369,9 +4370,7 @@ position:relative !important;
 	text-shadow: 1px 1px 1px #333333;
 	width: 203px;
 }
-.title_2dvdto4dvd {
-	padding-left: 84px;
-}
+
 #text_conditionsgenerale {
 	margin:0 auto;
 	color: #666666;
@@ -4387,11 +4386,10 @@ position:relative !important;
 	margin: 14px 0;
 }
 
-a#condition_promo
-{
-  color: #666;
-  font-size:14px;
-  text-decoration: underline;
+a#condition_promo {
+    color: #FF6600;
+    font-size: 14px;
+    text-decoration: underline;
 }
 #text_conditionsgenerale h2 { 
 font-size: 12px;
