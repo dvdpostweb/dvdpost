@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     else
       if params[:search]
         sub_str = params[:search].to_s
-        params[:search] = sub_str.sub(/\//,'').sub(/"/,' ')
+        params[:search] = sub_str.gsub(/\//,'').gsub(/"/,' ').gsub(/\(/,' ').gsub(/\)/,' ')
       end
     end
     if params['actor_id']
