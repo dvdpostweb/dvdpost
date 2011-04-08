@@ -24,4 +24,8 @@ class Trailer < ActiveRecord::Base
   def dailymotion?
     broadcast_service == 'DAYLYMOTION'
   end
+
+  def film1?
+    broadcast_service == 'FILM1'
+  end
 end
