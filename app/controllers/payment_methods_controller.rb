@@ -19,10 +19,10 @@ class PaymentMethodsController < ApplicationController
     if params['type'] == 'modification'
       @com='ogone change'
       internal_com = 'ogone_change'
-      @url_back = url_for(:edit => 'show', :controller => 'customer_payment_methods', :customer_id => current_customer.to_param, :type => 'modification', :only_path => false, :protocol => 'http')
+      @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card', :only_path => false, :protocol => 'http')
     else
       @com='Modification du mode de paiement'
-      @url_back = url_for(:edit => 'show', :controller => 'customer_payment_methods', :customer_id => current_customer.to_param, :only_path => false, :protocol => 'http')
+      @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card', :only_path => false, :protocol => 'http')
       internal_com = 'payment_method_change'
     end
     OgoneCheck.create(:orderid => @order_id, :amount => @price, :customers_id => current_customer.to_param, :context => internal_com, :site => 1)

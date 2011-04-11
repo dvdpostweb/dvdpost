@@ -14,17 +14,10 @@ module HomeHelper
           link_to image_tag("#{I18n.locale}/stvalentin.gif", :alt => 'Theme st-valentin'), themes_path(:page_name => 'stvalentin')
         when 'oscar'
           link_to image_tag("#{I18n.locale}/oscar.gif", :alt => 'Theme oscar'), themes_path(:page_name => 'oscars_cesar')
+        when 'facebook'
+          link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), fb_url
         when 'community'
-          case rand(4)
-          when 0
-            link_to image_tag('banner_blog.gif', :alt => 'blog dvdpost'), blog_url
-          when 1
-            link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), fb_url
-          when 2
-            link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsorships_path
-          when 3
-            link_to image_tag('banner_twitter.gif', :alt => 'twitter dvdpost'), twitter_url
-          end
+          link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsorships_path
         else
           'other'
       end

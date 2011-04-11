@@ -12,6 +12,8 @@ class Subscription < ActiveRecord::Base
     action.push(:abo_downgrade, 25)
     action.push(:abo_upgrade, 24)
     action.push(:free_upgrade, 14)
+    action.push(:add_rotation_adult, 26)
+    action.push(:add_rotation_normal, 27)
 
     action
   end

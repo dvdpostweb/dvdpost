@@ -44,10 +44,11 @@ $(function() {
             $(".container").prepend("<p class='flash_error'>"+error_sentence+"</p>")
             $(".flash_error").css('height','1px')
             $(".flash_error").css('padding','0')
-            $(".flash_error").animate({height:16, padding: 10}, 300, "linear", function(){} );
+            $(".flash_error").animate({height:36, padding: 5}, 300, "linear", function(){} );
           }else{
             $(".container .flash_error").html(error_sentence)
           }
+          $('html,body').animate({scrollTop: 0}, 'slow');
           
           parent_div.html(content);
         }

@@ -37,7 +37,7 @@
             </ul>
             <%= available_on_other_media(@product, params[:recommendation]) %>
             <%= available_on_other_language(@product, params[:recommendation]) %>
-            <% if @product.available_to_sale? %>
+            <% if @product.available_to_sale? && 1 == 0 %>
               <div id="buy">
                 <%= link_to t('.buy'), product_shop_path(@product), :title => t('.buy'), :id => 'acheter-btn', :target => :_blank %>
                 <%= "&euro; #{@product.products_sale_price}" %>
