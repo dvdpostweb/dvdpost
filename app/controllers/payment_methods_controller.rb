@@ -16,10 +16,10 @@ class PaymentMethodsController < ApplicationController
     		@ogone_language = 'en_US';
     		@template_ogone = 'Template_freetrial2EN.htm'
     end
-    if params['type'] == 'modification'
+    if params['type'] == 'credit_card_modification'
       @com='ogone change'
       internal_com = 'ogone_change'
-      @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card', :only_path => false, :protocol => 'http')
+      @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card_modification', :only_path => false, :protocol => 'http')
     else
       @com='Modification du mode de paiement'
       @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card', :only_path => false, :protocol => 'http')
