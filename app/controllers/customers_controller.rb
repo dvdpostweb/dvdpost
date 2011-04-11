@@ -3,6 +3,7 @@ class CustomersController < ApplicationController
     @customer = current_customer
     @streaming_available = current_customer.get_all_tokens
     @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [0,1]}}).count
+    @wishlist_adult_size = current_customer.wishlist_items.available.by_kind(:adult).current.include_products.count
   end
 
   def edit
@@ -59,7 +60,10 @@ class CustomersController < ApplicationController
       format.html do
         render :action => :show
       end
-      format.js {render :partial => 'customers/show/rotation', :locals => {:customer => @customer}}
+      format.js {
+        @wishlist_adult_size = current_customer.wishlist_items.available.by_kind(:adult).current.include_products.count
+        render :partial => 'customers/show/rotation', :locals => {:customer => @customer}
+        }
     end
   end
 end

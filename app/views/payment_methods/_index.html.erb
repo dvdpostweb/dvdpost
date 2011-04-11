@@ -1,14 +1,49 @@
-<div id="title" class="payment align_center">
-  <%= t '.title' %>
+<div class="switch_dom" id="switch_dom">
+  <div id="title">Modification de votre mode de paiement</div>
+  <div style="margin-left: 20px; width: 800px;">
+    <p> Vous pouvez définir un nouveau mode de paiement automatique. Soit via votre carte de crédit, soit par domiciliation bancaire.</p>
+    <% form_for(:payment_method, :url => edit_customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :get }) do |f| %>
+    <%= hidden_field_tag(:type, 'credit_card') %>
+      <div style="width: 800px;" id="payment_ogone" class="payment rose">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
+          <tbody>
+            <tr>
+              <td width="6%"><div class="checkalive" id="credit_card">
+                  <!--<input type="radio" id="payment_ogone_radio" checked="checked" name="payment" value="ogone">-->
+                </div></td>
+              <td width="89%"><h3> Paiement par carte de crédit</h3></td>
+            </tr>
+            <tr>
+            
+              <td colspan="3"><img src="/images/card.png" style="float: left; padding-right: 10px;"><p>Vous pouvez autoriser DVDPost à débiter automatiquement vos frais d'abonnement de votre carte de crédit. Les cartes suivantes sont acceptées : Visa, Mastercard, Eurocard, American Express. Le paiement par carte de crédit reste le mode de paiement le plus sécurisé pour les achats "en ligne". Vos données ne sont pas conservée par DVDPost et la transaction se fait en partenariat avec Ogone, leader mondial des paiements sécurises sur internet.<br>
+                  <br>
+                  Nous vous rappelons qu'il n'y a aucun engagement de durée et que vous pouvez mettre un terme à votre abonnement quand vous le souhaitez, quelque soit votre mode de paiement.</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div style="width: 800px;" id="payment_domiciliation" class="payment ">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
+          <tbody>
+            <tr>
+              <td  width="6%"><div class="check" id='domiciliation'>
+                  <!--<input type="radio" id="payment_domiciliation_radio" name="payment" value="domiciliation">-->
+                </div></td>
+              <td width="89%"><h3>Par domiciliation bancaire</h3></td>
+            
+            </tr>
+            <tr>
+            
+              <td colspan="3"><img src="/images/dom.png" style="float: left; padding-right: 10px;"><p>La domiciliation bancaire vous permet de payer votre abonnement DVDPost rapidement, facilement et en toute sécurité. Le montant de votre abonnement sera automatiquement prélevé de votre compte bancaire à la date de renouvellement de votre abonnement</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div align="right" style="padding-right: 8px;"><br>
+        <button type="submit" class="button_confirm_switch">CONTINUER</button>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<div class='payment_body light' id='payment_ogone'>
-
-  <%= image_tag 'credit_card.png', :title => 'logo credit card', :alt => 'logo credit card', :align => 'absmiddle' %> <%= t '.type' %><br />
-  <p>
-    <%= t '.description' %>
-  </p>
 </div>
-<p align="right" class="bouton_probleme">
-  <%= link_to  t('.continue'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :confirm_change), :id => :submit_payment, :class => :submit %>
-</p>

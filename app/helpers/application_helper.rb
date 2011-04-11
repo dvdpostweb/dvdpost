@@ -82,7 +82,7 @@ module ApplicationHelper
   end
 
   def fb_url
-    "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834"
+    "http://www.facebook.com/dvdpost"
   end
 
   def twitter_url

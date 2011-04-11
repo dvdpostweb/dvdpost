@@ -1,57 +1,83 @@
-.payment_body {
-border:1px solid #DDDDDD;
-margin:20px auto;
-padding:10px 10px 10px 20px;
-width:650px;
-font-size: 1.1em;
+#switch_dom {   color: ##454545;
+      font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;} 
+
+.button_confirm_switch {
+	background:url("../images/button-anticipation.png") no-repeat scroll 0 0 transparent;
+	border:medium none;
+	color:white;
+	font-weight:bold;
+	height:52px;
+	text-shadow:1px 1px 1px #333333;
+	width:269px;
+	font-size:16px;
 }
-.payment_confirm
-{
-  margin:20px auto;
-  padding:10px 10px 0 20px;
-  width:650px;
-  font-size: 1.1em;
-  
-}
-.light {
-background:none repeat scroll 0 0 #FFFBEB;
+.button_confirm_switch:hover {
+	background:url("../images/button-anticipation.png") no-repeat scroll 0 -55px transparent;
+	border:medium none;
+	color:white;
+	font-weight:bold;
+	height:52px;
+	text-shadow:1px 1px 1px #333333;
+	width:269px;
+	cursor:pointer;
 }
 
-#title_redirect
-{
-  margin:50px 0 0 30px;
-  color:#303030;
-  font-size:1.33em;
-  font-weight:bold;
+element.style {
+    width: 650px;
 }
-#submit_payment
-{
-margin:0 136px 0 0;
-width:170px;
-text-align:center;
-padding:5px 0 0 3px;
-font-size:1.2em;
+.payment {
+    border: 1px solid #505050;
+    margin: 5px;
+    padding: 10px 20px 20px 10px;
+
+    width: 735px;
 }
-#submit_payment_confirm
-{
-margin:0 136px 2px 0;
-width:170px;
-text-align:center;
-font-size:1.2em;
-height:35px;
+
+.rose {
+    background: none repeat scroll 0 0 #ddf5fc;
 }
-a#submit_payment, a:hover#submit_payment,a#submit_payment_confirm, a:hover#submit_payment_confirm 
-{
-  text-decoration: none !important;
+
+
+#switch_dom  #title{
+  color: #303030;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
 }
-.align_center
-{
-  text-align:center;
+
+#switch_dom  a {   color: ##454545;
+      font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+	text-decoration:underline;
+	} 
+
+#switch_dom  h3 {
+    color: #ff3300;
+     font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+	text-transform: uppercase;
 }
-#back
-{
-  color:#100F0F;
-  font-size: 18px; 
-  text-decoration: none; 
-  padding: 10px;
+
+.checkalive {
+    background: url("../images/check.png") no-repeat scroll 0 -27px transparent;
+    height: 26px;
+    cursor:pointer;
+}
+.check {
+    background: url("../images/check.png") no-repeat scroll 0 0 transparent;
+    height: 26px;
+    cursor:pointer;
+}
+.back{
+  color:#454545; 
+  font-size:18px !important; 
+  padding-right:12px;
 }

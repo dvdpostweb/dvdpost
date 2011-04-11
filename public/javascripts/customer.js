@@ -64,9 +64,36 @@ $(function() {
   $(".add_adult").live("click", function() {
     url = $(this).attr('href');
     html_item = $(this).parent().parent().parent().parent();
+    norm = param('norm',url)
+    adult = param('adult',url)
+    norm --;
+    adult ++
+    
     content = html_item.html();
     loader = 'ajax-loader.gif';
-    html_item.html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
+    load = "<div style='height:42px'><img src='/images/"+loader+"'/></div>";
+    if ($(this).hasClass('empty'))
+    {
+      confirm_title = $('#rotation').html();
+      confirm_title = confirm_title.replace('[norm]',norm)
+      confirm_title = confirm_title.replace('[adult]',adult)
+      
+      if(confirm(confirm_title))
+      {
+        sent_adult_rotation(url, html_item, content, load);  
+      }
+    }
+    else
+    {
+      sent_adult_rotation(url, html_item, content, load);  
+    }
+    
+    return false;
+  });
+
+  function sent_adult_rotation(url, html_item, content, load)
+  {
+    html_item.html(load)
     $.ajax({
       url: url,
       type: 'POST',
@@ -78,8 +105,8 @@ $(function() {
         html_item.html(content);
       }
     });
-    return false;
-  });
+    
+  }
   $(".modification_account").live("click", function() {
     url = $(this);
     jQuery.facebox(function() {
@@ -147,4 +174,9 @@ $(function() {
     $('#suspend-abonament form').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
+  function param(name,url)
+  {
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url)
+    return results[1] || 0;
+  }
 });

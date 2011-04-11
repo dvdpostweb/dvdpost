@@ -227,11 +227,13 @@ class Customer < ActiveRecord::Base
       if normal_count > 0
         update_attribute(:adult_count, (adult_count + value))
         update_attribute(:normal_count, (normal_count - value))
+        abo_history(Subscription.action[:add_rotation_adult])
       end
     else
       if adult_count > 0
         update_attribute(:normal_count, (normal_count + value))
         update_attribute(:adult_count, (adult_count - value))
+        abo_history(Subscription.action[:add_rotation_normal])
       end
     end
   end
@@ -360,7 +362,7 @@ class Customer < ActiveRecord::Base
     if credits > 0
       abo_process = AboProcess.today.last
       if abo_process 
-        customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
+        customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
       end
       
       if !abo_process || (customer_abo_process || abo_process.finished?)
@@ -418,7 +420,7 @@ class Customer < ActiveRecord::Base
       if credits > 0
         abo_process = AboProcess.today.last
         if abo_process 
-          customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
+          customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
         end
         if !abo_process || (customer_abo_process || abo_process.finished?)
           Token.transaction do
