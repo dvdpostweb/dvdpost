@@ -283,16 +283,17 @@ module ApplicationHelper
   end
 
   def check_host
-    if params[:jacob].to_i == 0 || params[:jacob].to_i == 1
-      session[:jacob] = params[:jacob].to_i
-      @jacob = params[:jacob].to_i
-    else
-      if session[:jacob] 
-        @jacob = session[:session]
-      else
-        @jacob = 0
-      end
-    end
+    #if params[:jacob].to_i == 0 || params[:jacob].to_i == 1
+    #  session[:jacob] = params[:jacob].to_i
+    #  @jacob = params[:jacob].to_i
+    #else
+    #  if session[:jacob] 
+    #    @jacob = session[:session]
+    #  else
+    #    @jacob = 0
+    #  end
+    #end
+    @jacob = 1
     if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')
       ENV['HOST_OK'] = "1"
     else

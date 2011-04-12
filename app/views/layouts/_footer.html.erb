@@ -25,9 +25,6 @@
     <p id="copyr"><%= t '.copyright' %> </p>
   </div>
 </div>
-<% else %>
-<div id="footer_jb"></div>
-<% end %>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -56,3 +53,56 @@ var google_conversion_value = 0;
 <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1033549176/?label=2DPWCOjT1gEQ-Orq7AM&amp;guid=ON&amp;script=0"/>
 </div>
 </noscript>
+<% else %>
+<div id="footer_jb"></div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1121531-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- Google Analytics tag -->
+<% if I18n.locale == :fr %>
+  <!-- Google Code for Visitors public Remarketing List -->
+	<script type="text/javascript">
+	/* <![CDATA[ */
+	var google_conversion_id = 1033549176;
+	var google_conversion_language = "en";
+	var google_conversion_format = "3";
+	var google_conversion_color = "666666";
+	var google_conversion_label = "ost4CODU1gEQ-Orq7AM";
+	var google_conversion_value = 0;
+	/* ]]> */
+	</script>
+	<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+	</script>
+	<noscript>
+	<div style="display:inline;">
+	<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1033549176/?label=ost4CODU1gEQ-Orq7AM&amp;guid=ON&amp;script=0"/>
+	</div>
+	</noscript>
+<% else %>	
+		<!-- Google Code for Visitors public NL Remarketing List -->
+		<script type="text/javascript">
+		/* <![CDATA[ */
+		var google_conversion_id = 1033549176;
+		var google_conversion_language = "en";
+		var google_conversion_format = "3";
+		var google_conversion_color = "666666";
+		var google_conversion_label = "GlvaCMj11gEQ-Orq7AM";
+		var google_conversion_value = 0;
+		/* ]]> */
+		</script>
+		<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+		</script>
+		<noscript>
+		<div style="display:inline;">
+		<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1033549176/?label=GlvaCMj11gEQ-Orq7AM&amp;guid=ON&amp;script=0"/>
+		</div>
+		</noscript>
+<% end %>		
+
+<% end %>
