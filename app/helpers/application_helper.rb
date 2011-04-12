@@ -128,11 +128,6 @@ module ApplicationHelper
     "http://public.dvdpost.com/#{I18n.locale}/products/#{product.to_param}"
   end
 
-  def payment_method_change_path(type=nil)
-    path = php_path 'payment_method_change.php'
-    type ? "#{path}&payment=#{type}" : path
-  end
-
   def adult_path
     php_path 'mydvdxpost.php'
   end

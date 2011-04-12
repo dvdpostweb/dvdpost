@@ -15,6 +15,6 @@ $(function() {
     $('#type').attr('value','credit_card')
     
   })
-  $("#checkout_confirmation").submit();
+  /*$("#checkout_confirmation").submit();*/
   
 })
