@@ -1,6 +1,4 @@
 class Customer < ActiveRecord::Base
-  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
-
   set_table_name :customers
 
   set_primary_key :customers_id
