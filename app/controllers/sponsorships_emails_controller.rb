@@ -5,10 +5,16 @@ class SponsorshipsEmailsController < ApplicationController
       mail = Email.by_language(I18n.locale).find(DVDPost.email[:sponsorships_invitation])
       recipient = params[:sponsorship_email][:email]
       mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => current_customer.to_param, :mail_messages_id => DVDPost.email[:sponsorships_invitation], :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> current_customer.email)
+      if current_customer.gender == 'm' 
+        gender = t('mails.gender_male')
+      else
+        gender = t('mails.gender_female')
+      end
       options = {
         "\\$\\$\\$godfather_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", 
         "\\$\\$\\$son_name\\$\\$\\$" => "#{params[:sponsorship_email][:firstname].capitalize} #{params[:sponsorship_email][:lastname].capitalize}",
         "\\$\\$\\$target_email\\$\\$\\$" => recipient,
+        "\\$\\$\\$gender_simple\\$\\$\\$" => gender ,
         "\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$" => mail_history.to_param
         }
       list = ""
