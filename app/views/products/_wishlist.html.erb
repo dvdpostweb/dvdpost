@@ -7,9 +7,19 @@
   
     <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.id) %>
     <% submit_id = "p_#{product.to_param}_#{rand(10)}"%>
-    <%= "<span class='remove' id='#{submit_id}'>" %>
-    <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param, :text => text, :list => 1, :source => source, :submit_id => submit_id, :load_color => load_color), :class => 'btn_remove wishlist_button', :title => long_title %>
-    <%= '</span>' %>
+    <% form_id = "form_#{product.to_param}_#{rand(10)}"%>
+    <% form_for(:wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => {:method => :delete, :id => form_id, :class => 'remvove_from_wishlist_form'}) do |f|%>
+      <%= hidden_field_tag :source,  source %>
+      <%= hidden_field_tag :text,   text %>
+      <%= hidden_field_tag :list,   1 %>
+      <%= hidden_field_tag :load_color,  load_color %>
+      <%= hidden_field_tag :submit_id,  submit_id %>
+      <%= hidden_field_tag :form_id,  form_id %>
+      <%= hidden_field_tag :product_id,  product.id %>
+      <span id ="<%= submit_id %>">
+        <%= submit_tag title, :class => 'remvove_from_wishlist btn_remove_form' %>
+      </span>
+    <% end %>
   <% else %>
     <% title = title_add_to_wishlist(text, type_button) %>
     <% long_title = title_add_to_wishlist(:long, type_button) %>

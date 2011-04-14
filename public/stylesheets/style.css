@@ -856,6 +856,30 @@ body.oscar #header h1 a {
   text-shadow: 1px 1px 1px #999999;
   text-align: left;
 }
+#titles-wrap .action a.btn_remove:hover {
+  background: url(../images/drop-btn.png) 0 -39px no-repeat;
+}
+
+#titles-wrap .action .btn_remove_form {
+  background: url("../images/drop-btn.png") no-repeat scroll 0 -5px transparent;
+   border: 0 none;
+   color: white;
+   display: block;
+   float: left;
+   height: 35px;
+   line-height: 35px;
+   margin: 4px 0 0 3px;
+   padding: 0 7px 5px 32px;
+   text-align: center;
+   text-decoration: none;
+   text-shadow: 1px 1px 1px #999999;
+   width: 165px;
+   cursor:pointer;
+}
+#titles-wrap .action .btn_remove_form:hover {
+  background: url(../images/drop-btn.png) 0 -44px no-repeat;
+}
+
 #titles-wrap .action .load {
   display:block;
   float:left;
@@ -864,9 +888,6 @@ body.oscar #header h1 a {
   margin:9px 0 0;
   text-align:center;
   width:170px;
-}
-#titles-wrap .action a.btn_remove:hover {
-  background: url(../images/drop-btn.png) 0 -39px no-repeat;
 }
 
 #titles-wrap .dvd .cover,#titles-wrap .vod .cover, #titles-wrap .bluray .cover {
@@ -1696,16 +1717,37 @@ a#next10 {
   text-shadow: 1px 1px 1px #555555;
 }
 
+#details .cover a.btn_remove:hover {
+  background: url(../images/drop-btn.png) 0 -43px no-repeat;
+  text-decoration: none;
+}
+
+
+#details .cover .btn_remove_form {
+  background: url("../images/drop-btn.png") no-repeat scroll 0 -4px transparent;
+  border: 0 none;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  height: 38px;
+  line-height: 34px;
+  padding-bottom: 6px;
+  padding-left: 30px;
+  text-shadow: 1px 1px 1px #555555;
+  width: 165px;
+}
+
+#details .cover .btn_remove_form:hover {
+  background: url(../images/drop-btn.png) 0 -43px no-repeat;
+  text-decoration: none;
+}
 #details .cover .load {
   display: block;
   height: 38px;
   line-height: 34px;
   width: 130px;
   text-align:center;
-}
-#details .cover a.btn_remove:hover {
-  background: url(../images/drop-btn.png) 0 -43px no-repeat;
-  text-decoration: none;
 }
 
 #details .cover a.like-btn2 {
@@ -1972,6 +2014,26 @@ html ul.tabs li.active a:hover {
   width: 47px;
 }
 
+#carousel li .item.add_to_wishlist_button {
+  background: url("../images/ajouter-btn-mid.png") no-repeat scroll 0 -1px transparent;
+  border: 0 none;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 1.09em;
+  height: 27px;
+  line-height: 24px;
+  margin: 0 0 4px 1px;
+  padding: 0 9px 4px 18px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #999999;
+  width: 92px;
+}
+
+#carousel li .item.add_to_wishlist_button:hover {
+  background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
 #carousel li a.btn {
   background: url(../images/ajouter-btn-mid.png) 0 -1px no-repeat;
   display: block;
@@ -2049,6 +2111,26 @@ html ul.tabs li.active a:hover {
   text-decoration: none;
 }
 
+#carousel li .btn_remove_form {
+  background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 24px;
+  width: 92px;
+  padding: 0 9px 4px 20px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: center;
+  font-size: 1.09em;
+  margin: 0 0 4px 1px;
+  border:0px;
+}
+
+#carousel li .btn_remove_form:hover {
+  background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
 #carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
   background: url(../images/carousel-arrows.png) 0 0 no-repeat;
   display: block;
@@ -2610,6 +2692,28 @@ h3.hp-ttls {
   text-align: left;
   font-size: 1.09em;
 }
+.top10 .btn_remove_form {
+  background: url("../images/drop-btn-mid.png") no-repeat scroll 0 -1px transparent;
+  border: 0 none;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  height: 27px;
+  line-height: 24px;
+  padding: 0 3px 5px 22px;
+  position: absolute;
+  right: 7px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  top: 5px;
+  width: 86px;
+}
+.top10 .btn_remove_form:hover {
+  background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
+}
+
 .top10 .btn_remove {
   position: absolute;
   top: 5px;
@@ -2671,6 +2775,14 @@ div.top10.first .load {
 div.top10.first a.btn_remove {
   left: 27px;
   top: 164px;
+  background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
+}
+
+div.top10.first .btn_remove_form {
+  left: 27px;
+  top: 164px;
+  border: 0px;
+  cursor: pointer;
   background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
 }
 
@@ -2792,6 +2904,22 @@ div.top10.first p a {
   text-shadow:1px 1px 1px #999999;
   width:62px;
   text-decoration: none;
+}
+#new-m li .btn_remove_form {
+  background: url("../images/drop-btn-mid.png") no-repeat scroll 0 0 transparent;
+   border: 0 none;
+   color: white;
+   cursor: pointer;
+   display: block;
+   font-size: 1.09em;
+   height: 30px;
+   line-height: 24px;
+   margin: 7px 0 3px;
+   padding: 0 5px 5px 20px;
+   text-align: center;
+   text-decoration: none;
+   text-shadow: 1px 1px 1px #999999;
+   width: 88px;
 }
 
 #new-m #nouv {
@@ -4396,4 +4524,13 @@ font-size: 12px;
 font-weight:normal;
 margin: 9px 0;
 
+}
+.wishlist_remove
+{
+  background: url("../images/trash-icon.gif") no-repeat scroll 0 0 transparent;
+  border: 0 none;
+  cursor: pointer;
+  height: 15px;
+  text-indent: -999em;
+  width: 11px;
 }

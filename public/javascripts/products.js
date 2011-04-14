@@ -362,6 +362,19 @@ $(function() {
     $('form.#new_wishlist_item').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
+  var options = {};
+  $('.remvove_from_wishlist').live("click", function(){
+    loader = 'ajax-loader.gif';
+    if ($(this).parent().parent().children('#load_color').attr('value') == 'black'){
+      loader = 'black-'+loader;
+    }
+    $(this).parent().parent().ajaxSubmit(options);
+    
+    $(this).parent().html("<div class='load'><img src='/images/"+loader+"' /></div>")
+    return false; // prevent default behaviour
+  });
+  
+  
   $('#bluray_ok').live('click', function(){
     url = $(this).attr('href');
     $.getScript(url);

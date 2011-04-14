@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :save_attempted_path
   before_filter :check_host
   before_filter :authenticate!, :unless => :is_special_page?
+  
   before_filter :wishlist_size
   before_filter :indicator_close?
   before_filter :delegate_locale

@@ -117,7 +117,6 @@ class WishlistItemsController < ApplicationController
   end
 
   def destroy
-    begin
       @wishlist_item = WishlistItem.destroy(params[:id])
       Customer.send_evidence('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
       respond_to do |format|
@@ -133,31 +132,24 @@ class WishlistItemsController < ApplicationController
               @popular = current_customer.popular(filter).paginate(:page => session[:popular_page], :per_page => 8)
             end
             @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
-          elsif params[:list]
+          elsif params[:list]  && params[:list].to_i == 1
             @product = @wishlist_item.product
             @source = params[:source]
             @type = 'list'
             @text = params[:text].to_sym
             @submit_id = params[:submit_id]
+            @form_id = params[:form_id]
+            
             @load_color = params[:load_color].to_sym if params[:load_color]
-          
+          elsif params[:list]  && params[:list].to_i == 2
+            Rails.logger.debug { "@@@2" }
+            @type = 'wishlist'
+            @div = params[:div]
           else  
               render :status => :ok, :nothing => true
           end
         end
       end
-    rescue Exception => e
-      if params[:list]
-        @product = WishlistItem.find(params[:id]).product
-        @source = params[:source]
-        @type = 'list'
-        @text = params[:text].to_sym
-        @submit_id = params[:submit_id]
-        @load_color = params[:load_color].to_sym if params[:load_color]
-      else  
-        render :status => :error, :nothing => true  
-      end
-    end
   end
 
   def bluray_owner
