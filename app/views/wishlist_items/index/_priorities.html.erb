@@ -1,5 +1,7 @@
-<% [1,2,3].collect do |priority| %>
-<li>
-  <%= radio_button_tag "wishlist_item_#{wishlist_item.to_param}", priority, wishlist_item.priority == priority, :id => wishlist_item.to_param, :class => 'wishlist_item_priority', :title => " priority #{DVDPost.wishlist_priorities.invert[priority.to_i]}" %>
-</li>
+<% form_for( :wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => { :method => :put, :id => "form_#{wishlist_item.to_param}"}) do |f|%>
+  <% [1,2,3].collect do |priority| %>
+  <li>
+    <%= f.radio_button :priority, priority, :checked => (wishlist_item.priority == priority), :class => 'wishlist_item_priority' %>
+  </li>
+  <% end %>
 <% end %>

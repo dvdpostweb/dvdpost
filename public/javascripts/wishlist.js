@@ -1,24 +1,19 @@
 $(function() {
+  var options_change_priority = {
+	};
   $(".wishlist_item_priority").live("click", function() {
-    html_item = $(this).parent().parent()
-    content = html_item.html();
-    html_item.html("Updating...");
-    wishlist_item_id = this.id;
-    priority = this.value;
-    locale_short = $('#locale').html();
-    $.ajax({
-      url: '/'+locale_short+'/wishlist_items/' + wishlist_item_id,
-      contentType: 'application/json; charset=utf-8',
-      type: 'PUT',
-      data: JSON.stringify({"wishlist_item": {"priority": priority}}),
-      success: function(data) {
-        html_item.html(data);
-      },
-      error: function() {
-        html_item.html(content);
-      }
-    });
+     loader = 'ajax-loader.gif';
+      $(this).parent().parent().ajaxSubmit(options_change_priority);
+      html_item = $(this).parent().parent()
+      parent = $(this).parent().parent()
+      content = html_item.html();
+      $(this).parent().parent().html("<div style='height:17px; text-align:center' class='load'><img src='/images/"+loader+"'/></div>")
+      return false; // prevent default behaviour
+    
   });
+  
+	
+  
   var options = {};
   $('.remvove_from_wishlist').live("click", function(){
     loader = 'ajax-loader.gif';

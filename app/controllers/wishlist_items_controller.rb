@@ -111,7 +111,9 @@ class WishlistItemsController < ApplicationController
       @wishlist_item.update_attributes(params[:wishlist_item])
       Customer.send_evidence('UpdateWishlistItem', params[:id], current_customer, request.remote_ip, {:priority => params[:wishlist_item][:priority]}) if params[:wishlist_item]
       respond_to do |format|
-        format.js {render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => @wishlist_item}}
+        format.js {
+          @form_id = "form_#{params[:id]}"
+        }
       end
     end
   end
@@ -142,7 +144,6 @@ class WishlistItemsController < ApplicationController
             
             @load_color = params[:load_color].to_sym if params[:load_color]
           elsif params[:list]  && params[:list].to_i == 2
-            Rails.logger.debug { "@@@2" }
             @type = 'wishlist'
             @div = params[:div]
           else  
