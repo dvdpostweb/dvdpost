@@ -19,7 +19,14 @@ $(function() {
       }
     });
   });
-
+  var options = {};
+  $('.remvove_from_wishlist').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $(this).parent().parent().ajaxSubmit(options);
+    $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
+    
+    return false; // prevent default behaviour
+  });
   $(".trash a").live("click", function() {
     title = $(this).parent().parent().children('.title').children().html();
     question = $("#confirm").html();
@@ -31,7 +38,7 @@ $(function() {
       parent_div.html("<img src='/images/ajax-loader.gif' />");
       $.ajax({
         url: $(this).attr('href'),
-        type: 'DELETE',
+        type: 'delete',
         data: {},
         success: function() {
           parent_div.parent().remove();
@@ -111,20 +118,17 @@ $(function() {
     });
     return false;
   });
-  /*var options = {
-    	//success: showResponse  // post-submit callback
-	};
-	function showResponse(responseText, statusText)  {
-    	//$("#wishlist #carousel").html(responseText);
+  var options = {
     	
-  }
+	};
+	
   $('.add_to_wishlist_button').live("click", function(){
     loader = 'ajax-loader.gif';
-    $(this).parent('.add_to_wishlist').ajaxSubmit(options);
+    $(this).parent().ajaxSubmit(options);
     $(this).parent().html("<div style='height:20px'><img src='/images/"+loader+"'/></div>")
     return false; // prevent default behaviour
   });
-  */
+  
   $("a.add_to_wishlist_button").live("click", function() {
       content = $(this).html();
       $(this).removeClass('btn');
