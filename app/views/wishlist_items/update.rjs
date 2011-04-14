@@ -1,0 +1,1 @@
+  page["##{@form_id}"].replaceWith render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => @wishlist_item}

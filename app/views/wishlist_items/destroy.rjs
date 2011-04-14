@@ -1,10 +1,6 @@
-Rails.logger.debug { "@@@" }
-Rails.logger.debug { "#{@type}" }
-
 if @type == 'list'
   page["##{@form_id}"].replaceWith render :partial => 'products/wishlist', :locals => {:product => @product, :text => params[:text].to_sym, :source => @source, :load_color => @load_color}
 elsif @type == 'wishlist'
-  Rails.logger.debug { "#{@div}" }
     page["##{@div}"].remove();
 else  
   @wishlist_size = @wishlist_size - 1
