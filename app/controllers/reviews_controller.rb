@@ -22,6 +22,11 @@ class ReviewsController < ApplicationController
       review.customer = current_customer
       review.languages_id = DVDPost.product_languages[I18n.locale]
       review.save
+      unless current_customer.has_rated?(@product)
+        @product.ratings.create(:customer => current_customer, :value => params[:review][:rating])
+        current_customer.seen_products << @product
+        Customer.send_evidence('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:review][:rating]})
+      end
       flash[:notice] = t('products.show.review.review_save')
     rescue Exception => e  
       flash[:notice] = t('products.show.review.review_not_save')
