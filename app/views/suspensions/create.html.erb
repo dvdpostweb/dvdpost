@@ -1,4 +1,10 @@
+<% if @error == false %>
 <div id="suspend-abonament">
 	<h3><%= t('suspensions.new.title') %></h3>
   <p align="center"><%= @error ? t('.suspension_error') : t('.suspension_done') %></p>
 </div>
+<% else %>
+<div id="suspend-abonament">
+  <p align="center"><%= t('.suspension_error') %></p>
+</div>
+<% end %>

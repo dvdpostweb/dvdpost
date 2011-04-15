@@ -1,3 +1,4 @@
+
 <tr>
 <td colspan="2">
   <div class="rotation_dvd">
@@ -8,7 +9,15 @@
       <%= image_tag 'dvd.png', :align => 'absmiddle'%>
       <%= "#{customer.normal_count} DVD" %>
       <span><%= image_tag 'delimiter.gif' %></span>
-      <%= link_to image_tag('plus.png'), customer_rotation_dvd_path(I18n.locale, current_customer, :value => 1, :type => 'normal'), :class => 'suppendre add_normal' if customer.adult_count > 0 %>
+      <% if customer.adult_count > 0 %>
+      <% form_for (:customer , :url => customer_rotation_dvd_path(:customer_id => current_customer.to_param), :html => { :class => 'form_rotation' }) do |f| %>
+        <%= hidden_field_tag :value, 1 %>
+        <%= hidden_field_tag :type, 'norm' %>
+        <%= hidden_field_tag :norm, customer.normal_count %>
+        <%= hidden_field_tag :adult, customer.adult_count %>
+        <%= submit_tag 'plus norm', :class => 'add_norm' %>
+      <% end %>
+      <% end %>
     </div>
   </div>
   <div class="rotation_dvd adulte_text">
@@ -19,11 +28,17 @@
       <%= image_tag 'dvd_x.png', :align => 'absmiddle'%>
       <%= "#{customer.adult_count} DVD" %>
       <span><%= image_tag 'delimiter.gif' %></span>
-      <%= link_to image_tag('plus.png'), customer_rotation_dvd_path(I18n.locale, current_customer, :value => 1, :type => 'adult', :norm => customer.normal_count, :adult => customer.adult_count), :class => "suppendre add_adult  #{@wishlist_adult_size == 0 ? 'empty' : ''} " if customer.normal_count > 0 %>
+      <% if customer.normal_count > 0 %>
+      <% form_for (:customer , :url => customer_rotation_dvd_path(:customer_id => current_customer.to_param), :html => { :class => 'form_rotation' }) do |f| %>
+        <%= hidden_field_tag :value, 1 %>
+        <%= hidden_field_tag :type, 'adult' %>
+        <%= hidden_field_tag :norm, customer.normal_count %>
+        <%= hidden_field_tag :adult, customer.adult_count %>
+        <%= submit_tag 'plus adult', :class => "add_adult #{@wishlist_adult_size == 0 ? 'empty' : ''}" %>
+      <% end %>
+      <% end %>
       </div>
     </div>
   </div>
   </td>
 </tr>
-
-
