@@ -24,7 +24,7 @@
   <%= javascript_include_tag 'facebox' %>
   <%= javascript_include_tag 'json2' %>
   <%= javascript_include_tag 'application' %>
-
+	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   <!--[if IE 6]>
   <%= javascript_include_tag 'DD_belatedPNG' %>
   <%= javascript_include_tag 'ie6-dd-decl' %>

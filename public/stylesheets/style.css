@@ -4534,3 +4534,11 @@ margin: 9px 0;
   text-indent: -999em;
   width: 11px;
 }
+#maincontent2{
+background: url("../images/content-bg-wishlist.gif") repeat-y scroll 0 0 transparent;
+float: none;
+margin: 24px 0 24px 24px !important;
+padding: 25px 10px 17px;
+position: relative;
+width: 902px;
+}
