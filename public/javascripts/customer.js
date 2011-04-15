@@ -40,38 +40,39 @@ $(function() {
     });
     return false;
   });
-
-  $(".add_normal").live("click", function() {
-    url = $(this).attr('href');
+  var options_norm = {
+    success: show_add_norm
+  }
+  function show_add_norm(responseText, statusText){
+    if(jQuery.trim(statusText) == "success"){
+      item = html_item.html(responseText);
+    }
+    else
+    {
+      html_item.html(content);
+    }
+  };
+  
+  $(".add_norm").live("click", function() {
+    loader = 'ajax-loader.gif';
+    $(this).parent().ajaxSubmit(options_norm);
     html_item = $(this).parent().parent().parent().parent();
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: {},
-      success: function(data) {
-        item = html_item.replaceWith(data);
-      },
-      error: function() {
-        html_item.html(content);
-      }
-    });
-    return false;
+    return false; // prevent default behaviour
   });
+  
 
   $(".add_adult").live("click", function() {
-    url = $(this).attr('href');
+    
     html_item = $(this).parent().parent().parent().parent();
-    norm = param('norm',url)
-    adult = param('adult',url)
+    norm = $(this).parent().children('#norm').attr('value')
+    adult = $(this).parent().children('#adult').attr('value')
     norm --;
     adult ++
-    
+    form = $(this).parent()
     content = html_item.html();
-    loader = 'ajax-loader.gif';
-    load = "<div style='height:42px'><img src='/images/"+loader+"'/></div>";
     if ($(this).hasClass('empty'))
     {
       confirm_title = $('#rotation').html();
@@ -80,31 +81,23 @@ $(function() {
       
       if(confirm(confirm_title))
       {
-        sent_adult_rotation(url, html_item, content, load);  
+        sent_adult_rotation(form,html_item);  
       }
     }
     else
     {
-      sent_adult_rotation(url, html_item, content, load);  
+      sent_adult_rotation( form,html_item);  
     }
     
     return false;
   });
 
-  function sent_adult_rotation(url, html_item, content, load)
+  function sent_adult_rotation(form, html_item)
   {
-    html_item.html(load)
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: {},
-      success: function(data) {
-        item = html_item.replaceWith(data);
-      },
-      error: function() {
-        html_item.html(content);
-      }
-    });
+    $(form).ajaxSubmit(options_norm);
+    loader = 'ajax-loader.gif';
+    html_item.html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
+    return false; // prevent default behaviour
     
   }
   $(".modification_account").live("click", function() {

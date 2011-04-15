@@ -55,10 +55,13 @@ class CustomersController < ApplicationController
 
   def rotation_dvd
     @customer = Customer.find(current_customer)
-    @customer.rotation_dvd!(params[:type],params[:value].to_i)
+    logger.debug("@@@")
+    logger.debug(params.inspect)
+    logger.debug(params[:type])
+    @customer.rotation_dvd!(params[:type],1)
     respond_to do |format|
       format.html do
-        render :action => :show
+        redirect_to customer_path(:id => current_customer.to_param)
       end
       format.js {
         @wishlist_adult_size = current_customer.wishlist_items.available.by_kind(:adult).current.include_products.count

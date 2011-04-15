@@ -17,19 +17,34 @@ class SuspensionsController < ApplicationController
   end
 
   def create
-    path = php_path(DVDPost.url_suspension);
-    if !current_customer.suspended? && suspension_count_current_year < 3
-     duration = params[:suspensions][:duration].to_i
+    begin
+      path = php_path(DVDPost.url_suspension);
+      if !current_customer.suspended? && suspension_count_current_year < 3
+       duration = params[:suspensions][:duration].to_i
 
-      status = DVDPost.send_suspension(current_customer.to_param,duration,path)
-      if status == false
-        @error = true
-      else
-        @error = false
+        status = DVDPost.send_suspension(current_customer.to_param,duration,path)
+        if status == false
+          @error = true
+        else
+          @error = false
+        end
+        respond_to do |format|
+          format.html
+          
+          format.js {
+            if @error == false
+              render :layout => false
+            else  
+              render :layout => false, :status => false
+            end
+          }
+        end
       end
+    rescue => e
+      @error = true
       respond_to do |format|
         format.html
-        format.js {render :layout => false}
+        format.js {render :layout => false, :status => false}
       end
     end
   end

@@ -171,3 +171,16 @@ li.links a {
 {
   vertical-align: middle;
 }
+.add_norm,.add_adult
+{
+  background: url("../images/plus.png") no-repeat scroll 0 0 transparent;
+  border: 0 none;
+   cursor: pointer;
+   height: 15px;
+   text-indent: -999em;
+   width: 15px;
+}
+.form_rotation
+{
+  display:inline;
+}
