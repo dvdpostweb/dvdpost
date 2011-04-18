@@ -95,7 +95,7 @@ $("#condition_promo").live("click", function() {
 });
 // Always send the authenticity_token with ajax
 $(document).ajaxSend(function(event, request, settings) {
-    if ( settings.type.toLowerCase() == 'post'  ) {
+    if ( settings.type.toLowerCase() == 'post' || settings.type.toLowerCase() == 'delete' ) {
         settings.data = (settings.data ? settings.data + "&" : "")
                 + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
