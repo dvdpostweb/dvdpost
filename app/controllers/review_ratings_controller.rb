@@ -1,6 +1,6 @@
 class ReviewRatingsController < ApplicationController
   def create
-    rate = params[:review_rating][:rate].to_i
+    rate = params[:rate].to_i
 
     @review = Review.find(params[:review_id])
     if rate == 1

@@ -61,7 +61,7 @@ $(function() {
       url: this.href,
       contentType: 'application/json; charset=utf-8',
       type: 'POST',
-      data: JSON.stringify({"review_rating": {"rate": $(this).attr('rate')}}),
+      data: {},
       success: function(data) {
         html_item.replaceWith(data);
       },
