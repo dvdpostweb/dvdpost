@@ -25,9 +25,9 @@
         <%= customer_rating.value == 1 ? t('.relevant') : t('.not_relevant') %>
       <% else %>
         <%= t '.is_relevant' %>
-        <%= link_to t('.agree'), review_review_rating_path(:review_id => review), :class => 'yes', :review_id => review.reviews_id, :rate => 1 %>
+        <%= link_to t('.agree'), review_review_rating_path(:review_id => review, :rate => 1), :class => 'yes', :review_id => review.reviews_id %>
         -
-        <%= link_to t('.disagree'), review_review_rating_path(:review_id => review), :class => 'no', :review_id => review.reviews_id, :rate => 0 %>
+        <%= link_to t('.disagree'), review_review_rating_path(:review_id => review, :rate => 0), :class => 'no', :review_id => review.reviews_id %>
       <% end %>
     </p>
   <% end %>
