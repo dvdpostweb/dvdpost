@@ -1,7 +1,8 @@
+<% description = @product.description %>
 <root>
   <product_id><%= @product.id %></product_id>
   <imdb_id><%= @product.imdb_id %></imdb_id>
-  <title><%= @product.title %></title>
+  <title><%= REXML::Text.new(@product.title).to_s %></title>
   <type><%= @product.kind %></type>
   <media><%= @product.media %></media>
   <production_year><%= @product.year %></production_year>
@@ -16,7 +17,7 @@
   <serie_id><%= @product.series_id %></serie_id>
   <% if @product.director %>
   <director>
-    <name><%= @product.director.name %></name>
+    <name><%= REXML::Text.new(@product.director.name).to_s %></name>
     <id><%= @product.director.id %></id>
   </director>
   <% end %>
@@ -25,11 +26,16 @@
     <name><%= @product.country.name %></name>
     <id><%= @product.country.id %></id>
   </country_from>
-  <description><![CDATA[<%= @product.description.text %>]]></description>
-  <jacket><%= @product.image %></jacket>
-  <% if @product.description.url_present? %>
-  <url><%= @product.description.full_url %></url>
+  <% if description %>
+    <description><![CDATA[<%= description.text %>]]></description>
+    <% if description.url_present? %>
+      <url><![CDATA[<%= description.full_url %>]]></url>
+    <% end %>
+    <awards>
+      <![CDATA[<%= description.products_awards %>]]>
+    </awards>
   <% end %>
+  <jacket><%= @product.image %></jacket>
   <actors>
     <% @product.actors.collect{|actor|  %>
       <actor>
@@ -41,7 +47,7 @@
   <categories>
     <% @product.categories.collect{|category| %>
       <category>
-        <name><%= category.name %></name>
+        <name><%= REXML::Text.new(category.name).to_s %></name>
         <id><%= category.id %></id>
       </category>
     <% } %>
@@ -49,14 +55,12 @@
   <audiance>
     <%= @product.public.name %>
   </audiance>
-  <awards>
-    <![CDATA[<%= @product.description.products_awards %>]]>
-  </awards>
+  
   <languages>
       <% @product.languages.collect{|language| %>
         <language>
           <id><%= language.languages_id %></id>
-          <text><%= language.languages_description %></text>
+          <text><%= language.name %></text>
           <short><%= language.short %></short>
         </language>
       <% } %>
@@ -73,7 +77,7 @@
   <% if @product.picture_format %>
   <picture_format>
     <id><%= @product.picture_format.id %></id>
-    <name><%= @product.picture_format.name %></name>
+    <name><%= REXML::Text.new(@product.picture_format.name).to_s %></name>
   </picture_format>
   <% end %>
   <sound_tracks>
