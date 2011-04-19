@@ -44,6 +44,7 @@ class Product < ActiveRecord::Base
 
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
   named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
+  named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
 
   define_index do
     indexes products_media
@@ -247,7 +248,11 @@ class Product < ActiveRecord::Base
     if options[:sort] && options[:sort].to_sym == :new
       products = products.not_recent
     end
-    products = products.by_kind(:normal).available
+    if options[:adult]
+      products = products.by_kind(:adult).available
+    else
+      products = products.by_kind(:normal).available
+    end
 
     if options[:list_id] && !options[:list_id].blank?
       sort = sort_by("special_order asc", options)

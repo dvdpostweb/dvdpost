@@ -1,8 +1,9 @@
 class WishlistItemsController < ApplicationController
   def index
-    @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(:normal).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
-    @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(:normal).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
-    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(:normal).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
+    kind = params[:kind] || :normal
+    @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
+    @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
+    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
     
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
@@ -36,7 +37,8 @@ class WishlistItemsController < ApplicationController
   end
 
   def new
-    product = Product.normal_available.find(params[:product_id])
+    product = Product.both_available.find(params[:product_id])
+    Rails.logger.debug { "@@@#{product.inspect}" }
     @submit_id = params[:submit_id]
     @text = params[:text]
     
