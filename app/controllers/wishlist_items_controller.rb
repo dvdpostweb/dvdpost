@@ -38,7 +38,6 @@ class WishlistItemsController < ApplicationController
 
   def new
     product = Product.both_available.find(params[:product_id])
-    Rails.logger.debug { "@@@#{product.inspect}" }
     @submit_id = params[:submit_id]
     @text = params[:text]
     
