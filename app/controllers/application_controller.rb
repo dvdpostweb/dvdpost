@@ -10,25 +10,23 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  helper_method :current_customer
-
-  before_filter :save_attempted_path
-  before_filter :check_host
-  before_filter :authenticate!, :unless => :is_special_page?
+    helper_method :current_customer, :unless => :is_it_xml?
+ 
+    before_filter :save_attempted_path, :unless => :is_it_xml?
+    before_filter :check_host
+    before_filter :authenticate!, :unless => :is_special_page?
   
-  before_filter :wishlist_size
-  before_filter :indicator_close?
-  before_filter :delegate_locale
-  before_filter :messages_size, :unless => :is_it_js?
-  before_filter :load_partners, :unless => :is_it_js?
-  before_filter :redirect_after_registration
-  before_filter :set_locale_from_params
-  before_filter :set_country
-  before_filter :get_wishlist_source
-  before_filter :last_login, :unless => :is_it_js?
-  before_filter :theme_actif, :unless => :is_it_js?
-  before_filter :check_host
-  
+    before_filter :wishlist_size, :unless => :is_it_xml?
+    before_filter :indicator_close?, :unless => :is_it_xml?
+    before_filter :delegate_locale, :unless => :is_it_xml?
+    before_filter :messages_size, :if => :is_it_html?
+    before_filter :load_partners, :if => :is_it_html?
+    before_filter :redirect_after_registration, :unless => :is_it_xml?
+    before_filter :set_locale_from_params, :unless => :is_it_xml?
+    before_filter :set_country, :unless => :is_it_xml?
+    before_filter :get_wishlist_source, :unless => :is_it_xml?
+    before_filter :last_login, :if => :is_it_html?
+    before_filter :theme_actif, :if => :is_it_html?
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -42,6 +40,14 @@ class ApplicationController < ActionController::Base
 
   def is_it_js?
     request.format.js?
+  end
+
+  def is_it_xml?
+    request.format.xml?
+  end
+
+  def is_it_html?
+    request.format.html?
   end
 
   def theme_actif
