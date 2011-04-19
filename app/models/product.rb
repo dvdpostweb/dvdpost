@@ -43,6 +43,7 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
 
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
+  named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
 
   define_index do
     indexes products_media
@@ -315,7 +316,11 @@ class Product < ActiveRecord::Base
   end
 
   def image
-    File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
+    if products_type == DVDPost.product_kinds[:adult]
+      File.join(DVDPost.imagesx_path, description.image) if description && !description.image.blank?
+    else
+      File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
+    end
   end
 
   def rating(customer=nil)
@@ -389,10 +394,12 @@ class Product < ActiveRecord::Base
   end
 
   def media_alternative(media)
-    if I18n.locale == :nl
-      self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).with_subtitles(DVDPost.product_languages[I18n.locale]).limit(1).first
-    else
-      self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).with_languages(DVDPost.product_languages[I18n.locale]).limit(1).first
+    if imdb_id > 0
+      if I18n.locale == :nl
+        self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).with_subtitles(DVDPost.product_languages[I18n.locale]).limit(1).first
+      else
+        self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).with_languages(DVDPost.product_languages[I18n.locale]).limit(1).first
+      end
     end
   end
   

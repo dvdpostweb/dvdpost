@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class AdultProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
@@ -69,7 +69,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.normal_available.find(params[:id])
+    @product = Product.adult_available.find(params[:id])
     unless request.format.xml?
       @filter = get_current_filter({})
       @product.views_increment
@@ -87,7 +87,7 @@ class ProductsController < ApplicationController
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
     respond_to do |format|
-      #format.xml
+      format.xml
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
