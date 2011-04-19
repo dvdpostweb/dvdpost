@@ -294,7 +294,7 @@ module ApplicationHelper
     #  end
     #end
     @jacob = 1
-    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') || (request.host == 'dvdpost.dev')
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
       ENV['HOST_OK'] = "1"
     else
       ENV['HOST_OK'] = "0"
