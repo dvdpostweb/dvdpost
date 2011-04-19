@@ -4,6 +4,10 @@ module DVDPost
       'http://www.dvdpost.be/images'
     end
 
+    def imagesx_path
+      'http://www.dvdpost.be/imagesx'
+    end
+
     def images_carousel_path
       "#{images_path}/landings"
     end
