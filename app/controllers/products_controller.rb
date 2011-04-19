@@ -69,21 +69,25 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @filter = get_current_filter({})
     @product = Product.normal_available.find(params[:id])
-    @product.views_increment
-    @public_url = product_public_path(@product)
-    if @product.imdb_id == 0
-      @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
-      @reviews_count = @product.reviews.approved.by_language(I18n.locale).count
-    else  
-      @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-      @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
+    unless request.format.xml?
+      @filter = get_current_filter({})
+      @product.views_increment
+      @public_url = product_public_path(@product)
+      if @product.imdb_id == 0
+        @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+        @reviews_count = @product.reviews.approved.by_language(I18n.locale).count
+      else  
+        @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+        @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
+      end
+      product_recommendations = @product.recommendations
+      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
+      @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
+      @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
-    product_recommendations = @product.recommendations
-    @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
-    @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
     respond_to do |format|
+      format.xml
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
@@ -99,7 +103,6 @@ class ProductsController < ApplicationController
         end
         Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
-      @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
       format.js {
         if params[:reviews_page]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
