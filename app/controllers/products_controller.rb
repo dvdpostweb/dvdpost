@@ -86,8 +86,10 @@ class ProductsController < ApplicationController
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
+    
     respond_to do |format|
-      #format.xml
+      Rails.logger.debug { "@@@#{format.xml}" }
+      format.xml
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
