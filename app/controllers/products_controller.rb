@@ -89,7 +89,6 @@ class ProductsController < ApplicationController
     
     respond_to do |format|
       Rails.logger.debug { "@@@#{format.xml}" }
-      format.xml
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
@@ -112,6 +111,8 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :object => @recommendations
         end
       }
+      format.xml
+      
     end
   end
 
