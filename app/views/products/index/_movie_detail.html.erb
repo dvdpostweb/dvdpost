@@ -3,7 +3,11 @@
 <% if product.streaming? %>
   <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil  %>
 <% end %>
-<% path = product_path(:id => product.to_param, :recommendation => @source) %>
+<% if product.products_type == DVDPost.product_kinds[:adult] %>
+  <% path = adult_product_path(:id => product.to_param, :recommendation => @source) %>
+<% else %>
+  <% path = product_path(:id => product.to_param, :recommendation => @source) %>
+<% end %>
 <div class="<%= jacket_mode == :streaming ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>

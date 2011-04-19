@@ -35,6 +35,7 @@ class AdultProductsController < ApplicationController
     if params[:sort].nil?
       params[:sort] = 'normal'
     end
+    params[:adult] = true
     @countries = ProductCountry.visible.order
     respond_to do |format|
       format.html do
