@@ -15,14 +15,13 @@ class ApplicationController < ActionController::Base
     before_filter :save_attempted_path, :unless => :is_it_xml?
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
-  
     before_filter :wishlist_size, :unless => :is_it_xml?
     before_filter :indicator_close?, :unless => :is_it_xml?
-    before_filter :delegate_locale, :unless => :is_it_xml?
+    before_filter :delegate_locale, :if => :is_it_html?
     before_filter :messages_size, :if => :is_it_html?
     before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
-    before_filter :set_locale_from_params, :unless => :is_it_xml?
+    before_filter :set_locale_from_params
     before_filter :set_country, :unless => :is_it_xml?
     before_filter :get_wishlist_source, :unless => :is_it_xml?
     before_filter :last_login, :if => :is_it_html?
@@ -65,7 +64,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale_from_params
     locale = extract_locale_from_params
-    locale = current_customer.update_locale(locale) if current_customer
+    locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
     set_locale(locale || :fr)
   end
 
