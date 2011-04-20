@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
     before_filter :get_wishlist_source, :unless => :is_it_xml?
     before_filter :last_login, :if => :is_it_html?
     before_filter :theme_actif, :if => :is_it_html?
+    before_filter :set_accept_header
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -36,6 +37,12 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   protected
+
+  def set_accept_header
+  accept = request.env["HTTP_ACCEPT"]
+
+  request.env["HTTP_ACCEPT"] = "application/xml,application/xhtml+xml,text/html;q=0.9,#{accept}"
+  end
 
   def good_header
     if request.format.html?
