@@ -87,7 +87,6 @@ class ProductsController < ApplicationController
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
     respond_to do |format|
-      #format.xml
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
@@ -110,6 +109,7 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :object => @recommendations
         end
       }
+      format.xml if params[:format] == 'xml'
     end
   end
 
