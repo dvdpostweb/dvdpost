@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
     helper_method :current_customer, :unless => :is_it_xml?
-    before_filter :good_header
     before_filter :save_attempted_path, :unless => :is_it_xml?
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
@@ -44,11 +43,6 @@ class ApplicationController < ActionController::Base
   request.env["HTTP_ACCEPT"] = "application/xml,application/xhtml+xml,text/html;q=0.9,#{accept}"
   end
 
-  def good_header
-    if request.format.html?
-      request.env["HTTP_ACCEPT"] = 'text/plain'
-    end
-  end
   def is_it_js?
     request.format.js?
   end

@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    Rails.logger.debug { "@@@#{request.env["HTTP_ACCEPT"]}" }
     @product = Product.normal_available.find(params[:id])
     unless request.format.xml?
       @filter = get_current_filter({})
