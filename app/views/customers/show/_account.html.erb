@@ -33,9 +33,11 @@
       <tr>
         <td align="right" valign="top" class="adresse"><strong><%= t '.address' %></strong></td>
         <td align="left" valign="top" class="adresse">
+          <% if customer.address %>
           <%= customer.address.name %><br/>
           <%= customer.address.street %><br/>
           <%= "#{customer.address.postal_code} #{customer.address.city}" %>
+          <% end %>
         </td>
       </tr>
       <tr>

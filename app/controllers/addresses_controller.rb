@@ -1,6 +1,9 @@
 class AddressesController < ApplicationController
   def edit
     @address = current_customer.address
+    unless @address
+      @address = Address.new
+    end
     respond_to do |format|
       format.html
       format.js {render :layout => false}
@@ -8,7 +11,7 @@ class AddressesController < ApplicationController
   end
 
   def update
-    @address = current_customer.address
+    @address = current_customer.address || Address.new
     @customer = current_customer
 
     if @address.update_attributes(params[:address])
