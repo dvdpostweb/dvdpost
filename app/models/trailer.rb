@@ -28,4 +28,12 @@ class Trailer < ActiveRecord::Base
   def film1?
     broadcast_service == 'FILM1'
   end
+
+  def allocine?
+    broadcast_service == 'ALLOCINE'
+  end
+
+  def commeaucinema?
+    broadcast_service == 'COMMEAUCINEMA'
+  end
 end
