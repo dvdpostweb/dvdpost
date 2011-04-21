@@ -1,0 +1,142 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+#sondage {
+	margin: 14px 24px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width:720px;
+	background:url(../images/bg_sondage.gif);
+	float:left;
+}
+#sondage .item {
+	padding:4px;
+	width:132px;
+}
+#sondage .image {
+	padding:5px;
+}
+
+.sondagetitle {
+	font-size:18px;
+	color:#fa3216;
+	text-transform:uppercase;
+	font-weight:bold;
+	padding-top:5px;
+	padding-bottom:10px;
+}
+.sondage_images {
+	margin:10px;
+}
+.sondagequestion {
+	font-size:18px;
+	color:#191e24;
+	font-weight:bold;
+	padding-left: 10px;
+}
+
+.survey_theme_link {
+float:right;
+padding-right:15px;
+font-weight:bold;
+
+}
+
+.answers {
+	font-size:14px;
+	color:#191e24;
+	text-align:center;
+}
+.footer_sondage {
+	background:url(../images/bg_sondage_footer.gif) no-repeat scroll 0 0 transparent;
+	height:15px;
+	width:720px;
+}
+#sondage .button_confirm {
+	background: url("../images/sondage_bouton.gif") no-repeat scroll 0 0 transparent;
+	border: medium none;
+	color: white;
+	cursor: pointer;
+	font-size: 17px;
+	font-weight: bold;
+	height: 34px;
+	margin: 0 0 0 50px;
+	text-shadow: 1px 1px 1px #333333;
+	width: 121px;
+}
+#sondage .button_confirm:hover {
+	background: url("../images/sondage_bouton.gif") no-repeat scroll 0 -34px transparent;
+}
+#sondage .check {
+	background: url("../images/check_sondage.gif") no-repeat scroll 0 -15px transparent;
+	cursor: pointer;
+	height: 15px;
+	width:14px;
+	margin: 12px auto;
+	text-indent: -999em;
+}
+#sondage .check.selected {
+	background: url("../images/check_sondage.gif") no-repeat scroll 0 0 transparent !important;
+}
+#banner_autopromo {
+	float:right;
+	padding-top:30px;
+}
+.resulat_sondage_winner {
+	font-size:18px;
+	color:#191e24;
+	font-weight:bold;
+	text-transform:uppercase;
+	padding-left: 10px;
+	float:left;
+}
+.resulat_sondage_losers {
+	font-size:14px;
+	color:#191e24;
+	float:right;
+
+}
+#maincontent {
+	width: 928px;
+}
+.clear {
+	clear: both;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+}
+.item 
+{
+  float:left;
+}
+.survey_barre
+{
+  margin:0 0 0 2px;
+  background: url("../images/sondage_barre.gif") repeat scroll 0 0 transparent;
+  height:7px;
+}
+#winner
+{
+  font-size:18px; 
+  font-weight:bold; 
+  color:#fa3216; 	
+  text-transform:uppercase;
+}
+.border
+{
+  margin: 0 0 0 5px;
+}
+#result
+{
+ margin:50px 0 0 0 ; 
+}
+#survey_title
+{
+  font-size:18px; font-weight:bold;
+}
+#survey_rating
+{
+  font-size:30px; 
+  font-weight:bold;
+}

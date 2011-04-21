@@ -1,0 +1,17 @@
+<div id="sondage">
+  <div><%= image_tag @survey.image %></div>
+  <div class="sondagetitle" align="center">Votre avis : l'opinion des membres de dvdpost</div>
+  <div class="sondagequestion"><%= @survey.title(I18n.locale) %></div>
+  
+  <% form_for :customer_survey, :url => survey_customer_surveys_path(params[:servey_id]) do |f|%>
+  <%= f.hidden_field :response %>
+    <div class="sondage_images">
+        <%= render :partial => '/customer_surveys/new/detail', :collection => @details, :locals => {:f => f} %>
+        <div style='clear:both'></div>
+    </div>
+    <div align="right" style="padding-right:15px;">
+      <button type="submit" class="button_confirm">VALIDER</button>
+    </div>
+  <% end %>
+  <div class="footer_sondage"></div>
+</div>

@@ -111,7 +111,6 @@ class ProductsController < ApplicationController
         end
       }
       format.xml if params[:format] == 'xml'
-      
     end
   end
 

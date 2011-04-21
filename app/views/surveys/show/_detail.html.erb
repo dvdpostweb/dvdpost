@@ -1,0 +1,6 @@
+<% pourcent = @survey.total_rating >0 ? (((detail.rating*10000).to_f / @survey.total_rating.to_f).round).to_f/100 : 0%>
+<tr>
+  <td align="right"><%= detail.product.description.title if detail.product.description %></td>
+  <td width="200"><div class='survey_barre' style='width:<%= (199 * (pourcent/100))+1 %>px'></td>
+  <td width="50"><%= pourcent %>%</td>
+</tr>
