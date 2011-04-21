@@ -3,7 +3,7 @@
   <div class="sondagetitle" align="center">Votre avis : l'opinion des membres de dvdpost</div>
   <div class="sondagequestion" style="float:left"><%= @survey.title(I18n.locale) %></div>
   <% if @theme %>
-  <div class="survey_theme_link"><img src="/images/hp-ttls-nav-arrow.gif" align="absmiddle" /> <a href="<%= themes_path(:page_name => @theme.name) %>" style="color:#fa3216;">Voir notre selection de films</a></div>
+  <div class="survey_theme_link"><img src="/images/hp-ttls-nav-arrow.gif" align="absmiddle" /> <a href="<%= themes_path(:page_name => @survey_theme.name) %>" style="color:#fa3216;">Voir notre selection de films</a></div>
   <% end%>
    <div class="clear"></div>
   <div class="resulat_sondage_winner"><p> RESULTATS </p>

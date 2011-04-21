@@ -3,6 +3,6 @@ class SurveysController < ApplicationController
     @survey = Survey.find(params[:id])
     @details = @survey.survey_details
     @best = @survey.best
-    @theme = @survey.themes_event
+    @survey_theme = @survey.themes_event
   end
 end
