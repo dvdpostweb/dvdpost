@@ -10,6 +10,11 @@ $(function() {
     $('#customer_survey_response').val(selected)
     return false;
   });
-  
+  $('.button_confirm').live('click',function(){
+    if($('#customer_survey_response').val() == "0")
+    {
+      return false;
+    }
+  });
   
 });

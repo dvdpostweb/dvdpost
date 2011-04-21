@@ -4,7 +4,7 @@
   <div class="sondagequestion"><%= @survey.title(I18n.locale) %></div>
   
   <% form_for :customer_survey, :url => survey_customer_surveys_path(params[:servey_id]) do |f|%>
-  <%= f.hidden_field :response %>
+  <%= f.hidden_field :response, :value => "0" %>
     <div class="sondage_images">
         <%= render :partial => '/customer_surveys/new/detail', :collection => @details, :locals => {:f => f} %>
         <div style='clear:both'></div>
