@@ -64,6 +64,7 @@ class Customer < ActiveRecord::Base
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
   has_many :messages, :foreign_key => :customers_id
+  has_many :tickets
   has_many :compensations, :foreign_key => :customers_id
   has_many :addresses, :foreign_key => :customers_id
   has_many :payment, :foreign_key => :customers_id

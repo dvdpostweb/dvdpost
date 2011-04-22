@@ -35,5 +35,9 @@ class CreateSurveys < ActiveRecord::Migration
   end
 
   def self.down
+    drop_table :surveys
+    drop_table :survey_kinds
+    drop_table :survey_details
+    drop_table :customer_surveys
   end
 end

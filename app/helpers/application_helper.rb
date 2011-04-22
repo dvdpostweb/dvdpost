@@ -49,7 +49,7 @@ module ApplicationHelper
   end
 
   def messages_size
-    @messages_size = (current_customer.messages.not_read.count || 0) if current_customer
+    @messages_size = (current_customer.tickets.active.find(:all, :include => :message_tickets, :conditions =>  ["message_tickets.`read` = 0 and message_tickets.user_id > 0"]).count || 0) if current_customer
   end
 
   def load_partners

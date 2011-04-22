@@ -454,3 +454,19 @@ position:relative;
 #titles-wrap.urgent {
 margin:25px 25px 0;
 }
+.dialog_dvdpost
+{
+  background : #fff;
+  width:420px;
+  margin: 20px 0 20px 40px;
+  padding: 10px 20px;
+  
+}
+.dialog_customer
+{
+  background : #fff;
+  width:420px;
+  margin: 20px 0;
+  padding: 10px 20px;
+  
+}

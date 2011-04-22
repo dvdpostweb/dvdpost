@@ -107,6 +107,10 @@ ActionController::Routing::Routes.draw do |map|
       survey.resources :customer_surveys, :only => [:new, :create]
     end
 
+    localized.resources :tickets do |ticket|
+      ticket.resources :message_tickets, :only => [:create]
+    end
+
     localized.info '/info/:page_name' , :controller => :info
     localized.themes '/themes/:page_name' , :controller => :themes
 
