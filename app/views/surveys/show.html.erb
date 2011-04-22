@@ -1,29 +1,29 @@
 <div id="sondage">
   <div><%= image_tag @survey.image %></div>
-  <div class="sondagetitle" align="center">Votre avis : l'opinion des membres de dvdpost</div>
+  <div class="sondagetitle" align="center"><%= t '.title' %></div>
   <div class="sondagequestion" style="float:left"><%= @survey.title(I18n.locale) %></div>
   <% if @theme %>
-  <div class="survey_theme_link"><img src="/images/hp-ttls-nav-arrow.gif" align="absmiddle" /> <a href="<%= themes_path(:page_name => @survey_theme.name) %>" style="color:#fa3216;">Voir notre selection de films</a></div>
+  <div class="survey_theme_link"><img src="/images/hp-ttls-nav-arrow.gif" align="absmiddle" /> <a href="<%= themes_path(:page_name => @survey_theme.name) %>" style="color:#fa3216;"><%= t '.selection' %></a></div>
   <% end%>
    <div class="clear"></div>
-  <div class="resulat_sondage_winner"><p> RESULTATS </p>
+  <div class="resulat_sondage_winner"><p> <%= t '.result' %> </p>
   <table class="sondage_images" cellpadding="0" cellspacing="0">
     <tr>
       <td><%= image_tag @best.image(@survey.to_param), :width => 122, :height => 122 %></td>
-      <td><p class="border" id="winner"> VAINQUEUR</p>
+      <td><p class="border" id="winner"> <%= t '.winner' %></p>
         <p><span id="survey_title" class="border"><%= @best.product.title %></span> <br />
           <span id="survey_rating" class="border"><%= @survey.total_rating >0 ? (((@best.rating*10000).to_f / @survey.total_rating.to_f).round).to_f/100 : 0%>%</span></p></td>
     </tr>
   </table></div>
   <div id="resulat_sondage_losers">
     <p>
-      <table cellpadding="0" cellspacing="0" width="420" border="0" id="result">
+      <table cellpadding="0" cellspacing="0" width="400" border="0" id="result">
         <%= render :partial => '/surveys/show/detail', :collection => @details %>
       </table>
     </p>
   </div>
    <div class="clear"></div>
-  <p align="right" style="padding-right:15px;"  > <a href="<%= root_path %>" style="color:#191e24;">Retour à la page d’accueil</a> </p>
+  <p align="right" style="padding-right:15px;"  > <a href="<%= root_path %>" style="color:#191e24;"><%= t '.back' %></a> </p>
   <div class="footer_sondage"></div>
 </div>
 <div id="banner_autopromo"><img src="images/banner_autopromo.gif" /></div>
