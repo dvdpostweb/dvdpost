@@ -7,7 +7,7 @@
       <% if message.title %>
         <%= h message.title %>
       <% else %>
-        <%= h message.category_ticket.name if message.category_ticket %>
+        <%= h (t("message.show.category_#{message.category_ticket_id}")) if message.category_ticket %>
       <% end %>
     <% end %>
   </td>
