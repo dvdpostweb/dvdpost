@@ -1,5 +1,5 @@
 <div id="question">
-  <% form_for @message do |f| %>
+  <% form_for @message, :url => messages_path do |f| %>
     <h3>
       <%= t '.intro' %>
     </h3>
@@ -15,12 +15,12 @@
     <p><%= link_to t('messages.index.radio_question.labels.pwd_forgotten'), customer_path(:id => current_customer)  %></p>
     <p><%= link_to t('messages.index.radio_question.labels.add_to_list'), php_path('custservaddtitles.php') %></p>
     <p><%= link_to t('messages.index.radio_question.labels.vacation'), customer_path(:id => current_customer) %></p>
-    <%= f.hidden_field(:category_id, :value =>  6) %>
+    <%= f.hidden_field(:category_ticket_id, :value =>  1) %>
     <p>
       <%= t '.thanks' %>
     </p>
     <%= f.error_messages %>
-    <%= f.text_area 'question' %>
+    <%= text_area_tag 'message' %>
     <% content_tag :button, :type => :submit do %>
       <%= t '.send' %>
     <% end %>

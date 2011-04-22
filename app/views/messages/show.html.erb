@@ -1,17 +1,22 @@
 <div class="modal-window-content">
   <h3>
     <span><% @message.created_at.strftime("%d/%m/%Y") %></span>
-    <%= h @message.category.name if @message.category %>
-    <%= " : #{h @message.product.description.title}" if @message.product %>
+    <% if @message.title %>
+      <%= h @message.title %>
+    <% else %>
+      <%= h @message.category_ticket.name if @message.category_ticket %>
+    <% end %>
   </h3>
   <div class="content">
-    <h4>
-      <%= t '.title' %>
-    </h4>
-    <%= @message.question %>
-    <% if @message.updated_at %>
-      <h4><%= t '.answer'%> <%= @message.updated_at.strftime("%d/%m/%Y") %></h4>
-      <%=  @message.response %>
+    <%= render :partial => '/messages/show/dialog', :collection => @message.message_tickets %>
+  </div>
+  <div>
+    <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param) do |f| %>
+      nouveau message
+      <%= f.text_area 'message' %>
+      <% content_tag :button, :type => :submit do %>
+        <%= t '.send' %>
+      <% end %>
     <% end %>
   </div>
 </div>
