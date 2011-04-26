@@ -193,6 +193,15 @@ module DVDPost
       statuses
     end
 
+    def messages_kind
+      kind = OrderedHash.new
+      kind.push(:number,        {:message => 18, :category => 16})
+      kind.push(:billing_price, {:message => 13, :category => 9})
+      kind.push(:billing_dvd,   {:message => 14, :category => 10})
+      kind.push(:dom,           {:message => 16, :category => 13})
+      kind
+    end
+  
     def email
       HashWithIndifferentAccess.new.merge({
         :sponsorships_invitation    => 446,

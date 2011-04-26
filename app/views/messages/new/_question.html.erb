@@ -1,13 +1,14 @@
 <div id="question">
   <% form_for @message, :url => messages_path do |f| %>
+  <% if !@message_help %>
     <h3>
       <%= t '.intro' %>
     </h3>
     <!--to do -->
-    <p><%= link_to t('messages.index.radio_question.labels.number'), php_path('custserdvdxy.php') %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing'), php_path('custserfact.php') %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.transfer'), php_path('custserdom.php') %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.promo_code'), php_path('custsercodes.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.number'), new_message_path(:kind => :number) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.billing_price'), new_message_path(:kind => :billing_price) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.billing_dvd'), new_message_path(:kind => :billing_dvd) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.transfer'),  new_message_path(:kind => :dom) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.personal_info'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.delivery_info'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.mail_password'), customer_path(:id => current_customer) %></p>
@@ -17,8 +18,16 @@
     <p>
       <%= t '.thanks' %>
     </p>
+    <% else %>
+      <h3><%= message_title(params[:kind].to_sym) %></h3>
+      <p><%= @message_help.messages_html %></p>
+      <%= f.hidden_field(:category_ticket_id, :value =>  @category) %>
+    <% end %>
     <%= f.error_messages %>
     <%= text_area_tag 'message' %>
+    <% if @message_help %>
+      <%= link_to t('.back'), new_message_path(), :id => :back_message %>
+    <% end %>
     <% content_tag :button, :type => :submit do %>
       <%= t '.send' %>
     <% end %>
