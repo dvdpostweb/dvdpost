@@ -23,7 +23,7 @@ $(function() {
     $(this).parent('label').addClass('active');
   });
 
-  $('.show').live('click', function() {
+  /*$('.show').live('click', function() {
     messages_item = $(this);
     jQuery.facebox(function() {
       $.getScript(messages_item.attr('href'), function(data) {
@@ -32,7 +32,7 @@ $(function() {
       });
     });
     return false;
-  });
+  });*/
 
   $(".trash").live("click", function() {
     if (confirm('Are you sure?')) {

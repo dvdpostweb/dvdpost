@@ -19,4 +19,17 @@ module MessagesHelper
   			t '.unspecified'
   	end
   end
+
+  def message_title(kind)
+    case kind
+      when :number 
+        t('messages.index.radio_question.labels.number')
+      when :billing_price 
+        t('messages.index.radio_question.labels.billing_price')
+      when :billing_dvd
+        t('messages.index.radio_question.labels.billing_dvd')
+      when :dom
+        t('messages.index.radio_question.labels.transfer')
+    end
+  end
 end

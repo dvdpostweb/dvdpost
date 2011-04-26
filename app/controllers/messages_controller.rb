@@ -5,7 +5,11 @@ class MessagesController < ApplicationController
     @message.message_tickets.custer.collect do |message|
       message.update_attribute(:read, true)
     end
-    render :layout => false
+    
+    respond_to do |format|
+      format.html {}
+      format.js {render :layout => false}
+    end
   end
 
   def index
@@ -14,6 +18,13 @@ class MessagesController < ApplicationController
 
   def new
     @message = Ticket.new
+    if params[:kind]
+      kind_param = params[:kind].to_sym
+      kind = DVDPost.messages_kind[kind_param]
+      @message_help = MessageHelp.find(kind[:message])
+      @category = kind[:category]
+    end
+    
   end
 
   def create
