@@ -1,7 +1,6 @@
 class MessagesController < ApplicationController
   def show
     @message = current_customer.tickets.find(params[:id])
-    
     @message.message_tickets.custer.collect do |message|
       message.update_attribute(:read, true)
     end
@@ -13,7 +12,11 @@ class MessagesController < ApplicationController
   end
 
   def index
-    @messages = current_customer.tickets.active.find(:all, :include => :message_tickets, :order => "message_tickets.id desc").paginate(:page => params[:page] || 1)
+    if params[:sort] && params[:sort].to_sym == :first
+      @messages = current_customer.tickets.active.ordered.paginate(:page => params[:page] || 1)
+    else  
+      @messages = current_customer.tickets.active.find(:all, :include => :message_tickets, :order => "message_tickets.id desc").paginate(:page => params[:page] || 1)
+    end
   end
 
   def new

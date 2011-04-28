@@ -54,4 +54,11 @@ $(function() {
     ;
     return false;
   });
+  
+  $('#sort_combo').change(function() {sort_change()});
 });
+var options = {}
+function sort_change()
+{
+  $('#sort_form').submit();
+}
