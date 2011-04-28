@@ -484,3 +484,61 @@ a#back_message
 {
   color: #FF4B00;
 }
+.open {
+	color:#666666;
+	font-weight:lighter;
+}
+
+
+.close {
+	color:#000000;
+	font-weight:bold;
+}
+#messages .open a {
+	color:#666666;
+	font-weight:lighter;
+}
+
+#messages {
+	width:812px;
+	
+	
+}
+
+
+#header_messages {
+	background-color:#1f1e1e;
+	color:#FFFFFF;
+	padding-left:10px;
+	text-align:left;
+	padding-bottom:5px;
+	width:802px;
+	
+}
+#header_messages a
+{
+  color: #fff;
+}
+#header_messages h3 {
+	color:#FFFFFF;
+	font-size:21px;
+	padding-top:10px;
+	padding-bottom:5px;
+	
+}
+
+#header_messages a.select_view {
+  color:#FF4c00 !important;
+}
+
+
+.bysort_message {
+  float: left;
+  font-size: 11px;
+	font-weight:lighter;
+  padding: 3px 10px 0 0;
+}
+
+#messages #bysort {
+    padding: 0 0 5px;
+}
