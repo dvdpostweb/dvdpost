@@ -52,6 +52,8 @@ module HomeHelper
       when 'THEME_EVENT'
         name = ThemesEvent.find(carousel.reference_id).name
         themes_path(:page_name => name)
+      when 'SURVEY'
+        new_survey_customer_survey_path(:survey_id => carousel.reference_id)
       when 'URL'
         eval(t(".url_#{carousel.id}"))
       end

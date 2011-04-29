@@ -12,7 +12,7 @@
       <a href='<%= messages_path(:sort => params[:sort], :filter => 'dvdpost') %>' class="<%= params[:filter] == 'dvdpost' ? 'select_view' : '' %>"><img src="/images/square_<%= params[:filter] == 'dvdpost' ? '' : 'no' %>selected.gif" /> Messages DVDPost</a>
     <span></span>
   </div>
-    <table cellspacing="0" cellpadding="0" border="0">
+    <table cellspacing="0" cellpadding="0" border="0" id ='table_message'>
       <colgroup>
         <col id="ids" />
         <col id="cats" />

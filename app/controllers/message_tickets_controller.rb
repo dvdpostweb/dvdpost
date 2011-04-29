@@ -2,9 +2,9 @@ class MessageTicketsController < ApplicationController
   def create
     ticket = current_customer.tickets.find(params[:ticket_id])
     if ticket
-      @message = MessageTicket.new(params[:message_ticket].merge(:ticket => ticket))
+      @message = MessageTicket.new(:ticket => ticket, :mail_id => DVDPost.email[:message_free], :variables => "$$$body$$$:::#{params[:message]};;;")
       @message.save
     end
-    redirect_to messages_path 
+    redirect_to message_path(:id => params[:ticket_id])
   end
 end
