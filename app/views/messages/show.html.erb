@@ -20,7 +20,7 @@
       <%= render :partial => '/messages/show/dialog', :collection => message.reverse %>
       <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param) do |f| %>
       <div class="who_message_big"><img src="/images/arrow.gif" align="absmiddle" /><%= t '.send' %></div>
-      <%= text_area_tag 'message',nil,:cols => 113, :rows => 8 %><br />
+      <%= text_area_tag 'message',nil,:cols => 101, :rows => 8 %><br />
       <p>
         <button type="submit"> <%= t '.send' %> </button>
       </p>
