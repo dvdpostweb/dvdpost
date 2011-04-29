@@ -6,4 +6,8 @@ class Email < ActiveRecord::Base
   alias_attribute :subject, :messages_subject
 
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => DVDPost.product_languages[language]}}}
+
+  def short?
+    length == 'SHORT'
+  end
 end

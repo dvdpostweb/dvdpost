@@ -54,7 +54,7 @@
 
 /*   Contacts   */
 
-#contact-wrap #messages table {
+#contact-wrap #messages #table_message table {
   width: 812px;
 }
 #contact-wrap #messages #ids {
@@ -91,13 +91,13 @@
   /*width: 50px;*/
 }
 
-#contact-wrap #messages th {
+#contact-wrap #messages #table_message th {
   height: 26px;
   padding: 0 8px;
   background: #e4e5e6;
   font-size: 1.17em;
 }
-#contact-wrap #messages td {
+#contact-wrap #messages #table_message td {
   padding: 2px 8px;
   border-bottom: 1px solid #0e0e0e;
 }
@@ -541,4 +541,67 @@ a#back_message
 
 #messages #bysort {
     padding: 0 0 5px;
+}
+.dvdpostmessage {
+background-color:#fff;
+margin-top: 20px;
+margin-bottom: 20px;
+border:#666666 1px solid;
+
+}
+
+.customessage{
+background-color:#c7c3c3;
+margin-top: 20px;
+margin-bottom: 20px;
+
+}
+
+.dvdpostmessage .avatar{
+
+float:left;
+padding:6px;}
+
+.avatar_message {
+    float: left;
+    padding: 10px;
+    width: 60px;
+}
+
+#messages button {
+    background: url("/images/message_button.png") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-size: 15px;
+    height: 31px;
+    margin: 5px 0 0 701px;
+    text-shadow: 1px 1px 1px #555555;
+    width: 110px;
+}
+
+#messages button:hover {
+    background: url("/images/message_button.png") no-repeat scroll 0 -35px transparent;
+    
+}
+.who_message { font-size:14px;
+color:#000000;
+text-align:left;
+
+}
+
+.who_message_big { font-size:16px;
+font-weight:bold;color:#000000;
+text-align:left;
+
+}
+.message_text {
+    float: right;
+    margin-right: 24px;
+    width: 706px;
+}
+.message_text_long {
+    margin: 0 auto;
+    min-width: 706px;
 }

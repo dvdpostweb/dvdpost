@@ -32,4 +32,23 @@ module MessagesHelper
         t('messages.index.radio_question.labels.transfer')
     end
   end
+
+  def config_dialog(user_id)
+    if user_id
+      {:class => 'dvdpostmessage', :image => 'avatar_dvdpost.gif', :title => 'dvdpost'}
+    else
+      {:class => 'customessage', :image => 'avatar.gif', :title => 'customer'}
+    end
+  end
+
+  def replace_variables(body, variables)
+    extracts = variables.split(';;;')
+    extracts.collect do |extract|
+      raw = extract.split(':::')
+      s = raw[0].gsub(/\$/,'\$')
+      r = Regexp.new(s, true)
+      body = body.gsub(r, raw[1])
+    end
+    body
+  end
 end

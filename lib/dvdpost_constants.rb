@@ -207,6 +207,8 @@ module DVDPost
         :sponsorships_invitation    => 446,
         :streaming_product    => 571,
         :streaming_product_free    => 571,
+        :message_free    => 578,
+        
       })
     end
 

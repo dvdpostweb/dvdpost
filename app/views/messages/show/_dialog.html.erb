@@ -1,4 +1,13 @@
-<div class='<%= dialog.user_id ? 'dialog_dvdpost' : 'dialog_customer'%>'>
-  <div><%= dialog.created_at.strftime("%d/%m/%Y %H:%m") %></div>
-  <div><%= dialog.message %></div>
-</div>
+<% config = config_dialog(dialog.user_id)%>
+  <div class="<%= config[:class] %>">
+    <% if dialog.email.short? %>
+      <div class="avatar_message"><img src="/images/<%= config[:image] %>" class="avatar"  /></div>
+      <div class="message_text">
+    <% else %>
+      <div class="message_text_long">
+    <% end %>
+      <p class="who_message"> <span class="who_message_big"><%= t(".#{config[:title]}") %></span> <%= dialog.created_at.strftime("%d/%m/%Y %H:%m") %></p>
+      <p align="justify"><%= replace_variables(dialog.email.body, dialog.variables) %></p>
+    </div>
+    <div class="clear"></div>
+  </div>
