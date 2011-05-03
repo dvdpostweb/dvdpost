@@ -13,6 +13,15 @@
       </strong>
     </li>
   <% end %>
+
+  <% if product.studio %>
+    <li>
+      <strong>
+        <%= "#{t('.studio')} #{link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param)}" %>
+      </strong>
+    </li>
+  <% end %>
+  
   <% actors = product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %>
   <% if actors %>
   <li>
@@ -101,6 +110,7 @@
   <%= product.available_at.strftime("%d/%m/%Y") if product.available_at %>
 </p>
 <% end %>
+<%= render :partial => 'products/preview', :locals => {:product => product} if product.products_type == DVDPost.product_kinds[:adult] %>
 
 <div class="cover">
   <span id="<%= product_media_id(product.media) %>">
@@ -112,5 +122,4 @@
   <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token} if product.streaming? and streaming_access? %>
   
 </div>
-<% Rails.logger.debug { "@@@#{request.format.xml?}" } %>
 <iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(@public_url) %>&amp;layout=standard&amp;show_faces=true&amp;width=400&amp;action=recommend&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:80px;" allowTransparency="true"></iframe>

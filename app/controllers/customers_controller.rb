@@ -55,9 +55,6 @@ class CustomersController < ApplicationController
 
   def rotation_dvd
     @customer = Customer.find(current_customer)
-    logger.debug("@@@")
-    logger.debug(params.inspect)
-    logger.debug(params[:type])
     @customer.rotation_dvd!(params[:type],1)
     respond_to do |format|
       format.html do

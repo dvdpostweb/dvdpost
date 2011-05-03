@@ -234,6 +234,7 @@ module ProductsHelper
 
   def products_index_title
     title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
+    title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
     title = "#{t '.actor'}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
     title = t('.recommendation') if params[:view_mode] == 'recommended'
     title = t('.streaming_title') if params[:view_mode] == 'streaming'
@@ -278,9 +279,9 @@ module ProductsHelper
     end
   end
 
-  def left_column_categories(selected_category)
+  def left_column_categories(selected_category, kind )
     html_content = []
-    Category.active.roots.movies.by_kind(:normal).remove_themes.ordered.collect do |category|
+    Category.active.roots.movies.by_kind(kind).remove_themes.ordered.collect do |category|
       li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent
       if category == selected_category
         a_class = 'actived'

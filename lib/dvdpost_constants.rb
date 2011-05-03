@@ -8,6 +8,10 @@ module DVDPost
       'http://www.dvdpost.be/imagesx'
     end
 
+    def imagesx_preview_path
+      'http://www.dvdpost.be/imagesx/screenshots'
+    end
+
     def images_carousel_path
       "#{images_path}/landings"
     end

@@ -64,6 +64,7 @@ class ApplicationController < ActionController::Base
   def set_locale_from_params
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
+    Rails.logger.debug { "locale params#{locale}" }
     set_locale(locale || :fr)
   end
 
