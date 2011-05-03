@@ -10,8 +10,8 @@ module RoutingFilter
          kind = :adult
       elsif  path =~ /\/normal/ 
         kind = :normal
-      elsif path =~ /\/[a-zA-Z]{2}/ 
-        path.sub! %r(^/([a-zA-Z]{2})) do kind = :normal; "/#{$1}/normal" end
+      elsif path =~ /\/fr|nl|en/ 
+        path.sub! %r(^/(fr|nl|en)) do kind = :normal; "/#{$1}/normal" end
       else
         kind = :normal
       end
