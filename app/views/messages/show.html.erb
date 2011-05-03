@@ -12,11 +12,7 @@
            <%= h (t("message.show.category_#{@message.category_ticket_id}")) if @message.category_ticket %>
         <% end %>
       </p>
-      <% message = params[:all] ? @message.message_tickets.ordered : @message.message_tickets.ordered.limit(3) %>
-      <% total = @message.message_tickets.count %>
-      <% if !params[:all] && total > 3 %>
-        <%= link_to 'show all', message_path(:id => params[:id], :all => 1)%>
-      <% end %>
+      <% message =  @message.message_tickets.ordered %>
       <%= render :partial => '/messages/show/dialog', :collection => message.reverse %>
       <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param) do |f| %>
       <div class="who_message_big"><img src="/images/arrow.gif" align="absmiddle" /><%= t '.send' %></div>

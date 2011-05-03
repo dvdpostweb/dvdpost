@@ -51,4 +51,15 @@ module MessagesHelper
     end
     body
   end
+
+  def get_data(variable ,variables)
+    extracts = variables.split(';;;')
+    extracts.collect do |extract|
+      raw = extract.split(':::')
+      if raw[0] == "$$$#{variable}$$$" 
+        return raw[1]
+      end
+    end
+    return false
+  end
 end

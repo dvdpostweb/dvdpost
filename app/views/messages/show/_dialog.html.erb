@@ -1,3 +1,8 @@
+<% product_id = get_data('product_id',dialog.variables) %>
+<% Rails.logger.debug { "@@@#{product_id.inspect}" }%>
+<% if product_id %>
+  <% product = Product.find(product_id)%>
+<% end %>
 <% config = config_dialog(dialog.user_id)%>
   <div class="<%= config[:class] %>">
     <% if dialog.email.short? %>
@@ -6,7 +11,7 @@
     <% else %>
       <div class="message_text_long">
     <% end %>
-      <p class="who_message"> <span class="who_message_big"><%= t(".#{config[:title]}") %></span> <%= dialog.created_at.strftime("%d/%m/%Y %H:%m") %></p>
+      <p class="who_message"> <span class="who_message_big"><%= t(".#{config[:title]}") %></span> <%= dialog.created_at.strftime("%d/%m/%Y %H:%m") %> <%= product.title if product %></p>
       <p align="justify"><%= replace_variables(dialog.email.body, dialog.variables) %></p>
     </div>
     <div class="clear"></div>

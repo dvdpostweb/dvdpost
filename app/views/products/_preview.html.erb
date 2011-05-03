@@ -1,6 +1,9 @@
-<%= image_tag product.preview_image(1) %>
-<%= image_tag product.preview_image(2) %>
-<%= image_tag product.preview_image(3) %>
-<%= image_tag product.preview_image(4) %>
-<%= image_tag product.preview_image(5) %>
-<%= image_tag product.preview_image(6) %>
+<div style="width:700px;margin:10px 0 0 0">
+  <% 6.times do |i| %>
+    <% t = i + 1 %>
+    <div style="float:left; margin:3px">
+    <%= image_tag product.preview_image(t), :style => 'max-width:205px' %>
+    </div>
+  <% end %>
+  <div style="clear:both"></div>
+</div>
