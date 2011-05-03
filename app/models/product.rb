@@ -19,8 +19,10 @@ class Product < ActiveRecord::Base
   alias_attribute :year,            :products_year
   alias_attribute :price,           :products_price
   alias_attribute :next,            :products_next
+  alias_attribute :studio,          :products_studio
   
   belongs_to :director, :foreign_key => :products_directors_id
+  belongs_to :studio, :foreign_key => :products_studio
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
@@ -51,6 +53,7 @@ class Product < ActiveRecord::Base
     indexes products_type
     indexes actors.actors_name,                 :as => :actors_name
     indexes director.directors_name,            :as => :director_name
+    indexes studio.studio_name,                 :as => :studio_name
     #indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
   
@@ -71,6 +74,7 @@ class Product < ActiveRecord::Base
     has actors(:actors_id),         :as => :actors_id
     has categories(:categories_id), :as => :category_id
     has director(:directors_id),    :as => :director_id
+    has studio(:studio_id),         :as => :studio_id
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
@@ -126,6 +130,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
   sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
+  sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
   sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
@@ -178,6 +183,7 @@ class Product < ActiveRecord::Base
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
     products = products.by_director(options[:director_id]) if options[:director_id]
+    products = products.by_studio(options[:studio_id]) if options[:studio_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
     products = products.by_country(filter.country_id) if filter.country_id?
     if filter.media? 
@@ -248,7 +254,7 @@ class Product < ActiveRecord::Base
     if options[:sort] && options[:sort].to_sym == :new
       products = products.not_recent
     end
-    if options[:adult]
+    if options[:kind] == :adult
       products = products.by_kind(:adult).available
     else
       products = products.by_kind(:normal).available
@@ -327,6 +333,11 @@ class Product < ActiveRecord::Base
       File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
     end
   end
+
+  def preview_image(id)
+    File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
+  end
+
 
   def rating(customer=nil)
     if customer && customer.has_rated?(self)
@@ -502,5 +513,9 @@ class Product < ActiveRecord::Base
       when :en
         Product.by_kind(:normal).available.recent.random.limit(3)
       end
+  end
+
+  def adult?
+    products_type == DVDPost.product_kinds[:adult]
   end
 end

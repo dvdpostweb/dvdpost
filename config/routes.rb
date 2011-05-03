@@ -1,6 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => :home, :action => :index, :conditions => {:method => :get}
-
   map.resources :locales, :except => [:show], :member => {:reload => :post} do |locale|
     locale.resources :translations, :except => [:show], :member => {:update_in_place => :post}
   end
@@ -11,7 +10,8 @@ ActionController::Routing::Routes.draw do |map|
     oauth.sign_out 'sign_out', :action => :sign_out, :conditions => {:method => :get}
   end
 
-  map.with_options :path_prefix => '/:locale' do |localized|
+  map.with_options :path_prefix => '/:locale/:kind' do |localized|
+    localized.filter "kind"
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
     localized.with_options :controller => :home do |home|
@@ -64,6 +64,10 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :directors, :only => [] do |director|
       director.resources :products, :only => :index
+    end
+
+    localized.resources :studios, :only => [] do |studio|
+      studio.resources :products, :only => :index
     end
 
     localized.resources :lists, :only => [] do |top|

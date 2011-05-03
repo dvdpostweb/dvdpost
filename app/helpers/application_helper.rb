@@ -41,6 +41,9 @@ module ApplicationHelper
   end
 
   def delegate_locale
+    if params[:kind].nil?
+      params[:kind] = 'normal'
+    end
     if params[:locale].nil?
       set_locale('fr')
     else
@@ -162,7 +165,7 @@ module ApplicationHelper
 
   def product_assigned_path(product)
     if product
-      if product.products_type == DVDPost.product_kinds[:adult]
+      if product.adult?
         php_path "product_info_adult.php?products_id=#{product.to_param}"
       else
         product_path(:id => product.to_param)
@@ -302,6 +305,6 @@ module ApplicationHelper
   end
 
   def no_param
-    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:search].nil?))
+    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:studio_id].nil? && params[:search].nil?))
   end
 end

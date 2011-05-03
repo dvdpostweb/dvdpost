@@ -20,8 +20,8 @@ class ProductsController < ApplicationController
       end
     end
     if params['actor_id']
-      actor = Actor.find(params['actor_id'])
-      params['actor_id'] = actor.id
+      @actor = Actor.find(params['actor_id'])
+      params['actor_id'] = @actor.id
     end
     if params['director_id']
       director = Director.find(params['director_id'])
@@ -69,7 +69,11 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.normal_available.find(params[:id])
+    if params[:kind] == :adult
+      @product = Product.adult_available.find(params[:id])
+    else
+      @product = Product.normal_available.find(params[:id])
+    end
     unless request.format.xml?
       @filter = get_current_filter({})
       @product.views_increment
@@ -174,6 +178,10 @@ class ProductsController < ApplicationController
 
 private
   def find_product
-    @product = Product.normal_available.find(params[:product_id])
+    if params[:kind] == :normal
+      @product = Product.normal_available.find(params[:product_id])
+    else
+      @product = Product.adult_available.find(params[:product_id])
+    end
   end
 end
