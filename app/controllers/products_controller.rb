@@ -31,6 +31,7 @@ class ProductsController < ApplicationController
     if params[:category_id]
       filter = get_current_filter
       @popular = current_customer.streaming(filter,{:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
+      @category = Category.find(params[:category_id])
     end
     if params[:sort].nil?
       params[:sort] = 'normal'

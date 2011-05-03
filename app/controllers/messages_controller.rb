@@ -33,7 +33,11 @@ class MessagesController < ApplicationController
   def create
     @ticket = Ticket.new(params[:ticket].merge(:customer_id => current_customer.to_param))
     @ticket.save
-    @message = MessageTicket.new(:ticket => @ticket, :mail_id => DVDPost.email[:message_free], :variables => "$$$body$$$:::#{params[:message]};;;")
+    variable = "$$$body$$$:::#{params[:message]};;;"
+    if params[:add_on]
+      variable += params[:add_on]
+    end
+    @message = MessageTicket.new(:ticket => @ticket, :mail_id => DVDPost.email[:message_free], :variables => variable)
     if @message.save
       flash[:notice] = t 'message.create.message_sent' #"Message sent successfully"
       
