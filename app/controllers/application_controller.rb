@@ -49,10 +49,14 @@ class ApplicationController < ActionController::Base
   end
 
   def theme_actif
-    if Rails.env == "pre_production"
-      @theme = ThemesEvent.selected_beta.last
+    if params[:kind] == :adult
+      @theme = ThemesEvent.find(8)
     else
-      @theme = ThemesEvent.selected.last
+      if Rails.env == "pre_production"
+        @theme = ThemesEvent.selected_beta.last
+      else
+        @theme = ThemesEvent.selected.last
+      end
     end
   end
 
@@ -64,7 +68,6 @@ class ApplicationController < ActionController::Base
   def set_locale_from_params
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
-    Rails.logger.debug { "locale params#{locale}" }
     set_locale(locale || :fr)
   end
 

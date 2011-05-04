@@ -235,12 +235,13 @@ module ProductsHelper
   def products_index_title
     title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
     title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
-    title = "#{t '.actor'}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
+    title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
     title = t('.recommendation') if params[:view_mode] == 'recommended'
     title = t('.streaming_title') if params[:view_mode] == 'streaming'
     title = t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
     title = t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
     title = "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    title = "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
     title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
     title = "#{t '.search'}: #{params[:search]}" if params[:search]

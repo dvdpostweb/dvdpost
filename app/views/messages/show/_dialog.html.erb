@@ -1,5 +1,4 @@
 <% product_id = get_data('product_id',dialog.variables) %>
-<% Rails.logger.debug { "@@@#{product_id.inspect}" }%>
 <% if product_id %>
   <% product = Product.find(product_id)%>
 <% end %>

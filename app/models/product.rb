@@ -38,6 +38,7 @@ class Product < ActiveRecord::Base
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
+  has_and_belongs_to_many :collections, :join_table => :products_to_themes, :foreign_key => :products_id, :association_foreign_key => :themes_id
   has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
   has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
@@ -73,6 +74,7 @@ class Product < ActiveRecord::Base
     has in_cinema_now
     has actors(:actors_id),         :as => :actors_id
     has categories(:categories_id), :as => :category_id
+    has collections(:themes_id),    :as => :collection_id
     has director(:directors_id),    :as => :director_id
     has studio(:studio_id),         :as => :studio_id
     has languages(:languages_id),   :as => :language_ids
@@ -128,6 +130,9 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:by_collection)      {|collection|       {:with =>       {:collection_id => collection.to_param}}}
+  sphinx_scope(:hetero)             {{:without =>       {:category_id => 76}}}
+  sphinx_scope(:gay)                {{:with =>          {:category_id => 76}}}
   sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
@@ -182,6 +187,7 @@ class Product < ActiveRecord::Base
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
+    products = products.by_collection(options[:collection_id]).hetero if options[:collection_id]
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_studio(options[:studio_id]) if options[:studio_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?

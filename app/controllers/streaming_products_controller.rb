@@ -44,10 +44,7 @@ class StreamingProductsController < ApplicationController
                 else
                   mail_id = DVDPost.email[:streaming_product]
                 end
-                mail_object = Email.by_language(I18n.locale).find(mail_id)
-                recipient = current_customer.email
                 product_id = @product.id
-                mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => current_customer.to_param, :mail_messages_id => DVDPost.email[:streaming_product], :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> current_customer.email)
                 if current_customer.gender == 'm' 
                   gender = t('mails.gender_male')
                 else
@@ -65,16 +62,8 @@ class StreamingProductsController < ApplicationController
                     "\\$\\$\\$selection_vod\\$\\$\\$" => vod_selection,
                     "\\$\\$\\$date\\$\\$\\$" => Time.now.strftime('%d/%m/%Y'),
                     "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
-                    "\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$" => mail_history.to_param,
                   }
-                  list = ""
-                  options.each {|k, v|  list << "#{k.to_s.tr("\\","")}:::#{v};;;"}
-                  mail_history.update_attributes(:lstvariable => list)
-                  email_data_replace(mail_object.subject, options)
-                  subject = email_data_replace(mail_object.subject, options)
-                  message = email_data_replace(mail_object.body, options)
-                  Emailer.deliver_send(recipient, subject, message)
-                  
+                  send_message(mail_id, options, 22)
                 rescue => e
                   logger.error "mail not send webservice broken: #{e.message}"
                 end

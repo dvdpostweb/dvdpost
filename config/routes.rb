@@ -70,6 +70,10 @@ ActionController::Routing::Routes.draw do |map|
       studio.resources :products, :only => :index
     end
 
+    localized.resources :collections, :only => [:index] do |collection|
+      collection.resources :products, :only => :index
+    end
+
     localized.resources :lists, :only => [] do |top|
       top.resources :products, :only => :index
     end
