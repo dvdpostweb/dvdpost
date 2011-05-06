@@ -47,9 +47,20 @@ class CustomersController < ApplicationController
     end
     respond_to do |format|
       format.html do
-        render :action => :show
+        redirect_to customer_path(:id => current_customer.to_param)
       end
       format.js {render :partial => 'customers/show/active', :locals => {:active => data, :type => params[:type]}}
+    end
+  end
+
+  def mail_copy
+    @customer = current_customer
+    @customer.customer_attribute.update_attribute(:mail_copy, params[:value])
+    respond_to do |format|
+      format.html do
+        redirect_to customer_path(:id => current_customer.to_param)
+      end
+      format.js {render :partial => 'customers/show/mail_copy', :locals => {:active => @customer.customer_attribute.mail_copy}}
     end
   end
 

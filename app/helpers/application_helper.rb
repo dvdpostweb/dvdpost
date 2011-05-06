@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def messages_size
-    @messages_size = (current_customer.tickets.active.find(:all, :include => :message_tickets, :conditions =>  ["message_tickets.`read` = 0 and message_tickets.user_id > 0"]).count || 0) if current_customer
+    @messages_size = (current_customer.tickets.active.find(:all, :include => :message_tickets, :conditions =>  ["message_tickets.`is_read` = 0 and message_tickets.user_id > 0"]).count || 0) if current_customer
   end
 
   def load_partners
@@ -319,7 +319,7 @@ module ApplicationHelper
       end 
       @ticket = Ticket.new(:customer_id => current_customer.to_param, :category_ticket_id => category_id)
       @ticket.save
-      @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :variables => list, :user_id => 55)
+      @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55, :mail_history_id => mail_history.to_param)
       @message.save
     rescue => e
       logger.error "mail not send : #{e.message}"

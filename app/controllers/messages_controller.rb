@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   def show
     @message = current_customer.tickets.find(params[:id])
     @message.message_tickets.custer.collect do |message|
-      message.update_attribute(:read, true)
+      message.update_attribute(:is_read, true)
     end
     
     respond_to do |format|
@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
     if params[:add_on]
       variable += params[:add_on]
     end
-    @message = MessageTicket.new(:ticket => @ticket, :mail_id => DVDPost.email[:message_free], :variables => variable)
+    @message = MessageTicket.new(:ticket => @ticket, :mail_id => DVDPost.email[:message_free], :data => variable)
     if @message.save
       flash[:notice] = t 'message.create.message_sent' #"Message sent successfully"
       

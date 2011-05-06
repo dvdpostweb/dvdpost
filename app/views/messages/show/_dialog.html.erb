@@ -1,4 +1,4 @@
-<% product_id = get_data('product_id',dialog.variables) %>
+<% product_id = get_data('product_id',dialog.data) %>
 <% if product_id %>
   <% product = Product.find(product_id)%>
 <% end %>
@@ -11,7 +11,7 @@
       <div class="message_text_long">
     <% end %>
       <p class="who_message"> <span class="who_message_big"><%= t(".#{config[:title]}") %></span> <%= dialog.created_at.strftime("%d/%m/%Y %H:%m") %> <%= product.title if product %></p>
-      <p align="justify"><%= replace_variables(dialog.email.body, dialog.variables) %></p>
+      <p align="justify"><%= replace_variables(dialog.email.body, dialog.data) %></p>
     </div>
     <div class="clear"></div>
   </div>
