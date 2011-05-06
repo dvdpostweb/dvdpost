@@ -1,16 +1,6 @@
 <div id="messages">
   <div id="header_messages">
     <h3> <%= t '.recipient' %> </h3>
-    <span style='display:none'>Afficher : 
-    <span id ='all'>
-      <a href='<%= messages_path(:sort => params[:sort]) %>' class="<%= !params[:filter]  ? 'select_view' : '' %>"><img src="/images/square_<%= !params[:filter]  ? '' : 'no' %>selected.gif" /> Tous</a>
-    </span>
-    <span id ='me'>
-      <a href='<%= messages_path(:sort => params[:sort], :filter => 'me') %>' class="<%= params[:filter] == 'me' ? 'select_view' : '' %>"><img src="/images/square_<%= params[:filter] == 'me' ? '' : 'no' %>selected.gif" /> Mes messages</a>
-    </span>
-    <span id='dvdpost'>
-      <a href='<%= messages_path(:sort => params[:sort], :filter => 'dvdpost') %>' class="<%= params[:filter] == 'dvdpost' ? 'select_view' : '' %>"><img src="/images/square_<%= params[:filter] == 'dvdpost' ? '' : 'no' %>selected.gif" /> Messages DVDPost</a>
-    <span></span>
   </div>
     <table cellspacing="0" cellpadding="0" border="0" id ='table_message'>
       <colgroup>
@@ -23,15 +13,15 @@
       <tr>
         <th width="50" align="left">ID</th>
         <th width="600"></th>
-        <th width="130" align="left"> <div id="bysort">
-          <div class="bysort_message"><%= t '.sort' %> : </div>
-          <form action='<%= messages_path() %>' id='sort_form'>
-            <select name="sort" id="sort_combo">
-              <option  value="normal" value=''><%= t '.by_answer' %></option>
-              <option <%= params[:sort] && params[:sort].to_sym == :ticket ? 'selected="selected"' : '' %> value="ticket"><%= t '.by_ticket' %></option>
-            </select>
-          </form>
-          </div>
+        <th width="130" align="left"> 
+          <div id="bysort">
+            <div class="bysort_message"><%= t '.sort' %> : </div>
+            <form action='<%= messages_path() %>' id='sort_form'>
+              <select name="sort" id="sort_combo">
+                <option  value="normal" value=''><%= t '.by_answer' %></option>
+                <option <%= params[:sort] && params[:sort].to_sym == :ticket ? 'selected="selected"' : '' %> value="ticket"><%= t '.by_ticket' %></option>
+              </select>
+            </form>
           <div style="clear: both;"></div>
         </div>
       </th>
@@ -43,5 +33,4 @@
     </tbody>
   </table>
   <%= will_paginate messages, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
-  </div>
 </div>
