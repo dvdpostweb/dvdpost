@@ -6,4 +6,8 @@ class MessageTicket < ActiveRecord::Base
   named_scope :custer, :conditions => ["user_id > 0"]
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => "id DESC"
+  
+  def unread?
+    is_read == 0 && !user_id.nil?
+  end
 end

@@ -50,7 +50,6 @@ class StreamingProductsController < ApplicationController
                 else
                   gender = t('mails.gender_female')
                 end
-                begin
                   movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
                   vod_selection = DVDPost.mail_vod_selection(current_customer.to_param)
                   recommendation_dvd_to_dvd = DVDPost.mail_recommendation_dvd_to_dvd(current_customer.to_param, @product.id)
@@ -64,9 +63,6 @@ class StreamingProductsController < ApplicationController
                     "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
                   }
                   send_message(mail_id, options, 22)
-                rescue => e
-                  logger.error "mail not send webservice broken: #{e.message}"
-                end
                 
               end
                
