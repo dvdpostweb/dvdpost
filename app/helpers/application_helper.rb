@@ -307,22 +307,22 @@ module ApplicationHelper
     else
       options["\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$"] = 0
     end
-    begin
       list = ""
       options.each {|k, v|  list << "#{k.to_s.tr("\\","")}:::#{v};;;"}
-      mail_history.update_attributes(:lstvariable => list)
-      email_data_replace(mail_object.subject, options)
-      subject = email_data_replace(mail_object.subject, options)
-      message = email_data_replace(mail_object.body, options)
       if current_customer.customer_attribute.mail_copy
+        email_data_replace(mail_object.subject, options)
+        subject = email_data_replace(mail_object.subject, options)
+        message = email_data_replace(mail_object.body, options)
+        mail_history.update_attributes(:lstvariable => list)
         Emailer.deliver_send(recipient, subject, message)
-      end 
+      end
       @ticket = Ticket.new(:customer_id => current_customer.to_param, :category_ticket_id => category_id)
       @ticket.save
-      @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55, :mail_history_id => mail_history.to_param)
+      if mail_history
+        @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55, :mail_history_id => mail_history.to_param)
+      else
+        @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55)
+      end
       @message.save
-    rescue => e
-      logger.error "mail not send : #{e.message}"
-    end
   end
 end

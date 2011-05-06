@@ -443,11 +443,11 @@ class Customer < ActiveRecord::Base
   end
 
   def get_token(imdb_id)
-    tokens.recent.find_all_by_imdb_id(imdb_id).last
+    tokens.recent(2.week.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).last
   end
   
   def get_all_tokens
-    tokens.available.ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+    tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
   end
   
   def remove_product_from_wishlist(imdb_id, current_ip)

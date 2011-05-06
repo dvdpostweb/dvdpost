@@ -11,9 +11,4 @@
     <% end %>
   </td>
   <td> <%= message.created_at.strftime("%d/%m/%Y") %> </td>
-  <td class="center">
-    <label>
-    <%= check_box_tag 'checkbox', message_path(:id => message.to_param), false, :class => 'trash', :id => nil %>
-    </label>
-  </td>
 </tr>

@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   
   protected
 
+
   def is_it_js?
     request.format.js?
   end
