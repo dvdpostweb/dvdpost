@@ -21,8 +21,8 @@ class MessagesController < ApplicationController
 
   def new
     @message = Ticket.new
-    if params[:kind]
-      kind_param = params[:kind].to_sym
+    if params[:message_kind]
+      kind_param = params[:message_kind].to_sym
       kind = DVDPost.messages_kind[kind_param]
       @message_help = MessageHelp.find(kind[:message])
       @category = kind[:category]
