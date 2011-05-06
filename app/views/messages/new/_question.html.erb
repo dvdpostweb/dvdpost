@@ -4,10 +4,10 @@
     <h3>
       <%= t '.intro' %>
     </h3>
-    <p><%= link_to t('messages.index.radio_question.labels.number'), new_message_path(:kind => :number) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing_price'), new_message_path(:kind => :billing_price) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing_dvd'), new_message_path(:kind => :billing_dvd) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.transfer'),  new_message_path(:kind => :dom) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.number'), new_message_path(:message_kind => :number) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.billing_price'), new_message_path(:message_kind => :billing_price) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.billing_dvd'), new_message_path(:message_kind => :billing_dvd) %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.transfer'),  new_message_path(:message_kind => :dom) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.personal_info'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.delivery_info'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.mail_password'), customer_path(:id => current_customer) %></p>
