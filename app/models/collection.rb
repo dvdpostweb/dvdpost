@@ -7,6 +7,8 @@ class Collection < ActiveRecord::Base
 
   named_scope :by_kind, lambda {|kind| {:conditions => {:themes_type => DVDPost.product_kinds[kind]}}}
   named_scope :rand, :order => 'rand()'
+  named_scope :active, :conditions => {:active => 1}
+
   def name
     descriptions.by_language(I18n.locale).first ? descriptions.by_language(I18n.locale).first.name : "NONAME_#{to_param}"
   end
