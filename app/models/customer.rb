@@ -501,10 +501,15 @@ class Customer < ActiveRecord::Base
     customer_attribute.update_attributes(:bluray_owner => status)
   end
 
-  def last_login
+  def last_login(kind)
     build_customer_attribute unless customer_attribute
-    init = (customer_attribute && customer_attribute.number_of_logins ? customer_attribute.number_of_logins : 0)
-    customer_attribute.update_attributes(:number_of_logins  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
+    if kind == :normal
+      init = (customer_attribute && customer_attribute.number_of_logins ? customer_attribute.number_of_logins : 0)
+      customer_attribute.update_attributes(:number_of_logins  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
+    else
+      init = (customer_attribute && customer_attribute.number_of_logins_x ? customer_attribute.number_of_logins_x : 0)
+      customer_attribute.update_attributes(:number_of_logins_x  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
+    end
   end
 
   def credit_per_month

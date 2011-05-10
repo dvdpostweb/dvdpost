@@ -600,6 +600,7 @@ text-align:left;
     float: right;
     margin-right: 24px;
     width: 706px;
+    padding-bottom:10px;
 }
 .message_text_long {
     margin: 0 auto;

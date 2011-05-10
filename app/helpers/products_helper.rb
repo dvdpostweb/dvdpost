@@ -94,6 +94,15 @@ module ProductsHelper
     links
   end
 
+  def rating_review_image_link(product, value, replace)
+    name = 'star-voted'
+    class_name = 'star'
+    image_name = "#{name}-off.png"
+
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
+  end
+
   def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
     if product
       rating = product.rating(current_customer) 
@@ -105,15 +114,6 @@ module ProductsHelper
       end
       links
     end
-  end
-
-  def rating_review_image_link(product, value, replace)
-    name = 'star-voted'
-    class_name = 'star'
-    image_name = "#{name}-off.png"
-
-    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
   end
 
   def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
@@ -132,7 +132,13 @@ module ProductsHelper
     if size == 'small' || size == :small
       name = "small-#{name}"
     else
-      name = "black-#{name}" if background == :black
+      if background == :black
+        name = "black-#{name}" 
+      end
+    end
+    
+    if background == :pink
+      name = "pink-#{name}" 
     end
     if size == 'small' || size == :small
       image_name = if rating >= 2

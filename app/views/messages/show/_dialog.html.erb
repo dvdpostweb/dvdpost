@@ -11,7 +11,7 @@
       <div class="message_text_long">
     <% end %>
       <p class="who_message"> <span class="who_message_big"><%= "* " if dialog.unread? %><%= t(".#{config[:title]}") %></span> <%= dialog.created_at.strftime("%d/%m/%Y %H:%M") %> <%= product.title if product %></p>
-      <p align="justify"><%= replace_variables(dialog.email.body, dialog.data) %></p>
+      <div align="justify"><%= replace_variables(dialog.email.body, dialog.data) %></div>
     </div>
     <div class="clear"></div>
   </div>
