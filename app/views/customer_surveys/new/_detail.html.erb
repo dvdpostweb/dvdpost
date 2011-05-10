@@ -1,5 +1,5 @@
 <div class='item'>
   <div class='image'><%= image_tag detail.image(@survey.to_param), :width => 122, :height => 122 %></div>
   <div class="check" id="check_<%= detail.to_param %>"><%= detail.to_param %></div>
-  <div class="answers"><%= detail.product.description.title if detail.product.description %></div>
+  <div class="answers"><%= item_title(@survey, detail) %></div>
 </div>

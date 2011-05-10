@@ -2,6 +2,7 @@ class Survey < ActiveRecord::Base
   has_many :survey_details
   has_many :customer_surveys
   has_one :themes_event, :foreign_key => :id, :primary_key => :themes_event_id
+  belongs_to :survey_kind
 
   def title(locale)
     case locale
