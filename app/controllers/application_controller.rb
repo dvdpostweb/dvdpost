@@ -75,9 +75,14 @@ class ApplicationController < ActionController::Base
   def last_login
     if current_customer
       if !session[:last_login]
-        current_customer.last_login
+        current_customer.last_login(:normal)
         session[:last_login] = true
       end
+      if !session[:last_login_adult] && session[:adult]
+        current_customer.last_login(:adult)
+        session[:last_login_adult] = true
+      end
+      
     end
   end
 

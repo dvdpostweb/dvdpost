@@ -36,6 +36,7 @@ class ProductsController < ApplicationController
     if params[:sort].nil?
       params[:sort] = 'normal'
     end
+    @rating_color = params[:kind] == :adult ? :pink : :white
     @countries = ProductCountry.visible.order
     respond_to do |format|
       format.html do
@@ -72,8 +73,10 @@ class ProductsController < ApplicationController
   def show
     if params[:kind] == :adult
       @product = Product.adult_available.find(params[:id])
+      @rating_color = :pink
     else
       @product = Product.normal_available.find(params[:id])
+      @rating_color = :white
     end
     unless request.format.xml?
       @filter = get_current_filter({})
@@ -86,7 +89,7 @@ class ProductsController < ApplicationController
         @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
         @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
       end
-      product_recommendations = @product.recommendations
+      product_recommendations = @product.recommendations(params[:kind])
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil

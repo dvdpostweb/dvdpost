@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
       else
         message = current_customer.tickets.create(:customer_id => current_customer.to_param, :category_ticket_id => message_category.to_param)
       end
-      message.message_tickets.create(:user_id => 55, :mail_id => DVDPost.email[:message_free], :data => "$$$content$$$:::#{message_content};;;")
+      message.message_tickets.create(:user_id => 55, :mail_id => DVDPost.email[:message_free], :data => "$$$content$$$:::#{message_content.gsub(/\n/, '<br />')};;;")
 
         @order.product_dvd.update_status!(product_status)
 

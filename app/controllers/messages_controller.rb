@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
   def create
     @ticket = Ticket.new(params[:ticket].merge(:customer_id => current_customer.to_param))
     @ticket.save
-    variable = "$$$content$$$:::#{params[:message]};;;"
+    variable = "$$$content$$$:::#{params[:message].gsub(/\n/, '<br />')};;;"
     if params[:add_on]
       variable += params[:add_on]
     end

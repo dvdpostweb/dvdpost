@@ -164,8 +164,9 @@ module DVDPost
       end
     end
 
-    def product_linked_recommendations(product)
-      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30"
+    def product_linked_recommendations(product, kind)
+      include_adult = kind == :adult ? 'true' : 'false' 
+      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30&includeAdult=#{include_adult}"
       open url do |data|
         Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
       end
@@ -209,10 +210,9 @@ module DVDPost
     def email
       HashWithIndifferentAccess.new.merge({
         :sponsorships_invitation    => 446,
-        :streaming_product    => 571,
-        :streaming_product_free    => 571,
-        :message_free    => 578,
-        
+        :streaming_product          => 571,
+        :streaming_product_free     => 571,
+        :message_free               => 578
       })
     end
 
