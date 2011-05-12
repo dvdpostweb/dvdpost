@@ -7,7 +7,10 @@ class Actor < ActiveRecord::Base
   alias_attribute :top, :top_actors
   
   named_scope :limit, lambda {|limit| {:limit => limit}}
+  named_scope :by_kind, lambda {|kind| {:conditions => {:actors_type => DVDPost.actor_kinds[kind]}}}
+  named_scope :by_letter, lambda {|letter| {:conditions => ["actors_name like ?", letter+'%' ]}}
   named_scope :top, :conditions => 'top_actors > 0'
+  named_scope :ordered, :order => 'actors_name'
   
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true 
 

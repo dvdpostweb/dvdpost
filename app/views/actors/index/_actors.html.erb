@@ -1,0 +1,6 @@
+<h3>letter <%= letter %></h3>
+<% cache("actor_cache_#{letter}", :time_to_live => 1.week) do %>
+  <% actors.collect do |actor| %>
+    <%= "#{actor.name} (#{actor.products.count})<br />" %>
+  <% end %>
+<% end %>
