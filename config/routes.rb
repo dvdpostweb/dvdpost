@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
       category.resources :products, :only => :index
     end
 
-    localized.resources :actors, :only => [] do |actor|
+    localized.resources :actors, :only => [:index] do |actor|
       actor.resources :products, :only => :index
     end
 

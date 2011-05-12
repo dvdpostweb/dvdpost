@@ -94,6 +94,13 @@ module DVDPost
       })
     end
 
+    def actor_kinds
+      HashWithIndifferentAccess.new.merge({
+        :normal => 'DVD_NORM',
+        :adult => 'DVD_ADULT'
+      })
+    end
+
     def products_special_types
       HashWithIndifferentAccess.new.merge({
         :dvd => 1,
