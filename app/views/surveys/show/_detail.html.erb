@@ -1,7 +1,8 @@
 <% pourcent = @survey.total_rating >0 ? (((detail.rating*10000).to_f / @survey.total_rating.to_f).round).to_f/100 : 0%>
+<% coeficient = best_rating ==0 ? 0 : 100 / best_rating %>
 <tr>
-  <td align="right"><%= detail.product.description.title if detail.product.description %></td>
+  <td align="right"><%= item_title(@survey, detail) %></td>
   <td>&nbsp;</td>
-  <td width="180"><div class='survey_barre' style='width:<%= (179 * (pourcent/100))+1 %>px'></td>
+  <td width="180"><div class='survey_barre' style='width:<%= ((170 * (pourcent/100)) * coeficient)+1 %>px'></td>
   <td width="50"><%= pourcent %>%</td>
 </tr>
