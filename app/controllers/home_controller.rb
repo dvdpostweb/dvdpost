@@ -23,6 +23,17 @@ class HomeController < ApplicationController
     render :nothing => true
   end
 
+  def validation
+    if params[:valid] == "1"
+      session[:adult] = 1
+      begin
+        redirect_to session['current_uri']
+      rescue => e
+        redirect_to root_path(:kind => :adult)
+      end
+    end
+  end
+
   private
   def get_data
     expiration_recommendation_cache()

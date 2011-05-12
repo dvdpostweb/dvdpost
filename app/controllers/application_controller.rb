@@ -25,6 +25,8 @@ class ApplicationController < ActionController::Base
     before_filter :get_wishlist_source, :unless => :is_it_xml?
     before_filter :last_login, :if => :is_it_html?
     before_filter :theme_actif, :if => :is_it_html?
+    before_filter :validation_adult, :if => :is_it_html?
+    
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -83,6 +85,13 @@ class ApplicationController < ActionController::Base
         session[:last_login_adult] = true
       end
       
+    end
+  end
+
+  def validation_adult
+    if params[:kind] == :adult && !session[:adult] && request.parameters['action'] != 'validation'
+      session['current_uri'] = request.env['PATH_INFO']
+      redirect_to validation_path
     end
   end
 
