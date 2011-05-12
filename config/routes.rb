@@ -86,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :quizzes, :only => [:show, :index]
     
     localized.menu_tops 'menu_tops', :controller => :products, :action => :menu_tops, :conditions => {:method => :get}
+    localized.validation 'validation', :controller => :home, :action => :validation, :conditions => {:method => :get}
     localized.menu_categories 'menu_categories', :controller => :products, :action => :menu_categories, :conditions => {:method => :get}
     
 
