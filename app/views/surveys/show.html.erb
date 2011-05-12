@@ -11,7 +11,7 @@
     <tr>
       <td><%= image_tag @best.image(@survey.to_param), :width => 122, :height => 122 %></td>
       <td><p class="border" id="winner"> <%= t '.winner' %></p>
-        <p><span id="survey_title" class="border"><%= @best.product.title %></span> <br />
+        <p><span id="survey_title" class="border"><%= item_title(@survey, @best) %></span> <br />
           <span id="survey_rating" class="border"><%= @survey.total_rating >0 ? (((@best.rating*10000).to_f / @survey.total_rating.to_f).round).to_f/100 : 0%>%</span></p></td>
     </tr>
   </table></div>
