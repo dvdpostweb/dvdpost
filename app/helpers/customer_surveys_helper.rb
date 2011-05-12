@@ -8,7 +8,7 @@ module CustomerSurveysHelper
       when 3
         detail.director.name if detail.director
       when 4
-        t ".item#{survey.to_param}_#{detail.to_param}"
+        t "customer_surveys.new.detail.item#{survey.to_param}_#{detail.to_param}"
       else
         ''
     end

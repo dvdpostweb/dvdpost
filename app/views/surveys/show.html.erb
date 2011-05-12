@@ -1,3 +1,4 @@
+<% best_rating = @survey.total_rating >0 ? (((@best.rating*10000).to_f / @survey.total_rating.to_f).round).to_f/100 : 0 %>
 <div id="sondage">
   <div><%= image_tag @survey.image %></div>
   <div class="sondagetitle" align="center"><%= t '.title' %></div>
@@ -11,14 +12,14 @@
     <tr>
       <td><%= image_tag @best.image(@survey.to_param), :width => 122, :height => 122 %></td>
       <td><p class="border" id="winner"> <%= t '.winner' %></p>
-        <p><span id="survey_title" class="border"><%= @best.product.title %></span> <br />
-          <span id="survey_rating" class="border"><%= @survey.total_rating >0 ? (((@best.rating*10000).to_f / @survey.total_rating.to_f).round).to_f/100 : 0%>%</span></p></td>
+        <p><span id="survey_title" class="border"><%= item_title(@survey, @best) %></span> <br />
+          <span id="survey_rating" class="border"><%= best_rating %>%</span></p></td>
     </tr>
   </table></div>
   <div id="resulat_sondage_losers">
     <p>
       <table cellpadding="0" cellspacing="0" width="400" border="0" id="result">
-        <%= render :partial => '/surveys/show/detail', :collection => @details %>
+        <%= render :partial => '/surveys/show/detail', :collection => @details, :locals => {:best_rating => best_rating} %>
       </table>
     </p>
   </div>
