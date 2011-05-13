@@ -1,12 +1,12 @@
 <br />
 <div>
   <div>
-    <%= image_tag "#{DVDPost.images_path}/themes/#{I18n.locale}/page/#{theme.to_param}.jpg", :width => 970 %>
+    <%= image_tag "#{DVDPost.images_path}/themes/#{I18n.locale}/banner_page/#{theme.to_param}.jpg", :width => 970 %>
   </div>
   <div class="category_theme">
     <% @list.collect do | item |%>
     <span>
-    <h3 style="background: url(<%= "#{DVDPost.images_path}/themes/#{I18n.locale}/page/#{theme.to_param}_title.jpg" %>) no-repeat left bottom"><%= item.name %></h3>
+    <h3 style="background: url(<%= "#{DVDPost.images_path}/themes/#{I18n.locale}/title_page/#{theme.to_param}.jpg" %>) no-repeat left bottom"><%= item.name %></h3>
     </span>
     <div class="selection_theme" style="border:1px solid <%= theme.page_border_color %>;" id ="carousel">
       <ul>
