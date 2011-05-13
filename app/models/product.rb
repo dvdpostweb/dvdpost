@@ -48,7 +48,7 @@ class Product < ActiveRecord::Base
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
   named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
   named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
-  named_scope :limits, lambda {|limit| {:limit => limit}}
+  named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'products_id desc'
   define_index do
     indexes products_media
