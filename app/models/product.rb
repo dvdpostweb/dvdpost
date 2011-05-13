@@ -48,7 +48,8 @@ class Product < ActiveRecord::Base
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
   named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
   named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
-
+  named_scope :limit, lambda {|limit| {:limit => limit}}
+  named_scope :ordered, :order => 'products_id desc'
   define_index do
     indexes products_media
     indexes products_type
@@ -510,15 +511,19 @@ class Product < ActiveRecord::Base
       end
   end
 
-  def self.get_recent(locale)
-    case locale
-      when :fr
-        Product.by_kind(:normal).available.recent.with_languages(1).random.limit(3)
-      when :nl
-        Product.by_kind(:normal).available.recent.with_subtitles(2).random.limit(3)
-      when :en
-        Product.by_kind(:normal).available.recent.random.limit(3)
-      end
+  def self.get_recent(locale, kind, limit)
+    if kind == :adult 
+      Product.by_kind(kind).available.recent.hetero.random.limit(limit)
+    else
+      case locale
+        when :fr
+          Product.by_kind(kind).available.recent.with_languages(1).random.limit(limit)
+        when :nl
+          Product.by_kind(kind).available.recent.with_subtitles(2).random.limit(limit)
+        when :en
+          Product.by_kind(kind).available.recent.random.limit(limit)
+        end
+    end
   end
 
   def adult?

@@ -11,6 +11,7 @@ class Actor < ActiveRecord::Base
   named_scope :by_letter, lambda {|letter| {:conditions => ["actors_name like ?", letter+'%' ]}}
   named_scope :top, :conditions => 'top_actors > 0'
   named_scope :ordered, :order => 'actors_name'
+  named_scope :rand, :order => 'rand()'
   
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true 
 
