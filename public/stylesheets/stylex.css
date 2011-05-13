@@ -860,7 +860,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 
 #nouveautes li h3 {
   float: left;
-  width: 117px;
+  width: 140px;
   padding-right: 5px;
   font-size: .92em;
   color: #333333;
@@ -874,7 +874,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 }
 
 #nouveautes li .right {
-  width: 106px;
+  width: 85px;
   margin-top: 4px;
 }
 

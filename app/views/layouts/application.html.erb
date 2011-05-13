@@ -37,8 +37,11 @@
 <body id="<%= yield :body_id %>" <%= "style=\"background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/wallpaper/#{@theme.to_param}.jpg') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image == 1 %> <%= yield :option %>>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
-		
-    <%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
+		<% if params[:kind] == :normal %>
+    	<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
+		<% else %>
+  		<%= render(:partial => 'layouts/header_adult') %>
+		<% end %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
       <% if flash[:notice] %>
