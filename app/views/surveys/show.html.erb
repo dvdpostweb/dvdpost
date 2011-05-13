@@ -10,7 +10,7 @@
   <div class="resulat_sondage_winner"><p> <%= t '.result' %> </p>
   <table class="sondage_images" cellpadding="0" cellspacing="0">
     <tr>
-      <td><%= image_tag @best.image(@survey.to_param), :width => 122, :height => 122 %></td>
+      <td><%= image_tag @best.image(@survey.to_param) %></td>
       <td><p class="border" id="winner"> <%= t '.winner' %></p>
         <p><span id="survey_title" class="border"><%= item_title(@survey, @best) %></span> <br />
           <span id="survey_rating" class="border"><%= best_rating %>%</span></p></td>
