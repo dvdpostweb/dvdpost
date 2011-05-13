@@ -1,0 +1,74 @@
+<!--   ==============   HEADER   ==============   -->
+<div id="header" >
+  <% theme_logo = @theme && @theme.logo_image == 1 ? "background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/logo/#{@theme.to_param}.gif') no-repeat;" : "" %>
+  <h1>
+    <%= link_to t('.tagline'), root_path, :class => 'f-btn', :style => theme_logo %>
+  </h1>
+  <ul id="login">
+    <li>
+      <% if current_customer %>
+        <%= "#{link_to t('.logout'), sign_out_path} <span>(#{current_customer.email})</span>" %>
+      <% end %>
+    </li>
+    <li>
+      <%= switch_locale_link I18n.locale, {:id => 'lang'} %>
+      <span id="lang-box">
+        <% Locale.all.collect(&:short).collect do |locale| %>
+          <%= switch_locale_link locale unless locale.to_s == I18n.locale.to_s %>
+        <% end %>
+      </span>
+    </li>
+    <li id="cat-link">
+      <%= link_to 'Revenir au catalogue cinéma', root_path(:kind => :normal) %>
+    </li>
+  </ul>
+  <!-- Navigation -->
+  <div id="nav-wrap">
+    <ul id="nav">
+      <li>
+        <%= link_to 'Accueil', root_path, :id => :nav1 %>
+      </li>
+      <li>
+        <%= link_to 'Catalogue', products_path, :id => :nav2 %>
+      </li>
+      <li>
+        <%= link_to 'Ma liste', wishlist_path, :id => :nav3 %>
+      </li>
+      <li>
+        <%= link_to 'Mon compte', customer_path(:id => current_customer.to_param), :id => :nav4 %>
+      </li>
+      <li>
+        <%= link_to 'Aide', faq_path, :id => :nav5 %>
+      </li>
+      <li>
+        <%= link_to 'Parrainage', sponsorships_path, :id => :nav6 %>
+      </li>
+    </ul>
+    <form method="post" action="" id="search">
+      <input type="text" value="Rechercher" />
+      <div id="filters"> <a href="#">Tous</a>
+        <ul>
+          <li>
+            <h4>Rechercher :</h4>
+          </li>
+          <li>
+            <label>
+            <input type="radio" />
+            Tous</label>
+          </li>
+          <li>
+            <label>
+            <input type="radio" />
+            <strong>DVD</strong></label>
+          </li>
+          <li>
+            <label class="green">
+            <input type="radio" />
+            <strong>VOD</strong></label>
+          </li>
+        </ul>
+      </div>
+      <input type="image" src="/images/search-btn-adult.png" alt="GO" />
+    </form>
+  </div>
+</div>
