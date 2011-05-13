@@ -3,7 +3,7 @@ class Landing < ActiveRecord::Base
 
   has_one :product, :primary_key => :reference_id, :foreign_key => :products_id
 
-  named_scope :order, lambda {|order| {:order => "ordered #{order}"}}
+  named_scope :order, lambda {|order| {:order => "ordered #{order}, id desc"}}
   named_scope :not_expirated, :conditions => 'expirated_date > now() or expirated_date is null'
   named_scope :private, :conditions => {:login => ['private', 'both' ]}
   named_scope :public,  :conditions => {:login => ['public', 'both' ]}
