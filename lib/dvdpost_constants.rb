@@ -295,6 +295,10 @@ module DVDPost
       data = open("http://www.dvdpost.com/webservice/vod_selection.php?limit=#{limit}&customer_id=#{customer_id}").read
       Iconv.conv('utf-8','ISO-8859-1',  data)
     end
+
+    def theme_adult
+      9
+    end
     
   end
 end

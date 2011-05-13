@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   def theme_actif
     if params[:kind] == :adult
-      @theme = ThemesEvent.find(8)
+      @theme = ThemesEvent.find(DVDPost.theme_adult)
     else
       if Rails.env == "pre_production"
         @theme = ThemesEvent.selected_beta.last

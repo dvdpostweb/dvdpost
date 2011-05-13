@@ -7,32 +7,66 @@
       <li><%= current_customer.suspended_notification %></li>
     </ul>
   <% end %>
-  <!-- Tabs rotattor -->
-  <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
-  <!-- BIENVENUE  -->
-  <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
-  <!-- popular movie -->
-  <%= render :partial => 'home/index/popular', :locals => {:products => @popular} %>
-  <!-- Recommandations  -->
-  <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
-  <!-- Flash News  -->
-  <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
-  <!-- Top 10  -->
-  <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
-  <!-- Banners  -->
-  <div id="banners">
-    <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} if @quizz %>
-    <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} if @contest %>
-    <% render :partial => 'home/index/banner', :locals => {:type => 'shop' } %>
-    <%= render :partial => 'home/index/banner', :locals => {:type => 'facebook'} %>
-    <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
-  </div>
-  <!-- Prochainement/Nouveautés   -->
-  <div id="new-m">
-    <%= render :partial => 'home/index/theme', :locals => {:products => @recent,  :id => 'new'} %>
-    <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
-  </div>
-  <div class="clear"></div>
-  <div class="end"></div>
+  <% if params[:kind] == :adult %>
+  <div id="hp-content">
+    <!-- Slider -->
+    <div id="slider-wrap">
+      <div id="slide1" class="slider">
+        <div class="caption">
+          <h2>Soubrettes Services : <br />
+            spécial stars</h2>
+          <span id="rent"><a href="#">LOUER le film</a></span> <a href="#">VOIR la Bande Annonce</a> </div>
+        <img src="/images/slide1.jpg" alt="" /> </div>
+      <a href="#" id="back" class="f-btn">Back</a><a href="#" id="next" class="f-btn">Next</a>
+      <ul id="slider-nav">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#" class="active">5</a></li>
+      </ul>
+    </div>
+    <div class="clearfix">
+      <!-- BIENVENUE  -->
+      <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+      <!-- Actrice de la semaine -->
+      <%= render :partial => '/home/index/actor_week_adult', :locals => {:actor => @actor_week} %>
+      <!-- Top des plus loués -->
+      <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>
+      <!-- Top Actrices -->
+      <%= render :partial => "/home/index/top_actors_adult", :locals => {:top_actors => @top_actors} %>
+      <!-- Nouveautés  -->
+      <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
+    </div>
+  </div>  
+  <% else %>
+    <!-- Tabs rotattor -->
+    <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
+    <!-- BIENVENUE  -->
+    <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+    <!-- popular movie -->
+    <%= render :partial => 'home/index/popular', :locals => {:products => @popular} %>
+    <!-- Recommandations  -->
+    <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
+    <!-- Flash News  -->
+    <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
+    <!-- Top 10  -->
+    <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
+    <!-- Banners  -->
+    <div id="banners">
+      <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} if @quizz %>
+      <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} if @contest %>
+      <% render :partial => 'home/index/banner', :locals => {:type => 'shop' } %>
+      <%= render :partial => 'home/index/banner', :locals => {:type => 'facebook'} %>
+      <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
+    </div>
+    <!-- Prochainement/Nouveautés   -->
+    <div id="new-m">
+      <%= render :partial => 'home/index/theme', :locals => {:products => @recent,  :id => 'new'} %>
+      <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
+    </div>
+    <div class="clear"></div>
+    <div class="end"></div>
+    <% end %>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
