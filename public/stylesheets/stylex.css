@@ -116,7 +116,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   position: relative;
 }
 
-.btn {
+.a-btn {
   display: inline-block;
   height: 29px;
   line-height: 23px;
@@ -129,7 +129,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   background: url(/images/ajouterx-btn-mid.png) 0 0 no-repeat;
 }
 
-.btn:hover {
+.a-btn:hover {
   color: #fff;
   text-shadow: none;
   background-position: 0 100%;
@@ -239,7 +239,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 }
 
 #nav li a {
-  height: 37px;
+  height: 38px;
   line-height: 45px;
   display: block;
   color: #fff;
@@ -249,34 +249,95 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   text-decoration: none;
 }
 
+#nav li a.active {
+  background-color: #fff !important;
+  color: #12161a;
+  text-shadow: none;
+  cursor: default;
+}
+
 #nav li a#nav1 {
   width: 73px;
   padding-left: 40px;
+  background: url(/images/nav1-bg.png) 6px 7px no-repeat;
+}
+
+#nav li a#nav1:hover {
+  background-position: 7px -44px;
+}
+
+#nav li a#nav1.active {
+  background-position: 7px -98px;
 }
 
 #nav li a#nav2 {
   width: 79px;
   padding-left: 35px;
+  background: url(/images/nav2-bg.png) 7px 7px no-repeat;
+}
+
+#nav li a#nav2:hover {
+  background-position: 7px -44px;
+}
+
+#nav li a#nav2.active {
+  background-position: 7px -98px;
 }
 
 #nav li a#nav3 {
   width: 71px;
   padding-left: 49px;
+  background: url(/images/nav3-bg.png) 14px 10px no-repeat;
+}
+
+#nav li a#nav3:hover {
+  background-position: 14px -41px;
+}
+
+#nav li a#nav3.active {
+  background-position: 14px -94px;
 }
 
 #nav li a#nav4 {
   width: 95px;
   padding-left: 41px;
+  background: url(/images/nav4-bg.png) 11px 7px no-repeat;
+}
+
+#nav li a#nav4:hover {
+  background-position: 11px -44px;
+}
+
+#nav li a#nav4.active {
+  background-position: 11px -98px;
 }
 
 #nav li a#nav5 {
   width: 52px;
   padding-left: 47px;
+  background: url(/images/nav5-bg.png) 13px 7px no-repeat;
+}
+
+#nav li a#nav5:hover {
+  background-position: 13px -44px;
+}
+
+#nav li a#nav5.active {
+  background-position: 13px -99px;
 }
 
 #nav li a#nav6 {
   width: 85px;
   padding-left: 47px;
+  background: url(/images/nav6-bg.png) 12px 6px no-repeat;
+}
+
+#nav li a#nav6:hover {
+  background-position: 12px -45px;
+}
+
+#nav li a#nav6.active {
+  background-position: 13px -99px;
 }
 
 #search {
@@ -293,7 +354,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   float: left;
 }
 
-#search input [ type = text ] {
+#search input[type=text] {
   width: 120px;
   padding: 0 5px;
   height: 23px;
@@ -925,7 +986,6 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 .clearfix {
   display: block;
 }
-
 
 
 
