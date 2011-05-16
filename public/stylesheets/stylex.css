@@ -116,7 +116,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   position: relative;
 }
 
-.a-btn {
+.btn {
   display: inline-block;
   height: 29px;
   line-height: 23px;
@@ -129,7 +129,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   background: url(/images/ajouterx-btn-mid.png) 0 0 no-repeat;
 }
 
-.a-btn:hover {
+.btn:hover {
   color: #fff;
   text-shadow: none;
   background-position: 0 100%;
@@ -745,7 +745,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   margin-top: 4px;
 }
 
-#filmographie li span.rating a img, span.rating a img {
+#filmographie li span.rating a img, #filmographie li span.stars a img, span.rating a img {
   border: none;
   margin: 0;
 }

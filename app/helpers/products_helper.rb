@@ -117,6 +117,7 @@ module ProductsHelper
   end
 
   def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
+    background = background.to_sym if background
     if current_customer
       if current_customer.has_rated?(product)
         name = 'star-voted'
@@ -136,7 +137,6 @@ module ProductsHelper
         name = "black-#{name}" 
       end
     end
-    
     if background == :pink
       name = "pink-#{name}" 
     end

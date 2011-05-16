@@ -42,6 +42,7 @@ class HomeController < ApplicationController
       @top_actors = Actor.by_kind(:adult).top.limit(10)
       @top_views = Product.adult_available.ordered.limit(10)
       @recent = Product.get_recent(I18n.locale, params[:kind], 4)
+      @filter = get_current_filter({})
     else
       expiration_recommendation_cache()
       @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
