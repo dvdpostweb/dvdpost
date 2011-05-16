@@ -39,7 +39,7 @@ class HomeController < ApplicationController
     if(kind == :adult)
       @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
       @actor_week = Actor.find(6664)
-      @top_actors = Actor.by_kind(:adult).top.limit(10)
+      @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
       @top_views = Product.adult_available.ordered.limit(10)
       @recent = Product.get_recent(I18n.locale, params[:kind], 4)
       @filter = get_current_filter({})

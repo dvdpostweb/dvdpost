@@ -1,3 +1,6 @@
+<% if params[:kind] == :adult %>
+  <%= javascript 'customer' %>
+<% end %>
 <%= javascript 'home', 'products' %>
 <% content_for :body_id do %>one-col<% end %>
 <% content_for :style do %>

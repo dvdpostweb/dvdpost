@@ -1,22 +1,8 @@
 <div id="bienvenue">
   <h4><%= t 'home.index.wishlist.welcome' %> <%= current_customer.customers_firstname %></h4>
   <p>Afficher le catalogue <span class="check"><span></span> Hétéro</span> <span class="check-off"><span></span> Gay</span></p>
-  <div id="liste"><strong><%= t('home.index.wishlist.contains') %></strong> : <%= wishlist_count %> <%= t 'home.index.wishlist.dvd' %></div>
-  <dl id="dvd-rotation">
-    <dt>DVD DVDPost en rotation :</dt>
-    <dd><span>0 DVD</span></dd>
-    <dt class="movix">DVD MOVIX en rotation :</dt>
-    <dd class="movix"><span>2 DVD</span>
-      <form method="post" class="form_rotation" action="/fr/customers/151435/rotation_dvd">
-        <input type="hidden" value="MnzKUuoJBqhhmj/0ms8nEDwTS4u5rRw6ypiaj0b962I=" name="authenticity_token" />
-        <input type="hidden" value="1" name="value" id="value" />
-        <input type="hidden" value="adult" name="type" id="type" />
-        <input type="hidden" value="2" name="norm" id="norm" />
-        <input type="hidden" value="0" name="adult" id="adult" />
-        <input type="submit" value="plus adult" name="commit" class="f-btn" />
-      </form>
-    </dd>
-  </dl>
+  <div id="liste"><strong><%= t('home.index.wishlist.contains') %></strong> <%= wishlist_count %> <%= t 'home.index.wishlist.dvd' %></div>
+  <table width="300px"><%= render :partial => 'customers/show/rotation', :locals => {:customer => current_customer} %></table>
 <div class="clear"></div>
   <div id="en-transit">
     <div><strong><%= t 'home.index.wishlist.lent' %> :</strong> <%= transit_items.count %> <%= t 'home.index.wishlist.dvd' %></div>
