@@ -193,3 +193,23 @@ ul, ol, dl, dt, dd {
   margin: 0;
   padding: 0;
 }
+
+#header #login a#lang {
+  background: url(../images/lang-arrow.gif) 100% 6px no-repeat;
+  display: inline-block;
+  font-weight: bold;
+  outline: none;
+  padding-right: 11px !important;
+  position: relative;
+  z-index: 10;
+}
+
+*:first-child + html #header #login a#lang {
+  display: inline;
+  padding: 0 0 0 9px;
+}
+
+* html #header #login a#lang {
+  display: inline;
+  padding: 0 0 0 9px;
+}

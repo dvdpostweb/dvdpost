@@ -45,9 +45,9 @@
         <%= link_to 'Parrainage', sponsorships_path, {:id => :nav6, :class => (( id == 'sponsorships') ? 'active': '')} %>
       </li>
     </ul>
-    <% form_for :search_filter, @filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id]), :html => {:id => 'search'}} do |f| %>
+    <% form_for :search_filter, @filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id]), :html => {:id => 'search_menu'}} do |f| %>
       <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
-      <div id="filters"> <a href="#">Tous</a>
+      <div id="choose"> <a href="#">Tous</a>
         <ul>
           <li>
             <h4>Rechercher :</h4>

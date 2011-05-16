@@ -11,6 +11,12 @@
   <%= stylesheet_link_tag style, :media => :all %>
   <%= stylesheet_link_tag 'common', :media => :all %>
   <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
+	<% if params[:kind] == :adult %>
+		<%= stylesheet_link_tag 'menux', :media => :all %>
+	<% else %>
+		<%= stylesheet_link_tag 'menu', :media => :all %>
+	<% end %>
+	
   <%= stylesheet_link_tag 'facebox', :media => :all %>
   <%= stylesheet_link_tag 'messages', :media => :all %>
   <%= stylesheet_link_tag 'fonts', :media => :all %>

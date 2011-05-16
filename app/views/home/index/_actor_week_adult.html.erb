@@ -1,7 +1,9 @@
 <div id="actrice-semaine-wrap" class="clearfix">
   <div id="actrice-semaine">
     <h3 class="miso">Actrice de la semaine</h3>
-    <%= image_tag actor.image, :title => actor.name, :width => 122, :height => 168, :class => "pie" %> </div>
+    <% link_to actor_products_path(:actor_id => actor.to_param) do %>
+      <%= image_tag actor.image, :title => actor.name, :width => 122, :height => 168, :class => "pie" %> </div>
+    <% end %>
   <!-- filmographie -->
   <div id="filmographie">
     <h2 class="miso"><%= actor.name %> <span>(<%= actor.products.adult_available.count %> films)</span></h2>
