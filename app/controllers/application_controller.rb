@@ -107,7 +107,9 @@ class ApplicationController < ActionController::Base
    # else
    #   country_code = session[:country_code]
    # end
-   country_code = :be
+   session[:country_code] = 'BE'
+   country_code = 'BE'
+   
   end
   
   def available_locales
