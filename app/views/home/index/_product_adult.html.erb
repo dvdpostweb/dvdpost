@@ -1,6 +1,6 @@
 <% product = product_adult %>
 <li> 
-  <span class="rating" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
+  <span class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => product, :background => :pink, :size => :small} %>
   </span> 
   <%= product_image_tag product.image, :width => 76,:height=> 118, :alt => "#{product.title} (#{product.year})" %>
