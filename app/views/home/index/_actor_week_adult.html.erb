@@ -8,7 +8,7 @@
   <div id="filmographie">
     <h2 class="miso"><%= actor.name %> <span>(<%= actor.products.adult_available.count %> films)</span></h2>
     <ul>
-      <%= render :partial => "/home/index/product_adult", :collection => actor.products.adult_available.limit(4) %>
+      <%= render :partial => "/home/index/product_adult", :collection => actor_week_product %>
     </ul>
     <div class="links"><%= link_to 'Voir toute sa filmographie', actor_products_path(:actor_id => actor.to_param) %></a></div>
   </div>

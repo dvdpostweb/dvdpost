@@ -32,7 +32,7 @@
       <li>
         <%= display_btn_categories %>
         <ul id="categories_list" <%= session[:menu_categories] == false ? 'style="display :none"' : '' %>>
-          <%= left_column_categories(@category, params[:kind]) %>
+          <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
         </ul>
       </li>
       <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>

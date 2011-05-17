@@ -87,8 +87,8 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
-    has 'cast((SELECT sum(number) FROM `product_views` pw WHERE pw.product_id = products.products_id and created_at > date_sub(now(), INTERVAL 1 MONTH) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed
-    has 'cast((SELECT sum(number) FROM `product_views` pw WHERE pw.product_id = products.products_id and created_at > date_sub(now(), INTERVAL 1 YEAR) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
+    has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
+    has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
     has "(select created_at s from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
   
@@ -148,7 +148,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
-  sphinx_scope(:available)          {{:with =>          {:status => [0,1]}}}
+  sphinx_scope(:available)          {{:without =>          {:status => [-1]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
@@ -188,7 +188,8 @@ class Product < ActiveRecord::Base
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
-    products = products.by_collection(options[:collection_id]).hetero if options[:collection_id]
+    products = products.by_collection(options[:collection_id]) if options[:collection_id]
+    products = products.hetero if options[:hetero]
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_studio(options[:studio_id]) if options[:studio_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
@@ -511,9 +512,13 @@ class Product < ActiveRecord::Base
       end
   end
 
-  def self.get_recent(locale, kind, limit)
-    if kind == :adult 
-      Product.by_kind(kind).available.recent.hetero.random.limit(limit)
+  def self.get_recent(locale, kind, limit, sexuality)
+    if kind == :adult
+      if sexuality == 1
+        Product.by_kind(kind).available.recent.random.limit(limit)
+      else
+        Product.by_kind(kind).available.recent.hetero.random.limit(limit)
+      end
     else
       case locale
         when :fr

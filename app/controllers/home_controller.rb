@@ -38,17 +38,18 @@ class HomeController < ApplicationController
   def get_data(kind)
     if(kind == :adult)
       @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
-      @actor_week = Actor.find(6664)
+      @actor_week = Actor.find_by_focus(1)
+      @actor_week_product = Product.search.by_kind(:adult).available.by_actor(@actor_week.id).random().limit(4)
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
-      @top_views = Product.adult_available.ordered.limit(10)
-      @recent = Product.get_recent(I18n.locale, params[:kind], 4)
+      @top_views = Product.search.by_kind(:adult).available.limit(10).order('most_viewed desc', :extended)
+      @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
     else
       expiration_recommendation_cache()
       @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
       @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
       @soon = Product.get_soon(I18n.locale)
-      @recent = Product.get_recent(I18n.locale, params[:kind], 3)
+      @recent = Product.get_recent(I18n.locale, params[:kind], 3, session[:sexuality])
       @quizz = QuizzName.find_last_by_focus(1)
       @offline_request = current_customer.payment.recovery
       if @offline_request.count == 0

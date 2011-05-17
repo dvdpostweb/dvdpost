@@ -64,6 +64,13 @@ class CustomersController < ApplicationController
     end
   end
 
+  def sexuality
+    @customer = current_customer
+    @customer.customer_attribute.update_attribute(:sexuality, params[:value])
+    session[:sexuality] = params[:value].to_i
+    redirect_to root_path
+  end
+
   def rotation_dvd
     @customer = Customer.find(current_customer)
     @customer.rotation_dvd!(params[:type],1)

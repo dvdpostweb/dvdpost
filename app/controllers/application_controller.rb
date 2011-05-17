@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
     before_filter :last_login, :if => :is_it_html?
     before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
+    before_filter :sexuality?
     
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
@@ -107,6 +108,16 @@ class ApplicationController < ActionController::Base
     @indicator_close = false
     if current_customer && current_customer.customer_attribute && current_customer.customer_attribute.list_indicator_close == true
         @indicator_close = true
+    end
+  end
+
+  def sexuality?
+    if !session[:sexuality]
+      if current_customer && current_customer.customer_attribute && current_customer.customer_attribute.sexuality == 1
+        session[:sexuality] = 1
+      else
+        session[:sexuality] = 0
+      end
     end
   end
 

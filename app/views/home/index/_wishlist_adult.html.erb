@@ -1,6 +1,6 @@
 <div id="bienvenue">
   <h4><%= t 'home.index.wishlist.welcome' %> <%= current_customer.customers_firstname %></h4>
-  <p>Afficher le catalogue <span class="check"><span></span> Hétéro</span> <span class="check-off"><span></span> Gay</span></p>
+  <%= render :partial => 'home/index/sexuality' %>
   <div id="liste"><strong><%= t('home.index.wishlist.contains') %></strong> <%= wishlist_count %> <%= t 'home.index.wishlist.dvd' %></div>
   <table width="300px"><%= render :partial => 'customers/show/rotation', :locals => {:customer => current_customer} %></table>
 <div class="clear"></div>
