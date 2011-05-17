@@ -1,0 +1,13 @@
+<p>Afficher le catalogue 
+  <% if session[:sexuality] == 0 %>
+    <span class="check"><span></span> Hétéro</span> 
+    <span class="check-off"><span></span>
+      <%= link_to 'Gay', customer_sexuality_path(:customer_id => current_customer, :value => 1) %>
+    </span>
+  <% else %>
+    <span class="check-off"><span></span> 
+      <%= link_to 'Hétéro', customer_sexuality_path(:customer_id => current_customer, :value => 0) %>
+    </span> 
+    <span class="check"><span></span> Gay</span>
+  <% end %>
+</p>
