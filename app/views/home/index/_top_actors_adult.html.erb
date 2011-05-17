@@ -2,13 +2,13 @@
   <div class="ttl pie">Top Actrices</div>
   <div class="top pie"> 
     <span class="thumb pie">
-      <% link_to actor_products_path(:actor_id => top_actors.first.to_param), :id => :top_actor do %>
-        <%= image_tag top_actors.first.image, :title => top_actors.first.name, :width => 138, :height => 189 %>
+      <% link_to actor_products_path(:actor_id => top_actors.first.to_param), :id => :top_actor_link do %>
+        <%= image_tag top_actors.first.image, :title => top_actors.first.name, :width => 138, :height => 189, :id => :top_actor %>
       <% end %>
     </span>
     <ul>
       <% top_actors.collect do |actor| %>
-        <%= "<li><a href='#{actor_products_path(:actor_id => actor.to_param)}'><span>#{actor.name}</span> (#{actor.products.adult_available.count} films)</a></li>" %>
+        <%= "<li><a class ='top_actors' id ='actor_#{actor.to_param}' href='#{actor_products_path(:actor_id => actor.to_param)}'><span>#{actor.name}</span> (#{actor.products.adult_available.count} films)</a></li>" %>
       <% end %>
     </ul>
   </div>

@@ -114,4 +114,34 @@ $(function() {
     $('#tabs-rotator #tabs a.active').removeClass('active');
     $('#carousel_'+getCurrent()).addClass('active');
   }
+
+  $('.top_actors').live('mouseover',function(){
+    var reg = new RegExp('[actor_id]', 'gi');
+    id =$(this).attr('id').replace(reg,'');
+    var reg_jpg = new RegExp(/\/[\d]*\.jpg/);
+    var reg_link = new RegExp(/\/[\d]*\//);
+    src = $('#top_actor').attr('src')
+    new_src = src.replace(reg_jpg, "/"+id+".jpg");
+    $('#top_actor').attr('src',new_src)
+    actor_href = $('#top_actor_link').attr('href')
+    new_href =actor_href.replace(reg_link, "/"+id+"/");
+    $('#top_actor_link').attr('href',new_href)
+    
+  });
+
+  $('.top_products').live('mouseover',function(){
+    
+    
+    image =$(this).attr('id');
+    id = $(this).parent('li').attr('id')
+    var reg_jpg = new RegExp(/dvd\/[\w]*\.jpg/);
+    var reg_link = new RegExp(/\/[\d]+/);
+    src = $('#top_product').attr('src')
+    new_src = src.replace(reg_jpg, image);
+    $('#top_product').attr('src',new_src)
+    actor_href = $('#top_product_link').attr('href')
+    new_href =actor_href.replace(reg_link, "/"+id);
+    $('#top_product_link').attr('href',new_href)
+    
+  });
 });
