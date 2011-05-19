@@ -31,7 +31,7 @@
     <%= actors %>
   </li>
   <% end %>
-  <% unless product.title == product.original_title %>
+  <% if product.original_title != '' && product.title != product.original_title %>
     <li>
       <strong>
         <%= t '.original_title' %>

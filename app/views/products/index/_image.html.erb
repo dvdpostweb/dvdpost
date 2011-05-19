@@ -1,1 +1,6 @@
-<%= image_tag actor.image, :width => 120 if actor.image_active %>
+<% if actor.image_active %>
+  <% 3.times do |i| %>
+    <% i += 1 %>
+    <%= image_tag actor.image(i), :width => 150 %>
+  <% end %>
+<% end %>

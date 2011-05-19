@@ -82,15 +82,36 @@ $(function() {
     return false;
   });
 
-$("#condition_promo").live("click", function() {
-  a = $(this);
-  jQuery.facebox(function() {
-    $.getScript(a.attr('href'), function(data) {
-      jQuery.facebox(data);
+  $("#condition_promo").live("click", function() {
+    a = $(this);
+    jQuery.facebox(function() {
+      $.getScript(a.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
     });
+    return false;
   });
-  return false;
-});
+  $('#search_filter').live('click',function(){
+    $('#search_filter_detail').toggle()
+    return false;
+  });
+
+  $('ul#search_filter_detail').live('mouseout',function(){
+    $('#search_filter_detail').hide()
+  });
+
+  $('#search_filter_detail li, ul#search_filter_detail').live('mouseover',function(){
+    $('#search_filter_detail').show()
+  });
+
+  $('#filter_button').live('mouseover',function(){
+    $('#search_filter_detail').hide()
+  });
+  $('.filter_input').live('click',function(){
+    $('#search_filter_detail').hide()
+    $('#search_filter').html($(this).parent().children().children().html())
+  });
+  
 
 });
 // Always send the authenticity_token with ajax

@@ -66,7 +66,7 @@ ActionController::Routing::Routes.draw do |map|
       director.resources :products, :only => :index
     end
 
-    localized.resources :studios, :only => [] do |studio|
+    localized.resources :studios, :only => [:index] do |studio|
       studio.resources :products, :only => :index
     end
 

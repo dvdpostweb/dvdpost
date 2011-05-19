@@ -76,6 +76,7 @@ $(function() {
     }
     if ($(this).attr('src').match(/pink/i)){
        image = 'pink-'+image;
+       ext = 'png'
     }
     for(var i=1; i<=5; i++)
     {

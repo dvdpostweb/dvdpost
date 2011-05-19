@@ -13,17 +13,27 @@
     <div id="slider-wrap">
       <div id="slide1" class="slider">
         <div class="caption">
-          <h2>Soubrettes Services : <br />
-            spécial stars</h2>
-          <span id="rent"><a href="#">LOUER le film</a></span> <a href="#">VOIR la Bande Annonce</a> </div>
-        <img src="/images/slide1.jpg" alt="" /> </div>
-      <a href="#" id="back" class="f-btn">Back</a><a href="#" id="next" class="f-btn">Next</a>
+          <h2>Soubrettes Services : <br />spécial stars</h2>
+          <span id="rent">
+            <a href="#">LOUER le film</a>
+          </span> 
+            <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), :class => 'trailer', :target => :_blank) if @product.trailer %>
+        </div>
+        <div class="panels_adult">
+          <div class="panel" id ='panel_0'><img src="/images/slide1.jpg" alt="" /></div>
+          <div class="panel" id ='panel_1'><img src="/images/slide2.jpg" alt="" /></div>
+          <div class="panel" id ='panel_2'><img src="/images/slide3.jpg" alt="" /></div>
+          <div class="panel" id ='panel_3'><img src="/images/slide4.jpg" alt="" /></div>
+          <div class="panel" id ='panel_4'><img src="/images/slide5.jpg" alt="" /></div>
+        </div>
+      </div>
+      <a href="" id="back" class="f-btn">Back</a><a href="" id="next" class="f-btn">Next</a>
       <ul id="slider-nav">
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#" class="active">5</a></li>
+        <li><a href="" id ="btn_1">1</a></li>
+        <li><a href="" id ="btn_2">2</a></li>
+        <li><a href="" id ="btn_3">3</a></li>
+        <li><a href="" id ="btn_4">4</a></li>
+        <li><a href="" id ="btn_5">5</a></li>
       </ul>
     </div>
     <div class="clearfix">

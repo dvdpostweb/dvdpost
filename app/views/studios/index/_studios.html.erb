@@ -1,0 +1,10 @@
+<% if studios_count > 0 || show == :all %>
+  <div style="float:left; width : 190px"><div style="font-size:25px;text-transform: uppercase;margin:5px"><%= link_to letter, studios_path(:letter => letter) %></div>
+    <% studios.collect do |studio| %>
+      <%= link_to "#{studio.name}", studio_products_path(:studio_id => studio.to_param), :class => "studios", :id => "#{letter}_#{studio.to_param}" %>
+      <br />
+    <% end %>
+    <%= link_to '>> more', studios_path(:letter => letter) if studios_count > 10 if show == :limit %>
+    <%= link_to 'back', studios_path() if show == :all %>
+  </div>
+<% end %>

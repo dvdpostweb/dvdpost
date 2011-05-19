@@ -1,7 +1,8 @@
 class ActorsController < ApplicationController
   def index
-    letter ="a"
-    @actors_html = Actor.by_kind(:adult).by_letter(letter)
-    
+    @actors = Hash.new()
+    ('a'..'z').each do |l|
+      @actors[l] = Actor.by_kind(:adult).with_image.by_letter(l)
+    end
   end
 end
