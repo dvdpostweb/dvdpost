@@ -8,6 +8,7 @@ class Studio < ActiveRecord::Base
   alias_attribute :name, :studio_name
 
   named_scope :by_letter, lambda {|letter| {:conditions => ["studio_name like ?", letter+'%' ]}}
+  named_scope :by_kind, lambda {|kind| {:conditions => {:studio_type => DVDPost.actor_kinds[kind]}}}
   named_scope :by_number,  {:conditions => ["studio_name REGEXP '^[0-9]'"]}
   named_scope :limit, lambda {|limit| {:limit => limit}}
 

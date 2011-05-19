@@ -1,5 +1,5 @@
 <% if studios_count > 0 || show == :all %>
-  <div style="float:left; width : 190px"><div style="font-size:25px;text-transform: uppercase;margin:5px"><%= link_to letter, studios_path(:letter => letter) %></div>
+  <div style="float:left; width : 190px; height:200px"><div style="font-size:25px;text-transform: uppercase;margin:5px"><%= link_to letter, studios_path(:letter => letter) %></div>
     <% studios.collect do |studio| %>
       <%= link_to "#{studio.name}", studio_products_path(:studio_id => studio.to_param), :class => "studios", :id => "#{letter}_#{studio.to_param}" %>
       <br />
