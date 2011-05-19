@@ -140,7 +140,7 @@ module ProductsHelper
     if background == :pink
       name = "pink-#{name}" 
     end
-    if size == 'small' || size == :small
+    if size == 'small' || size == :small || background == :pink
       image_name = if rating >= 2
         "#{name}-on.png"
       elsif rating == 1
@@ -369,5 +369,20 @@ module ProductsHelper
       separator = (audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
       "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
     end
+  end
+
+  def product_review_stars(review, kind)
+    images = ""
+    name = 'small-star'
+    if kind == :adult
+      name = 'pink-' + name
+    end
+    review.rating.times do
+      images += image_tag "#{name}-on.png"
+    end
+      (5-review.rating).times do
+      images += image_tag "#{name}-off.png"
+    end
+    images
   end
 end

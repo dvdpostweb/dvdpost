@@ -7,6 +7,8 @@ class Studio < ActiveRecord::Base
 
   alias_attribute :name, :studio_name
 
+  named_scope :by_letter, lambda {|letter| {:conditions => ["studio_name like ?", letter+'%' ]}}
+  named_scope :by_number,  {:conditions => ["studio_name REGEXP '^[0-9]'"]}
   named_scope :limit, lambda {|limit| {:limit => limit}}
 
   has_many :products, :foreign_key => :products_studio

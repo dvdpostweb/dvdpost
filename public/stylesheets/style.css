@@ -44,16 +44,6 @@ body {
   text-shadow: 0 0 0 #000;
 }
 
-a {
-  color: #ac5347;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-
 h1, h2, h3, h4, h5, h6, form, fieldset {
   margin: 0;
   padding: 0;
@@ -1011,6 +1001,9 @@ a#next10 {
 #detail-wrap #movie-info li a {
   color: #ff4b00;
 }
+.adult #detail-wrap #movie-info li a {
+  color: #e2007c;
+}
 
 #movie-info p img {
   vertical-align: middle;
@@ -1468,6 +1461,9 @@ html ul.tabs li.active a:hover {
   font-weight: bold;
   text-transform: uppercase;
 }
+.adult .tab_content .critique .name a {
+  color: #e2007c;
+}
 
 .tab_content .critique .name span {
   margin: 0 7px;
@@ -1482,7 +1478,7 @@ html ul.tabs li.active a:hover {
 }
 
 .tab_content .critique .name .stars img {
-  margin-right: 3px;
+  margin: -6px 3px 0 0;
 }
 
 .tab_content .critique .yn {
@@ -1495,6 +1491,10 @@ html ul.tabs li.active a:hover {
   color: #ff4b00;
   font-weight: bold;
   text-transform: uppercase;
+}
+.adult .tab_content .critique .yn a 
+{
+  color: #e2007c;
 }
 
 .tab_content .links {
@@ -1628,7 +1628,7 @@ html ul.tabs li.active a:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
 }
-#carousel li a.btn {
+.normal #carousel li a.btn {
   background: url(../images/ajouter-btn-mid.png) 0 -1px no-repeat;
   display: block;
   height: 27px;
@@ -1642,7 +1642,7 @@ html ul.tabs li.active a:hover {
   margin: 0 0 4px 1px;
 }
 
-#carousel li a.btn:hover {
+.normal #carousel li a.btn:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
 }
@@ -3712,6 +3712,11 @@ width:62px;
 {
   color:#FF4B00;
 }
+.adult #add_new_review
+{
+  color:#e2007c;
+}
+
 #abo_not_active
 {
   background:url("../images/attention_icon.png") no-repeat scroll 4px 9px transparent;

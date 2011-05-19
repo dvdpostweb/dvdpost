@@ -213,3 +213,39 @@ ul, ol, dl, dt, dd {
   display: inline;
   padding: 0 0 0 9px;
 }
+.adult .btn {
+  display: inline-block;
+  height: 29px;
+  line-height: 23px;
+  width: 60px;
+  padding-left: 27px;
+  color: #fff !important;
+  text-align: left;
+  text-decoration: none;
+  text-shadow: -1px -1px 0 #c1166c;
+  background: url(/images/ajouterx-btn-mid.png) 0 0 no-repeat;
+}
+
+.adult .btn:hover {
+  color: #fff;
+  text-shadow: none;
+  background-position: 0 100%;
+}
+
+.normal a {
+  color: #ac5347;
+  text-decoration: none;
+}
+
+.normal a:hover {
+  text-decoration: underline;
+}
+.adult a {
+  color: #201f20;
+  text-decoration: underline;
+}
+
+.adult a:hover {
+  text-decoration: none;
+  color: #e2007c;
+}

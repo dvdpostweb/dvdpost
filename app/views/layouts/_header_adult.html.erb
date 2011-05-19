@@ -1,4 +1,3 @@
-<% id = yield :body_id %>
 <!--   ==============   HEADER   ==============   -->
 <div id="header" >
   <% theme_logo = @theme && @theme.logo_image == 1 ? "background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/logo/#{@theme.to_param}.gif') no-repeat;" : "" %>
@@ -23,53 +22,5 @@
       <%= link_to 'Revenir au catalogue cinéma', root_path(:kind => :normal) %>
     </li>
   </ul>
-  <!-- Navigation -->
-  <div id="nav-wrap">
-    <ul id="nav">
-      <li>
-        <%= link_to 'Accueil', root_path, {:id => :nav1, :class => (( id == 'one-col') ? 'active': '')} %>
-      </li>
-      <li>
-        <%= link_to 'Catalogue', products_path, {:id => :nav2, :class => (( id == 'product_body') ? 'active': '')} %>
-      </li>
-      <li>
-        <%= link_to 'Ma liste', wishlist_path, {:id => :nav3, :class => (( id == 'mywhishlist') ? 'active': '')} %>
-      </li>
-      <li>
-        <%= link_to 'Mon compte', customer_path(:id => current_customer.to_param), {:id => :nav4, :class => (( id == 'moncompte') ? 'active': '')} %>
-      </li>
-      <li>
-        <%= link_to 'Aide', faq_path, {:id => :nav5, :class => (( id == 'message_body') ? 'active': '')} %>
-      </li>
-      <li>
-        <%= link_to 'Parrainage', sponsorships_path, {:id => :nav6, :class => (( id == 'sponsorships') ? 'active': '')} %>
-      </li>
-    </ul>
-    <% form_for :search_filter, @filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id]), :html => {:id => 'search_menu'}} do |f| %>
-      <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
-      <div id="choose"> <a href="#">Tous</a>
-        <ul>
-          <li>
-            <h4>Rechercher :</h4>
-          </li>
-          <li>
-            <label>
-            <input type="radio" />
-            Tous</label>
-          </li>
-          <li>
-            <label>
-            <input type="radio" />
-            <strong>DVD</strong></label>
-          </li>
-          <li>
-            <label class="green">
-            <input type="radio" />
-            <strong>VOD</strong></label>
-          </li>
-        </ul>
-      </div>
-      <input type="image" src="/images/search-btn-adult.png" alt="GO" />
-    <% end %>
-  </div>
+  <%= render :partial => "/layouts/menu_adult" %>
 </div>

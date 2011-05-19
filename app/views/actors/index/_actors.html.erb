@@ -1,6 +1,21 @@
-<h3>letter <%= letter %></h3>
-<% cache("actor_cache_#{letter}", :time_to_live => 1.week) do %>
-  <% actors.collect do |actor| %>
-    <%= "#{actor.name} (#{actor.products.count})<br />" %>
+<% if actors.count > 0 %>
+  <div style="float:left; width:230px; height:200px"><div style="font-size:25px;text-transform: uppercase;"><%= letter %></div>
+  <% cache("actors_cached_final14_#{letter}", :time_to_live => 1.minute) do %>
+    <table><tr>
+      <td valign="top">
+      <% if actors.first %>
+        <% link_to actor_products_path(:actor_id => actors.first.to_param), :id => "thumb_link_#{letter}" do %>
+          <%= image_tag actors.first.image, :width => 80, :id => "thumb_#{letter}" %>
+        <% end %>
+      <% end %>
+      </td>
+      <td valign="top">
+    <% actors.collect do |actor| %>
+      <%= link_to "#{actor.name}", actor_products_path(:actor_id => actor.to_param), :class => "actors", :id => "#{letter}_#{actor.to_param}" %> <%= "(#{actor.products.count})" %>
+      <%= "*" if actor.top? %>
+      <br />
+    <% end %>
+    </td</tr></table>
   <% end %>
+  </div>
 <% end %>

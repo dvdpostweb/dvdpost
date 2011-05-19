@@ -10,6 +10,7 @@ class Actor < ActiveRecord::Base
   named_scope :by_kind, lambda {|kind| {:conditions => {:actors_type => DVDPost.actor_kinds[kind]}}}
   named_scope :by_letter, lambda {|letter| {:conditions => ["actors_name like ?", letter+'%' ]}}
   named_scope :top, :conditions => 'top_actors > 0'
+  named_scope :with_image, :conditions => {:image_active => true}
   named_scope :ordered, :order => 'actors_name'
   named_scope :top_ordered, :order => 'top_actors desc'
   
@@ -17,7 +18,11 @@ class Actor < ActiveRecord::Base
 
   has_and_belongs_to_many :products, :join_table => :products_to_actors, :foreign_key => :actors_id, :association_foreign_key => :products_id
 
-  def image
-    File.join(DVDPost.imagesx_path, "actors", "#{id}.jpg")
+  def image(number = 1)
+    File.join(DVDPost.imagesx_path, "actors", "#{id}_#{number}.jpg")
+  end
+
+  def top?
+    top && top > 0
   end
 end
