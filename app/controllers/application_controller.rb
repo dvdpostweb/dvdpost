@@ -90,7 +90,8 @@ class ApplicationController < ActionController::Base
   end
 
   def validation_adult
-    if params[:kind] == :adult && !session[:adult] && request.parameters['action'] != 'validation'
+    Rails.logger.debug { "@@@#{request.parameters['controller']}" }
+    if params[:kind] == :adult && !session[:adult] && request.parameters['action'] != 'validation' && request.parameters['controller'] == 'oauth'
       session['current_uri'] = request.env['PATH_INFO']
       redirect_to validation_path
     end
