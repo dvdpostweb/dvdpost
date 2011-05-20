@@ -1,21 +1,22 @@
-<% if actors.count > 0 %>
-  <div style="float:left; width:230px; height:200px"><div style="font-size:25px;text-transform: uppercase;"><%= letter %></div>
-  <% cache("actors_cached_final14_#{letter}", :time_to_live => 1.minute) do %>
-    <table><tr>
-      <td valign="top">
-      <% if actors.first %>
-        <% link_to actor_products_path(:actor_id => actors.first.to_param), :id => "thumb_link_#{letter}" do %>
-          <%= image_tag actors.first.image, :width => 80, :id => "thumb_#{letter}" %>
-        <% end %>
-      <% end %>
-      </td>
-      <td valign="top">
-    <% actors.collect do |actor| %>
-      <%= link_to "#{actor.name}", actor_products_path(:actor_id => actor.to_param), :class => "actors", :id => "#{letter}_#{actor.to_param}" %> <%= "(#{actor.products.count})" %>
-      <%= "*" if actor.top? %>
-      <br />
+<li id="<%= letter %>"> <span class="letter"><%= letter.upcase %></span>
+  <ol <%= type == :letter ? 'class="big"' : '' %>>
+    <% i = 0 %>
+    <% details.each do |key, value| %>
+      <% actor = value[:actor] %>
+      <% i += 1 %>
+      <li>
+        <%= link_to "#{actor.name}", actor_products_path(:actor_id => actor.to_param), :class => "actors#{ actor.top? ? ' star' : ''}#{ i == 1 ? ' active' : ''}", :id => "#{letter}_#{actor.to_param}" %> <%= "(#{value[:count]})" %>
+      </li>
+      
     <% end %>
-    </td</tr></table>
-  <% end %>
-  </div>
-<% end %>
+  </ol>
+  <% first = details[1][:actor] %>
+  <span class="thumb pie" >
+    <span class="top10" id ="top_<%= letter %>" <%= first.top? ?   '' : 'style="display:none"' %>>
+      <span class="miso">TOP 10</span>
+    </span>
+    <% link_to actor_products_path(:actor_id => first.to_param), :id => "thumb_link_#{letter}" do %>
+      <%= image_tag first.image, :width => 98, :id => "thumb_#{letter}", :atl => first.name, :title => first.name %>
+    <% end %>
+  </span>
+</li>

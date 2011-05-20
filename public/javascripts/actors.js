@@ -3,7 +3,6 @@ $(function() {
   $('.actors').live('mouseover',function(){
     reg= new RegExp(/[^\d]/g)
     reg_a= new RegExp(/[^\a-z]/g)
-    
     link = $(this).attr('id');
     id = parseInt(link.replace(reg,''),10)
     letter = link.replace(reg_a,'')
@@ -16,6 +15,17 @@ $(function() {
     actor_href = $("#thumb_link_"+letter).attr('href')
     new_href =actor_href.replace(reg_link, "/"+id+"/");
     $("#thumb_link_"+letter).attr('href',new_href)
+    if($(this).hasClass('star'))
+    {
+      $("#top_"+letter).show()  
+    }
+    else
+    {
+      $("#top_"+letter).hide()  
+    }
+    active = '#'+letter+' .active'
+    $(active).removeClass('active')
+    $(this).addClass('active')
     
   });
 });

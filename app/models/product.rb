@@ -66,7 +66,6 @@ class Product < ActiveRecord::Base
     has products_id,                :as => :id
     has products_next,              :as => :next
     has products_public,            :as => :audience
-    has products_status,            :as => :status
     has products_year,              :as => :year
     has products_language_fr,       :as => :french
     has products_undertitle_nl,     :as => :dutch
@@ -116,7 +115,7 @@ class Product < ActiveRecord::Base
     has 'concat(if(products_quantity>0,1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
     has "case 
     when  products_status = -1 then 99
-    else products_status end", :type => :integer, :as => :special_status
+    else products_status end", :type => :integer, :as => :status
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
     set_property :enable_star => true
@@ -150,7 +149,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
-  sphinx_scope(:available)          {{:without =>       {:special_status => [99]}}}
+  sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
