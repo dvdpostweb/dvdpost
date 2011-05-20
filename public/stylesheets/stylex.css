@@ -122,9 +122,12 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   display: inline-block;
   color: #fff;
   z-index:5;
+  width:250px;
 }
 #slider-wrap .slider .panels_adult {
   z-index:4;
+  height: 390px;
+  overflow: hidden;
 }
 #slider-wrap .slider .caption h2 {
   text-transform: uppercase;
@@ -414,7 +417,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   margin-top: 4px;
 }
 
-#filmographie li span.rating a img, #filmographie li span.stars a img, span.rating a img {
+#filmographie li span.rating img, #filmographie li span.stars img, span.rating img {
   border: none;
   margin: 0;
 }

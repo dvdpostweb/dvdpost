@@ -1,0 +1,38 @@
+<% path = carousel_path(carousel.first) %>
+<div id="slider-wrap">
+  <div id="slide1" class="slider">
+    <div class="caption">
+      <h2 id="carousel_title"><%= t "home.index.carousel_item_title.title_#{carousel.first.id}" %></h2>
+      <span id="rent">
+        <%= link_to t("home.index.carousel_item.link_#{carousel.first.id}"), path, :id => :carousel_link %></a>
+      </span> 
+        <%= link_to(t('.trailer'), product_trailer_path(:product_id => carousel.first.product.to_param), :class => 'trailer', :target => :_blank) if carousel.first.kind == 'MOVIE' && carousel.first.product.trailer %>
+    </div>
+     <% i = 0 %>
+    <% carousel.collect do |carousel_item| %>
+      <% path = carousel_path(carousel_item) %>
+      <% i += 1 %>
+      <div style='display:none'>
+        <div id='title_<%= i %>'><%= t "home.index.carousel_item_title.title_#{carousel_item.id}" %></div>
+        <div id='link_<%= i %>'><%= path %></div>
+        <div id='name_<%= i %>'><%= t"home.index.carousel_item.link_#{carousel_item.id}" %></div>
+      </div>
+    <% end %>
+    <div class="panels_adult">
+      <% i = 0 %>
+      <% carousel.collect do |carousel_item| %>
+        <div class="panel" id ='panel_<%= i %>'><%= image_tag(carousel_item.image_adult, :alt => carousel_item.name) %></div>
+        <% i += 1 %>
+      <% end %>
+    </div>
+  </div>
+  <a href="" id="back" class="f-btn">Back</a><a href="" id="next" class="f-btn">Next</a>
+  <ul id="slider-nav">
+    <li><a href="" id ="btn_1">1</a></li>
+    <li><a href="" id ="btn_2">2</a></li>
+    <li><a href="" id ="btn_3">3</a></li>
+    <li><a href="" id ="btn_4">4</a></li>
+    <li><a href="" id ="btn_5">5</a></li>
+  </ul>
+</div>
+<div class="clearfix">

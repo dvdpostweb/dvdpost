@@ -7,6 +7,7 @@ class Landing < ActiveRecord::Base
   named_scope :not_expirated, :conditions => 'expirated_date > now() or expirated_date is null'
   named_scope :private, :conditions => {:login => ['private', 'both' ]}
   named_scope :public,  :conditions => {:login => ['public', 'both' ]}
+  named_scope :adult,  :conditions => {:login => 'adult' }
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :by_language, lambda {|language| {:conditions => {(language == :nl ? :actif_dutch : (language == :en ? :actif_english : :actif_french)) => "YES"}}}
   named_scope :by_language_beta, lambda {|language| {:conditions => {(language == :nl ? :actif_dutch : (language == :en ? :actif_english : :actif_french)) => ["BETA","YES"]}}}
@@ -14,4 +15,9 @@ class Landing < ActiveRecord::Base
   def image
     File.join(DVDPost.images_carousel_path, id.to_s+'.jpg')
   end
+
+  def image_adult
+    File.join(DVDPost.images_carousel_adult_path, id.to_s+'.jpg')
+  end
+  
 end

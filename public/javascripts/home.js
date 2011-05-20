@@ -93,7 +93,7 @@ $(function() {
   });
   $container_x = $('.panels_adult').cycle({ 
       fx: 'turnLeft', 
-      timeout: 5000,
+      timeout: 30000,
       before: change_carousel_adult,
       next:   '#next', 
       prev:   '#back',
@@ -125,12 +125,15 @@ $(function() {
 
   function change_carousel_adult()
   {
-    image = $(this).children('img').attr('src')
+    image = $(this).attr('id')
     reg= new RegExp(/[^\d]/g)
-    id = parseInt(image.replace(reg,''),10)
+    id = parseInt(image.replace(reg,''),10)+1
     setCurrent(id)
     $('#slider-nav a.active').removeClass('active');
     $('#btn_'+id).addClass('active');
+    $('#carousel_title').html($('#title_'+id).html())
+    $('#carousel_link').html($('#name_'+id).html())
+    $('#carousel_link').attr('href',$('#link_'+id).html())
   }
   function change_carousel()
   {
