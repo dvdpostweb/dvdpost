@@ -44,7 +44,11 @@ class HomeController < ApplicationController
       @top_views = Product.search.by_kind(:adult).available.limit(10).order('most_viewed desc', :extended)
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
-      @product = Product.find(102974)
+      if Rails.env == "pre_production"
+        @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)
+      else
+        @carousel = Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5)
+      end
     else
       expiration_recommendation_cache()
       @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)

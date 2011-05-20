@@ -263,9 +263,6 @@
   right: -5px;
   background: url(/images/filter-bg.png) 0 100% no-repeat;
 }
-#search_menu #choose li {
-  background: #990000;
-}
 
 #search_menu #choose label {
   display: block;
