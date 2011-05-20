@@ -1,3 +1,16 @@
+<div id="options">RECHERCHER par : 
+  <%= link_to 'Studio', studios_path(), :class =>"active" %>  
+  |
+  <%= link_to 'performers', actors_path() %> 
+</div>
+<p id="letters">
+  <% ('a'..'z').each do |l| %>
+    <%= link_to l.upcase, studios_path(:letter => l) %> |
+  <% end %>
+</p>
+<br />
+
+<ul id="search-studio">
 <% if !params[:letter] %>
   <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[0], :studios_count => @studios_count[0],  :letter => 0, :show => :limit} %>
 
@@ -7,3 +20,4 @@
 <% else %>
   <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios, :studios_count => 0,  :letter => params[:letter] , :show => :all} %>
 <% end %>
+</ul>

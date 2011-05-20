@@ -1,0 +1,249 @@
+.container { padding: 15px; background: #fff;}
+.container2 { padding: 0 0 0 45px; background: #fff;}
+.container ul, .container ol, .container dl {
+    line-height: 1.4em;
+}
+body {
+  text-shadow: none;
+}
+p {
+    line-height: 1.4em;
+    margin-bottom: 18px;
+}
+h1, h2, h3, h4, h5, h6, form, fieldset, p {
+    margin: 0;
+    padding: 0;
+}
+#wrap {
+    text-align: left;
+}
+/*   Search Studio   */
+
+#options {
+  font-size: 1.50em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  position: relative;
+  color :#201F20;
+}
+#options a, p#letters a, ul#search-studio li li a, ul#search-performers li li a, p#filter a {
+  text-decoration: none;
+}
+#options a:hover, #options a.active, p#letters a:hover, ul#search-studio li li a:hover, ul#search-performers li li a:hover,
+p#filter a:hover, p#filter a.active {
+  color: #e2007c;
+}
+#options a.right {
+  font-size: 0.61em;
+  text-decoration: underline;
+  padding-left:16px;
+  background: url(../images/link-arrow.gif) 0 0 no-repeat;
+}
+*+html #options a.right {
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+
+
+#options a.right:hover {
+  text-decoration: none;
+}
+p#letters {
+  text-align: center;
+  font-size: 1.5em;
+  color: #999999;
+  font-weight: bold;
+}
+ul#search-studio, ul#search-performers {
+  list-style: none;
+  padding-top: 15px;
+  margin:0 -5px 0 0;
+}
+ul#search-performers {
+  margin-right: -10px;
+}
+
+
+ul#search-studio li {
+  width: 130px;
+  padding-left: 50px;
+  position: relative;
+  margin: 0 5px 5px 0;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 260px;
+  zoom: 1;
+*display: inline;
+}
+ul#search-performers li {
+  width: 175px;
+  padding-left: 115px;
+  position: relative;
+  margin: 0 5px 5px 0;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 270px;
+  zoom: 1;
+*display: inline;
+}
+
+
+ul#search-studio li .letter {
+  width: 45px;
+ position: absolute;
+ top: 0;
+ left: 0;
+  font-weight: bold;
+  font-size: 2.50em;
+  text-align: right;
+  color: #000;
+  line-height:19px;
+}
+
+ul#search-performers li .letter {
+font-weight: bold;
+  font-size: 2.50em;
+  color: #000;
+  display: block;
+  margin-left: -115px;
+  line-height:19px;
+  
+}
+*+html ul#search-studio li .letter, *+html ul#search-performers li .letter  {
+   line-height: normal;
+}
+
+
+ul#search-studio li a, ul#search-performers a {
+  color: #23161b;
+}
+ul#search-studio li a.more, ul#search-performers a.more {
+  padding-left: 16px;
+  background: url(../images/link-arrow.gif) 0 0 no-repeat;
+  display: block;
+  clear: both;
+}
+ul#search-performers a.more {
+  font-size: .92em;
+}
+
+
+ul#search-studio li ol, ul#search-performers li ol {
+  display: inline-block;
+  padding-top: 8px;
+  margin-bottom: 0;
+}
+ul#search-performers li ol.big
+{
+  width: 800px;
+}
+*+html ul#search-studio li ol {
+   padding-top: 15px;
+}
+
+*+html ul#search-performers li ol {
+    padding-top: 0;
+}
+ul#search-performers li ol {
+  margin-bottom: 10px;
+}
+
+
+ul#search-studio li li, ul#search-performers li li {
+  margin: 0 0 5px 0;
+  min-height: 0;
+ padding: 0;
+ line-height: normal;
+}
+ul#search-studio li .miso {
+  font-size: 1.5em;
+  color: #fff;
+  padding: 0 4px;
+  background: #8cb617;
+  -moz-border-radius:3px;
+-webkit-border-radius:3px;
+border-radius:3px;
+-moz-box-shadow:1px 1px 1px #707070;
+-webkit-box-shadow:1px 1px 1px #707070;
+box-shadow:1px 1px 1px #707070;
+
+margin-left: 3px;
+}
+p#filter {
+  font-size: 1.17em;
+}
+p#filter a.active {
+  font-weight: bold;
+}
+ul#search-performers li li a.active {
+  font-weight: bold;
+}
+
+
+ul#search-performers li .thumb {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  padding: 4px;
+  background: #fff;
+  -moz-box-shadow:2px 2px 2px #7f7f7f;
+-webkit-box-shadow:2px 2px 2px #7f7f7f;
+box-shadow:2px 2px 2px #7f7f7f;
+}
+*+html ul#search-performers li .thumb  {
+  top: 35px;
+}
+
+
+ul#search-performers li .top10 {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+
+  padding: 1px 3px 1px 0;
+  background: url(../images/white-pixel.png);
+  display: block;
+}
+ul#search-performers li .top10 .miso {
+   padding-left: 20px;
+   background: url(../images/star-icon.png) 0 0 no-repeat;
+    color: #f70485;
+  font-size: 1.17em;
+  line-height: 17px;
+  display: block;
+}
+ul#search-performers li li a.star {
+  padding-right:20px;
+  background: url(../images/star-icon.png) 100% 0 no-repeat;
+  line-height: 17px;
+  display: inline-block;
+}
+
+
+
+
+
+
+/*   ---------   Float containers fix   ---------   */
+
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-block;
+}
+/* Hides from IE-mac \*/
+
+* html .clearfix {
+  height: 1%;
+}
+
+.clearfix {
+  display: block;
+}

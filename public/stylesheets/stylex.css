@@ -94,11 +94,6 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   font-weight: normal;
 }
 
-.pie {
-  behavior: url(PIE.htc);
-  position: relative;
-}
-
 /*   ============   HOME PAGE   ============   */
 
 #hp-content {
