@@ -6,7 +6,9 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :products, :join_table => :products_to_themes, :foreign_key => :themes_id, :association_foreign_key => :products_id
 
   named_scope :by_kind, lambda {|kind| {:conditions => {:themes_type => DVDPost.product_kinds[kind]}}}
-  named_scope :rand, :order => 'rand()'
+  named_scope :random, :order => 'rand()'
+  named_scope :by_size, :conditions => ["size > 0"]
+  
   named_scope :active, :conditions => {:active => 1}
 
   def name

@@ -1,7 +1,7 @@
-<div id="options">RECHERCHER par : 
-  <%= link_to 'Studio', studios_path(), :class =>"active" %>  
+<div id="options"><%= t('actors.index.search_by') %> : 
+  <%= link_to t('actors.index.studios'), studios_path(), :class =>"active" %>  
   |
-  <%= link_to 'performers', actors_path() %> 
+  <%= link_to t('actors.index.performers'), actors_path() %> 
 </div>
 <p id="letters">
   <% ('a'..'z').each do |l| %>

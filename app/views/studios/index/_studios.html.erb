@@ -8,6 +8,6 @@
       </li>
     <% end %>
   </ol>
-<%= link_to 'Voir plus de studios', studios_path(:letter => letter), :class => :more if studios_count > 10 if show == :limit %>
+<%= link_to t('.all'), studios_path(:letter => letter), :class => :more if studios_count > 10 if show == :limit %>
 </li>
 <% end %>

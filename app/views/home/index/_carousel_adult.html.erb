@@ -21,7 +21,7 @@
     <div class="panels_adult">
       <% i = 0 %>
       <% carousel.collect do |carousel_item| %>
-        <div class="panel" id ='panel_<%= i %>'><%= image_tag(carousel_item.image_adult, :alt => carousel_item.name) %></div>
+        <div class="panel" id ='panel_<%= i %>'><%= image_tag(carousel_item.image, :alt => carousel_item.name) %></div>
         <% i += 1 %>
       <% end %>
     </div>

@@ -1,5 +1,5 @@
 <div id="nouveautes">
-  <div class="ttl"><strong class="miso">Nouveautés</strong> <%= link_to 'Voir toutes les nouveautés', products_path(:view_mode => :recent)%></div>
+  <div class="ttl"><strong class="miso"><%= t('.title') %></strong> <%= link_to t('.all'), products_path(:view_mode => :recent)%></div>
   <ul>
     <% products.collect do |product| %>
       <li class="clearfix"> 
