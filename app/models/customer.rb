@@ -64,6 +64,7 @@ class Customer < ActiveRecord::Base
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
   has_many :messages, :foreign_key => :customers_id
+  has_many :tickets
   has_many :compensations, :foreign_key => :customers_id
   has_many :addresses, :foreign_key => :customers_id
   has_many :payment, :foreign_key => :customers_id
@@ -442,11 +443,11 @@ class Customer < ActiveRecord::Base
   end
 
   def get_token(imdb_id)
-    tokens.recent.find_all_by_imdb_id(imdb_id).last
+    tokens.recent(2.week.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).last
   end
   
   def get_all_tokens
-    tokens.available.ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+    tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
   end
   
   def remove_product_from_wishlist(imdb_id, current_ip)
@@ -500,10 +501,15 @@ class Customer < ActiveRecord::Base
     customer_attribute.update_attributes(:bluray_owner => status)
   end
 
-  def last_login
+  def last_login(kind)
     build_customer_attribute unless customer_attribute
-    init = (customer_attribute && customer_attribute.number_of_logins ? customer_attribute.number_of_logins : 0)
-    customer_attribute.update_attributes(:number_of_logins  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
+    if kind == :normal
+      init = (customer_attribute && customer_attribute.number_of_logins ? customer_attribute.number_of_logins : 0)
+      customer_attribute.update_attributes(:number_of_logins  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
+    else
+      init = (customer_attribute && customer_attribute.number_of_logins_x ? customer_attribute.number_of_logins_x : 0)
+      customer_attribute.update_attributes(:number_of_logins_x  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
+    end
   end
 
   def credit_per_month

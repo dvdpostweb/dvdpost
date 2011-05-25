@@ -1,0 +1,23 @@
+<div id="options"><%= t('actors.index.search_by') %> : 
+  <%= link_to t('actors.index.studios'), studios_path(), :class =>"active" %>  
+  |
+  <%= link_to t('actors.index.performers'), actors_path() %> 
+</div>
+<p id="letters">
+  <% ('a'..'z').each do |l| %>
+    <%= link_to l.upcase, studios_path(:letter => l) %> |
+  <% end %>
+</p>
+<br />
+
+<ul id="search-studio">
+<% if !params[:letter] %>
+  <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[0], :studios_count => @studios_count[0],  :letter => 0, :show => :limit} %>
+
+  <% ('a'..'z').each do |l|  %>
+    <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[l], :studios_count => @studios_count[l],  :letter => l, :show => :limit} %>
+  <% end %>
+<% else %>
+  <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios, :studios_count => 0,  :letter => params[:letter] , :show => :all} %>
+<% end %>
+</ul>

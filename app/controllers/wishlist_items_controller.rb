@@ -63,8 +63,8 @@ class WishlistItemsController < ApplicationController
     
     begin
       if params[:add_all_from_series]
-        product = Product.normal_available.find(params[:wishlist_item][:product_id])
-        Product.normal_available.find_all_by_products_series_id(product.series_id).collect do |product|
+        product = Product.both_available.find(params[:wishlist_item][:product_id])
+        Product.both_available.find_all_by_products_series_id(product.series_id).collect do |product|
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
         end
         @wishlist_item = current_customer.wishlist_items.by_product(product)

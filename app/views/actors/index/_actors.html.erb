@@ -1,0 +1,26 @@
+<li id="<%= letter %>"> <span class="letter"><%= letter.upcase %></span>
+  <ol <%= type == :letter ? 'class="big"' : '' %>>
+    <% i = 0 %>
+    <% details.each do |key, value| %>
+      <% actor = value[:actor] %>
+      <% i += 1 %>
+      <li>
+        <%= image_tag 'camera.png', :align => 'absmiddle' if type == :letter && actor.image_active %>
+        <%= link_to "#{actor.name}", actor_products_path(:actor_id => actor.to_param), :class => "actors#{ type == :letter && actor.image_active ? ' picture' : ''}#{ actor.top? ? ' star' : ''}#{ i == 1 ? ' active' : ''}", :id => "#{letter}_#{actor.to_param}" %> <%= "(#{value[:count]})" %>
+      </li>
+      
+    <% end %>
+  </ol>
+  <%= link_to t('.all'), actors_path(:letter => letter) if type == :all %>
+  <% first = details[1][:actor] %>
+  <% style = first.image_active ? '' : 'style="display:none"' %>
+  <span class="thumb pie" <%= style %> >
+    <span class="top10" id ="top_<%= letter %>" <%= first.top? ?   '' : 'style="display:none"' %>>
+      <span class="miso">TOP 10</span>
+    </span>
+    
+    <% link_to actor_products_path(:actor_id => first.to_param), :id => "thumb_link_#{letter}" do %>
+      <%= image_tag first.image, :width => 98, :id => "thumb_#{letter}", :atl => first.name, :title => first.name %>
+    <% end %>
+  </span>
+</li>

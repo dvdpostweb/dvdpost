@@ -47,17 +47,32 @@ class CustomersController < ApplicationController
     end
     respond_to do |format|
       format.html do
-        render :action => :show
+        redirect_to customer_path(:id => current_customer.to_param)
       end
       format.js {render :partial => 'customers/show/active', :locals => {:active => data, :type => params[:type]}}
     end
   end
 
+  def mail_copy
+    @customer = current_customer
+    @customer.customer_attribute.update_attribute(:mail_copy, params[:value])
+    respond_to do |format|
+      format.html do
+        redirect_to customer_path(:id => current_customer.to_param)
+      end
+      format.js {render :partial => 'customers/show/mail_copy', :locals => {:active => @customer.customer_attribute.mail_copy}}
+    end
+  end
+
+  def sexuality
+    @customer = current_customer
+    @customer.customer_attribute.update_attribute(:sexuality, params[:value])
+    session[:sexuality] = params[:value].to_i
+    redirect_to root_path
+  end
+
   def rotation_dvd
     @customer = Customer.find(current_customer)
-    logger.debug("@@@")
-    logger.debug(params.inspect)
-    logger.debug(params[:type])
     @customer.rotation_dvd!(params[:type],1)
     respond_to do |format|
       format.html do

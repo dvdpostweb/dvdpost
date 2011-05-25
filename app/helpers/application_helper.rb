@@ -2,7 +2,11 @@
 module ApplicationHelper
   protected
   def switch_locale_link(locale, options=nil)
-    link_to t(".#{locale}"), params.merge(:locale => locale), options
+    if request.parameters['controller'] == "home"
+      link_to t(".#{locale}"), root_path(params.merge(:locale => locale)), options
+    else
+      link_to t(".#{locale}"), params.merge(:locale => locale), options
+    end
   end
 
   def product_media_id(media)
@@ -41,6 +45,9 @@ module ApplicationHelper
   end
 
   def delegate_locale
+    if params[:kind].nil?
+      params[:kind] = 'normal'
+    end
     if params[:locale].nil?
       set_locale('fr')
     else
@@ -162,8 +169,9 @@ module ApplicationHelper
 
   def product_assigned_path(product)
     if product
-      if product.products_type == DVDPost.product_kinds[:adult]
+      if product.adult?
         php_path "product_info_adult.php?products_id=#{product.to_param}"
+        #product_path(:kind => :adult, :id => product.to_param)
       else
         product_path(:id => product.to_param)
       end
@@ -172,7 +180,7 @@ module ApplicationHelper
 
   def product_assigned_title(product)
     if product
-      if product.products_type == DVDPost.product_kinds[:adult]
+      if product.adult? && params[:kind] == :normal
         t('wishlit_items.index.adult_title')
       else
         product.title
@@ -262,6 +270,10 @@ module ApplicationHelper
   def get_current_filter(options = {})
     if cookies[:filter_id]
       current_filter = SearchFilter.get_filter(cookies[:filter_id])
+      unless current_filter.to_param
+        current_customer.customer_attribute.update_attributes(:filter_id => nil) if current_customer
+        cookies.delete :filter_id
+      end
       if !options.empty?
         current_filter.update_with_defaults(options)
       end
@@ -269,6 +281,10 @@ module ApplicationHelper
       if current_customer && current_customer.customer_attribute.filter_id
         cookies[:filter_id] = { :value => current_customer.customer_attribute.filter_id, :expires => 1.year.from_now }
         current_filter = SearchFilter.get_filter(current_customer.customer_attribute.filter_id)
+        unless current_filter.to_param
+          current_customer.customer_attribute.update_attributes(:filter_id => nil) if current_customer
+          cookies.delete :filter_id
+        end
         if !options.empty?
           current_filter.update_with_defaults(options)
         end
@@ -283,16 +299,6 @@ module ApplicationHelper
   end
 
   def check_host
-    #if params[:jacob].to_i == 0 || params[:jacob].to_i == 1
-    #  session[:jacob] = params[:jacob].to_i
-    #  @jacob = params[:jacob].to_i
-    #else
-    #  if session[:jacob] 
-    #    @jacob = session[:session]
-    #  else
-    #    @jacob = 0
-    #  end
-    #end
     @jacob = 1
     if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
       ENV['HOST_OK'] = "1"
@@ -302,6 +308,34 @@ module ApplicationHelper
   end
 
   def no_param
-    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:search].nil?))
+    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:studio_id].nil? && params[:search].nil? && params[:studio_id].nil?))
+  end
+
+  def send_message(mail_id, options, category_id)
+    mail_object = Email.by_language(I18n.locale).find(mail_id)
+    recipient = current_customer.email
+    if current_customer.customer_attribute.mail_copy
+      mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => current_customer.to_param, :mail_messages_id => mail_id, :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> current_customer.email)
+      options["\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$"] = mail_history.to_param
+    else
+      options["\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$"] = 0
+    end
+      list = ""
+      options.each {|k, v|  list << "#{k.to_s.tr("\\","")}:::#{v};;;"}
+      if current_customer.customer_attribute.mail_copy
+        email_data_replace(mail_object.subject, options)
+        subject = email_data_replace(mail_object.subject, options)
+        message = email_data_replace(mail_object.body, options)
+        mail_history.update_attributes(:lstvariable => list)
+        Emailer.deliver_send(recipient, subject, message)
+      end
+      @ticket = Ticket.new(:customer_id => current_customer.to_param, :category_ticket_id => category_id)
+      @ticket.save
+      if mail_history
+        @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55, :mail_history_id => mail_history.to_param)
+      else
+        @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55)
+      end
+      @message.save
   end
 end

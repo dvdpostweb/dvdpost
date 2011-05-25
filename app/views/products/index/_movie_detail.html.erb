@@ -3,11 +3,7 @@
 <% if product.streaming? %>
   <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil  %>
 <% end %>
-<% if product.products_type == DVDPost.product_kinds[:adult] %>
-  <% path = adult_product_path(:id => product.to_param, :recommendation => @source) %>
-<% else %>
-  <% path = product_path(:id => product.to_param, :recommendation => @source) %>
-<% end %>
+<% path = product_path(:id => product.to_param, :recommendation => @source) %>
 <div class="<%= jacket_mode == :streaming ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>
@@ -42,13 +38,24 @@
       </h3>
       <p><%= link_to product.director.name, director_products_path(:director_id => product.director.to_param) %></p>
     <% end %>
+    <% if product.studio %>
+      <h3>
+        <%= t '.studio' %>
+      </h3>
+      <p><%= link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param) %></p>
+    <% end %>
+    
   </div>
   <div class="action">
     <h4>
-      <%= product.categories.first.name unless product.categories.empty? %>
+      <% if @category %>
+        <%= @category.name %>
+      <% else %>
+        <%= product.categories.active.first.name unless product.categories.active.empty? %>
+      <% end %>
     </h4>
     <div class="stars" id="rating-stars-<%= product.to_param %>" product_id="<%= product.to_param %>">
-      <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white} %>
+      <%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color} %>
     </div>
     <% if current_customer %>
     <div class="links" id="seen-uninterested-<%= product.to_param %>">

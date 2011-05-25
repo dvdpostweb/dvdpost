@@ -25,6 +25,9 @@ class ApplicationController < ActionController::Base
     before_filter :get_wishlist_source, :unless => :is_it_xml?
     before_filter :last_login, :if => :is_it_html?
     before_filter :theme_actif, :if => :is_it_html?
+    before_filter :validation_adult, :if => :is_it_html?
+    before_filter :sexuality?
+    
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -35,6 +38,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   protected
+
 
   def is_it_js?
     request.format.js?
@@ -50,9 +54,9 @@ class ApplicationController < ActionController::Base
 
   def theme_actif
     if Rails.env == "pre_production"
-      @theme = ThemesEvent.selected_beta.last
+      @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).last
     else
-      @theme = ThemesEvent.selected.last
+      @theme = ThemesEvent.selected.by_kind(params[:kind]).last
     end
   end
 
@@ -70,9 +74,21 @@ class ApplicationController < ActionController::Base
   def last_login
     if current_customer
       if !session[:last_login]
-        current_customer.last_login
+        current_customer.last_login(:normal)
         session[:last_login] = true
       end
+      if !session[:last_login_adult] && session[:adult]
+        current_customer.last_login(:adult)
+        session[:last_login_adult] = true
+      end
+      
+    end
+  end
+
+  def validation_adult
+    if params[:kind] == :adult && !session[:adult] && request.parameters['action'] != 'validation' && request.parameters['controller'] == 'oauth'
+      session['current_uri'] = request.env['PATH_INFO']
+      redirect_to validation_path
     end
   end
 
@@ -91,25 +107,32 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def sexuality?
+    if !session[:sexuality]
+      if current_customer && current_customer.customer_attribute && current_customer.customer_attribute.sexuality == 1
+        session[:sexuality] = 1
+      else
+        session[:sexuality] = 0
+      end
+    end
+  end
+
   def set_country
-   # if session[:country_code].nil? || session[:country_code].empty?
-   #   begin
-   #     GeoIp.api_key = DVDPost.geo_ip_key
-   #     geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
-   #     country_code = geo[:country_code]
-   #     session[:country_code] = country_code
-   #     if country_code.nil? || country_code.empty?
-   #       notify_hoptoad("country code is empty ip : #{request.remote_ip}")
-   #     end
-   #   rescue => e
-   #     notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
-   #   end
-   # else
-   #   country_code = session[:country_code]
-   # end
-   session[:country_code] = 'BE'
-   country_code = 'BE'
-   
+    if session[:country_code].nil? || session[:country_code].empty?
+      begin
+        GeoIp.api_key = DVDPost.geo_ip_key
+        geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
+        country_code = geo[:country_code]
+        session[:country_code] = country_code
+        if country_code.nil? || country_code.empty?
+          notify_hoptoad("country code is empty ip : #{request.remote_ip}")
+        end
+      rescue => e
+        notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
+      end
+    else
+      country_code = session[:country_code]
+    end
   end
   
   def available_locales

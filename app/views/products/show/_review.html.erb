@@ -8,14 +8,7 @@
       <img src="/images/delimiter.gif" alt="" />
     </span>
     <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
-    <span class="stars">
-      <% review.rating.times do %>
-        <%= image_tag 'sm-star-on.png' %>
-      <% end %>
-      <% (5-review.rating).times do %>
-        <%= image_tag 'sm-star-off.png' %>
-      <% end %>
-    </span>
+    <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
   </div>
   <p><%= review.text %></p>
   <% if current_customer %>

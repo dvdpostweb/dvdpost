@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @product = Product.normal_available.find(params[:product_id])
+    @product = Product.both_available.find(params[:product_id])
     @review = Review.new(:products_id => params[:product_id])
     respond_to do |format|
       format.html
@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
 
   def create
     begin
-      @product = Product.normal_available.find(params[:product_id])
+      @product = Product.both_available.find(params[:product_id])
       review = @product.reviews.build(params[:review])
       review.customer = current_customer
       review.languages_id = DVDPost.product_languages[I18n.locale]

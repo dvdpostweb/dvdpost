@@ -1,0 +1,26 @@
+<!--   ==============   HEADER   ==============   -->
+<div id="header" >
+  <% theme_logo = @theme && @theme.logo_image == 1 ? "background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/logo/#{@theme.to_param}.gif') no-repeat;" : "" %>
+  <h1>
+    <%= link_to t('.tagline'), root_path, :class => 'f-btn', :style => theme_logo %>
+  </h1>
+  <ul id="login">
+    <li>
+      <% if current_customer %>
+        <%= "#{link_to t('.logout'), sign_out_path} <span>(#{current_customer.email})</span>" %>
+      <% end %>
+    </li>
+    <li>
+      <%= switch_locale_link I18n.locale, {:id => 'lang'} %>
+      <span id="lang-box">
+        <% Locale.all.collect(&:short).collect do |locale| %>
+          <%= switch_locale_link locale unless locale.to_s == I18n.locale.to_s %>
+        <% end %>
+      </span>
+    </li>
+    <li id="cat-link">
+      <%= link_to t('.normal'), root_path(:kind => :normal) %>
+    </li>
+  </ul>
+  <%= render :partial => "/layouts/menu_adult" %>
+</div>

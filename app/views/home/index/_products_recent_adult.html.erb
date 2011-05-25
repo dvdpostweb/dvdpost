@@ -1,0 +1,17 @@
+<div id="nouveautes">
+  <div class="ttl"><strong class="miso"><%= t('.title') %></strong> <%= link_to t('.all'), products_path(:view_mode => :recent)%></div>
+  <ul>
+    <% products.collect do |product| %>
+      <li class="clearfix"> 
+        <%= link_to (image_tag(product.preview_image(1), :width => 230, :height => 162), product_path(:id => product.to_param)) %>
+        <h3><strong><%= link_to product.title, product_path(:id => product.to_param) %></strong></h3>
+        <div class="right"> 
+          <span class="rating" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
+            <%= render :partial => 'products/rating', :locals => {:product => product, :background => :pink, :size => :small} %>
+          </span>
+          <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:elsewhere]} %> 
+        </div>
+      <span class="new"></span> </li>
+    <% end %>
+  </ul>
+</div>

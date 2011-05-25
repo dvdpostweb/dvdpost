@@ -7,8 +7,16 @@
   <%= render :partial => 'layouts/meta' %>
   <link rel="SHORTCUT ICON" href="/favicon.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <%= stylesheet_link_tag 'style', :media => :all %>
+	<% style = yield(:style).blank? ? 'style' : yield(:style) %>
+  <%= stylesheet_link_tag style, :media => :all %>
+  <%= stylesheet_link_tag 'common', :media => :all %>
   <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
+	<% if params[:kind] == :adult %>
+		<%= stylesheet_link_tag 'menux', :media => :all %>
+	<% else %>
+		<%= stylesheet_link_tag 'menu', :media => :all %>
+	<% end %>
+	
   <%= stylesheet_link_tag 'facebox', :media => :all %>
   <%= stylesheet_link_tag 'messages', :media => :all %>
   <%= stylesheet_link_tag 'fonts', :media => :all %>
@@ -32,11 +40,14 @@
 	<%= yield :facebook %>
   <%= yield :head %>
 </head>
-<body id="<%= yield :body_id %>" <%= "style=\"background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/wallpaper/#{@theme.to_param}.jpg') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image == 1 %> <%= yield :option %>>
+<body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= "style=\"background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/wallpaper/#{@theme.to_param}.jpg') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image == 1 %> <%= yield :option %>>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
-		
-    <%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
+		<% if params[:kind] == :normal %>
+    	<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
+		<% else %>
+  		<%= render(:partial => 'layouts/header_adult') %>
+		<% end %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
       <% if flash[:notice] %>
