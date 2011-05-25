@@ -289,7 +289,7 @@ p.flash_error {
 .tagdefault {
 	color: #A0A0A0 !important;
 	font: 11px;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 .tag1 {
 color:#333333 !important;
