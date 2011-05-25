@@ -5,17 +5,11 @@
     <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <p id="special" <%= "style=\"background: url(#{DVDPost.images_path}/themes/#{I18n.locale}/banner_menu/#{@theme.to_param}.gif); \"" if @theme && @theme.banner_menu == 1 %>>
-      <% if params[:kind] == :adult %>
-        <% collection = Collection.by_kind(params[:kind]).rand %>
-        <%= link_to(collection.name, collection_products_path(:collection_id => collection.to_param)) %><br />
-        <%= link_to "voir toutes collections", collections_path %>
-      <% else %>
-        <% if @theme && @theme.banner_menu == 1 %>
-          <%= link_to t(".#{@theme.name}"), themes_path(:page_name => @theme.name), :style => "color: #{@theme.banner_menu_text_color}"%>
-        <% else%>
-          <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
-          <%= link_to special.name, list_products_path(:list_id => special) %>
-        <% end %>
+      <% if @theme && @theme.banner_menu == 1 %>
+        <%= link_to t(".#{@theme.name}"), themes_path(:page_name => @theme.name), :style => "color: #{@theme.banner_menu_text_color}"%>
+      <% else%>
+        <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
+        <%= link_to special.name, list_products_path(:list_id => special) %>
       <% end %>
     </p>
     <ul id="left-nav">

@@ -2,7 +2,11 @@
 module ApplicationHelper
   protected
   def switch_locale_link(locale, options=nil)
-    link_to t(".#{locale}"), params.merge(:locale => locale), options
+    if request.parameters['controller'] == "home"
+      link_to t(".#{locale}"), root_path(params.merge(:locale => locale)), options
+    else
+      link_to t(".#{locale}"), params.merge(:locale => locale), options
+    end
   end
 
   def product_media_id(media)
@@ -266,6 +270,10 @@ module ApplicationHelper
   def get_current_filter(options = {})
     if cookies[:filter_id]
       current_filter = SearchFilter.get_filter(cookies[:filter_id])
+      unless current_filter.to_param
+        current_customer.customer_attribute.update_attributes(:filter_id => nil) if current_customer
+        cookies.delete :filter_id
+      end
       if !options.empty?
         current_filter.update_with_defaults(options)
       end
@@ -273,6 +281,10 @@ module ApplicationHelper
       if current_customer && current_customer.customer_attribute.filter_id
         cookies[:filter_id] = { :value => current_customer.customer_attribute.filter_id, :expires => 1.year.from_now }
         current_filter = SearchFilter.get_filter(current_customer.customer_attribute.filter_id)
+        unless current_filter.to_param
+          current_customer.customer_attribute.update_attributes(:filter_id => nil) if current_customer
+          cookies.delete :filter_id
+        end
         if !options.empty?
           current_filter.update_with_defaults(options)
         end
@@ -296,7 +308,7 @@ module ApplicationHelper
   end
 
   def no_param
-    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:studio_id].nil? && params[:search].nil?))
+    (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:studio_id].nil? && params[:search].nil? && params[:studio_id].nil?))
   end
 
   def send_message(mail_id, options, category_id)

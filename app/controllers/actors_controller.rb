@@ -7,7 +7,7 @@ class ActorsController < ApplicationController
           @actors = OrderedHash.new()
           ('a'..'z').each do |l|
             details = OrderedHash.new()
-            actors = Actor.by_kind(:adult).with_image.by_letter(l).ordered
+            actors = Actor.by_kind(:adult).with_image.by_letter(l).limit(10).ordered
             if actors.count > 0
               i = 0
               actors.collect do |actor|

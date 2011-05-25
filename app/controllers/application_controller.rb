@@ -53,14 +53,10 @@ class ApplicationController < ActionController::Base
   end
 
   def theme_actif
-    if params[:kind] == :adult
-      @theme = ThemesEvent.find(DVDPost.theme_adult)
+    if Rails.env == "pre_production"
+      @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).last
     else
-      if Rails.env == "pre_production"
-        @theme = ThemesEvent.selected_beta.last
-      else
-        @theme = ThemesEvent.selected.last
-      end
+      @theme = ThemesEvent.selected.by_kind(params[:kind]).last
     end
   end
 
@@ -90,7 +86,6 @@ class ApplicationController < ActionController::Base
   end
 
   def validation_adult
-    Rails.logger.debug { "@@@#{request.parameters['controller']}" }
     if params[:kind] == :adult && !session[:adult] && request.parameters['action'] != 'validation' && request.parameters['controller'] == 'oauth'
       session['current_uri'] = request.env['PATH_INFO']
       redirect_to validation_path
@@ -123,22 +118,21 @@ class ApplicationController < ActionController::Base
   end
 
   def set_country
-  #  if session[:country_code].nil? || session[:country_code].empty?
-  #    begin
-  #      GeoIp.api_key = DVDPost.geo_ip_key
-  #      geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
-  #      country_code = geo[:country_code]
-  #      session[:country_code] = country_code
-  #      if country_code.nil? || country_code.empty?
-  #        notify_hoptoad("country code is empty ip : #{request.remote_ip}")
-  #      end
-  #    rescue => e
-  #      notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
-  #    end
-  #  else
-  #    country_code = session[:country_code]
-  #  end
-  country_code = :BE
+    if session[:country_code].nil? || session[:country_code].empty?
+      begin
+        GeoIp.api_key = DVDPost.geo_ip_key
+        geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
+        country_code = geo[:country_code]
+        session[:country_code] = country_code
+        if country_code.nil? || country_code.empty?
+          notify_hoptoad("country code is empty ip : #{request.remote_ip}")
+        end
+      rescue => e
+        notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
+      end
+    else
+      country_code = session[:country_code]
+    end
   end
   
   def available_locales

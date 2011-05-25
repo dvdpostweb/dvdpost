@@ -719,3 +719,31 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   text-align: left;
   width: 970px;
 }
+#yes
+{
+  background: url(../images/bouton_x.png);
+  color:#FFFFFF;
+  display:block;
+  font-size:1.5em;
+  height:28px;
+  padding: 15px 0 0 35px;
+  width:180px;
+  text-align: center;
+  text-decoration: none;
+  margin: 10px 0 0 0
+}
+
+#no
+{
+  background: url(../images/boutonsmall_x.png) -15px -5px;
+  color:#FFFFFF;
+  display:block;
+  font-size:1.2em;
+  height:28px;
+  padding: 13px 0 0 0;
+  width:185px;
+  text-align:center;
+  text-decoration: none
+}
+#movix_title
+{text-align:center;}

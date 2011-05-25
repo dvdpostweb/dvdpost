@@ -4,7 +4,14 @@ developed by Vel
 at http://www.vhg-design.com
 ===============
 */
+a {
+  color: #ac5347;
+  text-decoration: none;
+}
 
+a:hover {
+  text-decoration: underline;
+}
 html, body {
   background: url(../images/bg.gif) 0 0 repeat-x;
   font-size: 62.5%;
@@ -283,7 +290,7 @@ fieldset {
 }
 
 .movie-info a {
-  color: #352C2C;
+  color: #352C2C !important;
 }
 
 #titles-wrap .movie-descr a.trailer, #movie-info p.links a.trailer {
@@ -389,6 +396,17 @@ fieldset {
   text-shadow:1px 1px 1px #999999;
   width:126px;
 }
+#titles-wrap .action a.btn:hover {
+  background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
+}
+
+.adult #titles-wrap .action a.btn {
+  background:url("../images/ajouterxbtn.png") no-repeat scroll 0 0 transparent !important;
+}
+
+.adult #titles-wrap .action a.btn:hover {
+  background: url(../images/ajouterxbtn.png) 0 -39px no-repeat !important;
+}
 #titles-wrap .action a.streaming_btn {
   background:url("../images/vodbtn.png") no-repeat scroll 0 -3px transparent;
   color:white;
@@ -421,9 +439,6 @@ fieldset {
 } 
 #titles-wrap .action a.streaming_btn_replay:hover {
   background:url("../images/vodbtn_replay.png") no-repeat scroll 0 -42px transparent;
-}
-#titles-wrap .action a.btn:hover {
-  background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
 }
 
 #titles-wrap .action a.btn_remove {
@@ -1240,7 +1255,13 @@ a#next10 {
   text-shadow:1px 1px 1px #555555;
   width:127px;
 }
-
+.adult #details .cover a.btn {
+  background:url("../images/ajouterxbtn.png") no-repeat scroll 0 -3px transparent;
+}
+.adult #details .cover a.btn:hover {
+  background: url(../images/ajouterxbtn.png) 0 100% no-repeat;
+  text-decoration: none;
+}
 #details .cover a.streaming_btn {
   background: url(../images/vodbtn.png) 0 -3px no-repeat;
   display: block;
@@ -2595,6 +2616,10 @@ div.top10.first p a {
   background: url(../images/leftnav-active-bg.png) no-repeat;
   color: white;
 }
+.adult #leftcolumn #left-nav li a.active {
+    background: url("../images/leftnav-activex-bg.png") no-repeat scroll 0 0 transparent;
+    color: white;
+}
 
 #leftcolumn #left-nav li a.active_close {
   background: url(../images/leftnav-active-close-bg.png) no-repeat;
@@ -2637,6 +2662,10 @@ div.top10.first p a {
   text-transform: uppercase;
   width: 111px;
 }
+.adult #leftcolumn p#special {
+  height: 44px !important;
+}
+
 #leftcolumn p#special.halloween {
   background: url(../images/specialhalloween-banner-bg.jpg) 0 0 no-repeat;
 }
@@ -2720,6 +2749,7 @@ body.oscar #leftcolumn p#special a {
   height: 24px;
   line-height: 24px;
   padding-left: 30px;
+  text-decoration: none;
 }
 
 #filters li.open a {
@@ -2851,6 +2881,10 @@ fieldset {
   font-style: normal;
   padding: 2px 5px;
 }
+.adult .products-pagination .current
+{
+  background-color: #e2007c
+}
 
 .products-pagination .prev_page, .products-pagination .next_page {
   border: none;
@@ -2955,26 +2989,6 @@ fieldset {
 table.champ_compte {
   border-collapse: separate !important;
 }
-
-p.notice {
-  background: none repeat scroll 0 0 #CDE4EC;
-  border: 1px solid #888888;
-  font-size: 14px;
-  margin: 9px auto;
-  padding: 10px;
-  text-align: center;
-  width: 900px;
-}
-p.flash_error {
-  background: none repeat scroll 0 0 #D9A0A7;
-  border: 1px solid #888888;
-  font-size: 14px;
-  margin: 9px auto;
-  padding: 10px;
-  text-align: center;
-  width: 900px;
-}
-
 
 #all_categorie {
   text-decoration: underline !important;

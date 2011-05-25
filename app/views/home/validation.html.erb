@@ -10,18 +10,17 @@
         <tr>
           <td class="b"></td>
           <td class="body"><div class="content">
-              <div id="movix_title">Accès membres MOVIX</div>
+              <div id="addwishlist_title" ><%= t('.title') %></div>
              
-              <%= link_to 'yes', validation_path(:valid => 1) %>
+              <p align="center"><%= link_to t('.over18'), validation_path(:valid => 1), :id => :yes %></p>
+              <p align="center"><%= link_to t('.under18'), root_path(:kind => :normal), :id => :no %></p>
       
                 <div id="movix_explain">
-                  <span class="attention_movix">Avertissement</span>
-                  <p>Ces pages sont strictement réservées à un public averti. Elles sont susceptibles de contenir des textes et des images pouvant heurter la sensibilité de certaines personnes.</p>
-                  <p>Vous devez être âgé d'au moins 18 ans pour accéder à cette partie du site.</p>
+                  <%= t('.warning') %>
                 </div>
            
             </div>
-            <div class="footer" style="display: block;"> <a class="close" href="<%= root_path(:kind => :normal) %>"> FERMER </a> </div></td>
+            <div class="footer" style="display: block;"> <a class="close" href="<%= root_path(:kind => :normal) %>"> CLOSE </a> </div></td>
           <td class="b"></td>
         </tr>
         <tr>

@@ -133,6 +133,7 @@ ul#search-studio li ol, ul#search-performers li ol {
   display: inline-block;
   padding-top: 8px;
   margin-bottom: 0;
+  min-height:180px;
 }
 ul#search-performers li ol.big
 {
@@ -219,10 +220,6 @@ ul#search-performers li li a.star {
   line-height: 17px;
   display: inline-block;
 }
-
-
-
-
 
 
 /*   ---------   Float containers fix   ---------   */

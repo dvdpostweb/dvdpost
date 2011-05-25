@@ -1,8 +1,8 @@
 $(function() {
   // Ajax history, only works on the product.reviews for now
   $('.actors').live('mouseover',function(){
-    reg= new RegExp(/[^\d]/g)
-    reg_a= new RegExp(/[^\a-z]/g)
+    reg = new RegExp(/[^\d]/g)
+    reg_a = new RegExp(/[^\a-z]/g)
     link = $(this).attr('id');
     id = parseInt(link.replace(reg,''),10)
     letter = link.replace(reg_a,'')
@@ -14,15 +14,29 @@ $(function() {
     $(image_id).attr('src',new_src)
     actor_href = $("#thumb_link_"+letter).attr('href')
     new_href =actor_href.replace(reg_link, "/"+id+"/");
-    $("#thumb_link_"+letter).attr('href',new_href)
-    if($(this).hasClass('star'))
+    if ($('#search-performers').hasClass('letter'))
     {
-      $("#top_"+letter).show()  
+      if ($(this).hasClass('picture')){
+        var position_top = $(this).offset().top;
+        var position_left = $(this).offset().left;
+       
+        init_left = $("#wrap").offset().left
+        $(".thumb").css({top: position_top-180,left: (position_left - init_left-200)});
+        $(image_id).attr('src',new_src)
+        $("#thumb_link_"+letter).attr('href',new_href)
+        $(".thumb").show()
+      }
+      else
+      {
+         $(".thumb").hide()
+      }
     }
     else
     {
-      $("#top_"+letter).hide()  
+       $(image_id).attr('src',new_src)
+       $("#thumb_link_"+letter).attr('href',new_href)
     }
+    
     active = '#'+letter+' .active'
     $(active).removeClass('active')
     $(this).addClass('active')

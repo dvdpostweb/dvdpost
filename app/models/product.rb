@@ -184,7 +184,6 @@ class Product < ActiveRecord::Base
   
   
   def self.filter(filter, options={})
-    
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
@@ -193,12 +192,12 @@ class Product < ActiveRecord::Base
     products = products.hetero if options[:hetero]
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_studio(options[:studio_id]) if options[:studio_id]
-    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
+    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
     products = products = products.by_special_media([2]) if options[:filter] && options[:filter] == "vod"
     products = products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
     
-    if filter.media? 
+    if filter.media? && options[:kind] == :normal
       
       medias = filter.media.dup
       if medias.include?(:dvd)

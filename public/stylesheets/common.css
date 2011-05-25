@@ -59,6 +59,13 @@
 #add_to_wishlist .item:hover {
   background: url("../images/ajouterbtn.png") no-repeat scroll 0 -42px transparent;
 }
+.adult #add_to_wishlist .item {
+  background:url("../images/ajouterxbtn.png") no-repeat scroll 0 -3px transparent !important;
+  
+}
+.adult #add_to_wishlist .item:hover {
+  background: url("../images/ajouterxbtn.png") no-repeat scroll 0 -42px transparent !important;
+}
 
 #add_to_wishlist .serie {
   background:url("../images/ajouterbtn_serie.png") no-repeat scroll 0 -3px transparent;
@@ -232,14 +239,6 @@ ul, ol, dl, dt, dd {
   background-position: 0 100%;
 }
 
-.normal a {
-  color: #ac5347;
-  text-decoration: none;
-}
-
-.normal a:hover {
-  text-decoration: underline;
-}
 .adult a {
   color: #201f20;
   text-decoration: underline;
@@ -252,4 +251,80 @@ ul, ol, dl, dt, dd {
 .pie {
   behavior: url(PIE.htc);
   position: relative;
+}
+p.notice {
+  background: none repeat scroll 0 0 #CDE4EC;
+  border: 1px solid #888888;
+  font-size: 14px;
+  margin: 9px auto;
+  padding: 10px;
+  text-align: center;
+  width: 900px;
+}
+p.flash_error {
+  background: none repeat scroll 0 0 #D9A0A7;
+  border: 1px solid #888888;
+  font-size: 14px;
+  margin: 9px auto;
+  padding: 10px;
+  text-align: center;
+  width: 900px;
+}
+
+#tag_area {
+	margin: 0;
+	overflow: hidden;
+	text-align: left;
+	padding-top: 10px;
+	width: 180px;
+}
+
+#leftcolumn .miso {
+	color:#E2007C;
+}
+
+.tag4 {
+	font-size: 14px;
+}
+.tagdefault {
+	color: #A0A0A0 !important;
+	font: 11px;
+	text-decoration: none;
+}
+.tag1 {
+color:#333333 !important;
+	font-size: 16px;
+	font-weight: 700;
+}
+.tag2 {
+color:#666666 !important;
+	font-size: 16px;
+}
+.tag3 {
+color:#999999 !important;
+	font-size: 14px;
+	font-weight: 700;
+}
+.tag4 {
+	font-size: 14px;
+}
+.tag5 {
+
+	font-size: 12px;
+	font-weight: 700;
+}
+.tag6 {
+	font-size: 12px;
+}
+.tag7 {
+	font-size: 10px;
+	font-weight: 700;
+}
+.tag8 {
+	font-size: 10px;
+}
+
+.tags {
+text-align:center;
+padding-top:10px;
 }

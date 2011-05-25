@@ -1,13 +1,13 @@
-<p>Afficher le catalogue 
+<p><%= t('.catalog') %> 
   <% if session[:sexuality] == 0 %>
-    <span class="check"><span></span> Hétéro</span> 
+    <span class="check"><span></span><%= t('.hetero') %></span> 
     <span class="check-off"><span></span>
-      <%= link_to 'Gay', customer_sexuality_path(:customer_id => current_customer, :value => 1) %>
+      <%= link_to t('.gay'), customer_sexuality_path(:customer_id => current_customer, :value => 1) %>
     </span>
   <% else %>
     <span class="check-off"><span></span> 
-      <%= link_to 'Hétéro', customer_sexuality_path(:customer_id => current_customer, :value => 0) %>
+      <%= link_to t('.hetero'), customer_sexuality_path(:customer_id => current_customer, :value => 0) %>
     </span> 
-    <span class="check"><span></span> Gay</span>
+    <span class="check"><span></span><%= t('.gay') %></span>
   <% end %>
 </p>
