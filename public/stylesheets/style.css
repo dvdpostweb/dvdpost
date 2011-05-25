@@ -261,6 +261,7 @@ fieldset {
 
 #titles-wrap .movie-descr h2 a {
   color: #454545;
+  text-decoration:none;
 }
 
 #titles-wrap .movie-descr p {
@@ -317,6 +318,10 @@ fieldset {
   font-size: 0.83em;
   margin: 0;
   padding: 0;
+}
+
+#titles-wrap .movie-info p a{
+  text-decoration: none;
 }
 
 #titles-wrap .movie-info .cast {
@@ -1585,6 +1590,10 @@ html ul.tabs li.active a:hover {
   width: 92px;
 }
 
+#carousel li a{
+  text-decoration:none;
+}
+
 #carousel-wrap-hp #carousel li {
   float: left;
   font-size: 0.92em;
@@ -2604,6 +2613,10 @@ div.top10.first p a {
   text-transform: uppercase;
   width: 148px;
 }
+.adult #leftcolumn #left-nav li a
+{
+  text-decoration: none;
+}
 #leftcolumn #left-nav li a.new {
   background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
 }
@@ -2665,7 +2678,9 @@ div.top10.first p a {
 .adult #leftcolumn p#special {
   height: 44px !important;
 }
-
+.adult #leftcolumn p#special a{
+  text-decoration: none !important;
+}
 #leftcolumn p#special.halloween {
   background: url(../images/specialhalloween-banner-bg.jpg) 0 0 no-repeat;
 }
@@ -2861,7 +2876,7 @@ fieldset {
 .products-pagination a {
   color: #5b6377;
   border: 1px solid #5b6377;
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 12px;
   padding: 2px 5px;
 }
@@ -3845,6 +3860,7 @@ position:relative;
 .selection_theme#carousel li {
   width:98px;
 }
+
 .selection_theme#carousel ul {
 position:relative !important;
 }
