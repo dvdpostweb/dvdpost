@@ -2,7 +2,7 @@
 <%= javascript 'home' if ENV['HOST_OK'] == "1" %>
 
 <% content_for :body_id do %>product_body<% end %>
-<% if @product &&  @product.description %>
+<% if @product &&  @product.description && !@product.adult? %>
   <% content_for :facebook do %>
     <meta property="og:image" content="<%= @product.image %>"/> 
     <meta property="og:type" content="movie">

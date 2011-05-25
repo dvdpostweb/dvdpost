@@ -91,6 +91,13 @@ $(function() {
       timeout: 15000,
       before: change_carousel
   });
+  $container_x = $('.panels_adult').cycle({ 
+      fx: 'turnLeft', 
+      timeout: 30000,
+      before: change_carousel_adult,
+      next:   '#next', 
+      prev:   '#back',
+  });
   
   function getCurrent()
   {
@@ -100,6 +107,12 @@ $(function() {
   {
     current = _current;
   }
+  $('#slider-nav a').click(function() { 
+      id = $(this).attr('id');
+      id = parseInt(id.replace("btn_",""),10);
+      $container_x.cycle(id-1); 
+      return false; 
+  });
   $('.menu_carousel').click(function() { 
       id = $(this).attr('id');
       id = parseInt(id.replace("carousel_",""),10);
@@ -107,6 +120,21 @@ $(function() {
       $container.cycle(id-1); 
       return false; 
   });
+  
+  
+
+  function change_carousel_adult()
+  {
+    image = $(this).attr('id')
+    reg= new RegExp(/[^\d]/g)
+    id = parseInt(image.replace(reg,''),10)+1
+    setCurrent(id)
+    $('#slider-nav a.active').removeClass('active');
+    $('#btn_'+id).addClass('active');
+    $('#carousel_title').html($('#title_'+id).html())
+    $('#carousel_link').html($('#name_'+id).html())
+    $('#carousel_link').attr('href',$('#link_'+id).html())
+  }
   function change_carousel()
   {
     setCurrent(getCurrent() + 1);
@@ -114,4 +142,31 @@ $(function() {
     $('#tabs-rotator #tabs a.active').removeClass('active');
     $('#carousel_'+getCurrent()).addClass('active');
   }
+
+  $('.top_actors').live('mouseover',function(){
+    var reg = new RegExp('[actor_id]', 'gi');
+    id =$(this).attr('id').replace(reg,'');
+    var reg_jpg = new RegExp(/\/[\d]*_[\d]\.jpg/);
+    var reg_link = new RegExp(/\/[\d]*\//);
+    src = $('#top_actor').attr('src')
+    new_src = src.replace(reg_jpg, "/"+id+"_1.jpg");
+    $('#top_actor').attr('src',new_src)
+    actor_href = $('#top_actor_link').attr('href')
+    new_href =actor_href.replace(reg_link, "/"+id+"/");
+    $('#top_actor_link').attr('href',new_href)
+    
+  });
+
+  $('.top_products').live('mouseover',function(){
+    image =$(this).attr('id');
+    id = $(this).parent('li').attr('id')
+    var reg_jpg = new RegExp(/dvd\/[\w]*\.jpg/);
+    var reg_link = new RegExp(/\/[\d]+/);
+    src = $('#top_product').attr('src')
+    new_src = src.replace(reg_jpg, image);
+    $('#top_product').attr('src',new_src)
+    actor_href = $('#top_product_link').attr('href')
+    new_href =actor_href.replace(reg_link, "/"+id);
+    $('#top_product_link').attr('href',new_href)
+  });
 });

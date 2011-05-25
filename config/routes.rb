@@ -1,6 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => :home, :action => :index, :conditions => {:method => :get}
-
   map.resources :locales, :except => [:show], :member => {:reload => :post} do |locale|
     locale.resources :translations, :except => [:show], :member => {:update_in_place => :post}
   end
@@ -11,7 +10,8 @@ ActionController::Routing::Routes.draw do |map|
     oauth.sign_out 'sign_out', :action => :sign_out, :conditions => {:method => :get}
   end
 
-  map.with_options :path_prefix => '/:locale' do |localized|
+  map.with_options :path_prefix => '/:locale/:kind' do |localized|
+    localized.filter "kind"
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
     localized.with_options :controller => :home do |home|
@@ -58,12 +58,20 @@ ActionController::Routing::Routes.draw do |map|
       category.resources :products, :only => :index
     end
 
-    localized.resources :actors, :only => [] do |actor|
+    localized.resources :actors, :only => [:index] do |actor|
       actor.resources :products, :only => :index
     end
 
     localized.resources :directors, :only => [] do |director|
       director.resources :products, :only => :index
+    end
+
+    localized.resources :studios, :only => [:index] do |studio|
+      studio.resources :products, :only => :index
+    end
+
+    localized.resources :collections, :only => [:index] do |collection|
+      collection.resources :products, :only => :index
     end
 
     localized.resources :lists, :only => [] do |top|
@@ -78,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :quizzes, :only => [:show, :index]
     
     localized.menu_tops 'menu_tops', :controller => :products, :action => :menu_tops, :conditions => {:method => :get}
+    localized.validation 'validation', :controller => :home, :action => :validation, :conditions => {:method => :get}
     localized.menu_categories 'menu_categories', :controller => :products, :action => :menu_categories, :conditions => {:method => :get}
     
 
@@ -107,12 +116,18 @@ ActionController::Routing::Routes.draw do |map|
       survey.resources :customer_surveys, :only => [:new, :create]
     end
 
+    localized.resources :tickets do |ticket|
+      ticket.resources :message_tickets, :only => [:create]
+    end
+
     localized.info '/info/:page_name' , :controller => :info
     localized.themes '/themes/:page_name' , :controller => :themes
 
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
+      customer.mail_copy 'mail_copy', :controller => :customers, :action => :mail_copy, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
+      customer.sexuality 'sexuality', :controller => :customers, :action => :sexuality, :only => [:update]
       customer.resource 'addresses', :only => [:edit, :update]
       customer.resource 'suspension', :only => [:new, :create, :destroy]
       customer.resource 'reconduction', :only => [:edit, :update]

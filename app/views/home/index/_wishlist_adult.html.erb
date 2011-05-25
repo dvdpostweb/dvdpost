@@ -1,0 +1,16 @@
+<div id="bienvenue">
+  <h4><%= t 'home.index.wishlist.welcome' %> <%= current_customer.customers_firstname %></h4>
+  <%= render :partial => 'home/index/sexuality' %>
+  <div id="liste"><strong><%= t('home.index.wishlist.contains') %></strong> <%= wishlist_count %> <%= t 'home.index.wishlist.dvd' %></div>
+  <table width="300px"><%= render :partial => 'customers/show/rotation', :locals => {:customer => current_customer} %></table>
+<div class="clear"></div>
+  <div id="en-transit">
+    <div><strong><%= t 'home.index.wishlist.lent' %></strong> <%= transit_items.count %> <%= t 'home.index.wishlist.dvd' %></div>
+    <dl>
+      <% transit_items.each do |transit_item| %>
+      <dt><%= link_to truncate(product_assigned_title(transit_item.product), :length => 30), product_assigned_path(transit_item.product) %></dt>
+      <dd><%= transit_item.changed_at.strftime("%d/%m/%Y") %></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>

@@ -1,0 +1,384 @@
+/* ============ HEADER ============ */
+
+#header {
+  height: 105px;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+#header.small
+{
+  height: 55px;
+}
+
+#header h1 {
+  float: left;
+  height: 51px;
+  margin: 10px 0 0 25px;
+  width: 259px;
+}
+
+#header h1 a {
+  background: url(../images/logo.gif) 0 0 no-repeat;
+  display: block;
+  height: 51px;
+}
+#header h1 a.halloween {
+  background: url(../images/logo_dvdpost_halloween.gif) 0 0 no-repeat;
+}
+
+body.valentine #header h1 a {
+  background: url(../images/logo_valentine.gif) 0 0 no-repeat;
+}
+
+body.oscar #header h1 a {
+  background: url(../images/logo_oscar.gif) 0 0 no-repeat;
+}
+
+#header .subnav {
+  clear: right;
+  float: right;
+  margin: 8px 17px 0 0;
+}
+
+#header #login li.first{
+  margin: 0 5px 0 0;
+}
+
+* html #header .subnav {
+  display: inline;
+}
+
+#header .subnav li {
+  background: url(../images/subnav-dots.gif) 0 100% no-repeat;
+  display: inline-block;
+  float: left;
+}
+
+#header .subnav li.first {
+  background: transparent;
+}
+
+#header .subnav li a {
+  color: #3f3737;
+  margin: 0 9px 0 8px;
+}
+
+#header #login li.first a {
+  text-decoration: underline;
+}
+
+
+
+#header #login {
+  position: relative;
+  z-index: 1;
+}
+
+
+#header #subnav {
+  font: normal 1.29em Verdana, Tahoma, Arial, Helvetica, sans-serif;
+}
+
+#header #subnav a#jouer, #header #subnav a#cart {
+  background: url(../images/jouer-icon.gif) 4px 0 no-repeat;
+  padding-bottom: 10px;
+  padding-left: 37px;
+}
+
+#header #subnav a#cart {
+  background: url(../images/cart-icon.gif) 5px 0 no-repeat;
+  color: #ff4b00;
+}
+
+#nav {
+  background: url(../images/nav-bg.jpg) 0 100% no-repeat;
+  display: block;
+  height: 44px;
+  left: -8px;
+  padding: 0 8px;
+  position: absolute;
+  top: 60px;
+  width: 970px;
+}
+
+#nav li {
+  display: block;
+  float: left;
+  height: 38px;
+  margin: 1px 1px 0 0;
+}
+
+#nav li a {
+  background-position: center top;
+  background-repeat: no-repeat;
+  display: block;
+  height: 43px;
+  line-height: 43px;
+  color: white;
+  font-size: 1.5em;
+  outline: none;
+  /*text-indent: -999em;*/
+  width: 139px;
+  background: url(../images/nav-bg.png) 0 0 no-repeat;
+  text-shadow: 1px 1px 1px #000000;
+}
+#nav.noel li a
+{
+  background: url(../images/nav-bg_xmas.png) 0 0 no-repeat;
+}
+
+#nav li a:hover {
+  text-decoration: none;
+}
+
+#nav li a#n1 {
+  width: 140px;
+  text-indent: 54px;
+}
+
+#nav li a#n2 {
+  background-position: -141px 0;
+  text-indent: 52px;
+}
+
+#nav li a#n3 {
+  background-position: -281px 0;
+  text-indent: 55px;
+}
+
+#nav li a#n4 {
+  background-position: -421px 0;
+  position: relative;
+  text-indent: 61px;
+}
+
+#nav li a#n5 {
+  width: 138px;
+  background-position: -561px 0;
+  text-indent: 55px;
+}
+#nav li a#n6 {
+  background-position: 100% 0;
+  text-indent: 48px;
+  font-size: 1.2em;
+}
+
+#nav li a#n1:hover {
+  background-position: 0 -58px;
+}
+
+#nav li a#n2:hover {
+  background-position: -141px -58px;
+}
+
+#nav li a#n3:hover {
+  background-position: -281px -58px;
+}
+
+#nav li a#n4:hover {
+  background-position: -421px -58px;
+}
+
+#nav li a#n5:hover {
+  background-position: -561px -58px;
+}
+
+#nav li a#n6:hover {
+  background-position: 100% -58px;
+}
+
+#nav li a.active {
+  color: #353535;
+  cursor: default;
+  text-shadow: none;
+}
+
+#nav li a#n1.active {
+  background-position: 0 100%;
+}
+
+#nav li a#n2.active {
+  background-position: -141px 100%;
+}
+
+#nav li a#n3.active {
+  background-position: -281px 100%;
+}
+
+#nav li a#n4.active {
+  background-position: -421px 100%;
+}
+
+#nav li a#n5.active {
+  background-position: -561px 100%;
+}
+
+#nav li a#n6.active {
+  background-position: 100% 100%;
+}
+
+#nav li a#n4 span {
+  display: block;
+  text-indent: 0;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  position: absolute;
+  top: 15px;
+  left: 32px;
+  color: white;
+  font-size: 0.56em;
+  text-shadow: none;
+}
+
+#nav li a#n4.active span {
+  color: #e2e2e2;
+}
+
+#nav li#indicator {
+  margin: 1px 0 0 0;
+  position: relative;
+  width: 130px;
+  z-index: 90;
+}
+
+#nav li a#n7 {
+  width: 130px;
+  text-indent: -999em;
+}
+
+#nav li a#n7.low {
+  background: url(../images/indicator-bg_red.png) 50% 0 no-repeat;
+}
+
+#nav li a#n7.medium {
+  background: url(../images/indicator-bg_orange.png) 50% 0 no-repeat;
+}
+
+#nav li a#n7.high {
+  background: url(../images/indicator-bg_green.png) 50% 0 no-repeat;
+}
+
+#nav li#indicator #indicator-tips {
+  background: url(../images/indicator-tip-bg.png) 0 0 no-repeat;
+  display: block;
+  height: 184px;
+  left: 10px;
+  padding: 18px 5px 0 3px;
+  position: absolute;
+  top: 34px;
+  width: 159px;
+  z-index: 100;
+  z-index: 100;
+}
+
+#nav li#indicator #indicator-tips li {
+  float: none;
+  height: auto;
+  margin: 0;
+  text-align: left;
+  width: auto;
+}
+
+#nav li#indicator #indicator-tips li h3 {
+  border-bottom: 1px solid #6d6d6d;
+  font-size: 1.17em;
+  text-align: center;
+}
+
+#nav li#indicator #indicator-tips li p {
+  font-size: 0.75em;
+  margin: 4px;
+  padding: 0;
+}
+
+*:first-child + html #nav li#indicator #indicator-tips li p {
+  margin: 2px 4px 4px;
+}
+
+* html #nav li#indicator #indicator-tips li p {
+  margin: 2px 4px 4px;
+}
+
+#nav li#indicator .indicator {
+  background-position: 5px 0;
+  background-repeat: no-repeat;
+  font-size: 0.83em;
+  font-weight: bold;
+  height: 27px !important;
+  margin-bottom: 9px !important;
+  padding: 2px 0 0 77px;
+}
+
+*:first-child + html #nav li#indicator .indicator {
+  margin-bottom: 8px !important;
+}
+
+* html #nav li#indicator .indicator {
+  margin-bottom: 8px !important;
+}
+
+#nav li#indicator #ind0-10 {
+  background-image: url(../images/ind0-10-bg.gif);
+}
+
+#nav li#indicator #ind10-30 {
+  background-image: url(../images/ind10-30-bg.gif);
+}
+
+#nav li#indicator #ind30-plus {
+  background-image: url(../images/ind30-plus-bg.gif);
+}
+
+#nav li#indicator #close {
+  text-align: right !important;
+}
+
+#nav li#indicator #close a {
+  background: url(../images/close-icon.gif) 100% 0 no-repeat;
+  color: #505050;
+  float: none;
+  font-size: 0.83em;
+  height: auto;
+  margin-right: 5px;
+  padding: 0 13px 0 0;
+  text-indent: 0;
+  width: auto;
+  height: 20px;
+  line-height: 14px;
+  text-shadow: 0 0 0;
+}
+
+*:first-child + html #nav li#indicator #close a {
+  line-height: 13px;
+}
+
+* html #nav li#indicator #close a {
+  line-height: 13px;
+}
+
+#nav li#indicator #close a:hover {
+  background: url(../images/close-icon.gif) 100% -20px no-repeat;
+  text-decoration: none;
+}
+#header #login span#lang-box {
+  background: url(../images/lang-bg.gif) 0 0 no-repeat;
+  display: block;
+  height: 36px;
+  padding-top: 18px;
+  position: absolute;
+  right: -3px;
+  top: -2px;
+  width: 78px;
+  z-index: 1;
+}
+
+*:first-child + html #header #login span#lang-box {
+  right: 5px;
+}
+
+* html #header #login span#lang-box {
+  right: 5px;
+}

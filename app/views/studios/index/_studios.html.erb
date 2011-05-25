@@ -1,0 +1,13 @@
+<% if studios_count > 0 || show == :all %>
+<li id="numbers"> 
+  <span class="letter"><%= letter == 0 ? "0-9" : letter.upcase %></span>
+  <ol>
+    <% studios.collect do |studio| %>
+      <li>
+        <%= link_to "#{studio.name}", studio_products_path(:studio_id => studio.to_param), :class => "studios", :id => "#{letter}_#{studio.to_param}" %>
+      </li>
+    <% end %>
+  </ol>
+<%= link_to t('.all'), studios_path(:letter => letter), :class => :more if studios_count > 10 if show == :limit %>
+</li>
+<% end %>

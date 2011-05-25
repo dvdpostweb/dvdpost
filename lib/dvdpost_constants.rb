@@ -8,8 +8,16 @@ module DVDPost
       'http://www.dvdpost.be/imagesx'
     end
 
+    def imagesx_preview_path
+      'http://www.dvdpost.be/imagesx/screenshots'
+    end
+
     def images_carousel_path
       "#{images_path}/landings"
+    end
+
+    def images_carousel_adult_path
+      "#{imagesx_path}/landings"
     end
 
     def news_url
@@ -90,6 +98,13 @@ module DVDPost
       })
     end
 
+    def actor_kinds
+      HashWithIndifferentAccess.new.merge({
+        :normal => 'DVD_NORM',
+        :adult => 'DVD_ADULT'
+      })
+    end
+
     def products_special_types
       HashWithIndifferentAccess.new.merge({
         :dvd => 1,
@@ -160,8 +175,9 @@ module DVDPost
       end
     end
 
-    def product_linked_recommendations(product)
-      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30"
+    def product_linked_recommendations(product, kind)
+      include_adult = kind == :adult ? 'true' : 'false' 
+      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30&includeAdult=#{include_adult}"
       open url do |data|
         Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
       end
@@ -193,11 +209,21 @@ module DVDPost
       statuses
     end
 
+    def messages_kind
+      kind = OrderedHash.new
+      kind.push(:number,        {:message => 18, :category => 16})
+      kind.push(:billing_price, {:message => 13, :category => 9})
+      kind.push(:billing_dvd,   {:message => 14, :category => 10})
+      kind.push(:dom,           {:message => 16, :category => 13})
+      kind
+    end
+  
     def email
       HashWithIndifferentAccess.new.merge({
         :sponsorships_invitation    => 446,
-        :streaming_product    => 571,
-        :streaming_product_free    => 571,
+        :streaming_product          => 571,
+        :streaming_product_free     => 571,
+        :message_free               => 578
       })
     end
 
@@ -216,7 +242,7 @@ module DVDPost
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
         :external => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182'],
-        :internal => '127.0.0.1'
+        :internal => '127.0.0.2'
       })
     end
     
@@ -272,6 +298,10 @@ module DVDPost
     def mail_vod_selection(customer_id,  limit = 7)
       data = open("http://www.dvdpost.com/webservice/vod_selection.php?limit=#{limit}&customer_id=#{customer_id}").read
       Iconv.conv('utf-8','ISO-8859-1',  data)
+    end
+
+    def theme_adult
+      9
     end
     
   end

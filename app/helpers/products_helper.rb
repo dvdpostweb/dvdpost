@@ -94,6 +94,15 @@ module ProductsHelper
     links
   end
 
+  def rating_review_image_link(product, value, replace)
+    name = 'star-voted'
+    class_name = 'star'
+    image_name = "#{name}-off.png"
+
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
+  end
+
   def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
     if product
       rating = product.rating(current_customer) 
@@ -107,16 +116,8 @@ module ProductsHelper
     end
   end
 
-  def rating_review_image_link(product, value, replace)
-    name = 'star-voted'
-    class_name = 'star'
-    image_name = "#{name}-off.png"
-
-    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
-  end
-
   def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
+    background = background.to_sym if background
     if current_customer
       if current_customer.has_rated?(product)
         name = 'star-voted'
@@ -132,9 +133,14 @@ module ProductsHelper
     if size == 'small' || size == :small
       name = "small-#{name}"
     else
-      name = "black-#{name}" if background == :black
+      if background == :black
+        name = "black-#{name}" 
+      end
     end
-    if size == 'small' || size == :small
+    if background == :pink
+      name = "pink-#{name}" 
+    end
+    if size == 'small' || size == :small || background == :pink
       image_name = if rating >= 2
         "#{name}-on.png"
       elsif rating == 1
@@ -151,7 +157,7 @@ module ProductsHelper
         "#{name}-off.jpg"
       end
     end
-    if current_customer && class_name == 'star' 
+    if current_customer && class_name == 'star'
       image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
     else
@@ -234,12 +240,14 @@ module ProductsHelper
 
   def products_index_title
     title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
-    title = "#{t '.actor'}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
+    title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
+    title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
     title = t('.recommendation') if params[:view_mode] == 'recommended'
     title = t('.streaming_title') if params[:view_mode] == 'streaming'
     title = t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
     title = t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
     title = "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    title = "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
     title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
     title = "#{t '.search'}: #{params[:search]}" if params[:search]
@@ -278,9 +286,14 @@ module ProductsHelper
     end
   end
 
-  def left_column_categories(selected_category)
+  def left_column_categories(selected_category, kind, sexuality)
     html_content = []
-    Category.active.roots.movies.by_kind(:normal).remove_themes.ordered.collect do |category|
+    if kind == :adult && sexuality == 0
+      cat = Category.active.roots.hetero.movies.by_kind(kind).remove_themes.ordered
+    else
+      cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
+    end
+    cat.collect do |category|
       li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent
       if category == selected_category
         a_class = 'actived'
@@ -356,5 +369,20 @@ module ProductsHelper
       separator = (audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
       "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
     end
+  end
+
+  def product_review_stars(review, kind)
+    images = ""
+    name = 'small-star'
+    if kind == :adult
+      name = 'pink-' + name
+    end
+    review.rating.times do
+      images += image_tag "#{name}-on.png"
+    end
+      (5-review.rating).times do
+      images += image_tag "#{name}-off.png"
+    end
+    images
   end
 end

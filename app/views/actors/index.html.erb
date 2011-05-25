@@ -1,0 +1,17 @@
+<div class="container2">
+  <div id="options"><%= t('.search_by')%> : 
+    <%= link_to t('.studios'), studios_path() %>  
+    |
+    <%= link_to t('.performers'), actors_path(), :class =>"active" %> 
+  </div>
+  <p id="letters">
+    <% ('a'..'z').each do |l| %>
+      <%= link_to l.upcase, actors_path(:letter => l) %> |
+    <% end %>
+  </p>
+  <ul id="search-performers" class ="<%= params[:letter] ? :letter : :all %>">
+  <% @actors.each do |key , value|  %>
+    <%= render :partial => '/actors/index/actors', :locals => { :details => value, :letter => key, :type => params[:letter] ? :letter : :all} %>
+  <% end %>
+  </ul>
+</div>

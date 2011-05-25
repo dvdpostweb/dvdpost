@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
       @recommendations = retrieve_recommendations(params[:recommendation_page])
     end
     @filter = get_current_filter({})
+    Rails.logger.debug { "@@@#{@filter.inspect}" }
     if params[:search] == t('products.left_column.search')
       params.delete(:search)
     else
@@ -20,8 +21,8 @@ class ProductsController < ApplicationController
       end
     end
     if params['actor_id']
-      actor = Actor.find(params['actor_id'])
-      params['actor_id'] = actor.id
+      @actor = Actor.find(params['actor_id'])
+      params['actor_id'] = @actor.id
     end
     if params['director_id']
       director = Director.find(params['director_id'])
@@ -31,11 +32,14 @@ class ProductsController < ApplicationController
     if params[:category_id]
       filter = get_current_filter
       @popular = current_customer.streaming(filter,{:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
+      @category = Category.find(params[:category_id])
     end
     if params[:sort].nil?
       params[:sort] = 'normal'
     end
+    @rating_color = params[:kind] == :adult ? :pink : :white
     @countries = ProductCountry.visible.order
+    @collections = Collection.by_size.random
     respond_to do |format|
       format.html do
         @products = if params[:view_mode] == 'recommended'
@@ -69,7 +73,13 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.normal_available.find(params[:id])
+    if params[:kind] == :adult
+      @product = Product.adult_available.find(params[:id])
+      @rating_color = :pink
+    else
+      @product = Product.normal_available.find(params[:id])
+      @rating_color = :white
+    end
     unless request.format.xml?
       @filter = get_current_filter({})
       @product.views_increment
@@ -81,12 +91,12 @@ class ProductsController < ApplicationController
         @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
         @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
       end
-      product_recommendations = @product.recommendations
+      product_recommendations = @product.recommendations(params[:kind])
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
-    
+    @collections = Collection.by_size.random
     respond_to do |format|
       format.html do
         @categories = @product.categories
@@ -174,6 +184,10 @@ class ProductsController < ApplicationController
 
 private
   def find_product
-    @product = Product.normal_available.find(params[:product_id])
+    if params[:kind] == :normal
+      @product = Product.normal_available.find(params[:product_id])
+    else
+      @product = Product.adult_available.find(params[:product_id])
+    end
   end
 end

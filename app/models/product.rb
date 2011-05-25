@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
+  #db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
   cattr_reader :per_page
   @@per_page = 20
@@ -19,8 +19,10 @@ class Product < ActiveRecord::Base
   alias_attribute :year,            :products_year
   alias_attribute :price,           :products_price
   alias_attribute :next,            :products_next
+  alias_attribute :studio,          :products_studio
   
   belongs_to :director, :foreign_key => :products_directors_id
+  belongs_to :studio, :foreign_key => :products_studio
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
@@ -36,6 +38,7 @@ class Product < ActiveRecord::Base
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
+  has_and_belongs_to_many :collections, :join_table => :products_to_themes, :foreign_key => :products_id, :association_foreign_key => :themes_id
   has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
   has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
@@ -45,12 +48,14 @@ class Product < ActiveRecord::Base
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
   named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
   named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
-
+  named_scope :limit, lambda {|limit| {:limit => limit}}
+  named_scope :ordered, :order => 'products_id desc'
   define_index do
     indexes products_media
     indexes products_type
     indexes actors.actors_name,                 :as => :actors_name
     indexes director.directors_name,            :as => :director_name
+    indexes studio.studio_name,                 :as => :studio_name
     #indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
   
@@ -61,7 +66,6 @@ class Product < ActiveRecord::Base
     has products_id,                :as => :id
     has products_next,              :as => :next
     has products_public,            :as => :audience
-    has products_status,            :as => :status
     has products_year,              :as => :year
     has products_language_fr,       :as => :french
     has products_undertitle_nl,     :as => :dutch
@@ -70,7 +74,9 @@ class Product < ActiveRecord::Base
     has in_cinema_now
     has actors(:actors_id),         :as => :actors_id
     has categories(:categories_id), :as => :category_id
+    has collections(:themes_id),    :as => :collection_id
     has director(:directors_id),    :as => :director_id
+    has studio(:studio_id),         :as => :studio_id
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
@@ -80,8 +86,8 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
-    has 'cast((SELECT sum(number) FROM `product_views` pw WHERE pw.product_id = products.products_id and created_at > date_sub(now(), INTERVAL 1 MONTH) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed
-    has 'cast((SELECT sum(number) FROM `product_views` pw WHERE pw.product_id = products.products_id and created_at > date_sub(now(), INTERVAL 1 YEAR) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
+    has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
+    has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
     has "(select created_at s from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
   
@@ -107,7 +113,9 @@ class Product < ActiveRecord::Base
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
     has 'concat(if(products_quantity>0,1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
-    
+    has "case 
+    when  products_status = -1 then 99
+    else products_status end", :type => :integer, :as => :status
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
     set_property :enable_star => true
@@ -124,8 +132,12 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:by_collection)      {|collection|       {:with =>       {:collection_id => collection.to_param}}}
+  sphinx_scope(:hetero)             {{:without =>       {:category_id => 76}}}
+  sphinx_scope(:gay)                {{:with =>          {:category_id => 76}}}
   sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
+  sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
   sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
@@ -137,7 +149,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
-  sphinx_scope(:available)          {{:with =>          {:status => [0,1]}}}
+  sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
@@ -172,15 +184,20 @@ class Product < ActiveRecord::Base
   
   
   def self.filter(filter, options={})
-    
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
+    products = products.by_collection(options[:collection_id]) if options[:collection_id]
+    products = products.hetero if options[:hetero]
     products = products.by_director(options[:director_id]) if options[:director_id]
-    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
+    products = products.by_studio(options[:studio_id]) if options[:studio_id]
+    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
-    if filter.media? 
+    products = products = products.by_special_media([2]) if options[:filter] && options[:filter] == "vod"
+    products = products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
+    
+    if filter.media? && options[:kind] == :normal
       
       medias = filter.media.dup
       if medias.include?(:dvd)
@@ -248,7 +265,7 @@ class Product < ActiveRecord::Base
     if options[:sort] && options[:sort].to_sym == :new
       products = products.not_recent
     end
-    if options[:adult]
+    if options[:kind] == :adult
       products = products.by_kind(:adult).available
     else
       products = products.by_kind(:normal).available
@@ -284,10 +301,10 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
-  def recommendations
+  def recommendations(kind)
     begin
       # external service call can't be allowed to crash the app
-      recommendation_ids = DVDPost.product_linked_recommendations(self)
+      recommendation_ids = DVDPost.product_linked_recommendations(self, kind)
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
@@ -327,6 +344,11 @@ class Product < ActiveRecord::Base
       File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
     end
   end
+
+  def preview_image(id)
+    File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
+  end
+
 
   def rating(customer=nil)
     if customer && customer.has_rated?(self)
@@ -493,14 +515,26 @@ class Product < ActiveRecord::Base
       end
   end
 
-  def self.get_recent(locale)
-    case locale
-      when :fr
-        Product.by_kind(:normal).available.recent.with_languages(1).random.limit(3)
-      when :nl
-        Product.by_kind(:normal).available.recent.with_subtitles(2).random.limit(3)
-      when :en
-        Product.by_kind(:normal).available.recent.random.limit(3)
+  def self.get_recent(locale, kind, limit, sexuality)
+    if kind == :adult
+      if sexuality == 1
+        Product.by_kind(kind).available.recent.random.limit(limit)
+      else
+        Product.by_kind(kind).available.recent.hetero.random.limit(limit)
       end
+    else
+      case locale
+        when :fr
+          Product.by_kind(kind).available.recent.with_languages(1).random.limit(limit)
+        when :nl
+          Product.by_kind(kind).available.recent.with_subtitles(2).random.limit(limit)
+        when :en
+          Product.by_kind(kind).available.recent.random.limit(limit)
+        end
+    end
+  end
+
+  def adult?
+    products_type == DVDPost.product_kinds[:adult]
   end
 end
