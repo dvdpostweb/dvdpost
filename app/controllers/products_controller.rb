@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
       @recommendations = retrieve_recommendations(params[:recommendation_page])
     end
     @filter = get_current_filter({})
-    Rails.logger.debug { "@@@#{@filter.inspect}" }
     if params[:search] == t('products.left_column.search')
       params.delete(:search)
     else
@@ -50,8 +49,15 @@ class ProductsController < ApplicationController
           
           retrieve_recommendations(params[:page], { :sort => params[:sort]})
         else
-          Product.filter(@filter, params)
+          if session[:sexuality] == 0
+            new_params = params.merge(:hetero => 1) 
+          else
+            new_params = params
+          end
+          Product.filter(@filter, new_params)
         end
+        Rails.logger.debug { "@@@#{session[:sexuality]}" }
+        Rails.logger.debug { "@@@#{new_params.inspect}" }
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
         
