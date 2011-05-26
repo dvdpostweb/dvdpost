@@ -30,8 +30,12 @@ class ProductsController < ApplicationController
     
     if params[:category_id]
       filter = get_current_filter
-      @popular = current_customer.streaming(filter,{:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
+      @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
       @category = Category.find(params[:category_id])
+      if params[:category_id].to_i == 76
+        current_customer.customer_attribute.update_attribute(:sexuality, 1)
+        session[:sexuality] = 1
+      end
     end
     if params[:sort].nil?
       params[:sort] = 'normal'
@@ -56,8 +60,6 @@ class ProductsController < ApplicationController
           end
           Product.filter(@filter, new_params)
         end
-        Rails.logger.debug { "@@@#{session[:sexuality]}" }
-        Rails.logger.debug { "@@@#{new_params.inspect}" }
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
         
