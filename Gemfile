@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 2.3.11'
-gem 'rake', '0.9.0' 
 gem 'mysql', :group => :bundle
 
 gem 'rmagick'
