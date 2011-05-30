@@ -1,7 +1,8 @@
 <% path = product_path(:id => product.to_param, :recommendation => @wishlist_source[:theme]) %>
+<% color = params[:kind] == :adult ? :pink : :pink %>
 <li>
   <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
-    <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white, :size => :small} %>
+    <%= render :partial => 'products/rating', :locals => {:product => product, :background => color, :size => :small} %>
   </div>
   <% link_to path, :class => ((product.streaming? and streaming_access?) ? 'vod' : product_media_id(product.media)) do %>
     <%= product_image_tag product.image, :width => 82, :height => 121, :alt => "#{product.title} (#{product.year})" %>

@@ -1,13 +1,17 @@
 class ActorsController < ApplicationController
   def index
     if !params[:letter]
-      fragment_name = "actors_x"
+      fragment_name = session[:sexuality] == 1 ? "actors_x_gay" : "actors_x_hetero"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
         begin
           @actors = OrderedHash.new()
           ('a'..'z').each do |l|
             details = OrderedHash.new()
-            actors = Actor.by_kind(:adult).with_image.by_letter(l).limit(10).ordered
+            if session[:sexuality] == 1
+              actors = Actor.by_kind(:adult).by_sexuality(:gay).by_letter(l).limit(10).ordered
+            else
+              actors = Actor.by_kind(:adult).by_sexuality(:hetero).with_image.by_letter(l).limit(10).ordered
+            end
             if actors.count > 0
               i = 0
               actors.collect do |actor|
@@ -26,12 +30,16 @@ class ActorsController < ApplicationController
         end
       end
     else
-      fragment_name = "actors_x_#{params[:letter]}"
+      fragment_name = session[:sexuality] == 1 ?  "actors_x_gay4_#{params[:letter]}" : "actors_x_hetero_#{params[:letter]}"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
         begin
           @actors = OrderedHash.new()
           details = OrderedHash.new()
-          actors = Actor.by_kind(:adult).by_letter(params[:letter]).ordered
+          if session[:sexuality] == 1
+            actors = Actor.by_kind(:adult).by_sexuality(:gay).by_letter(params[:letter]).ordered
+          else
+            actors = Actor.by_kind(:adult).by_sexuality(:hetero).by_letter(params[:letter]).ordered
+          end
           if actors.count > 0
             i = 0
             actors.collect do |actor|

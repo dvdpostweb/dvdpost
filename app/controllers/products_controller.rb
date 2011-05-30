@@ -31,8 +31,12 @@ class ProductsController < ApplicationController
     
     if params[:category_id]
       filter = get_current_filter
-      @popular = current_customer.streaming(filter,{:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
+      @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
       @category = Category.find(params[:category_id])
+      if params[:category_id].to_i == 76
+        current_customer.customer_attribute.update_attribute(:sexuality, 1)
+        session[:sexuality] = 1
+      end
     end
     if params[:sort].nil?
       params[:sort] = 'normal'
@@ -50,7 +54,12 @@ class ProductsController < ApplicationController
           
           retrieve_recommendations(params[:page], { :sort => params[:sort]})
         else
-          Product.filter(@filter, params)
+          if session[:sexuality] == 0
+            new_params = params.merge(:hetero => 1) 
+          else
+            new_params = params
+          end
+          Product.filter(@filter, new_params)
         end
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
@@ -96,7 +105,7 @@ class ProductsController < ApplicationController
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
-    
+    @collections = Collection.by_size.random
     respond_to do |format|
       format.html do
         @categories = @product.categories

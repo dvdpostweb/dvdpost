@@ -1,5 +1,5 @@
 class Actor < ActiveRecord::Base
-  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
+  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1" && !ENV['SLUG']
 
   set_primary_key :actors_id
 
@@ -8,6 +8,7 @@ class Actor < ActiveRecord::Base
   
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :by_kind, lambda {|kind| {:conditions => {:actors_type => DVDPost.actor_kinds[kind]}}}
+  named_scope :by_sexuality, lambda {|sexuality| {:conditions => {:sexuality => sexuality.to_s}}}
   named_scope :by_letter, lambda {|letter| {:conditions => ["actors_name like ?", letter+'%' ]}}
   named_scope :top, :conditions => 'top_actors > 0'
   named_scope :with_image, :conditions => {:image_active => true}

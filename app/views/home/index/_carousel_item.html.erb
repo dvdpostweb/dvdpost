@@ -10,7 +10,7 @@
       <% if carousel_item.kind == 'MOVIE' && carousel_item.product.trailer %>
       <li class="delim"></li>
       <li>
-        <%= link_to(t('.trailer'), carousel_item.product.trailer.url, {:class => 'trailer', :target => :_blank}) %>
+        <%= link_to(t('.trailer'), product_trailer_path(:product_id => carousel_item.product.to_param), {:class => 'trailer', :target => :_blank}) %>
       </li>
       <% end %>
     </ul>

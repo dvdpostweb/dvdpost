@@ -288,11 +288,7 @@ module ProductsHelper
 
   def left_column_categories(selected_category, kind, sexuality)
     html_content = []
-    if kind == :adult && sexuality == 0
-      cat = Category.active.roots.hetero.movies.by_kind(kind).remove_themes.ordered
-    else
-      cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
-    end
+    cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
     cat.collect do |category|
       li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent
       if category == selected_category
