@@ -7,7 +7,6 @@ gem 'rmagick'
 
 gem 'capistrano-ext', :require => 'capistrano'
 gem 'hoptoad_notifier', '~> 2.4.0'
-gem 'rake', '0.8.7'
 gem 'json'
 gem 'hpricot', '~> 0.8.2'
 gem 'oauth2', :git => 'git://github.com/redstorm/oauth2.git'
