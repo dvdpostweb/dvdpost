@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
       @recommendations = retrieve_recommendations(params[:recommendation_page])
     end
     @filter = get_current_filter({})
-    Rails.logger.debug { "@@@#{@filter.inspect}" }
     if params[:search] == t('products.left_column.search')
       params.delete(:search)
     else
