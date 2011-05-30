@@ -57,14 +57,12 @@
     </strong>
     <%= product.country.name %>
   </li>
-  <% if product.products_type == DVDPost.product_kinds[:normal] %>
   <li>
     <strong>
       <%= t '.audience' %>
     </strong>
     <%= image_tag product.public.image, :alt => product.public.description %>
   </li>
-  <% end %>
 </ul>
 <p class="links">
   <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), {:class => 'trailer', :target => :_blank}) if product.trailer %>

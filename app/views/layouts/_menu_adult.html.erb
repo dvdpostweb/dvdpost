@@ -15,7 +15,7 @@
       <%= link_to t('.compte'), customer_path(:id => current_customer.to_param), {:id => :nav4, :class => (( id == 'moncompte') ? 'active': '')} %>
     </li>
     <li>
-      <%= link_to t('.contact'), faq_path, {:id => :nav5, :class => (( id == 'message_body') ? 'active': '')} %>
+      <%= link_to t('.contact'), messages_path, {:id => :nav5, :class => (( id == 'message_body') ? 'active': '')} %>
     </li>
     <li>
       <%= link_to t('.summer_card'), sponsorships_path, {:id => :nav6, :class => (( id == 'sponsorships') ? 'active': '')} %>

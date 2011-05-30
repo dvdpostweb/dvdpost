@@ -69,7 +69,6 @@ textarea {
 .container {}
 
 .container ul, .container ol, .container dl {
-  margin-bottom: 18px;
   line-height: 1.4em;
 }
 
