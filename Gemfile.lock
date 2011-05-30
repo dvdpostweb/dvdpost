@@ -133,7 +133,6 @@ DEPENDENCIES
   orderedhash
   rails (~> 2.3.11)
   rails_warden!
-  rake (= 0.8.7)
   rmagick
   routing-filter
   thinking-sphinx
