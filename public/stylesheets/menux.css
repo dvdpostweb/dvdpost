@@ -54,6 +54,7 @@
   font-size: 1.17em;
   padding-right: 16px;
   background: url(/images/lang-arrow.gif) 100% 50% no-repeat;
+  z-index:1006 !important ;
 }
 
 #login li:first-child {
@@ -321,15 +322,15 @@ input, select, textarea, button {
   margin: 0;
 }
 #header #login span#lang-box {
-  background: url(../images/lang-bg.gif) 0 0 no-repeat;
+  background: url(../images/bg_langue.png) 0 0 no-repeat;
   display: block;
-  height: 36px;
-  padding-top: 18px;
+  height: 66px;
+  padding: 26px 0 0 4px;
   position: absolute;
   right: 5px;
-  top: 8px;
-  width: 78px;
-  z-index: 1;
+  top: 2px;
+  width: 84px;
+  z-index: 1005;
 }
 
 *:first-child + html #header #login span#lang-box {
