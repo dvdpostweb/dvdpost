@@ -48,11 +48,11 @@ module ApplicationHelper
     if params[:kind].nil?
       params[:kind] = 'normal'
     end
-    #if params[:locale].nil?
-    #  set_locale('fr')
-    #else
-    #  set_locale(params[:locale])
-    #end
+    if params[:locale].nil?
+      set_locale('fr')
+    else
+      set_locale(params[:locale])
+    end
   end
 
   def messages_size
