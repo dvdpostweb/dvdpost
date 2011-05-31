@@ -147,12 +147,10 @@ $(function() {
     var reg = new RegExp('[actor_id]', 'gi');
     id =$(this).attr('id').replace(reg,'');
     var reg_jpg = new RegExp(/\/[\d]*_[\d]\.jpg/);
-    var reg_link = new RegExp(/\/[\d]*\//);
     src = $('#top_actor').attr('src')
     new_src = src.replace(reg_jpg, "/"+id+"_1.jpg");
     $('#top_actor').attr('src',new_src)
-    actor_href = $('#top_actor_link').attr('href')
-    new_href =actor_href.replace(reg_link, "/"+id+"/");
+    new_href =$(this).attr('href')
     $('#top_actor_link').attr('href',new_href)
     
   });

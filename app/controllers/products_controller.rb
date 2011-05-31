@@ -125,7 +125,7 @@ class ProductsController < ApplicationController
         if params[:reviews_page]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
         elsif params[:recommendation_page]
-          render :partial => 'products/show/recommendations', :object => @recommendations
+          render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
         end
       }
       format.xml if params[:format] == 'xml'

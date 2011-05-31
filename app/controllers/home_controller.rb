@@ -41,7 +41,7 @@ class HomeController < ApplicationController
       @actor_week = Actor.find_by_focus(1)
       @actor_week_product = Product.search.by_kind(:adult).available.by_actor(@actor_week.id).random().limit(4)
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
-      @top_views = Product.search.by_kind(:adult).available.limit(10).order('most_viewed desc', :extended)
+      @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
       if Rails.env == "pre_production"
