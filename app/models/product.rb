@@ -534,6 +534,14 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def self.get_top_view(kind, limit, sexuality)
+    if sexuality == 1
+      Product.by_kind(kind).available.limit(limit).order('most_viewed desc', :extended)
+    else
+      Product.by_kind(kind).available.hetero.limit(limit).order('most_viewed desc', :extended)
+    end
+  end
+
   def adult?
     products_type == DVDPost.product_kinds[:adult]
   end
