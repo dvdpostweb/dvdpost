@@ -1,5 +1,5 @@
 <% path = product_path(:id => product.to_param, :recommendation => @wishlist_source[:theme]) %>
-<% color = params[:kind] == :adult ? :pink : :pink %>
+<% color = params[:kind] == :adult ? :pink : :white %>
 <li>
   <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => product, :background => color, :size => :small} %>
