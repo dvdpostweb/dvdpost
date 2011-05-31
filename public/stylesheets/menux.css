@@ -54,6 +54,7 @@
   font-size: 1.17em;
   padding-right: 16px;
   background: url(/images/lang-arrow.gif) 100% 50% no-repeat;
+  z-index:1006 !important ;
 }
 
 #login li:first-child {
@@ -121,86 +122,117 @@
 #nav li a#nav1 {
   width: 73px;
   padding-left: 40px;
-  background: url(/images/adult/nav1-bg.png) 6px 7px no-repeat;
+  background: url(/images/adult/nav1-bg.png) 5px -6px no-repeat;
 }
 
-#nav li a#nav1:hover {
-  background-position: 7px -44px;
-}
 
-#nav li a#nav1.active {
-  background-position: 7px -98px;
-}
 
 #nav li a#nav2 {
   width: 79px;
   padding-left: 35px;
-  background: url(/images/adult/nav2-bg.png) 7px 7px no-repeat;
+  background: url(/images/adult/nav2-bg.png) 5px -2px no-repeat;
 }
 
-#nav li a#nav2:hover {
-  background-position: 7px -44px;
-}
 
-#nav li a#nav2.active {
-  background-position: 7px -98px;
-}
 
 #nav li a#nav3 {
   width: 71px;
   padding-left: 49px;
-  background: url(/images/adult/nav3-bg.png) 14px 10px no-repeat;
+  background: url(/images/adult/nav3-bg.png) 11px 5px no-repeat;
 }
 
-#nav li a#nav3:hover {
-  background-position: 14px -41px;
-}
 
-#nav li a#nav3.active {
-  background-position: 14px -94px;
-}
 
 #nav li a#nav4 {
   width: 95px;
   padding-left: 41px;
-  background: url(/images/adult/nav4-bg.png) 11px 7px no-repeat;
+  background: url(/images/adult/nav4-bg.png) 7px -5px no-repeat;
 }
 
-#nav li a#nav4:hover {
-  background-position: 11px -44px;
-}
 
-#nav li a#nav4.active {
-  background-position: 11px -98px;
-}
 
 #nav li a#nav5 {
   width: 62px;
   padding-left: 37px;
-  background: url(/images/adult/nav5-bg.png) 13px 7px no-repeat;
+  background: url(/images/adult/nav5-bg.png) 7px -2px no-repeat;
 }
 
-#nav li a#nav5:hover {
-  background-position: 13px -44px;
-}
 
-#nav li a#nav5.active {
-  background-position: 13px -99px;
-}
 
 #nav li a#nav6 {
   width: 85px;
   padding-left: 47px;
-  background: url(/images/adult/nav6-bg.png) 12px 6px no-repeat;
+  background: url(/images/adult/nav6-bg.png) 11px 1px no-repeat;
 }
 
+
+
+
+
+
+#nav li a#nav3:hover {
+    background-position: 11px -39px;
+}
+
+
+
+
 #nav li a#nav6:hover {
-  background-position: 12px -45px;
+    background-position: 11px -42px;
+}
+
+
+
+#nav li a#nav5:hover {
+    background-position: 7px -44px;
+}
+
+
+
+#nav li a#nav4:hover {
+    background-position: 7px -48px;
+}
+
+
+
+
+#nav li a#nav2:hover {
+    background-position: 5px -44px;
+}
+
+
+
+#nav li a#nav1:hover {
+    background-position: 5px -46px;
+}
+
+#nav li a#nav1.active {
+    background-position: 7px -83px;
+}
+
+#nav li a#nav2.active {
+    background-position: 7px -90px;
+}
+
+#nav li a#nav3.active {
+    background-position: 7px -87px;
+}
+
+#nav li a#nav4.active {
+    background-position: 7px -87px;
+}
+
+#nav li a#nav5.active {
+    background-position: 7px -87px;
 }
 
 #nav li a#nav6.active {
-  background-position: 13px -99px;
+    background-position: 7px -87px;
 }
+
+
+
+
 
 #search_menu {
   float: right;
@@ -290,15 +322,15 @@ input, select, textarea, button {
   margin: 0;
 }
 #header #login span#lang-box {
-  background: url(../images/lang-bg.gif) 0 0 no-repeat;
+  background: url(../images/bg_langue.png) 0 0 no-repeat;
   display: block;
-  height: 36px;
-  padding-top: 18px;
+  height: 66px;
+  padding: 26px 0 0 4px;
   position: absolute;
   right: 5px;
-  top: 8px;
-  width: 78px;
-  z-index: 1;
+  top: 2px;
+  width: 84px;
+  z-index: 1005;
 }
 
 *:first-child + html #header #login span#lang-box {

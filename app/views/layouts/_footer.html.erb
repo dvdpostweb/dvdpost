@@ -29,12 +29,25 @@
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
-<script type="text/javascript">
-try {
-  var pageTracker = _gat._getTracker("UA-7319107-1");
+<% if params[:kind] == :adult %>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-8475379-1"); //adult
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+<% else %>
+  <script type="text/javascript">
+  try {
+  var pageTracker = _gat._getTracker("UA-7319107-1"); //privé
   pageTracker._trackPageview();
   } catch(err) {}
-</script>
+  </script>
+<% end %>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1121531-1"); //all
+pageTracker._trackPageview();
+} catch(err) {}</script>
 <!-- Google Code for Clients &lt;30 days Remarketing List -->
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -64,14 +77,13 @@ var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "htt
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-try {
-	var pageTracker = _gat._getTracker("UA-7320293-1");
-	pageTracker._trackPageview();
-} catch(err) {}</script>		
-
+  try {
+  	var pageTracker = _gat._getTracker("UA-7320293-1"); //public
+  	pageTracker._trackPageview();
+  } catch(err) {}</script>		
 <script type="text/javascript">
 try {
-var pageTracker = _gat._getTracker("UA-1121531-1");
+var pageTracker = _gat._getTracker("UA-1121531-1"); //all
 pageTracker._trackPageview();
 } catch(err) {}</script>
 <!-- Google Analytics tag -->
