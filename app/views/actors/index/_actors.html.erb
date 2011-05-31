@@ -6,7 +6,7 @@
       <% i += 1 %>
       <li>
         <%= image_tag 'camera.png', :align => 'absmiddle' if type == :letter && actor.image_active %>
-        <%= link_to "#{actor.name}", actor_products_path(:actor_id => actor.to_param), :class => "actors#{ type == :letter && actor.image_active ? ' picture' : ''}#{ actor.top? ? ' star' : ''}#{ i == 1 ? ' active' : ''}", :id => "#{letter}_#{actor.to_param}" %> <%= "(#{value[:count]})" %>
+        <%= link_to "#{actor.name}", actor_products_path(:actor_id => actor.to_param), :class => "actors#{ type == :letter && actor.image_active ? ' picture' : ''}#{ actor.top? ? ' star' : ''}#{ i == 1 ? ' active' : ''}", :id => "#{letter}_#{actor.id}" %> <%= "(#{value[:count]})" %>
       </li>
       
     <% end %>
