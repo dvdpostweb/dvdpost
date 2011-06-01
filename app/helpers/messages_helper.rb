@@ -47,7 +47,8 @@ module MessagesHelper
       raw = extract.split(':::')
       s = raw[0].gsub(/\$/,'\$')
       r = Regexp.new(s, true)
-      body = body.gsub(r, raw[1])
+      raw[1] = '' if !raw[1]
+      body = body.gsub(r, raw[1]) 
     end
     body
   end

@@ -21,34 +21,44 @@ class MessagesController < ApplicationController
 
   def new
     @message = Ticket.new
-    if params[:message_kind]
-      kind_param = params[:message_kind].to_sym
-      kind = DVDPost.messages_kind[kind_param]
-      @message_help = MessageHelp.find(kind[:message])
-      @category = kind[:category]
+    respond_to do |format|
+      format.html
+      format.js do 
+        @hide = 1
+        render :layout => false
+      end
     end
     
   end
 
   def create
-    @ticket = Ticket.new(params[:ticket].merge(:customer_id => current_customer.to_param))
-    @ticket.save
-    variable = "$$$content$$$:::#{params[:message].gsub(/\n/, '<br />')};;;"
-    if params[:add_on]
-      variable += params[:add_on]
-    end
-    @message = MessageTicket.new(:ticket => @ticket, :mail_id => DVDPost.email[:message_free], :data => variable)
-    if @message.save
-      flash[:notice] = t 'message.create.message_sent' #"Message sent successfully"
+    if !params[:message].empty?
+      @ticket = Ticket.new(params[:ticket].merge(:customer_id => current_customer.to_param))
+      @ticket.save
+      variable = "$$$content$$$:::#{params[:message].gsub(/\n/, '<br />')};;;"
+      if params[:add_on]
+        variable += params[:add_on]
+      end
       
-      respond_to do |format|
-        format.html { redirect_to messages_path }
-        format.js {@error = false}
+      @message = MessageTicket.new(:ticket => @ticket, :mail_id => DVDPost.email[:message_free], :data => variable)
+      if @message.save
+        flash[:notice] = t 'message.create.message_sent' #"Message sent successfully"
+      
+        respond_to do |format|
+          format.html { redirect_to messages_path }
+          format.js {@error = false}
+        end
+      else
+        flash[:error] = t 'message.create.message_not_sent' # "Message not sent successfully"
+        respond_to do |format|
+          format.html {redirect_to messages_path}
+          format.js {@error = true}
+        end
       end
     else
       flash[:error] = t 'message.create.message_not_sent' # "Message not sent successfully"
       respond_to do |format|
-        format.html {render :action => :new}
+        format.html {redirect_to messages_path}
         format.js {@error = true}
       end
     end

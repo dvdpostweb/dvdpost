@@ -9,7 +9,7 @@
         <% if dvd_status == 1 || (dvd_status == 5 && (order_status == 17 || order_status == 12)) %>
           <% unless transit_item.is_new? %>
             <% text = (order_status != 17 && order_status != 12) ? 'notify' : 'arrive' %>
-            <%= link_to t(".#{text}"), new_order_report_path(:order_id => transit_item.to_param, :type => text), :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' if order_status !=1 && current_customer.black_listed == 0 %>
+            <%= link_to t(".#{text}"), new_phone_request_path(:reason => 5), :id => "report_transit_item_#{transit_item.to_param}" if order_status !=1 && current_customer.black_listed == 0 %>
           <% end %>
         <% else %>
           <div class="error">
