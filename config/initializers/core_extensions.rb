@@ -4,7 +4,7 @@ class ActiveRecord::Error
     keys = [
       :"full_messages.#{@message}",
       :'full_messages.format',
-      '{{message}}'
+      '%{message}'
     ]
 
     options.merge!(:default => keys, :message => self.message)

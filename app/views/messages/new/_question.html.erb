@@ -1,35 +1,24 @@
 <div id="question">
-  <% form_for @message, :url => messages_path do |f| %>
-  <% if !@message_help %>
-    <h3>
-      <%= t '.intro' %>
-    </h3>
-    <p><%= link_to t('messages.index.radio_question.labels.number'), new_message_path(:message_kind => :number) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing_price'), new_message_path(:message_kind => :billing_price) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing_dvd'), new_message_path(:message_kind => :billing_dvd) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.transfer'),  new_message_path(:message_kind => :dom) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.personal_info'), customer_path(:id => current_customer) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.delivery_info'), customer_path(:id => current_customer) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.mail_password'), customer_path(:id => current_customer) %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.pwd_forgotten'), customer_path(:id => current_customer)  %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.vacation'), customer_path(:id => current_customer) %></p>
-    <%= f.hidden_field(:category_ticket_id, :value =>  6) %>
-    <p>
-      <%= t '.thanks' %>
-    </p>
-    <% else %>
-      <h3><%= message_title(params[:kind].to_sym) %></h3>
-      <p><%= @message_help.messages_html %></p>
-      <%= f.hidden_field(:category_ticket_id, :value =>  @category) %>
+  <div class="content_message">
+    <% form_for @message, :url => messages_path do |f| %>
+      <div id="message_title"><%= t('.new_message') %></div>
+      <p class="message_title"><%= t('.subject') %> :</p>
+      <p class="sujet">
+        <% PhoneRequest.reason_codes.each do |key, code| %>
+          <%= f.radio_button :category_ticket_id, code, :checked => (code == 5)%>
+          <%= f.label "category_ticket_id_#{code}", t("phone_requests.new.form.reason_label_#{code}"), :class => :reason_label %>
+        <% end %>
+      </p>
+        <p  class="message_title"><%= t('.message') %> :</p>
+        <p>
+          <%= text_area_tag 'message',nil, :cols => 72, :rows => 9,  :id => :message_textarea %>
+        </p>
+        <p align='right'>
+          <% content_tag :button, :type => :submit, :id => :new_message_btn do %>
+            <%= t '.send' %>
+          <% end %>
+        </p>
+      </div>
     <% end %>
-    <%= f.error_messages %>
-    <%= text_area_tag 'message' %>
-    <% if @message_help %>
-      <%= link_to t('.back'), new_message_path(), :id => :back_message %>
-    <% end %>
-    <% content_tag :button, :type => :submit do %>
-      <%= t '.send' %>
-    <% end %>
-  <% end %>
-  <div class="clear"></div>
+  </div>
 </div>

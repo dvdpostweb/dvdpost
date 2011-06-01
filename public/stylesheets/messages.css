@@ -44,13 +44,6 @@
 }
 
 
-#contact-wrap #tabs-content {
-  border: 1px solid #0e0e0e;
-  padding: 20px 25px;
-  min-height:475px;
-  height: auto !important;
-  height: 475px;
-}
 
 /*   Contacts   */
 
@@ -245,15 +238,14 @@
 
 
 #contact-wrap #contact form {
-  float: right;
+/*  float: right;
   width: 363px;
   height: 463px;
   background: url(../images/contact-form-bg.jpg) 0 0 no-repeat;
   padding: 5px 25px 40px 25px;
-  font-size: 1.17em;
+  font-size: 1.17em;*/
 }
 #contact-wrap #contact label {
-  display: block;
   margin-bottom: 10px;
 }
 #contact-wrap #contact .fld {
@@ -269,7 +261,7 @@
   margin: 8px 0;
 }
 #contact-wrap #contact select {
-  font-size: 0.79em;
+  font-size: 0.89em;
 
 }
 #contact-wrap #contact button {
@@ -378,14 +370,6 @@ padding-top: 14px;
 
 /*   Questions Page   */
 
-#contact-wrap #question {
-  color: #505050;
-  font-size: 1.08em;
-}
-#contact-wrap #question h3 {
-  font-size: 1.15em;
-  margin-bottom: 15px;
-}
 
 #contact-wrap #question label.active {
   font-weight: bold;
@@ -406,16 +390,26 @@ padding-top: 14px;
   border: 1px solid #000000;
   background: white;
 }
-#contact-wrap #question button {
-  width: 91px;
-  height: 27px;
-  display: block;
+#contact-wrap #question button, .new_ticket button{
   border: none;
-  background: url(../images/envoyer-btn.png) 0 0 no-repeat;
+  background: url(../images/button.png) 0 0 no-repeat;
   margin: 5px 0 0 705px;
-  color: white;
-  text-shadow: 1px 1px 1px #555555;
   cursor: pointer;
+  
+  color: white;
+  display: block;
+  font-size: 1.09em;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #999999;
+  width: 122px;
+}
+.new_ticket button{
+  margin: 5px 0 0 460px !important;
+}
+#contact-wrap #question button:hover {
+  background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
 }
 #messages a {
   color:#000;
@@ -605,4 +599,172 @@ text-align:left;
 .message_text_long {
     margin: 0 auto;
     min-width: 706px;
+}
+
+
+
+/****/
+
+
+#contact-wrap #tabs-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #0E0E0E;
+    height: auto !important;
+    min-height: 475px;
+    padding: 20px 25px;
+}
+
+#contact-wrap #question {
+    color:#212429;
+    font-size: 1.08em;
+}
+
+
+#question {
+
+text-align:left;
+width:611px;
+}
+
+.date{
+float:left;
+}
+
+.hours{
+float:right;
+}
+
+.form{
+border: #535353 1px solid;
+width:611px;
+padding:10px;
+
+}
+
+#contact-wrap #question h3 {
+    font-size: 18px;
+	border-bottom:#535353 dotted 1px;
+
+}
+.form_dates 
+{ 
+  width:400px;
+  height:75px;
+  margin: 0 !important;
+}
+
+
+
+#question a.btn {
+    background: url("../images/button.png") no-repeat scroll 0 0 transparent;
+    color: white;
+    display: block;
+    font-size: 1.09em;
+    height: 34px;
+    line-height: 34px;
+    margin: 0 0 4px 1px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #999999;
+    width: 122px;
+}
+
+#question a.btn:hover {
+    background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
+	text-decoration:none;
+  
+}
+#field_form .fieldWithErrors
+{
+  display: inline-table;
+  margin: 0 !important;
+}
+.reason_label
+{
+  font-weight: bold;
+}
+#phone
+{
+  margin:8px 0 0 0!important;
+}
+
+a.btn_new_message {
+    background: url("../images/bt_message.png") no-repeat scroll 0 0 transparent;
+    color: #282828;
+	font-family:Arial, Helvetica, sans-serif;
+    display: block;
+    height: 28px;
+	font-size:12px;
+    line-height: 22px;
+    margin: 0 0 4px 1px;
+	text-decoration:none;
+    text-align: center;
+	font-weight:bold;
+    width: 137px;
+}	
+a.btn_new_message:hover {
+   background: url(../images/bt_message.png) no-repeat scroll 0 -30px transparent;
+    text-decoration: none;
+}
+#message_title {
+    color: #282828;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+	border-bottom:#000000 1px solid;
+
+}
+
+.message_title {
+font-size: 15px;
+font-weight: bold;
+    
+
+}
+.sujet {  font-size: 14px;}
+
+.content_message {width:586px;}
+
+
+
+.content_message a.btn {
+    background: url("../images/button.png") no-repeat scroll 0 0 transparent;
+    color: white;
+    display: block;
+    font-size: 1.09em;
+    height: 34px;
+    line-height: 34px;
+    margin: 0 0 4px 1px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #999999;
+    width: 122px;
+	float:right;
+}
+
+.content_message a.btn:hover {
+    background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
+    text-decoration: none;
+}
+
+.content_message a.btn_cancel {
+    background: url("../images/button-bw.png") no-repeat scroll 0 0 transparent;
+    color: white;
+    display: block;
+    font-size: 1.09em;
+    height: 34px;
+    line-height: 34px;
+    margin: 0 0 4px 1px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #999999;
+    width: 122px;
+	float:right;
+}
+
+.content_message a.btn_cancel:hover {
+    background: url("../images/button-bw.png") no-repeat scroll 0 -35px transparent;
+    text-decoration: none;
+}
+#message_textarea
+{
+  width:580px;
 }
