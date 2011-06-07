@@ -1,7 +1,7 @@
 <div id="actrice-semaine-wrap" class="clearfix">
   <div id="actrice-semaine">
     <h3 class="miso"><%= t('.actor_week') %></h3>
-    <% link_to actor_products_path(:actor_id => actor.to_param) do %>
+    <% link_to actor_products_path(:actor_id => actor.to_param, :week => 1) do %>
       <%= image_tag actor.image, :title => actor.name, :width => 122, :height => 168, :class => "pie" %> </div>
     <% end %>
   <!-- filmographie -->
@@ -10,6 +10,6 @@
     <ul>
       <%= render :partial => "/home/index/product_adult", :collection => actor_week_product %>
     </ul>
-    <div class="links"><%= link_to 'Voir toute sa filmographie', actor_products_path(:actor_id => actor.to_param) %></a></div>
+    <div class="links"><%= link_to 'Voir toute sa filmographie', actor_products_path(:actor_id => actor.to_param, :all => 1) %></a></div>
   </div>
 </div>
