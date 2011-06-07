@@ -1,11 +1,7 @@
 <% if history_item.product %>
 <div class="<%= product_media_id(history_item.product.media) %> clearfix">
   <div class="title">
-    <% if history_item.product.products_status.to_i != -1 %>
-      <%= link_to truncate(product_assigned_title(history_item.product), :length => 50), product_assigned_path(history_item.product) %>
-    <% else %>
       <%= truncate(product_assigned_title(history_item.product), :length => 50) %>
-    <% end %>
   </div>
   <div class="status">
     <% product_dvd = history_item.order_product.product_dvd %>
@@ -14,7 +10,7 @@
       <% order_status = history_item.orders_status %>
     <% end %>
     <span class="<%= class_history(history_item) %>">
-      <%= history_item.status.name %>
+      <%= t('.retourne') %>
       <%= "#{t('.the')} #{history_item.changed_at.strftime("%d/%m/%Y")}"  %>
     </span>
   </div>

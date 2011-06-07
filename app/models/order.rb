@@ -5,15 +5,14 @@ class Order < ActiveRecord::Base
   alias_attribute :created_at, :date_purchased
 
   belongs_to :customer, :foreign_key => :customers_id
-  belongs_to :status, :class_name => 'OrderStatus', :foreign_key => :orders_status
+  belongs_to :status, :class_name => 'OrderStatus', :foreign_key => :orders_status, :primary_key => :id
   has_one :order_product, :foreign_key => :orders_id
   has_one :product, :through => :order_product, :source => :product
   has_many :status_histories, :class_name => 'OrderStatusHistory', :foreign_key => :orders_id
   has_many :messages, :foreign_key => :orders_id
 
   named_scope :in_transit, :conditions => {:orders_status => [2]}
-  named_scope :in_transit_plus, :conditions => {:orders_status => [1, 2, 12, 17]}
-  named_scope :in_history, :conditions => {:orders_status => [3, 12, 17]}
+  named_scope :in_history, :conditions => {:orders_status => [3,4,5,6,7,8,9]}
   named_scope :return, :conditions => {:orders_status => [3]}
   
   named_scope :ordered, :order => 'date_purchased DESC'

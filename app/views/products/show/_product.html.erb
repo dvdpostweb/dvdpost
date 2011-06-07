@@ -14,7 +14,7 @@
     </li>
   <% end %>
 
-  <% if product.studio %>
+  <% if product.studio && product.adult? %>
     <li>
       <strong>
         <%= "#{t('.studio')} : #{link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param)}" %>
