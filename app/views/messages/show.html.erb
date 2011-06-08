@@ -1,17 +1,30 @@
-<div class="modal-window-content">
-  <h3>
-    <span><% @message.created_at.strftime("%d/%m/%Y") %></span>
-    <%= h @message.category.name if @message.category %>
-    <%= " : #{h @message.product.description.title}" if @message.product %>
-  </h3>
-  <div class="content">
-    <h4>
-      <%= t '.title' %>
-    </h4>
-    <%= @message.question %>
-    <% if @message.updated_at %>
-      <h4><%= t '.answer'%> <%= @message.updated_at.strftime("%d/%m/%Y") %></h4>
-      <%=  @message.response %>
-    <% end %>
+<div id="contact-wrap">
+  <%= render :partial => 'messages/menu' %>
+  <div id="tabs-content">
+    <div id="messages">
+      <div id="header_messages">
+        <h3> <%= t '.recipient' %> </h3>
+        <a href="<%= messages_path %>">>> <%= t '.back' %></a></div>
+      <p class="who_message_big"><%= t '.subject' %> : 
+        <% if @message.title %>
+          <%= h @message.title %>
+        <% else %>
+           <%= h (t("message.show.category_#{@message.category_ticket_id}")) if @message.category_ticket %>
+        <% end %>
+      </p>
+      <% message = params[:all] ? @message.message_tickets.ordered : @message.message_tickets.ordered.limit(3) %>
+      <% total = @message.message_tickets.count %>
+      <% if !params[:all] && total > 3 %>
+        <%= link_to 'show all', message_path(:id => params[:id], :all => 1)%>
+      <% end %>
+      <%= render :partial => '/messages/show/dialog', :collection => message.reverse %>
+      <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param) do |f| %>
+      <div class="who_message_big"><img src="/images/arrow.gif" align="absmiddle" /><%= t '.send' %></div>
+      <%= text_area_tag 'message',nil,:cols => 101, :rows => 8 %><br />
+      <p>
+        <button type="submit"> <%= t '.send' %> </button>
+      </p>
+      <% end %>
+    </div>
   </div>
 </div>

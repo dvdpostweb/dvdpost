@@ -6,19 +6,13 @@
       <% if product_dvd %>
         <% dvd_status = product_dvd.products_dvd_status %>
         <% order_status = transit_item.orders_status %>
-        <% if dvd_status == 1 || (dvd_status == 5 && (order_status == 17 || order_status == 12)) %>
-          <% unless transit_item.is_new? %>
-            <% text = (order_status != 17 && order_status != 12) ? 'notify' : 'arrive' %>
-            <%= link_to t(".#{text}"), new_order_report_path(:order_id => transit_item.to_param, :type => text), :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' if order_status !=1 && current_customer.black_listed == 0 %>
-          <% end %>
-        <% else %>
-          <div class="error">
-            <%= t(".status_#{dvd_status}")%>
-          </div>
+        <% unless transit_item.is_new? %>
+          <% text = 'notify' %>
+          <%= link_to t(".#{text}"), new_phone_request_path(:reason => 5), :id => "report_transit_item_#{transit_item.to_param}" if order_status !=1 && current_customer.black_listed == 0 %>
         <% end %>
       <% end %>
       <span class="<%= class_transit(transit_item) %>">
-        <%= transit_item.status.name %>
+        <%= t('.expedited') %>
         <%= "#{t('.the')} #{transit_item.changed_at.strftime("%d/%m/%Y")}" if order_status == 2 %>
       </span>
     </div>

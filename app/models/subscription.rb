@@ -19,7 +19,7 @@ class Subscription < ActiveRecord::Base
   end
 
   named_scope :reconduction_ealier, :conditions => {:action => self.action[:reconduction_ealier]}
-  named_scope :recent,  lambda {{:conditions => {:date => 5.days.ago..Time.now}}}
+  named_scope :recent,  lambda {{:conditions => {:date => 5.days.ago.localtime..Time.now}}}
   named_scope :reconduction,  {:conditions => {:action => [7, 17]}}
 
   belongs_to :type, :class_name => 'SubscriptionType', :foreign_key => :product_id

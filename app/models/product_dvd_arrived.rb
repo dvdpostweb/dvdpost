@@ -7,7 +7,7 @@ class ProductDvdArrived < ActiveRecord::Base
 
   before_create :set_created_at
 
-  belongs_to :message, :foreign_key => :custserv_id
+  belongs_to :ticket, :foreign_key => :custserv_id
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :order, :foreign_key => :orders_id
   belongs_to :product, :foreign_key => :products_id

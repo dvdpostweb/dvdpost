@@ -1,13 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 2.3.11' 
+gem 'rails', '~> 2.3.11'
 gem 'mysql', :group => :bundle
-
 gem 'rmagick'
 
 gem 'capistrano-ext', :require => 'capistrano'
 gem 'hoptoad_notifier', '~> 2.4.0'
-
 gem 'json'
 gem 'hpricot', '~> 0.8.2'
 gem 'oauth2', :git => 'git://github.com/redstorm/oauth2.git'

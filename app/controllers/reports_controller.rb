@@ -28,14 +28,12 @@ class ReportsController < ApplicationController
         message_category = MessageCategory.by_language(I18n.locale).find(status[:message_category])
         product_status = ProductDvdStatus.find(status[:product_status])
 
-        message = current_customer.messages.create(:language_id => DVDPost.product_languages[I18n.locale],
-                                                   :category_id => message_category.to_param,
-                                                   :order => @order,
-                                                   :product => @order.product,
-                                                   :admindate => Time.now.to_s(:db),
-                                                   :adminby => 99,
-                                                   :adminmessage => message_content,
-                                                   :messagesent => 1)
+      if @order.product
+        message = current_customer.tickets.create(:customer_id => current_customer.to_param, :category_ticket_id => message_category.to_param, :title => "#{message_category.name} : #{@order.product.description.title}")
+      else
+        message = current_customer.tickets.create(:customer_id => current_customer.to_param, :category_ticket_id => message_category.to_param)
+      end
+      message.message_tickets.create(:user_id => 55, :mail_id => DVDPost.email[:message_free], :data => "$$$content$$$:::#{message_content.gsub(/\n/, '<br />')};;;")
 
         @order.product_dvd.update_status!(product_status)
 
@@ -50,7 +48,7 @@ class ReportsController < ApplicationController
         end
 
         if params[:status] == 'arrived'
-          ProductDvdArrived.create(:message => message,
+          ProductDvdArrived.create(:ticket => message,
                                    :customer => current_customer,
                                    :order => @order,
                                    :product => @order.product,

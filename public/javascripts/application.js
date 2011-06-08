@@ -38,8 +38,10 @@ $(function() {
 
   $(".datepicker").datepicker({
     disabled: true,
-    showButtonPanel: false 
-  });
+    showButtonPanel: false,
+    firstDay: 1,
+    dateFormat: 'dd-mm-yy',
+    minDate: new Date()});
 
   $(".streaming_action").live("click", function() {
     wishlist_item = $(this);

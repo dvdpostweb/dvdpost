@@ -1,34 +1,51 @@
-<% reason_init = phone_request.call_me_reason || :blank %>
-<% form_for phone_request do |f| %>
-<%= f.error_messages %>
-  <p>
-    <%= t '.intro' %>
-  </p>
-  <%= f.label :name, t('.name') %>
-  <%= f.text_field :name, :class => "fld" %>
-  <%= f.label :phone, t('.phone') %>
-  <%= f.text_field :phone, :class => "fld" %>
-  <%= f.label :call_me_reason, t('.reason') %>
-  <%= f.collection_select(:call_me_reason, reasons_collection_for_select, :first, :last, {:include_blank => true, :selected => reason_init}) %>
+<div id="question">
+  <% reason_init = phone_request.reason || :blank %>
+  <% phone_init = phone_request.phone && !phone_request.phone.empty? ? phone_request.phone : current_customer.phone %>
+  <% form_for phone_request do |f| %>
+    <h3> <%= t('.title') %></h3>
+    <p>
+      <%= t('.intro') %>
+    </p>
+    <div class="form">
+      <%= f.error_messages %>
+      <div style="clear:both"></div>
+      <div id='field_form'>
+        <% PhoneRequest.reason_codes.each do |key, code| %>
+        <p>
+          <%= f.radio_button :reason, code, :checked => (phone_request.reason == code || (!phone_request.reason && params[:reason].to_i == code)) ? true : false %>
+          <%= f.label :reason, t(".reason_label_#{code}"), :class => :reason_label %>
+          <br />
+          <%= t(".reason_description_#{code}") %>
+        </p>
+        <% end %>
+        <p>
+          <strong><%= t('.languages') %></strong>
+        </p>
+        <% PhoneRequest.languages.each do |key, code| %>
+          <%= f.radio_button :language_id, key, :checked => (phone_request.language_id == key || (!phone_request.language_id && I18n.locale == code.to_sym ) ? true : false) %>
+          <%= f.label "language_id_#{key}", t(".#{code}") %>
+        <% end %>
+        <p id="phone">
+          <%= f.label :phone, t('.phone') %><br />
+          <%= f.text_field :phone, :value => phone_init, :class => "fld" %>
+        </p>
+        <div class="form_dates">
+          <div class="date">
+              <strong> <%= t '.call_date' %> </strong>
+            <div><%= f.text_field :requested_date, :class => "datepicker fld" %></div>
+          </div>
+          <div class="hours">
+            <strong>  <%= t '.time_slots' %> </strong>
+            <div><%= f.collection_select(:hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %></div>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <p align="right">
+      <button type="submit">
+        <%= t '.contact' %>
+      </button>
+    </p>
 
-  <div>
-    <%= t '.call_date' %>
   </div>
-  <div>
-    <%= f.text_field :requested_date, :class => "datepicker" %>
-  </div>
-
-  <div>
-    <%= t '.time_slots' %>
-  </div>
-  <%= f.collection_select(:call_me_hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %>
-  <div>
-    <%= t '.languages' %>
-  </div>
-  <div>
-  <%= f.collection_select :language_id, languages_collection_for_select, :last, :first, :selected => current_customer.language %>
-  </div>
-  <button type="submit">
-    <%= t '.contact' %>
-  </button>
-<% end %>
+<% end%>
