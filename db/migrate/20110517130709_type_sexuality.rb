@@ -4,7 +4,7 @@ class TypeSexuality < ActiveRecord::Migration
   end
 
   def self.down
-  remove_column :customer_attributes, :sexuality
+    remove_column :customer_attributes, :sexuality
   end
 end
 
