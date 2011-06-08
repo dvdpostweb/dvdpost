@@ -133,7 +133,7 @@ class ProductsController < ApplicationController
   end
 
   def uninterested
-    unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product)
+    unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product) || current_customer.uninterested_products.include?(@product)
       @product.uninterested_customers << current_customer
       Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
     end
@@ -162,7 +162,13 @@ class ProductsController < ApplicationController
     trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     respond_to do |format|
       format.js   {render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}}
-      format.html {redirect_to trailer.first.url}
+      format.html do
+        if trailer.first && trailer.first.url
+          redirect_to trailer.first.url
+        else
+          redirect_to product_path(:id => @product.to_param)
+        end
+      end
     end
   end
 

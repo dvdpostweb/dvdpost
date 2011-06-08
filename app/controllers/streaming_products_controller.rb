@@ -2,7 +2,7 @@ class StreamingProductsController < ApplicationController
   def show
     @streaming_prefered = StreamingProduct.group_by_version.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
     @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
-    @product = Product.normal_available.find_by_imdb_id(params[:id])
+    @product = Product.both_available.find_by_imdb_id(params[:id])
     @streaming_free = StreamingProductsFree.by_imdb_id(params[:id]).available.count > 0 
    
     respond_to do |format|
@@ -29,7 +29,7 @@ class StreamingProductsController < ApplicationController
       format.js do
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
-          if !current_customer.payment_suspended? && !Token.dvdpost_ip?(request.remote_ip)
+          if !current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip)
             @token = current_customer.get_token(@product.imdb_id)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
@@ -44,16 +44,12 @@ class StreamingProductsController < ApplicationController
                 else
                   mail_id = DVDPost.email[:streaming_product]
                 end
-                mail_object = Email.by_language(I18n.locale).find(mail_id)
-                recipient = current_customer.email
                 product_id = @product.id
-                mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => current_customer.to_param, :mail_messages_id => DVDPost.email[:streaming_product], :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> current_customer.email)
                 if current_customer.gender == 'm' 
                   gender = t('mails.gender_male')
                 else
                   gender = t('mails.gender_female')
                 end
-                begin
                   movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
                   vod_selection = DVDPost.mail_vod_selection(current_customer.to_param)
                   recommendation_dvd_to_dvd = DVDPost.mail_recommendation_dvd_to_dvd(current_customer.to_param, @product.id)
@@ -65,19 +61,8 @@ class StreamingProductsController < ApplicationController
                     "\\$\\$\\$selection_vod\\$\\$\\$" => vod_selection,
                     "\\$\\$\\$date\\$\\$\\$" => Time.now.strftime('%d/%m/%Y'),
                     "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
-                    "\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$" => mail_history.to_param,
                   }
-                  list = ""
-                  options.each {|k, v|  list << "#{k.to_s.tr("\\","")}:::#{v};;;"}
-                  mail_history.update_attributes(:lstvariable => list)
-                  email_data_replace(mail_object.subject, options)
-                  subject = email_data_replace(mail_object.subject, options)
-                  message = email_data_replace(mail_object.body, options)
-                  Emailer.deliver_send(recipient, subject, message)
-                  
-                rescue => e
-                  logger.error "mail not send webservice broken: #{e.message}"
-                end
+                  send_message(mail_id, options, 22)
                 
               end
                

@@ -8,16 +8,15 @@ class Token < ActiveRecord::Base
 
   validates_presence_of :imdb_id
 
-  named_scope :available, lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
-  named_scope :unavailable, lambda {{:conditions => {:updated_at=> 1.weeks.ago..48.hours.ago}}}
+  named_scope :available, lambda {|from, to| {:conditions => {:updated_at => from..to}}}
 
-  named_scope :recent, lambda {{:conditions => {:updated_at=> 1.weeks.ago..0.hours.ago}}}
+  named_scope :recent, lambda {|from, to| {:conditions => {:updated_at=> from..to}}}
 
   named_scope :ordered, :order => 'updated_at asc'
   
   def self.validate(token_param, filename, ip)
     
-    token = self.available.find_by_token(token_param)
+    token = self.available(2.days.ago.localtime..Time.now).find_by_token(token_param)
     if token
       filename = "mp4:#{filename}"
       filename_select = StreamingProduct.by_filename(filename).all(:include => :tokens, :conditions => ['tokens.id = ?', token.id])
@@ -65,7 +64,7 @@ class Token < ActiveRecord::Base
   end
   
   def expired?
-    updated_at < 48.hours.ago
+    updated_at < 2.days.ago.localtime
   end
 
   def current_status(current_ip)

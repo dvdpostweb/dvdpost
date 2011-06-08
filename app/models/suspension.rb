@@ -3,7 +3,7 @@ class Suspension < ActiveRecord::Base
   attr_reader :duration
 
   named_scope :holidays, :conditions => {:status => 'HOLIDAYS'}
-  named_scope :last_year, :conditions => {:date_added => 1.year.ago..Time.now }
+  named_scope :last_year, :conditions => {:date_added => 1.year.ago.localtime..Time.now }
 
   def self.duration
     duration = OrderedHash.new

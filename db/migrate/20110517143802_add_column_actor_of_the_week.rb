@@ -4,6 +4,6 @@ class AddColumnActorOfTheWeek < ActiveRecord::Migration
     end
 
     def self.down
-    remove_column :actors, :focus
+      remove_column :actors, :focus
     end
   end

@@ -17,12 +17,12 @@ class OauthController < ApplicationController
   def callback
     begin
       access_token = oauth_client.web_server.get_access_token(params[:code], :redirect_uri => oauth_callback_url)
-
       session[:oauth_token] = access_token.token
       session[:expires_in] = access_token.expires_in
-      session[:refresh_token] = access_token.refresh_token
+      
     
       unless access_token.refresh_token.blank?
+        session[:refresh_token] = access_token.refresh_token
         cookies[:oauth_token] = { :value => access_token.token, :expires => 10.year.from_now }
         cookies[:expires_in] = { :value => access_token.expires_in, :expires => 10.year.from_now }
         cookies[:refresh_token] = { :value => access_token.refresh_token, :expires => 10.year.from_now }
@@ -42,6 +42,9 @@ class OauthController < ApplicationController
 
   def sign_out
     begin
+      session.delete(:refresh_token)
+      cookies.delete :refresh_token
+      
       json = oauth_token.post('/sign_out')
       logger.info "*** SSO Response after sign_out: #{json}"
     rescue Exception => e

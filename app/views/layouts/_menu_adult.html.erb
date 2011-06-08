@@ -24,7 +24,7 @@
   <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search_menu'}} do |f| %>
     <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
     <% choose = params[:filter] || 'all' %>
-    <div id="choose"> <a href="" id='search_filter'><%= t ".#{choose}" %></a>
+    <div id="choose"> <a href="?filtre=1" id='search_filter'><%= t ".#{choose}" %></a>
       <ul id='search_filter_detail'>
         <li>
           <h4><%= t('.search') %> :</h4>

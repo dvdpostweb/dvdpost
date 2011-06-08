@@ -70,6 +70,22 @@
         <td align="left"><%= @review_count %> (<%= link_to t('.see_all'), customer_reviews_path(:customer_id => current_customer.to_param), :class => :modif %>)</td>
       </tr>
       <tr>
+        <td colspan="2"><div class="ligne"></div></td>
+      </tr>
+      
+      <tr>
+        <td align="right" class=""><strong><%= t '.mail_copy_title' %></strong></td>
+        <td align="left" class="">
+          <div>
+          <%= render :partial => 'customers/show/mail_copy', :locals => {:mail_copy => customer.customer_attribute.mail_copy} %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><div class="ligne"></div></td>
+      </tr>
+      
+      <tr>
         <td align="right" class="adresse"><strong><%= t '.newsletters' %></strong></td>
         <td align="left" class="adresse">
           <div>

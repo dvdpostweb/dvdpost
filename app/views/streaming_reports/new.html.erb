@@ -2,11 +2,11 @@
 <p>
   <%= t('.description', :title => @product.title) %> :
 </p>
-<% form_for @message do |f| %>
+<% form_for @message, :url => messages_path  do |f| %>
   <%= f.error_messages %>
-  <%= f.hidden_field(:category_id, :value =>  DVDPost.message_categories[:vod]) %>
-  <%= f.hidden_field(:products_id, :value =>  @product.to_param) %>
-  <%= f.text_area 'question', :cols => 44, :rows => 5 %>
+  <%= f.hidden_field(:category_ticket_id, :value =>  DVDPost.message_categories[:vod]) %>
+  <%= hidden_field_tag :add_on, "$$$product_id$$$:::#{@product.id};;;"%>
+  <%= text_area_tag 'message',nil, :cols => 44, :rows => 5 %>
   <p id='submit_align'>
     <% content_tag :button, :type => :submit, :id => :submit_report, :title => t('.send') do %>
       <%= t '.send' %>

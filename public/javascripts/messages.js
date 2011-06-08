@@ -23,11 +23,10 @@ $(function() {
     $(this).parent('label').addClass('active');
   });
 
-  $('.show').live('click', function() {
+  $('#new_message').live('click', function() {
     messages_item = $(this);
     jQuery.facebox(function() {
       $.getScript(messages_item.attr('href'), function(data) {
-        $(messages_item).parent().parent().removeClass('new');
         jQuery.facebox(data);
       });
     });
@@ -54,4 +53,15 @@ $(function() {
     ;
     return false;
   });
+  $("#new_message_btn").live("click", function() {
+    $(this).parent().html("<div style='height:34px'><img src='/images/ajax-loader.gif' /></div>");
+    $('.new_ticket').submit();
+  })
+  
+  $('#sort_combo').change(function() {sort_change()});
 });
+var options = {}
+function sort_change()
+{
+  $('#sort_form').submit();
+}

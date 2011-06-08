@@ -3,7 +3,7 @@
   <div class="ttl pie"><%= t('.title') %></div>
   <div class="top pie"> 
     <span class="thumb">
-      <% link_to product_path(:id => products.first.to_param), :id => :top_product_link do %>
+      <% link_to product_path(:id => products.first.to_param, :top => 1), :id => :top_product_link do %>
         <%= image_tag products.first.image, :title => products.first.title, :width => 130, :height => 184, :id => :top_product %>
       <% end %>
     </span>
