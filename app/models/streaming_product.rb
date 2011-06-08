@@ -5,6 +5,7 @@ class StreamingProduct < ActiveRecord::Base
   has_many :language, :foreign_key => :languages_id, :primary_key => :language_id
   has_many :tokens, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :products, :primary_key => :imdb_id, :foreign_key => :imdb_id, :limit => 1
+  has_and_belongs_to_many :subtitles, :join_table => :streaming_products_subtitles
   
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
   named_scope :by_version, lambda {|language_id, subtitle_id| {:conditions => {:language_id => language_id, :subtitle_id => subtitle_id}}}
