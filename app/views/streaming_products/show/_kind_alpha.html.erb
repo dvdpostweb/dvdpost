@@ -1,0 +1,25 @@
+	<tr class="choose_color" style="<%= "display:none;" if visibility == false %>">
+		<td class="choose_padding" width='230'>
+			<p>
+				<strong>AUDIO :</strong> <%= kind_alpha.language.by_language(I18n.locale).first.name %>
+			</p>
+		</td>
+		<td bgcolor="#FFFFFF" width="10"></td>
+		<td align="center">
+			<table cellpadding="0" cellspacing="0">
+        <tr>
+					<% subtitles =  kind_alpha.subtitles.by_language(I18n.locale) %>
+          <% subtitles.collect do | subtitle | %>
+          <td align="center"> 
+            <div class="quality_vod">
+              <%= link_to subtitle.short.downcase, streaming_product_path(:streaming_product_id => kind_alpha.to_param, :subtitle_id => subtitle.without_sub? ? nil : subtitle.to_param), :class => "btn qualityvod" %>
+            </div>
+          </td>
+          <% end %>
+        </tr>
+			</table>
+		</td>
+	</tr>
+  <tr class="choose_empty" style="<%= "display:none;" if visibility == false %>">
+		<td></td>
+	</tr>

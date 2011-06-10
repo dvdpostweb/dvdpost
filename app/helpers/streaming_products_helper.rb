@@ -1,36 +1,104 @@
 module StreamingProductsHelper
-  def flowplayer(source_file, token_name)
-    script = <<-script
-    $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
-    {
-      key: '\#$dcba96641dab5d22c24',
-      version: [10, 0],
-      clip: {
-        url: '#{source_file}',
-        provider: 'softlayer'
-      },
-      canvas: {
-      		backgroundColor:'#000000'
-      },
-      plugins: {
-        softlayer: {
-          url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
-          netConnectionUrl: '#{CDN.connect_url(token_name)}'
+  def flowplayer(source_file, source, caption_file, token_name)
+  
+    if source == StreamingProduct.source[:alphanetworks]
+      if caption_file
+        caption_file = "http://www.dvdpost.be/images/KissKissBangBang_French.srt"
+      end
+      if caption_file 
+          caption = "captionUrl: '#{caption_file}',"
+        else
+          caption = ""
+      end
+      script = <<-script
+      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
+      {
+        key: '\#$dcba96641dab5d22c24',
+        version: [10, 0],
+        clip: {
+          url: '#{source_file}',
+          #{caption}
+          provider: 'softlayer'
         },
-        controls: {
-          autoHide:
-          {
-            "enabled":true,
-            "mouseOutDelay":500,
-            "hideDelay":2000,
-            "hideDuration":400,
-            "hideStyle":"fade",
-            "fullscreenOnly":true
+
+        canvas: {
+                backgroundColor:'#000000'
+        },
+        plugins: {
+          softlayer: {
+            url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
+            netConnectionUrl: '#{CDN.connect_url(token_name, StreamingProduct.source[:alphanetworks])}'
+          },
+          captions: {
+                      url: '/flowplayer/flowplayer.captions-3.2.3.swf',
+
+                      // the content plugin we use to show the captions
+                      captionTarget: 'content'
+                  },
+                  content: {
+                          url:'flowplayer.content-3.2.0.swf',
+                          bottom: 27,
+                          height:42,
+                          backgroundColor: 'transparent',
+                          backgroundGradient: 'none',
+                          border: 0,
+                          textDecoration: 'outline',
+                          style: {
+                              body: {
+                                  fontSize: 16,
+                                  fontFamily: 'Arial',
+                                  textAlign: 'center',
+                                  color: '#ffffff'
+                              }
+                          }
+                      },
+          controls: {
+            autoHide:
+            {
+              "enabled":true,
+              "mouseOutDelay":500,
+              "hideDelay":2000,
+              "hideDuration":400,
+              "hideStyle":"fade",
+              "fullscreenOnly":true
+            }
           }
         }
-      }
-    });
-    script
+      });
+      script
+    else
+      script = <<-script
+      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
+      {
+        key: '\#$dcba96641dab5d22c24',
+        version: [10, 0],
+        clip: {
+          url: '#{source_file}',
+          provider: 'softlayer'
+        },
+        canvas: {
+        		backgroundColor:'#000000'
+        },
+        plugins: {
+          softlayer: {
+            url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
+            netConnectionUrl: '#{CDN.connect_url(token_name, StreamingProduct.source[:softlayer])}'
+          },
+          controls: {
+            autoHide:
+            {
+              "enabled":true,
+              "mouseOutDelay":500,
+              "hideDelay":2000,
+              "hideDuration":400,
+              "hideStyle":"fade",
+              "fullscreenOnly":true
+            }
+          }
+        }
+      });
+      script
+    end
     javascript_tag script
   end
 
