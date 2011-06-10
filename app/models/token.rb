@@ -62,7 +62,7 @@ class Token < ActiveRecord::Base
 
     status
   end
-  
+
   def expired?
     updated_at < 2.days.ago.localtime
   end
@@ -73,7 +73,7 @@ class Token < ActiveRecord::Base
     
     current_ips = token_ips
     return Token.status[:ok] unless current_ips.find_by_ip(current_ip).nil?
-    return Token.status[:ip_valid] if current_ips.count < count_ip
+    return Token.status[:ip_valid] if current_ips.count < count_ip || source == TOKEN.source[:alphanetworks]
     return Token.status[:ip_invalid]
   end
   

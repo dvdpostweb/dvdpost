@@ -36,5 +36,12 @@ class StreamingProduct < ActiveRecord::Base
     end
     streaming
   end
+  
+  def self.source
+    source = OrderedHash.new
+    source.push(:softlayer, "SOFTLAYER")
+    source.push(:alphanetworks, "ALPHANETWORKS")
 
+    source
+  end
 end
