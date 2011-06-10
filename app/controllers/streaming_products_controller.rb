@@ -62,7 +62,7 @@ class StreamingProductsController < ApplicationController
                     "\\$\\$\\$date\\$\\$\\$" => Time.now.strftime('%d/%m/%Y'),
                     "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
                   }
-                  send_message(mail_id, options, 22)
+                  send_message(mail_id, options)
                 
               end
                

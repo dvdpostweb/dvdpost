@@ -768,3 +768,23 @@ font-weight: bold;
 {
   width:580px;
 }
+.btn_all_message {
+  background: #f0f0f0;
+  border: 1px solid #333333;
+  color: #282828;
+  display: block;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  height: 28px;
+  line-height: 22px;
+  margin: 0 0 4px 1px;
+  text-align: center;
+  text-decoration: none;
+  width: 250px;
+  padding: 6px 0 0 0;
+}
+a.btn_all_message:hover {
+  background: #a0a0a0;
+  text-decoration: none;
+}
