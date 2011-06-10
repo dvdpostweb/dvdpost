@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_it_html?
-    request.format.html?
+    !request.format.js? && !request.format.xml?
   end
 
   def theme_actif
