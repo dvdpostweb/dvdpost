@@ -8,7 +8,7 @@
         <% order_status = transit_item.orders_status %>
         <% unless transit_item.is_new? %>
           <% text = 'notify' %>
-          <%= link_to t(".#{text}"), new_phone_request_path(:reason => 5), :id => "report_transit_item_#{transit_item.to_param}" if order_status !=1 && current_customer.black_listed == 0 %>
+          <% link_to t(".#{text}"), new_phone_request_path(:reason => 5), :id => "report_transit_item_#{transit_item.to_param}" if order_status !=1 && current_customer.black_listed == 0 %>
         <% end %>
       <% end %>
       <span class="<%= class_transit(transit_item) %>">
