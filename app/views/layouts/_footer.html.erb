@@ -12,7 +12,7 @@
       </ul>
       <ul id="contacts">
         <li>
-          <h4><%= link_to t('.contact'), current_customer ? new_phone_request_path : php_path('contact_public.php') %></h4>
+          <h4><% link_to t('.contact'), current_customer ? new_phone_request_path : php_path('contact_public.php') %></h4>
         </li>
         <li><%= link_to t('.faq'), current_customer ? faq_path : php_path('faq_public.php') %></li>
         <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
