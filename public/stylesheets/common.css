@@ -249,7 +249,7 @@ ul, ol, dl, dt, dd {
   color: #e2007c;
 }
 .pie {
-  behavior: url(PIE.htc);
+  behavior: url(/stylesheets/PIE.htc);
   position: relative;
 }
 p.notice {

@@ -15,7 +15,7 @@
       <% message = params[:all] ? @message.message_tickets.ordered : @message.message_tickets.ordered.limit(3) %>
       <% total = @message.message_tickets.count %>
       <% if !params[:all] && total > 3 %>
-        <%= link_to 'show all', message_path(:id => params[:id], :all => 1)%>
+        <%= link_to t('.all'), message_path(:id => params[:id], :all => 1), :class => :btn_all_message %>
       <% end %>
       <%= render :partial => '/messages/show/dialog', :collection => message.reverse %>
       <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param) do |f| %>

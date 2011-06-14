@@ -311,7 +311,7 @@ module ApplicationHelper
     (request.parameters['controller'] == 'products' and (params[:id].nil? && params[:sort] == "normal" && params[:view_mode].nil? && params[:list_id].nil? && params[:category_id].nil? &&  params[:actor_id].nil? && params[:director_id].nil? && params[:studio_id].nil? && params[:search].nil? && params[:studio_id].nil?))
   end
 
-  def send_message(mail_id, options, category_id)
+  def send_message(mail_id, options)
     mail_object = Email.by_language(I18n.locale).find(mail_id)
     recipient = current_customer.email
     if current_customer.customer_attribute.mail_copy
@@ -329,7 +329,7 @@ module ApplicationHelper
         mail_history.update_attributes(:lstvariable => list)
         Emailer.deliver_send(recipient, subject, message)
       end
-      @ticket = Ticket.new(:customer_id => current_customer.to_param, :category_ticket_id => category_id)
+      @ticket = Ticket.new(:customer_id => current_customer.to_param, :category_ticket_id => mail_object.category_id)
       @ticket.save
       if mail_history
         @message = MessageTicket.new(:ticket => @ticket, :mail_id => mail_id, :data => list, :user_id => 55, :mail_history_id => mail_history.to_param)
