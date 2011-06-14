@@ -84,15 +84,19 @@ class StreamingProductsController < ApplicationController
           else
             error = Token.error[:user_suspended]
           end
-          caption = true if params[:subtitle_id]
+          if params[:subtitle_id]
+            @sub = Subtitle.find(params[:subtitle_id])
+          else
+            @sub = nil
+          end
           if @token
             current_customer.remove_product_from_wishlist(params[:id], request.remote_ip)
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip)
             
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :caption_file => caption}, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :caption_file => @sub }, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
-            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => streaming_version.filename, :source => streaming_version.source, :caption_file => caption}, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => streaming_version.filename, :source => streaming_version.source, :caption_file => @sub }, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end
