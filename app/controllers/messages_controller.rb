@@ -20,12 +20,10 @@ class MessagesController < ApplicationController
   end
 
   def new
-    Rails.logger.debug { "@@@ici" }
     @message = Ticket.new
     respond_to do |format|
       format.html
       format.js do 
-        Rails.logger.debug { "@@@normalement ici" }
         @hide = 1
         render :layout => false
       end
