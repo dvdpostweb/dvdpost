@@ -269,13 +269,13 @@
   display: block;
   width: 137px;
   height: 27px;
-  margin-top: 10px;
   background: url(../images/recontacter-btn.png) 0 0 no-repeat;
   border: none;
   clear: both;
   font-weight: bold;
   color: white;
   text-shadow: 1px 1px 1px #333333;
+  margin: 5px 0 10px 460px !important;
 }
 #contact-wrap #contact ul {
   float: left;
