@@ -3,12 +3,12 @@ module StreamingProductsHelper
   
     if source == StreamingProduct.source[:alphanetworks]
       if caption_file
-        caption_file = "http://www.dvdpost.be/images/KissKissBangBang_French.srt"
-      end
-      if caption_file 
-          caption = "captionUrl: '#{caption_file}',"
-        else
-          caption = ""
+        source = "mp4:120619_FA.mp4"
+        caption_name = source.gsub(/(mp4:)([0-9_]*)([a-zA-Z]*)(.mp4)/,'\\2')
+        caption_name = "#{caption_name}#{caption_file.short}.srt"
+        caption = "captionUrl: '#{caption_name}',"
+      else
+        caption = ""
       end
       script = <<-script
       $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
