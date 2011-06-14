@@ -32,7 +32,7 @@ class PhoneRequest < ActiveRecord::Base
 
   def self.reason_codes
     codes = OrderedHash.new
-    codes.push(:send, 5)
+    codes.push(:send, 7)
     codes.push(:payment, 6)
     codes.push(:admin, 4)
     codes

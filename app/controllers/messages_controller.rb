@@ -28,7 +28,6 @@ class MessagesController < ApplicationController
         render :layout => false
       end
     end
-    
   end
 
   def create
