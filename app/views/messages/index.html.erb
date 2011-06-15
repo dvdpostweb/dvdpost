@@ -2,7 +2,7 @@
 <div id="contact-wrap">
   <%= render :partial => 'messages/menu' %>
   <div id="tabs-content">
-    <% link_to t('.new_message'), new_message_path(), :class => :btn_new_message, :id => :new_message %>
+    <%= link_to t('.new_message'), new_message_path(), :class => :btn_new_message, :id => :new_message %>
     <%= render :partial => '/messages/index/messages', :locals => {:messages => @messages} %>
   </div>
 </div>
