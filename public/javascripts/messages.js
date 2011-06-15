@@ -54,8 +54,8 @@ $(function() {
     return false;
   });
   $("#new_message_btn").live("click", function() {
-    $(this).parent().html("<div style='height:34px'><img src='/images/ajax-loader.gif' /></div>");
-    $('.new_ticket').submit();
+     $('#new_ticket').submit();
+     setTimeout(function() { $("#new_message_btn").parent().html("<div style='height:34px'><img src='/images/ajax-loader.gif' /></div>"); }, 500);
   })
   
   $('#sort_combo').change(function() {sort_change()});
