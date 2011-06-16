@@ -54,6 +54,10 @@ $(function() {
     return false;
   });
   $("#new_message_btn").live("click", function() {
+    if (!$("input[@name='ticket[category_ticket_id]']:checked").val()) {
+      alert($('#error_cat').html())
+      return false
+    }
      $('#new_ticket').submit();
      setTimeout(function() { $("#new_message_btn").parent().html("<div style='height:34px'><img src='/images/ajax-loader.gif' /></div>"); }, 500);
   })
