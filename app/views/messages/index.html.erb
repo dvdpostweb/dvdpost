@@ -5,4 +5,7 @@
     <%= link_to t('.new_message'), new_message_path(), :class => :btn_new_message, :id => :new_message %>
     <%= render :partial => '/messages/index/messages', :locals => {:messages => @messages} %>
   </div>
+  <div style='display:none' id ='error_cat'>
+    <%= t '.subject_empty' %>
+  </div>
 </div>
