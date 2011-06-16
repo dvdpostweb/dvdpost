@@ -60,7 +60,7 @@ class CustomersController < ApplicationController
       format.html do
         redirect_to customer_path(:id => current_customer.to_param)
       end
-      format.js {render :partial => 'customers/show/mail_copy', :locals => {:active => @customer.customer_attribute.mail_copy}}
+      format.js {render :partial => 'customers/show/mail_copy', :locals => {:mail_copy => @customer.customer_attribute.mail_copy}}
     end
   end
 
