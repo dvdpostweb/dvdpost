@@ -3,6 +3,9 @@ class Address < ActiveRecord::Base
   set_primary_key :customers_id
 
   before_save :replace_semicolon
+  before_create :set_default
+  
+  belongs_to :customer, :foreign_key => :customers_id
 
   alias_attribute :first_name, :entry_firstname
   alias_attribute :last_name, :entry_lastname
@@ -28,4 +31,11 @@ class Address < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
+  private
+   def set_default
+     self.address_book_id = customer.addresses.maximum(:address_book_id) + 1
+     self.entry_gender = customer.gender
+     self.entry_country_id = customer.address.entry_country_id
+   end
 end
