@@ -11,6 +11,7 @@ class Language < ActiveRecord::Base
 
   named_scope :by_language, lambda {|language| {:conditions => {:languagenav_id => DVDPost.product_languages[language]}}}
   named_scope :preferred, :conditions => {:languages_id => [1, 2, 3, 4, 5, 6, 8]}
+  named_scope :preferred_serie, :conditions => {:languages_id => [1, 2, 3]}
   named_scope :not_preferred, :conditions => ["languages_id not in (?)", [1, 2, 3, 4, 5, 6, 8]]
   named_scope :limit, lambda {|limit| {:limit => limit}}
   
