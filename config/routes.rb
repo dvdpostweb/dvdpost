@@ -107,8 +107,8 @@ ActionController::Routing::Routes.draw do |map|
     localized.faq 'faq', :controller => :messages, :action => :faq
 
     localized.resources :orders, :only => [] do |orders|
-      orders.resource :report, :only => [:new, :create]
-      orders.report 'report', :controller => :reports, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
+      #orders.resource :report, :only => [:new, :create]
+      #orders.report 'report', :controller => :reports, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
     end
 
     localized.resources :partners
@@ -128,7 +128,7 @@ ActionController::Routing::Routes.draw do |map|
       customer.mail_copy 'mail_copy', :controller => :customers, :action => :mail_copy, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
       customer.sexuality 'sexuality', :controller => :customers, :action => :sexuality, :only => [:update]
-      customer.resource 'addresses', :only => [:edit, :update]
+      customer.resource 'addresses', :only => [:edit, :update, :create]
       customer.resource 'suspension', :only => [:new, :create, :destroy]
       customer.resource 'reconduction', :only => [:edit, :update]
       customer.resource 'subscription', :only => [:edit, :update]
