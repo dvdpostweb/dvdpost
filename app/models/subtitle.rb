@@ -29,7 +29,6 @@ class Subtitle < ActiveRecord::Base
   end
 
   def without_sub?
-    Rails.logger.debug { "@@@#{id}" }
     id == 38
   end
 end
