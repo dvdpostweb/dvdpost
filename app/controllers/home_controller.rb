@@ -78,7 +78,7 @@ class HomeController < ApplicationController
       end
       @streaming_available = current_customer.get_all_tokens
     end
-    @footer_data = 'NEW'
+    @footer_data = 'OLD'
     if @footer_data == 'OLD'
       @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
       shops = Banner.by_language(I18n.locale).by_size(:small).expiration
