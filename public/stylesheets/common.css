@@ -328,3 +328,48 @@ color:#999999 !important;
 text-align:center;
 padding-top:10px;
 }
+#welcome #cotez,#bienvenue #cotez {
+  padding: 22px 24px 15px 105px;
+  text-align: center;
+  position: relative;
+  background: #2d2d2c url(../images/cotez-bg.gif) 0 0 repeat-x;
+  color: white;
+  min-height: 85px;
+}
+
+#welcome #cotez a, #welcome #message a,#bienvenue #cotez a, #bienvenue #message a {
+  color: white;
+}
+
+* html #welcome #cotez, * html #welcome #message,* html #bienvenue #cotez, * html #bienvenue #message {
+  height: 85px;
+}
+
+#welcome #cotez h4,#bienvenue #cotez h4 {
+  padding: 0;
+  text-transform: none;
+}
+
+#welcome #cotez h5,#bienvenue #cotez h5 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+#welcome #cotez .cover,#bienvenue #cotez .cover {
+  position: absolute;
+  top: 6px;
+  left: 20px;
+  width: 54px;
+  height: 84px;
+  padding: 20px 10px 9px 10px;
+  overflow: hidden;
+  display: block;
+}
+
+#welcome #cotez .dvd, #bienvenue #cotez .dvd {
+  background: url(../images/dvd-cover-sm.png) 0 0 no-repeat;
+}
+
+#welcome #cotez .bluray, #bienvenue #cotez .bluray {
+  background: url(../images/bluray-cover-sm.png) 0 0 no-repeat;
+}

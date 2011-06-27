@@ -108,16 +108,30 @@ class Customer < ActiveRecord::Base
     self.find_by_customers_email_address(args)
   end
 
-  def not_rated_products
-    seen = seen_products.normal_available
-    return_product = return_products
+  def not_rated_products(kind)
+    if kind == :adult
+      Rails.logger.debug { "@@@ici" }
+      
+      seen = seen_products.adult_available
+      
+    else
+      seen = seen_products.normal_available
+    end
+    return_product = return_products(kind)
+    
     rated = rated_products
     p = seen + return_product - rated
   end
 
-  def return_products
+  def return_products(kind)
     o = orders.return.all(:select => 'orders_products.products_id as orders_id', :joins => :order_product)
-    Product.normal_available.find_all_by_products_id(o)
+    if kind == :adult
+      Rails.logger.debug { "@@@ici" }
+      Product.adult_available.find_all_by_products_id(o)
+      
+    else
+      Product.normal_available.find_all_by_products_id(o)
+    end
   end
 
   def has_rated?(product)
