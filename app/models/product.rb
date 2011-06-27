@@ -129,6 +129,7 @@ class Product < ActiveRecord::Base
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
   sphinx_scope(:by_products_id)     {|products_id|      {:with =>       {:id => products_id}}}
+  sphinx_scope(:exclude_products_id){|products_id|      {:without =>    {:id => products_id}}}
   sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
@@ -163,6 +164,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   sphinx_scope(:not_recent)         {{:with =>          {:next => 0}}}
+  sphinx_scope(:by_serie)           {|serie_id|         {:with => {:series_id => serie_id}}}
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}

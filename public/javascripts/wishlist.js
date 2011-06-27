@@ -17,15 +17,21 @@ $(function() {
   var options = {};
   $('.remvove_from_wishlist').live("click", function(){
     loader = 'ajax-loader.gif';
-    $(this).parent().parent().ajaxSubmit(options);
-    $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
-    
+    title = $(this).parent().parent().parent().parent().children('.title').children().html();
+    question = $("#confirm").html();
+    confirm_sentence =  question.replace('[title]',title);
+    if (confirm(confirm_sentence)) {
+      $(this).parent().parent().ajaxSubmit(options);
+      $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
+    }
     return false; // prevent default behaviour
   });
   $(".trash a").live("click", function() {
+    alert('click')
     title = $(this).parent().parent().children('.title').children().html();
+    alert(title)
     question = $("#confirm").html();
-    
+    alert(question)
     confirm_sentence =  question.replace('[title]',title);
     if (confirm(confirm_sentence)) {
       parent_div = $(this).parent();
@@ -142,6 +148,7 @@ $(function() {
   });
   
   $("a.btn_remove").live("click", function() {
+    alert('ici')
       content = $(this).html();
       html_item=$(this)
       $(this).removeClass('btn_remove');

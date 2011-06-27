@@ -1,7 +1,8 @@
 <% if params[:kind] == :adult %>
   <%= javascript 'customer' %>
 <% end %>
-<%= javascript 'home', 'products' %>
+<%= javascript 'home', 'products', 'reviews' %>
+<%= stylesheet 'review', :media => :all%>
 <% content_for :body_id do %>one-col<% end %>
 <% content_for :style do %>
 <%= params[:kind] == :adult ? 'stylex' : 'style' %>

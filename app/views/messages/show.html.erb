@@ -18,11 +18,11 @@
         <%= link_to t('.all'), message_path(:id => params[:id], :all => 1), :class => :btn_all_message %>
       <% end %>
       <%= render :partial => '/messages/show/dialog', :collection => message.reverse %>
-      <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param) do |f| %>
+      <% form_for :message_ticket, :url => ticket_message_tickets_path(:ticket_id => @message.to_param), :html => { :id => 'new_reply' } do |f| %>
       <div class="who_message_big"><img src="/images/arrow.gif" align="absmiddle" /><%= t '.send' %></div>
       <%= text_area_tag 'message',nil,:cols => 101, :rows => 8 %><br />
       <p>
-        <button type="submit"> <%= t '.send' %> </button>
+        <button type="submit" id='reply'> <%= t '.send' %> </button>
       </p>
       <% end %>
     </div>

@@ -1735,7 +1735,7 @@ html ul.tabs li.active a:hover {
   text-decoration: none;
 }
 
-#carousel li .btn_remove_form {
+#carousel li .btn_remove_form, .content .btn_remove_form {
   background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;
   display: block;
   height: 27px;
@@ -1751,9 +1751,15 @@ html ul.tabs li.active a:hover {
   border:0px;
 }
 
-#carousel li .btn_remove_form:hover {
+#carousel li .btn_remove_form:hover, .content .btn_remove_form:hover {
   background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
+}
+.content .btn_remove_form
+{ 
+  bottom:8px;
+  left:6px;
+  position:absolute;
 }
 #carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
   background: url(../images/carousel-arrows.png) 0 0 no-repeat;
