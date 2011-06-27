@@ -1,9 +1,16 @@
 <div id="bienvenue">
   <h4><%= t 'home.index.wishlist.welcome' %> <%= current_customer.customers_firstname %></h4>
   <%= render :partial => 'home/index/sexuality' %>
-  <div id="liste"><strong><%= t('home.index.wishlist.contains') %></strong> <%= wishlist_count %> <%= t 'home.index.wishlist.dvd' %></div>
-  <table width="300px"><%= render :partial => 'customers/show/rotation', :locals => {:customer => current_customer} %></table>
-<div class="clear"></div>
+  <div id="liste">
+    <strong><%= t('home.index.wishlist.contains') %></strong> <%= wishlist_count %> <%= t 'home.index.wishlist.dvd' %>
+  </div>
+  <table width="300px">
+  <%= render :partial => 'customers/show/rotation', :locals => {:customer => current_customer} %>
+  </table>
+  <div class="clear"></div>
+  <% if @not_rated_product %>
+    <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} %>
+  <% else %>
   <div id="en-transit">
     <div><strong><%= t 'home.index.wishlist.lent' %></strong> <%= transit_items.count %> <%= t 'home.index.wishlist.dvd' %></div>
     <dl>
@@ -13,4 +20,5 @@
       <% end %>
     </dl>
   </div>
+  <% end %>
 </div>
