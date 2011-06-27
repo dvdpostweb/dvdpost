@@ -1,5 +1,5 @@
 $(function() {
-  $("a#add_new_review").live("click", function() {
+  $("a#add_new_review, .add_reviews").live("click", function() {
     review = $(this);
     jQuery.facebox(function() {
       $.getScript(review.attr('href'), function(data) {

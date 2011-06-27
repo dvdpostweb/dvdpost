@@ -1,6 +1,6 @@
 <div class="critique" id="critique<%= review.to_param%>">
   <p><%= "#{review.like_count} #{t 'reviews.index.review.members'} #{review.likeable_count} #{t 'reviews.index.review.found_useful'}" %></p>
-  <% if current_customer %>
+  <% if current_customer  && current_customer.to_param != review.customer.to_param %>
     <p class="yn">
       <% customer_rating = review.rating_by_customer(current_customer) %>
       <% if customer_rating %>

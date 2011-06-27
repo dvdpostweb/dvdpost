@@ -35,20 +35,24 @@
     <!-- Flash News  -->
     <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
     <!-- Top 10  -->
-    <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
-    <!-- Banners  -->
-    <div id="banners">
-      <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} if @quizz %>
-      <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} if @contest %>
-      <% render :partial => 'home/index/banner', :locals => {:type => 'shop' } %>
-      <%= render :partial => 'home/index/banner', :locals => {:type => 'facebook'} %>
-      <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
-    </div>
-    <!-- Prochainement/Nouveautés   -->
-    <div id="new-m">
-      <%= render :partial => 'home/index/theme', :locals => {:products => @recent,  :id => 'new'} %>
-      <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
-    </div>
+    <% if @footer_data == 'OLD' %>
+      <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
+      <!-- Banners  -->
+      <div id="banners">
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} if @quizz %>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} if @contest %>
+        <% render :partial => 'home/index/banner', :locals => {:type => 'shop' } %>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'facebook'} %>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
+      </div>
+      <!-- Prochainement/Nouveautés   -->
+      <div id="new-m">
+        <%= render :partial => 'home/index/theme', :locals => {:products => @recent,  :id => 'new'} %>
+        <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
+      </div>
+    <% else %>
+        <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>
+    <% end %>
     <div class="clear"></div>
     <div class="end"></div>
     <% end %>
