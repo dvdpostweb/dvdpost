@@ -116,6 +116,23 @@ module ProductsHelper
     end
   end
 
+  def review_image_links(rating)
+    links = []
+    5.times do |i|
+      i += 1
+      image_name = if rating >= 2
+        "star-on-review.png"
+      elsif rating == 1
+        "star-half-review.png"
+      else
+        "star-off-review.png"
+      end
+      links << image_tag(image_name, :name => image_name)
+      rating -= 2
+    end
+    links
+  end
+
   def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
     background = background.to_sym if background
     if current_customer

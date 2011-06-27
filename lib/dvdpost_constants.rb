@@ -125,6 +125,15 @@ module DVDPost
       })
     end
 
+    def home_review_types
+      HashWithIndifferentAccess.new.merge({
+        :best_rate => 'BEST_RATE',
+        :best_review => 'BEST_REVIEW',
+        :controverse_rate => 'CONTROVERSE_RATE',
+        :best_customer => 'BEST_CUSTOMER'
+      })
+    end
+
     def trailer_broadcasts_urls
       HashWithIndifferentAccess.new.merge({
         'DAYLYMOTION' => 'http://www.dailymotion.com/video/',
