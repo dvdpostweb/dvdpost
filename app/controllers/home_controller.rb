@@ -49,6 +49,8 @@ class HomeController < ApplicationController
       else
         @carousel = Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5)
       end
+      not_rated_products = current_customer.not_rated_products(kind)
+      @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
       expiration_recommendation_cache()
       @offline_request = current_customer.payment.recovery
@@ -56,7 +58,7 @@ class HomeController < ApplicationController
         if current_customer.credit_empty?
           @renew_subscription = true
         else
-          not_rated_products = current_customer.not_rated_products
+          not_rated_products = current_customer.not_rated_products(kind)
           @not_rated_product = not_rated_products[rand(not_rated_products.count)]
         end
       end

@@ -1950,18 +1950,6 @@ html ul.tabs li.active a:hover {
   padding: 0 3px 0 0;
 }
 
-#welcome #cotez {
-  padding: 22px 24px 15px 105px;
-  text-align: center;
-  position: relative;
-  background: #2d2d2c url(../images/cotez-bg.gif) 0 0 repeat-x;
-  color: white;
-  min-height: 85px;
-}
-
-#welcome #cotez a, #welcome #message a {
-  color: white;
-}
 
 #welcome #message {
   padding: 22px 24px 15px 15px;
@@ -1976,38 +1964,6 @@ html ul.tabs li.active a:hover {
   font-size: 1em;
 }
 
-* html #welcome #cotez, * html #welcome #message {
-  height: 85px;
-}
-
-#welcome #cotez h4 {
-  padding: 0;
-  text-transform: none;
-}
-
-#welcome #cotez h5 {
-  font-size: 1em;
-  font-weight: normal;
-}
-
-#welcome #cotez .cover {
-  position: absolute;
-  top: 6px;
-  left: 20px;
-  width: 54px;
-  height: 84px;
-  padding: 20px 10px 9px 10px;
-  overflow: hidden;
-  display: block;
-}
-
-#welcome #cotez .dvd {
-  background: url(../images/dvd-cover-sm.png) 0 0 no-repeat;
-}
-
-#welcome #cotez .bluray {
-  background: url(../images/bluray-cover-sm.png) 0 0 no-repeat;
-}
 
 .ttls-nav {
   display: block;
