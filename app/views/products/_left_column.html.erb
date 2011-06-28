@@ -26,7 +26,10 @@
       <li>
         <%= display_btn_categories %>
         <ul id="categories_list" <%= session[:menu_categories] == false ? 'style="display :none"' : '' %>>
-          <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
+          <% name = @category ? "#{@category.to_param}_#{session[:sexuality]}_#{params[:kind]}" : "#{session[:sexuality]}_#{params[:kind]}" %>
+          <% cache(name) do %> 
+            <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
+          <% end %>
         </ul>
       </li>
       <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>

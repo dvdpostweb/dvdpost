@@ -2,18 +2,18 @@
 <%= javascript 'home' if ENV['HOST_OK'] == "1" %>
 
 <% content_for :body_id do %>product_body<% end %>
-<% if @product &&  @product.description && !@product.adult? %>
+<% if @product && !@product.adult? %>
   <% content_for :facebook do %>
-    <meta property="og:image" content="<%= @product.image %>"/> 
+    <meta property="og:image" content="<%= @product_image %>"/> 
     <meta property="og:type" content="movie">
-    <meta property="og:title" content="<%= @product.description.title %>">
+    <meta property="og:title" content="<%= @product_title %>">
     <meta property="og:url" content="<%= @public_url %>">
     <meta property="og:site_name" content="DVDPost"/>
     <meta property="fb:admins" content="542538810,586983921"/>
-    <meta property="og:description" content="<%= @product.description.text %>">
+    <meta property="og:description" content="<%= @product_description.text %>">
   <% end %>
   <% content_for :description do %>
-    <%= @product.description.text %>
+    <%= @product_description.text %>
   <% end%>
 <% end %>
 <% filter = get_current_filter({})%>

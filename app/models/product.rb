@@ -331,7 +331,11 @@ class Product < ActiveRecord::Base
   end
 
   def title
-    description ? description.title : products_title
+    if desc = description
+      desc.title
+    else
+      products_title
+    end
   end
 
   def trailer
@@ -340,13 +344,37 @@ class Product < ActiveRecord::Base
   end
 
   def image
-    if products_type == DVDPost.product_kinds[:adult]
-      File.join(DVDPost.imagesx_path, description.image) if description && !description.image.blank?
-    else
-      File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
+    if desc = description
+      if products_type == DVDPost.product_kinds[:adult]
+        File.join(DVDPost.imagesx_path, desc.image)  if !desc.image.blank?
+      else
+        File.join(DVDPost.images_path, desc.image) if !desc.image.blank?
+      end
     end
   end
 
+  def description_data(full = false)
+    if desc = description
+      title = desc.title
+      if products_type == DVDPost.product_kinds[:adult]
+        image = File.join(DVDPost.imagesx_path, desc.image)  if !desc.image.blank?
+      else
+        image =  File.join(DVDPost.images_path, desc.image) if !desc.image.blank?
+      end
+      if full
+        description = desc
+      else
+        description = nil
+      end
+        
+    else
+      title = products_title
+      image = nil
+      description = nil
+    end
+    {:image => image, :title => title, :description => description}
+  end
+  
   def preview_image(id)
     File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
   end
@@ -406,11 +434,11 @@ class Product < ActiveRecord::Base
     languages.find_by_languages_id(language) || subtitles.find_by_undertitles_id(language)
   end
 
-  def views_increment
+  def views_increment(desc)
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
-    if description
-      connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{id}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    if desc
+      connection.execute("UPDATE products_description SET products_viewed = #{desc.viewed + 1} WHERE (products_id = #{id}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
     end
     day = product_views.daily.first
     if !day.nil?
@@ -419,7 +447,7 @@ class Product < ActiveRecord::Base
       ProductView.create(:product_id => to_param,
                           :number     => 1)
     end
-    description ? description.viewed : 0
+    desc ? desc.viewed : 0
   end
 
   def media_alternative(media)

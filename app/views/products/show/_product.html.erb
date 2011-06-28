@@ -31,7 +31,7 @@
     <%= actors %>
   </li>
   <% end %>
-  <% if product.original_title != '' && product.title != product.original_title %>
+  <% if product.original_title != '' && @product_title != product.original_title %>
     <li>
       <strong>
         <%= t '.original_title' %>
@@ -73,9 +73,11 @@
   </li>
 </ul>
 <p class="links">
-  <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), {:class => 'trailer', :target => :_blank}) if product.trailer %>
-  <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && product.description.url_present? %>
-  <%= link_to(t('.official'), product.description.full_url, {:class => 'link', :target => :_blank}) if product.description && product.description.url_present? %>
+  <% if trailer = product.trailer %>
+    <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), {:class => 'trailer', :target => :_blank}) %>
+    <%= content_tag(:span, image_tag('delimiter.gif')) if @product_description.url_present? %>
+  <% end %>
+  <%= link_to(t('.official'), @product_description.full_url, {:class => 'link', :target => :_blank}) if @product_description && @product_description.url_present? %>
 </p>
 <p>
 <% audio_bubble = audio_bubbles(product, 2)%>
@@ -98,6 +100,7 @@
 <% end %>
 </p>
 <%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>
+
 <p>
   <strong>
     <%= t '.image' %>
@@ -116,11 +119,9 @@
   <%= product.available_at.strftime("%d/%m/%Y") if product.available_at %>
 </p>
 <% end %>
-
-
 <div class="cover">
   <span id="<%= product_media_id(product.media) %>">
-    <%= product_image_tag product.image, :width => 143, :height => 218, :alt => "#{product.title} (#{product.year})" %>
+    <%= product_image_tag @product_image, :width => 143, :height => 218, :alt => "#{@product_title} (#{product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
   <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>

@@ -104,16 +104,17 @@ module ProductsHelper
   end
 
   def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
-    if product
-      rating = product.rating(current_customer) 
-      links = []
-      5.times do |i|
-        i += 1
-        links << rating_image_link(product, rating, i, background, size, replace, recommendation)
-        rating -= 2
-      end
-      links
-    end
+   if product
+     rating = product.rating(current_customer) 
+     links = []
+     rated = current_customer.has_rated?(product)
+     5.times do |i|
+       i += 1
+       links << rating_image_link(product, rating, i, background, size, replace, recommendation, rated)
+       rating -= 2
+     end
+     links
+   end
   end
 
   def review_image_links(rating)
@@ -133,10 +134,10 @@ module ProductsHelper
     links
   end
 
-  def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
+  def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil, rated = nil)
     background = background.to_sym if background
     if current_customer
-      if current_customer.has_rated?(product)
+      if rated
         name = 'star-voted'
         class_name = ''
       else
@@ -224,19 +225,21 @@ module ProductsHelper
     image_tag (source || File.join(I18n.locale.to_s, 'image_not_found.gif')), options
   end
 
-  def awards(product)
+  def awards(description)
     content = ''
-    if product.description && !product.description.products_awards.empty?
-      awards = product.description.products_awards.split(/<br>|<br \/>/)
-      if count_awards(awards) > 3
-        content += '<p id ="oscars_text">'
-        3.times do |i|
-          content += "#{awards[i]}<br />"
+    if description
+      if !description.products_awards.empty?
+        awards = description.products_awards.split(/<br>|<br \/>/)
+        if count_awards(awards) > 3
+          content += '<p id ="oscars_text">'
+          3.times do |i|
+            content += "#{awards[i]}<br />"
+          end
+          content += '</p>'
+          content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => description.products_id)}</p>"
+        else
+          content += "<p>#{description.products_awards}</p>"
         end
-        content += '</p>'
-        content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => product.to_param)}</p>"
-      else
-        content += "<p>#{product.description.products_awards}</p>"
       end
     end
   end
