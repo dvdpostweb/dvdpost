@@ -88,9 +88,13 @@ class ProductsController < ApplicationController
       @product = Product.normal_available.find(params[:id])
       @rating_color = :white
     end
+    data = @product.description_data(true)
+    @product_title = data[:title]
+    @product_image = data[:image]
+    @product_description =  data[:description]
     unless request.format.xml?
       @filter = get_current_filter({})
-      @product.views_increment
+      @product.views_increment(@product_description)
       @public_url = product_public_path(@product)
       if @product.imdb_id == 0
         @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)

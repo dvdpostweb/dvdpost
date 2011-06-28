@@ -110,10 +110,7 @@ class Customer < ActiveRecord::Base
 
   def not_rated_products(kind)
     if kind == :adult
-      Rails.logger.debug { "@@@ici" }
-      
       seen = seen_products.adult_available
-      
     else
       seen = seen_products.normal_available
     end
@@ -126,9 +123,7 @@ class Customer < ActiveRecord::Base
   def return_products(kind)
     o = orders.return.all(:select => 'orders_products.products_id as orders_id', :joins => :order_product)
     if kind == :adult
-      Rails.logger.debug { "@@@ici" }
       Product.adult_available.find_all_by_products_id(o)
-      
     else
       Product.normal_available.find_all_by_products_id(o)
     end

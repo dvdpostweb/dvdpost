@@ -5,6 +5,9 @@
 <div id='rating-stars-<%= product.to_param %>'>
   <%= render :partial => 'products/rating', :locals => {:product => product, :background => :black, :replace => :homepage} %>
 </div>
-<h5><%= link_to product.title, product_path(:id => product.to_param) %></h5>
-<%= link_to product_image_tag(product.image, :size => '54x83', :alt => product.title), product_path(:id => product.to_param), :class => "cover #{product_media_id(product.media)}" %>
+<% data = product.description_data() %>
+<% product_title = data[:title] %>
+<% product_image = data[:image] %>
+<h5><%= link_to product_title, product_path(:id => product.to_param) %></h5>
+<%= link_to product_image_tag(product_image, :size => '54x83', :alt => product_title), product_path(:id => product.to_param), :class => "cover #{product_media_id(product.media)}" %>
 </div>

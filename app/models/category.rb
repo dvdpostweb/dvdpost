@@ -19,7 +19,7 @@ class Category < ActiveRecord::Base
   named_scope :ordered, :order => 'display_group ASC, sort_order ASC'
 
   def name
-    descriptions.by_language(I18n.locale).first ? descriptions.by_language(I18n.locale).first.name : "NONAME_#{to_param}"
+    descriptions.by_language(I18n.locale).first.name
   end
 
   def root?
