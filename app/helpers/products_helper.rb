@@ -107,7 +107,7 @@ module ProductsHelper
    if product
      rating = product.rating(current_customer) 
      links = []
-     rated = current_customer.has_rated?(product)
+     rated = current_customer ? current_customer.has_rated?(product) : nil
      5.times do |i|
        i += 1
        links << rating_image_link(product, rating, i, background, size, replace, recommendation, rated)
