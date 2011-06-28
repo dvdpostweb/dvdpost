@@ -157,6 +157,8 @@ class ProductsController < ApplicationController
   end
 
   def awards
+    data = @product.description_data(true)
+    @product_description =  data[:description]
     respond_to do |format|
       format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
     end
