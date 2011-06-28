@@ -4,30 +4,6 @@ developed by Vel
 at http://www.vhg-design.com
 ===============
 */
-html, body{
-  background: #004f6d;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  font-size: 62.5%;
-}
-
-body {
-  color: #191e24;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2em;
-}
-/*
-a {
-  color: #191e24;
-  text-decoration: underline;
-}
-
-a:hover {
-  text-decoration: none;
-
-}
-*/
 ul, ol, dl, dt, dd {
   margin: 0;
   padding: 0;
@@ -674,20 +650,6 @@ text-align:center;
 {
   float: right;
 }
-
-
-
-
-
-
-/*   FOOTER   */
-
-#footer {
-  height: 120px;
-  clear: both;
-  background: #343434;
-}
-
 
 
 /*   ---------   Float containers fix   ---------   */

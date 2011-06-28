@@ -91,6 +91,7 @@
   background: #303030 url(../images/footer-bg.jpg) center top no-repeat;
   clear: both;
   height: 236px;
+  margin: 0 0 -1px;
 }
 
 #subfooter {
