@@ -77,26 +77,22 @@ class HomeController < ApplicationController
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
       end
       @streaming_available = current_customer.get_all_tokens
+      @footer_data = 'OLD'
+      if @footer_data == 'OLD'
+        @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
+        shops = Banner.by_language(I18n.locale).by_size(:small).expiration
+        @shop = shops[rand(shops.count)]
+        @quizz = QuizzName.find_last_by_focus(1)
+        @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
+        @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
+        @soon = Product.get_soon(I18n.locale)
+      else
+        @review_kind = DVDPost.home_review_types[:controverse_rate]
+        #@data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])
+        #@data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 4, :page => params[:highlight_page])
+        @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).paginate(:per_page => 9, :page => params[:highlight_page])
+      end
     end
-    @footer_data = 'OLD'
-    if @footer_data == 'OLD'
-      @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
-      shops = Banner.by_language(I18n.locale).by_size(:small).expiration
-      @shop = shops[rand(shops.count)]
-      @quizz = QuizzName.find_last_by_focus(1)
-      @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
-      @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
-      @soon = Product.get_soon(I18n.locale)
-      @recent = Product.get_recent(I18n.locale, params[:kind], 3, session[:sexuality])
-    else
-      @review_kind = DVDPost.home_review_types[:controverse_rate]
-      #@data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])
-      #@data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 4, :page => params[:highlight_page])
-      @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).paginate(:per_page => 9, :page => params[:highlight_page])
-      
-      
-    end
-    
   end
 
   def retrieve_news
