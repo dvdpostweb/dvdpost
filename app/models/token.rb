@@ -73,7 +73,7 @@ class Token < ActiveRecord::Base
     
     current_ips = token_ips
     return Token.status[:ok] unless current_ips.find_by_ip(current_ip).nil?
-    return Token.status[:ip_valid] if current_ips.count < count_ip || source == StreamingProduct.source[:alphanetworks]
+    return Token.status[:ip_valid] if current_ips.count < count_ip #|| source == StreamingProduct.source[:alphanetworks]
     return Token.status[:ip_invalid]
   end
   
