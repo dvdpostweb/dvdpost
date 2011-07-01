@@ -63,7 +63,25 @@ class CustomersController < ApplicationController
       format.js {render :partial => 'customers/show/mail_copy', :locals => {:mail_copy => @customer.customer_attribute.mail_copy}}
     end
   end
-
+  
+  def newsletters_x
+    @customer = current_customer
+    @customer.customer_attribute.update_attribute(:newsletters_x, params[:value])
+    respond_to do |format|
+      format.html do
+        redirect_to customer_path(:id => current_customer.to_param)
+      end
+      format.js {render :partial => 'customers/show/newsletters_x', :locals => {:newsletters_x => @customer.customer_attribute.newsletters_x}}
+    end
+  end
+  
+  def newsletter_x
+    respond_to do |format|
+      format.html 
+      format.js {render :layout => false}
+    end
+  end
+  
   def sexuality
     @customer = current_customer
     @customer.customer_attribute.update_attribute(:sexuality, params[:value])

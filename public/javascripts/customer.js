@@ -19,7 +19,26 @@ $(function() {
     });
     return false;
   });
-
+  
+  $(".news_x").live("click", function() {
+    url = $(this).attr('href');
+    html_item = $(this).parent();
+    content = html_item.html();
+    loader = 'ajax-loader.gif';
+    html_item.html("<img src='/images/"+loader+"'/>");
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {},
+      success: function(data) {
+        item = html_item.html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
   $(".suppendre_newsletter").live("click", function() {
     url = $(this).attr('href');
     html_item = $(this).parent();
