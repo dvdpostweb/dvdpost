@@ -167,4 +167,12 @@ $(function() {
     new_href =actor_href.replace(reg_link, "/"+id);
     $('#top_product_link').attr('href',new_href)
   });
+  if ($('#popup').html()!=undefined)
+  {
+    jQuery.facebox(function() {
+      $.getScript($('#popup').html(), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+  }
 });

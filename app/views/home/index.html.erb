@@ -23,6 +23,9 @@
     <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
     </div>
   </div>  
+  <% if @newsletter_x.nil? %>
+    <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
+  <% end %>
   <% else %>
     <!-- Tabs rotattor -->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>

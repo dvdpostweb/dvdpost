@@ -37,6 +37,7 @@ class HomeController < ApplicationController
   private
   def get_data(kind)
     if(kind == :adult)
+      @newsletter_x = current_customer.customer_attribute.newsletters_x
       @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
       @actor_week = Actor.find_by_focus(1)
       @actor_week_product = Product.search.by_kind(:adult).available.by_actor(@actor_week.id).random().limit(4)
@@ -86,6 +87,7 @@ class HomeController < ApplicationController
         @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
         @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
         @soon = Product.get_soon(I18n.locale)
+        @recent = Product.get_recent(I18n.locale, params[:kind], 3, session[:sexuality])
       else
         @review_kind = DVDPost.home_review_types[:controverse_rate]
         #@data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])

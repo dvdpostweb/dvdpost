@@ -126,6 +126,8 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.mail_copy 'mail_copy', :controller => :customers, :action => :mail_copy, :only => [:update]
+      customer.newsletters_x 'newsletters_x', :controller => :customers, :action => :newsletters_x, :only => [:update]
+      customer.newsletter_x 'newsletter_x', :controller => :customers, :action => :newsletter_x, :conditions => {:method => :get}
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
       customer.sexuality 'sexuality', :controller => :customers, :action => :sexuality, :only => [:update]
       customer.resource 'addresses', :only => [:edit, :update, :create]

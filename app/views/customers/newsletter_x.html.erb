@@ -1,0 +1,10 @@
+<div style='width:490px'>
+  <%= t '.header' %>
+  <br/>
+  <br/>
+  <p><strong><%= t '.question' %><strong></p>
+  <br/>
+  <%= link_to image_tag("#{I18n.locale}/newsletter_adult_yes.gif"), customer_newsletters_x_path(:customer_id => current_customer, :value => 1) %>
+  <%= link_to image_tag("#{I18n.locale}/newsletter_adult_no.gif"), customer_newsletters_x_path(:customer_id => current_customer, :value => 0) %>
+</div>
+

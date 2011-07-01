@@ -81,6 +81,16 @@
           </div>
         </td>
       </tr>
+      <% if params[:kind] == :adult %>
+      <tr>
+        <td align="right" class=""><strong><%= t '.newsletters_x' %> :</strong></td>
+        <td align="left" class="">
+          <div>
+          <%= render :partial => 'customers/show/newsletters_x', :locals => {:newsletters_x => customer.customer_attribute.newsletters_x} %>
+          </div>
+        </td>
+      </tr>
+      <% end %>
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
