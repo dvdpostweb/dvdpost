@@ -1,0 +1,70 @@
+    <div id="tab-content-4" class="tab-content pie">
+      <h3>Découvrez nos meilleurs critiqueurs </h3>
+      <div id="positions" class="clearfix">
+	<!-- Classement de la semaine -->
+		<div id="weekly-position">
+			<h4>Classement de la semaine </h4>
+			<ul>
+			  <% i = 0 %>
+			  <% data_month.collect do |customer_data| %>
+			  <% i = i +1 %>
+			  <% customer = customer_data.customer %>
+			  <% reviews_count = customer.reviews.approved.count %>
+				<li>
+					<span class="count"><%= i %></span>
+					<div class="content">
+						<h2><%= customer.first_name %></h2>
+						<% if reviews_count > 0 %>
+						  <p><%= customer.ratings.count %> cotations |  <%= reviews_count %> critiques </p>
+						  <%= link_to "Voir toutes ses critiques", customer_reviews_path(:customer_id => customer.to_param), :class => :left_review %>
+						<% else %>
+					    <p><%= customer.ratings.count %> cotations</p>
+					  <% end %>
+						<a href="#" class="right_review">Suivre ce critiqueur</a>
+					</div>
+					<%= new_position(customer_data) %>
+					<%= image_tag 'user-thumb.png', :width => 46, :height => 48, :alt => 'user-thumb', :title => 'user-thumb', :class => :thumb %>
+				</li>
+				<% end %>
+			</ul>
+			
+			<a href="#" class="more-btn"><span>Afficher plus de films</span></a>
+		</div>
+		<!-- Classement toute période -->
+		<div id="period-position">
+			<h4>Classement toute période </h4>
+			<ul>
+			  <% i = 0 %>
+			  <% data_all.collect do |customer_data| %>
+			  <% i = i +1 %>
+			  <% customer = customer_data.customer %>
+			  <% reviews_count = customer.reviews.approved.count %>
+				<li>
+					<span class="count"><%= i %></span>
+					<div class="content">
+			      <h2><%= customer.first_name %></h2>
+						<% if reviews_count > 0 %>
+						  <p><%= customer.ratings.count %> cotations |  <%= reviews_count %> critiques </p>
+						  <%= link_to "Voir toutes ses critiques", customer_reviews_path(:customer_id => customer.to_param), :class => :left_review %>
+						<% else %>
+					    <p><%= customer.ratings.count %> cotations</p>
+					  <% end %>
+						<a href="#" class="right_review">Suivre ce critiqueur</a>
+					</div>
+					<%= new_position(customer_data) %>
+					<%= image_tag 'user-thumb.png', :width => 56, :height => 61, :alt => 'user-thumb', :title => 'user-thumb', :class => :thumb %>
+				</li>
+			<% end %>	
+			</ul>
+			
+			<a href="" class="more-btn"><span>Afficher plus de critiqueurs</span></a>
+			<%= will_paginate news_items, :previous_label => '',
+                                    :next_label => "<span>Afficher plus de critiqueurs</span>",
+                                    :page_links => false,
+                                    :param_name => :highlight_page,
+                                    :id => 'news_next',
+                                    :container => false %>
+		</div>
+
+  </div>
+</div>

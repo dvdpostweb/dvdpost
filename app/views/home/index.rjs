@@ -1,0 +1,2 @@
+page[".content_item"].append render :partial => '/home/index/best', :locals => {:data => @data, :format => "js"}
+page[".tab-content a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data}

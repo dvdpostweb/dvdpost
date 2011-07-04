@@ -1,7 +1,7 @@
 <div id="tab-content-2" class="tab-content pie">
   <h3>Découvrez nos critiques coups de coeurs de la semaine</h3>
   <ul class="clearfix">
-    <% @data.collect do |review_rate| %>
+    <% data.collect do |review_rate| %>
     <% review = review_rate.review %>
     <% product = review.product %>
     <% product_title = product.title %>
@@ -9,10 +9,10 @@
       <h2> <%= link_to product_title, product_path(:id => product.to_param) %></h2>
       <div class="content">
         <div class="critic"> 
-          <% image_tag 'user-thumb.png', :alt => 'user-thumb', :title => 'user-thumb' %>
+          <%= image_tag 'user-thumb.png', :alt => 'user-thumb', :title => 'user-thumb' %>
           <div class="name">
             <strong><%= review.customer.first_name %></strong> <%= Customer.find(review.customers_id).reviews.approved.count %> critiques 
-            <%= link_to "Voir toutes ses critiques", customer_reviews_path(:customer_id => review.customers_id), :class => 'link_right' %> 
+            <%= link_to "Voir toutes ses critiques", customer_reviews_path(:customer_id => review.customers_id) %> 
           </div>
           <strong style='clear:both'>Sa cotation :</strong> 
           <span class="stars-wrap">
@@ -21,10 +21,10 @@
         </div>
         <p>
           <strong>Sa critique :</strong> 
-          <%= truncate_html(review.text, :length => 300) %>
+          <%= truncate_html(review.text, :length => 250) %>
         </p>
         <div class="write">
-          <%=  link_to "Ecrire une critique",new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
+          <%=  link_to "Ecrire une critique", new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
         </div>
         <div class="relevant">
           <%= render :partial => 'reviews/index/critics', :locals => {:review => review} %>

@@ -11,6 +11,26 @@ class HomeController < ApplicationController
           render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}
         elsif params[:popular_page]
           render :partial => 'home/index/popular', :locals => {:products => retrieve_popular}
+        elsif params[:highlight_page]
+          @data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])
+        elsif params[:review_kind] 
+          @review_kind = DVDPost.home_review_types[params[:review_kind]]
+          case @review_kind = DVDPost.home_review_types[params[:review_kind]]
+            when DVDPost.home_review_types[:best_customer]
+              @data_month = HighlightCustomer.day(0).by_kind('month').paginate(:per_page => 10, :page => params[:highlight_page])
+              @data_all = HighlightCustomer.day(0).by_kind('all').paginate(:per_page => 5, :page => params[:highlight_page])
+              render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month}
+            when DVDPost.home_review_types[:best_review]
+              @data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 4, :page => params[:highlight_page])
+              render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data}
+            when DVDPost.home_review_types[:controverse_rate]
+              @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).paginate(:per_page => 9, :page => params[:highlight_page])
+              render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data}
+            else
+              @data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])
+              render :partial => 'home/index/reviews', :locals => {:review_kind => DVDPost.home_review_types[params[:best_rate]], :data => @data}
+          end
+        
         else
           render :nothing => true
         end
@@ -78,7 +98,7 @@ class HomeController < ApplicationController
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
       end
       @streaming_available = current_customer.get_all_tokens
-      @footer_data = 'OLD'
+      @footer_data = 'NEW'
       if @footer_data == 'OLD'
         @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
@@ -89,10 +109,18 @@ class HomeController < ApplicationController
         @soon = Product.get_soon(I18n.locale)
         @recent = Product.get_recent(I18n.locale, params[:kind], 3, session[:sexuality])
       else
-        @review_kind = DVDPost.home_review_types[:controverse_rate]
-        #@data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])
-        #@data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 4, :page => params[:highlight_page])
-        @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).paginate(:per_page => 9, :page => params[:highlight_page])
+        @review_kind = DVDPost.home_review_types[params[:review_kind]]
+        case @review_kind = DVDPost.home_review_types[params[:review_kind]]
+          when DVDPost.home_review_types[:best_customer]
+            @data_month = HighlightCustomer.day(0).by_kind('month').paginate(:per_page => 10, :page => params[:highlight_page])
+            @data_all = HighlightCustomer.day(0).by_kind('all').paginate(:per_page => 5, :page => params[:highlight_page])
+          when DVDPost.home_review_types[:best_review]
+            @data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 4, :page => params[:highlight_page])
+          when DVDPost.home_review_types[:controverse_rate]
+            @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).paginate(:per_page => 9, :page => params[:highlight_page])
+          else
+            @data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => params[:highlight_page])
+        end
       end
     end
   end

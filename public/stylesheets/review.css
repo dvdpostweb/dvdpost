@@ -32,11 +32,11 @@ textarea {
   overflow: auto;
 }
 
-.left {
+.left_review {
   float: left;
 }
 
-.right {
+.right_review {
   float: right;
 }
 
@@ -346,7 +346,7 @@ bottom: 15px;
 #tab-content-1 li .thumb .no-change img, #weekly-position li .no-change img, #period-position li .no-change img {
  margin-bottom: 4px;
 }
-.tab-content a.more-btn {
+.tab-content a.next_page {
   display: block;
   line-height: 33px;
   background: #f7f7f7;
@@ -355,13 +355,13 @@ bottom: 15px;
    clear: both;
    text-decoration: none;
 }
-.tab-content a.more-btn span {
+.tab-content a.next_page span {
   font-weight: bold;
   font-size: 1.17em;
   padding: 0 15px;
   background: url(../images/more-btn-arrow.gif) 100% 50% no-repeat;
 }
-.tab-content a.more-btn:hover span {
+.tab-content a.next_page:hover span {
   color: #e32800;
 }
 #tab-content-2 ul {
@@ -383,7 +383,7 @@ bottom: 15px;
 #tab-content-2 li .content {
   float: right;
   width: 290px;
-  height: 182px;
+  height: 190px;
   padding: 8px 5px 0 10px;
   background: #f7f7f7;
   overflow: hidden;
