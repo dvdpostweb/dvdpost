@@ -10,7 +10,7 @@
     <% elsif review_kind == DVDPost.home_review_types[:controverse_rate] %>
       <%= render :partial => '/home/index/controverse', :locals => {:data => data} %>
     <% else %>
-     <%= render :partial => '/home/index/best', :locals => {:data => data, :format => 'html'} %>
+     <%= render :partial => '/home/index/best', :locals => {:data => data} %>
     <% end %>
   </div>
 </div>
