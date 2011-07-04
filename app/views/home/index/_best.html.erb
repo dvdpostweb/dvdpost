@@ -1,12 +1,14 @@
+  <% if format && format == 'html' %>
   <div id="tab-content-1" class="tab-content pie">
     <h3>Découvrez les films les mieux cotés de la semaine</h3>
-    <ul class="clearfix">
-    <% @data.collect do |product_rate| %>
+    <ul class="clearfix content_item">
+  <% end %>
+    <% data.collect do |product_rate| %>
       <% product = product_rate.product %>
       <% product_title = product.title%>
       <% count_critique = product.reviews.by_language(I18n.locale).approved.count %>
       <li>
-        <h2><%= product_title %></h2>
+        <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
         <div class="content"> 
           <%= review_image_links(product.rating) %>
         <div><%= product.rating_count %> cotations 
@@ -14,11 +16,11 @@
           | <%= count_critique %> critiques
         <% end %>
         </div>
-        <a href="#" class="view-all">Voir toutes les critiques</a>
+        <%= link_to "Voir toutes les critiques", product_path(:id => product.to_param), :class => 'view-all' %>
         <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
 	      </div>
         <div class="thumb"> 
-          <%= product_image_tag product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})" %>
+          <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %>
           <div class="stat-wrap">
             <h4><%= product_rate.rank %></h4>
             <%= new_position(product_rate) %>
@@ -26,6 +28,8 @@
 	      </div>
       </li>
       <% end %>
+    <% if format && format == 'html' %>
     </ul>
-<a href="#" class="more-btn"><span>Afficher plus de films</span></a>
+    <%= render :partial => "home/index/pagination", :locals => {:data => data} %>
   </div>
+  <% end %>
