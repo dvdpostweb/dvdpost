@@ -55,7 +55,7 @@ $(function() {
     html_item = $('#review_content');
     html_content = $('.tab-content');
     content = html_content.html()
-    html_content.html("<div style='height:42px'><img src='/images/ajax-loader.gif'/></div>");
+    html_content.html("<div style='height:42px; margin:9px 0 0 0'><img src='/images/ajax-loader.gif'/></div>");
     $.ajax({
       url: url,
       type: 'GET',
