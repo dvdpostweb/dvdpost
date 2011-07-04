@@ -26,7 +26,7 @@
       <li>
         <%= display_btn_categories %>
         <ul id="categories_list" <%= session[:menu_categories] == false ? 'style="display :none"' : '' %>>
-          <% name = @category ? "#{@category.to_param}_#{session[:sexuality]}_#{params[:kind]}" : "#{session[:sexuality]}_#{params[:kind]}" %>
+          <% name = @category ? "#{I18n.locale}_#{@category.to_param}_#{session[:sexuality]}_#{params[:kind]}" : "#{I18n.locale}_#{session[:sexuality]}_#{params[:kind]}" %>
           <% cache(name) do %> 
             <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
           <% end %>
