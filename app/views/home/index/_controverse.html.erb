@@ -1,28 +1,7 @@
 <div id="tab-content-3" class="tab-content pie">
-  <h3>Découvrez les films les plus controversés de la semaine</h3>
-  <ul class="clearfix">
-    <% data.collect do |product_rate| %>
-      <% product = product_rate.product %>
-      <% product_title = product.title%>
-      <% count_critique = product.reviews.by_language(I18n.locale).approved.count %>
-      <li>
-        <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
-        <div class="content"> 
-          <%= review_image_links(product.rating) %>
-        <div><%= product.rating_count %> cotations 
-        <% if count_critique > 0 %>
-          | <%= count_critique %> critiques
-        <% end %>
-        </div>
-        <%= link_to "Voir toutes les critiques", product_path(:id => product.to_param), :class => 'view-all' %>
-        <div class="votes"><span class="up"><%= product_rate.plus %></span> | <span class="down"><%= product_rate.minder %></span></div>
-        <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
-	      </div>
-        <div class="thumb"> 
-          <%= link_to product_image_tag (product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %> 
-	      </div>
-      </li>
-      <% end %>
-    </ul>
-<a href="#" class="more-btn"><span>Afficher plus de films</span></a>
-  </div>
+  <h3><% t '.title' %></h3>
+  <ul class="clearfix content_item">
+    <%= render :partial => "/home/index/controverse_item", :collection => @data %>
+  </ul>
+  <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["CONTROVERSE_RATE"], :precision => nil} %>
+</div>

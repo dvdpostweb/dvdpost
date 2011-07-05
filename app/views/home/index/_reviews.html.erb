@@ -3,11 +3,11 @@
 <div id="tabs-wrap" class="review_rate">
   <%= render :partial => '/home/index/menu', :locals => {:review_kind => review_kind} %>
   <div id="review_tab">
-    <% if review_kind == DVDPost.home_review_types[:best_customer] %>
+    <% if DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_customer] %>
       <%= render :partial => '/home/index/best_customer', :locals => {:data_month => data_month, :data_all => data_all} %>
-    <% elsif review_kind == DVDPost.home_review_types[:best_review] %>
+    <% elsif DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_review] %>
       <%= render :partial => '/home/index/coeur', :locals => {:data => data} %>
-    <% elsif review_kind == DVDPost.home_review_types[:controverse_rate] %>
+    <% elsif DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:controverse_rate] %>
       <%= render :partial => '/home/index/controverse', :locals => {:data => data} %>
     <% else %>
      <%= render :partial => '/home/index/best', :locals => {:data => data} %>

@@ -55,7 +55,7 @@
       </div>
     <% else %>
       <div id="review_content">
-        <% if @review_kind == DVDPost.home_review_types[:best_customer] %>
+        <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
           <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month} %>
         <% else %>
           <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>

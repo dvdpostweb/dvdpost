@@ -1,6 +1,22 @@
 <ul id="tabs-review">
-  <li><a href="<%= root_path(:review_kind => :best_rate) %>" id="tab1" <%= @review_kind == DVDPost.home_review_types[:best_rate] || @review_kind.nil? ? 'class="active pie"' : '' %> >Vos meilleurs films</a></li>
-  <li><a href="<%= root_path(:review_kind => :best_review) %>" id="tab2" <%= @review_kind == DVDPost.home_review_types[:best_review] ? 'class="active pie"' : '' %>>Les critiques coup de coeur</a></li>
-  <li><a href="<%= root_path(:review_kind => :controverse_rate) %>" id="tab3"<%= @review_kind == DVDPost.home_review_types[:controverse_rate] ? 'class="active pie"' : '' %>>Films les plus controversés</a></li>
-  <li class="last"><a href="<%= root_path(:review_kind => :best_customer) %>" id="tab4" <%= @review_kind == DVDPost.home_review_types[:best_customer] ? 'class="active pie"' : '' %>>Nos critiqueurs star</a></li>
+  <li>
+    <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["BEST_RATE"]) %>" id="tab1" <%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_rate] || @review_kind.nil? ? 'class="active pie"' : '' %> >
+    <%= t('.best_rates') %>
+    </a>
+  </li>
+  <li>
+    <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["BEST_REVIEW"]) %>" id="tab2" <%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_review] ? 'class="active pie"' : '' %>>
+      <%= t('.best_reviews') %>
+    </a>
+  </li>
+  <li>
+    <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["CONTROVERSE_RATE"]) %>" id="tab3"<%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:controverse_rate] ? 'class="active pie"' : '' %>>
+      <%= t('.controverse_rates') %>
+    </a>
+  </li>
+  <li class="last">
+    <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["BEST_CUSTOMER"]) %>" id="tab4" <%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_customer] ? 'class="active pie"' : '' %>>
+      <%= t('.best_customers') %>
+    </a>
+  </li>
 </ul>
