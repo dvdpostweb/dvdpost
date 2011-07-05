@@ -1,0 +1,16 @@
+<% customer = best_customer_item_month.customer %>
+<% reviews_count = customer.reviews.approved.count %>
+<li>
+	<span class="count"><%= best_customer_item_month.rank %></span>
+	<div class="content">
+		<h2><%= customer.first_name %></h2>
+		<% if reviews_count > 0 %>
+		  <p><%= customer.ratings.count %> <%= t 'home.reviews.rating' %> |  <%= reviews_count %> <%= t 'home.reviews.critics' %> </p>
+		  <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => customer.to_param), :class => :left_review %>
+		<% else %>
+	    <p><%= customer.ratings.count %> <%= t 'home.reviews.rating' %></p>
+	  <% end %>
+	</div>
+	<%= new_position(best_customer_item_month) %>
+	<%= image_tag 'user-thumb.png', :width => 46, :height => 48, :alt => 'user-thumb', :title => 'user-thumb', :class => :thumb %>
+</li>

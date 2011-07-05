@@ -1,41 +1,7 @@
 <div id="tab-content-2" class="tab-content pie">
-  <h3>Découvrez nos critiques coups de coeurs de la semaine</h3>
-  <ul class="clearfix">
-    <% data.collect do |review_rate| %>
-    <% review = review_rate.review %>
-    <% product = review.product %>
-    <% product_title = product.title %>
-    <li>
-      <h2> <%= link_to product_title, product_path(:id => product.to_param) %></h2>
-      <div class="content">
-        <div class="critic"> 
-          <%= image_tag 'user-thumb.png', :alt => 'user-thumb', :title => 'user-thumb' %>
-          <div class="name">
-            <strong><%= review.customer.first_name %></strong> <%= Customer.find(review.customers_id).reviews.approved.count %> critiques 
-            <%= link_to "Voir toutes ses critiques", customer_reviews_path(:customer_id => review.customers_id) %> 
-          </div>
-          <strong style='clear:both'>Sa cotation :</strong> 
-          <span class="stars-wrap">
-            <%= review_image_links(review.rating*2) %>
-          </span> 
-        </div>
-        <p>
-          <strong>Sa critique :</strong> 
-          <%= truncate_html(review.text, :length => 250) %>
-        </p>
-        <div class="write">
-          <%=  link_to "Ecrire une critique", new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
-        </div>
-        <div class="relevant">
-          <%= render :partial => 'reviews/index/critics', :locals => {:review => review} %>
-        </div>
-      </div>
-      <div class="thumb"> 
-        <%= link_to product_image_tag(product.image, :width => 97, :height => 148, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %>
-        <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
-      </div>
-    </li>
-    <% end %>
+  <h3><% t '.title' %></h3>
+  <ul class="clearfix content_item">
+    <%= render :partial => 'home/index/coeur_item', :collection => @data %>
   </ul>
-  <a href="#" class="more-btn"><span>Afficher plus de critiques</span></a> 
+  <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_REVIEW"], :precision => nil} %>
 </div>

@@ -1,6 +1,8 @@
+<% params = precision ? {:review_kind => kind, :precision => precision} : {:review_kind => kind}%>
 <%= will_paginate data, :previous_label => '',
-                              :next_label => "<span>Afficher plus de films</span>",
+                              :next_label => "<span>#{t(".#{kind}.next_page")}</span>",
                               :page_links => false,
                               :param_name => :highlight_page,
                               :id => 'next_page',
-                              :container => false %>
+                              :container => false,
+                              :params =>  params %>

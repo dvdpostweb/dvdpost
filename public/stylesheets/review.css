@@ -582,8 +582,15 @@ border: 1px solid #8e8e8e;
 }
 #period-position ul {
   display: block;
-   border: 1px solid #020405;
- margin-bottom: 15px;
+  border-bottom-color:#FFFFFF;
+  border-bottom-style:solid;
+  border-bottom-width:1px;
+  border-left-color:#020405;
+  border-left-style:solid;
+  border-left-width:1px;
+  border-right-color:#020405;
+  border-right-style:solid;
+  border-right-width:1px;
 }
 #period-position li {
   display: block;

@@ -1,7 +1,7 @@
 <div id="tab-content-1" class="tab-content pie">
-  <h3>Découvrez les films les mieux cotés de la semaine</h3>
+  <h3><%= t '.title' %></h3>
   <ul class="clearfix content_item">
-  <%= render :partial => "home/index/best_item", :collection => @data %>
+    <%= render :partial => "home/index/best_item", :collection => @data %>
   </ul>
-  <%= render :partial => "home/index/pagination", :locals => {:data => data} %>
+  <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_RATE"], :precision => nil} %>
 </div>
