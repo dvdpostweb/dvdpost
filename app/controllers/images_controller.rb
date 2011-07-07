@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
   def create
     if params[:images] && params[:images][:face]
       name = params[:images][:face].original_filename
-      directory = "#{Rails.root}public/shared/uploaded/customer_avatars/waiting"
+      directory = "#{Rails.root}/public/images/avatars/waiting"
       path = File.join(directory, name)
       File.open(path, "wb") { |f| f.write(params[:images][:face].read) }
       image = Magick::Image.read(path).first
