@@ -1,0 +1,16 @@
+<tr>
+  <td align="right" valign="top" class="adresse"><strong><%= t '.avatar' %></strong></td>
+  <td align="left" valign="top" class="adresse">
+    <%= image_tag customer.image %>
+  </td>
+</tr>
+<tr>
+  <td align="right" valign="top" class="adresse"></td>
+  <td align="right" valign="top" id="modif">
+    <ul>
+      <li class="links">
+        <%= link_to t('.avatar_new'), new_customer_image_path(:customer_id => current_customer), :class => 'modification_address' %>
+      </li>
+    </ul>
+  </td>
+</tr>

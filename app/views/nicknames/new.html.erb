@@ -1,0 +1,15 @@
+<% if @error %>
+  tu as dèjà un nouveau nickname en attente
+<% else %>
+  <div id="addwishlist_title"><%= "pseudo" %></div>
+  <br />
+  <% form_for @nickname, :url => customer_nicknames_path do |f| %>
+    <%= error_messages_for :nickname %>
+    <%= "ton nouveau pseudo :" %>
+    <%= f.text_field :nickname %>
+    <br />
+    <p class="bouton_probleme" align="right">
+      <%= submit_tag t('.create'), :id => "submit_address", :class => "submit submit_#{I18n.locale}" %>
+    </p>
+  <% end %>
+<% end %>

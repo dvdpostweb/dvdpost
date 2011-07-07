@@ -1,0 +1,31 @@
+<tr>
+  <td colspan="2">
+    <table id='nickname' >
+    <tr>
+      <td align="right" valign="top" class="adresse" width ='203'><strong><%= t '.nickname' %> :</strong></td>
+      <td align="left" valign="top" class="adresse" width ="266">
+        <%= customer.nickname %><br/>
+      </td>
+    </tr>
+    <% if customer.nicknames.waiting.last %>
+    <tr>
+      <td align="right" valign="top" class="adresse"><strong><%= t '.nickname_waiting' %> :</strong></td>
+      <td align="left" valign="top" class="adresse">
+        <%= customer.nicknames.waiting.last.nickname %>
+      </td>
+    </tr>
+    <% else %>
+      <tr>
+        <td align="right" valign="top" class="adresse"></td>
+        <td align="right" valign="top" id="modif">
+          <ul>
+            <li class="links">
+              <%= link_to t('.nickname_create'), new_customer_nickname_path(:customer_id => current_customer), :class => 'modification_address' %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  </td>
+</tr>

@@ -1,15 +1,18 @@
 <% review = coeur_item.review %>
 <% product = review.product %>
 <% if product %>
+  <% customer = review.customer %>
   <% product_title = product.title %>
   <li>
     <h2> <%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content">
       <div class="critic"> 
-        <%= image_tag 'user-thumb.png', :alt => 'user-thumb', :title => 'user-thumb' %>
+        <%= link_to image_tag (customer.image, :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
         <div class="name">
-          <strong><%= review.customer.first_name %></strong> <%= Customer.find(review.customers_id).reviews.approved.count %> critiques 
-          <%= link_to "Voir toutes ses critiques", customer_reviews_path(:customer_id => review.customers_id) %> 
+          <strong><%= link_to customer.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
+          <%= customer_awards(customer.customer_attribute.points) %>
+          (<%= Customer.find(review.customers_id).reviews.approved.count %> <%= t 'home.reviews.critics' %>) 
+          <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
         </div>
         <strong style='clear:both'><%= t '.rating' %> :</strong> 
         <span class="stars-wrap">
@@ -18,13 +21,13 @@
       </div>
       <p>
         <strong><%= t '.critic' %> :</strong> 
-        <%= truncate_html(review.text, :length => 250) %>
+        <%= truncate_html(review.text, :length => 240) %>
       </p>
+      <div class="relevant">
+        <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
+      </div>
       <div class="write">
         <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
-      </div>
-      <div class="relevant">
-        <%= render :partial => 'reviews/index/critics', :locals => {:review => review} %>
       </div>
     </div>
     <div class="thumb"> 

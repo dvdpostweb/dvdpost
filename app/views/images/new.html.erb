@@ -1,0 +1,10 @@
+<div id="addwishlist_title"><%= "change d'avatar" %></div>
+<br />
+clique sur le bouton pour choisir une image :<br /><br />
+<% form_for :images, :url => customer_images_path, :html => {:multipart => true} do |f| %>
+  <%= f.file_field :face %>
+  <br />
+  <p class="bouton_probleme" align="right">
+    <%= submit_tag "envoi", :class => "submit submit_#{I18n.locale}" %>
+  </p>
+<% end %>

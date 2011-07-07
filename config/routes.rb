@@ -134,6 +134,8 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'suspension', :only => [:new, :create, :destroy]
       customer.resource 'reconduction', :only => [:edit, :update]
       customer.resource 'subscription', :only => [:edit, :update]
+      customer.resources :nicknames, :only => [:new, :create]
+      customer.resources :images, :only => [:new, :create]
       customer.resource 'promotion', :only => [:show, :edit]
       customer.resource :payment_methods, :only => [:edit, :update, :show]
       customer.resources :reviews, :only => [:index]
@@ -159,6 +161,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-  
+  map.connect '*path' , :controller => 'error' , :action => 'bad_route' 
 end
 

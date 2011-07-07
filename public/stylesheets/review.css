@@ -397,7 +397,7 @@ bottom: 15px;
 
 #tab-content-2 li .critic img {
  float: left;
- border: 4px solid #838383;
+ border: 1px solid #838383;
  margin-right: 6px;
 }
 #tab-content-2 li .critic .name {
@@ -413,7 +413,7 @@ bottom: 15px;
   color: #fa3216;
   font-size: 1.20em;
 }
-#tab-content-2 li .critic .name a {
+#tab-content-2 li .critic .name a.all_critics {
    font-size: 1.10em;
    text-transform: none;
    padding-right: 15px;
@@ -537,7 +537,7 @@ border: 1px solid #8e8e8e;
   padding-right: 8px;
   font-weight: bold;
 }
-#weekly-position li .content h2 {
+#weekly-position li .content h2, #weekly-position li .content h2 a.nickname {
   font-size: 1em;
   text-transform: uppercase;
   color: #fa3216;
@@ -620,7 +620,7 @@ margin-top: -10px;
 padding-right:8px;
 width:277px;
 }
-#period-position li .content h2 {
+#period-position li .content h2,#period-position li .content h2 a.nickname {
   font-size: 1em;
   text-transform: uppercase;
   color: #fa3216;
@@ -651,7 +651,12 @@ text-align:center;
 {
   float: right;
 }
-
+.plume 
+{
+  border:none;
+  margin: 0 0 -2px 0 !important;
+  float: none !important;
+}
 
 /*   ---------   Float containers fix   ---------   */
 

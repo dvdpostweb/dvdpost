@@ -78,6 +78,8 @@ class Customer < ActiveRecord::Base
   has_many :tokens
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
   has_many :credit_histories, :foreign_key => :customers_id
+  has_many :nicknames
+  
   
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
@@ -571,6 +573,13 @@ class Customer < ActiveRecord::Base
     return false
   end
 
+  def image(type = :accepted)
+    if type == :accepted
+      File.join('avatars', 'accepted', "#{to_param}.jpg")
+    else
+      File.join('avatars', 'waiting', "#{to_param}.jpg")
+    end 
+  end
   private
   def convert_created_at
     begin
