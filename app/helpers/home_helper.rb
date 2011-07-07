@@ -58,5 +58,24 @@ module HomeHelper
         eval(t(".url_#{carousel.id}"))
       end
   end
+
+  def customer_awards(points)
+    if points < 20 and points > 10
+      nb=1
+    elsif points < 50 and points > 20
+      nb=2
+    elsif points < 500 and points > 50
+      nb=3
+    elsif points < 1000 and points > 500
+      nb=4
+    else
+      nb = 5
+    end 
+    images = ""
+    nb.times do |i|
+      images += image_tag "plume.jpg", :class => :plume
+    end
+    images
+  end
   
 end

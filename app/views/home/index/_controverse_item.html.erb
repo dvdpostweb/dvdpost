@@ -5,14 +5,14 @@
   <li>
     <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content"> 
-      <%= review_image_links(product.rating) %>
-    <div><%= product.rating_count %> <% t 'home.reviews.rating' %>
-    <% if count_critique > 0 %>
-      | <%= count_critique %> <% t 'home.reviews.critics' %>
-    <% end %>
-    </div>
-    <%= link_to t('home.reviews.all_critics'), product_path(:id => product.to_param), :class => 'view-all' %>
-    <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
+      <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
+        <% if count_critique > 0 %>
+        <div style="margin: 5px 0 0 0">
+           <% text = "#{count_critique}  #{t 'home.reviews.critics'}" %>
+           <%= link_to text, product_path(:id => product.to_param), :class => 'view-all' %>
+        </div>
+          
+        <% end %>
     <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
     </div>
     <div class="thumb"> 
