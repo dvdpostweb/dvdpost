@@ -40,7 +40,7 @@
 	<%= yield :facebook %>
   <%= yield :head %>
 </head>
-<body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= "style=\"background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/wallpaper/#{@theme.to_param}.jpg') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image == 1 %> <%= yield :option %>>
+<body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= "style=\"background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/wallpaper/#{@theme.id}.jpg') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image == 1 %> <%= yield :option %>>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
 		<% if params[:kind] == :normal %>

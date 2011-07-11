@@ -1,5 +1,0 @@
-<% if @theme.style == 'normal' %>
-  <%= render(:partial => "themes/classic", :locals => {:theme => @theme}) %>
-<% else %>
-  <%= render(:partial => "themes/#{params['page_name']}", :locals => {:theme => @theme}) %>
-<% end %>
