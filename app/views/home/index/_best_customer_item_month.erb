@@ -1,14 +1,14 @@
 <% customer = best_customer_item_month.customer %>
-<% reviews_count = customer.reviews.approved.count %>
 <li>
 	<span class="count"><%= best_customer_item_month.rank %></span>
 	<div class="content">
-		<h2><%= link_to customer.nickname, customer_reviews_path(:customer_id => customer.customers_id), :class => :nickname %><%= customer_awards(customer.customer_attribute.points) %></h2>
-		<% if reviews_count > 0 %>
-		  <p><%= customer.ratings.count %> <%= t 'home.reviews.rating' %> |  <%= reviews_count %> <%= t 'home.reviews.critics' %> </p>
+		<h2><%= link_to customer.nickname, customer_reviews_path(:customer_id => customer.customers_id), :class => :nickname %></h2>
+		<%= customer_awards(customer, customer.customer_attribute.points) %>
+		<% if best_customer_item_month.reviews_count > 0 %>
+		  <p><%= best_customer_item_month.ratings_count %> <%= t 'home.reviews.rating' %> |  <%= best_customer_item_month.reviews_count %> <%= t 'home.reviews.critics' %> </p>
 		  <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => customer.to_param), :class => :left_review %>
 		<% else %>
-	    <p><%= customer.ratings.count %> <%= t 'home.reviews.rating' %></p>
+	    <p><%= best_customer_item_month.ratings_count %> <%= t 'home.reviews.rating' %></p>
 	  <% end %>
 	</div>
 	<%= new_position(best_customer_item_month) %>
