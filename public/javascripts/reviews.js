@@ -59,7 +59,6 @@ $(function() {
     content = html_item.html();
     $.ajax({
       url: this.href,
-      contentType: 'application/json; charset=utf-8',
       type: 'POST',
       data: {},
       success: function(data) {

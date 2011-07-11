@@ -10,7 +10,7 @@
         <%= link_to image_tag (customer.image, :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
         <div class="name">
           <strong><%= link_to customer.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
-          <%= customer_awards(customer.customer_attribute.points) %>
+          <%= customer_awards(customer, customer.customer_attribute.points) %>
           (<%= Customer.find(review.customers_id).reviews.approved.count %> <%= t 'home.reviews.critics' %>) 
           <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
         </div>

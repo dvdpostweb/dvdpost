@@ -312,6 +312,15 @@ module DVDPost
     def theme_adult
       9
     end
-    
+
+    def pen_points
+      HashWithIndifferentAccess.new.merge({
+        :one => 20,
+        :two => 50,
+        :three => 120,
+        :four => 350,
+        :five => 800
+      })
+    end
   end
 end

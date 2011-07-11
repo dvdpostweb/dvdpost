@@ -59,23 +59,31 @@ module HomeHelper
       end
   end
 
-  def customer_awards(points)
-    if points < 20 and points > 10
+  def customer_awards(customer, points)
+    distinction=''
+    if points < DVDPost.pen_points[:two] and points > DVDPost.pen_points[:one]
       nb=1
-    elsif points < 50 and points > 20
+    elsif points < DVDPost.pen_points[:three] and points > DVDPost.pen_points[:two]
       nb=2
-    elsif points < 500 and points > 50
+    elsif points < DVDPost.pen_points[:four] and points > DVDPost.pen_points[:three]
       nb=3
-    elsif points < 1000 and points > 500
+    elsif points < DVDPost.pen_points[:five] and points > DVDPost.pen_points[:four]
       nb=4
     else
       nb = 5
+      if top = customer.highlight_customers.day(0).by_kind('all').last
+        if top.rank <=10
+          distinction ='_3'
+        elsif top.rank <=30
+          distinction ='_2'
+        else
+          distinction ='_1'
+        end
+      end
+      
     end 
-    images = ""
-    nb.times do |i|
-      images += image_tag "plume.jpg", :class => :plume
-    end
-    images
+    image_name ="#{nb}_pen#{distinction}.png"
+    image_tag(image_name, :class => :pen)
   end
   
 end

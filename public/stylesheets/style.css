@@ -1493,6 +1493,7 @@ html ul.tabs li.active a:hover {
 
 .tab_content .critique .name span {
   margin: 0 7px;
+  padding-top: 0 !important;
 }
 
 .tab_content .critique .name span img {

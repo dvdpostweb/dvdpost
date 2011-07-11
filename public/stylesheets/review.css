@@ -383,7 +383,7 @@ bottom: 15px;
 #tab-content-2 li .content {
   float: right;
   width: 290px;
-  height: 190px;
+  height: 205px;
   padding: 8px 5px 0 10px;
   background: #f7f7f7;
   overflow: hidden;
@@ -679,4 +679,14 @@ text-align:center;
 
 .clearfix {
   display: block;
+}
+.pen
+{
+  float: left;
+  margin-right: 4px;
+  margin-top: -8px;
+}
+.smiley
+{
+  vertical-align: text-bottom;
 }

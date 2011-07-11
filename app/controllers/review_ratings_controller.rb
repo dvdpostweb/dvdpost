@@ -15,7 +15,7 @@ class ReviewRatingsController < ApplicationController
     respond_to do |format|
        format.js do
          if params[:all]
-           render :partial => 'reviews/index/critics', :locals => {:review => @review}
+           render :partial => 'reviews/index/critics_new', :locals => {:review => @review}
          else
            render :partial => 'products/show/review', :locals => {:review => @review}
          end
