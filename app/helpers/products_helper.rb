@@ -330,6 +330,10 @@ module ProductsHelper
         end
       end
     end
+    li_style = selected_category ? 'display:none' : ''
+      html_content << content_tag(:li, :class => :cat, :style => li_style) do
+        link_to t('.category_x'), root_path(:kind => :adult), :id => 'catx'
+      end
     html_content
   end
 

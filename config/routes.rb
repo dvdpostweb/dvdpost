@@ -121,7 +121,8 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.info '/info/:page_name' , :controller => :info
-    localized.themes '/themes/:page_name' , :controller => :themes
+    #localized.themes '/themes/:page_name' , :controller => :themes
+    localized.resources 'themes', :controller => :themes_events, :only => [:index, :show]
 
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]

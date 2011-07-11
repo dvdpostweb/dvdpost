@@ -3946,3 +3946,7 @@ padding: 25px 10px 17px;
 position: relative;
 width: 902px;
 }
+#leftcolumn #left-nav li a#catx {
+ color:#e2007c;
+ font-weight:bold; 
+}
