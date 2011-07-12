@@ -78,7 +78,6 @@ class Customer < ActiveRecord::Base
   has_many :tokens
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
   has_many :credit_histories, :foreign_key => :customers_id
-  has_many :nicknames
   has_many :highlight_customers
   
   

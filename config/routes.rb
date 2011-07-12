@@ -135,8 +135,9 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'suspension', :only => [:new, :create, :destroy]
       customer.resource 'reconduction', :only => [:edit, :update]
       customer.resource 'subscription', :only => [:edit, :update]
-      customer.resources :nicknames, :only => [:new, :create]
+      customer.resource :nicknames, :only => [:edit, :update]
       customer.resources :images, :only => [:new, :create]
+      customer.avatar 'avatar', :controller => :avatars, :action => :avatar, :conditions => {:method => :get}
       customer.resource 'promotion', :only => [:show, :edit]
       customer.resource :payment_methods, :only => [:edit, :update, :show]
       customer.resources :reviews, :only => [:index]

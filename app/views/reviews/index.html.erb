@@ -1,6 +1,6 @@
-<%= image_tag (@customer.image, :alt => 'user-thumb', :title => 'user-thumb', :width => 150) %>
+<%= image_tag (customer_avatar_path(:customer_id => @customer.id), :alt => 'user-thumb', :title => 'user-thumb', :width => 150) %>
 <div id='title' class="reviews"><%= t '.title' %> 
-<%= @customer.nickname %>
+<%= @customer.customer_attribute.nickname %>
 <%= customer_awards(@customer, @customer.customer_attribute.points) %></div>
 <div id="titles-wrap" class="reviews">
   <div class="top"></div>

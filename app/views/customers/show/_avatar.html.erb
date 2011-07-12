@@ -1,7 +1,7 @@
 <tr>
   <td align="right" valign="top" class="adresse"><strong><%= t '.avatar' %></strong></td>
   <td align="left" valign="top" class="adresse">
-    <%= image_tag customer.image %>
+    <%= image_tag customer_avatar_path(:customer_id => current_customer.id) %>
   </td>
 </tr>
 <tr>
