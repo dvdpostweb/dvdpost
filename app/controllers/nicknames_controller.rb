@@ -1,8 +1,8 @@
 class NicknamesController < ApplicationController
-  def create
-    if current_customer.nicknames.waiting.count == 0
-      @nickname = Nickname.new(params[:nickname].merge(:customer_id => current_customer.to_param))
-      if @nickname.save
+  def update
+    if !current_customer.customer_attribute.nickname_pending
+      
+      if current_customer.customer_attribute.update_attribute(:nickname_pending , params[:customer][:nickname])
         flash[:notice] = t(:nickname_create)
         respond_to do |format|
           format.html do
@@ -27,8 +27,7 @@ class NicknamesController < ApplicationController
     end
   end
 
-  def new
-    @nickname = Nickname.new
+  def edit
     respond_to do |format|
       format.html
       format.js {render :layout => false}

@@ -3,7 +3,7 @@
 <% else %>
   <div id="addwishlist_title"><%= "pseudo" %></div>
   <br />
-  <% form_for @nickname, :url => customer_nicknames_path do |f| %>
+  <% form_for :customer, :url => customer_nicknames_path(:customer_id => current_customer.to_param), :html => {:method => :put} do |f| %>
     <%= error_messages_for :nickname %>
     <%= "ton nouveau pseudo :" %>
     <%= f.text_field :nickname %>

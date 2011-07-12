@@ -11,10 +11,13 @@ class ImagesController < ApplicationController
       image = Magick::Image.read(path).first
       image.change_geometry!("100x100") { |cols, rows, img|
           newimg = img.resize(cols, rows)
-          name = "#{current_customer.to_param}.jpg"
-          path2 = File.join(directory, name)
-          newimg.write(path2)
+          #name = "#{current_customer.to_param}.jpg"
+          #path2 = File.join(directory, name)
+          #newimg.write(path2)
+          #img2 = Magick::Image.read(path2).first
+          current_customer.customer_attribute.update_attribute(:avatar_pending, newimg.to_blob)
           img.destroy!
+          #img2.destroy!
       }
       File.delete(path)
       flash[:notice] = t(:aratar_create)

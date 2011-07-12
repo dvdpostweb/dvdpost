@@ -1,6 +1,6 @@
 <li class="clearfix" >
   <a href="<%= theme_path(:id => item.to_param) %>">
-    <%= image_tag "#{DVDPost.images_path}/themes/#{I18n.locale}/thumbs/#{item.id}.gif", :alt =>  item.name, :title => item.name %>
+    <%= image_tag item.image_thumbs, :alt =>  item.name, :title => item.name %>
   </a>
 </li>
 

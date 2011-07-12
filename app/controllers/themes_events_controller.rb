@@ -1,10 +1,6 @@
 class ThemesEventsController < ApplicationController
   def index
-    if Rails.env == "pre_production"
-      @themes = ThemesEvent.by_kind(:normal).old_beta
-    else
-      @themes = ThemesEvent.by_kind(:normal).old_beta
-    end
+      @themes = ThemesEvent.by_kind(:normal).old
   end
 
   def show

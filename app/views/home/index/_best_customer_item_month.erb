@@ -2,7 +2,7 @@
 <li>
 	<span class="count"><%= best_customer_item_month.rank %></span>
 	<div class="content">
-		<h2><%= link_to customer.nickname, customer_reviews_path(:customer_id => customer.customers_id), :class => :nickname %></h2>
+		<h2><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => customer.customers_id), :class => :nickname %></h2>
 		<%= customer_awards(customer, customer.customer_attribute.points) %>
 		<% if best_customer_item_month.reviews_count > 0 %>
 		  <p><%= best_customer_item_month.ratings_count %> <%= t 'home.reviews.rating' %> |  <%= best_customer_item_month.reviews_count %> <%= t 'home.reviews.critics' %> </p>
@@ -12,5 +12,5 @@
 	  <% end %>
 	</div>
 	<%= new_position(best_customer_item_month) %>
-	<%= link_to image_tag (customer.image, :alt => 'user-thumb', :title => 'user-thumb', :width => 46), customer_reviews_path(:customer_id => customer.customers_id) %>
+	<%= link_to image_tag (customer_avatar_path(:customer_id => customer.id), :alt => 'user-thumb', :title => 'user-thumb', :width => 46), customer_reviews_path(:customer_id => customer.customers_id) %>
 </li>
