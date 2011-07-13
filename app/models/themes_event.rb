@@ -28,7 +28,4 @@ class ThemesEvent < ActiveRecord::Base
   def image_thumbs
     "#{DVDPost.images_path}/themes/#{I18n.locale}/thumbs/#{id}.gif"
   end
-  
-
-  
 end
