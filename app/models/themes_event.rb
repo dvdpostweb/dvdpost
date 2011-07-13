@@ -4,15 +4,14 @@ class ThemesEvent < ActiveRecord::Base
   named_scope :selected, :conditions => {:themes_events_selection_id => 1}
   named_scope :selected_beta, :conditions => {:themes_events_selection_id => 2}
   named_scope :by_kind, lambda {|kind| {:conditions => {:kind => kind.to_s}}}
-  named_scope :old, :conditions => {:themes_events_selection_id => 3}
-  
+  named_scope :old, :conditions => {:themes_events_selection_id => [1,3]}
 
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true
-  
+
   def image_logo
     "#{DVDPost.images_path}/themes/#{I18n.locale}/logo/#{id}.gif"
   end
-  
+
   def image_header
     "#{DVDPost.images_path}/themes/#{I18n.locale}/banner_page/#{id}.jpg"
   end
@@ -27,5 +26,9 @@ class ThemesEvent < ActiveRecord::Base
 
   def image_thumbs
     "#{DVDPost.images_path}/themes/#{I18n.locale}/thumbs/#{id}.gif"
+<<<<<<< HEAD
   end
+=======
+  end  
+>>>>>>> ef711367b4f028400aa2f10cbc1df0048d273efa
 end
