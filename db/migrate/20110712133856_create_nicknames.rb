@@ -1,6 +1,6 @@
 class CreateNicknames < ActiveRecord::Migration
   def self.up
-    #drop_table :nicknames
+    drop_table :nicknames
     add_column :customer_attributes, :nickname, :string
     add_column :customer_attributes, :nickname_pending, :string
     
