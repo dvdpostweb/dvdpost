@@ -1,5 +1,5 @@
 class ThemesEvent < ActiveRecord::Base
-  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
+  db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1" && !ENV['SLUG']
 
   named_scope :selected, :conditions => {:themes_events_selection_id => 1}
   named_scope :selected_beta, :conditions => {:themes_events_selection_id => 2}
