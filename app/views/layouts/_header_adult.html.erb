@@ -1,6 +1,6 @@
 <!--   ==============   HEADER   ==============   -->
 <div id="header" >
-  <% theme_logo = @theme && @theme.logo_image == 1 ? "background:url('#{DVDPost.images_path}/themes/#{I18n.locale}/logo/#{@theme.to_param}.gif') no-repeat;" : "" %>
+  <% theme_logo = @theme && @theme.logo_image == 1 ? "background:url('#{@theme.image_logo}') no-repeat;" : "" %>
   <h1>
     <%= link_to t('.tagline'), root_path, :class => 'f-btn', :style => theme_logo %>
   </h1>
