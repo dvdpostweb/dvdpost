@@ -1,5 +1,5 @@
-<li class="clearfix" >
-  <a href="<%= theme_path(:id => item.to_param) %>">
-    <%= image_tag item.image_thumbs, :alt =>  item.name, :title => item.name %>
-  </a>
-</li>
+<% if @theme.style == 'normal' %>
+  <%= render(:partial => "themes_events/classic", :locals => {:theme => @theme}) %>
+<% else %>
+  <%= render(:partial => "themes_events/#{@theme.name}", :locals => {:theme => @theme}) %>
+<% end %>
