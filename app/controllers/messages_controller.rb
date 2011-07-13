@@ -13,9 +13,9 @@ class MessagesController < ApplicationController
 
   def index
     if params[:sort] && params[:sort].to_sym == :ticket
-      @messages = current_customer.tickets.active.ordered.paginate(:page => params[:page] || 1)
+      @messages = current_customer.tickets.ordered.paginate(:page => params[:page] || 1)
     else  
-      @messages = current_customer.tickets.active.find(:all, :include => :message_tickets, :order => "message_tickets.id desc").paginate(:page => params[:page] || 1)
+      @messages = current_customer.tickets.find(:all, :include => :message_tickets, :order => "message_tickets.id desc").paginate(:page => params[:page] || 1)
     end
   end
 
