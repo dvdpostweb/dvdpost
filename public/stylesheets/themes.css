@@ -40,3 +40,31 @@ margin-top:-24px;
 margin-left:20px;
 
 }
+#collection li {
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    vertical-align: top;
+	padding-top: 12px;
+    width: 182px;
+}
+
+.collection {
+background-color:#191e24;
+padding:20px 0 20px 17px;
+width:953px;
+margin: 0 0 20px;
+
+
+}
+
+#collection h2 {
+text-align:left;
+color:#191e24;
+margin:10px;
+
+}
+
+.clearfix {
+    display: inline-block;
+}
