@@ -3950,3 +3950,7 @@ width: 902px;
  color:#e2007c;
  font-weight:bold; 
 }
+#header .subnav li.adult a{
+   color: #E2007C;
+    font-weight: bold;
+}

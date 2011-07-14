@@ -3,10 +3,10 @@
 <% else %>
   <div id="addwishlist_title"><%= "pseudo" %></div>
   <br />
-  <% form_for :customer, :url => customer_nicknames_path(:customer_id => current_customer.to_param), :html => {:method => :put} do |f| %>
-    <%= error_messages_for :nickname %>
+  <% form_for @attribute, :url => customer_customer_attribute_path(:customer_id => current_customer.to_param), :html => {:method => :put} do |f| %>
+    <%= error_messages_for 'customer_attribute', :object => @attribute %>
     <%= "ton nouveau pseudo :" %>
-    <%= f.text_field :nickname %>
+    <%= f.text_field :nickname_pending %>
     <br />
     <p class="bouton_probleme" align="right">
       <%= submit_tag t('.create'), :id => "submit_address", :class => "submit submit_#{I18n.locale}" %>
