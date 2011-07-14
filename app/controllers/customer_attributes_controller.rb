@@ -1,8 +1,9 @@
-class NicknamesController < ApplicationController
+class CustomerAttributesController < ApplicationController
   def update
-    if !current_customer.customer_attribute.nickname_pending
+    @attribute = current_customer.customer_attribute
+    if !@attribute.nickname_pending
       
-      if current_customer.customer_attribute.update_attribute(:nickname_pending , params[:customer][:nickname])
+      if @attribute.update_attributes(params[:customer_attribute])
         flash[:notice] = t(:nickname_create)
         respond_to do |format|
           format.html do
@@ -12,8 +13,8 @@ class NicknamesController < ApplicationController
         end
       else
         respond_to do |format|
-          format.html {render :action => :new }
-          format.js {render :action => :new, :layout => false}
+          format.html {render :action => :edit }
+          format.js {render :action => :edit, :layout => false}
         end
       end
     else
@@ -28,6 +29,7 @@ class NicknamesController < ApplicationController
   end
 
   def edit
+    @attribute = current_customer.customer_attribute
     respond_to do |format|
       format.html
       format.js {render :layout => false}

@@ -245,10 +245,10 @@ box-shadow:3px 3px 2px #919191;
   margin-bottom: 8px;
 }
 .review_rate a {
-  color: #191e24;
-  text-decoration: underline;
+    color: #444444;
+    margin-left: -2px;
+    text-decoration: underline;
 }
-
 .review_rate a:hover;{
   text-decoration: none;
 
