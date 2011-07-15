@@ -184,3 +184,15 @@ li.links a {
 {
   display:inline;
 }
+#bt_valid {
+    background: url("../images/bt_valid.png") repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    font-size: 1.5em;
+    height: 27px;
+    margin: 11px 0 0;
+    padding: 1px 0  0 0;
+    text-align: center;
+    text-decoration: none;
+    width: 93px;
+}

@@ -4,7 +4,7 @@ class CustomerAttributesController < ApplicationController
     if !@attribute.nickname_pending
       
       if @attribute.update_attributes(params[:customer_attribute])
-        flash[:notice] = t(:nickname_create)
+        flash[:notice] = t('customer_attribute.update.success')
         respond_to do |format|
           format.html do
             redirect_to customer_path(:id => current_customer.to_param)
@@ -23,7 +23,7 @@ class CustomerAttributesController < ApplicationController
         format.html do
           redirect_to customer_path(:id => current_customer.to_param)
         end
-        format.js {render :text => "tu peux pas faire cela"}
+        format.js {render :text => "error"}
       end
     end
   end

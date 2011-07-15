@@ -788,3 +788,28 @@ a.btn_all_message:hover {
   background: #a0a0a0;
   text-decoration: none;
 }
+.header_review{ 
+    height: 85px;
+    padding: 0px 5px 0 0px;
+	width: 922px;
+ }
+.critiqueur_area
+{
+  margin: 0 0 0 40px;
+} 
+.critiqueur_area #title.reviews {
+    color: #fa3216;
+	text-align:left;
+	    margin: 20px 0 0 0px;
+    
+}
+
+.header_review .pen {
+
+    
+       margin-top: 16px;
+}
+.header_review .avatar {
+    float: left;
+    margin-right: 4px;
+}

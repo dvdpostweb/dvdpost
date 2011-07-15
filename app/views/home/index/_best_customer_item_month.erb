@@ -5,10 +5,15 @@
 		<h2><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => customer.customers_id), :class => :nickname %></h2>
 		<%= customer_awards(customer, customer.customer_attribute.points) %>
 		<% if best_customer_item_month.reviews_count > 0 %>
-		  <p><%= best_customer_item_month.ratings_count %> <%= t 'home.reviews.rating' %> |  <%= best_customer_item_month.reviews_count %> <%= t 'home.reviews.critics' %> </p>
-		  <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => customer.to_param), :class => :left_review %>
+		  <p>
+		  <%= best_customer_item_month.ratings_count %> <%= rating_title(best_customer_item_month.ratings_count) %>
+       |  
+		  <%= link_to "#{best_customer_item_month.reviews_count} #{review_title(best_customer_item_month.reviews_count)}", customer_reviews_path(:customer_id => customer.customers_id), :class => :critics_month %> 
+		  </p>
 		<% else %>
-	    <p><%= best_customer_item_month.ratings_count %> <%= t 'home.reviews.rating' %></p>
+	    <p>
+	      <%= best_customer_item_month.ratings_count %> <%= rating_title(best_customer_item_month.ratings_count) %>
+	    </p>
 	  <% end %>
 	</div>
 	<%= new_position(best_customer_item_month) %>

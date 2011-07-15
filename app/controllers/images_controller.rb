@@ -20,9 +20,9 @@ class ImagesController < ApplicationController
           #img2.destroy!
       }
       File.delete(path)
-      flash[:notice] = t(:aratar_create)
+      flash[:notice] = t('images.create.success')
     else
-      flash[:error] = t(:aratar_not_create)
+      flash[:error] = t('images.create.not_sucess')
     end  
     redirect_to customer_path(:id => current_customer.to_param)
   end

@@ -138,6 +138,7 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource :customer_attribute, :only => [:edit, :update]
       customer.resources :images, :only => [:new, :create]
       customer.avatar 'avatar', :controller => :avatars, :action => :avatar, :conditions => {:method => :get}
+      customer.avatar_pending 'avatar_pending', :controller => :avatars, :action => :avatar_pending, :conditions => {:method => :get}
       customer.resource 'promotion', :only => [:show, :edit]
       customer.resource :payment_methods, :only => [:edit, :update, :show]
       customer.resources :reviews, :only => [:index]

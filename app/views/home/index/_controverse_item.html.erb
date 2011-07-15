@@ -8,7 +8,7 @@
       <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
         <% if count_critique > 0 %>
         <div style="margin: 5px 0 0 0">
-           <% text = "#{count_critique}  #{t 'home.reviews.critics'}" %>
+           <% text = "#{count_critique}  #{review_title(count_critique)}" %>
            <%= link_to text, product_path(:id => product.to_param), :class => 'view-all' %>
         </div>
           
