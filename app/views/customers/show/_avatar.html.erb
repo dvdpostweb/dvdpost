@@ -1,7 +1,7 @@
 <tr>
   <td align="right" valign="top" class="adresse"><strong><%= t '.avatar' %> :</strong></td>
   <td align="left" valign="top" class="adresse">
-    <%= image_tag customer_avatar_path(:customer_id => current_customer.id), :width => 80 %>
+    <%= image_tag get_avatar(current_customer), :width => 80 %>
   </td>
 </tr>
 <% if current_customer.customer_attribute.avatar_pending %>

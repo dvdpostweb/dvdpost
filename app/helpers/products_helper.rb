@@ -393,15 +393,11 @@ module ProductsHelper
 
   def product_review_stars(review, kind)
     images = ""
-    name = 'small-star'
-    if kind == :adult
-      name = 'pink-' + name
-    end
     review.rating.times do
-      images += image_tag "#{name}-on.png"
+      images += image_tag "star-on-review.png"
     end
       (5-review.rating).times do
-      images += image_tag "#{name}-off.png"
+      images += image_tag "star-off-review.png"
     end
     images
   end

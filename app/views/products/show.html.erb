@@ -75,9 +75,11 @@
       <div class="box-content clearfix">
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
-          <div id="tab1" class="tab_content">
+          <div id="tab-content-movie" class="tab_content">
             <% if @reviews_count > 0 %>
+            <ul class="clearfix content_item">
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
+            </ul>
             <% else %>
               <% if current_customer %>
                 <p>

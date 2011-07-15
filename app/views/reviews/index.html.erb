@@ -9,7 +9,7 @@
   </div>
   
   <div class="header_review">
-    <%= image_tag (customer_avatar_path(:customer_id => @customer.id), :alt => 'user-thumb', :title => 'user-thumb', :width => 85) %>
+    <%= image_tag (get_avatar(@customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 85) %>
     <%= customer_awards(@customer, @customer.customer_attribute.points) %>
   </div>
   <div class="clear"></div>

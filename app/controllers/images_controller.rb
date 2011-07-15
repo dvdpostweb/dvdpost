@@ -24,7 +24,11 @@ class ImagesController < ApplicationController
     else
       flash[:error] = t('images.create.not_sucess')
     end  
-    redirect_to customer_path(:id => current_customer.to_param)
+
+    respond_to do |format|
+      format.html {redirect_to customer_path(:id => current_customer.to_param)}
+      format.js {render :partial => 'customers/show/avatar', :locals => { :customer => customer }}
+    end
   end
 
   def new
