@@ -17,5 +17,5 @@
 	  <% end %>
 	</div>
 	<%= new_position(best_customer_item_month) %>
-	<%= link_to image_tag (customer_avatar_path(:customer_id => customer.id), :alt => 'user-thumb', :title => 'user-thumb', :width => 46), customer_reviews_path(:customer_id => customer.customers_id) %>
+	<%= link_to image_tag (get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 46), customer_reviews_path(:customer_id => customer.customers_id) %>
 </li>

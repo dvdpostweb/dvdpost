@@ -101,4 +101,12 @@ module HomeHelper
       t 'home.reviews.critic'
     end
   end
+
+  def get_avatar(current_customer)
+    if current_customer.customer_attribute.avatar
+      customer_avatar_path(:customer_id => current_customer.id)
+    else
+      "user-thumb.png"
+    end
+  end
 end

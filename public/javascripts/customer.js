@@ -159,6 +159,8 @@ $(function() {
   var options = {
     success: showResponse  // post-submit callback
   };
+  var options2 = {
+  };
   $('#submit_account').live("click", function(){
     loader = 'ajax-loader.gif';
     $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
@@ -201,10 +203,18 @@ $(function() {
 
   $('#new_suspension').live("click", function(){
     loader = 'ajax-loader.gif';
-    $('#new_suspension').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('#new_suspension').html("<div style='height:32px'><img src='/images/"+loader+"'/></div>")
     $('#suspend-abonament form').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
+  
+  $('#edit_nickname #bt_valid').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('.content form').ajaxSubmit(options);
+    return false; // prevent default behaviour
+  });
+  
   function param(name,url)
   {
     var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url)

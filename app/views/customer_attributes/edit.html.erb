@@ -1,15 +1,18 @@
 <% if @error %>
-  
 <% else %>
+<div id='edit_nickname'>
   <div id="addwishlist_title"><%= t('.title') %></div>
   <% form_for @attribute, :url => customer_customer_attribute_path(:customer_id => current_customer.to_param), :html => {:method => :put} do |f| %>
-    <%= error_messages_for 'customer_attribute', :object => @attribute %>
-    <p align="center"><%= t('.select') %> :
+  <br /><%= error_messages_for 'customer_attribute', :object => @attribute %>
+<br />
+    <div align="center">
+      <%= t('.select') %> :<br /><br />
       <%= f.text_field :nickname_pending %>
       <br />
-    </p>
+    </div>
     <p class="bouton_probleme" align="center">
       <%= submit_tag t('.valid'), :id => "bt_valid", :class => "submit submit_#{I18n.locale}" %>
     </p>
   <% end %>
+</div>
 <% end %>

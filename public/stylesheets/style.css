@@ -3954,3 +3954,222 @@ width: 902px;
    color: #E2007C;
     font-weight: bold;
 }
+
+
+
+
+
+
+
+
+
+
+.review_rate a {
+	color: #444444;
+	margin-left: -2px;
+	text-decoration: underline;
+}
+#tabs-review li a#tab1 {
+	width: 348px;
+}
+.tab-content h3 {
+    text-align: left;
+}
+#tab-content-movie a {
+    color: #444444;
+    margin-left: -2px;
+    text-decoration: underline;
+}
+#tab-content-movie ul {
+	margin: 0 -15px;
+}
+#tab-content-movie li {
+	margin: 0 15px 0;
+	list-style: none outside none;
+}
+#tab-content-movie h2 {
+	margin-bottom: 8px;
+}
+#tab-content-movie li .content {
+	
+	padding: 5px;
+	width:630px;
+	text-align:left;
+}
+#tab-content-movie li .critic {
+}
+.critique p {
+	margin: 1px 0 !important;
+}
+#tab-content-movie li .critic img {
+	border: 1px solid #838383;
+	float: left;
+	margin-right: 6px;
+}
+#tab-content-movie li .critic .name {
+	font-size: 0.83em;
+	text-transform: uppercase;
+}
+#tab-content-movie li .critic .name img {
+	border: medium none;
+}
+#tab-content-movie li .critic .name strong {
+	color: #FA3216;
+	font-size: 1.2em;
+}
+
+#tab-content-movie li .critic .name a.all_critics {
+    background: url("../images/hp-ttls-nav-arrow2.gif") no-repeat scroll 100% 2px transparent;
+    color: #6F778A;
+    display: inline-block;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    padding-right: 12px;
+    text-decoration: underline;
+    text-transform: none;
+}
+
+
+
+#tab-content-movie li .critic .stars img {
+	border: medium none;
+	float: none;
+	margin: 0;
+	vertical-align: baseline;
+}
+#tab-content-movie li .content p {
+	line-height: normal;
+	margin: 10px 0;
+}
+#tab-content-movie li .content .write {
+	margin-bottom: 7px;
+}
+#tab-content-movie li .content .write a {
+	background: url("../images/speach-bbl.png") no-repeat scroll 0 0 transparent;
+	font-size: 0.92em;
+	font-weight: bold;
+	padding-left: 15px;
+}
+#tab-content-movie li .content .relevant {
+	color: #414850;
+	font-size: 0.92em;
+	/*border-bottom: 1px dotted #A3A4A7;*/
+	padding-bottom:10px;
+	
+}
+#tab-content-movie li .content .relevant strong {
+	color: #191E24;
+}
+#tab-content-movie li .content .relevant a {
+	font-weight: bold;
+}
+#tab-content-movie li .thumb {
+	float: left;
+	text-align: center;
+	width: 100px;
+}
+#tab-content-movie li .thumb img {
+	border: 1px solid #272727;
+	margin-bottom: 4px;
+}
+
+.paginationleft {
+    float: left;
+    line-height: 35px;
+}
+
+.pagination {
+    height: 53px;
+
+}
+.paginationright {
+    float: right;
+    line-height: 35px;
+	   width: 178px;
+}
+
+#sortby {
+    margin-right: 1em;
+}
+
+.pagination a{ text-decoration:none;color: #FF4B00;}
+.paginationlink {
+    background-color: #F3F3F3;
+    margin-right: 0.25em;
+    padding: 3px 6px;
+}
+.paginationlink.current {
+    background-color: transparent;
+    color: #000000;
+    cursor: default;
+    font-weight: bold;
+}
+.paginationlink:hover {
+    background-color: #F7F7F7;
+}
+.paginationlink.current:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    cursor: default;
+    text-decoration: none;
+}
+
+.pagination input, select, textarea {
+    border: 1px solid #E3E3E3;
+    color: #666666;
+    padding: 4px 5px 3px;
+    vertical-align: middle;
+}
+.paginationnextbutton {
+    background: url(../images/flechesdroite.gif) no-repeat scroll 0px 0px transparent;
+    height: 24px;
+    margin-top: -2px;
+    width: 24px;
+}
+
+.pen {
+    float: left;
+    margin-right: 4px;
+    margin-top: 3px;
+}
+
+#tab-content-movie .name a {
+
+    text-decoration: none;
+}
+
+#add_new_review {
+    color: #575757;
+}
+
+#tab-content-movie .numbers a {
+    background: url("../images/chat-icon.png") no-repeat scroll 0 11px transparent;
+    color: #575757;
+    float: right;
+    padding: 10px 8px 0 22px;
+    
+}
+
+
+#tab-content-movie .numbers {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin: 0 0 10px 13px;
+}
+
+
+#tab-content-movie .next_page
+{
+  margin-right: 15px;
+}
+#tab-content-movie .prev_page
+{
+  margin-left: 15px;
+}
+.smiley
+{
+  vertical-align: text-bottom;
+}
+#tab-content-movie .align
+{
+  text-align:right;
+}
