@@ -61,13 +61,15 @@ module HomeHelper
 
   def customer_awards(customer, points)
     distinction=''
-    if points < DVDPost.pen_points[:two] and points > DVDPost.pen_points[:one]
+    if points < DVDPost.pen_points[:one]
+      nb = 0
+    elsif points < DVDPost.pen_points[:two] and points >= DVDPost.pen_points[:one]
       nb=1
-    elsif points < DVDPost.pen_points[:three] and points > DVDPost.pen_points[:two]
+    elsif points < DVDPost.pen_points[:three] and points >= DVDPost.pen_points[:two]
       nb=2
-    elsif points < DVDPost.pen_points[:four] and points > DVDPost.pen_points[:three]
+    elsif points < DVDPost.pen_points[:four] and points >= DVDPost.pen_points[:three]
       nb=3
-    elsif points < DVDPost.pen_points[:five] and points > DVDPost.pen_points[:four]
+    elsif points < DVDPost.pen_points[:five] and points >= DVDPost.pen_points[:four]
       nb=4
     else
       nb = 5
