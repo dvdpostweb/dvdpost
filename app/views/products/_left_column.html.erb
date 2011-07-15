@@ -6,7 +6,7 @@
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <p id="special" <%= "style=\"background: url(#{DVDPost.images_path}/themes/#{I18n.locale}/banner_menu/#{@theme.id}.gif); \"" if @theme && @theme.banner_menu == 1 %>>
       <% if @theme && @theme.banner_menu == 1 %>
-        <%= link_to t(".#{@theme.name}"), themes_path(:page_name => @theme.name), :style => "color: #{@theme.banner_menu_text_color}"%>
+        <%= link_to t(".#{@theme.name}"), theme_path(:id => @theme.to_param), :style => "color: #{@theme.banner_menu_text_color}"%>
       <% else%>
         <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
         <%= link_to special.name, list_products_path(:list_id => special) %>
