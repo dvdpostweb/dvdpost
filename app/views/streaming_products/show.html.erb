@@ -25,10 +25,7 @@
       <% if @streaming_free == true %>
         <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
       <% end %>
-      <div style='margin: 0 0 20px 120px'>
-      <%= t ("vod.disabled") %>
-      </div>
-      <% if 1== 0 && !current_customer.payment_suspended? %>
+      <% if !current_customer.payment_suspended? %>
         <% if current_customer.credits > 0 || (@token && @token_valid) || @streaming_free == true %>
           <% if (@streaming_prefered.count > 0 && @streaming_prefered.first.source == StreamingProduct.source[:alphanetworks]) || (@streaming_not_prefered.count > 0 && @streaming_not_prefered.first.source == StreamingProduct.source[:alphanetworks]) %>
             <%= render :partial => '/streaming_products/show/kinds_alpha', :locals => {:streaming_prefered => @streaming_prefered,:streaming_not_prefered => @streaming_not_prefered, :token => @token}  %>
