@@ -1,10 +1,23 @@
-<%= image_tag (customer_avatar_path(:customer_id => @customer.id), :alt => 'user-thumb', :title => 'user-thumb', :width => 150) %>
-<div id='title' class="reviews"><%= t '.title' %> 
-<%= @customer.customer_attribute.nickname %>
-<%= customer_awards(@customer, @customer.customer_attribute.points) %></div>
+<div class="critiqueur_area">
+  <div class="reviews" id="title">
+  <% reviews_count = @customer.reviews.approved.count %>
+  <% if reviews_count > 1 %>
+    <%= t('.critics', :nickname =>  @customer.customer_attribute.nickname, :count => reviews_count) %>
+  <% else %>
+    <%= t('.critic', :nickname =>  @customer.customer_attribute.nickname, :count => reviews_count) %>
+  <% end %>
+  </div>
+  
+  <div class="header_review">
+    <%= image_tag (customer_avatar_path(:customer_id => @customer.id), :alt => 'user-thumb', :title => 'user-thumb', :width => 85) %>
+    <%= customer_awards(@customer, @customer.customer_attribute.points) %>
+  </div>
+  <div class="clear"></div>
+</div>
+
 <div id="titles-wrap" class="reviews">
   <div class="top"></div>
-<%= render :partial => '/reviews/index/review', :collection => @reviews, :locals => {:source => @source} %>
+    <%= render :partial => '/reviews/index/review', :collection => @reviews, :locals => {:source => @source} %>
   <div class="end"></div>
 </div>
 <%= will_paginate @reviews, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>

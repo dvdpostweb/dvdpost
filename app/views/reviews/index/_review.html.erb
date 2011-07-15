@@ -9,9 +9,6 @@
       <div style="clear:both"></div>
     </h2>
     <p>
-      <%= review.text %>
-    </p>
-    <p>
       <%= t '.rating'%> : 
       <% review.rating.times do %>
         <%= image_tag 'sm-star-on.png', :align => :top %>
@@ -19,6 +16,10 @@
       <% (5-review.rating).times do %>
         <%= image_tag 'sm-star-off.png', :align => :top %>
       <% end %>
+    </p>
+    
+    <p>
+      <%= review.text %>
     </p>
     <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
   </div>

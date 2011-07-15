@@ -85,5 +85,20 @@ module HomeHelper
     image_name ="#{nb}_pen#{distinction}.png"
     image_tag(image_name, :class => :pen)
   end
-  
+
+  def rating_title(nb)
+    if nb > 1 
+      t 'home.reviews.ratings'
+    else
+      t 'home.reviews.rating'
+    end
+  end
+
+  def review_title(nb)
+    if nb > 1 
+      t 'home.reviews.critics'
+    else
+      t 'home.reviews.critic'
+    end
+  end
 end

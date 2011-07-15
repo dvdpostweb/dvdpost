@@ -1,15 +1,15 @@
 <% if @error %>
-  tu as dèjà un nouveau nickname en attente
+  
 <% else %>
-  <div id="addwishlist_title"><%= "pseudo" %></div>
-  <br />
+  <div id="addwishlist_title"><%= t('.title') %></div>
   <% form_for @attribute, :url => customer_customer_attribute_path(:customer_id => current_customer.to_param), :html => {:method => :put} do |f| %>
     <%= error_messages_for 'customer_attribute', :object => @attribute %>
-    <%= "ton nouveau pseudo :" %>
-    <%= f.text_field :nickname_pending %>
-    <br />
-    <p class="bouton_probleme" align="right">
-      <%= submit_tag t('.create'), :id => "submit_address", :class => "submit submit_#{I18n.locale}" %>
+    <p align="center"><%= t('.select') %> :
+      <%= f.text_field :nickname_pending %>
+      <br />
+    </p>
+    <p class="bouton_probleme" align="center">
+      <%= submit_tag t('.valid'), :id => "bt_valid", :class => "submit submit_#{I18n.locale}" %>
     </p>
   <% end %>
 <% end %>

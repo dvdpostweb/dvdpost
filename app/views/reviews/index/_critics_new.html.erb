@@ -1,9 +1,10 @@
 <div class="critique" id="critique<%= review.to_param%>">
   <p>
-    <%= image_tag 'smiley_yes.png', :class => 'smiley' %>
     <%= review.like_count %>
-    <%= image_tag 'smiley_no.png', :class => 'smiley' %>
+    <%= image_tag 'smiley_yes.png', :class => 'smiley' %>
+    &nbsp;
     <%= review.dislike_count %>
+    <%= image_tag 'smiley_no.png', :class => 'smiley' %>
   </p>
   <% if current_customer  && current_customer.to_param != review.customer.to_param %>
     <p class="yn">

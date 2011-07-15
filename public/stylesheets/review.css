@@ -224,7 +224,8 @@ box-shadow:3px 3px 2px #919191;
   margin: 0 15px 15px 0;
 }
 .tab-content li h2 {
-  font-size: 1.5em;
+  font-size: 1.4em;
+  
   margin-bottom: 4px;
   height:20px;
   overflow: hidden;
@@ -246,7 +247,6 @@ box-shadow:3px 3px 2px #919191;
 }
 .review_rate a {
     color: #444444;
-    margin-left: -2px;
     text-decoration: underline;
 }
 .review_rate a:hover;{
@@ -361,8 +361,12 @@ bottom: 15px;
   padding: 0 15px;
   background: url(../images/more-btn-arrow.gif) 100% 50% no-repeat;
 }
-.tab-content a.next_page:hover span {
-  color: #e32800;
+.tab-content a.next_page:hover span,.tab-content a.next_pageo span {
+  background: none repeat scroll 0 0 #9C9B9B;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+	color:#191e24;
 }
 #tab-content-2 ul {
   margin: 0 -15px;
@@ -488,12 +492,12 @@ border: 1px solid #8e8e8e;
   font-weight: bold;
 }
 #tab-content-3 li .content .votes .up {
-  padding: 5px 0 0 17px;
- background: url(../images/thumb-up.png) 0 0 no-repeat;
+  padding: 5px 19px 0 0;
+ background: url(../images/thumb-up.png) 10px 0 no-repeat;
 }
 #tab-content-3 li .content .votes .down {
-  padding: 0 0 5px 17px;
- background: url(../images/thumb-down.png) 0 2px no-repeat;
+  padding: 5px 19px 0 0px;
+ background: url(../images/thumb-down.png) 10px 2px no-repeat;
 }
 
 #positions h4 {
@@ -601,6 +605,7 @@ border: 1px solid #8e8e8e;
 }
 #period-position li:first-child {
   margin-top: 0;
+   border-top: 1px solid #020405;
 }
 #period-position li .count {
 background: #fff;
@@ -690,3 +695,40 @@ text-align:center;
 {
   vertical-align: text-bottom;
 }
+
+
+
+.tab-content li h2 {
+    font-size: 1.4em;
+ 
+}
+
+.review_rate a {
+  
+    text-decoration: none;
+}
+
+.average_review {
+color:#fc6525;
+padding-bottom:10px;
+padding-top:3px;
+  
+
+
+}
+
+.month_review {
+    font-size: 1.2em;
+ 
+}
+a.critics
+{
+  margin: 0 0 0 2px;
+  color:#8997AA !important;
+}
+a.critics_month
+{
+  margin: 0 0 0 2px;
+  color:#36404E !important;
+}
+

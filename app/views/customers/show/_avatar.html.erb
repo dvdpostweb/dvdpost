@@ -1,9 +1,18 @@
 <tr>
-  <td align="right" valign="top" class="adresse"><strong><%= t '.avatar' %></strong></td>
+  <td align="right" valign="top" class="adresse"><strong><%= t '.avatar' %> :</strong></td>
   <td align="left" valign="top" class="adresse">
-    <%= image_tag customer_avatar_path(:customer_id => current_customer.id) %>
+    <%= image_tag customer_avatar_path(:customer_id => current_customer.id), :width => 80 %>
   </td>
 </tr>
+<% if current_customer.customer_attribute.avatar_pending %>
+<tr>
+  <td align="right" valign="top" class="adresse"><strong><%= t '.avatar_pending' %> :</strong></td>
+  <td align="left" valign="top" class="adresse">
+    <%= image_tag customer_avatar_pending_path(:customer_id => current_customer.id), :width => 80 %>
+  </td>
+</tr>
+
+<% else %>
 <tr>
   <td align="right" valign="top" class="adresse"></td>
   <td align="right" valign="top" id="modif">
@@ -14,3 +23,4 @@
     </ul>
   </td>
 </tr>
+<% end %>

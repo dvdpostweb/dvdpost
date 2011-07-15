@@ -53,6 +53,12 @@
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
+      <tr>
+        <td align="right" valign="top" class="adresse"><strong><%= t '.status_dvdpost' %> :</strong></td>
+        <td align="left" valign="top" class="adresse">
+            <%= customer_awards(current_customer, current_customer.customer_attribute.points) %>
+        </td>
+      </tr>
       <%= render :partial => 'customers/show/avatar', :locals => { :customer => customer }%>
       <%= render :partial => 'customers/show/nickname', :locals => { :customer => customer } %>
       <tr>
