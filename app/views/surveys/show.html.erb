@@ -3,8 +3,8 @@
   <div><%= image_tag @survey.image %></div>
   <div class="sondagetitle" align="center"><%= t '.title' %></div>
   <div class="sondagequestion" style="float:left"><%= @survey.title(I18n.locale) %></div>
-  <% if @theme %>
-  <div class="survey_theme_link"><img src="/images/hp-ttls-nav-arrow.gif" align="absmiddle" /> <a href="<%= themes_path(:page_name => @survey_theme.name) %>" style="color:#fa3216;"><%= t '.selection' %></a></div>
+  <% if @survey_theme %>
+  <div class="survey_theme_link"><img src="/images/hp-ttls-nav-arrow.gif" align="absmiddle" /> <a href="<%= theme_path(:id => @survey_theme.to_param) %>" style="color:#fa3216;"><%= t '.selection' %></a></div>
   <% end%>
    <div class="clear"></div>
   <div class="resulat_sondage_winner"><p> <%= t '.result' %> </p>

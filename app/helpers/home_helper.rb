@@ -1,7 +1,7 @@
 module HomeHelper
   def link_to_banner_image(type,theme)
     if theme && theme.banner_hp == 1 && type == 'shop'
-      link_to image_tag("#{DVDPost.images_path}/themes/#{I18n.locale}/banner/#{theme.to_param}.gif", :alt => theme.name), themes_path(:page_name => theme.name)
+      link_to image_tag("#{DVDPost.images_path}/themes/#{I18n.locale}/banner/#{theme.id}.gif", :alt => theme.name),  theme_path(:id => theme.to_param)
     else  
       case type
         when 'quizz'
@@ -50,8 +50,8 @@ module HomeHelper
       when 'STREAMING_PRODUCT'
         streaming_product_path(:id => carousel.reference_id, :warning => 1)
       when 'THEME_EVENT'
-        name = ThemesEvent.find(carousel.reference_id).name
-        themes_path(:page_name => name)
+        theme = ThemesEvent.find(carousel.reference_id)
+        theme_path(:id => theme.to_param)
       when 'SURVEY'
         new_survey_customer_survey_path(:survey_id => carousel.reference_id)
       when 'URL'
