@@ -108,7 +108,11 @@ module HomeHelper
     if current_customer.customer_attribute.avatar
       customer_avatar_path(:customer_id => current_customer.id)
     else
-      "user-thumb.png"
+      if current_customer.gender == 'm'
+        "avatar_m.gif"
+      else
+        "avatar_f.gif"
+      end
     end
   end
 end

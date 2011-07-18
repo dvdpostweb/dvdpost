@@ -1,0 +1,13 @@
+<% if categories.count > 0 %>
+<li id="numbers"> 
+  <span class="letter"><%= letter == 0 ? "0-9" : letter.upcase %></span>
+  <ol>
+    <% categories.collect do |category| %>
+      <li>
+        <%= link_to "#{category.name}", category_products_path(:category_id => category.to_param), :class => "studios", :id => "#{letter}_#{category.to_param}" %>
+      </li>
+    <% end %>
+  </ol>
+
+</li>
+<% end %>

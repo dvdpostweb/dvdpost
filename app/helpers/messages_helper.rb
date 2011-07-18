@@ -37,7 +37,7 @@ module MessagesHelper
     if user_id
       {:class => 'dvdpostmessage', :image => 'avatar_dvdpost.gif', :title => 'dvdpost'}
     else
-      {:class => 'customessage', :image => 'avatar.gif', :title => 'customer'}
+      {:class => 'customessage', :image => get_avatar(current_customer), :title => 'customer'}
     end
   end
 

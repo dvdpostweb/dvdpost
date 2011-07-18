@@ -17,6 +17,10 @@ class Category < ActiveRecord::Base
   named_scope :hetero, :conditions => 'categories_id != 76'
   
   named_scope :ordered, :order => 'display_group ASC, sort_order ASC'
+  
+  #named_scope :by_letter, lambda {|letter| {:conditions => ["studio_name like ?", letter+'%' ]}}
+  #named_scope :by_number,  {:conditions => ["categ REGEXP '^[0-9]'"]}
+  
 
   def name
     descriptions.by_language(I18n.locale).first.name

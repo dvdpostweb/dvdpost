@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
     end
 
-    localized.resources :categories, :only => [] do |category|
+    localized.resources :categories, :only => [:index] do |category|
       category.resources :products, :only => :index
     end
 
@@ -164,6 +164,5 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-  map.connect '*path' , :controller => 'error' , :action => 'bad_route' 
 end
 

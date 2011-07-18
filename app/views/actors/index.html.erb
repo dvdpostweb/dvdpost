@@ -1,9 +1,5 @@
 <div class="container2">
-  <div id="options"><%= t('.search_by')%> : 
-    <%= link_to t('.studios'), studios_path() %>  
-    |
-    <%= link_to t('.performers'), actors_path(), :class =>"active" %> 
-  </div>
+  <%= render :partial => '/actors/menu' %>
   <p id="letters">
     <% ('a'..'z').each do |l| %>
       <%= link_to l.upcase, actors_path(:letter => l) %> |
