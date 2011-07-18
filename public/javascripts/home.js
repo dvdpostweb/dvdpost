@@ -218,4 +218,10 @@ $(function() {
       });
     });
   }
+  $('.review_more').live('click',function(){
+    $(this).parent().parent().children('.full_review').show();
+    $(this).parent().parent().children('.short_review').hide();
+    $(this).hide();
+    return false; 
+  })
 });

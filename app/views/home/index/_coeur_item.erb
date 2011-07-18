@@ -19,10 +19,18 @@
           <%= review_image_links(review.rating*2) %>
         </span> 
       </div>
-      <p>
+      <p class="short_review">
         <strong><%= t '.critic' %> :</strong> 
         <%= truncate_html(review.text, :length => 240) %>
+        
       </p>
+      <% if review.text.length > 240 %>
+        <div><a href="?more" class='review_more'><%= t '.read_more' %></a></div>
+        <p class='full_review' style='display:none;'>
+          <strong><%= t '.critic' %> :</strong> 
+          <%= review.text %>
+        </p>
+      <% end %>
       <div class="relevant">
         <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
       </div>
