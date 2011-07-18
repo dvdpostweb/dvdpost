@@ -6,7 +6,9 @@
 <% config = config_dialog(dialog.user_id)%>
   <div class="<%= config[:class] %>">
     <% if email.short? %>
-      <div class="avatar_message"><img src="/images/<%= config[:image] %>" class="avatar"  /></div>
+      <div class="avatar_message">
+        <%= image_tag config[:image], :class => :avatar, :width => 54 %>
+      </div>
       <div class="message_text">
     <% else %>
       <div class="message_text_long">

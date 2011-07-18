@@ -76,6 +76,10 @@ ul#search-studio li {
   zoom: 1;
 *display: inline;
 }
+ul.search-categories li
+{
+  min-height: 100px !important;
+}
 ul#search-performers li {
   width: 175px;
   padding-left: 115px;
@@ -135,6 +139,10 @@ ul#search-studio li ol, ul#search-performers li ol {
   margin-bottom: 0;
   min-height:180px;
 }
+ul.search-categories li ol{
+  min-height:10px !important;
+}
+
 ul#search-performers li ol.big
 {
   width: 800px;
@@ -153,7 +161,7 @@ ul#search-performers li ol {
 
 ul#search-studio li li, ul#search-performers li li {
   margin: 0 0 5px 0;
-  min-height: 0;
+  min-height: 0 !important;
  padding: 0;
  line-height: normal;
 }
