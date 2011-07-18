@@ -25,7 +25,7 @@
         
       </p>
       <% if review.text.length > 240 %>
-        <div><a href="?more" class='review_more'><%= t '.read_more' %></a></div>
+        <div><a href="?more" class='review_more'><u><%= t '.read_more' %></u></a></div>
         <p class='full_review' style='display:none;'>
           <strong><%= t '.critic' %> :</strong> 
           <%= review.text %>
