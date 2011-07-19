@@ -9,16 +9,12 @@
       <div style="clear:both"></div>
     </h2>
     <p>
-      <%= t '.rating'%> : 
-      <% review.rating.times do %>
-        <%= image_tag 'sm-star-on.png', :align => :top %>
-      <% end %>
-      <% (5-review.rating).times do %>
-        <%= image_tag 'sm-star-off.png', :align => :top %>
-      <% end %>
+      <%= t '.rating' %> : 
+      <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
     </p>
     
     <p>
+      <strong><%= t '.critic' %> :</strong> 
       <%= review.text %>
     </p>
     <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
