@@ -8,9 +8,6 @@
         <strong>
           <a href="<%= customer_reviews_path(:customer_id => review.customer.to_param) %>"><%= review.customer.customer_attribute.nickname %></a>
         </strong> 
-        <span class="publish">
-          <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
-        </span>
         <%= customer_awards(review.customer, review.customer.customer_attribute.points) %> | (<%= reviews_count = review.customer.reviews.approved.count %> <%= review_title(reviews_count) %>) <br />
         <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customer.to_param), :class => :all_critics %>
       </div>
