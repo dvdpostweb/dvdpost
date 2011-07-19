@@ -1,6 +1,7 @@
 <h2 class="miso" id="n-c"><%= t('.title') %></h2>
 <!-- Tabs -->
 <div id="tabs-wrap" class="review_rate">
+  <p id ='reviews_description'><%= t '.description' %></p>
   <%= render :partial => '/home/index/menu', :locals => {:review_kind => review_kind} %>
   <div id="review_tab">
     <% if DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_customer] %>

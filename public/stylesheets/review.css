@@ -731,4 +731,7 @@ a.critics_month
   margin: 0 0 0 2px;
   color:#36404E !important;
 }
-
+#reviews_description
+{
+  padding: 0 0 10px 5px;
+}
