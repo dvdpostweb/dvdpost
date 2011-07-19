@@ -49,7 +49,7 @@
     <strong>
       <%= t '.genre' %>
     </strong>
-    <%= product.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+    <%= product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
   </li>
   <li>
     <strong>
