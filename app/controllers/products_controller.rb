@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
     end
     @rating_color = params[:kind] == :adult ? :pink : :white
     @countries = ProductCountry.visible.order
-    @collections = Collection.by_size.random
+    @collections = Category.by_size.random
     respond_to do |format|
       format.html do
         @products = if params[:view_mode] == 'recommended'

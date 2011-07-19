@@ -51,14 +51,6 @@
     </strong>
     <%= product.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
   </li>
-  <% if product.collections.count > 0 && product.adult? %>
-  <li>
-    <strong>
-      <%= t '.collection' %>
-    </strong>
-    <%= product.collections.collect{|collection| link_to collection.name, collection_products_path(:collection_id => collection)}.join(', ') %>
-  </li>
-  <% end %>
   <li>
     <strong>
       <%= t '.country' %>
