@@ -18,10 +18,8 @@ class Category < ActiveRecord::Base
   
   named_scope :ordered, :order => 'display_group ASC, sort_order ASC'
   named_scope :alphabetic_orderd, :order => 'categories_description.categories_name'
-  
-  #named_scope :by_letter, lambda {|letter| {:conditions => ["studio_name like ?", letter+'%' ]}}
-  #named_scope :by_number,  {:conditions => ["categ REGEXP '^[0-9]'"]}
-  
+  named_scope :by_size, :conditions => ["size > 0"]
+  named_scope :random, :order => 'rand()'
 
   def name
     descriptions.by_language(I18n.locale).first.name

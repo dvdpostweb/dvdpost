@@ -307,11 +307,10 @@ module ProductsHelper
   end
 
   def left_column_categories(selected_category, kind, sexuality)
-    logger.debug { "@@" }
     html_content = []
     cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
     cat.collect do |category|
-      li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent
+      li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent && selected_category.active == 'YES'
       if category == selected_category
         a_class = 'actived'
       else
@@ -333,7 +332,6 @@ module ProductsHelper
     end
     li_style = selected_category ? 'display:none' : ''
       html_content << content_tag(:li, :class => :cat, :style => li_style) do
-        Rails.logger.debug { "@@@#{kind}" }
         kind == :adult ? link_to( t('.full_categories'), categories_path(), :id => 'catx') : link_to( t('.category_x'), root_path(:kind => :adult), :id => 'catx')
       end
     html_content
