@@ -81,6 +81,9 @@ module HomeHelper
         else
           distinction ='_1'
         end
+        if I18n.locale == :fr
+          distinction += '_fr'
+        end
       end
       
     end 
