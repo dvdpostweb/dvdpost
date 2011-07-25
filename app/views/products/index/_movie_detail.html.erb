@@ -57,7 +57,11 @@
       <% if @category %>
         <%= @category.name %>
       <% else %>
-        <%= product.categories.active.first.name unless product.categories.active.empty? %>
+        <% if product.adult? %>  
+          <%= product.categories.first.name unless product.categories.empty? %>
+        <% else %>
+          <%= product.categories.active.first.name unless product.categories.active.empty? %>
+        <% end %>
       <% end %>
     </h4>
     <div class="stars" id="rating-stars-<%= product.to_param %>" product_id="<%= product.to_param %>">
