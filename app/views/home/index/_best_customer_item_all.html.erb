@@ -1,5 +1,6 @@
   <% customer = best_customer_item_all.customer %>
-  <% reviews_count = customer.reviews.approved.count %>
+  <% reviews_count = best_customer_item_all.reviews_count %>
+  <% rating_count = best_customer_item_all.ratings_count %>
 	<li>
 		<span class="count"><%= best_customer_item_all.rank %></span>
 		<div class="content">
@@ -9,7 +10,7 @@
       <%= customer_awards(customer, customer.customer_attribute.points) %>
 			<% if reviews_count > 0 %>
 			  <p>
-			    <%= rating_count = customer.ratings.count %> <%= rating_title(rating_count) %>  |   
+			    <%= rating_count %> <%= rating_title(rating_count) %>  |   
 			    <%= link_to "#{reviews_count} #{review_title(reviews_count)}", customer_reviews_path(:customer_id => customer.to_param), :class => :critics %> 
 			  </p>
 			<% else %>

@@ -21,7 +21,7 @@ fieldset {
   border: none;
 }
 
-input, select, textarea, button {
+input, select, button {
   font: normal 1em Arial, Helvetica, sans-serif;
   border: none;
   padding: 0;
