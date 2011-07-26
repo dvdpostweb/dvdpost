@@ -2,9 +2,11 @@ class ReviewsController < ApplicationController
 
   def index
     if params[:kind] == :adult
-      @reviews = Review.by_customer_id(params[:customer_id]).approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_status => [0,1]}}).paginate(:page => params[:page], :per_page => 10)
+      @reviews = Review.by_customer_id(params[:customer_id]).approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).paginate(:page => params[:page], :per_page => 10)
+      @reviews_count = Review.by_customer_id(params[:customer_id]).approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count
     else
-      @reviews = Review.by_customer_id(params[:customer_id]).approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [0,1]}}).paginate(:page => params[:page], :per_page => 10)
+      @reviews = Review.by_customer_id(params[:customer_id]).approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).paginate(:page => params[:page], :per_page => 10)
+      @reviews_count = Review.by_customer_id(params[:customer_id]).approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).count
     end
     
     @customer = Customer.find(params[:customer_id])

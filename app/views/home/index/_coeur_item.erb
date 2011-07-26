@@ -2,6 +2,11 @@
 <% product = review.product %>
 <% if product %>
   <% customer = review.customer %>
+  <% if params[:kind] == :adult %>
+    <% reviews_count = customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count %>
+  <% else %>
+    <% reviews_count = customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).count %>
+  <% end %>
   <% product_title = product.title %>
   <li>
     <h2> <%= link_to product_title, product_path(:id => product.to_param) %></h2>
@@ -11,7 +16,7 @@
         <div class="name">
           <strong><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
           <%= customer_awards(customer, customer.customer_attribute.points) %>
-          (<%= review_count = Customer.find(review.customers_id).reviews.approved.count %> <%= review_title(review_count) %>) 
+          (<%= reviews_count %> la<%= review_title(reviews_count) %>) 
           <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
         </div>
         <strong style='clear:both'><%= t '.rating' %> :</strong> 

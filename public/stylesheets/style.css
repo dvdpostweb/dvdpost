@@ -4181,3 +4181,7 @@ width: 902px;
 #tab-content-movie .publish {
 float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
 }
+#review_text 
+{
+  color: #454545 !important;
+}

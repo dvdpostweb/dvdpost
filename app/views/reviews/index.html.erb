@@ -1,6 +1,6 @@
 <div class="critiqueur_area">
   <div class="reviews" id="title">
-  <% reviews_count = @customer.reviews.approved.count %>
+  <% reviews_count = @reviews_count %>
   <% if reviews_count > 1 %>
     <%= t('.critics', :nickname =>  @customer.customer_attribute.nickname, :count => reviews_count) %>
   <% else %>
