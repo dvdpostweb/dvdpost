@@ -8,11 +8,12 @@
 		<td align="center">
 			<table cellpadding="0" cellspacing="0">
         <tr>
-					<% subtitles =  kind_alpha.subtitles.by_language(I18n.locale) %>
-          <% subtitles.collect do | subtitle | %>
+					<% qualities = Rails.env == 'production' ? StreamingProduct.by_version(kind_alpha.language_id,kind.subtitle_id).available.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) : StreamingProduct.by_version(kind_alpha.language_id,kind_alpha.subtitle_id).available_beta.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) %>
+          <% qualities.collect do | quality | %>
           <td align="center"> 
             <div class="quality_vod">
-              <%= link_to subtitle.short.downcase, streaming_product_path(:streaming_product_id => kind_alpha.to_param, :subtitle_id => subtitle.without_sub? ? nil : subtitle.to_param), :class => "btn qualityvod" %>
+              <%= link_to t(".#{quality.quality.downcase}"), streaming_product_path(:streaming_product_id => quality.to_param), :class => "btn qualityvod", :id =>  quality.quality %>
+              <span class="taille_vod"><%= DVDPost.vod_file_size[quality.quality.downcase] %> GB</span>
             </div>
           </td>
           <% end %>

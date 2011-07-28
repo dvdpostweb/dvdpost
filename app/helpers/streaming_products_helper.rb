@@ -1,57 +1,29 @@
 module StreamingProductsHelper
   def flowplayer(source_file, source, caption_file, token_name)
-  
+    Rails.logger.debug { "@@@#{source} #{StreamingProduct.source[:alphanetworks]} #{source == StreamingProduct.source[:alphanetworks]}" }
     if source == StreamingProduct.source[:alphanetworks]
-      if caption_file
-        source = "mp4:120619_FA.mp4"
-        caption_name = source.gsub(/(mp4:)([0-9_]*)([a-zA-Z]*)(.mp4)/,'\\2')
-        caption_name = "#{caption_name}#{caption_file.short}.srt"
-        caption = "captionUrl: '#{caption_name}',"
-      else
-        caption = ""
-      end
+      #if caption_file
+      #  source = "mp4:120619_FA.mp4"
+      #  caption_name = source.gsub(/(mp4:)([0-9_]*)([a-zA-Z]*)(.mp4)/,'\\2')
+      #  caption_name = "#{caption_name}#{caption_file.short}.srt"
+      #  caption = "captionUrl: '#{caption_name}',"
+      #else
+      #  caption = ""
+      #end
+      caption = ""
       script = <<-script
-      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
+      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},
       {
         key: '\#$dcba96641dab5d22c24',
         version: [10, 0],
         clip: {
-          url: '#{source_file}',
-          #{caption}
-          provider: 'softlayer'
+          url: '#{CDN.connect_url(token_name, StreamingProduct.source[:alphanetworks])}'
         },
 
         canvas: {
                 backgroundColor:'#000000'
         },
         plugins: {
-          softlayer: {
-            url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
-            netConnectionUrl: '#{CDN.connect_url(token_name, StreamingProduct.source[:alphanetworks])}'
-          },
-          captions: {
-                      url: '/flowplayer/flowplayer.captions-3.2.3.swf',
-
-                      // the content plugin we use to show the captions
-                      captionTarget: 'content'
-                  },
-                  content: {
-                          url:'flowplayer.content-3.2.0.swf',
-                          bottom: 27,
-                          height:42,
-                          backgroundColor: 'transparent',
-                          backgroundGradient: 'none',
-                          border: 0,
-                          textDecoration: 'outline',
-                          style: {
-                              body: {
-                                  fontSize: 16,
-                                  fontFamily: 'Arial',
-                                  textAlign: 'center',
-                                  color: '#ffffff'
-                              }
-                          }
-                      },
           controls: {
             autoHide:
             {
@@ -68,7 +40,7 @@ module StreamingProductsHelper
       script
     else
       script = <<-script
-      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
+      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},
       {
         key: '\#$dcba96641dab5d22c24',
         version: [10, 0],
