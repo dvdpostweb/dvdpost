@@ -73,7 +73,7 @@ class Token < ActiveRecord::Base
     
     current_ips = token_ips
     return Token.status[:ok] unless current_ips.find_by_ip(current_ip).nil?
-    return Token.status[:ip_valid] if current_ips.count < count_ip #|| source == StreamingProduct.source[:alphanetworks]
+    return Token.status[:ip_valid] if current_ips.count < count_ip || streaming_product.first.source == StreamingProduct.source[:alphanetworks]
     return Token.status[:ip_invalid]
   end
   
@@ -105,6 +105,8 @@ end
 
   private
   def generate_token
-    update_attribute(:token, Digest::SHA1.hexdigest((created_at.to_s) + (97 * created_at.to_i).to_s))
+    if token.nil?
+      update_attribute(:token, Digest::SHA1.hexdigest((created_at.to_s) + (97 * created_at.to_i).to_s))
+    end
   end
 end

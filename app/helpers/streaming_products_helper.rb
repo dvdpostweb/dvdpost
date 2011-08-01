@@ -1,6 +1,5 @@
 module StreamingProductsHelper
-  def flowplayer(source_file, source, caption_file, token_name)
-    Rails.logger.debug { "@@@#{source} #{StreamingProduct.source[:alphanetworks]} #{source == StreamingProduct.source[:alphanetworks]}" }
+  def flowplayer(source_file, source, streaming, token_name)
     if source == StreamingProduct.source[:alphanetworks]
       #if caption_file
       #  source = "mp4:120619_FA.mp4"
@@ -10,14 +9,14 @@ module StreamingProductsHelper
       #else
       #  caption = ""
       #end
-      caption = ""
+      subtitle = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short : nil
       script = <<-script
       $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},
       {
         key: '\#$dcba96641dab5d22c24',
         version: [10, 0],
         clip: {
-          url: '#{CDN.connect_url(token_name, StreamingProduct.source[:alphanetworks])}'
+          url: '#{CDN.connect_url(token_name, StreamingProduct.source[:alphanetworks], streaming.languages.by_language(:fr).first.short_alpha, subtitle)}'
         },
 
         canvas: {

@@ -1,7 +1,14 @@
 class StreamingProductsController < ApplicationController
   def show
-    @streaming_prefered = StreamingProduct.group_by_version.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
-    @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+    streaming = StreamingProduct.find_by_imdb_id(params[:id])
+    Rails.logger.debug { "@@@#{streaming.source}" }
+    if streaming.source == StreamingProduct.source[:alphanetworks]
+      @streaming_prefered = StreamingProduct.group_by_language.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+      @streaming_not_prefered = StreamingProduct.group_by_language.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+    else
+      @streaming_prefered = StreamingProduct.group_by_version.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+      @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+    end
     @product = Product.both_available.find_by_imdb_id(params[:id])
     @streaming_free = StreamingProductsFree.by_imdb_id(params[:id]).available.count > 0 
    
@@ -94,9 +101,9 @@ class StreamingProductsController < ApplicationController
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip)
             
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :caption_file => @sub }, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
-            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => streaming_version.filename, :source => streaming_version.source, :caption_file => @sub }, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end

@@ -352,21 +352,30 @@ class Customer < ActiveRecord::Base
 
   def create_token(imdb_id, product, current_ip)
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || super_user?
-      Token.transaction do
+      if StreamingProductsFree.by_imdb_id(imdb_id).first.source == StreamingProduct.source[:alphanetworks]
+        token_string = DVDPost.create_token('dorcel1')
         token = Token.create(
           :customer_id => id,
-          :imdb_id     => imdb_id
+          :imdb_id     => imdb_id,
+          :token       => token_string
         )
-        token_ip = TokenIp.create(
-          :token_id => token.id,
-          :ip => current_ip
-        )
-        if token.id.blank? || token_ip.id.blank? 
-          error = Token.error[:query_rollback]
-          raise ActiveRecord::Rollback
-          return {:token => nil, :error => Token.error[:query_rollback]}
+      else
+        Token.transaction do
+          token = Token.create(
+            :customer_id => id,
+            :imdb_id     => imdb_id
+          )
+          token_ip = TokenIp.create(
+            :token_id => token.id,
+            :ip => current_ip
+          )
+          if token.id.blank? || token_ip.id.blank? 
+            error = Token.error[:query_rollback]
+            raise ActiveRecord::Rollback
+            return {:token => nil, :error => Token.error[:query_rollback]}
+          end
+          return {:token => token, :error => nil}
         end
-        return {:token => token, :error => nil}
       end
     end
     if credits > 0

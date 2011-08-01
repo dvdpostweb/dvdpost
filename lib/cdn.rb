@@ -1,8 +1,8 @@
 module CDN
   class << self
-    def connect_url(token, source)
+    def connect_url(token, source, language = 'fre', subtitle = nil)
       if source == StreamingProduct.source[:alphanetworks]
-        url = "http://apache.alphanetworks.be/dvdpost/streaming/4e31320ce33330.11856924/flash/fre"
+        url = "http://apache.alphanetworks.be/dvdpost/streaming/#{token}/flash/#{language}#{subtitle ? "/"+subtitle : ''}"
       else
         url = "rtmp://secureflash.cdnlayer.com/secure_dvstream/_definst_/?token=#{token}"
       end
