@@ -322,5 +322,17 @@ module DVDPost
         :five => 800
       })
     end
+    
+    def create_token(filename)
+      url = "http://apache.alphanetworks.be/dvdpost/webservice?method=create&filename=#{filename}&lifetime=2880&simultIp=1"
+     open url do |data|
+       node = Hpricot(data).search('//create')
+       if node.at('status').innerHTML == 'success'
+         node.at('response').innerHTML
+       else
+          false
+       end  
+     end
+    end
   end
 end
