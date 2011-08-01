@@ -41,6 +41,73 @@ $(function() {
     showButtonPanel: false,
     firstDay: 1,
     dateFormat: 'dd-mm-yy',
+    onSelect: function(dateText, inst) { 
+      d=new Date();
+      month = (d.getMonth()+1);
+      if(parseInt(month)<10)
+      {
+        month = new String('0'+month)
+      }
+      day = d.getDate()
+      if(parseInt(day)<10)
+      {
+        day = new String('0'+day)
+      }
+      
+      if (dateText == day+"-"+month+"-"+d.getFullYear())
+      {
+        limit = 0
+        h = d.getHours()
+        if(parseInt(h)==9)
+        {
+          limit = 4
+        }
+        else if (parseInt(h)== 10)
+        {
+          limit = 6
+        }  
+        else if (parseInt(h)== 11)
+        {
+            limit = 8
+        }
+        else if (parseInt(h)== 12)
+        {
+            limit = 10
+        }
+        else if (parseInt(h)== 13)
+        {
+            limit = 12
+        }
+        else if (parseInt(h)== 14)
+        {
+            limit = 14
+        }
+        else if (parseInt(h)== 15)
+        {
+            limit = 16
+        }
+        else if (parseInt(h)== 16)
+        {
+            limit = 18
+        }
+        $.each($('#phone_request_hour').children(), function (){
+          if(parseInt($(this).attr('value'))<=limit)
+          {
+            $(this).attr('disabled','disabled')
+            $(this).hide()
+          }
+        })
+        $("select#phone_request_hour option[selected]").removeAttr("selected");
+        $("select#phone_request_hour option[value='']").attr("selected", "selected");
+      }
+      else
+      {
+        $.each($('#phone_request_hour').children(), function (){
+            $(this).show()
+            $(this).removeAttr('disabled');
+        })
+      }
+    },
     minDate: new Date()});
 
   $(".streaming_action").live("click", function() {
@@ -124,6 +191,7 @@ $(document).ajaxSend(function(event, request, settings) {
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     }
 });
+
 
 // When I say html I really mean script for rails
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
