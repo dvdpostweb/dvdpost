@@ -185,7 +185,7 @@ $(function() {
   });
 
   $('.tabs li').live('click', function(){
-    $('#tab1').toggle();
+    $('#tab-content-movie').toggle();
     $('#tab2').toggle();
     $('#tab1_li').toggleClass('active');
     $('#tab2_li').toggleClass('active');

@@ -3,6 +3,11 @@
   <%= render :partial => 'messages/menu' %>
   <div id="tabs-content">
     <%= link_to t('.new_message'), new_message_path(), :class => :btn_new_message, :id => :new_message %>
+    <% if params[:filter] == Ticket.filter[:archive] %>
+      <%= link_to t('.current'), messages_path(), :class => :filter %>
+    <% else %>
+      <%= link_to t('.archive'), messages_path(:filter => Ticket.filter[:archive]), :class => :filter %>
+    <% end %>
     <%= render :partial => '/messages/index/messages', :locals => {:messages => @messages} %>
   </div>
   <div style='display:none' id ='error_cat'>
