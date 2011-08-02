@@ -804,12 +804,21 @@ a.btn_all_message:hover {
     
 }
 
-.header_review .pen {
-
-    
-       margin-top: 16px;
+.header_review .pen 
+{
+  margin-top: 16px;
 }
 .header_review .avatar {
     float: left;
     margin-right: 4px;
+}
+.filter
+{
+  color: #454545;
+  float:right;
+  margin:-20px 0 0 0;
+}
+.filter a
+{
+  color: #454545;
 }

@@ -1,21 +1,25 @@
 <div id="messages">
   <div id="header_messages">
-    <h3> <%= t '.recipient' %> </h3>
+    <h3> <%= params[:filter] == Ticket.filter[:archive] ? t('.archive') : t('.recipient') %> </h3>
   </div>
     <table cellspacing="0" cellpadding="0" border="0" id ='table_message'>
       <colgroup>
         <col id="ids" />
         <col id="cats" />
         <col id="date" />
+        <% unless params[:filter] == Ticket.filter[:archive] %>
+        <col id="delete" />
+        <% end %>
       </colgroup>
     <tbody>
       <tr>
         <th width="50" align="left">ID</th>
-        <th width="659"></th>
-        <th width="130" align="left"> 
+        <th width="559"></th>
+        <th width="210" align="left"> 
           <div id="bysort">
             <div class="bysort_message"><%= t '.sort' %> : </div>
             <form action='<%= messages_path() %>' id='sort_form'>
+              <input type='hidden' name='filter' value='<%= params[:filter] %>'>
               <select name="sort" id="sort_combo">
                 <option  value="normal" value=''><%= t '.by_answer' %></option>
                 <option <%= params[:sort] && params[:sort].to_sym == :ticket ? 'selected="selected"' : '' %> value="ticket"><%= t '.by_ticket' %></option>
@@ -24,6 +28,11 @@
           <div style="clear: both;"></div>
         </div>
       </th>
+      <% unless params[:filter] == Ticket.filter[:archive] %>
+      <th class="center">
+              <%= image_tag 'trash-icon-contact.png', :size => '15x21', :alt => 'Delete' %>
+      </th>
+      <% end %>
     </tr>
     <%= render :partial => '/messages/index/message', :collection => messages %>
     </tbody>

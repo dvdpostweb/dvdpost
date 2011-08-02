@@ -179,8 +179,11 @@ module DVDPost
     end
 
     def cinopsis_critics(imdb_id)
+      text = ""
       open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{imdb_id}") do |data|
-        Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
+        Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p').each do|data| 
+          text << "<p>#{data.innerHTML}</p>"  
+        end
       end
     end
 
