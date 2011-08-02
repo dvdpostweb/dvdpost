@@ -210,7 +210,16 @@ $(function() {
       }     
     }
     
-  }  
+  } 
+  $("#billi_modal").live("click", function() {
+    wishlist_item = $(this);
+    jQuery.facebox(function() {
+      $.getScript(wishlist_item.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  }); 
   function show(in_hdmi,in_dvi,in_vga,in_component,in_scart,in_svideo,in_composite)
   {
     ((in_hdmi==1) ? $('#in_hdmi').show() : $('#in_hdmi').hide());
