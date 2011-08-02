@@ -1,10 +1,12 @@
-<div id="addwishlist_title"><%= t('.title') %></div>
-<br />
-<p align="center"><%= t('.max')%> :</p>
-<% form_for :images, :url => customer_images_path, :html => {:multipart => true} do |f| %>
-  <p align="center"><%= f.file_field :face %></p>
+<div id='new_avatar'>
+  <div id="addwishlist_title"><%= t('.title') %></div>
   <br />
-  <p class="bouton_probleme" align="center">
-    <%= submit_tag t('.valid'), :class => "submit submit_#{I18n.locale}", :id => "bt_valid" %>
-  </p>
-<% end %>
+  <p align="center"><%= t('.max')%> :</p>
+  <% form_for :images, :url => customer_images_path, :html => {:multipart => true} do |f| %>
+    <p align="center"><%= f.file_field :face %></p>
+    <br />
+    <p class="bouton_probleme" align="center">
+      <%= submit_tag t('.valid'), :class => "submit submit_#{I18n.locale}", :id => "bt_valid" %>
+    </p>
+  <% end %>
+</div>
