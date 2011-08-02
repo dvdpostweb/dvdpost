@@ -67,7 +67,7 @@ class WishlistItemsController < ApplicationController
         good = product.good_language?(DVDPost.product_languages[I18n.locale])
         if good
           item1 = Product.by_serie(product.series_id).by_media(product.media).with_languages(DVDPost.product_languages[I18n.locale])
-          if item.count > 0
+          if item1.count > 0
             item2 = Product.by_serie(product.series_id).by_media(product.media).with_subtitles(DVDPost.product_languages[I18n.locale]).exclude_products_id(item1.collect(&:products_id).join(', '))
           else
             item2 = Product.by_serie(product.series_id).by_media(product.media).with_subtitles(DVDPost.product_languages[I18n.locale])
