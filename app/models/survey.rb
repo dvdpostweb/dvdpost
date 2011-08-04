@@ -16,7 +16,7 @@ class Survey < ActiveRecord::Base
   end
 
   def image
-    File.join(DVDPost.images_path, 'surveys', id.to_s, I18n.locale.to_s, "header.gif")
+    File.join(DVDPost.images_path, 'surveys', I18n.locale.to_s, "#{id}.gif")
   end
 
   def best

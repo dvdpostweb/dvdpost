@@ -7,7 +7,7 @@ class SurveyDetail < ActiveRecord::Base
   named_scope :ordered, :order => "rating desc"
 
   def image(survey_id)
-     File.join(DVDPost.images_path, 'surveys', survey_id.to_s, "images", "#{id}.jpg")
+     File.join(DVDPost.images_path, 'surveys', "answer", "#{id}.jpg")
   end
 
 end
