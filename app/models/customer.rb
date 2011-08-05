@@ -294,10 +294,11 @@ class Customer < ActiveRecord::Base
         credit = self.update_attribute(:credits, (self.credits + quantity))
         history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id, :credit => nil)
        rescue ActiveRecord::StatementInvalid 
-         notify_credit_hoptoad
+         notify_credit_hoptoad('add',action,quantity)
          raise ActiveRecord::Rollback
        end
     end
+    return true
   end
   
   def remove_credit(quantity, action)
@@ -615,11 +616,11 @@ class Customer < ActiveRecord::Base
     end
   end
   
-  def notify_credit_hoptoad()
+  def notify_credit_hoptoad(action, action_type, quantity)
     begin
-      HoptoadNotifier.notify(:error_message => "customer have a problem with credit : #{to_param}")
+      HoptoadNotifier.notify(:error_message => "customer have a problem with credit customer_id : #{to_param} action: #{action} action type: #{action_type} quantity: #{quantity}")
     rescue => e
-      logger.error("customer have a problem with credit: #{to_param}")
+      logger.error("customer have a problem with credit customer_id : #{to_param} action: #{action} action type: #{action_type} quantity: #{quantity}")
       logger.error(e.backtrace)
     end
   end
