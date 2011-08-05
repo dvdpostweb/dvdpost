@@ -16,7 +16,7 @@
         <div class="name">
           <strong><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
           <%= customer_awards(customer, customer.customer_attribute.points) %>
-          (<%= reviews_count %> la<%= review_title(reviews_count) %>) 
+          (<%= reviews_count %> <%= review_title(reviews_count) %>) 
           <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
         </div>
         <strong style='clear:both'><%= t '.rating' %> :</strong> 

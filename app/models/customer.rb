@@ -283,21 +283,20 @@ class Customer < ActiveRecord::Base
     else
       credit_free = 0
     end
-    history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id)
-    if history.id.blank?
-      status = false
+    
+    if credit_history
+      credit_paid = credit_history.credit_paid + credit_history.quantity_paid
     else
-      status = true
+      credit_paid = 0
     end
-    if status == true
-      credit = self.update_attribute(:credits, (self.credits + quantity))
-      if credit == false
-        false
-      else
-        true
-      end
-    else
-      false  
+    Customer.transaction do
+      begin
+        credit = self.update_attribute(:credits, (self.credits + quantity))
+        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id, :credit => nil)
+       rescue ActiveRecord::StatementInvalid 
+         notify_credit_hoptoad
+         raise ActiveRecord::Rollback
+       end
     end
   end
   
@@ -308,8 +307,13 @@ class Customer < ActiveRecord::Base
     else
       credit_free = 0
     end
+    if credit_history
+      credit_paid = credit_history.credit_paid + credit_history.quantity_paid
+    else
+      credit_paid = 0
+    end
     if credit_free >= quantity
-      history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- quantity), :abo_type => abo_type_id)
+      history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- quantity), :abo_type => abo_type_id)
       if history.id.blank?
         status = false
       else
@@ -318,7 +322,7 @@ class Customer < ActiveRecord::Base
     elsif credit_free + credits >= quantity
       qt_paid = quantity - credit_free
       qt_free = credit_free
-      history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
+      history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
       
       if history.id.blank?
         status = false
@@ -327,7 +331,7 @@ class Customer < ActiveRecord::Base
       end
       
     elsif credits >= quantity 
-      history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_paid => (- quantity), :abo_type => abo_type_id)
+      history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_paid => (- quantity), :abo_type => abo_type_id)
       if history.id.blank?
         status = false
       else
@@ -607,6 +611,15 @@ class Customer < ActiveRecord::Base
       HoptoadNotifier.notify(:error_message => "customer dont abo abo_type : #{to_param}")
     rescue => e
       logger.error("customer dont abo abo_type : #{to_param}")
+      logger.error(e.backtrace)
+    end
+  end
+  
+  def notify_credit_hoptoad()
+    begin
+      HoptoadNotifier.notify(:error_message => "customer have a problem with credit : #{to_param}")
+    rescue => e
+      logger.error("customer have a problem with credit: #{to_param}")
       logger.error(e.backtrace)
     end
   end
