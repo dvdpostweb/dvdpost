@@ -313,43 +313,30 @@ class Customer < ActiveRecord::Base
     else
       credit_paid = 0
     end
+    status = true
     if credit_free >= quantity
-      history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- quantity), :abo_type => abo_type_id)
-      if history.id.blank?
-        status = false
-      else
-        status = true
-      end
+      qt_free = quantity
+      qt_paid = 0
     elsif credit_free + credits >= quantity
       qt_paid = quantity - credit_free
       qt_free = credit_free
-      history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
-      
-      if history.id.blank?
-        status = false
-      else
-        status = true
-      end
-      
     elsif credits >= quantity 
-      history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_paid => (- quantity), :abo_type => abo_type_id)
-      if history.id.blank?
-        status = false
-      else
-        status = true
-      end
-      
+      qt_free = 0
+      qt_paid = quantity
     else
       status = false
     end
-    
     if status == true
-      credit = self.update_attribute(:credits, (self.credits - quantity))
-      if credit == false
-        false
-      else
-        true
-      end
+      Customer.transaction do
+        begin
+          credit = self.update_attribute(:credits, (self.credits - quantity))
+          history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
+        rescue ActiveRecord::StatementInvalid 
+           notify_credit_hoptoad('remove',action,quantity)
+           raise ActiveRecord::Rollback
+        end
+      end 
+      true 
     else
       false  
     end
