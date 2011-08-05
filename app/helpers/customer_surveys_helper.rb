@@ -8,7 +8,14 @@ module CustomerSurveysHelper
       when 3
         detail.director.name if detail.director
       when 4
-        t "customer_surveys.new.detail.item#{survey.to_param}_#{detail.to_param}"
+        case I18n.locale
+        when :en
+          detail.free_text_en
+        when :nl
+          detail.free_text_nl
+        else
+          detail.free_text_fr
+        end
       else
         ''
     end

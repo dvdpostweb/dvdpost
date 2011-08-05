@@ -48,7 +48,13 @@ $(function() {
       {
         month = new String('0'+month)
       }
-      if (dateText == d.getDate()+"-"+month+"-"+d.getFullYear())
+      day = d.getDate()
+      if(parseInt(day)<10)
+      {
+        day = new String('0'+day)
+      }
+      
+      if (dateText == day+"-"+month+"-"+d.getFullYear())
       {
         limit = 0
         h = d.getHours()
@@ -87,6 +93,7 @@ $(function() {
         $.each($('#phone_request_hour').children(), function (){
           if(parseInt($(this).attr('value'))<=limit)
           {
+            $(this).attr('disabled','disabled')
             $(this).hide()
           }
         })
@@ -97,6 +104,7 @@ $(function() {
       {
         $.each($('#phone_request_hour').children(), function (){
             $(this).show()
+            $(this).removeAttr('disabled');
         })
       }
     },
@@ -183,6 +191,7 @@ $(document).ajaxSend(function(event, request, settings) {
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     }
 });
+
 
 // When I say html I really mean script for rails
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
