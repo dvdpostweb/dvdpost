@@ -292,7 +292,7 @@ class Customer < ActiveRecord::Base
     Customer.transaction do
       begin
         credit = self.update_attribute(:credits, (self.credits + quantity))
-        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id, :credit => nil)
+        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id)
        rescue ActiveRecord::StatementInvalid 
          notify_credit_hoptoad('add',action,quantity)
          raise ActiveRecord::Rollback
