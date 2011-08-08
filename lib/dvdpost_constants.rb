@@ -326,7 +326,7 @@ module DVDPost
       })
     end
     
-    def create_token(filename)
+    def generate_token_from_alpha(filename)
       url = "http://apache.alphanetworks.be/dvdpost/webservice?method=create&filename=#{filename}&lifetime=2880&simultIp=1"
      open url do |data|
        node = Hpricot(data).search('//create')

@@ -49,6 +49,7 @@ class Token < ActiveRecord::Base
     error.push(:not_enough_credit, 2)
     error.push(:query_rollback, 3)
     error.push(:user_suspended, 4)
+    error.push(:generation_token_failed, 5)
     
     error
   end

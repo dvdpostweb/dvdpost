@@ -2632,9 +2632,11 @@ div.top10.first p a {
   clear: both;
   color: #303030;
   font-weight: bold;
-  height: 49px;
+  height: 60px;
   margin: 5px 0 0 0;
-  padding: 15px 2px 0 70px;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 2px 0 70px;
   text-transform: uppercase;
   width: 111px;
 }
