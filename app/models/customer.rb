@@ -342,15 +342,25 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def create_token(imdb_id, product, current_ip)
-    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || super_user?
-      if StreamingProductsFree.by_imdb_id(imdb_id).first.source == StreamingProduct.source[:alphanetworks]
-        token_string = DVDPost.create_token('dorcel1')
-        token = Token.create(
-          :customer_id => id,
-          :imdb_id     => imdb_id,
-          :token       => token_string
-        )
+  def create_token(imdb_id, product, current_ip, streaming_product_id)
+    file = StreamingProduct.find(streaming_product_id)
+    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 #|| super_user?
+      if file.source == StreamingProduct.source[:alphanetworks]
+        token_string = DVDPost.generate_token_from_alpha(file.filename)
+        if token_string
+          token = Token.create (          
+            :customer_id => id,          
+            :imdb_id     => imdb_id,          
+            :token       => token_string        
+          )
+          if token.id.blank?
+            return {:token => nil, :error => Token.error[:query_rollback]}
+          else
+            return {:token => token, :error => nil}
+          end
+        else
+          return {:token => nil, :error => Token.error[:generation_token_failed]}
+        end
       else
         Token.transaction do
           token = Token.create(
@@ -377,24 +387,46 @@ class Customer < ActiveRecord::Base
       end
       
       if !abo_process || (customer_abo_process || abo_process.finished?)
-        Token.transaction do
-          token = Token.create(
-            :customer_id => id,
-            :imdb_id     => imdb_id
-          )
-          token_ip = TokenIp.create(
-            :token_id => token.id,
-            :ip => current_ip
-          )
-          result_credit = remove_credit(1, 12)
-          if token.id.blank? || token_ip.id.blank? || result_credit == false
-            error = Token.error[:query_rollback]
-            raise ActiveRecord::Rollback
-            return {:token => nil, :error => Token.error[:query_rollback]}
-          end
-          {:token => token, :error => nil}
-        end
         
+        if file.source == StreamingProduct.source[:alphanetworks]
+          token_string = DVDPost.generate_token_from_alpha(file.filename)
+          if token_string
+            Token.transaction do
+              token = Token.create (          
+                :customer_id => id,          
+                :imdb_id     => imdb_id,          
+                :token       => token_string        
+              )
+              result_credit = remove_credit(1, 12)
+              if token.id.blank? || result_credit == false
+                error = Token.error[:query_rollback]
+                raise ActiveRecord::Rollback
+                return {:token => nil, :error => Token.error[:query_rollback]}
+              end
+              {:token => token, :error => nil}
+            end
+          else
+            return {:token => nil, :error => Token.error[:generation_token_failed]}
+          end
+        else
+          Token.transaction do
+            token = Token.create(
+              :customer_id => id,
+              :imdb_id     => imdb_id
+            )
+            token_ip = TokenIp.create(
+              :token_id => token.id,
+              :ip => current_ip
+            )
+            result_credit = remove_credit(1, 12)
+            if token.id.blank? || token_ip.id.blank? || result_credit == false
+              error = Token.error[:query_rollback]
+              raise ActiveRecord::Rollback
+              return {:token => nil, :error => Token.error[:query_rollback]}
+            end
+            {:token => token, :error => nil}
+          end
+        end
       else
         return {:token => nil, :error => Token.error[:abo_process_error]}
       end

@@ -1,7 +1,6 @@
 class StreamingProductsController < ApplicationController
   def show
     streaming = StreamingProduct.find_by_imdb_id(params[:id])
-    Rails.logger.debug { "@@@#{streaming.source}" }
     if streaming.source == StreamingProduct.source[:alphanetworks]
       @streaming_prefered = StreamingProduct.group_by_language.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = StreamingProduct.group_by_language.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
@@ -41,7 +40,7 @@ class StreamingProductsController < ApplicationController
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token || status == Token.status[:expired]
-              creation = current_customer.create_token(params[:id], @product, request.remote_ip)
+              creation = current_customer.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id])
               @token = creation[:token]
               error = creation[:error]
               
