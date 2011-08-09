@@ -98,11 +98,11 @@ class ProductsController < ApplicationController
       @public_url = product_public_path(@product)
       if @product.imdb_id == 0
         @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
-        @reviews_count = @product.reviews.approved.by_language(I18n.locale).count
       else  
         @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-        @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
       end
+      @reviews_count = product_reviews_count(@product)
+      
       product_recommendations = @product.recommendations(params[:kind])
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])

@@ -1,7 +1,6 @@
 <% product = best_item.product %>
 <% if product %>
   <% product_title = product.title %>
-  <% count_critique = product.reviews.by_language(I18n.locale).approved.count %>
   <li>
     <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content"> 

@@ -401,4 +401,5 @@ module ProductsHelper
     end
     images
   end
+  
 end

@@ -338,4 +338,13 @@ module ApplicationHelper
       end
       @message.save
   end
+
+  def product_reviews_count(product)
+    if product.imdb_id == 0
+      product.reviews.approved.by_language(I18n.locale).count
+    else  
+      Review.by_imdb_id(product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
+    end
+  end
+
 end
