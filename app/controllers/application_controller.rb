@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
     else
       country_code = session[:country_code]
     end
-   session[:country_code] = 'BE'
+   #session[:country_code] = 'BE'
    #country_code = 'BE'
   end
   

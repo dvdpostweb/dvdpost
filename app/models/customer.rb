@@ -292,7 +292,8 @@ class Customer < ActiveRecord::Base
     Customer.transaction do
       begin
         credit = self.update_attribute(:credits, (self.credits + quantity))
-        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().localtime.to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id)
+        date_added = 2.hours.from_now.localtime.to_s(:db)
+        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_free => quantity, :abo_type => abo_type_id)
        rescue ActiveRecord::StatementInvalid 
          notify_credit_hoptoad('add',action,quantity)
          raise ActiveRecord::Rollback
@@ -348,7 +349,7 @@ class Customer < ActiveRecord::Base
       if file.source == StreamingProduct.source[:alphanetworks]
         token_string = DVDPost.generate_token_from_alpha(file.filename)
         if token_string
-          token = Token.create (          
+          token = Token.create(          
             :customer_id => id,          
             :imdb_id     => imdb_id,          
             :token       => token_string        
@@ -392,7 +393,7 @@ class Customer < ActiveRecord::Base
           token_string = DVDPost.generate_token_from_alpha(file.filename)
           if token_string
             Token.transaction do
-              token = Token.create (          
+              token = Token.create(          
                 :customer_id => id,          
                 :imdb_id     => imdb_id,          
                 :token       => token_string        
