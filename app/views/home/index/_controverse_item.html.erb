@@ -1,14 +1,14 @@
 <% product = controverse_item.product %>
 <% if product %>  
   <% product_title = product.title%>
-  <% count_critique = product.reviews.by_language(I18n.locale).approved.count %>
+  <% reviews_count = product_reviews_count(product) %>
   <li>
     <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content"> 
       <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
-        <% if count_critique > 0 %>
+        <% if reviews_count > 0 %>
         <div style="margin: 5px 0 0 0">
-           <% text = "#{count_critique}  #{review_title(count_critique)}" %>
+           <% text = "#{reviews_count}  #{review_title(reviews_count)}" %>
            <%= link_to text, product_path(:id => product.to_param), :class => 'view-all' %>
         </div>
           
