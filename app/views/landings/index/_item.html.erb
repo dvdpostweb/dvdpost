@@ -1,10 +1,13 @@
-<li>
-  
-<% if Translation.find_all_by_tr_key("title_#{item.to_param}").count > 0 %>
-  <%= link_to item.name, landing_texts_path(:landing_id => item.to_param) %> - 
-  <%= link_to 'edit', edit_landing_texts_path(:landing_id => item.to_param) %>
-<% else %>
-  <%= item.name %> -
-  <%= link_to 'new', new_landing_texts_path(:landing_id => item.to_param) %>
+<tr>
+    <% if Translation.find_all_by_tr_key("title_#{item.to_param}").count > 0 %>
+      <td>
+      <%= link_to item.name, landing_texts_path(:landing_id => item.to_param) %>
+      </td>
+      <td>
+      <%= link_to 'edit', edit_landing_texts_path(:landing_id => item.to_param) %>
+      </td>
+      <% else %>
+  <td><%= item.name %></td>
+  <td><%= link_to 'new', new_landing_texts_path(:landing_id => item.to_param) %></td>
 <% end %>
-</li> 
+</tr> 
