@@ -1,0 +1,16 @@
+<h2><%= @title %></h2>
+<div class='text_size'>
+<h5>title</h5>
+fr : <%= @title_fr.text %><br />
+nl : <%= @title_nl.text %><br />
+en : <%= @title_en.text %><br />
+<h5>name</h5>    
+fr : <%= @name_fr.text%><br />
+nl : <%= @name_nl.text%><br />
+en : <%= @name_en.text%><br />
+<h5>link</h5>  
+fr : <%= @link_fr.text%><br />
+nl : <%= @link_nl.text%><br />
+en : <%= @link_en.text%><br /><br />
+<%= link_to 'edit', edit_landing_texts_path(:landing_id => params[:landing_id]) %> - <%= link_to 'landings list', landings_path()%>
+</div>

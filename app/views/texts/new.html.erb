@@ -1,0 +1,21 @@
+<h2><%= @title %></h2>
+<div class="text_size">
+<% form_for :texts, :url => landing_texts_path(params[:landing_id]) do |f| %>
+<h5>title</h5>
+fr :<%= text_field_tag :title_fr %>
+nl :<%= text_field_tag :title_nl %>
+en :<%= text_field_tag :title_en %><br />
+<h5>name</h5>
+fr :<%= text_field_tag :name_fr %>
+nl :<%= text_field_tag :name_nl %>
+en :<%= text_field_tag :name_en %><br />
+<h5>link</h5>
+fr :<%= text_field_tag :link_fr %>
+nl :<%= text_field_tag :link_nl %>
+en :<%= text_field_tag :link_en %><br />
+<br />
+<input type="submit" value ="create">  - <%= link_to 'landings list', landings_path()%>
+<br />
+<br />
+<% end %>
+</div>

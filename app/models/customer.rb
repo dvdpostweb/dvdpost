@@ -538,12 +538,12 @@ class Customer < ActiveRecord::Base
 
   def inducator_close(status)
     build_customer_attribute unless customer_attribute
-    customer_attribute.update_attributes(:list_indicator_close => status)
+    customer_attribute.update_attribute(:list_indicator_close, status)
   end
 
   def bluray_owner(status)
     build_customer_attribute unless customer_attribute
-    customer_attribute.update_attributes(:bluray_owner => status)
+    customer_attribute.update_attribute(:bluray_owner, status)
   end
 
   def last_login(kind)

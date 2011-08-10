@@ -1,0 +1,10 @@
+<li>
+  
+<% if Translation.find_all_by_tr_key("title_#{item.to_param}").count > 0 %>
+  <%= link_to item.name, landing_texts_path(:landing_id => item.to_param) %> - 
+  <%= link_to 'edit', edit_landing_texts_path(:landing_id => item.to_param) %>
+<% else %>
+  <%= item.name %> -
+  <%= link_to 'new', new_landing_texts_path(:landing_id => item.to_param) %>
+<% end %>
+</li> 
