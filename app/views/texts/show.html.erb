@@ -17,5 +17,5 @@ nl :<%= @link_nl.text%><br />
   <%= link_to 'edit', edit_landing_texts_path(:landing_id => params[:landing_id]) %>
 <% else %>
   <%= link_to 'new', new_landing_texts_path(:landing_id => params[:landing_id]) %>
-<% end %>
+<% end %>   - <%= link_to 'landings list', landings_path()%>
 </div>
