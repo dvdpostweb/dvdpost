@@ -1,5 +1,6 @@
 class TextsController < ApplicationController
   before_filter :get_data
+  before_filter :http_authenticate
   def new
   end
   def create
