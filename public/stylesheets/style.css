@@ -4187,3 +4187,21 @@ float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
 {
   color: #454545 !important;
 }
+.text_size
+{
+  font-size: 1.5em;
+}
+.text_size input
+{
+  width: 200px;
+  height: 20px;
+}
+.text_size h5
+{
+  margin:10px 0;
+}
+.text_size a
+{
+  color :#333;
+  text-decoration: underline; 
+}

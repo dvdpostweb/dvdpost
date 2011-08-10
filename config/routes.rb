@@ -9,7 +9,9 @@ ActionController::Routing::Routes.draw do |map|
     oauth.oauth_callback 'oauth/callback', :action => :callback, :conditions => {:method => :get}
     oauth.sign_out 'sign_out', :action => :sign_out, :conditions => {:method => :get}
   end
-
+  map.resources :landings, :only => [:index] do |landing|
+    landing.resource :texts
+  end
   map.with_options :path_prefix => '/:locale/:kind' do |localized|
     localized.filter "kind"
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
