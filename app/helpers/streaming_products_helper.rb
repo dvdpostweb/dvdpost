@@ -43,8 +43,8 @@ module StreamingProductsHelper
      <param name='allowScriptAccess' value='always' /> 
      <param name='bgcolor' value='#000000' /> 
      <param name='allowfullscreen' value='true' /> 
-     <param name='flashvars' value= '&src=http://94.139.63.250/#{token_name}/#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true'/>
-     <embed src='http://94.139.63.250/swfs/StrobeMediaPlayback.swf' width='640' height='377' id='StrobeMediaPlayback' quality='high' allowScriptAccess='always' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer' flashvars='&src=http://94.139.63.250/{TOKEN_AUDIO_SUBTITLE}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true' type='application/x-shockwave-flash'>
+     <param name='flashvars' value= '&src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true'/>
+     <embed src='http://94.139.63.250/swfs/StrobeMediaPlayback.swf' width='640' height='377' id='StrobeMediaPlayback' quality='high' allowScriptAccess='always' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer' flashvars='&src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true' type='application/x-shockwave-flash'>
      </embed>
      </object>"
     else

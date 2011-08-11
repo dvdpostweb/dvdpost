@@ -38,6 +38,7 @@ class StreamingProductsController < ApplicationController
           if !current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip)
             @token = current_customer.get_token(@product.imdb_id)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
+            
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token || status == Token.status[:expired]
               creation = current_customer.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id])
