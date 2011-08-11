@@ -492,7 +492,7 @@ class Customer < ActiveRecord::Base
   end
   
   def get_all_tokens
-    tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+    tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_products, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
   end
   
   def remove_product_from_wishlist(imdb_id, current_ip)
