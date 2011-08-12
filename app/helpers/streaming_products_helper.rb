@@ -1,52 +1,10 @@
 module StreamingProductsHelper
   def flowplayer(source_file, source, streaming, token_name)
     if source == StreamingProduct.source[:alphanetworks]
-      #if caption_file
-      #  source = "mp4:120619_FA.mp4"
-      #  caption_name = source.gsub(/(mp4:)([0-9_]*)([a-zA-Z]*)(.mp4)/,'\\2')
-      #  caption_name = "#{caption_name}#{caption_file.short}.srt"
-      #  caption = "captionUrl: '#{caption_name}',"
-      #else
-      #  caption = ""
-      #end
-      subtitle = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short : nil
-     #  script = <<-script
-     # $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},
-     # {
-     #   key: '\#$dcba96641dab5d22c24',
-     #   version: [10, 0],
-     #   clip: {
-     #     url: '#{CDN.connect_url(token_name, StreamingProduct.source[:alphanetworks], streaming.languages.by_language(:fr).first.short_alpha, subtitle)}'
-     #   },
-     #
-     #   canvas: {
-     #           backgroundColor:'#000000'
-     #   },
-     #   plugins: {
-     #     controls: {
-     #       autoHide:
-     #       {
-     #         "enabled":true,
-     #         "mouseOutDelay":500,
-     #         "hideDelay":2000,
-     #         "hideDuration":400,
-     #         "hideStyle":"fade",
-     #         "fullscreenOnly":true
-     #       }
-     #     }
-     #   }
-     # });
-     # script
      
-     return "<object width='640' height='377' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' >
-     <param name='movie' value='http://94.139.63.250/swfs/StrobeMediaPlayback.swf' /> <param name='quality' value='high' /> 
-     <param name='allowScriptAccess' value='always' /> 
-     <param name='bgcolor' value='#000000' /> 
-     <param name='allowfullscreen' value='true' /> 
-     <param name='flashvars' value= '&src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true'/>
-     <embed src='http://94.139.63.250/swfs/StrobeMediaPlayback.swf' width='640' height='377' id='StrobeMediaPlayback' quality='high' allowScriptAccess='always' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer' flashvars='&src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true' type='application/x-shockwave-flash'>
-     </embed>
-     </object>"
+     script = <<-script
+      $("#player").html("<object width='696' height='389' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000'>      <param name='movie' value='http://94.139.63.250/swfs/StrobeMediaPlayback.swf' /> <param name='quality' value='high' />       <param name='allowScriptAccess' value='always' />       <param name='bgcolor' value='#000000' />       <param name='allowfullscreen' value='true' />       <param name='flashvars' value= '&src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true'/>      <embed src='http://94.139.63.250/swfs/StrobeMediaPlayback.swf' width='696' height='389' id='StrobeMediaPlayback' quality='high' allowScriptAccess='always' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer' flashvars='&src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}.f4m&autoHideControlBar=false&streamType=recorded&autoPlay=true' type='application/x-shockwave-flash'>      </embed>      </object>");
+      script
     else
       script = <<-script
       $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},
