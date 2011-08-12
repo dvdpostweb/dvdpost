@@ -35,8 +35,8 @@ class StreamingProductsController < ApplicationController
       format.js do
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
+          @token = current_customer.get_token(@product.imdb_id)
           if !current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip)
-            @token = current_customer.get_token(@product.imdb_id)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
@@ -103,7 +103,7 @@ class StreamingProductsController < ApplicationController
             
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
-            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end
