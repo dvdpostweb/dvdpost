@@ -10,7 +10,10 @@ p
 {
   margin-bottom:15px;
 }
-
+body
+{
+  text-shadow: none !important;
+}
 /*   ============   HOME PAGE   ============   */
 
 #hp-content {
@@ -476,15 +479,40 @@ p
   text-transform: uppercase;
   color: #fff;
   padding: 5px 10px;
-  background: #85ba17;
   margin-bottom: 12px;
+}
+#selection-tabcontent-wrap .slides li.vod h3 {
+background: #85ba17;
+}
+#selection-tabcontent-wrap .slides li.dvd h3 {
+background: #333333;
+}
+#selection-tabcontent-wrap .slides li.bluray h3 {
+background: #009EE0;
+}
+#selection-tabcontent-wrap .slides li.vod h4 {
+color: #85ba17;
+}
+#selection-tabcontent-wrap .slides li.dvd h4 {
+color: #333333;
+}
+#selection-tabcontent-wrap .slides li.bluray h4 {
+color: #009EE0;
 }
 
 .slides li .wrap {
-  padding-left: 117px;
   position: relative;
 }
+#selection-tabcontent-wrap .slides li .wrap {
+  padding-left: 116px;
+}
 
+.slides li .wrap p img{
+  margin: 0 10px 0 0;
+}
+.slides li .wrap p a{
+  text-decoration:none;
+}
 .slides li h4 {
   color: #85ba17;
   font-size: 1em;
@@ -513,12 +541,20 @@ p
 .carousel-wrap .pagination {
   position: absolute;
   top: 10px;
+  right: 62px;
+  margin: 3px 0 0;
+  font-weight: bold;
+  line-height: 12px;
+}
+.carousel-wrap .pagination2 {
+  position: absolute;
+  top: 10px;
   right: 10px;
   font-weight: bold;
   line-height: 12px;
 }
 
-.carousel-wrap .pagination a {
+.carousel-wrap .pagination a,.carousel-wrap .pagination2 a, .carousel-wrap .pagination span.current {
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -527,11 +563,14 @@ p
   background: url(../images/carousel-pagination-bg.png) 0 0 no-repeat;
 }
 
-.carousel-wrap .pagination a:hover, .carousel-wrap .pagination a.active {
+.carousel-wrap .pagination a:hover, .carousel-wrap .pagination span.current {
   background-position: 0 100%;
 }
-
-.carousel-wrap .pagination a#back, .carousel-wrap .pagination a#next {
+.hide_arrow .prev_page, .hide_arrow .next_page
+{
+  display:none !important;
+}
+.carousel-wrap .pagination2 a.prev_page, .carousel-wrap .pagination2 a.next_page {
   width: 19px;
   height: 21px;
   line-height: 21px;
@@ -539,7 +578,7 @@ p
   background: url(../images/carousel-arrows-home.png) 0 0 no-repeat;
 }
 
-.carousel-wrap .pagination a#next {
+.carousel-wrap .pagination2 a.next_page {
   background-position: 100% 0;
 }
 
@@ -767,6 +806,10 @@ p
 
 #news-wrap .pagination {
   top: 20px;
+  right: 52px;
+}
+#news-wrap .pagination2 {
+  top: 20px;
   right: 0;
 }
 
@@ -805,6 +848,10 @@ p
 #apps-wrap li a {
   color: #fff;
 }
+#apps-wrap li a.black
+{
+  color: #333;
+}
 
 #apps-wrap ul li:first-child {
   margin-left: 0;
@@ -837,7 +884,19 @@ p
 }
 
 
-
+.overlay
+{
+  background: none repeat scroll 0 0 #333333;
+  color: #FFFFFF;
+  height: 78px;
+  opacity: 0.8;
+  padding: 5px;
+  position: absolute;
+  width: 55px;
+  filter: alpha(opacity=80);
+  cursor: pointer;
+  
+}
 
 
 /*   ---------   Float containers fix   ---------   */

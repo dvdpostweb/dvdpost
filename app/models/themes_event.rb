@@ -5,6 +5,7 @@ class ThemesEvent < ActiveRecord::Base
   named_scope :selected_beta, :conditions => {:themes_events_selection_id => 2}
   named_scope :by_kind, lambda {|kind| {:conditions => {:kind => kind.to_s}}}
   named_scope :old, :conditions => {:themes_events_selection_id => [3,4]}
+  named_scope :hp, :conditions => {:banner_hp => true}
   named_scope :ordered, :order => "id desc"
 
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true

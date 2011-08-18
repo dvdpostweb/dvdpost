@@ -14,10 +14,7 @@ class ApplicationController < ActionController::Base
     before_filter :save_attempted_path, :unless => :is_it_xml?
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
-    before_filter :wishlist_size, :unless => :is_it_xml?
-    before_filter :indicator_close?, :unless => :is_it_xml?
     before_filter :delegate_locale, :if => :is_it_html?
-    before_filter :messages_size, :if => :is_it_html?
     before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
@@ -27,7 +24,6 @@ class ApplicationController < ActionController::Base
     before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
-    
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -57,6 +53,14 @@ class ApplicationController < ActionController::Base
       @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).last
     else
       @theme = ThemesEvent.selected.by_kind(params[:kind]).last
+    end
+  end
+
+  def theme_actif_hp
+    if Rails.env == "pre_production"
+      return  ThemesEvent.selected_beta.hp.by_kind(params[:kind]).last
+    else
+      return ThemesEvent.selected.hp.by_kind(params[:kind]).last
     end
   end
 

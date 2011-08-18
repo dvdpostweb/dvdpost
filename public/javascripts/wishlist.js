@@ -19,15 +19,23 @@ $(function() {
     loader = 'ajax-loader.gif';
     title = $(this).parent().parent().parent().parent().children('.title').children().html();
     question = $("#confirm").html();
-    confirm_sentence =  question.replace('[title]',title);
-    if (confirm(confirm_sentence)) {
+    if(question){
+      confirm_sentence =  question.replace('[title]',title);
+      if (confirm(confirm_sentence)) {
+        $(this).parent().parent().ajaxSubmit(options);
+        $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
+      }
+      
+    }
+    else
+    {
       $(this).parent().parent().ajaxSubmit(options);
       $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
+      
     }
     return false; // prevent default behaviour
   });
   $(".trash a").live("click", function() {
-    alert('click')
     title = $(this).parent().parent().children('.title').children().html();
     alert(title)
     question = $("#confirm").html();

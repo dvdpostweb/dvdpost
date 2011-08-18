@@ -157,17 +157,17 @@ h2#n-c {
 }
 #tabs-wrap
 {
-  width:890px;
+  width:940px;
 }
 
 #tabs-review li a#tab1 {
   width: 210px;
 }
 #tabs-review li a#tab2 {
-  width: 233px;
+  width: 255px;
 }
 #tabs-review li a#tab3 {
-  width: 243px;
+  width: 260px;
 }
 #tabs-review li a#tab4 {
   width: 204px;
@@ -209,7 +209,7 @@ box-shadow:3px 3px 2px #919191;
 #tab-content-1 li, #tab-content-3 li {
   float: left;
   display: block;
-  width: 274px;
+  width: 289px;
   margin: 0 15px 15px 0;
 }
 .tab-content li h2 {
@@ -365,7 +365,7 @@ bottom: 15px;
 #tab-content-2 li {
   float: left;
   display: block;
-  width: 412px;
+  width: 433px;
   margin: 0 15px 30px;
 }
 #tab-content-2 h2 {
@@ -375,7 +375,7 @@ bottom: 15px;
 
 #tab-content-2 li .content {
   float: right;
-  width: 290px;
+  width: 314px;
   min-height: 205px;
   padding: 8px 5px 0 10px;
   background: #f7f7f7;
