@@ -1,60 +1,37 @@
-<div id="welcome">
-  <h4>
-    <%= t '.welcome' %> <%= current_customer.customers_firstname %>
-  </h4>
-  <div id="votre-liste" class="<%= list_indicator_class(@wishlist_size) %>">
-    <%= t('.contains') %> 
-    <span><%= wishlist_count %> <%= t '.dvd' %></span>
+<!-- user info -->
+<div id="user-info-wrap" class="clearfix">
+  <div id="user-container" class="clearfix">
+    <div id="user-info">
+      <!-- Bonjour Maud -->
+      <div id="user">
+        <h3><%= t '.welcome' %> <%= current_customer.customers_firstname %></h3>
+        <ul>
+          <li><%= customer_awards(current_customer, current_customer.customer_attribute.points) %></li>
+          <li><a href="<%= customer_reviews_path(:customer_id => current_customer.to_param) %>"><%= review_count %> <%= review_title(review_count) %></a></li>
+          <li><%= rating_count %> <%= rating_title(rating_count) %></li>
+        </ul>
+        <%= image_tag get_avatar(current_customer), :width => 64, :class=> "thumb" %>
+       </div>
+      <!-- Titres chez vous ou en transit  -->
+      <ul id="user-titles">
+        <li><%= t '.lent' %>: <a href="<%= wishlist_path() %>"><%= transit_items.count %> <%= t '.dvd' %></a></li>
+        <li><%= t '.wishlist_size' %> : <a href="<%= wishlist_path() %>"><%= wishlist_count %> <%= t '.dvd' %></a> 
+        <% if WishlistItem.good_size?(current_customer, wishlist_count) %>
+          <%= link_to t('.fill_in'), products_path(), :class => 'alert' %>
+        <% end %>
+        </li>
+        <li>
+          <%= t('.credit') %>: <a href="<%= customer_path(:id => current_customer.to_param)%>"><%= current_customer.credit_per_month == 0 ? current_customer.credits : "#{current_customer.credits} #{t '.dvd'}" %></a> 
+          <% if current_customer.credit_empty? %>
+            <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
+            <% end %>
+        </li>
+        <li><%= t '.date_end_abo' %> <%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></li>
+      </ul>
+    </div>
+    <%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} %>
   </div>
-  <table border="0" cellspacing="0" cellpadding="0" id ='wishlist_widget'>
-    <colgroup>
-    <col class="col1" />
-    <col class="col2" />
-  </colgroup>
-  <tr>
-    <th colspan="2">
-      <%= t '.lent' %>
-      <span>
-        <%= transit_items.count %> <%= t '.dvd' %>
-      </span>
-    </th>
-  </tr>
-  <% transit_items.each do |transit_item| %>
-  <tr>
-    <td><%= link_to truncate(product_assigned_title(transit_item.product), :length => 30), product_assigned_path(transit_item.product) %></td>
-    <td><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
-  </tr>
-  <% end %>
-  <% if streaming_access? && streaming_available.count > 0 %>
-    <tr>
-      <th colspan="2">
-        <%= t '.streaming_available' %> :
-        <span>
-          <%= streaming_available.count %> <%= streaming_available.count > 1 ? t('.movies') : t('.movie') %>
-        </span>
-      </th>
-    </tr>
-    <% streaming_available.each do |stream| %>
-      <tr>
-        <td><%= link_to truncate(stream.products.first.description.title, :length => 30), streaming_product_path(:id => stream.imdb_id) if stream.products.first %></td>
-        <td><%= "#{time_left(stream)}" %></td>
-      </tr>
-    <% end %>
-  <% end %>
-  </table>
-    <% if @offline_request.count > 0 %>
-      </div>
-      <%= render :partial => 'home/index/offline_request', :locals => {:offline_request => @offline_request} %>
-    <% elsif @renew_subscription  %>
-      </div>
-      <%= render :partial => 'home/index/credit_empty', :locals => {:offline_request => @offline_request} %>
-    <% elsif @not_rated_product %>
-      <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} %>
-      </div>
-    <% else %>
-      <%= render :partial => 'home/index/facebook_like' %>
-      </div>
-    <% end %>
-  
+  <!-- Thème de la semaine -->
+  <%= render :partial => '/home/index/theme_of_week' %>
 
-<div class="clear"></div>
+</div>

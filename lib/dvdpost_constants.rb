@@ -337,5 +337,13 @@ module DVDPost
        end  
      end
     end
+
+    def list_styles
+      HashWithIndifferentAccess.new.merge({
+        :dvd => 'DVD',
+        :bluray => 'BLURAY',
+        :vod => 'STREAMING'
+      })
+    end
   end
 end

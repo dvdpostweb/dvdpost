@@ -29,7 +29,7 @@ $(function() {
     return false;
   });
 
-  $(".stars .star, #cotez .star, .rating .star").live("click", function() {
+  $(".stars .star, .comments .star, .rating .star").live("click", function() {
     url = $(this).parent().attr('href');
     html_item = $(this).parent().parent();
     content = html_item.html();
@@ -44,7 +44,14 @@ $(function() {
       data: {},
       success: function(data) {
         if (url.match(/replace=homepage/)){
-          html_item.parent().replaceWith(data);
+          if(data.match(/user-movies-wrap/))
+          {
+            html_item.parent().parent().parent().parent().replaceWith(data);  
+          }
+          else
+          {
+            html_item.parent().parent().parent().replaceWith(data);  
+          }
         }else{
           html_item.html(data);
         }
@@ -57,7 +64,7 @@ $(function() {
     return false;
   });
 
-  $(".stars .star, #cotez .star, .rating .star").live("mouseover", function(){
+  $(".stars .star, .comments .star, .rating .star").live("mouseover", function(){
     data = $(this).attr('id').replace('star_','').split('_');
     product_id = data[0];
     rating_value = data[1];
@@ -89,7 +96,7 @@ $(function() {
     }
   });
 
-  $(".stars .star, #cotez .star, .rating .star").live("mouseout", function() {
+  $(".stars .star, .comments .star, .rating .star").live("mouseout", function() {
     product_id = $(this).attr('id').replace('star_','').split('_')[0];
     for(var i=1; i<=5; i++)
     {

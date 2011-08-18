@@ -1,19 +1,11 @@
 <% path = carousel_path(carousel_item) %>
-<% counter = carousel_item_counter + 1 %>
-<div class="panel" id ="panel<%= counter %>">
-  <div class="capt">
-    <h2><%= link_to t(".name_#{carousel_item.id}"), path %></h2>
-    <ul>
-      <li>
-        <%= link_to t(".link_#{carousel_item.id}"), path, :class => :rent %>
-      </li>
-      <% if carousel_item.kind == 'MOVIE' && carousel_item.product.trailer %>
-      <li class="delim"></li>
-      <li>
-        <%= link_to(t('.trailer'), product_trailer_path(:product_id => carousel_item.product.to_param), {:class => 'trailer', :target => :_blank}) %>
-      </li>
-      <% end %>
-    </ul>
+<% counter = carousel_item_counter %>
+<% link = "<strong>#{t("home.index.carousel_item.link_#{carousel_item.id}")}</strong>" %>
+<div id="slide<%= counter %>" class="slide">
+  <div class="caption">
+    <h2><%= t("home.index.carousel_item_title.title_#{carousel_item.id}") %></h2>
+    <p><%=  t("home.index.carousel_item.name_#{carousel_item.id}") %></p>
+    <%= link_to link, path, :class => "btn#{carousel_item.kind == 'TRAILER' ? ' trailer': ''}" %> 
   </div>
   <%= link_to image_tag(carousel_item.image, :alt => carousel_item.name), path %>
 </div>

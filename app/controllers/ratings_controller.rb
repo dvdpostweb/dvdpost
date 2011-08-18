@@ -19,7 +19,8 @@ class RatingsController < ApplicationController
             render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product}
           else
             if params[:kind] == :normal
-             render :partial => 'home/index/facebook_like'
+              recommendations = retrieve_recommendations(1)
+              render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => nil} 
             else
               render :nothing => true
             end

@@ -49,6 +49,8 @@ module HomeHelper
         category_products_path(:category_id => carousel.reference_id)
       when 'STREAMING_PRODUCT'
         streaming_product_path(:id => carousel.reference_id, :warning => 1)
+      when 'TRAILER'
+        product_trailer_path(:product_id => carousel.reference_id)
       when 'THEME_EVENT'
         theme = ThemesEvent.find(carousel.reference_id)
         theme_path(:id => theme.to_param)

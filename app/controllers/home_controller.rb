@@ -13,6 +13,9 @@ class HomeController < ApplicationController
           render :partial => 'home/index/popular', :locals => {:products => retrieve_popular}
         elsif params[:highlight_page]
           get_reviews_data(params[:review_kind], params[:highlight_page], params[:precision])
+        elsif params[:close_rating]
+          recommendations = retrieve_recommendations(1)
+          render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => nil}
         elsif params[:review_kind] 
           get_reviews_data(params[:review_kind], params[:highlight_page], nil)
           if DVDPost.home_review_types[params[:review_kind]] == DVDPost.home_review_types[:best_customer]
@@ -67,6 +70,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def get_selection_week(selection_kind, selection_page)
+    @selection_kind = selection_kind || :vod
+    @selection_page = selection_page
+    @selection = ProductList.theme.by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+  end
+
   def get_data(kind)
     if(kind == :adult)
       @newsletter_x = current_customer.customer_attribute.newsletters_x
@@ -86,24 +95,19 @@ class HomeController < ApplicationController
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
       expiration_recommendation_cache()
-      @offline_request = current_customer.payment.recovery
-      if @offline_request.count == 0
-        if current_customer.credit_empty?
-          @renew_subscription = true
-        else
-          not_rated_products = current_customer.not_rated_products(kind)
-          @not_rated_product = not_rated_products[rand(not_rated_products.count)]
-        end
-      end
+      #@offline_request = current_customer.payment.recovery
+      not_rated_products = current_customer.not_rated_products(kind)
+      @not_rated_product = not_rated_products[rand(not_rated_products.count)]
       
-      @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
+      
+      @transit_items = current_customer.orders.in_transit.all
       begin
         @news_items = retrieve_news
       rescue => e
         logger.error("Failed to retrieve news: #{e.message}")
       end
       @recommendations = retrieve_recommendations(params[:recommendation_page])
-      @popular = retrieve_popular
+      
       if Rails.env == "pre_production"
         @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
       else
@@ -112,6 +116,7 @@ class HomeController < ApplicationController
       @streaming_available = current_customer.get_all_tokens
       @footer_data = 'NEW'
       if @footer_data == 'OLD'
+        @popular = retrieve_popular
         @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
@@ -121,7 +126,10 @@ class HomeController < ApplicationController
         @soon = Product.get_soon(I18n.locale)
         @recent = Product.get_recent(I18n.locale, params[:kind], 3, session[:sexuality])
       else
+        get_selection_week(params[:selection_kind], params[:selection_page])
         get_reviews_data(params[:review_kind], params[:highlight_page], nil)
+        @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+        @rating_count = current_customer.ratings.count
       end
     end
   end

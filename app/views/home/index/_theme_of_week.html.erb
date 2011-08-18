@@ -1,0 +1,7 @@
+<div id="week-theme">
+  <div class="caption maven"> <%= t '.title' %>
+    <h3><%= link_to t(".event_name_#{@theme.id}"), theme_path(:id => @theme.to_param), :style => "color: #{@theme.color_hp}" %></h3>
+    <%= link_to t('.see'), theme_path(:id => @theme.to_param) %>
+  </div>
+  <%= link_to image_tag(@theme.image_home_page), theme_path(:id => @theme.to_param) %>
+</div>

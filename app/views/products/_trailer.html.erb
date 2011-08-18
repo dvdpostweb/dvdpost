@@ -7,12 +7,13 @@
 	&lt;p&gt;&lt;/p&gt;
 &quot;,&quot;style&quot;:{&quot;p&quot;:{&quot;fontSize&quot;:40}}},&quot;controls&quot;:{&quot;url&quot;:&quot;flowplayer.controls-tube-3.2.5.swf&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;clip&quot;:{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;},&quot;playlist&quot;:[{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;}]}" name="flashvars"></object>
 <% elsif trailer.allocine? %>
-  <object type="application/x-shockwave-flash" data="http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/skin/v6/AcV_int/classic/AcVision_2.4.1.swf" width="760px" height="464px" id="V6_player" style="display: block; visibility: visible; ">
-  <param name="wmode" value="Window"/>
-  <param name="allowscriptaccess" value="Always"/>
-  <param name="menu" value="true"/>
-  <param name="allowfullscreen" value="true"/>
-  <param name="quality" value="High"/>
+  <object type="application/x-shockwave-flash" id="V6_player" data="http://images.allocine.fr/commons/player/AcV3/AcPlayer_v3.0.swf" width="760px" height="464px" style="visibility: visible; display: block; ">
+  <param name="menu" value="false"/>
+  <param name="wmode" value="window"/>
+  <param name="scale" value="noScale"/>
+  <param name="allowFullscreen" value="true"/>
+  <param name="allowScriptAccess" value="always"/>
+  <param name="bgcolor" value="#000000"/>
   <param name="flashvars" value="<%= trailer.remote_id %>"/>
   </object>
 <% else %>
