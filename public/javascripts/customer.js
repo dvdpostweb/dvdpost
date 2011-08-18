@@ -214,12 +214,12 @@ $(function() {
     $('.content form').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
-  $('#new_avatar #bt_valid').live("click", function(){
+  /*$('#new_avatar #bt_valid').live("click", function(){
     loader = 'ajax-loader.gif';
     $('.content form').submit();
     $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
   
-  });
+  });*/
   
   function param(name,url)
   {
