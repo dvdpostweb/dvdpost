@@ -1,0 +1,5 @@
+<ul class="content-tabs">
+  <li><a href="<%= root_path(:selection_kind => :vod) %>" class="vod <%= params[:selection_kind].nil? || params[:selection_kind] == 'vod' ? 'active' : '' %>">Films en <strong>VOD</strong></a></li>
+  <li><a href="<%= root_path(:selection_kind => :dvd) %>" class="<%= params[:selection_kind] == 'dvd' ? 'active' : '' %>">Films en DVD</a></li>
+  <li><a href="<%= root_path(:selection_kind => :bluray) %>" class="br <%= params[:selection_kind] == 'bluray' ? 'active' : '' %>">Films en <strong>Blu-ray</strong></a></li>
+</ul>

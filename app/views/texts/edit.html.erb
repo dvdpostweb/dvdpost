@@ -5,10 +5,10 @@
 fr :<%= text_field_tag :title_fr, @title_fr.text %>
 nl :<%= text_field_tag :title_nl, @title_nl.text %>
 en :<%= text_field_tag :title_en, @title_en.text %><br />
-<h5>name</h5>
-fr :<%= text_field_tag :name_fr, @name_fr.text %>
-nl :<%= text_field_tag :name_nl, @name_nl.text %>
-en :<%= text_field_tag :name_en, @name_en.text %><br />
+<h5>description</h5>
+fr :<%= text_area_tag :name_fr,@title_fr.text, :size => '90x4' %><br />
+nl :<%= text_area_tag :name_nl,@title_nl.text, :size => '90x4' %><br />
+en :<%= text_area_tag :name_en,@title_en.text, :size => '90x4' %><br />
 <h5>link</h5>
 fr :<%= text_field_tag :link_fr, @link_fr.text %>
 nl :<%= text_field_tag :link_nl, @link_nl.text %>

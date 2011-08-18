@@ -46,17 +46,6 @@ textarea {
   height: 0;
   line-height: 0;
 }
-
-
-
-
-
-.f-btn {
-  display: block;
-  text-indent: -999em;
-  outline: none;
-}
-
 button::-moz-focus-inner,
 input[type="reset"]::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner,

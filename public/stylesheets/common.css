@@ -209,7 +209,7 @@ ul, ol, dl, dt, dd {
   outline: none;
   padding-right: 11px !important;
   position: relative;
-  z-index: 10;
+  z-index: 2000;
 }
 
 *:first-child + html #header #login a#lang {
@@ -373,4 +373,26 @@ padding-top:10px;
 
 #welcome #cotez .bluray, #bienvenue #cotez .bluray {
   background: url(../images/bluray-cover-sm.png) 0 0 no-repeat;
+}
+#header #login span#lang-box {
+  background: url(../images/bg_langue.png) 0 0 no-repeat;
+  display: block;
+  height: 66px;
+  padding: 26px 0 0 4px;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  width: 84px;
+  z-index: 1005;
+}
+
+*:first-child + html #header #login span#lang-box {
+  right: 5px;
+}
+
+* html #header #login span#lang-box {
+  right: 5px;
+}
+#lang-box a {
+  margin-left: 5px
 }

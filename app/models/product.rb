@@ -196,8 +196,9 @@ class Product < ActiveRecord::Base
     products = products.by_studio(options[:studio_id]) if options[:studio_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
-    products = products = products.by_special_media([2]) if options[:filter] && options[:filter] == "vod"
+    products = products = products.by_special_media([2,4]) if options[:filter] && options[:filter] == "vod"
     products = products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
+    products = products = products.by_special_media([3,4]) if options[:filter] && options[:filter] == "bluray"
     
     if filter.media? && options[:kind] == :normal
       
@@ -351,6 +352,10 @@ class Product < ActiveRecord::Base
         File.join(DVDPost.images_path, desc.image) if !desc.image.blank?
       end
     end
+  end
+
+  def image_detail
+    File.join(DVDPost.images_path, 'products', "#{id}.jpg")
   end
 
   def description_data(full = false)

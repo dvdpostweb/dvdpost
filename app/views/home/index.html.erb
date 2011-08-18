@@ -1,6 +1,5 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div id="maincontent">
-  <div class="top"></div>
+<div id='hp-content'>
   <% if current_customer.payment_suspended? %>
     <ul id='suspended'>
       
@@ -8,29 +7,33 @@
     </ul>
   <% end %>
   <% if params[:kind] == :adult %>
-  <div id="hp-content">
-    <!-- Slider -->
-    <%= render :partial => '/home/index/carousel_adult', :locals => {:carousel => @carousel} %>
-    <!-- BIENVENUE  -->
-    <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
-    <!-- Actrice de la semaine -->
-    <%= render :partial => '/home/index/actor_week_adult', :locals => {:actor => @actor_week, :actor_week_product => @actor_week_product} %>
-    <!-- Top des plus loués -->
-    <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>
-    <!-- Top Actrices -->
-    <%= render :partial => "/home/index/top_actors_adult", :locals => {:top_actors => @top_actors} %>
-    <!-- Nouveautés  -->
-    <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
-    </div>
-  </div>  
-  <% if @newsletter_x.nil? %>
-    <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
-  <% end %>
+    <div id="hp-content">
+      <!-- Slider -->
+      <%= render :partial => '/home/index/carousel_adult', :locals => {:carousel => @carousel} %>
+      <!-- BIENVENUE  -->
+      <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+      <!-- Actrice de la semaine -->
+      <%= render :partial => '/home/index/actor_week_adult', :locals => {:actor => @actor_week, :actor_week_product => @actor_week_product} %>
+      <!-- Top des plus loués -->
+      <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>
+      <!-- Top Actrices -->
+      <%= render :partial => "/home/index/top_actors_adult", :locals => {:top_actors => @top_actors} %>
+      <!-- Nouveautés  -->
+      <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
+      </div>
+    </div>  
+    <% if @newsletter_x.nil? %>
+      <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
+    <% end %>
   <% else %>
+  
     <!-- Tabs rotattor -->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     <!-- BIENVENUE  -->
-    <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+    <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product} %>
+    
+    <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
+    <% if @footer_data == 'OLD' %>
     <!-- popular movie -->
     <%= render :partial => 'home/index/popular', :locals => {:products => @popular} %>
     <!-- Recommandations  -->
@@ -38,7 +41,6 @@
     <!-- Flash News  -->
     <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
     <!-- Top 10  -->
-    <% if @footer_data == 'OLD' %>
       <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
       <!-- Banners  -->
       <div id="banners">

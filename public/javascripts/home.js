@@ -1,4 +1,23 @@
 $(function() {
+  $("#user-movies-wrap .close").live("click", function() {
+    url = $(this).attr('href');
+    html_item = $(this);
+    content = html_item.html();
+    loader = 'ajax-loader.gif';
+    html_item.html("<img src='/images/"+loader+"'/>");
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        html_item.parent().parent().replaceWith(data);  
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
   $('#news a.next_page').live('click',function(){
     url = this.href;
     html_item = $('#news');
@@ -129,7 +148,7 @@ $(function() {
   //carousel
   var current;
   setCurrent(5);
-  $container = $('.panels').cycle({ 
+  $container = $('.slider').cycle({ 
       fx: 'turnLeft', 
       timeout: 15000,
       before: change_carousel
@@ -156,10 +175,9 @@ $(function() {
       $container_x.cycle(id-1); 
       return false; 
   });
-  $('.menu_carousel').click(function() { 
+  $('.pagination a').click(function() { 
       id = $(this).attr('id');
-      id = parseInt(id.replace("carousel_",""),10);
-      setCurrent(id-1)
+      id = parseInt(id.replace("btn_",""),10);
       $container.cycle(id-1); 
       return false; 
   });
@@ -180,10 +198,13 @@ $(function() {
   }
   function change_carousel()
   {
-    setCurrent(getCurrent() + 1);
-    if(getCurrent() == 6) setCurrent( 1);
-    $('#tabs-rotator #tabs a.active').removeClass('active');
-    $('#carousel_'+getCurrent()).addClass('active');
+    image = $(this).attr('id')
+    reg= new RegExp(/[^\d]/g)
+    id = parseInt(image.replace(reg,''),10)+1
+    setCurrent(id)
+    $('.pagination a.active').removeClass('active');
+    $('#btn_'+id).addClass('active');
+    
   }
 
   $('.top_actors').live('mouseover',function(){
@@ -224,4 +245,39 @@ $(function() {
     $(this).hide();
     return false; 
   })
+  
+  $(function(){
+
+
+
+      $(".tooltips").mouseover(function(){
+          name =$(this).attr('id')+"_popup"
+          var bulle = $("#"+name);
+          
+          /*var posTop = $(this).offset().top-$(this).height();
+
+          var posLeft = $(this).offset().left+$(this).width()/2-bulle.width()/2;
+          bulle.css({
+
+              left:posLeft,
+
+              top:posTop-20,
+
+              opacity:0
+
+          });*/
+          bulle.show()
+          
+      });
+
+
+
+      $(".tooltips").mouseout(function(){
+        name =$(this).attr('id')+"_popup"
+        var bulle = $("#"+name);
+        bulle.hide();  
+      });
+
+  });
+  
 });

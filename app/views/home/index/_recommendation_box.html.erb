@@ -1,0 +1,26 @@
+<div id="user-movies-wrap">
+      <!-- Cinéma pour Maud -->
+      <div id="user-movies">
+        <h3><%= t('.recommendation', :firstname => current_customer.customers_firstname) %></h3>
+        <ul>
+          <% i=0 %>
+          <% recommendations.collect do |item| %>
+          <% i = i + 1 %>
+          <li>
+            <a href="<%= product_path(:id => item.to_param)%>">
+              <%= image_tag item.image, :width => 65, :height => 88 %>
+            </a>
+          </li>
+          <% break if i == 4 && !not_rated_product.nil? %>
+          <% end %>
+          
+        </ul>
+        <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'><img src="images/info-icon.gif" alt="Info" /></a>
+        <!-- Tooltip -->
+        <div class="tooltip" id="recommendation_info_popup" style ='display:none'>
+          <h4><%= t('.tooltip_title') %></h4>
+          <p><%= t('.tooltip_description') %></p>
+           </div>
+      </div>
+      <%= render :partial => '/home/index/wishlist_rating', :locals => {:product => not_rated_product} if !not_rated_product.nil? %>
+    </div>

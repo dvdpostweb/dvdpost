@@ -1,6 +1,6 @@
 class ThemesEventsController < ApplicationController
   def index
-      @themes = ThemesEvent.by_kind(:normal).old
+      @themes = ThemesEvent.by_kind(:normal).old.ordered
   end
 
   def show

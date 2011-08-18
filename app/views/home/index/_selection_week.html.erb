@@ -1,0 +1,25 @@
+<!-- Selection de la semaine -->
+<div id="selection-week-wrap">
+  <div class="ttl maven">Selection de la semaine</div>
+  <div id="selection-tabcontent-wrap">
+    <%= render :partial => '/home/index/menu_selection', :locals => {:selection_week => @selection} %>
+    <div class="tab-content-selection clearfix" id="selection-tab1">
+      <!-- Carousel -->
+      <div class="carousel-wrap">
+        <ul class="slides">
+          
+          <%= render :partial => 'home/index/product_selection_week', :collection => @selection %>
+        </ul>
+        <div class="pagination">2/4 <a href="#">1</a> <a href="#" class="active">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#" id="back">Back</a> <a href="#" id="next">Next</a></div>
+        <%= will_paginate @selection, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :selection_page %>
+      </div>
+      <!-- Qu’ est ce que la vod ? -->
+      <div id="vod-banner">
+        <div class="caption">
+          <h3 class="maven">Qu’ est ce que la vod ?</h3>
+          <a href="<%= info_path(:page_name => 'get_connected') %>">En savoir plus</a> </div>
+        <a href="<%= info_path(:page_name => 'get_connected') %>"><img src="images/vod-banner.jpg" alt="Qu’ est ce que la vod ?" /></a> </div>
+    </div>
+  </div>
+</div>
+

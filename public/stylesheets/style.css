@@ -2693,12 +2693,11 @@ body.oscar #leftcolumn p#special a {
 
 /* Filters */
 
-#filters {
-  background: url(../images/filters-bg.gif) 0 0 repeat-y;
-  margin-top: 10px;
-  width: 182px;
+.f-btn {
+  display: block;
+  text-indent: -999em;
+  outline: none;
 }
-
 #filters h3 {
   background: url(../images/filters-ttl-bg.gif) 0 0 no-repeat;
   color: white;
@@ -4080,7 +4079,7 @@ width: 902px;
 }
 
 .pagination {
-    height: 53px;
+    /*height: 53px;*/
 
 }
 .paginationright {
