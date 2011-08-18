@@ -23,7 +23,7 @@ class WishlistItemsController < ApplicationController
   def start
     @hide_menu = true
     @popular = current_customer.popular(get_current_filter).paginate(:page => params[:popular_page], :per_page => 8)
-    
+    wishlist_size()
     respond_to do |format|
       format.html do
         session[:popular_page] = params[:popular_page] || 1
@@ -96,6 +96,7 @@ class WishlistItemsController < ApplicationController
             @product = @wishlist_item.product
           else
             filter = get_current_filter
+            wishlist_size()
             @product_id = params[:wishlist_item][:product_id]
             popular_page = session[:popular_page] || 1
             @popular = current_customer.popular(filter).paginate(:page => popular_page, :per_page => 8)
@@ -142,6 +143,7 @@ class WishlistItemsController < ApplicationController
         format.html {redirect_back_or  wishlist_path}
         format.js   do
           if params[:popular]
+            wishlist_size()
             filter = get_current_filter
             @product_id = params[:product_id]
             popular_page = session[:popular_page] || 1

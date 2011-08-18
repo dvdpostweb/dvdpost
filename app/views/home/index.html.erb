@@ -33,38 +33,17 @@
     <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product} %>
     
     <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
-    <% if @footer_data == 'OLD' %>
-    <!-- popular movie -->
-    <%= render :partial => 'home/index/popular', :locals => {:products => @popular} %>
-    <!-- Recommandations  -->
-    <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
-    <!-- Flash News  -->
-    <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
-    <!-- Top 10  -->
-      <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
-      <!-- Banners  -->
-      <div id="banners">
-        <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} if @quizz %>
-        <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} if @contest %>
-        <% render :partial => 'home/index/banner', :locals => {:type => 'shop' } %>
-        <%= render :partial => 'home/index/banner', :locals => {:type => 'facebook'} %>
-        <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
-      </div>
-      <!-- Prochainement/Nouveautés   -->
-      <div id="new-m">
-        <%= render :partial => 'home/index/theme', :locals => {:products => @recent,  :id => 'new'} %>
-        <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
-      </div>
+    <div id="review_content">
+    <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
+      <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month} %>
     <% else %>
-      <div id="review_content">
-        <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
-          <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month} %>
-        <% else %>
-          <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>
-        <% end %>
-      </div>
+      <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>
     <% end %>
+    </div>
     <div class="clear"></div>
+    <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
+    <%= render :partial => '/home/index/quick_link' %>
+
     <div class="end"></div>
     <% end %>
 </div>

@@ -7,12 +7,14 @@ class HomeController < ApplicationController
       format.js {
         if params[:news_page]
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
-        elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}
-        elsif params[:popular_page]
-          render :partial => 'home/index/popular', :locals => {:products => retrieve_popular}
         elsif params[:highlight_page]
           get_reviews_data(params[:review_kind], params[:highlight_page], params[:precision])
+        elsif params[:selection_page]
+          get_selection_week(params[:selection_kind], params[:selection_page])
+          render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}  
+        elsif params[:selection_kind]
+          get_selection_week(params[:selection_kind], 1)
+          render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}
         elsif params[:close_rating]
           recommendations = retrieve_recommendations(1)
           render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => nil}
@@ -114,23 +116,16 @@ class HomeController < ApplicationController
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
       end
       @streaming_available = current_customer.get_all_tokens
-      @footer_data = 'NEW'
-      if @footer_data == 'OLD'
-        @popular = retrieve_popular
-        @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
-        shops = Banner.by_language(I18n.locale).by_size(:small).expiration
-        @shop = shops[rand(shops.count)]
-        @quizz = QuizzName.find_last_by_focus(1)
-        @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
-        @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
-        @soon = Product.get_soon(I18n.locale)
-        @recent = Product.get_recent(I18n.locale, params[:kind], 3, session[:sexuality])
+      get_selection_week(params[:selection_kind], params[:selection_page])
+      get_reviews_data(params[:review_kind], params[:highlight_page], nil)
+      @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+      @rating_count = current_customer.ratings.count
+      if @theme.banner_hp == 1
+        @theme_hp = @theme
       else
-        get_selection_week(params[:selection_kind], params[:selection_page])
-        get_reviews_data(params[:review_kind], params[:highlight_page], nil)
-        @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
-        @rating_count = current_customer.ratings.count
+        @theme_hp = theme_actif_hp
       end
+      wishlist_size
     end
   end
 

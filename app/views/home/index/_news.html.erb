@@ -1,29 +1,20 @@
-<div id="news">
-  <ul class="ttls-nav" id="fl-news">
-    <li>
-      <h3>Flash News</h3>
-    </li>
-    <% if news_items %>
-      <li>
-        <%= will_paginate news_items, :previous_label => '',
-                                      :next_label => t('.other_publications'),
-                                      :page_links => false,
-                                      :param_name => :news_page,
-                                      :id => 'news_next',
-                                      :container => false if news_items %>
-      </li>
-    <% else %>
-      <%= t '.news_unavailable' %>
-    <% end %>
-  </ul>
-  <ul id="flash-news">
-    <% if news_items %>
+<div id="news-wrap">
+  <div class="ttl maven">Actualités cinéma</div>
+  <!-- Carousel -->
+  <% if news_items %>
+  <div class="carousel-wrap clearfix">
+    <ul class="slides">
       <%= render :partial => '/home/index/news_item', :collection => news_items if news_items %>
-    <% else %>
-      <br />
-      <p class="error">
-        <%= t '.news_unavailable' %>
-      </p>
-    <% end %>
-  </ul>
+    </ul>
+    <div class="pagination">
+      <span class="hide_arrow">
+        <%= will_paginate news_items, :previous_label => '',:next_label => '',:param_name => :news_page,:id => 'news_next',:container => false if news_items %>  
+      </span>
+    </div>
+    <div class="pagination2">
+      <%= will_paginate news_items, :previous_label => '',:next_label => '',:page_links => false,:param_name => :news_page,:id => 'news_next',:container => false if news_items %>  
+    </div>
+    
+  </div>
+  <% end %>
 </div>
