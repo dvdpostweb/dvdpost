@@ -19,7 +19,9 @@
           <% end %>
           
         </ul>
-        <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'><img src="images/info-icon.gif" alt="Info" /></a>
+        <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'>
+          <%= image_tag 'info-icon.gif', :alt => "Info" %>
+        </a>
         <!-- Tooltip -->
         <div class="tooltip" id="recommendation_info_popup" style ='display:none'>
           <h4><%= t('.tooltip_title') %></h4>
