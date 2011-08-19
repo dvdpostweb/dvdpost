@@ -51,6 +51,9 @@ class ApplicationController < ActionController::Base
   def theme_actif
     if Rails.env == "pre_production"
       @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).last
+      unless @theme
+        @theme = ThemesEvent.selected.by_kind(params[:kind]).last
+      end
     else
       @theme = ThemesEvent.selected.by_kind(params[:kind]).last
     end
