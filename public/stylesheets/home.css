@@ -391,6 +391,10 @@ body
   padding: 5px 10px;
   margin-bottom: 12px;
 }
+#selection-tabcontent-wrap .slides li h3 a{
+  color:#fff;
+  text-decoration:none;
+}
 #selection-tabcontent-wrap .slides li.vod h3 {
 background: #85ba17;
 }
