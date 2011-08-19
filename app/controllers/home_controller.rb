@@ -120,7 +120,7 @@ class HomeController < ApplicationController
       get_reviews_data(params[:review_kind], params[:highlight_page], nil)
       @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       @rating_count = current_customer.ratings.count
-      if @theme.banner_hp == 1
+      if @theme && @theme.banner_hp == 1
         @theme_hp = @theme
       else
         @theme_hp = theme_actif_hp
