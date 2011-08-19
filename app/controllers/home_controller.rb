@@ -97,7 +97,7 @@ class HomeController < ApplicationController
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
       expiration_recommendation_cache()
-      #@offline_request = current_customer.payment.recovery
+      @offline_request = current_customer.payment.recovery
       not_rated_products = current_customer.not_rated_products(kind)
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
       
@@ -131,7 +131,7 @@ class HomeController < ApplicationController
 
   def retrieve_news
     fragment_name = "#{I18n.locale.to_s}/home/news"
-    news_items = when_fragment_expired fragment_name, 1.hour.from_now do
+    news_items = when_fragment_expired fragment_name, 2.hour.from_now do
       begin
         DVDPost.home_page_news
       rescue => e
