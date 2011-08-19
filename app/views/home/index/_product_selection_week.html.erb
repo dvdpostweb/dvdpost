@@ -4,11 +4,11 @@
 <% product_image = data[:image] %>
 <% description = data[:description] %>
 <li class="<%= params[:selection_kind] || :vod %>">
-  <h3><%= product_title %></h3>
+  <h3><%= link_to product_title, product_path(:id => product.to_param) %></h3>
   <div class="wrap">
     <h4><%= product.categories.active.first.name unless product.categories.active.empty? %></h4>
     <p><%= truncate(description.text, :length => 120) %> </p>
     <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'more trailer', :target => :_blank) if product.trailer %> 
-    <%= image_tag product.image_detail, :class=>"thumb", :width => 107 %> 
+    <%= link_to image_tag(product.image_detail, :class=>"thumb", :width => 107), product_path(:id => product.to_param) %> 
   </div>
 </li>
