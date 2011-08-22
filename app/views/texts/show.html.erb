@@ -1,3 +1,4 @@
+<% if params[:landing_id] %>
 <h2><%= @title %></h2>
 <div class="text_size">
 <h5>title</h5>
@@ -19,3 +20,18 @@ nl :<%= @link_nl.text%><br />
   <%= link_to 'new', new_landing_texts_path(:landing_id => params[:landing_id]) %>
 <% end %>   - <%= link_to 'landings list', landings_path()%>
 </div>
+<% else %>
+<h2><%= @title %></h2>
+<div class="text_size">
+<h5>title</h5>
+fr :<%= @title_fr.text %><br />
+en :<%= @title_en.text %><br />
+nl :<%= @title_nl.text %><br />
+<br />
+<% if Translation.find_all_by_tr_key("event_name_#{params[:theme_id]}").count > 0 %>
+  <%= link_to 'edit', edit_theme_texts_path(:theme_id => params[:theme_id]) %>
+<% else %>
+  <%= link_to 'new', new_theme_texts_path(:theme_id => params[:theme_id]) %>
+<% end %>   - <%= link_to 'theme list', themes_path(:locale => nil)%>
+</div>
+<% end%>
