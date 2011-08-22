@@ -16,6 +16,13 @@
   <param name="bgcolor" value="#000000"/>
   <param name="flashvars" value="<%= trailer.remote_id %>"/>
   </object>
+<% elsif trailer.cinemovies? %>
+  <object id="ply" width="610" height="458" type="application/x-shockwave-flash" data="http://www.cinemovies.fr/player/export/CineMovies2.swf">
+  <param name="wmode" value="transparent">
+  <param name="allowfullscreen" value="true">
+  <param name="allowscriptaccess" value="always">
+  <param name="flashvars" value="<%= trailer.remote_id %>">
+  </object>
 <% else %>
   <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
 <% end %>
