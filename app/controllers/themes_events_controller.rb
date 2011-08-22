@@ -1,6 +1,10 @@
 class ThemesEventsController < ApplicationController
   def index
+    if params[:locale]
       @themes = ThemesEvent.by_kind(:normal).old.ordered
+    else
+      @themes = ThemesEvent.ordered
+    end
   end
 
   def show

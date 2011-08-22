@@ -1,21 +1,35 @@
 <h2><%= @title %></h2>
+<% if params[:landing_id] %>
+  <div class="text_size">
+  <% form_for :texts, :url => landing_texts_path(params[:landing_id]) do |f| %>
+  <h5>title</h5>
+  fr :<%= text_field_tag :title_fr %>
+  nl :<%= text_field_tag :title_nl %>
+  en :<%= text_field_tag :title_en %><br />
+  <h5>description</h5>
+  fr :<%= text_area_tag :name_fr,nil, :size => '90x4' %><br />
+  nl :<%= text_area_tag :name_nl,nil, :size => '90x4' %><br />
+  en :<%= text_area_tag :name_en,nil, :size => '90x4' %><br />
+  <h5>link</h5>
+  fr :<%= text_field_tag :link_fr %>
+  nl :<%= text_field_tag :link_nl %>
+  en :<%= text_field_tag :link_en %><br />
+  <br />
+  <input type="submit" value ="create">  - <%= link_to 'landings list', landings_path()%>
+  <br />
+  <br />
+  <% end %>
+  </div>
+<% else %>
 <div class="text_size">
-<% form_for :texts, :url => landing_texts_path(params[:landing_id]) do |f| %>
-<h5>title</h5>
-fr :<%= text_field_tag :title_fr %>
-nl :<%= text_field_tag :title_nl %>
-en :<%= text_field_tag :title_en %><br />
-<h5>description</h5>
-fr :<%= text_area_tag :name_fr,nil, :size => '90x4' %><br />
-nl :<%= text_area_tag :name_nl,nil, :size => '90x4' %><br />
-en :<%= text_area_tag :name_en,nil, :size => '90x4' %><br />
-<h5>link</h5>
-fr :<%= text_field_tag :link_fr %>
-nl :<%= text_field_tag :link_nl %>
-en :<%= text_field_tag :link_en %><br />
-<br />
-<input type="submit" value ="create">  - <%= link_to 'landings list', landings_path()%>
-<br />
-<br />
-<% end %>
+<% form_for :texts, :url => theme_texts_path(params[:theme_id]) do |f| %>
+  <h5>title</h5>
+  fr :<%= text_field_tag :title_fr %>
+  nl :<%= text_field_tag :title_nl %>
+  en :<%= text_field_tag :title_en %><br />
+  <input type="submit" value ="create">  - <%= link_to 'themes list', themes_path(:locale => nil)%>
+  <br />
+  <br />
+  <% end %>
 </div>
+<% end %>

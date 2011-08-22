@@ -1,3 +1,4 @@
+<% if params[:landing_id] %>
 <h2><%= @title %></h2>
 <div class='text_size'>
 <h5>title</h5>
@@ -14,3 +15,14 @@ nl : <%= @link_nl.text%><br />
 en : <%= @link_en.text%><br /><br />
 <%= link_to 'edit', edit_landing_texts_path(:landing_id => params[:landing_id]) %> - <%= link_to 'landings list', landings_path()%>
 </div>
+<% else %>
+<h2><%= @title %></h2>
+<div class='text_size'>
+<h5>title</h5>
+fr : <%= @title_fr.text %><br />
+nl : <%= @title_nl.text %><br />
+en : <%= @title_en.text %><br />
+<br /><br />
+<%= link_to 'edit', edit_theme_texts_path(:theme_id => params[:theme_id]) %> - <%= link_to 'theme list', themes_path(:locale => nil)%>
+</div>
+<% end %>
