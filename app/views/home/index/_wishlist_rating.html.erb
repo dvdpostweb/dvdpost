@@ -21,5 +21,7 @@
       <%= link_to product_image_tag(product_image, :size => '65x88', :alt => product_title), product_path(:id => product.to_param) %>
     </li>
   </ul>
-  <a href="<%= root_path(:close_rating => 1) %>" class="close"><img src="images/close-icon-home.gif" alt="close" /></a> 
+  <% if params[:kind] == :normal %>
+  <a href="<%= root_path(:close_rating => 1) %>" class="close"><img src="/images/close-icon-home.gif" alt="close" /></a>
+  <% end %>
 </div>
