@@ -127,9 +127,9 @@ $(function() {
   //carousel
   var current;
   setCurrent(5);
-  $container = $('.slider').cycle({ 
+  $container = $('.slider_normal').cycle({ 
       fx: 'turnLeft', 
-      timeout: 15000,
+      timeout: 17000,
       before: change_carousel
   });
   $container_x = $('.panels_adult').cycle({ 

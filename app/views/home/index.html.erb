@@ -7,7 +7,6 @@
     </ul>
   <% end %>
   <% if params[:kind] == :adult %>
-    <div id="hp-content">
       <!-- Slider -->
       <%= render :partial => '/home/index/carousel_adult', :locals => {:carousel => @carousel} %>
       <!-- BIENVENUE  -->
@@ -21,7 +20,6 @@
       <!-- Nouveautés  -->
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
       </div>
-    </div>  
     <% if @newsletter_x.nil? %>
       <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
     <% end %>
