@@ -327,7 +327,7 @@ module DVDPost
     end
     
     def generate_token_from_alpha(filename)
-      url = "https://94.139.63.250:444/webservice?method=create&filename=#{filename}&lifetime=600&simultIp=1"
+      url = "http://94.139.63.250:8081/webservice?method=create&filename=#{filename}&lifetime=2880&simultIp=1"
      open url do |data|
        node = Hpricot(data).search('//create')
        if node.at('status').innerHTML == 'success'
