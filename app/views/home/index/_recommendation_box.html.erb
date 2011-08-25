@@ -8,9 +8,9 @@
           <% i = i + 1 %>
            
           <li>
-            <div class="overlay" style="display:none">
+            <a href="<%= product_path(:id => item.to_param)%>" class="overlay" style="display:none">
               <%= item.title %>
-            </div>
+            </a>
             <a href="<%= product_path(:id => item.to_param)%>">
               <%= image_tag item.image, :width => 65, :height => 88 %>
             </a>
