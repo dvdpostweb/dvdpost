@@ -36,7 +36,7 @@ class StreamingProductsController < ApplicationController
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
           @token = current_customer.get_token(@product.imdb_id)
-          if !current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip)
+          if !current_customer.suspended? #&& !Token.dvdpost_ip?(request.remote_ip)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
