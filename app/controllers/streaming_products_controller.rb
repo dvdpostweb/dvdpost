@@ -1,6 +1,6 @@
 class StreamingProductsController < ApplicationController
   def show
-    streaming = StreamingProduct.find_by_imdb_id(params[:id])
+    streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
     if streaming.source == StreamingProduct.source[:alphanetworks]
       @streaming_prefered = StreamingProduct.group_by_language.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = StreamingProduct.group_by_language.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
