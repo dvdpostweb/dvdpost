@@ -348,6 +348,7 @@ class Customer < ActiveRecord::Base
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 #|| super_user?
       if file.source == StreamingProduct.source[:alphanetworks]
         token_string = DVDPost.generate_token_from_alpha(file.filename)
+        Rails.logger.debug { "@@@#{token_string}" }
         if token_string
           token = Token.create(          
             :customer_id => id,          
@@ -381,7 +382,7 @@ class Customer < ActiveRecord::Base
         end
       end
     end
-    if credits > 0
+    if credits >= file.credits
       abo_process = AboProcess.today.last
       if abo_process 
         customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
@@ -398,7 +399,7 @@ class Customer < ActiveRecord::Base
                 :imdb_id     => imdb_id,          
                 :token       => token_string        
               )
-              result_credit = remove_credit(1, 12)
+              result_credit = remove_credit(file.credits, 12)
               if token.id.blank? || result_credit == false
                 error = Token.error[:query_rollback]
                 raise ActiveRecord::Rollback
@@ -419,7 +420,7 @@ class Customer < ActiveRecord::Base
               :token_id => token.id,
               :ip => current_ip
             )
-            result_credit = remove_credit(1, 12)
+            result_credit = remove_credit(file.credits, 12)
             if token.id.blank? || token_ip.id.blank? || result_credit == false
               error = Token.error[:query_rollback]
               raise ActiveRecord::Rollback
@@ -461,7 +462,7 @@ class Customer < ActiveRecord::Base
         end
       end
     else
-      if credits > 0
+      if credits >= token.streaming_products.first.credits
         abo_process = AboProcess.today.last
         if abo_process 
           customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
@@ -469,7 +470,7 @@ class Customer < ActiveRecord::Base
         if !abo_process || (customer_abo_process || abo_process.finished?)
           Token.transaction do
             more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
-            result_history = remove_credit(1,13)
+            result_history = remove_credit(token.streaming_products.first.credits,13)
             token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
             if more_ip == false || token_ip.id.blank? || result_history == false
               raise ActiveRecord::Rollback
