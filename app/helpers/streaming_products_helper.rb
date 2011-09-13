@@ -41,13 +41,13 @@ module StreamingProductsHelper
     javascript_tag script
   end
 
-  def message_streaming(token, free)
+  def message_streaming(token, free, streaming)
     
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
 
     if !current_customer.payment_suspended?
       if free == false
-        if (current_customer.credits <= 0) && (token.nil? || !token.validate?(request.remote_ip))
+        if (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
           "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
         elsif token_status == Token.status[:ip_invalid]
           "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
