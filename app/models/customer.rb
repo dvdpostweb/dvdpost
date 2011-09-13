@@ -348,7 +348,6 @@ class Customer < ActiveRecord::Base
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 #|| super_user?
       if file.source == StreamingProduct.source[:alphanetworks]
         token_string = DVDPost.generate_token_from_alpha(file.filename)
-        Rails.logger.debug { "@@@#{token_string}" }
         if token_string
           token = Token.create(          
             :customer_id => id,          
