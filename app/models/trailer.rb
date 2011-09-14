@@ -40,4 +40,9 @@ class Trailer < ActiveRecord::Base
   def cinemovies?
     broadcast_service == 'CINEMOVIES'
   end
+
+  def cinenews?
+    broadcast_service == 'CINENEWS.BE'
+  end
+
 end

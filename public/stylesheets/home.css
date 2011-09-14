@@ -212,7 +212,6 @@ body
   border: 1px solid #333333;
   position: relative;
 }
-
 #week-theme .caption {
   position: absolute;
   left: 0;
@@ -225,7 +224,9 @@ body
   line-height: normal;
   font-size: 1.17em;
 }
-
+#week-theme .caption h3 a {
+  text-decoration:none !important;
+}
 #week-theme .caption h3 {
   font-size: 1.29em;
   text-transform: uppercase;
@@ -753,7 +754,7 @@ color: #009EE0;
 #apps-wrap li span, #apps-wrap li a {
   position: absolute;
   display: block;
-  padding: 10px 0;
+  padding: 5px 0;
   left: 0;
   bottom: 0;
   width: 225px;
@@ -761,6 +762,8 @@ color: #009EE0;
 
 #apps-wrap li a {
   color: #fff;
+  background:#111;
+  text-decoration:none;
 }
 #apps-wrap li a.black
 {
