@@ -192,12 +192,13 @@ margin: -1px -2px -1px 0;
 .tab-content {
   background: #fff;
   padding: 12px 17px;
-border: 1px solid #2b333e;
+  border: 1px solid #2b333e;
   border-top: none;
   -moz-box-shadow:3px 3px 2px #919191;
--webkit-box-shadow:3px 3px 2px #919191;
-box-shadow:3px 3px 2px #919191;
+  -webkit-box-shadow:3px 3px 2px #919191;
+  box-shadow:3px 3px 2px #919191;
 }
+
 .tab-content h3 {
   font-weight: normal;
   font-size: 1.50em;
@@ -246,7 +247,7 @@ box-shadow:3px 3px 2px #919191;
   padding-right: 15px;
   background: url(../images/hp-ttls-nav-arrow.gif) 100% 0 no-repeat;
 }
-.tab-content a.btn {
+.tab-content a.btn, .tab-content-show a.btn {
   background:url(../images/ajouter-btn-mid.png) no-repeat scroll 0 0 transparent;
 color:#FFFFFF;
 display:inline-block;
@@ -260,7 +261,7 @@ width:60px;
 font-weight: bold;
 
 }
-.tab-content a.btn:hover {
+.tab-content a.btn:hover, .tab-content-show a.btn:hover {
  background-position: 0 -29px;
  text-shadow:-1px -1px 0 #cd5101;
 }
@@ -370,7 +371,7 @@ bottom: 15px;
 }
 #tab-content-2 li.show
 {
-  width:900px;
+  width:830px;
 }
 #tab-content-2 h2 {
   margin-bottom: 8px;
@@ -434,6 +435,9 @@ bottom: 15px;
 #tab-content-2 li .content p {
   line-height: normal;
   margin: 10px 0;
+}
+#tab-content-2 li.show .content p {
+  padding:10px;
 }
 #tab-content-2 li .content .write {
   margin-bottom: 7px;
