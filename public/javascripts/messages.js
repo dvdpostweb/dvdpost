@@ -54,7 +54,7 @@ $(function() {
     return false;
   });
   $("#new_message_btn").live("click", function() {
-    if (!$("input[@name='ticket[category_ticket_id]']:checked").val()) {
+    if (!$(".content input:radio:checked").val()) {
       alert($('#error_cat').html())
       return false
     }
