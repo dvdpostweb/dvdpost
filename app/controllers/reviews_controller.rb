@@ -13,6 +13,10 @@ class ReviewsController < ApplicationController
     @source = @wishlist_source[:reviews]
   end
 
+  def show
+    @review = Review.find(params[:id])
+  end
+
   def new
     @product = Product.both_available.find(params[:product_id])
     @review = Review.new(:products_id => params[:product_id])

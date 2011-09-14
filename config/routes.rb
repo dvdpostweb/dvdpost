@@ -84,7 +84,7 @@ ActionController::Routing::Routes.draw do |map|
       top.resources :products, :only => :index
     end
 
-    localized.resources :reviews, :only => [] do |review|
+    localized.resources :reviews, :only => [:show] do |review|
       review.resource :review_rating, :only => :create
     end
 
