@@ -485,14 +485,21 @@ color: #009EE0;
 {
   display:none !important;
 }
-.carousel-wrap .pagination2 a.prev_page, .carousel-wrap .pagination2 a.next_page {
+.carousel-wrap .pagination2 a.prev_page,.carousel-wrap .pagination2 span.prev_page, .carousel-wrap .pagination2 a.next_page {
   width: 19px;
   height: 21px;
   line-height: 21px;
   margin: -3px 0 0 5px;
   background: url(../images/carousel-arrows-home.png) 0 0 no-repeat;
 }
-
+.carousel-wrap .pagination2 span
+{
+  display:inline-block;
+}
+.carousel-wrap .pagination2 .disabled
+{
+    /*visibility: visible;*/
+}
 .carousel-wrap .pagination2 a.next_page {
   background-position: 100% 0;
 }
