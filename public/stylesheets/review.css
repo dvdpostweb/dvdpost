@@ -122,11 +122,11 @@ box-shadow:5px 5px 2px #919191;
   float: left;
 }
 h2#n-c {
-  font-size: 2.5em;
+  font-size: 2em;
   color: #fa3216;
   height: 50px;
   padding: 10px 0 0 65px;
-  background: url(../images/nc-icon.png) 0 0 no-repeat;
+  background: url(../images/community-icon.gif) 0 0 no-repeat;
 }
 #tabs-review {
   list-style: none;
