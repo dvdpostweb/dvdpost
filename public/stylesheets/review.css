@@ -368,6 +368,10 @@ bottom: 15px;
   width: 433px;
   margin: 0 15px 30px;
 }
+#tab-content-2 li.show
+{
+  width:900px;
+}
 #tab-content-2 h2 {
   margin-bottom: 8px;
 }
@@ -380,6 +384,10 @@ bottom: 15px;
   padding: 8px 5px 0 10px;
   background: #f7f7f7;
   overflow: hidden;
+}
+#tab-content-2 li.show .content {
+  width: 700px;
+  
 }
 #tab-content-2 li .critic {
 }
