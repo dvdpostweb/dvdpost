@@ -485,25 +485,35 @@ color: #009EE0;
 {
   display:none !important;
 }
-.carousel-wrap .pagination2 a.prev_page,.carousel-wrap .pagination2 span.prev_page, .carousel-wrap .pagination2 a.next_page {
+.carousel-wrap .pagination2 a.prev_page,.carousel-wrap .pagination2 span.prev_page,.carousel-wrap .pagination2 span.next_page, .carousel-wrap .pagination2 a.next_page {
   width: 19px;
   height: 21px;
   line-height: 21px;
   margin: -3px 0 0 5px;
-  background: url(../images/carousel-arrows-home.png) 0 0 no-repeat;
+  background: url(../images/carousel-arrows-home.png) 0 -23px no-repeat;
 }
-.carousel-wrap .pagination2 span
+.carousel-wrap .pagination2 span.prev_page, .carousel-wrap .pagination2 span.next_page
 {
   display:inline-block;
+  background-position: 0 0;
+}
+.carousel-wrap .pagination2 span.next_page
+{
+  background-position: 100% 0;
 }
 .carousel-wrap .pagination2 .disabled
 {
-    /*visibility: visible;*/
+    visibility: visible;
 }
 .carousel-wrap .pagination2 a.next_page {
-  background-position: 100% 0;
+  background-position: 100% -23px;
 }
-
+.carousel-wrap .pagination2 a.prev_page:hover{
+  background-position: 0 -46px;
+}
+.carousel-wrap .pagination2 a.next_page:hover {
+  background-position: 100% -46px;
+}
 #vod-banner {
   float: right;
   position: relative;
