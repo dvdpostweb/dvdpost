@@ -9,6 +9,7 @@
   <% if params[:kind] == :adult %>
       <!-- Slider -->
       <%= render :partial => '/home/index/carousel', :locals => {:carousel => @carousel} %>
+      <br />
       <!-- BIENVENUE  -->
       <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
       <!-- Actrice de la semaine -->
