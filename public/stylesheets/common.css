@@ -479,5 +479,19 @@ padding-top:10px;
 #slider-wrap .pagination li a:hover, #slider-wrap .pagination li a.active {
   background-position: 0 100%;
 }
-
+.adult #slider-wrap {
+    margin: 0 -12px 0 -15px;
+}
+.adult #slider-wrap .caption a.btn strong {
+  background: url(../images/slider-btn-bg-adult.png) 100% 0 no-repeat;
+}
+.adult #slider-wrap .pagination li a {
+  background: url(../images/slider-dots-adult.png) 0 0 no-repeat;
+}
+#slider-wrap .caption a.btn {
+  background: url(../images/slider-btn-bg-end-adult.png) 0 0 no-repeat;
+}
+.adult #slider-wrap .pagination li a:hover, #slider-wrap .pagination li a.active {
+  background-position: 0 100%;
+}
 /*   End slider   */
