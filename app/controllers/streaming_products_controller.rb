@@ -2,16 +2,20 @@ class StreamingProductsController < ApplicationController
   def show
     if Rails.env == 'production' 
       @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
+      if @streaming.source == StreamingProduct.source[:alphanetworks]
+        @streaming_prefered = StreamingProduct.group_by_language.available.find_all_by_imdb_id(params[:id], I18n.locale)
+        @streaming_not_prefered = nil
+      else
+        @streaming_prefered = StreamingProduct.group_by_version.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+        @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+      end
     else
       @streaming = StreamingProduct.available_beta.alpha.find_by_imdb_id(params[:id])
+      @streaming_prefered = StreamingProduct.alpha.group_by_language.find_all_by_imdb_id(params[:id], I18n.locale)
+      @streaming_not_prefered = nil
+      
     end
-    if @streaming.source == StreamingProduct.source[:alphanetworks]
-      @streaming_prefered = StreamingProduct.group_by_language.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
-      @streaming_not_prefered = StreamingProduct.group_by_language.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
-    else
-      @streaming_prefered = StreamingProduct.group_by_version.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
-      @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
-    end
+    
     @product = Product.both_available.find_by_imdb_id(params[:id])
     @streaming_free = StreamingProductsFree.by_imdb_id(params[:id]).available.count > 0 
    
@@ -40,7 +44,7 @@ class StreamingProductsController < ApplicationController
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
           @token = current_customer.get_token(@product.imdb_id)
-          if !current_customer.suspended? #&& !Token.dvdpost_ip?(request.remote_ip)
+          if !current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
@@ -104,7 +108,6 @@ class StreamingProductsController < ApplicationController
             current_customer.remove_product_from_wishlist(params[:id], request.remote_ip)
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip)
-            
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false

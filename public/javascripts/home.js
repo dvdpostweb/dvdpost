@@ -218,12 +218,15 @@ $(function() {
       });
     });
   }
-  $('.review_more').live('click',function(){
-    $(this).parent().parent().children('.full_review').show();
-    $(this).parent().parent().children('.short_review').hide();
-    $(this).hide();
-    return false; 
-  })
+  $(".review_more").live("click", function() {
+    wishlist_item = $(this);
+    jQuery.facebox(function() {
+      $.getScript(wishlist_item.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
   
   $(".tooltips").live('mouseover',function(){
     name =$(this).attr('id')+"_popup"

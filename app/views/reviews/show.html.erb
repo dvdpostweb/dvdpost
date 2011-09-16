@@ -8,6 +8,7 @@
     <% reviews_count = customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).count %>
   <% end %>
   <% product_title = product.title %>
+<div class="tab-content-show">
 <div class="review_rate">
 <div id="tab-content-2">
   <li class="show">
@@ -46,5 +47,6 @@
       <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
     </div>
   </li>
+  <div class="clear"></div>
 <% end %>
-</div></div>
+</div></div></div>
