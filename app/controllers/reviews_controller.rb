@@ -20,6 +20,10 @@ class ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
   end
 
   def new

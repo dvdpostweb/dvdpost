@@ -1,5 +1,17 @@
 $.ajaxSettings.accepts._default = "text/javascript, text/html, application/xml, text/xml, */*";
 $(function() {
+  search_text = $('#search-field').attr('value');
+  $('#search-field').live('focus', function(){
+    if($('#search-field').attr('value') == search_text){
+      $('#search-field').val('');
+    }
+  });
+
+  $('#search-field').live('blur', function(){
+    if($('#search-field').attr('value') == ''){
+      $('#search-field').val(search_text);
+    }
+  });
   // Enable fragmetChange. This will allow us to put ajax into browser history
   $.fragmentChange(true);
 
