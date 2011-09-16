@@ -26,12 +26,18 @@ class Review < ActiveRecord::Base
   has_many :review_ratings, :foreign_key => :reviews_id
 
   default_scope :order => 'customers_best_rating DESC, customers_bad_rating ASC, date_added DESC'
-  named_scope :ordered, :order => 'date_added DESC, customers_best_rating DESC, customers_bad_rating ASC'
+  named_scope :ordered, lambda {|sorted| {:order => "#{sorted} DESC, customers_best_rating DESC, customers_bad_rating ASC"}}
   named_scope :approved, :conditions => :reviews_check
   named_scope :by_language, lambda {|language| {:conditions => {:languages_id => DVDPost.product_languages[language]}}}
   named_scope :by_imdb_id, lambda {|imdb_id| {:conditions => ['products.imdb_id = ?',  imdb_id]}}
   named_scope :by_customer_id, lambda {|customer_id| {:conditions => { :customers_id => customer_id }}}
   
+  def self.sort
+    sort = OrderedHash.new
+    sort.push(:rating, 'reviews_rating')
+    sort.push(:date, 'date_added')
+    sort
+  end
 #  define_index do
 #    indexes reviews_text,                 :as => :message
 #    has reviews_id,                :as => :id

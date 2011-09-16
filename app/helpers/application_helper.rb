@@ -267,6 +267,13 @@ module ApplicationHelper
     options
   end
 
+  def sort_review_for_select
+    options = []
+    codes_hash = Review.sort
+    codes_hash.each {|key, code| options.push [t(".#{key}"), key]}
+    options
+  end
+
   def get_current_filter(options = {})
     if cookies[:filter_id]
       current_filter = SearchFilter.get_filter(cookies[:filter_id])
