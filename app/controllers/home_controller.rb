@@ -118,7 +118,7 @@ class HomeController < ApplicationController
       @streaming_available = current_customer.get_all_tokens
       get_selection_week(params[:selection_kind], params[:selection_page])
       get_reviews_data(params[:review_kind], params[:highlight_page], nil)
-      @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+      @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       @rating_count = current_customer.ratings.count
       if @theme && @theme.banner_hp == 1
         @theme_hp = @theme

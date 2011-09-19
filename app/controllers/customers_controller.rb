@@ -3,10 +3,10 @@ class CustomersController < ApplicationController
     @customer = current_customer
     @streaming_available = current_customer.get_all_tokens
     if params[:kind] == :adult
-      @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count
+      @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count
       @wishlist_adult_size = current_customer.wishlist_items.available.by_kind(:adult).current.include_products.count
     else
-      @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+      @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       wishlist_size
     end
    
