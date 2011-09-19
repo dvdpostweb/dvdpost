@@ -2,7 +2,7 @@
 <% product = movie_detail %>
 <% path = product_path(:id => product.to_param, :recommendation => @source) %>
 
-<% cache "/#{I18n.locale}/products/product_#{product.to_param}" do %>
+<% cache "/#{I18n.locale}/products/product_#{product.id}" do %>
 
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>

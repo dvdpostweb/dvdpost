@@ -220,7 +220,9 @@ class ProductsController < ApplicationController
   end
 
   def drop_cached
-    expire_fragment ("/#{I18n.locale}/products/product_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_#{params[:product_id]}")
     render :nothing => true
   end
 private
