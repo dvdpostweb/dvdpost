@@ -20,11 +20,12 @@
   <div class="bysort_choice">
     <% var = params[:sort] || 'date' %>
     <% form_for(:review, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
-      <%= select_tag(:sort, options_for_select(sort_review_for_select, var.to_sym), { :onchange => '$("#sort_form").submit()'}) %>
+      <%= select_tag(:sort, options_for_select(sort_review_for_select, var.to_sym), { :onchange => '$("#sort_form").ajaxSubmit(options);'}) %>
     <% end %>
   </div>
   <div style="clear:both"></div>
-</div></div>
+</div>
+</div>
 
 <div id="titles-wrap" class="reviews customer_reviews">
   <div class="top"></div>

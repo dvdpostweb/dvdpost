@@ -2,6 +2,16 @@
   <%= link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :id => 'add_new_review' if current_customer %>
   <%= "#{reviews_count} #{reviews_count == 1 ? t('.review') : t('.reviews')}" %>
 </div>
+<div class="bysort">
+  <div class="bysort_title"><%= t '.sorting' %> : </div>
+  <div class="bysort_choice">
+    <% var = params[:sort] || 'interesting' %>
+    <% form_for(:review, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
+      <%= select_tag(:sort, options_for_select(sort_review2_for_select, var.to_sym)) %>
+    <% end %>
+  </div>
+  <div style="clear:both"></div>
+</div>
 <%= render :partial => 'products/show/review', :collection => reviews %>
 <%= will_paginate reviews, :param_name => 'reviews_page',
                            :previous_label => "&laquo; #{t('.previous')}",

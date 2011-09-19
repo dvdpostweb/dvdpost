@@ -34,10 +34,19 @@ class Review < ActiveRecord::Base
   
   def self.sort
     sort = OrderedHash.new
-    sort.push(:rating, 'reviews_rating')
     sort.push(:date, 'date_added')
+    sort.push(:rating, 'reviews_rating')
     sort
   end
+
+  def self.sort2
+    sort = OrderedHash.new
+    sort.push(:interesting  , 'interesting')
+    sort.push(:date, 'date_added')
+    sort.push(:rating, 'reviews_rating')
+    sort
+  end
+
 #  define_index do
 #    indexes reviews_text,                 :as => :message
 #    has reviews_id,                :as => :id

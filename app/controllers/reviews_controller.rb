@@ -16,6 +16,10 @@ class ReviewsController < ApplicationController
     
     @customer = Customer.find(params[:customer_id])
     @source = @wishlist_source[:reviews]
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
   end
 
   def show
