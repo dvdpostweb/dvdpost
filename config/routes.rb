@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :themes, :controller => "themes_events", :only => [:index] do |theme|
     theme.resource :texts
   end
-  
+
   map.with_options :path_prefix => '/:locale/:kind' do |localized|
     localized.filter "kind"
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
@@ -25,11 +25,14 @@ ActionController::Routing::Routes.draw do |map|
       home.news 'home/news', :action => :news, :conditions => {:method => :get}
     end
 
+    
+
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :reviews, :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :tokens, :only => [:new, :create]
+      product.drop_cached 'drop_cached',  :controller => :products, :action => :drop_cached, :conditions => {:method => :get} 
       
       product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.awards 'awards', :controller => :products, :action => :awards

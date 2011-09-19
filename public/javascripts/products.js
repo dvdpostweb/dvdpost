@@ -1,5 +1,28 @@
 $(function() {
   // Ajax history, only works on the product.reviews for now
+  var options_review = {
+    success: show_review
+  }
+  function show_review(responseText, statusText){
+    if(jQuery.trim(statusText) == "success"){
+      item = html_item.html(responseText);
+    }
+    else
+    {
+      html_item.html(content);
+    }
+  };
+  
+  $("#sort").live("change", function() {
+    loader = 'ajax-loader.gif';
+    $(this).parent().ajaxSubmit(options_review);
+    html_item = $("#tab-content-movie .content_item");
+    content = html_item.html();
+    $(this).parent().html("<div style='height:22px'><img src='/images/"+loader+"'/></div>");
+    return false; // prevent default behaviour
+  });
+  
+  
   $("#tab1 #pagination a").live("click", function() {
     $.setFragment({ reviews_page: $.queryString(this.href).reviews_page })
   });
@@ -271,6 +294,19 @@ $(function() {
       }
     });
     return false;
+  });
+
+  search_text = $('#search-field').attr('value');
+  $('#search-field').live('focus', function(){
+    if($('#search-field').attr('value') == search_text){
+      $('#search-field').val('');
+    }
+  });
+
+  $('#search-field').live('blur', function(){
+    if($('#search-field').attr('value') == ''){
+      $('#search-field').val(search_text);
+    }
   });
 
   $('.title-vod a.next_page').live('click',function(){

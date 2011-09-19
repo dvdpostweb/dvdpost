@@ -96,10 +96,23 @@ class ProductsController < ApplicationController
       @filter = get_current_filter({})
       @product.views_increment(@product_description)
       @public_url = product_public_path(@product)
+       if params[:sort] && params[:sort] != Review.sort2[:interesting]
+        sort = Review.sort2[params[:sort].to_sym]
+      else
+        sort =  Review.sort2[:interesting]
+      end
       if @product.imdb_id == 0
-        @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+        if sort != Review.sort2[:interesting]
+          @reviews = @product.reviews.approved.ordered(sort).by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+        else
+          @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+        end
       else  
-        @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+        if sort != Review.sort2[:interesting]
+          @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+        else
+          @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+        end
       end
       @reviews_count = product_reviews_count(@product)
       
@@ -130,7 +143,7 @@ class ProductsController < ApplicationController
         Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
       format.js {
-        if params[:reviews_page]
+        if params[:reviews_page] || params[:sort]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
         elsif params[:recommendation_page]
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
@@ -206,6 +219,10 @@ class ProductsController < ApplicationController
    render :nothing => true
   end
 
+  def drop_cached
+    expire_fragment ("/#{I18n.locale}/products/product_#{params[:product_id]}")
+    render :nothing => true
+  end
 private
   def find_product
     if params[:kind] == :normal
