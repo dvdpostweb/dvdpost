@@ -13,7 +13,7 @@ $(function() {
     }
   };
   
-  $("#sort").live("change", function() {
+  $("#tab-content-movie #sort").live("change", function() {
     loader = 'ajax-loader.gif';
     $(this).parent().ajaxSubmit(options_review);
     html_item = $("#tab-content-movie .content_item");

@@ -488,7 +488,7 @@ padding-top:10px;
 .adult #slider-wrap .pagination li a {
   background: url(../images/slider-dots-adult.png) 0 0 no-repeat;
 }
-#slider-wrap .caption a.btn {
+.adult #slider-wrap .caption a.btn {
   background: url(../images/slider-btn-bg-end-adult.png) 0 0 no-repeat;
 }
 .adult #slider-wrap .pagination li a:hover, #slider-wrap .pagination li a.active {
