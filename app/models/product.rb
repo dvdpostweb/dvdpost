@@ -48,6 +48,7 @@ class Product < ActiveRecord::Base
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
   named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
   named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
+  named_scope :available_in_dvd, :conditions => ['products_availability != :status', {:status => '2'}]
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'products_id desc'
   define_index do
@@ -311,7 +312,7 @@ class Product < ActiveRecord::Base
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
-    self.class.find_all_by_products_id(recommendation_ids) if recommendation_ids
+    self.class.available_in_dvd.find_all_by_products_id(recommendation_ids) if recommendation_ids
   end
 
   def description
