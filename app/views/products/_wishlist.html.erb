@@ -1,4 +1,4 @@
-<% if product.availability != 2 %>
+<% if !product.vod? %>
   <% if current_customer %>
     <% load_color = load_color || :normal %>
     <% type_button = product.next.to_i == 1 ? :reserve : :normal %>
