@@ -644,3 +644,24 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 }
 #movix_title
 {text-align:center;}
+#nouveautes .streaming_btn {
+  background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
+  color:white;
+  display:inline-block;
+  font-size:1.09em;
+  height:27px;
+  line-height:24px;
+  padding:0 9px 0 18px;
+  text-align:center;
+  text-shadow:1px 1px 1px #999999;
+  width:62px;
+  margin: 0 0 4px 1px;
+  text-decoration:none;
+  float:right;
+}
+#nouveautes .btn {
+  float:right;
+}
+#nouveautes .streaming_btn:hover {
+  background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -30px transparent;
+}

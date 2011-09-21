@@ -1220,7 +1220,7 @@ a#next10 {
   top: 11px;
 }
 
-#details .cover #dvd, #details .cover #bluray {
+#details .cover #dvd, #details .cover #bluray, #details .cover #vod {
   background: url(../images/dvd-cover-big.png) 0 0 no-repeat;
   display: block;
   height: 231px;
@@ -1232,6 +1232,9 @@ a#next10 {
 
 #details .cover #bluray {
   background: url(../images/bluray-cover-big.png) 0 0 no-repeat;
+}
+#details .cover #vod {
+  background: url(../images/vod-cover-big.png) 0 0 no-repeat;
 }
 
 #details .cover #dvd img, #details .cover #bluray img {
