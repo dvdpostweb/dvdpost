@@ -116,7 +116,7 @@
 </p>
 <% end %>
 <div class="cover">
-  <span id="<%= product.availability == 2 ? 'vod' : product_media_id(product.media) %>">
+  <span id="<%= product.vod? ? 'vod' : product_media_id(product.media) %>">
     <%= product_image_tag @product_image, :width => 143, :height => 218, :alt => "#{@product_title} (#{product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>

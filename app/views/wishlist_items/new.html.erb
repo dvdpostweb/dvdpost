@@ -1,5 +1,5 @@
 <div id="addwishlist_title"><%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %></div>
-<% if @wishlist_item.product.availability != 2 %>
+<% unless @wishlist_item.product.vod?  %>
   <div id="addwishlist_explain">
     <%= t '.intro' %>
   </div>
