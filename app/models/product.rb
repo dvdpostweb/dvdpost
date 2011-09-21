@@ -97,11 +97,12 @@ class Product < ActiveRecord::Base
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 3 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
     
     has "case 
-    when products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 2
-    when products_media = 'DVD' then 1 
+    when products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' and products_availability != 2 then 2
+    when products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' and products_availability = 2 then 5
+    when products_media = 'DVD' and products_availability != 2 then 1 
     when products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 4 
     when products_media = 'blueray' then 3
-    else 5 end", :type  => :integer, :as => :special_media
+    else 6 end", :type  => :integer, :as => :special_media
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 1
     else 0 end", :type => :integer, :as => :streaming_available
@@ -197,7 +198,7 @@ class Product < ActiveRecord::Base
     products = products.by_studio(options[:studio_id]) if options[:studio_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
-    products = products = products.by_special_media([2,4]) if options[:filter] && options[:filter] == "vod"
+    products = products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
     products = products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
     products = products = products.by_special_media([3,4]) if options[:filter] && options[:filter] == "bluray"
     
@@ -212,18 +213,18 @@ class Product < ActiveRecord::Base
             medias = [1,3]
           end
         elsif medias.include?(:streaming)
-          medias = [1,2,4]
+          medias = [1,2,5]
         else
           medias = [1,2]
         end
       elsif medias.include?(:bluray)
         if medias.include?(:streaming)
-          medias = [2,3,4]
+          medias = [2,3,4,5]
         else
           medias = [3,4]
         end
       elsif medias.include?(:streaming)
-        medias = [2,4]
+        medias = [2,4,5]
       end
       products = products.by_special_media(medias)
     end

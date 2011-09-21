@@ -12,7 +12,7 @@
   <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil %>
 <% end %>
 
-<div class="<%= jacket_mode == :streaming ? 'vod' : product_media_id(product.media) %> clearfix">
+<div class="<%= jacket_mode == :streaming || product.availability == 2 ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>
       <%= link_to product_title, path %>
