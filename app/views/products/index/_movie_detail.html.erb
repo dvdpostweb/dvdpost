@@ -1,7 +1,6 @@
 <% if movie_detail %>
 <% product = movie_detail %>
 <% path = product_path(:id => product.to_param, :recommendation => @source) %>
-
 <% cache "/#{I18n.locale}/products/product_#{product.id}" do %>
 
 <% data = product.description_data(true) %>
