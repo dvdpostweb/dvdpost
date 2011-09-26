@@ -8,7 +8,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   
-  #config.autoload_paths += %W(#{Rails.root}/app/apis)
+  config.autoload_paths += %W(#{Rails.root}/app/models/new_db)
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

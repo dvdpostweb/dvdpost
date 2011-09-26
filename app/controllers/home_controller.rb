@@ -68,7 +68,7 @@ class HomeController < ApplicationController
       when DVDPost.home_review_types[:controverse_rate]
         @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
       else
-        @data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => page)
+        @data = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
     end
   end
 

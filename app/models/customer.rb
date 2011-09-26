@@ -511,13 +511,13 @@ class Customer < ActiveRecord::Base
   end
 
   def reconduction_now
-    update_attribute(:auto_stop, 0)
-    update_attribute(:subscription_expiration_date, Time.now().to_s(:db))
+    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db), :credits => (credits + next_subscription_type.credits))
+    customer_attribute.update_attribute(:credits_already_recieved, 1)
     abo_history(Subscription.action[:reconduction_ealier])
   end
   
   def abo_history(action, new_abo_type = 0)
-    Subscription.create(:customer_id => self.to_param, :Action => action, :Date => Time.now().to_s(:db), :product_id => (new_abo_type.to_i > 0 ? new_abo_type : self.abo_type_id), :site => 1, :payment_method => subscription_payment_method.name.upcase)
+    Subscription.create(:customer_id => self.to_param, :Action => action, :Date => Time.now().localtime.to_s(:db), :product_id => (new_abo_type.to_i > 0 ? new_abo_type : self.abo_type_id), :site => 1, :payment_method => subscription_payment_method.name.upcase)
   end
 
   def is_freetest?

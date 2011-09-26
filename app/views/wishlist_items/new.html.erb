@@ -40,6 +40,10 @@
         </tr>
       </table>
     </fieldset>
+    <% if current_customer.customer_attribute.only_vod %>
+      <div id ='attention_langues'><p><%= t '.error_vod' %></p></div>
+    <% end %>
+    
     <% unless @wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
       <div id ='attention_langues'><p><%= t '.error_language' %></p></div>
     <% end %>
