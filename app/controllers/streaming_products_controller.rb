@@ -17,7 +17,7 @@ class StreamingProductsController < ApplicationController
     end
     
     @product = Product.both_available.find_by_imdb_id(params[:id])
-    @streaming_free = StreamingProductsFree.by_imdb_id(params[:id]).available.count > 0 
+    @streaming_free = streaming_free(@product)
    
     respond_to do |format|
       format.html do
@@ -54,7 +54,7 @@ class StreamingProductsController < ApplicationController
               error = creation[:error]
               
               if @token
-                if @streaming_free
+                if @streaming_free[:status] == true
                   mail_id = DVDPost.email[:streaming_product_free]
                 else
                   mail_id = DVDPost.email[:streaming_product]

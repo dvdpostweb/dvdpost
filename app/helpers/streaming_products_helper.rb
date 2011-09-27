@@ -42,18 +42,22 @@ module StreamingProductsHelper
   end
 
   def message_streaming(token, free, streaming)
-    
+    Rails.logger.debug { "@@@#{token.inspect}" }
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
 
     if !current_customer.payment_suspended?
-      if free == false
-        if (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
+      if free[:status] == false
+        if current_customer.abo_active == 0
+          "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
+        elsif (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
           "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
         elsif token_status == Token.status[:ip_invalid]
           "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
         elsif token_status == Token.status[:expired]
           "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
         end
+      elsif free[:status] == true && free[:available] == false && (token.nil? || !token.validate?(request.remote_ip))
+        "<div class ='attention_vod' id ='old_token'>tu as deja utilisé ton film gratuit</div>"
       end
     else
       "<div class='attention_vod' id=''>#{t '.customer_suspended'}</div>"
@@ -70,6 +74,8 @@ module StreamingProductsHelper
     case error
       when Token.error[:query_rollback] then
         t('.rollback')
+      when Token.error[:customer_not_activated] then
+        t('.customer_not_activated')
       when Token.error[:abo_process_error] then
         t('.abo_process')
       when Token.error[:not_enough_credit] then
@@ -90,4 +96,5 @@ module StreamingProductsHelper
       "none"
     end
   end
+
 end

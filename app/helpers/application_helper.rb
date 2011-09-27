@@ -361,4 +361,25 @@ module ApplicationHelper
     end
   end
 
+  def streaming_free(product)
+    streaming_free = StreamingProductsFree.by_imdb_id(product.imdb_id).available.first
+    if streaming_free
+      if streaming_free.kind = DVDPost.streaming_free_type[:beta_test] 
+        if current_customer.beta_test && current_customer.abo_active == 0
+          if current_customer.tokens.all(:joins => :streaming_products_free, :conditions =>  ['streaming_products_free.available = 1 and streaming_products_free.available_from < ? and streaming_products_free.expire_at > ?', Time.now.localtime.to_s(:db), Time.now.localtime.to_s(:db)]).count == 0
+            {:status => true, :available => true} #streaming free not use
+          else
+            {:status => true, :available => false} #streaming free but this customer have already use his free movie
+          end
+        else
+          {:status => false, :available => false} #streaming free but this customer dont have access
+        end
+      else
+        {:status => true, :available => true} # streaming free for all
+      end
+    else
+      {:status => false, :available => false} #streaming not free
+    end
+  end
+
 end
