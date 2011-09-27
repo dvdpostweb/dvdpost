@@ -1,11 +1,11 @@
 <div id="filters">
   <h3>
-    <%= t '.refine' %>
+    <%= t 'products.index.filters.refine' %>
   </h3>
   <fieldset>
     <ul>
-      <li class="technology<%= ' open' if filter.media? %>">
-        <%= link_to t('.tech'), products_path(:technology => 1) %>
+      <li class="technology<%= ' open' if filter.media? %>" style='display:none'>
+        <%= link_to t('products.index.filters.tech') %>
         <div <%= "style='display:none'" unless filter.media? %>>
           <% medias = streaming_access? ? [:dvd, :bluray, :streaming] : [:dvd, :bluray] %>
           <% medias.each do |media| %>
@@ -16,8 +16,8 @@
           <% end %>
         </div>
       </li>
-      <li class="audience<%= ' open' if filter.audience? %>">
-        <%= link_to t('.public'), products_path(:audience => 1) %>
+      <li class="audience<%= ' open' if filter.audience? %>" style='display:none'>
+        <%= link_to t('products.index.filters.public'), products_path(:audience => 1) %>
         <div id="audience-slider" <%= "style='display:none'" unless filter.audience? %>>
           <%= f.hidden_field :audience_min, :value => filter.audience_min || 0 %>
           <%= f.hidden_field :audience_max, :value => filter.audience_max || 18 %>
@@ -30,13 +30,13 @@
         </div>
       </li>
       <li class="country<%= ' open' if filter.country_id? %>">
-        <%= link_to t('.countries'), products_path(:countries => 1) %>
+        <%= link_to t('products.index.filters.countries'), products_path(:country_id => 1) %>
         <div <%= "style='display:none'" unless filter.country_id? %>>
           <%= f.select :country_id, countries.collect{|country| [country.name, country.id]}, {:include_blank => true} %>
         </div>
       </li>
       <li class="year<%= ' open' if filter.year? %>">
-        <%= link_to t('.year'), products_path(:year => 1) %>
+        <%= link_to t('products.index.filters.year') %>
         <div id="year-slider" <%= "style='display:none'" unless filter.year? %>>
           <%= f.hidden_field :year_min, :value => filter.year_min || 0 %>
           <%= f.hidden_field :year_max, :value => filter.year_max || 2020 %>
@@ -49,7 +49,7 @@
         </div>
       </li>
       <li class="ratings<%= ' open' if filter.rating? %>">
-        <%= link_to t('.ratings'), products_path(:rating => 1) %>
+        <%= link_to t('products.index.filters.ratings'), products_path(:rating => 1) %>
         <div id="ratings-slider" <%= "style='display:none'" unless filter.rating? %>>
           <%= f.hidden_field :rating_min, :value => filter.rating_min || 0 %>
           <%= f.hidden_field :rating_max, :value => filter.rating_max || 5 %>
@@ -62,18 +62,18 @@
         <div id="ratings-slider-range" <%= "style='display:none'" unless filter.rating? %>></div>
       </li>
       <li class="dvdpost_choice<%= ' open' if filter.dvdpost_choice? %>">
-        <%= link_to t('.dvdpost_choice'), products_path(:choice => 1) %>
+        <%= link_to t('products.index.filters.dvdpost_choice'), products_path(:choice => 1) %>
         <div <%= "style='display:none'" unless filter.dvdpost_choice? %>>
           <label>
             <%= f.check_box :dvdpost_choice %>
-            <%= t '.dvdpost_choice' %>
+            <%= t 'products.index.filters.dvdpost_choice' %>
           </label>
         </div>
       </li>
       <li class="audio<%= ' open' if filter.audio? %>">
-        <%= link_to t('.audio'), products_path(:audio => 1) %>
+        <%= link_to t('products.index.filters.audio'), products_path(:audio => 1) %>
         <div <%= "style='display:none'" unless filter.audio? %>>
-          <% Language.all.each do |track| %>
+          <% Language.by_language(I18n.locale).each do |track| %>
             <label>
               <%= filter_checkbox_tag :audio, track.to_param, (filter.audio? && filter.audio.include?(track.to_param.to_i)) %>
               <%= track.name %>
@@ -82,7 +82,7 @@
         </div>
       </li>
       <li class="subtitles<%= ' open' if filter.subtitles? %>">
-        <%= link_to t('.subtitles'), products_path(:subtitles => 1) %>
+        <%= link_to t('products.index.filters.subtitles'), products_path(:sub => 1) %>
         <div <%= "style='display:none'" unless filter.subtitles? %>>
           <% Subtitle.by_language(I18n.locale).each do |sub| %>
             <label>
@@ -93,7 +93,7 @@
         </div>
       </li>
       <li class='li_submit'>
-        <%= f.submit t('.apply'), :name => nil, :class => 'submit' %>
+        <%= f.submit t('products.index.filters.apply'), :name => nil, :class => 'submit' %>
       </li>
     </ul>
   </fieldset>

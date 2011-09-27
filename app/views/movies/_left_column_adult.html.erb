@@ -1,0 +1,35 @@
+<!--   ==============   LEFT COLUMN   ==============   -->
+<div id="leftcolumn">
+  <!-- test -->
+  <% form_for :search_filter, filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id], :studio_id => params[:studio_id]), :html => {:id => 'search'}} do |f| %>
+    <p id="special" <%= "style=\"background: url(#{DVDPost.images_path}/themes/#{I18n.locale}/banner_menu/#{@theme.id}.gif); \"" if @theme && @theme.banner_menu == 1 %>>
+      <% if @theme && @theme.banner_menu == 1 %>
+        <%= link_to t("products.left_column.#{@theme.name}"), theme_path(:id => @theme.to_param), :style => "color: #{@theme.banner_menu_text_color}"%>
+      <% else%>
+        <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
+        <%= link_to special.name, list_products_path(:list_id => special) %>
+      <% end %>
+    </p>
+    <ul id="left-nav">
+      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close new' : 'close new') if streaming_access? %></li>
+      <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>
+      <li><%= link_to t('.performers'), actors_path(), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
+      <li><%= link_to t('.studios'), studios_path(), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>
+      <li>
+        <%= display_btn_categories %>
+        <ul id="categories_list">
+          <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
+        </ul>
+      </li>
+    </ul>
+    <%= render :partial => 'products/index/filters_adult', :locals => {:countries => @countries, :filter => filter, :f => f} if params[:action] == 'index' %>
+  <% end %>
+    <div id="tag_area">
+      <h2 class="miso"> Tags </h2>
+      <div class="tags">
+        <%= render :partial => "/products/index/tag", :collection => @collections %>								
+  		</div>
+    </div>
+</div>
+
+<!--   ==============   END LEFT COLUMN   ==============   -->

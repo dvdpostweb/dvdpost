@@ -1,0 +1,91 @@
+<root><% description = @product.description %>
+  <product_id><%= @product.id %></product_id>
+  <imdb_id><%= @product.imdb_id %></imdb_id>
+  <title><%= REXML::Text.new(@product.title).to_s %></title>
+  <type><%= @product.kind %></type>
+  <media><%= @product.media %></media>
+  <production_year><%= @product.year %></production_year>
+  <rating>
+    <total><%= @product.rating %></total>
+      <details>
+        <count><%= @product.rating_count %></count>
+        <total><%= @product.rating_users %></total>
+      </details>
+  </rating>
+  <available_from><%= @product.available_at %></available_from>
+  <serie_id><%= @product.series_id %></serie_id>
+  <% if @product.director %>
+  <director>
+    <name><%= REXML::Text.new(@product.director.name).to_s %></name>
+    <id><%= @product.director.id %></id>
+  </director>
+  <% end %>
+  <runtime><%= @product.runtime %></runtime>
+  <country_from>
+    <name><%= @product.country.name %></name>
+    <id><%= @product.country.id %></id>
+  </country_from>
+  <% if description %>
+    <description><![CDATA[<%= description.text %>]]></description>
+    <% if description.url_present? %>
+      <url><![CDATA[<%= description.full_url %>]]></url>
+    <% end %>
+    <awards>
+      <![CDATA[<%= description.products_awards %>]]>
+    </awards>
+  <% end %>
+  <jacket><%= @product.image %></jacket>
+  <actors>
+    <% @product.actors.collect{|actor|  %>
+      <actor>
+        <name><%= actor.name %></name>
+        <id><%= actor.id %></id>
+      </actor>
+    <% } %>
+  </actors>
+  <categories>
+    <% @product.categories.collect{|category| %>
+      <category>
+        <name><%= REXML::Text.new(category.name).to_s %></name>
+        <id><%= category.id %></id>
+      </category>
+    <% } %>
+  </categories>
+  <audiance>
+    <%= @product.public.name %>
+  </audiance>
+  
+  <languages>
+      <% @product.languages.collect{|language| %>
+        <language>
+          <id><%= language.languages_id %></id>
+          <text><%= language.name %></text>
+          <short><%= language.short %></short>
+        </language>
+      <% } %>
+  </languages>
+  <subtitles>
+      <% @product.subtitles.collect{|subtitle| %>
+        <subtitle>
+          <id><%= subtitle.id %></id>
+          <name><%= subtitle.name %></name>
+          <short><%= subtitle.short %></short>
+        </subtitle>
+      <% } %>
+  </subtitles>
+  <% if @product.picture_format %>
+  <picture_format>
+    <id><%= @product.picture_format.id %></id>
+    <name><%= REXML::Text.new(@product.picture_format.name).to_s %></name>
+  </picture_format>
+  <% end %>
+  <sound_tracks>
+  <% @product.soundtracks.collect{ |soundtrack| %>
+    <sound_track>
+      <id><%= soundtrack.id %></id>
+      <name><%= soundtrack.name%></name>
+    </sound_track>
+  <% } %>
+  </sound_tracks>
+  
+</root>

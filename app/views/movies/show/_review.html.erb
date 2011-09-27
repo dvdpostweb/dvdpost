@@ -1,0 +1,33 @@
+<% if params[:kind] == :adult %>
+  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count %>
+<% else %>
+  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).count %>
+<% end %>
+<li>
+  <div class="content">
+    <div class="critic"> 
+      <a href="<%= customer_reviews_path(:customer_id => review.customer.to_param) %>">
+        <%= image_tag (get_avatar(review.customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) %>
+      </a>
+      <div class="name">
+        <strong>
+          <a href="<%= customer_reviews_path(:customer_id => review.customer.to_param) %>"><%= review.customer.customer_attribute.nickname %></a>
+        </strong>
+        <span class="publish">
+          <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
+        </span>
+        <%= customer_awards(review.customer, review.customer.customer_attribute.points) %> | (<%= reviews_count %> <%= review_title(reviews_count) %>) <br />
+        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customer.to_param), :class => :all_critics %>
+      </div>
+      <strong style="clear: both;"><%= t '.rating' %> :</strong> 
+      <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
+    </div>
+    <p> 
+      <strong><%= t '.critic' %> :</strong> 
+      <%= review.text %>
+    </p>
+    <div class="relevant">
+      <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
+    </div>
+  </div>
+</li>

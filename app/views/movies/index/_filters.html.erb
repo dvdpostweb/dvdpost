@@ -73,7 +73,7 @@
       <li class="audio<%= ' open' if filter.audio? %>">
         <%= link_to t('.audio'), products_path(:audio => 1) %>
         <div <%= "style='display:none'" unless filter.audio? %>>
-          <% Language.all.each do |track| %>
+          <% Language.by_language(I18n.locale).each do |track| %>
             <label>
               <%= filter_checkbox_tag :audio, track.to_param, (filter.audio? && filter.audio.include?(track.to_param.to_i)) %>
               <%= track.name %>

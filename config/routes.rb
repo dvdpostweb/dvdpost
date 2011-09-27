@@ -68,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :actors, :only => [:index] do |actor|
-      actor.resources :products, :only => :index
+      actor.resources :movies, :only => :index
     end
 
     localized.resources :directors, :only => [] do |director|

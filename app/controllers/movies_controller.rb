@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class MoviesController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
           else
             new_params = params
           end
-          Product.filter(@filter, new_params)
+          Movie.filter(@filter, new_params)
         end
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?

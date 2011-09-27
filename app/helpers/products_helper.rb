@@ -14,7 +14,7 @@ module ProductsHelper
   def audio_bubbles(product, additional_bubble = 0)
     audio_count=0
     total_bubble = 5 + additional_bubble 
-    preferred_audio = product.languages.preferred
+    preferred_audio = Product2.find_by_old_product_id(product.id).languages.preferred
     audio = Array.new
     unless preferred_audio.count == 0
       audio = preferred_audio.collect{|language| 
@@ -23,7 +23,7 @@ module ProductsHelper
       }
     end
     
-    not_preferred_audio = product.languages.not_preferred
+    not_preferred_audio = Product2.find_by_old_product_id(product.id).languages.not_preferred
     unless not_preferred_audio.count == 0
       audio << not_preferred_audio.collect{|language| 
         audio_count +=1
@@ -105,9 +105,11 @@ module ProductsHelper
 
   def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
    if product
-     rating = product.rating(current_customer) 
+     #rating = product.rating(current_customer)
      links = []
-     rated = current_customer ? current_customer.has_rated?(product) : nil
+     #rated = current_customer ? current_customer.has_rated?(product) : nil
+     rating = 4
+     rated = nil
      5.times do |i|
        i += 1
        links << rating_image_link(product, rating, i, background, size, replace, recommendation, rated)
@@ -227,30 +229,30 @@ module ProductsHelper
 
   def awards(description)
     content = ''
-    if description
-      if !description.products_awards.empty?
-        awards = description.products_awards.split(/<br>|<br \/>/)
-        if count_awards(awards) > 3
-          content += '<p id ="oscars_text">'
-          3.times do |i|
-            content += "#{awards[i]}<br />"
-          end
-          content += '</p>'
-          content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => description.products_id)}</p>"
-        else
-          content += "<p>#{description.products_awards}</p>"
-        end
-      end
-    end
+   #if description
+   #  if !description.products_awards.empty?
+   #    awards = description.products_awards.split(/<br>|<br \/>/)
+   #    if count_awards(awards) > 3
+   #      content += '<p id ="oscars_text">'
+   #      3.times do |i|
+   #        content += "#{awards[i]}<br />"
+   #      end
+   #      content += '</p>'
+   #      content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => description.products_id)}</p>"
+   #    else
+   #      content += "<p>#{description.products_awards}</p>"
+   #    end
+   #  end
+   #end
   end
 
   def count_awards(awards)
     count = 0
-    awards.each do |award|
-      if !award.empty?
-        count += 1
-      end
-    end
+    #awards.each do |award|
+    #  if !award.empty?
+    #    count += 1
+    #  end
+    #end
     count
   end
 
