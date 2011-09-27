@@ -158,6 +158,13 @@ module DVDPost
       })
     end
 
+    def streaming_free_type
+      HashWithIndifferentAccess.new.merge({
+        :beta_test => 'BETA_TEST',
+        :all => 'ALL'
+      })
+    end
+
     def home_page_news
       open(news_url[I18n.locale]) do |http|
         RSS::Parser.parse(http.read, false).items
@@ -255,7 +262,7 @@ module DVDPost
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
         :external => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182'],
-        :internal => '127.0.0.1'
+        :internal => '127.0.0.2'
       })
     end
     
