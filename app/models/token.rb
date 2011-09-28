@@ -1,6 +1,7 @@
 class Token < ActiveRecord::Base
   belongs_to :customer, :primary_key => :customers_id
   has_many :streaming_products, :primary_key => :imdb_id, :foreign_key => :imdb_id
+  has_many :streaming_products_free, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :token_ips
   has_many :products, :foreign_key => :imdb_id, :primary_key => :imdb_id
 
@@ -50,6 +51,7 @@ class Token < ActiveRecord::Base
     error.push(:query_rollback, 3)
     error.push(:user_suspended, 4)
     error.push(:generation_token_failed, 5)
+    error.push(:customer_not_activated, 6)
     
     error
   end
@@ -83,27 +85,6 @@ class Token < ActiveRecord::Base
     return token_status == Token.status[:ok] || token_status == Token.status[:ip_valid]
   end
   
-=begin
-def validation(imdb_id, ip)
-token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
-if token
-token_ips = token.token_ips
-select = token_ips.find_by_ip(ip)
-if select
-{:token => token, :status => Token.status[:OK]}
-else
-if token_ips.count < token.count_ip
-{:token => token, :status => Token.status[:ip_valid]}
-else
-{:token => token, :status => Token.status[:ip_invalid]}
-end
-end
-else
-{:token => nil, :status => Token.status[:FAILED]}
-end
-end
-=end
-
   private
   def generate_token
     if token.nil?
