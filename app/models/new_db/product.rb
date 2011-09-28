@@ -1,7 +1,9 @@
 class Product < ActiveRecord::Base
-    establish_connection "development2"
-    set_primary_key :id
+  establish_connection "development2"
 
-    has_and_belongs_to_many :languages
-    
+  named_scope :by_dvd, :conditions => {:product_support_id => 1}
+
+  has_and_belongs_to_many :languages
+
+  belongs_to :movie
 end

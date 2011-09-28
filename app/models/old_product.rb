@@ -1,4 +1,4 @@
-class Product < ActiveRecord::Base
+class OldProduct < ActiveRecord::Base
   db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
   cattr_reader :per_page

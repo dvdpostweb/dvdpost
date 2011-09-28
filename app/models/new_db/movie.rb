@@ -21,6 +21,7 @@ class Movie < ActiveRecord::Base
 
     has categories(:id), :as => :category_id
     has actors(:id),         :as => :actors_id
+    has products.languages(:id), :as => :dvd_language_ids
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
