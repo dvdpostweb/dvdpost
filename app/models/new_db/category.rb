@@ -9,7 +9,6 @@ class Category < ActiveRecord::Base
   has_many :children, :class_name => 'Category', :foreign_key => :parent_id
 
   named_scope :by_kind, lambda {|kind| {:conditions => {:movie_kind_id => DVDPost.category_kinds[kind]}}}
-  named_scope :movies, :conditions => {:product_type => 'Movie'}
   named_scope :roots, :conditions => {:parent_id => 0}
   #named_scope :visible_on_homepage, :conditions => {:show_home => 'YES'}
   named_scope :active, :conditions => {:active => 1}

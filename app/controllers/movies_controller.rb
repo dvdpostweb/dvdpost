@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
     
     if params[:category_id]
       filter = get_current_filter
-      @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
+      @popular = nil # current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
       @category = Category.find(params[:category_id])
       if params[:category_id].to_i == 76
         current_customer.customer_attribute.update_attribute(:sexuality, 1)
@@ -64,7 +64,7 @@ class MoviesController < ApplicationController
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
         
         
-        @jacket_mode = Product.get_jacket_mode(params)
+        @jacket_mode = OldProduct.get_jacket_mode(params)
         if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
           session[:menu_categories] = true
           session[:menu_tops] = false
@@ -82,10 +82,10 @@ class MoviesController < ApplicationController
 
   def show
     if params[:kind] == :adult
-      @product = Product.adult_available.find(params[:id])
+      @product = movie.adult_available.find(params[:id])
       @rating_color = :pink
     else
-      @product = Product.normal_available.find(params[:id])
+      @product = Movie.normal_available.find(params[:id])
       @rating_color = :white
     end
     data = @product.description_data(true)
@@ -94,37 +94,38 @@ class MoviesController < ApplicationController
     @product_description =  data[:description]
     unless request.format.xml?
       @filter = get_current_filter({})
-      @product.views_increment(@product_description)
+      #@product.views_increment(@product_description)
       @public_url = product_public_path(@product)
        if params[:sort] && params[:sort] != Review.sort2[:interesting]
         sort = Review.sort2[params[:sort].to_sym]
       else
         sort =  Review.sort2[:interesting]
       end
-      if @product.imdb_id == 0
-        if sort != Review.sort2[:interesting]
-          @reviews = @product.reviews.approved.ordered(sort).by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
-        else
-          @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
-        end
-      else  
-        if sort != Review.sort2[:interesting]
-          @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-        else
-          @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-        end
-      end
-      @reviews_count = product_reviews_count(@product)
+     #if @product.imdb_id == 0
+     #  if sort != Review.sort2[:interesting]
+     #    @reviews = @product.reviews.approved.ordered(sort).by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+     #  else
+     #    @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+     #  end
+     #else  
+     #  if sort != Review.sort2[:interesting]
+     #    @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+     #  else
+     #    @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+     #  end
+     #end
+     #@reviews_count = product_reviews_count(@product)
       
-      product_recommendations = @product.recommendations(params[:kind])
-      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
+      #product_recommendations = @product.recommendations(params[:kind])
+      #@recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
+      @recommendations = nil
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
     @collections = Collection.by_size.random
     respond_to do |format|
       format.html do
-        @categories = Product2.find_by_old_product_id(params[:id]).movie.categories
+        @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
         
         fragment_name = "cinopsis_#{@product.id}"

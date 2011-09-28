@@ -268,7 +268,7 @@ module ProductsHelper
     title = t('.streaming_title') if params[:view_mode] == 'streaming'
     title = t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
     title = t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
-    title = "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    title = "#{t '.categorie'}: #{Category.find(params[:category_id]).name}" if params[:category_id] && !params[:category_id].blank?
     title = "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
     title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
@@ -310,21 +310,21 @@ module ProductsHelper
 
   def left_column_categories(selected_category, kind, sexuality)
     html_content = []
-    cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
+    cat = Category.active.roots.by_kind(kind).remove_themes.ordered
     cat.collect do |category|
-      li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent && selected_category.active == 'YES'
+      li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent && selected_category.active
       if category == selected_category
         a_class = 'actived'
       else
         li_class = 'cat'
       end
       html_content << content_tag(:li, :class => li_class, :style => li_style) do
-        link_to category.name, category_products_path(:category_id => category), :class => a_class
+        link_to category.name, category_movies_path(:category_id => category), :class => a_class
       end
       if selected_category && (category == selected_category || category == selected_category.parent)
-        category.children.active.movies.by_kind(:normal).remove_themes.ordered.collect do |sub_category|
+        category.children.active.by_kind(:normal).remove_themes.ordered.collect do |sub_category|
           html_content << content_tag(:li, :class => 'subcat') do
-            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => ('actived' if sub_category == selected_category)
+            link_to " | #{sub_category.name}", category_movies_path(:category_id => sub_category), :class => ('actived' if sub_category == selected_category)
           end
         end
         html_content << content_tag(:li) do

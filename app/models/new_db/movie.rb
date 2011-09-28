@@ -14,15 +14,23 @@ class Movie < ActiveRecord::Base
   #has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
   #has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
 
+  named_scope :normal_available, :conditions => ['movie_kind_id = :kind', { :kind => DVDPost.movie_kinds[:normal]}]
+  named_scope :adult_available,  :conditions => ['movie_kind_id = :kind', { :kind => DVDPost.movie_kinds[:adult]}]
+  #named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
+
   define_index do
-    indexes descriptions.name,  :as => :descriptions_text
+    indexes descriptions.name,  :as => :descriptions_text, :sortable => true
     indexes director.name,            :as => :director_name
     indexes actors.name,                 :as => :actors_name
 
     has categories(:id), :as => :category_id
     has actors(:id),         :as => :actors_id
-    has products.languages(:id), :as => :dvd_language_ids
-
+    has director(:id),         :as => :directors_id
+    has products.languages(:id), :as => :language_ids
+    has season_id
+    has "case 
+      when season_id > 0 and movie_type_id = 2 then season_id
+      else movies.id + 1000000 end", :type  => :integer, :as => :real_season_id
     set_property :enable_star => true
     set_property :min_prefix_len => 3
     set_property :charset_type => 'sbcs'
@@ -32,7 +40,9 @@ class Movie < ActiveRecord::Base
   end
 
   sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
+  sphinx_scope(:by_director)        {|director|            {:with =>       {:directors_id => director.to_param}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
 
   def self.filter(filter, options={})
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
@@ -149,6 +159,7 @@ class Movie < ActiveRecord::Base
     #    products = products.order(sort, :extended)
     #  end
     #end
+    products = products.group('real_season_id', 'season_id desc')
     products
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
@@ -209,6 +220,9 @@ class Movie < ActiveRecord::Base
   def vod?
     #media == DVDPost.product_types[:vod]
     false
+  end
+  def adult?
+    movie_kind_id == DVDPost.movie_kinds[:adult]
   end
 
 

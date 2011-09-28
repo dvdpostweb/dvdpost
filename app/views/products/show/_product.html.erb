@@ -1,28 +1,14 @@
-<% if product.availability == -1 %>
-<div id="not_available" class="<%= I18n.locale %>">
-  <div id='not_available_title'><%= t '.not_available' %></div>
-  <div id='not_available_description'><%= t '.not_available_description' %></div>
-</div>
-<% end %>
-
 <ul>
   <% if product.director %>
     <li>
       <strong>
-        <%= "#{t('.directed_by')} #{link_to product.director.name, director_products_path(:director_id => product.director.to_param)}" %>
+        <%= "#{t('.directed_by')} #{link_to product.director.name, director_movies_path(:director_id => product.director.to_param)}" %>
       </strong>
     </li>
   <% end %>
 
-  <% if product.studio && product.adult? %>
-    <li>
-      <strong>
-        <%= "#{t('.studio')} : #{link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param)}" %>
-      </strong>
-    </li>
-  <% end %>
   
-  <% actors = Product2.find_by_old_product_id(params[:id]).movie.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %>
+  <% actors = product.actors.collect{|actor| link_to actor.name, actor_movies_path(:actor_id => actor.to_param) }.join(', ') %>
   <% if actors %>
   <li>
     <strong>
@@ -31,100 +17,36 @@
     <%= actors %>
   </li>
   <% end %>
-  <% if product.original_title != '' && @product_title != product.original_title %>
-    <li>
-      <strong>
-        <%= t '.original_title' %>
-      </strong>
-      <%= product.original_title %>
-    </li>
-  <% end %>
-  <li>
-    <strong>
-      <%= t '.duration' %>
-    </strong>
-    <%= "#{product.runtime} minutes" %>
-  </li>
   <li>
     <strong>
       <%= t '.genre' %>
     </strong>
     <% if params[:kind] == :adult %>
-      <%= Product2.find_by_old_product_id(params[:id]).movie.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+      <%= Movie.find(params[:id]).categories.collect{|category| link_to category.name, category_movies_path(:category_id => category)}.join(', ') %>
     <% else %>
-      <%= Product2.find_by_old_product_id(params[:id]).movie.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+      <%= Movie.find(params[:id]).categories.active.collect{|category| link_to category.name, category_movies_path(:category_id => category)}.join(', ') %>
     <% end %>
   </li>
   <li>
     <strong>
       <%= t '.country' %>
     </strong>
-    <%= product.country.name %>
+    
   </li>
   <li>
     <strong>
       <%= t '.audience' %>
     </strong>
-    <%= image_tag product.public.image, :alt => product.public.description %>
+    
   </li>
 </ul>
-<p class="links">
-  <% if trailer = product.trailer %>
-    <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), {:class => 'trailer', :target => :_blank}) %>
-    <%= content_tag(:span, image_tag('delimiter.gif')) if @product_description.url_present? %>
-  <% end %>
-  <%= link_to(t('.official'), @product_description.full_url, {:class => 'link', :target => :_blank}) if @product_description && @product_description.url_present? %>
-</p>
-<p>
-<% audio_bubble = audio_bubbles(product, 2)%>
-<% unless audio_bubble[:audio].blank? %>
-  <div class='language_title'>
-    <strong>
-      <%= t '.audio' %>
-    </strong>
-  </div>
-  <%= audio_bubble[:audio] %>
-<% end %>
-<% subtitles = subtitle_bubbles(product, 2) %>
-<% unless subtitles[:sub].blank? %>
-  <br style ="clear:both" /><div class='language_title'>
-    <strong>
-      <%= t '.subtitles' %>
-    </strong>
-  </div>
-  <%= subtitles[:sub] %>
-<% end %>
-</p>
-<%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>
 
-<p>
-  <strong>
-    <%= t '.image' %>
-  </strong>
-  <%= product.picture_format.name if product.picture_format %><br />
-  <strong>
-    <%= t '.sound' %>
-  </strong>
-  <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
-</p>
-<% if product.next == 1 and product.available_at%>
-<p>
-  <strong>
-    <%= t '.available' %>
-  </strong>
-  <%= product.available_at.strftime("%d/%m/%Y") if product.available_at %>
-</p>
-<% end %>
+
+
+
 <div class="cover">
-  <span id="<%= product.vod? ? 'vod' : product_media_id(product.media) %>">
-    <%= product_image_tag @product_image, :width => 143, :height => 218, :alt => "#{@product_title} (#{product.year})" %>
-    <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
+  <span id="dvd">
+    <%= product_image_tag @product_image, :width => 143, :height => 218, :alt => "#{@product_title} )" %>
   </span>
-  <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
-  
-  <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token} if product.streaming? and streaming_access? %>
   
 </div>
-<% unless product.adult? %>
-<iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(@public_url) %>&amp;layout=standard&amp;show_faces=true&amp;width=400&amp;action=recommend&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:80px;" allowTransparency="true"></iframe>
-<% end %>

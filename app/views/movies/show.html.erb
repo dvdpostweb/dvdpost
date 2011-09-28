@@ -5,7 +5,7 @@
     <div class="top"></div>
     <!-- Detail -->
     <h2>
-      <%= "#{@product_title} (#{@product.year})" %>
+      <%= "#{@product_title} " %>
     </h2>
     <div class="box">
       <div class="box-content clearfix">
@@ -15,7 +15,7 @@
             <%= render :partial => 'products/show/product', :object => @product %>
           </div>
           <div class="action">
-            <% if @product.dvdposts_choice? %>
+            <% if 1== 0 && @product.dvdposts_choice? %>
               <div id="dvdpost-coup">
                 <%= image_tag 'dvdpost-coup.png' %>
                 <%= t '.dvdpost_choice' %>
@@ -23,7 +23,7 @@
             <% end %>
             <div align="center">
                 <%= t '.rate' %>
-                <%= "(#{@product.rating_count} #{t('.count')})" %>
+                "(#{@product.rating_count} #{t('.count')})"
             </div>
             <ul>
               <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
@@ -68,7 +68,7 @@
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
           <div id="tab-content-movie" class="tab_content">
-            <% if @reviews_count > 0 %>
+            <% if 1==0 && @reviews_count > 0 %>
             <ul class="clearfix content_item">
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
             </ul>

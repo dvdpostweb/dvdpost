@@ -41,11 +41,12 @@ ActionController::Routing::Routes.draw do |map|
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
     end
 
-    localized.resources :adult_products, :only => [:index, :show] do |product|
+    localized.resources :movies, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :reviews, :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :tokens, :only => [:new, :create]
+      product.drop_cached 'drop_cached',  :controller => :products, :action => :drop_cached, :conditions => {:method => :get} 
       
       product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.awards 'awards', :controller => :products, :action => :awards
@@ -65,14 +66,19 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :categories, :only => [:index] do |category|
       category.resources :products, :only => :index
+      category.resources :movies, :only => :index
     end
 
     localized.resources :actors, :only => [:index] do |actor|
       actor.resources :movies, :only => :index
+      actor.resources :products, :only => :index
+      
     end
 
     localized.resources :directors, :only => [] do |director|
       director.resources :products, :only => :index
+      director.resources :movies, :only => :index
+      
     end
 
     localized.resources :studios, :only => [:index] do |studio|
