@@ -34,6 +34,9 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if current_customer.abo_active == 0 && @streaming_free[:status] == true %>
+      top promo click ici
+      <% end%>
       <div class="linkpc">
         <div class="icon_left">
           <%= image_tag 'icon_tv.gif', :align => :absmiddle, :alt => 'icon tv' %>

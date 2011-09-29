@@ -42,13 +42,16 @@ module StreamingProductsHelper
   end
 
   def message_streaming(token, free, streaming)
-    Rails.logger.debug { "@@@#{token.inspect}" }
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
 
     if !current_customer.payment_suspended?
       if free[:status] == false
         if current_customer.abo_active == 0
-          "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
+          if current_customer.beta_test
+            "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated_beta_test'}</div>"
+          else
+            "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
+          end
         elsif (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
           "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
         elsif token_status == Token.status[:ip_invalid]
