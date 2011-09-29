@@ -4,7 +4,7 @@
   </div>
   
   <div id="content_droite">
-    <table cellpadding="1" cellspacing="0">
+    <table cellpadding="1" cellspacing="0" border="0">
       <tr>
         <td width="207" align="right"><strong><%= t '.abo' %></strong></td>
         <td width="141" align="left">
@@ -37,7 +37,14 @@
           <% end %>
         </td>
       </tr>
-      
+      <tr>
+        <td align="right" class=""><strong><%= t '.mail_copy_title' %></strong></td>
+        <td align="left" class="">
+          <div>
+          <%= render :partial => 'customers/show/only_vod', :locals => {:only_vod => customer.customer_attribute.only_vod} %>
+          </div>
+        </td>
+      </tr>
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
@@ -113,3 +120,5 @@
 </div>
 <div class="end"></div>
 <div style="display:none" id="rotation"><%= t '.rotation' %></div>
+<div style="display:none" id="only_vod_confirm"><%= t '.only_vod_confirm' %></div>
+<div style="display:none" id="remove_only_vod_confirm"><%= t '.remove_only_vod_confirm' %></div>

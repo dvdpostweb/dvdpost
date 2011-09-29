@@ -19,7 +19,39 @@ $(function() {
     });
     return false;
   });
-  
+
+  $(".only_vod").live("click", function() {
+    url = $(this).attr('href');
+    var reg=new RegExp("value=0","g");
+    if(url.match(reg))
+    {
+      confirm_text = $('#remove_only_vod_confirm').html()
+    }
+    else
+    {
+      confirm_text = $('#only_vod_confirm').html()
+    }
+    html_item = $(this).parent();
+    content = html_item.html();
+    if(confirm(confirm_text))
+    {
+      loader = 'ajax-loader.gif';
+      html_item.html("<img src='/images/"+loader+"'/>");
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: {},
+        success: function(data) {
+          item = html_item.html(data);
+        },
+        error: function() {
+          html_item.html(content);
+        }
+      });
+    }
+    return false;
+  });
+
   $(".news_x").live("click", function() {
     url = $(this).attr('href');
     html_item = $(this).parent();
