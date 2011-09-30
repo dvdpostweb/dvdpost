@@ -85,34 +85,32 @@ module ProductsHelper
     {:sub => sub, :hide => hide}
   end
 
-  def rating_review_image_links(product, replace=nil)
+  def rating_review_image_links(movie, replace=nil)
     links = []
     5.times do |i|
       i += 1
-      links << rating_review_image_link(product, i, replace)
+      links << rating_review_image_link(movie, i, replace)
     end
     links
   end
 
-  def rating_review_image_link(product, value, replace)
+  def rating_review_image_link(movie, value, replace)
     name = 'star-voted'
     class_name = 'star'
     image_name = "#{name}-off.png"
 
-    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
+    image = image_tag(image_name, :class => class_name, :id => "star_#{movie.to_param}_#{value}", :name => image_name)
+    link_to image, movie_rating_path(:movie_id => movie, :value => value, :background => :white, :replace => replace)
   end
 
-  def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
-   if product
-     #rating = product.rating(current_customer)
+  def rating_image_links(movie, background = nil, size = nil, replace = nil, recommendation = nil)
+   if movie
+     rating = movie.rating(current_customer)
      links = []
-     #rated = current_customer ? current_customer.has_rated?(product) : nil
-     rating = 4
-     rated = nil
+     rated = current_customer ? current_customer.has_rated?(movie) : nil
      5.times do |i|
        i += 1
-       links << rating_image_link(product, rating, i, background, size, replace, recommendation, rated)
+       links << rating_image_link(movie, rating, i, background, size, replace, recommendation, rated)
        rating -= 2
      end
      links
@@ -136,7 +134,7 @@ module ProductsHelper
     links
   end
 
-  def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil, rated = nil)
+  def rating_image_link(movie, rating, value, background = nil, size = nil, replace = nil, recommendation = nil, rated = nil)
     background = background.to_sym if background
     if current_customer
       if rated
@@ -178,10 +176,10 @@ module ProductsHelper
       end
     end
     if current_customer && class_name == 'star'
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-      link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
+      image = image_tag(image_name, :class => class_name, :id => "star_#{movie.to_param}_#{value}", :name => image_name)
+      link_to(image, movie_rating_path(:movie_id => movie, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
     else
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+      image = image_tag(image_name, :class => class_name, :id => "star_#{movie.to_param}_#{value}", :name => image_name)
     end
   end
 
@@ -227,6 +225,10 @@ module ProductsHelper
     image_tag (source || File.join(I18n.locale.to_s, 'image_not_found.gif')), options
   end
 
+  def movie_image_tag(source, options={})
+    image_tag (source || File.join(I18n.locale.to_s, 'image_not_found.gif')), options
+  end
+
   def awards(description)
     content = ''
    #if description
@@ -260,7 +262,7 @@ module ProductsHelper
     check_box_tag "search_filter[#{attribute}[#{sub_attribute}]]", true, checked
   end
 
-  def products_index_title
+  def movies_index_title
     title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
     title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
     title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?

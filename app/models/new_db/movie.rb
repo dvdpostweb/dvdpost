@@ -1,8 +1,8 @@
 class Movie < ActiveRecord::Base
   establish_connection "development2"
+  attr_accessor :year
 
   belongs_to :director, :primary_key => :id
-
   #belongs_to :studio, :foreign_key => :products_studio
   #belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   #belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
@@ -14,12 +14,13 @@ class Movie < ActiveRecord::Base
   has_many :ratings
   has_many :movie_seen
   has_many :trailers
+  has_many :reviews
   #has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
   #has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
 
-  named_scope :normal_available, :conditions => ['movie_kind_id = :kind', { :kind => DVDPost.movie_kinds[:normal]}]
-  named_scope :adult_available,  :conditions => ['movie_kind_id = :kind', { :kind => DVDPost.movie_kinds[:adult]}]
-  #named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
+  named_scope :normal_available, :conditions => ['movie_kind_id = :kind and status != :status', { :kind => DVDPost.movie_kinds[:normal], :status => '-1'}]
+  named_scope :adult_available,  :conditions => ['movie_kind_id = :kindand status != :status', { :kind => DVDPost.movie_kinds[:adult], :status => '-1'}]
+  named_scope :both_available, :conditions => ['status != :status', {:status => '-1'}]
 
   define_index do
     indexes descriptions.name,  :as => :descriptions_text, :sortable => true
@@ -233,5 +234,24 @@ class Movie < ActiveRecord::Base
     movie_kind_id == DVDPost.movie_kinds[:adult]
   end
 
+  def title
+    if desc = description
+      desc.title
+    else
+      "" #products_title
+    end
+  end
 
+  def rating(customer=nil)
+    if customer && customer.has_rated?(self)
+      ratings.by_customer(customer).first.value.to_i * 2
+    else
+      #rating_count == 0 ? 0 : ((rating_users.to_f / rating_count) * 2).round
+      4
+    end
+  end
+
+  def year
+    1000
+  end
 end

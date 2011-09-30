@@ -1,7 +1,7 @@
 <% product = controverse_item.product %>
 <% if product %>  
   <% product_title = product.title%>
-  <% reviews_count = product_reviews_count(product) %>
+  <% reviews_count = movie_reviews_count(product) %>
   <li>
     <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content"> 

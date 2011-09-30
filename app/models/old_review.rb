@@ -1,7 +1,7 @@
-class Review < ActiveRecord::Base
+class OldReview < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 3
-
+  set_table_name :reviews
   set_primary_key :reviews_id
 
   alias_attribute :created_at,    :date_added

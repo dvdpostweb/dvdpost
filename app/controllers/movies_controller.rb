@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
+  before_filter :find_movie, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
     if ENV['HOST_OK'] == "1"
@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
       @recommendations = retrieve_recommendations(params[:recommendation_page])
     end
     @filter = get_current_filter({})
-    if params[:search] == t('products.left_column.search')
+    if params[:search] == t('movie.left_column.search')
       params.delete(:search)
     else
       if params[:search]
@@ -45,7 +45,7 @@ class MoviesController < ApplicationController
     @collections = Category.by_size.random
     respond_to do |format|
       format.html do
-        @products = if params[:view_mode] == 'recommended'
+        @movies = if params[:view_mode] == 'recommended'
           if(session[:sort] != params[:sort])
             expiration_recommendation_cache()
           end
@@ -72,9 +72,9 @@ class MoviesController < ApplicationController
       end
       format.js {
         if params[:category_id]
-          render :partial => 'products/index/streaming', :locals => {:products => @popular}
+          render :partial => 'movies/index/streaming', :locals => {:movies => @popular}
         elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}  
+          render :partial => 'home/index/recommendations', :locals => {:movies => retrieve_recommendations(params[:recommendation_page])}  
         end
       }
     end  
@@ -82,56 +82,48 @@ class MoviesController < ApplicationController
 
   def show
     if params[:kind] == :adult
-      @product = movie.adult_available.find(params[:id])
+      @movie = movie.adult_available.find(params[:id])
       @rating_color = :pink
     else
-      @product = Movie.normal_available.find(params[:id])
+      @movie = Movie.normal_available.find(params[:id])
       @rating_color = :white
     end
-    data = @product.description_data(true)
-    @product_title = data[:title]
-    @product_image = data[:image]
-    @product_description =  data[:description]
+    data = @movie.description_data(true)
+    @movie_title = data[:title]
+    @movie_image = data[:image]
+    @movie_description =  data[:description]
     unless request.format.xml?
       @filter = get_current_filter({})
       #@product.views_increment(@product_description)
-      @public_url = product_public_path(@product)
+      @public_url = movie_public_path(@movie)
        if params[:sort] && params[:sort] != Review.sort2[:interesting]
         sort = Review.sort2[params[:sort].to_sym]
       else
         sort =  Review.sort2[:interesting]
       end
-     #if @product.imdb_id == 0
-     #  if sort != Review.sort2[:interesting]
-     #    @reviews = @product.reviews.approved.ordered(sort).by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
-     #  else
-     #    @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
-     #  end
-     #else  
-     #  if sort != Review.sort2[:interesting]
-     #    @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-     #  else
-     #    @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-     #  end
-     #end
-     #@reviews_count = product_reviews_count(@product)
+     if sort != Review.sort2[:interesting]
+       @reviews = @movie.reviews.approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :movie).paginate(:page => params[:reviews_page], :per_page => 3)
+     else
+       @reviews = @movie.reviews.approved.by_language(I18n.locale).find(:all, :joins => :movie).paginate(:page => params[:reviews_page], :per_page => 3)
+     end
+     @reviews_count = movie_reviews_count(@movie)
       
       #product_recommendations = @product.recommendations(params[:kind])
       #@recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       @recommendations = nil
       @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
-      @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
+      @token = current_customer ? current_customer.get_token(@movie.imdb_id) : nil
     end
     @collections = Collection.by_size.random
     respond_to do |format|
       format.html do
-        @categories = @product.categories
-        @already_seen = current_customer.assigned_products.include?(@product) if current_customer
+        @categories = @movie.categories
+        @already_seen = current_customer.assigned_products.include?(@product) if current_customer #to do
         
-        fragment_name = "cinopsis_#{@product.id}"
+        fragment_name = "cinopsis_#{@movie.id}"
         @cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
            begin
-              DVDPost.cinopsis_critics(@product.imdb_id.to_s)
+              DVDPost.cinopsis_critics(@movie.imdb_id.to_s)
             rescue => e
               false
               logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
@@ -139,15 +131,15 @@ class MoviesController < ApplicationController
         end
         #@cinopsis = Marshal.load(@cinopsis) if @cinopsis
         if params[:recommendation].to_i == @wishlist_source[:recommendation] || params[:recommendation].to_i == @wishlist_source[:recommendation_product]
-          Customer.send_evidence('UserRecClick', @product.to_param, current_customer, request.remote_ip)
+          Customer.send_evidence('UserRecClick', @movie.to_param, current_customer, request.remote_ip)
         end
-        Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
+        Customer.send_evidence('ViewItemPage', @movie.to_param, current_customer, request.remote_ip)
       end
       format.js {
         if params[:reviews_page] || params[:sort]
-          render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
+          render :partial => 'movies/show/reviews', :locals => {:movie => @movie, :reviews_count => @reviews_count, :reviews => @reviews}
         elsif params[:recommendation_page]
-          render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
+          render :partial => 'movies/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
         end
       }
       format.xml if params[:format] == 'xml'
@@ -155,42 +147,42 @@ class MoviesController < ApplicationController
   end
 
   def uninterested
-    unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product) || current_customer.uninterested_products.include?(@product)
-      @product.uninterested_customers << current_customer
-      Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
+    unless current_customer.rated_movies.include?(@movie) || current_customer.seen_movies.include?(@movie) || current_customer.uninterested_movies.include?(@movie)
+      @movie.uninterested_customers << current_customer
+      Customer.send_evidence('NotInterestedItem', @movie.to_param, current_customer, request.remote_ip)
     end
     respond_to do |format|
-      format.html {redirect_to product_path(:id => @product.to_param)}
-      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      format.html {redirect_to movie_path(:id => @movie.to_param)}
+      format.js   {render :partial => 'movies/show/seen_uninterested', :locals => {:movie => @movie}}
     end
   end
 
   def seen
-    @product.seen_customers << current_customer
-    Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
+    @movie.seen_customers << current_customer
+    Customer.send_evidence('AlreadySeen', @movie.to_param, current_customer, request.remote_ip)
     respond_to do |format|
-      format.html {redirect_to product_path(:id => @product.to_param)}
-      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      format.html {redirect_to movie_path(:id => @movie.to_param)}
+      format.js   {render :partial => 'movies/show/seen_uninterested', :locals => {:movie => @movie}}
     end
   end
 
   def awards
-    data = @product.description_data(true)
-    @product_description =  data[:description]
+    data = @movie.description_data(true)
+    @movie_description =  data[:description]
     respond_to do |format|
-      format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
+      format.js {render :partial => 'movies/show/awards', :locals => {:movie => @movie, :size => 'full'}}
     end
   end
 
   def trailer
     trailer = @movie.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     respond_to do |format|
-      format.js   {render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}}
+      format.js   {render :partial => 'movies/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}}
       format.html do
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url
         else
-          redirect_to product_path(:id => @movie.to_param)
+          redirect_to movie_path(:id => @movie.to_param)
         end
       end
     end
@@ -221,13 +213,13 @@ class MoviesController < ApplicationController
   end
 
   def drop_cached
-    expire_fragment ("/fr/products/product_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_#{params[:product_id]}")
+    expire_fragment ("/fr/movies/movie_#{params[:movie_id]}")
+    expire_fragment ("/nl/movies/movie_#{params[:movie_id]}")
+    expire_fragment ("/en/movies/movie_#{params[:movie_id]}")
     render :nothing => true
   end
 private
-  def find_product
+  def find_movie
     if params[:kind] == :normal
       @movie = Movie.normal_available.find(params[:movie_id])
     else

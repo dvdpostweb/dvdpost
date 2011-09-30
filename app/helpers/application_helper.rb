@@ -131,8 +131,8 @@ module ApplicationHelper
     php_path "product_info_shop.php?products_id=#{product.to_param}"
   end
 
-  def product_public_path(product)
-    "http://public.dvdpost.com/#{I18n.locale}/products/#{product.to_param}"
+  def movie_public_path(movie)
+    "http://public.dvdpost.com/#{I18n.locale}/movies/#{movie.to_param}"
   end
 
   def adult_path
@@ -353,12 +353,8 @@ module ApplicationHelper
       @message.save
   end
 
-  def product_reviews_count(product)
-    if product.imdb_id == 0
-      product.reviews.approved.by_language(I18n.locale).count
-    else  
-      Review.by_imdb_id(product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
-    end
+  def movie_reviews_count(movie)
+    movie.reviews.approved.by_language(I18n.locale).count
   end
 
   def streaming_free(product)

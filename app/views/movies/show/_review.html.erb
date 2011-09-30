@@ -1,7 +1,7 @@
 <% if params[:kind] == :adult %>
-  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count %>
+  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :movie, :conditions => { :movies => {:status => [-2,0,1]}}).count %>
 <% else %>
-  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).count %>
+  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :movie, :conditions => { :movies => {:movie_kind_id => DVDPost.movie_kinds[params[:kind]], :status => [-2,0,1]}}).count %>
 <% end %>
 <li>
   <div class="content">

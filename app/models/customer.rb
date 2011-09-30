@@ -60,7 +60,7 @@ class Customer < ActiveRecord::Base
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings
   has_many :rated_products, :through => :ratings, :source => :movie, :uniq => true
-  has_many :reviews, :foreign_key => :customers_id
+  has_many :reviews
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
   has_many :messages, :foreign_key => :customers_id
@@ -80,8 +80,8 @@ class Customer < ActiveRecord::Base
   has_many :credit_histories, :foreign_key => :customers_id
   has_many :highlight_customers
   
-  
-  has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
+  #to do
+  #has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :product_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 
   def self.credit_action
