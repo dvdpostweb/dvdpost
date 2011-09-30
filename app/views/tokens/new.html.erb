@@ -14,10 +14,12 @@
   	<% elsif @streaming_free[:status] == true %>
   	  <% if @streaming_free[:available] == true %>
   	    <p align='center'><%= t '.streaming_free' %></p>
-  	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
+  	    <% unless params[:btn] == 'hide' %>
+  	      <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
+  	    <% end %>
   	  <% else %>
   	    <p align='center'>vous avez deja utilisé votre film gratuit</p>
-  	  <% end%>
+  	  <% end %>
 	  <% elsif current_customer.credits >= @streaming.credits %>
       <%= t '.credit_left', :credit => current_customer.credits %>
       <br />
