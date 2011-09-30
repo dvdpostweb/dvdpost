@@ -1,6 +1,6 @@
 class OldProduct < ActiveRecord::Base
   db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
-
+  set_table_name :products
   cattr_reader :per_page
   @@per_page = 20
 
@@ -41,7 +41,7 @@ class OldProduct < ActiveRecord::Base
   #has_and_belongs_to_many :languages
   has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
   has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
-  has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
+  has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true, :foreign_key => :product_id
   has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
 
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]

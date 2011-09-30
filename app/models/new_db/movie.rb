@@ -11,6 +11,9 @@ class Movie < ActiveRecord::Base
   has_and_belongs_to_many :actors
   has_and_belongs_to_many :categories
   has_many :products
+  has_many :ratings
+  has_many :movie_seen
+  has_many :trailers
   #has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
   #has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
 
@@ -215,6 +218,11 @@ class Movie < ActiveRecord::Base
    #   streaming_products.count > 0
    # end  
    false
+  end
+
+  def trailer
+    localized_trailers = trailers.by_language(I18n.locale.to_s)
+    localized_trailers ? localized_trailers.first : nil
   end
 
   def vod?

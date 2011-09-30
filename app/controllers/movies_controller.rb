@@ -183,14 +183,14 @@ class MoviesController < ApplicationController
   end
 
   def trailer
-    trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+    trailer = @movie.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     respond_to do |format|
       format.js   {render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}}
       format.html do
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url
         else
-          redirect_to product_path(:id => @product.to_param)
+          redirect_to product_path(:id => @movie.to_param)
         end
       end
     end
@@ -229,9 +229,9 @@ class MoviesController < ApplicationController
 private
   def find_product
     if params[:kind] == :normal
-      @product = Product.normal_available.find(params[:product_id])
+      @movie = Movie.normal_available.find(params[:movie_id])
     else
-      @product = Product.adult_available.find(params[:product_id])
+      @movie = Movie.adult_available.find(params[:movie_id])
     end
   end
 end

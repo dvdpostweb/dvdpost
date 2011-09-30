@@ -40,6 +40,11 @@
     
   </li>
 </ul>
+<p class="links">
+  <% if trailer = product.trailer %>
+    <%= link_to(t('.trailer'), movie_trailer_path(:movie_id => product.to_param), {:class => 'trailer', :target => :_blank}) %>
+  <% end %>
+</p>
 
 
 

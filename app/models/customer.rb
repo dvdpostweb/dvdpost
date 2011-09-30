@@ -58,8 +58,8 @@ class Customer < ActiveRecord::Base
   has_many :assigned_items, :foreign_key => :customers_id
   has_many :assigned_products, :through => :assigned_items, :source => :product
   has_many :orders, :foreign_key => :customers_id
-  has_many :ratings, :foreign_key => :customers_id
-  has_many :rated_products, :through => :ratings, :source => :product, :uniq => true
+  has_many :ratings
+  has_many :rated_products, :through => :ratings, :source => :movie, :uniq => true
   has_many :reviews, :foreign_key => :customers_id
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
