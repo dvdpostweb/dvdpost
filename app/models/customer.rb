@@ -249,7 +249,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
+    credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
   end
 
   def suspended?
