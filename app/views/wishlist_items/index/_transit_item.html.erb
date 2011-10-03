@@ -1,6 +1,6 @@
-<% if transit_item.product %>
-  <div class="<%= product_media_id(transit_item.product.media) %> clearfix">
-    <div class="title"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 50), product_assigned_path(transit_item.product) %></div>
+<% if transit_item.old_product %>
+  <div class="<%= product_media_id(transit_item.old_product.media) %> clearfix">
+    <div class="title"><%= link_to truncate(product_assigned_title(transit_item.old_product), :length => 50), product_assigned_path(transit_item.old_product) %></div>
     <div class="status">
       <% product_dvd = transit_item.order_product.product_dvd %>
       <% if product_dvd %>
@@ -18,5 +18,5 @@
     </div>
   </div>
 <% else %>
-  <% Product.notify_hoptoad(transit_item) %>
+  <% "" #Product.notify_hoptoad(transit_item) %>
 <% end %>

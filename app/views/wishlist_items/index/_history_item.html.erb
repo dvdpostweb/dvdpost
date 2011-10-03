@@ -1,7 +1,7 @@
-<% if history_item.product %>
-<div class="<%= product_media_id(history_item.product.media) %> clearfix">
+<% if history_item.old_product %>
+<div class="<%= product_media_id(history_item.old_product.media) %> clearfix">
   <div class="title">
-      <%= link_to truncate(product_assigned_title(history_item.product), :length => 50), product_path(:id => history_item.product.to_param) %>
+      <%= link_to truncate(product_assigned_title(history_item.old_product), :length => 50), product_path(:id => history_item.old_product.to_param) %>
   </div>
   <div class="status">
     <% product_dvd = history_item.order_product.product_dvd %>
@@ -16,5 +16,5 @@
   </div>
 </div>
 <% else %>
-  <% Product.notify_hoptoad(history_item) %>
+  <% "" #Product.notify_hoptoad(history_item) %>
 <% end %>

@@ -35,7 +35,7 @@ class OldProduct < ActiveRecord::Base
   has_many :product_views
   has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
-  
+  has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
   #has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :collections, :join_table => :products_to_themes, :foreign_key => :products_id, :association_foreign_key => :themes_id
   #has_and_belongs_to_many :languages

@@ -254,4 +254,5 @@ class Movie < ActiveRecord::Base
   def year
     1000
   end
+
 end

@@ -7,7 +7,8 @@ class Order < ActiveRecord::Base
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :status, :class_name => 'OrderStatus', :foreign_key => :orders_status, :primary_key => :id
   has_one :order_product, :foreign_key => :orders_id
-  has_one :product, :through => :order_product, :source => :product
+  has_one :product, :through => :order_product, :source => :product, :class_name => 'OldProduct'
+  has_one :old_product, :through => :order_product, :source => :product, :class_name => 'OldProduct'
   has_many :status_histories, :class_name => 'OrderStatusHistory', :foreign_key => :orders_id
   has_many :messages, :foreign_key => :orders_id
 

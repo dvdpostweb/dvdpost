@@ -7,7 +7,7 @@ class WishlistItem < ActiveRecord::Base
   alias_attribute :type, :wishlist_type
 
   belongs_to :customer, :foreign_key => :customers_id
-  belongs_to :product, :foreign_key => :product_id
+  belongs_to :product, :foreign_key => :product_id, :primary_key => :products_id, :class_name => 'OldProduct'
   belongs_to :wishlist_source
 
   before_create :set_created_at

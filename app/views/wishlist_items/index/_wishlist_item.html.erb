@@ -1,7 +1,8 @@
 <% product_title = wishlist_item.product.title %>
 <div class="<%= product_media_id(wishlist_item.product.media) %> clearfix" id = "<%= "div_#{wishlist_item.product.to_param}" %>">
   <div class="title" >
-    <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param) %> 
+    <% movie_id = Product.find_by_old_product_id(wishlist_item.product.to_param).movie.to_param %>
+    <%= link_to truncate(product_title, :length => 65), movie_path(:id => movie_id) %> 
     <%= image_tag 'oeil.gif', :alt => 'already seen', :class => 'oeil' if wishlist_item.already_rented == 'YES' %>
   </div>
   <% if wishlist_item.product.streaming? and streaming_access? %>  
