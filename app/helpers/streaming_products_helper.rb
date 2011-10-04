@@ -48,7 +48,7 @@ module StreamingProductsHelper
       if free[:status] == false
         if current_customer.abo_active == 0
           if current_customer.beta_test
-            "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated_beta_test'}</div>"
+            "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated_beta_test', :link => info_path(:page_name => :promotion)}</div>"
           else
             "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
           end

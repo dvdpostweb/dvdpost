@@ -1,5 +1,5 @@
 <% if only_vod %>
-<%= t '.only_vod' %>
+<%= t '.active_status' %>
 <span><%= image_tag 'delimiter.gif' %></span>
 <%= link_to t('.deactive_status'), customer_only_vod_path(:customer_id => current_customer, :value => 0), :class => "only_vod modif" %>
 <% else %>

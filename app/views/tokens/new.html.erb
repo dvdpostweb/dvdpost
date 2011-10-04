@@ -7,7 +7,7 @@
     
   	<% if current_customer.abo_active == 0 && !@streaming_free[:status] %>
   	  <% if current_customer.beta_test %>
-  	    <div id='abo_not_active'><%= t '.abo_not_active_beta_test' %></div>
+  	    <div id='abo_not_active'><%= t '.abo_not_active_beta_test', :link => info_path(:page_name => :promotion) %></div>
   	  <% else %>
   	    <div id='abo_not_active'><%= t '.abo_not_active' %></div>
   	  <% end %>
