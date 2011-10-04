@@ -60,7 +60,7 @@ module StreamingProductsHelper
           "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
         end
       elsif free[:status] == true && free[:available] == false && (token.nil? || !token.validate?(request.remote_ip))
-        "<div class ='attention_vod' id ='old_token'>tu as deja utilisé ton film gratuit</div>"
+        "<div class ='attention_vod' id ='old_token'>#{t '.already_used'}</div>"
       end
     else
       "<div class='attention_vod' id=''>#{t '.customer_suspended'}</div>"
