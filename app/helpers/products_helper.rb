@@ -231,30 +231,33 @@ module ProductsHelper
 
   def awards(description)
     content = ''
-   #if description
-   #  if !description.products_awards.empty?
-   #    awards = description.products_awards.split(/<br>|<br \/>/)
-   #    if count_awards(awards) > 3
-   #      content += '<p id ="oscars_text">'
-   #      3.times do |i|
-   #        content += "#{awards[i]}<br />"
-   #      end
-   #      content += '</p>'
-   #      content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => description.products_id)}</p>"
-   #    else
-   #      content += "<p>#{description.products_awards}</p>"
-   #    end
-   #  end
-   #end
+    if description
+      if !description.awards.empty?
+        awards_ar = description.awards.split(/<br>|<br \/>/)
+        if count_awards(awards_ar) > 3
+          content += '<p id ="oscars_text">'
+          i = 0
+          awards_ar.each do |award|
+              i = i + 1
+              content += "#{award}<br />"
+              break if i == 3
+          end
+          content += '</p>'
+          content += "<p id=\"oscars\">#{link_to t('.read_more'), movie_awards_path(:movie_id => description.movie.to_param)}</p>"
+        else
+          content += "<p>#{description.awards}</p>"
+        end
+      end
+    end
   end
 
   def count_awards(awards)
     count = 0
-    #awards.each do |award|
-    #  if !award.empty?
-    #    count += 1
-    #  end
-    #end
+    awards.each do |award|
+      if !award.empty?
+        count += 1
+      end
+    end
     count
   end
 

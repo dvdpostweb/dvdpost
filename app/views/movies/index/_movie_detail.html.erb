@@ -30,7 +30,7 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-      image_tag movie.public.image, :alt => movie.public.description if movie.public
+      <%= image_tag movie.public.image, :alt => movie.public.description if movie.public %>
       <div style='clear:left'></div>
     </div>
     <% if movie.actors.count > 0  %>
@@ -47,11 +47,11 @@
       </h3>
       <p><%= link_to movie.director.name, director_movies_path(:director_id => movie.director.to_param) %></p>
     <% end %>
-    <% if 1==0 # movie.studio %>
+    <% if movie.studio && movie.adult? %>
       <h3>
         <%= t '.studio' %>
       </h3>
-      <p>link_to movie.studio.name, studio_movies_path(:studio_id => movie.studio.to_param)</p>
+      <p><%= link_to movie.studio.name, studio_movies_path(:studio_id => movie.studio.to_param) %></p>
     <% end %>
     
   </div>
@@ -65,7 +65,7 @@
       <% if @category %>
         <%= @category.name %>
       <% else %>
-        <% if 1==0 &&  movie.adult? %>  
+        <% if movie.adult? %>  
           <%= movie.categories.first.name unless movie.categories.empty? %>
         <% else %>
           <%= movie.categories.active.first.name unless movie.categories.active.empty? %>

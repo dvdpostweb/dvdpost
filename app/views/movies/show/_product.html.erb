@@ -1,4 +1,4 @@
-<% 1==0 && if product.availability == -1 %>
+<% if product.availability == -1 %>
 <div id="not_available" class="<%= I18n.locale %>">
   <div id='not_available_title'><%= t '.not_available' %></div>
   <div id='not_available_description'><%= t '.not_available_description' %></div>
@@ -14,10 +14,10 @@
     </li>
   <% end %>
 
-  <% if 1== 0 && product.studio && product.adult? %>
+  <% if product.studio && product.adult? %>
     <li>
       <strong>
-        <%= "#{t('.studio')} : #{link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param)}" %>
+        <%= "#{t('.studio')} : #{link_to product.studio.name, studio_movies_path(:studio_id => product.studio.to_param)}" %>
       </strong>
     </li>
   <% end %>
@@ -31,19 +31,19 @@
     <%= actors %>
   </li>
   <% end %>
-  <% if 1==0 && product.original_title != '' && @movie_title != product.original_title %>
+  <% if product.name != '' && @movie_title != product.name %>
     <li>
       <strong>
         <%= t '.original_title' %>
       </strong>
-      <%= product.original_title %>
+      <%= product.name %>
     </li>
   <% end %>
   <li>
     <strong>
       <%= t '.duration' %>
     </strong>
-    "#{product.runtime} minutes"
+    <%= "#{product.runtime} minutes" %>
   </li>
   <li>
     <strong>
@@ -59,72 +59,42 @@
     <strong>
       <%= t '.country' %>
     </strong>
-    product.country.name
+    <%= product.country.name %>
   </li>
   <li>
     <strong>
       <%= t '.audience' %>
     </strong>
-    image_tag product.public.image, :alt => product.public.description
+    <%= image_tag product.public.image, :alt => product.public.description %>
   </li>
 </ul>
 <p class="links">
   <% if trailer = product.trailer %>
     <%= link_to(t('.trailer'), movie_trailer_path(:movie_id => product.to_param), {:class => 'trailer', :target => :_blank}) %>
-    <%= content_tag(:span, image_tag('delimiter.gif')) if 1==0 && @movie_description.url_present? %>
+    <%= content_tag(:span, image_tag('delimiter.gif')) if @movie_description.url_present? %>
   <% end %>
-  <%= link_to(t('.official'), @movie_description.full_url, {:class => 'link', :target => :_blank}) if 1==0 && @movie_description && @movie_description.url_present? %>
+  <%= link_to(t('.official'), @movie_description.full_url, {:class => 'link', :target => :_blank}) if @movie_description && @movie_description.url_present? %>
 </p>
-<p>
-<% audio_bubble = nil #audio_bubbles(product, 2) %>
-<% if 1==0 #unless audio_bubble[:audio].blank? %>
-  <div class='language_title'>
-    <strong>
-      <%= t '.audio' %>
-    </strong>
-  </div>
-  <%= audio_bubble[:audio] %>
-<% end %>
-<% subtitles =  nil #subtitle_bubbles(product, 2) %>
-<% if 1==0 #unless  subtitles[:sub].blank? %>
-  <br style ="clear:both" /><div class='language_title'>
-    <strong>
-      <%= t '.subtitles' %>
-    </strong>
-  </div>
-  <%= subtitles[:sub] %>
-<% end %>
-</p>
-render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'}
+<%= render :partial => 'movies/show/awards', :locals => {:description => @movie_description , :size => 'small'} %>
 
-<p>
-  <strong>
-    <%= t '.image' %>
-  </strong>
-  <%= product.picture_format.name if 1==0 && product.picture_format %><br />
-  <strong>
-    <%= t '.sound' %>
-  </strong>
-  product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ')
-</p>
-<% 1==0 && if product.next == 1 and product.available_at%>
+<% if product.next == 1 and product.available_at %>
 <p>
   <strong>
     <%= t '.available' %>
   </strong>
-  <%= 1==0 && product.available_at.strftime("%d/%m/%Y") if product.available_at %>
+  <%= product.available_at.strftime("%d/%m/%Y") if product.available_at %>
 </p>
 <% end %>
 <div class="cover">
   <span id="dvd">
     <%= movie_image_tag @movie_image, :width => 143, :height => 218, :alt => "#{@movie_title} (#{product.year})" %>
-    <%= content_tag(:span, '', :class => 'new') if 1==0 && product.is_new? %>
+    <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
   <!--render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source}-->
   
   <!--render :partial => 'products/streaming', :locals => {:product => product, :token => @token} if product.streaming? and streaming_access?-->
   
 </div>
-<% unless 1==1 && product.adult? %>
+<% unless product.adult? %>
 <iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(@public_url) %>&amp;layout=standard&amp;show_faces=true&amp;width=400&amp;action=recommend&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:80px;" allowTransparency="true"></iframe>
 <% end %>

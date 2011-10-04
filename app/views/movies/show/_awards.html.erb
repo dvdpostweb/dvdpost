@@ -1,5 +1,5 @@
 <% if size == 'small' %>
-	<%= awards(@product_description) %>
+	<%= awards(description) %>
 <% else %>
-	@product_description.products_awards
+	<%= description.awards %>
 <% end %>

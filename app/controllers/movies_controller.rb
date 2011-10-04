@@ -170,7 +170,8 @@ class MoviesController < ApplicationController
     data = @movie.description_data(true)
     @movie_description =  data[:description]
     respond_to do |format|
-      format.js {render :partial => 'movies/show/awards', :locals => {:movie => @movie, :size => 'full'}}
+      format.html {render :partial => 'movies/show/awards', :locals => {:description => @movie_description, :size => 'full'}}
+      format.js {render :partial => 'movies/show/awards', :locals => {:description => @movie_description, :size => 'full'}}
     end
   end
 
