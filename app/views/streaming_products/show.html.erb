@@ -35,7 +35,7 @@
         <% end %>
       <% end %>
       <% if current_customer.abo_active == 0 && @streaming_free[:status] == true %>
-      top promo click ici
+        <p align ="center"><%= t '.promotion', :link => info_path(:page_name => :promotion) %></p>
       <% end%>
       <div class="linkpc">
         <div class="icon_left">
