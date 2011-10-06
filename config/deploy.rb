@@ -83,6 +83,6 @@ namespace :deploy do
   end
 end
 
-before 'deploy:symlink', 'deploy:stop_ts'
-after 'deploy:symlink', 'deploy:update_ts'
+#before 'deploy:symlink', 'deploy:stop_ts'
+#after 'deploy:symlink', 'deploy:update_ts'
 
