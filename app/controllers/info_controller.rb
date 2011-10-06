@@ -18,7 +18,6 @@ class InfoController < ApplicationController
       @product4 = Product.find(110312)
       
     end
-    def 
     @message = Ticket.new
     respond_to do |format|
       format.html
