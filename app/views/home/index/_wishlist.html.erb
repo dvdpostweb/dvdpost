@@ -26,7 +26,7 @@
             <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
           <% end %>
           <% if current_customer.beta_test && current_customer.abo_active == 0 %>
-            <%= link_to t('.promo_beta_test'), info_path(:page_name => :promotion), :class => 'alert' %></a>
+            <%= link_to t('.promo_beta_test', :link => info_path(:page_name => :promotion)), info_path(:page_name => :promotion), :class => 'alert' %></a>
           <% end %>
           
         </li>
