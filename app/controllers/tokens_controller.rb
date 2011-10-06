@@ -1,10 +1,11 @@
 class TokensController < ApplicationController
   def new
-    @product = Product.find(params[:product_id])
-    all = Product.find_all_by_imdb_id(params[:imdb_id])
+    @movie = Movie.find(params[:movie_id])
+    #to do
+    all = Movie.find(51).products.first
     @product_in_wishlist = current_customer.wishlist_items.find_all_by_product_id(all)
-    @streaming_free = streaming_free(@product)
-    @streaming = StreamingProduct.find_by_imdb_id(@product.imdb_id)
+    @streaming_free = streaming_free(@movie)
+    @streaming = StreamingProduct.find_by_imdb_id(@movie.imdb_id)
     
     render :layout => false
   end

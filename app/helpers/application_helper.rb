@@ -357,8 +357,8 @@ module ApplicationHelper
     movie.reviews.approved.by_language(I18n.locale).count
   end
 
-  def streaming_free(product)
-    streaming_free = StreamingProductsFree.by_imdb_id(product.imdb_id).available.first
+  def streaming_free(movie)
+    streaming_free = StreamingProductsFree.by_imdb_id(movie.imdb_id).available.first
     if streaming_free
       if streaming_free.kind = DVDPost.streaming_free_type[:beta_test] 
         if current_customer.beta_test && current_customer.abo_active == 0

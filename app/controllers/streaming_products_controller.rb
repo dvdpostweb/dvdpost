@@ -16,7 +16,7 @@ class StreamingProductsController < ApplicationController
       
     end
     
-    @product = Product.both_available.find_by_imdb_id(params[:id])
+    @product = Movie.both_available.find_by_imdb_id(params[:id])
     @streaming_free = streaming_free(@product)
    
     respond_to do |format|

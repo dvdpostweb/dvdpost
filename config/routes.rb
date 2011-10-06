@@ -30,7 +30,6 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :wishlist_items, :only => [:new, :create]
-      product.resources :tokens, :only => [:new, :create]
       product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.seen 'seen', :controller => :products, :action => :seen
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
@@ -51,7 +50,6 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :streaming_products, :only => [:show], :requirements => { :id => /\d+/ } do |stream|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
-      stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end
 
     localized.resource :streaming_products, :only => [] do |stream|

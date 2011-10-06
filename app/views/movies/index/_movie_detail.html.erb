@@ -80,8 +80,8 @@
       render :partial => 'movies/show/seen_uninterested', :locals => {:movie => movie}
     </div>
     <% end %>
-     render :partial => 'movies/wishlist', :locals => {:movie => movie, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming'
-    #render :partial => 'movies/streaming', :locals => {:movie => movie, :token => @token } if movie.streaming? and streaming_access?
+     <!--render :partial => 'movies/wishlist', :locals => {:movie => movie, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' -->
+    <%= render :partial => 'movies/streaming', :locals => {:movie => movie, :token => @token } if movie.streaming? and streaming_access? %>
     
   </div>
   

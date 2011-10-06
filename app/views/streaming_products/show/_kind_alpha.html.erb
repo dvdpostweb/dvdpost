@@ -1,18 +1,20 @@
 	<tr class="choose_color" style="<%= "display:none;" if visibility == false %>">
 		<td class="choose_padding" width='230'>
 			<p>
-				<%= kind_alpha.language.by_language(I18n.locale).first.name %>
+        <!-- to do -->
+				<%= kind_alpha.language.first.short_alpha %>
 			</p>
 		</td>
 		<td bgcolor="#FFFFFF" width="10"></td>
 		<td align="center">
 			<table cellpadding="0" cellspacing="0">
         <tr>
+          
 					<% sub = Rails.env == 'production' ? 	StreamingProduct.by_language(kind_alpha.language_id).available.alpha.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) :					StreamingProduct.by_language(kind_alpha.language_id).available_beta.alpha.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) %>
           <% sub.collect do | sub | %>
           <td align="center"> 
             <div class="quality_vod">
-              <% title = sub.subtitles.count > 0 ? sub.subtitles.by_language(I18n.locale).first.name : t('.without_subtitle') %>
+              <% title = sub.subtitles.count > 0 ? sub.subtitles.first.short_alpha : t('.without_subtitle') %>
               <%= link_to title , streaming_product_path(:streaming_product_id => sub.to_param), :class => "btn qualityvod" %>              
             </div>
           </td>

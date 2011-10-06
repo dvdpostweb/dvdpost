@@ -139,6 +139,14 @@ module DVDPost
         :xbox => 'XBOX 360'
       })
     end
+    
+    def product_supports
+      HashWithIndifferentAccess.new.merge({
+        :dvd => 1,
+        :bluray => 2,
+        :vod => 3
+      })
+    end
 
     def home_review_types
       HashWithIndifferentAccess.new.merge({

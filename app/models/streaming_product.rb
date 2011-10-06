@@ -1,12 +1,12 @@
 class StreamingProduct < ActiveRecord::Base
   db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
-  has_many :subtitle, :foreign_key => :undertitles_id, :primary_key => :subtitle_id
-  has_many :language, :foreign_key => :languages_id, :primary_key => :language_id
+  has_many :subtitle, :foreign_key => :id, :primary_key => :subtitle_id
+  has_many :language, :foreign_key => :id, :primary_key => :language_id
   has_many :tokens, :primary_key => :imdb_id, :foreign_key => :imdb_id
-  has_many :products, :primary_key => :imdb_id, :foreign_key => :imdb_id, :limit => 1
-  has_many :subtitles, :primary_key => :subtitle_id, :foreign_key => :undertitles_id
-  has_many :languages, :foreign_key => :languages_id, :primary_key => :language_id
+  has_many :movies, :primary_key => :imdb_id, :foreign_key => :imdb_id, :limit => 1
+  has_many :subtitles, :foreign_key => :id, :primary_key => :subtitle_id
+  has_many :languages, :foreign_key => :id, :primary_key => :language_id
   
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
   named_scope :by_version, lambda {|language_id, subtitle_id| {:conditions => {:language_id => language_id, :subtitle_id => subtitle_id}}}

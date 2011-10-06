@@ -496,14 +496,14 @@ class Customer < ActiveRecord::Base
   end
   
   def remove_product_from_wishlist(imdb_id, current_ip)
-    all = Product.find_all_by_imdb_id(imdb_id)
-    wl = wishlist_items.find_all_by_product_id(all)
-    unless wl.blank?
-      wl.each do |item|
-        item.destroy()
-        Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
-      end
-    end
+    #all = Movie.find_all_by_imdb_id(imdb_id)
+    #wl = wishlist_items.find_all_by_product_id(all)
+    #unless wl.blank?
+    #  wl.each do |item|
+    #    item.destroy()
+    #    Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
+    #  end
+    #end
   end
   
   def recondutction_ealier?

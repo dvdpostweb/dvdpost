@@ -1,4 +1,4 @@
-<% if product.availability == -1 %>
+<% 1==0 && if product.availability == -1 %>
 <div id="not_available" class="<%= I18n.locale %>">
   <div id='not_available_title'><%= t '.not_available' %></div>
   <div id='not_available_description'><%= t '.not_available_description' %></div>
@@ -77,22 +77,13 @@
 </p>
 <%= render :partial => 'movies/show/awards', :locals => {:description => @movie_description , :size => 'small'} %>
 
-<% if product.next == 1 and product.available_at %>
-<p>
-  <strong>
-    <%= t '.available' %>
-  </strong>
-  <%= product.available_at.strftime("%d/%m/%Y") if product.available_at %>
-</p>
-<% end %>
 <div class="cover">
   <span id="dvd">
     <%= movie_image_tag @movie_image, :width => 143, :height => 218, :alt => "#{@movie_title} (#{product.year})" %>
-    <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
   <!--render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source}-->
   
-  <!--render :partial => 'products/streaming', :locals => {:product => product, :token => @token} if product.streaming? and streaming_access?-->
+  <%= render :partial => 'movies/streaming', :locals => {:movie => product, :token => @token} if product.streaming? and streaming_access? %>
   
 </div>
 <% unless product.adult? %>

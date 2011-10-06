@@ -37,12 +37,12 @@ class Movie < ActiveRecord::Base
     has "case 
       when season_id > 0 and movie_type_id = 2 then season_id
       else movies.id + 1000000 end", :type  => :integer, :as => :real_season_id
-    has availability
+    #has availability
     has country_id
-    has available_at
+    #has available_at
     has dvdpost_choice
     #has id
-    has "next", :type  => :integer, :as => :next
+    #has "next", :type  => :integer, :as => :next
     has public_id,            :as => :audience
     has year
     has dvdpost_rating
@@ -114,7 +114,7 @@ class Movie < ActiveRecord::Base
   #sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
   sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
-  sphinx_scope(:by_kind)            {|kind|             {:with => {:kind => DVDPost.movie_kinds[kind]}}}
+  sphinx_scope(:by_kind)            {|kind|             {:with => {:movie_kind_id => DVDPost.movie_kinds[kind]}}}
   #sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media}}}
   #sphinx_scope(:by_special_media)   {|media|            {:with =>       {:special_media => media}}}
   sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
@@ -308,12 +308,7 @@ class Movie < ActiveRecord::Base
   end
 
   def streaming?
-   # if Rails.env == "production"
-   #   streaming_products.available.count > 0
-   # else
-   #   streaming_products.count > 0
-   # end  
-   false
+    products.by_support(:vod).count > 0
   end
 
   def trailer
@@ -333,13 +328,19 @@ class Movie < ActiveRecord::Base
     if desc = description
       desc.title
     else
-      "" #products_title
+      name
     end
   end
-  
-  def is_new?
-    availability > 0 && created_at < Time.now && available_at && available_at > 3.months.ago && self.next == 0
-  end
+
+  def image
+    if desc = description
+      if movie_kind_id == DVDPost.movie_kinds[:adult]
+        File.join(DVDPost.imagesx_path, desc.image)  if !desc.image.blank?
+      else
+        File.join(DVDPost.images_path, desc.image) if !desc.image.blank?
+      end
+    end
+  end  
 
   def rating(customer=nil)
     if customer && customer.has_rated?(self)
@@ -356,4 +357,5 @@ class Movie < ActiveRecord::Base
   def adult?
     movie_kind_id == DVDPost.movie_kinds[:adult]
   end
+
 end

@@ -84,7 +84,7 @@
       <li class="subtitles<%= ' open' if filter.subtitles? %>">
         <%= link_to t('.subtitles'), products_path(:subtitles => 1) %>
         <div <%= "style='display:none'" unless filter.subtitles? %>>
-          <% Subtitle.by_language(I18n.locale).each do |sub| %>
+          <% Subtitle.all.each do |sub| %>
             <label>
               <%= filter_checkbox_tag :subtitles, sub.to_param, (filter.subtitles? && filter.subtitles.include?(sub.to_param.to_i)) %>
               <%= truncate sub.name, :length => 25  %>

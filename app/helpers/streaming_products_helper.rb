@@ -3,7 +3,7 @@ module StreamingProductsHelper
     if source == StreamingProduct.source[:alphanetworks]
      
      script = <<-script
-      $("#player").html("<object width='696' height='389'><param name='movie' value='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf'/><param name='FlashVars' value='src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/><param name='allowFullScreen' value='true'/><param name='allowscriptaccess' value='always'/><embed src='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://94.139.63.250/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/></object>")
+      $("#player").html("<object width='696' height='389'><param name='movie' value='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf'/><param name='FlashVars' value='src=http://94.139.63.250/#{token_name}_#{streaming.languages.first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.first.short_alpha : 'non'}.f4m'/><param name='allowFullScreen' value='true'/><param name='allowscriptaccess' value='always'/><embed src='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://94.139.63.250/#{token_name}_#{streaming.languages.first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.first.short_alpha : 'non'}.f4m'/></object>")
       script
     else
       script = <<-script
@@ -42,7 +42,6 @@ module StreamingProductsHelper
   end
 
   def message_streaming(token, free, streaming)
-    Rails.logger.debug { "@@@#{token.inspect}" }
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
 
     if !current_customer.payment_suspended?

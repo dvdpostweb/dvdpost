@@ -1,6 +1,6 @@
 <div style="display: block;width:450px" class="content">
 
-  <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
+  <div id="addwishlist_title"><%= "#{@movie.title} (#{@movie.year})" %></div>
   <div id="addwishlist_explain">
     <% nb_credit = "#{@streaming.credits} #{ @streaming.credits == 1 ? t('customer.credit') : t('customer.credits')}" %>
     <%= "#{t '.intro', :credits => nb_credit}<br /><br />" unless @streaming_free[:status] == true %>
@@ -10,7 +10,7 @@
   	<% elsif @streaming_free[:status] == true %>
   	  <% if @streaming_free[:available] == true %>
   	    <p align='center'><%= t '.streaming_free' %></p>
-  	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
+  	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @movie.imdb_id), :id => 'add_to_vod' %></p>
   	  <% else %>
   	    <p align='center'>vous avez deja utilisé votre film gratuit</p>
   	  <% end%>
@@ -22,7 +22,7 @@
       <% end %>
       <br />
       <% unless params[:btn] == 'hide' %>
-  	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
+  	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @movie.imdb_id), :id => 'add_to_vod' %></p>
   	  <% end %>
     <% else %>
       <%= t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
