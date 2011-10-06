@@ -82,7 +82,3 @@ namespace :deploy do
     thinking_sphinx.start
   end
 end
-
-#before 'deploy:symlink', 'deploy:stop_ts'
-#after 'deploy:symlink', 'deploy:update_ts'
-
