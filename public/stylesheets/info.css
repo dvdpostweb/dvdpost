@@ -493,18 +493,7 @@ font-weight:bold;
   
 /*free movies*/
 
- .add_choice_button {
-    background: url("http://www.dvdpost.be/images/free_movies/button_choice.gif") no-repeat scroll 0 0 transparent;
-    color: #FFFFFF;
-    display: inline-block;
-    font-weight: bold;
-    height: 30px;
-    line-height: 30px;
-    padding-left: 26px;
-    text-align: left;
-    text-decoration: none;
-    width: 150px;
-}
+
 .content_item	li {
     display: block;
     float: right;
@@ -515,7 +504,7 @@ font-weight:bold;
 .content_item	ul{   margin: 0;
     padding: 0;}
 	
-	a {
+.content_item	a {
 
   color: #454545;
 
@@ -534,4 +523,16 @@ font-weight:bold;
 .vod_title {
   font-size: 1.6em;
   font-weight:bold;
+}
+ a.add_choice_button {
+    background: url("http://www.dvdpost.be/images/free_movies/button_choice.gif") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: inline-block;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 26px;
+    text-align: left;
+    text-decoration: none;
+    width: 150px;
 }
