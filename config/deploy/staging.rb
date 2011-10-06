@@ -108,3 +108,5 @@ namespace :deploy do
    put env_config, "#{current_path}/config/environments/staging.rb"
   end
 end
+before 'deploy:symlink', 'deploy:stop_ts'
+after 'deploy:symlink', 'deploy:update_ts'
