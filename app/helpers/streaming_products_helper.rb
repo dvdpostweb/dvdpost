@@ -43,7 +43,7 @@ module StreamingProductsHelper
 
   def message_streaming(token, free, streaming)
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
-
+    Rails.logger.debug { "@@@#{free.inspect}" }
     if !current_customer.payment_suspended?
       if free[:status] == false
         if current_customer.abo_active == 0
