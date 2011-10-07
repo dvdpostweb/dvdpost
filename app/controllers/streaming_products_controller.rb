@@ -12,7 +12,7 @@ class StreamingProductsController < ApplicationController
     else
       @streaming = StreamingProduct.available_beta.alpha.find_by_imdb_id(params[:id])
       @streaming_prefered = StreamingProduct.alpha.group_by_language.find_all_by_imdb_id(params[:id], I18n.locale)
-      @streaming_not_prefered = nil
+      @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
       
     end
     
