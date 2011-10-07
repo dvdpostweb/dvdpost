@@ -1,4 +1,4 @@
-<% if trailer.youtube? %>
+<p align="center"><% if trailer.youtube? %>
 <object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
 <% elsif trailer.dailymotion? %>
 <object width="480" height="285"><param name="movie" value="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation" width="480" height="285" allowfullscreen="true" allowscriptaccess="always"></embed></object>
@@ -23,7 +23,28 @@
   <param name="allowscriptaccess" value="always">
   <param name="flashvars" value="<%= trailer.remote_id %>">
   </object>
+<% elsif trailer.aamreviews? %>
+  <object type="application/x-shockwave-flash" width="450" height="300"wmode="transparent" data="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/<%= trailer.remote_id %>&autostart=true&showfsbutton=true">
+                  <param name="movie" value="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/3372.flv&autostart=true&showfsbutton=true" />
+                  <param name="wmode" value="transparent" />
+                  <param name="allowScriptAccess" value="sameDomain" />
+                  <embed src="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/<%= trailer.remote_id %>&autostart=true&showfsbutton=true" loop="False" width="330" height="220" allowscriptaccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+                  </embed>
+  </object>
+<% elsif trailer.dorcel? %>
+  <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=,0,0,0" id="AnimationFlash" width="330" height="220" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+  <param name="allowScriptAccess" value="always"/>
+  <param name="movie" value="<%= trailer.remote_id %>"/>
+  <param name="swLiveConnect" value="TRUE"/>
+  <param name="quality" value="high"/>
+  <param name="bgcolor" value=""/>
+  <param name="wmode" value="opaque"/>
+  <embed id="AnimationFlash" allowscriptaccess="always" width="330" height="220" src="<%= trailer.remote_id %>" swliveconnect="TRUE" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" bgcolor="" wmode="opaque" type="application/x-shockwave-flash"/>
+  </object>
+<% elsif trailer.ecranlarge? %>
+  <object width="640" height="510"><param name="movie" value="http://www.ecranlarge.com/v/<%= trailer.remote_id %>"></param><param name="wmode" value="transparent"></param><embed src="http://www.ecranlarge.com/v/<%= trailer.remote_id %>" type="application/x-shockwave-flash" wmode="transparent" width="640" height="510"></embed></object>
 <% else %>
   <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
 <% end %>
 <%= will_paginate trailers, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => 'trailer_page', :id => 'trailer_pagination' %>
+</p>
