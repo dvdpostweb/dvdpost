@@ -1,10 +1,10 @@
 <% if @hide %>
-  <%= render :partial => '/messages/new/question' %>
+  <%= render :partial => '/messages/new/question', :locals => {:message => @message, :category_hide => 0, :category_ticket_id => 0, :text => nil} %>
 <% else%>
   <div id="contact-wrap">
     <%= render :partial => 'messages/menu', :locals => {:active_menu => 'question'} %>
     <div id="tabs-content">
-      <%= render :partial => '/messages/new/question' %>
+      <%= render :partial => '/messages/new/question', :locals => {:message => @message, :category_hide => 0, :category_ticket_id => 0, :text => nil} %>
     </div>
   </div>
 <% end %>

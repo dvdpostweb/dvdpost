@@ -490,3 +490,49 @@ font-weight:bold;
 
   }
   
+  
+/*free movies*/
+
+
+.content_item	li {
+    display: block;
+    float: right;
+    padding-top: 10px;
+    text-align: center;
+    width: 237px;
+}
+.content_item	ul{   margin: 0;
+    padding: 0;}
+	
+.content_item	a {
+
+  color: #454545;
+
+  text-decoration: underline;
+
+}
+
+
+
+.content_item	a:hover {
+
+  text-decoration: underline;
+
+}
+
+.vod_title {
+  font-size: 1.6em;
+  font-weight:bold;
+}
+ a.add_choice_button {
+    background: url("http://www.dvdpost.be/images/free_movies/button_choice.gif") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: inline-block;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 26px;
+    text-align: left;
+    text-decoration: none;
+    width: 150px;
+}

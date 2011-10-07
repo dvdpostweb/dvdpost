@@ -6,11 +6,18 @@ class InfoController < ApplicationController
         @hide_menu = true
       end
     end
-    if params[:page_name] == 'whoweare' || params[:page_name] == 'privacy' || params[:page_name] == 'conditions' || params[:page_name] == 'presse' || params[:page_name] == 'promo' || params[:page_name] == 'billi' || params[:page_name] == 'billi_modal' || params[:page_name] == 'billi_modal2'
-      @locale = false
-    else
+    if params[:page_name] == 'get_connected' || params[:page_name] == 'new_website'
       @locale = true
+    else
+      @locale = false
     end
+    if params[:page_name] == 'free_movies'
+      @product1 = Product.find(126024)
+      @product2 = Product.find(126765)
+      @product3 = Product.find(126690)
+      @product4 = Product.find(110312)
+    end
+    @message = Ticket.new
     respond_to do |format|
       format.html
       format.js {render :layout => false}

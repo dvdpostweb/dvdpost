@@ -249,7 +249,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
+    credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
   end
 
   def suspended?
@@ -511,9 +511,10 @@ class Customer < ActiveRecord::Base
   end
 
   def reconduction_now
-    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db), :credits => (credits + next_subscription_type.credits))
+    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db))
     customer_attribute.update_attribute(:credits_already_recieved, 1)
     abo_history(Subscription.action[:reconduction_ealier])
+    add_credit(next_subscription_type.credits, 15)
   end
   
   def abo_history(action, new_abo_type = 0)

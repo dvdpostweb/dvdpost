@@ -70,6 +70,17 @@ class CustomersController < ApplicationController
     end
   end
   
+  def only_vod
+    @customer = current_customer
+    @customer.customer_attribute.update_attribute(:only_vod, params[:value])
+    respond_to do |format|
+      format.html do
+        redirect_to customer_path(:id => current_customer.to_param)
+      end
+      format.js {render :partial => 'customers/show/only_vod', :locals => {:only_vod => @customer.customer_attribute.only_vod}}
+    end
+  end
+  
   def newsletters_x
     @customer = current_customer
     @customer.customer_attribute.update_attribute(:newsletters_x, params[:value])

@@ -24,7 +24,11 @@
           <%= t('.credit') %>: <a href="<%= edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>"><%= current_customer.credit_per_month == 0 ? current_customer.credits : "#{current_customer.credits} #{t '.dvd'}" %></a> 
           <% if current_customer.credit_empty? %>
             <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
-            <% end %>
+          <% end %>
+          <% if current_customer.beta_test && current_customer.abo_active == 0 %>
+            <%= link_to t('.promo_beta_test', :link => info_path(:page_name => :promotion)), info_path(:page_name => :promotion), :class => 'alert' %></a>
+          <% end %>
+          
         </li>
         <li><%= t '.date_end_abo' %> <%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></li>
         <% if offline_request.count > 0 %>

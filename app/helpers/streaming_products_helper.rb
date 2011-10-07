@@ -43,11 +43,14 @@ module StreamingProductsHelper
 
   def message_streaming(token, free, streaming)
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
-
     if !current_customer.payment_suspended?
       if free[:status] == false
         if current_customer.abo_active == 0
-          "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
+          if current_customer.beta_test
+            "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated_beta_test', :link => info_path(:page_name => :promotion)}</div>"
+          else
+            "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
+          end
         elsif (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
           "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
         elsif token_status == Token.status[:ip_invalid]
@@ -56,7 +59,7 @@ module StreamingProductsHelper
           "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
         end
       elsif free[:status] == true && free[:available] == false && (token.nil? || !token.validate?(request.remote_ip))
-        "<div class ='attention_vod' id ='old_token'>tu as deja utilisé ton film gratuit</div>"
+        "<div class ='attention_vod' id ='old_token'>#{t '.already_used'}</div>"
       end
     else
       "<div class='attention_vod' id=''>#{t '.customer_suspended'}</div>"

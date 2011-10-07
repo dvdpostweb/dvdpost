@@ -1,17 +1,17 @@
 <div id="question">
   <div class="content_message">
-    <% form_for @message, :url => messages_path do |f| %>
-      <div id="message_title"><%= t('.new_message') %></div>
-      <p class="message_title"><%= t('.subject') %> :</p>
-      <p class="sujet">
+    <% form_for message, :url => messages_path do |f| %>
+      <div id="message_title" <%= category_hide == 1 ? "style=\"display:none\"": "" %>><%= t('.new_message') %></div>
+      <p class="message_title"<%= category_hide == 1 ? "style=\"display:none\"": "" %>><%= t('.subject') %> :</p>
+      <p class="sujet" <%= category_hide == 1 ? "style=\"display:none\"": "" %>>
         <% PhoneRequest.reason_codes.each do |key, code| %>
-          <%= f.radio_button :category_ticket_id, code, :checked => (code == 5)%>
+          <%= f.radio_button :category_ticket_id, code, :checked => (code == 5 || code == category_ticket_id)%>
           <%= f.label "category_ticket_id_#{code}", t("phone_requests.new.form.reason_label_#{code}"), :class => :reason_label %>
         <% end %>
       </p>
-        <p  class="message_title"><%= t('.message') %> :</p>
+        <p  class="message_title" <%= category_hide == 1 ? "style=\"display:none\"": "" %>><%= t('.message') %> :</p>
         <p>
-          <%= text_area_tag 'message',nil, :cols => 72, :rows => 9,  :id => :message_textarea %>
+          <%= text_area_tag 'message',(text.nil? ? nil : text), :cols => 72, :rows => 9,  :id => :message_textarea %>
         </p>
         <p align='right'>
           <% content_tag :button, :type => :submit, :id => :new_message_btn do %>
