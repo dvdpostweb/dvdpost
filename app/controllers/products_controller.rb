@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
+  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show]
 
   def index
     if ENV['HOST_OK'] == "1"
@@ -81,23 +81,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if Rails.env == "production"
-      if params[:kind] == :adult
-        @product = Product.adult_available.find(params[:id])
-        @rating_color = :pink
-      else
-        @product = Product.normal_available.find(params[:id])
-        @rating_color = :white
-      end
-    else
-      if params[:kind] == :adult
-        @product = Product.find(params[:id])
-        @rating_color = :pink
-      else
-        @product = Product.find(params[:id])
-        @rating_color = :white
-      end
-    end
     data = @product.description_data(true)
     @product_title = data[:title]
     @product_image = data[:image]
@@ -237,10 +220,22 @@ class ProductsController < ApplicationController
   end
 private
   def find_product
-    if params[:kind] == :normal
-      @product = Product.normal_available.find(params[:product_id])
-    else
-      @product = Product.adult_available.find(params[:product_id])
-    end
+     if Rails.env == "production"
+        if params[:kind] == :adult
+          @product = Product.adult_available.find(params[:id])
+          @rating_color = :pink
+        else
+          @product = Product.normal_available.find(params[:id])
+          @rating_color = :white
+        end
+      else
+        if params[:kind] == :adult
+          @product = Product.find(params[:id])
+          @rating_color = :pink
+        else
+          @product = Product.find(params[:id])
+          @rating_color = :white
+        end
+      end
   end
 end
