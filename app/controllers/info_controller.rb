@@ -17,6 +17,10 @@ class InfoController < ApplicationController
       @product3 = Product.find(126690)
       @product4 = Product.find(110312)
     end
+
+    if params[:page_name] == 'free_movies' || params[:page_name] == 'promotion'
+      @theme = ThemesEvent.find(20)
+    end
     @message = Ticket.new
     respond_to do |format|
       format.html
