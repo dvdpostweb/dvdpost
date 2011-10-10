@@ -1,6 +1,7 @@
 class StreamingProductsController < ApplicationController
   def show
     if Rails.env == 'production' 
+      @product = Product.both_available.find_by_imdb_id(params[:id])
       @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
       if @streaming.source == StreamingProduct.source[:alphanetworks]
         @streaming_prefered = StreamingProduct.group_by_language.available.find_all_by_imdb_id(params[:id], I18n.locale)
@@ -13,10 +14,9 @@ class StreamingProductsController < ApplicationController
       @streaming = StreamingProduct.available_beta.alpha.find_by_imdb_id(params[:id])
       @streaming_prefered = StreamingProduct.alpha.group_by_language.find_all_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = nil
-      
+      @product = Product.find_by_imdb_id(params[:id])
     end
     
-    @product = Product.both_available.find_by_imdb_id(params[:id])
     @streaming_free = streaming_free(@product)
    
     respond_to do |format|
