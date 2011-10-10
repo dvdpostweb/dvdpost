@@ -2591,7 +2591,6 @@ div.top10.first p a {
   color: white;
 }
 .adult #leftcolumn #left-nav li a.new:hover {
-  background: url(../images/adult-left-tab-bg-vod.gif) 0 0 no-repeat;
   color: #ddd;
 }
 
@@ -2615,6 +2614,9 @@ div.top10.first p a {
 }
 #leftcolumn #left-nav li a.new.active_close {
  background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
+}
+.adult #leftcolumn #left-nav li a.new.active_close {
+ background: url(../images/adult-left-tab-bg-vod.gif) 0 0 no-repeat;
 }
 
 #leftcolumn #left-nav li ul {
