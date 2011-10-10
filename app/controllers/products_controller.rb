@@ -220,22 +220,27 @@ class ProductsController < ApplicationController
   end
 private
   def find_product
-     if Rails.env == "production"
-        if params[:kind] == :adult
-          @product = Product.adult_available.find(params[:id])
-          @rating_color = :pink
-        else
-          @product = Product.normal_available.find(params[:id])
-          @rating_color = :white
-        end
+    if params[:id]
+      id = params[:id]
+    else
+      id = params[:product_id]
+    end
+    if Rails.env == "production"
+      if params[:kind] == :adult
+        @product = Product.adult_available.find(id)
+        @rating_color = :pink
       else
-        if params[:kind] == :adult
-          @product = Product.find(params[:id])
-          @rating_color = :pink
-        else
-          @product = Product.find(params[:id])
-          @rating_color = :white
-        end
+        @product = Product.normal_available.find(id)
+        @rating_color = :white
       end
+    else
+      if params[:kind] == :adult
+        @product = Product.find(id)
+        @rating_color = :pink
+      else
+        @product = Product.find(id)
+        @rating_color = :white
+      end
+    end
   end
 end
