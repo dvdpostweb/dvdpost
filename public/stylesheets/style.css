@@ -2584,8 +2584,12 @@ div.top10.first p a {
   text-decoration: none;
 }
 #leftcolumn #left-nav li a.new {
-  background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
+  background: url(../images/left-tab-bg-vod.gif) 0 0 no-repeat;
 }
+.adult #leftcolumn #left-nav li a.new {
+  background: url(../images/adult-left-tab-bg-vod-new.png) 0 0 no-repeat;
+}
+
 #leftcolumn #left-nav li a:hover,#leftcolumn #left-nav li a.actived {
   color: black;
   text-decoration: none;
