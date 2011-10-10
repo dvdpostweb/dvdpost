@@ -30,7 +30,7 @@ class ActorsController < ApplicationController
         end
       end
     else
-      fragment_name = session[:sexuality] == 1 ?  "actors_x_gay4_#{params[:letter]}" : "actors_x_hetero_#{params[:letter]}"
+      fragment_name = session[:sexuality] == 1 ?  "actors_x_gay_#{params[:letter]}" : "actors_x_hetero_#{params[:letter]}"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
         begin
           @actors = OrderedHash.new()
