@@ -170,10 +170,10 @@ module ApplicationHelper
   def product_assigned_path(product)
     if product
       if product.adult?
-        php_path "product_info_adult.php?products_id=#{product.to_param}"
-        #product_path(:kind => :adult, :id => product.to_param)
+        #php_path "product_info_adult.php?products_id=#{product.to_param}"
+        product_path(:kind => :adult, :id => product.to_param)
       else
-        product_path(:id => product.to_param)
+        product_path(:kind => :normal, :id => product.to_param)
       end
     end
   end
