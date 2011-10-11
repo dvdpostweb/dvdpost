@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
+  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show]
 
   def index
     params.delete(:id)
@@ -92,10 +92,27 @@ class ProductsController < ApplicationController
   end
 private
   def find_product
-    if params[:kind] == :normal
-      @product = Product.normal_available.find(params[:product_id])
+    if params[:id]
+      id = params[:id]
     else
-      @product = Product.adult_available.find(params[:product_id])
+      id = params[:product_id]
+    end
+    if Rails.env == "production"
+      if params[:kind] == :adult
+        @product = Product.adult_available.find(id)
+        @rating_color = :pink
+      else
+        @product = Product.normal_available.find(id)
+        @rating_color = :white
+      end
+    else
+      if params[:kind] == :adult
+        @product = Product.find(id)
+        @rating_color = :pink
+      else
+        @product = Product.find(id)
+        @rating_color = :white
+      end
     end
   end
 end
