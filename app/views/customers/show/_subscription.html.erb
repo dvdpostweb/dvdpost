@@ -79,7 +79,7 @@
         </tr>
         <% streaming_available.each do |stream| %>
           <tr>
-            <td align="left"  class="transit"><%= link_to truncate(stream.products.first.description.title, :length => 30), streaming_product_path(:id => stream.imdb_id) %></td>
+            <td align="left"  class="transit"><%= link_to truncate(product_assigned_title(stream.products.first), :length => 30), product_streaming_path(stream) %></td>
             <td align="right"  class="transit"><% stream.created_at.strftime("%d/%m/%Y") %>
               <%= "#{time_left(stream)}" %></td>
           </tr>
