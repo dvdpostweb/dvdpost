@@ -1241,7 +1241,7 @@ a#next10 {
   border: 1px solid #000000;
 }
 
-#details .cover #dvd .new, #details .cover #bluray .new {
+#details .cover #dvd .new, #details .cover #bluray .new, #details .cover #vod .new {
   background: url(../images/new-label.png) 0 0 no-repeat;
   display: block;
   height: 63px;

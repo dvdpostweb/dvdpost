@@ -262,7 +262,7 @@ module DVDPost
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
         :external => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182','217.112.190.100'],
-        :internal => '127.0.0.1'
+        :internal => '127.0.0.2'
       })
     end
     
@@ -315,8 +315,8 @@ module DVDPost
       Iconv.conv('utf-8','ISO-8859-1',  data)
     end
 
-    def mail_vod_selection(customer_id,  limit = 7)
-      data = open("http://www.dvdpost.com/webservice/vod_selection.php?limit=#{limit}&customer_id=#{customer_id}").read
+    def mail_vod_selection(customer_id, kind, limit = 7)
+      data = open("http://www.dvdpost.com/webservice/vod_selection.php?limit=#{limit}&customer_id=#{customer_id}&kind=#{kind}").read
       Iconv.conv('utf-8','ISO-8859-1',  data)
     end
 

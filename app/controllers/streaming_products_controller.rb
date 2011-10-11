@@ -66,7 +66,7 @@ class StreamingProductsController < ApplicationController
                   gender = t('mails.gender_female')
                 end
                   movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
-                  vod_selection = DVDPost.mail_vod_selection(current_customer.to_param)
+                  vod_selection = DVDPost.mail_vod_selection(current_customer.to_param, params[:kind])
                   recommendation_dvd_to_dvd = DVDPost.mail_recommendation_dvd_to_dvd(current_customer.to_param, @product.id)
                   options = 
                   {
