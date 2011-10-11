@@ -132,6 +132,13 @@ text-decoration:underline;
   height: 334px;
   padding: 60px 0 0 0;
 }
+.adult #image_vod
+{
+  background:url("../images/vod_adult.jpg");
+  width: 696px;
+  height: 334px;
+  padding: 60px 0 0 0;
+}
 #image_vod img 
 {
   padding:15px 11px 16px 14px;
