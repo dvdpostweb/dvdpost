@@ -136,8 +136,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
   sphinx_scope(:by_collection)      {|collection|       {:with =>       {:collection_id => collection.to_param}}}
-  sphinx_scope(:hetero)             {{:without =>       {:category_id => 76}}}
-  sphinx_scope(:gay)                {{:with =>          {:category_id => 76}}}
+  sphinx_scope(:hetero)             {{:without =>       {:category_id => [76, 72]}}}
+  sphinx_scope(:gay)                {{:with =>          {:category_id => [76, 72]}}}
   sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
