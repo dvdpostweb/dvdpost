@@ -114,7 +114,7 @@ class Product < ActiveRecord::Base
     when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
-    has 'concat(if(products_quantity>0,1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
+    has 'concat(if(products_quantity>0 or products_media = "vod",1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
     has "case 
     when  products_status = -1 then 99
     else products_status end", :type => :integer, :as => :status
@@ -136,8 +136,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
   sphinx_scope(:by_collection)      {|collection|       {:with =>       {:collection_id => collection.to_param}}}
-  sphinx_scope(:hetero)             {{:without =>       {:category_id => 76}}}
-  sphinx_scope(:gay)                {{:with =>          {:category_id => 76}}}
+  sphinx_scope(:hetero)             {{:without =>       {:category_id => [76, 72]}}}
+  sphinx_scope(:gay)                {{:with =>          {:category_id => [76, 72]}}}
   sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
