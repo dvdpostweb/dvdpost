@@ -325,11 +325,12 @@ module ApplicationHelper
 
   def check_host
     @jacob = 1
-    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
-      ENV['HOST_OK'] = "1"
-    else
-      ENV['HOST_OK'] = "0"
-    end
+    #if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
+    #  ENV['HOST_OK'] = "1"
+    #else
+    #  ENV['HOST_OK'] = "0"
+    #end
+    ENV['HOST_OK'] = "1"
   end
 
   def no_param
@@ -373,6 +374,7 @@ module ApplicationHelper
   end
 
   def streaming_free(product)
+    return {:status => false, :available => false} if ENV['HOST_OK'] == "1"
     streaming_free = StreamingProductsFree.by_imdb_id(product.imdb_id).available.first
     if streaming_free
       if streaming_free.kind = DVDPost.streaming_free_type[:beta_test] 
