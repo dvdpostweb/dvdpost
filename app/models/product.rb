@@ -586,4 +586,39 @@ class Product < ActiveRecord::Base
   def adult?
     products_type == DVDPost.product_kinds[:adult]
   end
+
+  def title_test
+    if imdb_id >0
+      title_db = products_title.upcase
+      puts title_db
+      title_imdb =  open "http://www.imdb.com/title/tt#{imdb_id}/" do |data|  p=/(.*)(\(.*\))/;       title = Hpricot(data).search('//h1').text.gsub(p, "\\1"); title.gsub(/\n/,'')  end
+      title_imdb = CGI.unescapeHTML(title_imdb).upcase
+      if title_db == title_imdb
+        puts 'ok'
+      else
+        puts " not ok #{title_db} <==> #{title_imdb}"
+      end
+    end
+    return ''
+  end
+
+  def self.title_test
+    
+    Product.normal_available.each do |product|
+      if product.imdb_id >0
+        
+        title_db = product.products_title.upcase
+        #puts title_db
+        title_imdb =  open "http://www.imdb.com/title/tt#{product.imdb_id}/" do |data|  p=/(.*)(\(.*\))/;       title = Hpricot(data).search('//h1').text.gsub(p, "\\1"); title.gsub(/\n/,'')  end
+        title_imdb = CGI.unescapeHTML(title_imdb).upcase
+        if title_db == title_imdb
+          #puts 'ok'
+        else
+          puts " not ok #{title_db} <==> #{title_imdb}"
+        end
+      end
+    end
+    return ''
+  end  
+  
 end
