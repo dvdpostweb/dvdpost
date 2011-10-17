@@ -229,28 +229,6 @@ module ApplicationHelper
     !current_customer || ((current_customer.address && current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')) || current_customer.super_user?)
   end
 
-  def display_btn_tops
-    if session[:menu_tops] == true
-      type = 'close'
-      css_class = 'active'
-    else
-      type = 'open'
-      css_class = ''
-    end
-    link_to t('.tops'), menu_tops_path(:type => type), :id => :tops, :class => css_class
-  end
-  
-  def display_btn_categories
-    if session[:menu_categories] == true || session[:menu_categories] == nil
-      type = 'close'
-      css_class = 'active'
-    else
-      type = 'open'
-      css_class = ''
-    end
-    link_to t('.categories'), menu_categories_path(:type => type), :id => :categories, :class => css_class
-  end
-
   def set_title(alter_title, replace = true)
     if alter_title.blank?
       @title = t '.title'
@@ -325,12 +303,12 @@ module ApplicationHelper
 
   def check_host
     @jacob = 1
-    #if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
-    #  ENV['HOST_OK'] = "1"
-    #else
-    #  ENV['HOST_OK'] = "0"
-    #end
-    ENV['HOST_OK'] = "1"
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
+      ENV['HOST_OK'] = "1"
+    else
+      ENV['HOST_OK'] = "0"
+    end
+    #ENV['HOST_OK'] = "1"
   end
 
   def no_param

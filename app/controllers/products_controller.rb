@@ -65,10 +65,6 @@ class ProductsController < ApplicationController
         
         
         @jacket_mode = Product.get_jacket_mode(params)
-        if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
-          session[:menu_categories] = true
-          session[:menu_tops] = false
-        end
       end
       format.js {
         if params[:category_id]
@@ -186,30 +182,6 @@ class ProductsController < ApplicationController
         end
       end
     end
-  end
-
-  def menu_tops
-    
-    type = params[:type] || 'open'
-    if type == 'close'
-      session[:menu_tops] = false
-    else
-      session[:menu_tops] = true
-      session[:menu_categories] = false
-      
-    end
-   render :nothing => true
-  end
-
-  def menu_categories
-    type = params[:type] || 'open'
-    if type == 'close'
-      session[:menu_categories] = false
-    else
-      session[:menu_categories] = true
-      session[:menu_tops] = false
-    end
-   render :nothing => true
   end
 
   def drop_cached
