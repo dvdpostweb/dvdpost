@@ -14,16 +14,8 @@
       <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close new' : 'close new') if streaming_access? %></li>
       <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended), :class => ((params[:view_mode] == 'recommended') ? 'active_close' : 'close') %></li>
       <li>
-        <%= display_btn_tops %>
-        <ul <%= (session[:menu_tops] == false || session[:menu_tops] == nil) ? "style = 'display:none'" : '' %> id="tops_list">
-          <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).ordered.collect do |list| %>
-            <li><%= link_to list.name, list_products_path(:list_id => list), :class => (list.to_param == params[:list_id]) ? 'actived' : 'top' %></li>
-          <% end %>
-        </ul>
-      </li>
-      <li>
-        <%= display_btn_categories %>
-        <ul id="categories_list" <%= session[:menu_categories] == false ? 'style="display :none"' : '' %>>
+        <div id="categories" class="active"><%= t('.categories') %></div>
+        <ul id="categories_list">
           <% name = @category ? "#{I18n.locale}_#{@category.to_param}_#{session[:sexuality]}_#{params[:kind]}" : "#{I18n.locale}_#{session[:sexuality]}_#{params[:kind]}" %>
           <% cache(name) do %> 
             <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
@@ -33,7 +25,7 @@
       <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.soon'), products_path(:view_mode => :soon), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.cinema'), products_path(:view_mode => :cinema), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>
-      <li><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming), :class => 'close' %></li>
+      <li><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming), :class => 'close', :id => 'vod_adult' %></li>
     </ul>
     <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if params[:action] == 'index' %>
   <% end %>
