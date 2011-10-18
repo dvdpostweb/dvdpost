@@ -1,5 +1,6 @@
 class StreamingProductsController < ApplicationController
   def show
+    @code = StreamingCode.find_by_name(params[:code]) if params[:code]
     if Rails.env == 'production' 
       @product = Product.both_available.find_by_imdb_id(params[:id])
       @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
