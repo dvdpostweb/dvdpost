@@ -16,16 +16,16 @@
       <li>
         <div id="categories" class="active"><%= t('.categories') %></div>
         <ul id="categories_list">
-          <% name = @category ? "#{I18n.locale}_#{@category.to_param}_#{session[:sexuality]}_#{params[:kind]}" : "#{I18n.locale}_#{session[:sexuality]}_#{params[:kind]}" %>
+          <% name = @category ? "#{ENV['HOST_OK']}_#{I18n.locale}_#{@category.to_param}_#{session[:sexuality]}_#{params[:kind]}" : "#{ENV['HOST_OK']}_#{I18n.locale}_#{session[:sexuality]}_#{params[:kind]}" %>
           <% cache(name) do %> 
-            <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
+            <%= left_column_categories(@category, params[:kind], session[:sexuality], ENV['HOST_OK']) %>
           <% end %>
         </ul>
       </li>
       <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.soon'), products_path(:view_mode => :soon), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.cinema'), products_path(:view_mode => :cinema), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>
-      <li><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming), :class => 'close', :id => 'vod_adult' %></li>
+      <li><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming), :class => 'close', :id => 'vod_adult' if current_customer %></li>
     </ul>
     <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if params[:action] == 'index' %>
   <% end %>

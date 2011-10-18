@@ -306,7 +306,7 @@ module ProductsHelper
     end
   end
 
-  def left_column_categories(selected_category, kind, sexuality)
+  def left_column_categories(selected_category, kind, sexuality, host_ok)
     html_content = []
     cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
     cat.collect do |category|
@@ -330,10 +330,12 @@ module ProductsHelper
         end
       end
     end
+    if host_ok == '0'
     li_style = selected_category ? 'display:none' : ''
       html_content << content_tag(:li, :class => :cat, :style => li_style) do
         kind == :adult ? link_to( t('.full_categories'), categories_path(), :id => 'catx') : link_to( t('.category_x'), root_path(:kind => :adult), :id => 'catx')
       end
+    end
     html_content
   end
 

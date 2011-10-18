@@ -18,7 +18,7 @@
       <li>
         <div id="categories" class="active"><%= t('.categories') %></div>
         <ul id="categories_list">
-          <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
+          <%= left_column_categories(@category, params[:kind], session[:sexuality], ENV['HOST_OK']) %>
         </ul>
       </li>
     </ul>
