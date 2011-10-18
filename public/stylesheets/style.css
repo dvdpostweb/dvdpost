@@ -4237,3 +4237,7 @@ float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
   text-decoration: underline; 
 }
 
+.white_label
+{
+  margin: 0 !important;
+}

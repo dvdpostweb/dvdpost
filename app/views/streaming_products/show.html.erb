@@ -1,4 +1,4 @@
-<div id="maincontent">
+<div <%= 'id="maincontent" ' if (@code && !@code.white_label) %>>
   <div id="vod-wrap">
     <div class="top"></div>
       <h2>
@@ -37,6 +37,7 @@
       <% if ENV['HOST_OK'] == "0" && current_customer.abo_active == 0 && current_customer.beta_test %>
         <p align ="center"><%= link_to(image_tag("#{DVDPost.images_path}/free_movies/banner_relance_fr.jpg"), info_path(:page_name => :promotion)) %></p>
       <% end %>
+      <% if (@code && !@code.white_label) %>
       <div class="linkpc">
         <div class="icon_left">
           <%= image_tag 'icon_tv.gif', :align => :absmiddle, :alt => 'icon tv' %>
@@ -53,7 +54,7 @@
         <div class="clear"></div>
       </div>
     </div>
-    
+    <% end %>
   </div>
   <div class="end"></div>
   <div id='flash_problem' style='display:none'>
