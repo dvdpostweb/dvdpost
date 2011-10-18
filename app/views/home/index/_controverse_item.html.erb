@@ -16,7 +16,7 @@
     <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
     </div>
     <div class="thumb"> 
-      <%= link_to product_image_tag (product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %> 
+      <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %> 
     </div>
   </li>
 <% end %>

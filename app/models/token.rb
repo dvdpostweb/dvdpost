@@ -76,7 +76,7 @@ class Token < ActiveRecord::Base
     return Token.status[:expired] if expired?
     
     current_ips = token_ips
-    return Token.status[:ok] if !current_ips.find_by_ip(current_ip).nil? || streaming_products.first.source == StreamingProduct.source[:alphanetworks]
+    return Token.status[:ok] if !current_ips.find_by_ip(current_ip).nil? || streaming_products.alpha.count > 0
     return Token.status[:ip_valid] if current_ips.count < count_ip 
     return Token.status[:ip_invalid]
   end
