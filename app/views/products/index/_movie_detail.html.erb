@@ -1,17 +1,15 @@
 <% if movie_detail %>
 <% product = movie_detail %>
 <% path = product_path(:id => product.to_param, :recommendation => @source) %>
-<% cache "/#{I18n.locale}/products/product_#{product.id}" do %>
-
+<% if product.streaming? %>
+  <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil %>
+<% end %>
+<div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
+<% cache "/#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{product.id}" do %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
 <% product_description =  data[:description] %>
-<% if product.streaming? %>
-  <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil %>
-<% end %>
-
-<div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>
       <%= link_to product_title, path %>
