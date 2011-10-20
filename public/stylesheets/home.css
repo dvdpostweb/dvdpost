@@ -353,6 +353,10 @@ body
 #selection-tabcontent-wrap .content-tabs li a.vod strong {
   color: #85ba17;
 }
+.adult #selection-tabcontent-wrap 
+{
+  margin-bottom:10px;
+}
 
 #selection-tabcontent-wrap .content-tabs li a.br strong {
   color: #009ee0;
@@ -854,4 +858,20 @@ color: #009EE0;
 
 .clearfix {
   display: block;
+}
+.adult #selection-week-wrap .slides li.vod h3 {
+    background: none repeat scroll 0 0 #7b0499;
+}
+
+.adult #selection-week-wrap .slides li.vod h4 {
+    color: #7b0499;
+}
+
+.adult #selection-week-wrap .ttl, .adult #community-wrap .ttl, .adult #news-wrap .ttl {
+    background: url("../images/selection-icon_adult.png") no-repeat scroll 0 0 transparent;
+	color: #E2007C;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px 0 2px 35px;
 }

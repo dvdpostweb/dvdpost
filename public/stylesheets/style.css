@@ -989,7 +989,7 @@ a#next10 {
 
 #details #movie-info {
   float: left;
-  padding-left: 177px;
+  padding-left: 12px;
   width: 293px;
 }
 
@@ -1216,8 +1216,10 @@ a#next10 {
 
 #details .cover {
   left: 15px;
-  position: absolute;
-  top: 11px;
+  /*position: absolute;
+  top: 11px;*/
+  float:left;
+  /*margin-left: -178px;*/
 }
 
 #details .cover #dvd, #details .cover #bluray, #details .cover #vod {

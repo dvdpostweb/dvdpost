@@ -7,6 +7,7 @@ class ProductList < ActiveRecord::Base
   named_scope :theme, :conditions => {:kind => 'THEME'}
   named_scope :status, :conditions => {:status => true}
   named_scope :not_highlighted, :conditions => {:home_page => false}
+  named_scope :by_kind, lambda {|kind| {:conditions => {:restriction => kind}}}
   named_scope :highlighted, :conditions => {:home_page => true}
   named_scope :by_language, lambda {|language| {:conditions => {:language => language}}}
   named_scope :by_style, lambda {|style| {:conditions => {:style => DVDPost.list_styles[style]}}}
