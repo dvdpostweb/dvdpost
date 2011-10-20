@@ -10,10 +10,10 @@ class HomeController < ApplicationController
         elsif params[:highlight_page]
           get_reviews_data(params[:review_kind], params[:highlight_page], params[:precision])
         elsif params[:selection_page]
-          get_selection_week(params[:selection_kind], params[:selection_page])
+          get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
           render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}  
         elsif params[:selection_kind]
-          get_selection_week(params[:selection_kind], 1)
+          get_selection_week(params[:kind], params[:selection_kind], 1)
           render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}
         elsif params[:close_rating]
           recommendations = retrieve_recommendations(1)
@@ -72,10 +72,14 @@ class HomeController < ApplicationController
     end
   end
 
-  def get_selection_week(selection_kind, selection_page)
+  def get_selection_week(kind, selection_kind, selection_page)
     @selection_kind = selection_kind || :vod
     @selection_page = selection_page
-    @selection = ProductList.theme.by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+    if kind == :adult
+      @selection = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+    else
+      @selection = ProductList.theme.by_kind(kind.to_s).by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+    end
   end
 
   def get_data(kind)
@@ -88,6 +92,7 @@ class HomeController < ApplicationController
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
+      get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
       if Rails.env == "pre_production"
         @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)
       else
@@ -116,7 +121,7 @@ class HomeController < ApplicationController
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
       end
       @streaming_available = current_customer.get_all_tokens
-      get_selection_week(params[:selection_kind], params[:selection_page])
+      get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
       get_reviews_data(params[:review_kind], params[:highlight_page], nil)
       @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       @rating_count = current_customer.ratings.count
