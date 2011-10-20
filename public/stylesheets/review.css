@@ -494,12 +494,12 @@ border: 1px solid #8e8e8e;
   font-weight: bold;
 }
 #tab-content-3 li .content .votes .up {
-  padding: 5px 19px 0 0;
- background: url(../images/thumb-up.png) 10px 0 no-repeat;
+  padding: 5px 24px 0 0;
+ background: url(../images/thumb-up.png) 15px 0 no-repeat;
 }
 #tab-content-3 li .content .votes .down {
-  padding: 5px 19px 0 0px;
- background: url(../images/thumb-down.png) 10px 2px no-repeat;
+  padding: 5px 24px 0 0px;
+ background: url(../images/thumb-down.png) 15px 2px no-repeat;
 }
 
 #positions h4 {
