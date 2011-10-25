@@ -134,6 +134,29 @@ class StreamingProductsController < ApplicationController
     end
   end
 
+  def language
+    if streaming_access? 
+      if Rails.env == 'production' 
+        @streaming_subtitle = StreamingProduct.available.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
+      else
+        @streaming_subtitle = StreamingProduct.available_beta.alpha.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
+      end
+      render :partial => 'streaming_products/show/subtitles', :locals => {:streaming => @streaming_subtitle}, :layout => false
+    end
+  end
+
+  def subtitle
+    if streaming_access?
+      if Rails.env == 'production' 
+        @streaming = StreamingProduct.available.find(params[:id])
+      else
+        @streaming = StreamingProduct.available_beta.alpha.find(params[:id])
+      end
+      render :partial => 'streaming_products/show/launch', :locals => {:streaming => @streaming}, :layout => false
+      
+    end
+  end
+
   def faq
     @product = Product.find_by_imdb_id(params[:streaming_product_id])
     unless current_customer
