@@ -1,0 +1,6 @@
+<% if sub = subtitle.subtitles.by_language(I18n.locale).first %>
+  <% title = "<strong>#{sub.name}</strong>" %>
+<% else %>
+  <% title = "<strong>#{t('streaming_products.show.kind.without_subtitle')}</strong>" %>
+<% end %>
+<%= link_to title, streaming_product_subtitle_path(:streaming_product_id => params[:streaming_product_id], :id => subtitle.to_param, :code => params[:code]), :class => "btn language_btn" %>

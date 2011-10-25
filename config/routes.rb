@@ -56,7 +56,9 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :streaming_products, :only => [:show], :requirements => { :id => /\d+/ } do |stream|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
-      stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
+      stream.language 'language', :controller => :streaming_products, :action => :language, :conditions => {:method => :get}
+      stream.subtitle 'subtitle', :controller => :streaming_products, :action => :subtitle, :conditions => {:method => :get}
+      #stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end
 
     localized.resource :streaming_products, :only => [] do |stream|
