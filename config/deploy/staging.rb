@@ -45,7 +45,7 @@ namespace :deploy do
   after "deploy:update_code" do
     db_config = <<-EOF
     staging:
-      adapter: mysql
+      adapter: mysql2
       encoding: utf8
       database: dvdpost_test
       username: test_devuser
@@ -53,7 +53,7 @@ namespace :deploy do
       host: 192.168.100.204
       port: 3306
       slave01:
-        adapter: mysql
+        adapter: mysql2
         encoding: utf8
         database: dvdpost_test
         username: test_devuser
@@ -61,7 +61,7 @@ namespace :deploy do
         host: 192.168.100.14
         port: 3306
       slave02:
-        adapter: mysql
+        adapter: mysql2
         encoding: utf8
         database: dvdpost_test
         username: test_devuser
