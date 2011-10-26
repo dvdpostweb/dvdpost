@@ -34,12 +34,15 @@
                 </div>
               </div>
               <p  class="info_vod" >
-                <a href="" target="_blank">Voir toutes les versions disponibles</a> | 
-                <%= link_to 'Informations sur la VOD', streaming_products_faq_path(), :target =>'_blank' %>
-                <br /><br /><%= t 'streaming_products.show.kinds_alpha.reminder' %>
+                <a href="" target="_blank">Voir toutes les versions disponibles</a> 
+                
+                <br /><br />
 
               </p>
           </div>
+          <p class="intro_vod">
+            <%= t 'streaming_products.show.kinds_alpha.reminder' %>
+          </p>
           <% else %>
             <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming_prefered => @streaming_prefered,:streaming_not_prefered => @streaming_not_prefered, :token => @token} %>
           <% end %>
@@ -52,15 +55,15 @@
       <% if @code.nil? || (@code && !@code.white_label) %>
       <div class="linkpc">
         <div class="icon_left">
-          <%= image_tag 'icon_tv.gif', :align => :absmiddle, :alt => 'icon tv' %>
+          <%= image_tag icon_tv, :align => :absmiddle, :alt => 'icon tv' %>
           <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %><br />
-          <%= image_tag 'icon_infos.gif', :align => :absmiddle, :alt => 'icon info' %>
+          <%= image_tag icon_infos, :align => :absmiddle, :alt => 'icon info' %>
           <%= link_to t('.info'), streaming_products_faq_path(), :class => 'connect_linkpc' %>
         </div>
         <div class="icon_right">
-            <%= image_tag 'icon_survey.gif', :align => :absmiddle, :alt => 'icon poll' %>
+            <%= image_tag icon_survey, :align => :absmiddle, :alt => 'icon poll' %>
             <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'><%= t '.poll' %></a><br />
-            <%= image_tag 'icon_problem.gif', :align => :absmiddle, :alt => 'icon problem' %>
+            <%= image_tag icon_problem, :align => :absmiddle, :alt => 'icon problem' %>
             <%= link_to t('.alert'), new_phone_request_path(:reason => 5), :class => :connect_linkpc %>   
         </div>
         <div class="clear"></div>

@@ -37,16 +37,18 @@ background:none;
     margin: 0 auto;
 }
 #vodtime {
-    background: url("../images/icon_time.gif") no-repeat scroll 0 -2px transparent;
+    background: url("../images/icon_time.gif") no-repeat scroll 0 1px transparent;
     font-size: 1.6em;
     height: 30px;
     margin: 5px auto 1px;
     padding-left: 31px;
     padding-top: 4px;
-    text-align: center;
-    width: 325px;
+    text-align: left;
+    width: 350px;
 }
-
+.adult #vodtime {
+    background: url("../images/icon_time_adult.gif") no-repeat scroll 0 1px transparent;
+}
 .connect_linkpc {
     color: #21282F;
     font-size: 1.2em;
@@ -59,7 +61,7 @@ background:none;
     padding: 9px;
 }
 #wrap {
-    background: url("http://private.dvdpost.com/stylesheets/../images/content-bg.png") repeat-y scroll 0 0 transparent;
+    background: url("../images/content-bg.png") repeat-y scroll 0 0 transparent;
     margin: 0 auto;
     padding: 0 8px 10px;
     text-align: left;
@@ -81,7 +83,7 @@ background:none;
     height: 389px;
     width: 696px;
 }
-.http://private.dvdpost.com/stylesheets/ {
+.choose_color{
     background-color: #C7C5C5;
     padding: 5px 0 0 5px;
 }
@@ -211,7 +213,7 @@ padding-left:112px;
     padding-right: 5px;
 }
 #submit_report {
-    background: url("/images/account_modify.png") no-repeat scroll 4px -1px transparent;
+    background: url("../images/account_modify.png") no-repeat scroll 4px -1px transparent;
     border: medium none;
     color: white;
     cursor: pointer;
@@ -220,7 +222,7 @@ padding-left:112px;
     width: 173px;
 }
 #submit_report:hover {
-    background: url("/images/account_modify.png") no-repeat scroll 4px -40px transparent;
+    background: url("../images/account_modify.png") no-repeat scroll 4px -40px transparent;
 }
 a#cancel {
     color: #505050;
@@ -239,7 +241,7 @@ a#cancel {
     width: 662px;
 }
 #vod-wrap .quality a.btn {
-    background: url("/images/button_qualityvod.png") no-repeat scroll 0 -90px transparent;
+    background: url("../images/button_qualityvod.png") no-repeat scroll 0 -90px transparent;
     color: white;
     display: block;
     font-size: 1em;
@@ -251,11 +253,11 @@ a#cancel {
     width: 96px;
 }
 #vod-wrap .quality a.btn:hover {
-    background: url("/images/button_qualityvod.png") no-repeat scroll 0 -46px transparent;
+    background: url("../images/button_qualityvod.png") no-repeat scroll 0 -46px transparent;
     text-decoration: none;
 }
 #vod-wrap .quality a.btnselect {
-    background: url("/images/button_qualityvod.png") no-repeat scroll 0 0 transparent;
+    background: url("../images/button_qualityvod.png") no-repeat scroll 0 0 transparent;
     color: white;
     display: block;
     font-size: 1em;
@@ -266,7 +268,7 @@ a#cancel {
     width: 97px;
 }
 #vod-wrap .quality a.btnselect:hover {
-    background: url("/images/button_qualityvod.png") no-repeat scroll 0 -46px transparent;
+    background: url("../images/button_qualityvod.png") no-repeat scroll 0 -46px transparent;
     text-decoration: none;
 }
 .linkpc {
@@ -288,42 +290,31 @@ a#cancel {
     font-size: 12px;
     text-decoration: underline;
 }
-
-
-
-
-
-
-.choice_language a.btn strong {
-    background: url("../images/slider-btn-bg.png") no-repeat scroll 100% 0 transparent;
-    color: #191E23;
-    display: inline-block;
-    font-size: 1.17em;
-    line-height: 37px;
-    padding-right: 20px;
-    text-transform: uppercase;
-}
-
-.choice_language a.btn_play strong {
-    background: url("../images/slider-btn-bg.png") no-repeat scroll 100% -36px transparent;
-       color:#FFFFFF;
-    display: inline-block;
-    font-size: 1.17em;
-    line-height: 37px;
-    padding-right: 20px;
-    text-transform: uppercase;
-}
-
 .choice_language a.btn_play {
-    background: url(../images/slider-btn-bg-end_play.png) no-repeat scroll 0 -36px transparent;
+    background: url("../images/vod-slider-btn-bg-end_play.png") no-repeat scroll 0 -36px transparent;
     display: inline-block;
     height: 37px;
     padding-left: 32px;
     text-decoration: none;
     width: auto;
 }
-.choice_language_st a.btn strong {
-    background: url("../images/slider-btn-bg.png") no-repeat scroll 100% 0 transparent;
+.adult .choice_language a.btn_play {
+    background: url("../images/vod-slider-btn-bg-end_play_adult.png") no-repeat scroll 0 -36px transparent;
+}
+.choice_language a.btn_play strong {
+    background: url("../images/vod-slider-btn-bg.png") no-repeat scroll 100% -36px transparent;
+    color:#FFFFFF;
+    display: inline-block;
+    font-size: 1.17em;
+    line-height: 37px;
+    padding-right: 20px;
+    text-transform: uppercase;
+}
+.adult .choice_language a.btn_play strong {
+    background: url("../images/vod-slider-btn-bg_adult.png") no-repeat scroll 100% -36px transparent;
+}
+.choice_language a.btn strong {
+    background: url("../images/vod-slider-btn-bg.png") no-repeat scroll 100% 0 transparent;
     color: #191E23;
     display: inline-block;
     font-size: 1.17em;
@@ -331,9 +322,23 @@ a#cancel {
     padding-right: 20px;
     text-transform: uppercase;
 }
-
+.adult .choice_language a.btn strong {
+  background: url("../images/vod-slider-btn-bg_adult.png") no-repeat scroll 100% 0 transparent;
+}
+.choice_language_st a.btn strong {
+    background: url("../images/vod-slider-btn-bg.png") no-repeat scroll 100% 0 transparent;
+    color: #191E23;
+    display: inline-block;
+    font-size: 1.17em;
+    line-height: 37px;
+    padding-right: 20px;
+    text-transform: uppercase;
+}
+.adult .choice_language_st a.btn strong {
+    background: url("../images/vod-slider-btn-bg_adult.png") no-repeat scroll 100% 0 transparent;
+}
 .choice_language a.btn {
-    background: url(../images/slider-btn-bg-end.png) no-repeat scroll 0 0 transparent;
+    background: url(../images/vod-slider-btn-bg-end.png) no-repeat scroll 0 0 transparent;
     display: inline-block;
     height: 37px;
     padding-left: 32px;
@@ -342,7 +347,9 @@ a#cancel {
     text-shadow: none !important;
     
 }
-
+.adult .choice_language a.btn {
+    background: url(../images/vod-slider-btn-bg-end_adult.png) no-repeat scroll 0 0 transparent;
+}
 .choice_language_st a.btn {
     background: url(../images/slider-btn-bg-end_st.png) no-repeat scroll 0 0 transparent;
     display: inline-block;
@@ -387,6 +394,9 @@ a#cancel {
 color:#7ca803;
 text-transform:uppercase;
 
+}
+.adult .selected {
+  color:#E2007C;;
 }
 .choice_valided a{
 color:#FFFFFF;

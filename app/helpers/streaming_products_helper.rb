@@ -99,4 +99,35 @@ module StreamingProductsHelper
     end
   end
 
+  def icon_tv
+    if params[:kind] == :adult
+      "icon_tv_adult.gif"
+    else
+      "icon_tv.gif"
+    end
+  end
+
+  def icon_infos
+    if params[:kind] == :adult
+      "icon_infos_adult.gif"
+    else
+      "icon_infos.gif"
+    end
+  end
+
+  def icon_survey
+    if params[:kind] == :adult
+      "icon_survey_adult.gif"
+    else
+      "icon_survey.gif"
+    end
+  end
+
+  def icon_problem
+    if params[:kind] == :adult
+      "icon_problem_adult.gif"
+    else
+      "icon_problem.gif"
+    end
+  end
 end
