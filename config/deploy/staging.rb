@@ -45,7 +45,7 @@ namespace :deploy do
   after "deploy:update_code" do
     db_config = <<-EOF
     staging:
-      adapter: mysql
+      adapter: mysql2
       encoding: utf8
       database: dvdpost_test
       username: test_devuser

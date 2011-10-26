@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 2.3.11'
-gem 'mysql', :group => :bundle
+gem 'mysql2','~>0.2.13', :group => :bundle
 gem 'rmagick'
 
 gem 'capistrano-ext', :require => 'capistrano'
