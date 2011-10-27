@@ -162,14 +162,6 @@ background:none;
     width: 696px;
 	 padding-bottom: 12px;
 }
-.choice_language_st {
-    background-color: #212830;
-    color: #FFFFFF;
-    margin-left: 113px;
-    text-align: center;
-    width: 696px;
-	 padding-bottom: 12px;
-}
 .intro_vod {
       color: #21282F;
     font-size: 14px;
@@ -184,14 +176,6 @@ font-size:16px;
 font-weight:bold;
 border-bottom:#FFFFFF solid 1px;
 padding:10px 0;
-
-}
-
-.choice_language_st h3{
-text-transform:uppercase;
-font-size:16px;
-font-weight:bold;
-border-bottom:#FFFFFF solid 1px;
 
 }
 
@@ -325,7 +309,7 @@ a#cancel {
 .adult .choice_language a.btn strong {
   background: url("../images/vod-slider-btn-bg_adult.png") no-repeat scroll 100% 0 transparent;
 }
-.choice_language_st a.btn strong {
+.subs a.btn strong {
     background: url("../images/vod-slider-btn-bg.png") no-repeat scroll 100% 0 transparent;
     color: #191E23;
     display: inline-block;
@@ -334,7 +318,7 @@ a#cancel {
     padding-right: 20px;
     text-transform: uppercase;
 }
-.adult .choice_language_st a.btn strong {
+.adult .subs a.btn strong {
     background: url("../images/vod-slider-btn-bg_adult.png") no-repeat scroll 100% 0 transparent;
 }
 .choice_language a.btn {
@@ -350,7 +334,7 @@ a#cancel {
 .adult .choice_language a.btn {
     background: url(../images/vod-slider-btn-bg-end_adult.png) no-repeat scroll 0 0 transparent;
 }
-.choice_language_st a.btn {
+.subs a.btn {
     background: url(../images/slider-btn-bg-end_st.png) no-repeat scroll 0 0 transparent;
     display: inline-block;
     height: 37px;
@@ -358,13 +342,15 @@ a#cancel {
     text-decoration: none;
     width: auto;
 }
-
-.choice_language_st a.btn:hover strong {
+.adult .subs a.btn {
+    background: url(../images/vod-slider-btn-bg-end_st_adult.png) no-repeat scroll 0 0 transparent;
+}
+.subs a.btn:hover strong {
    background-position:100% -36px; 
    color:#FFFFFF;
 
 }
- .choice_language_st a.btn:hover{
+.subs a.btn:hover{
    background-position:0 -36px; 
 
 }
@@ -418,7 +404,7 @@ text-decoration:underline;
   width:696px;
   height:120px;
 }
-.choice_question, .choice_valided, .audios
+.choice_question, .choice_valided, .audios, .subs
 {
   width:696px;
 }
