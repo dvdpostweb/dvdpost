@@ -12,11 +12,11 @@
         </ul>
         <div class="pagination">
           <span class="hide_arrow">
-            <%= will_paginate selection_week, :previous_label => '', :next_label => '', :container => false, :renderer => "RemoteLinkRenderer", :remote => { :url => root_path(:kind => :adult), :param_name => :selection_page} %>
+            <%= will_paginate selection_week, :previous_label => '', :next_label => '', :container => false, :renderer => "RemoteLinkRenderer", :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
           </span>
         </div>
         <div class="pagination2">
-          <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => :adult), :param_name => :selection_page} %>
+          <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
         </div> 
       
         
