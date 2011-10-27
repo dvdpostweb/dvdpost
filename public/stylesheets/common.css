@@ -522,3 +522,20 @@ padding-top:2px;
 
 }
 /*   End slider   */
+#bglink{
+  display:block;
+  height:100%;
+  width:100%;
+  left:0;
+  top:0;
+  z-index:0;
+  text-indent:-5000em;
+  position:fixed;
+  /* If you want to make only a part of background clickable,
+     adjust height/width/left/top here. */
+}
+#wrap
+{
+  position:relative;
+  z-index:10;
+}
