@@ -41,7 +41,7 @@
   <%= yield :head %>
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
-	<%= link_to @theme.name, theme_path(:id => @theme.to_param, :wallpaper => 1 ), :id => :bglink, :style => "background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};" if @theme && @theme.background_image == 1 && params[:kind] == :normal && (@code.nil? || (@code && !@code.white_label)) %>
+	<%= link_to @theme.name, theme_path(:id => @theme.to_param, :wallpaper => 1 ), :id => :bglink, :style => "background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};" if @theme && @theme.background_image == 1 && (@code.nil? || (@code && !@code.white_label)) %>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
 		<% if @code.nil? || (@code && !@code.white_label) %>
