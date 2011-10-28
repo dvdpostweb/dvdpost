@@ -1,0 +1,24 @@
+<% if sub = version.subtitles.by_language(I18n.locale).first %>
+  <% sub_title = sub.name %>
+<% else %>
+  <% sub_title = t('streaming_products.show.kind.without_subtitle').downcase %>
+<% end %>
+<% audio_title = version.language.by_language(I18n.locale).first.name %>
+
+<tr>
+	<td width="465">
+	  <p class="select_version">
+	    <strong> <%= t 'streaming_products.show.kinds_alpha.audio_title' %> </strong>
+	    <img align="absmiddle" src="/images/sound_icon.gif" alt="icon sons">: 
+	    <%= audio_title %> | 
+	    <strong><%= t 'streaming_products.show.kinds_alpha.sub_title' %> </strong>
+	    <img align="absmiddle" src="/images/subtitles_icon.gif" alt="icon sous-titres">: 
+	    <%= sub_title %>
+	  </p>
+	</td>
+	<td width="211">
+	  <p>
+	    <%= link_to "<strong>Lancer le film</strong>", streaming_product_path(:id => version.imdb_id, :streaming_product_id => version.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+	  </p>
+	</td>
+</tr>

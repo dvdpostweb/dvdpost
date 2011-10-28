@@ -161,6 +161,14 @@ class StreamingProductsController < ApplicationController
       
     end
   end
+  def versions
+    if Rails.env == 'production' 
+      @streaming_prefered = StreamingProduct.available.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+    else
+      @streaming_prefered = StreamingProduct.available_beta.alpha.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+    end
+    render :partial => '/home/index/versions', :locals => {:version => @streaming_prefered}
+  end
 
   def faq
     @product = Product.find_by_imdb_id(params[:streaming_product_id])
