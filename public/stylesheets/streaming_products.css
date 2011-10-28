@@ -416,3 +416,53 @@ text-decoration:underline;
 {
   width:696px;
 }
+.linkallversions{
+    background-color: #FFFFFF;
+    border: 1px solid #333333;
+    margin: 5px auto 0;
+  padding: 8px;
+    text-align: left;
+    width: 678px;
+}
+
+.linkallversions .icon_left {
+    float: left;
+}
+
+.linkallversions .icon_right {
+    float: right;
+    padding-right: 100px;
+}
+
+
+
+.linkallversions a.btn_play {
+       background: url("../images/vodslider-btn-bg-end-play-allversions.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 27px;
+    padding-left: 21px;
+    text-decoration: none;
+    width: auto;
+}
+
+.linkallversions a.btn_play strong {
+    background: url("../images/vod-slider-btn-bg-allversions.png ") no-repeat scroll 100% 0 transparent;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 1.17em;
+  line-height: 30px;
+    padding-right: 15px;
+    text-transform: uppercase;
+}
+
+.linkallversions  .select_version {
+color:#212830;
+font-size:16px;
+
+}
+#choice_new
+{
+  width: 696px;
+  height: 120px; 
+}
+

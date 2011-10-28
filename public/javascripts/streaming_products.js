@@ -252,6 +252,24 @@ $(function() {
     });
     return false;
   });
+  $("#all_versions").live("click", function() {
+    html_item = $('#all_versions_data');
+    content = html_item.html();
+    html_item.html("<div ><div style='margin: 0 auto; width:32px'><img src='/images/loading.gif'/></div></div>");
+    $.ajax({
+      url: $(this).attr('href'),
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        $(html_item).html(data);
+        
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
   $("#change_step2").live("click", function() {
     $container.cycle(0)
     return false;

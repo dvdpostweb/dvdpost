@@ -58,6 +58,7 @@ ActionController::Routing::Routes.draw do |map|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
       stream.language 'language', :controller => :streaming_products, :action => :language, :conditions => {:method => :get}
       stream.subtitle 'subtitle', :controller => :streaming_products, :action => :subtitle, :conditions => {:method => :get}
+      stream.versions 'versions', :controller => :streaming_products, :action => :versions, :conditions => {:method => :get}
       #stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end
 
