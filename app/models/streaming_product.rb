@@ -51,7 +51,6 @@ class StreamingProduct < ActiveRecord::Base
   end
 
   def generate_code(code, uniq)
-    Rails.logger.debug { "@@@#{code} #{Digest::MD5.hexdigest("#{uniq}_#{filename}_#{imdb_id}_supernova")}" }
     if code == Digest::MD5.hexdigest("#{uniq}_#{filename}_#{imdb_id}_supernova")
       return StreamingCode.create(:name => code, :white_label => 1, :activation_group_id => 183, :expiration_at => 3.days.from_now)
     else
