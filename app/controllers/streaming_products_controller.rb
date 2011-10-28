@@ -19,8 +19,8 @@ class StreamingProductsController < ApplicationController
     end
     if params[:code]
     @code = StreamingCode.find_by_name(params[:code]) 
-    if @code.nil?
-      @code = @streaming.generate_code(params[:code])
+    if @code.nil? && params[:uniq]
+      @code = @streaming.generate_code(params[:code], params[:uniq])
     end
     end
     @streaming_free = streaming_free(@product)
