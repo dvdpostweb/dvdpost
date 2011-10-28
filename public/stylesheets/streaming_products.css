@@ -1,12 +1,20 @@
 #mywhishlist #maincontent, #one-col #maincontent, #info #maincontent, #sponsorships #maincontent {
-background:none;
-    float: none;
-    margin: 24px 0 24px 24px !important;
-    padding: 0 0 18px 15px;
-    position: relative;
-    width: 922px;
+  background:none;
+  float: none;
+  margin: 24px 0 24px 24px !important;
+  padding: 0 0 18px 15px;
+  position: relative;
+  width: 922px;
 }
-
+#maincontent_no_border
+{
+  background:none;
+  float: none;
+  margin: 0 0 24px 24px !important;
+  padding: 0 0 18px 15px;
+  position: relative;
+  width: 922px;
+}
 
 
 #header #logout {

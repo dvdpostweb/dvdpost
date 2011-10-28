@@ -1,6 +1,6 @@
 class StreamingProductsController < ApplicationController
   def show
-    @code = StreamingCode.find_by_name(params[:code]) if params[:code]
+    
     if Rails.env == 'production' 
       @product = Product.both_available.find_by_imdb_id(params[:id])
       @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
@@ -17,7 +17,12 @@ class StreamingProductsController < ApplicationController
       @streaming_not_prefered = nil
       @product = Product.find_by_imdb_id(params[:id])
     end
-
+    if params[:code]
+    @code = StreamingCode.find_by_name(params[:code]) 
+    if @code.nil?
+      @code = @streaming.generate_code(params[:code])
+    end
+    end
     @streaming_free = streaming_free(@product)
    
     respond_to do |format|
