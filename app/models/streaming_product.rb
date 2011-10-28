@@ -49,4 +49,12 @@ class StreamingProduct < ActiveRecord::Base
     source.push(:alphanetworks, 'ALPHANETWORKS')
     source
   end
+
+  def generate_code(code)
+    if code == Digest::MD5.hexdigest("#{filename}_#{imdb_id}_supernova")
+      return StreamingCode.create(:name => code, :white_label => 1, :activation_group_id => 183, :expiration_at => 3.days.from_now)
+    else
+      nil
+    end
+  end
 end

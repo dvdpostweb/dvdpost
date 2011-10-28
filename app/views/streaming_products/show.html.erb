@@ -1,4 +1,4 @@
-<div <%= 'id="maincontent" ' if @code.nil? || (@code && !@code.white_label) %>>
+<div  <%= @code && @code.white_label ? 'id="maincontent_no_border"' : 'id="maincontent"' %> >
   <div id="vod-wrap">
       <h2>
         <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)&nbsp;<span>
