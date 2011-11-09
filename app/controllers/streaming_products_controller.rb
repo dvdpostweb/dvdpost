@@ -167,7 +167,7 @@ class StreamingProductsController < ApplicationController
     else
       @streaming_prefered = StreamingProduct.available_beta.alpha.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
     end
-    render :partial => '/home/index/versions', :locals => {:version => @streaming_prefered}
+    render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered}
   end
 
   def faq

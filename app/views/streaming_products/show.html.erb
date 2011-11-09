@@ -24,7 +24,7 @@
         <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) %>
           <% if (@streaming_prefered.count > 0 && @streaming_prefered.first.source == StreamingProduct.source[:alphanetworks]) || (@streaming_not_prefered && @streaming_not_prefered.count > 0 && @streaming_not_prefered.first.source == StreamingProduct.source[:alphanetworks]) %>
             <div class="choice_language">
-              <h3>Choix version du film </h3>
+              <h3><%= t('.version_title') %></h3>
               <div id="choice_new">
                 <div id="step1" class="step">
                   <%= render :partial => '/streaming_products/show/audios', :locals => {:streaming => @streaming_prefered} %>
@@ -35,7 +35,7 @@
                 </div>
               </div>
               <p  class="info_vod" >
-                <%= link_to 'Voir toutes les versions disponibles', streaming_product_versions_path(:streaming_product_id => params[:id], :code => params[:code]), :id => :all_versions%>
+                <%= link_to t('.all_versions'), streaming_product_versions_path(:streaming_product_id => params[:id], :code => params[:code]), :id => :all_versions%>
                 <br /><br />
 
               </p>
