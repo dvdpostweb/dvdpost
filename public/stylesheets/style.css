@@ -989,7 +989,7 @@ a#next10 {
 
 #details #movie-info {
   float: left;
-  padding-left: 177px;
+  padding-left: 12px;
   width: 293px;
 }
 
@@ -1216,8 +1216,10 @@ a#next10 {
 
 #details .cover {
   left: 15px;
-  position: absolute;
-  top: 11px;
+  /*position: absolute;
+  top: 11px;*/
+  float:left;
+  /*margin-left: -178px;*/
 }
 
 #details .cover #dvd, #details .cover #bluray, #details .cover #vod {
@@ -2586,12 +2588,16 @@ div.top10.first p a {
 #leftcolumn #left-nav li a.new {
   background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
 }
-.adult #leftcolumn #left-nav li a.new {
-  background: url(../images/adult-left-tab-bg-vod.gif) 0 0 no-repeat;
-  color: white;
+.adult #leftcolumn #left-nav li a.new, a#vod_adult {
+  background: url(../images/adult-left-tab-bg-vod.gif) 0 0 no-repeat !important;
+  color: white !important;
 }
-.adult #leftcolumn #left-nav li a.new:hover {
-  color: #ddd;
+#vod_adult
+{
+  margin-bottom: 3px;
+}
+.adult #leftcolumn #left-nav li a.new:hover, a#vod_adult:hover {
+  color: #ddd !important;
 }
 
 #leftcolumn #left-nav li a:hover,#leftcolumn #left-nav li a.actived {
@@ -2599,11 +2605,16 @@ div.top10.first p a {
   text-decoration: none;
 }
 
-#leftcolumn #left-nav li a.active {
+#leftcolumn #left-nav li div.active {
   background: url(../images/leftnav-active-bg.png) no-repeat;
   color: white;
+  font-size:1.2em;
+  font-weight:bold;
+  height:14px;
+  padding: 5px 0 5px 32px;
+  margin:3px 0 0 0;
 }
-.adult #leftcolumn #left-nav li a.active {
+.adult #leftcolumn #left-nav li div.active {
     background: url("../images/leftnav-activex-bg.png") no-repeat scroll 0 0 transparent;
     color: white;
 }
@@ -4228,3 +4239,7 @@ float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
   text-decoration: underline; 
 }
 
+.white_label
+{
+  margin: 0 !important;
+}

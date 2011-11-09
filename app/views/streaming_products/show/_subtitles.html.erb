@@ -1,0 +1,11 @@
+<% audio_title = streaming.first.language.by_language(I18n.locale).first.name %>
+<p class="choice_valided">
+  <%= t 'streaming_products.show.kinds_alpha.audio_title' %> : <span class="selected"><%= audio_title %></span> | 
+  <%= link_to "changer", streaming_product_path(:id => streaming.first.imdb_id), :id => 'change_step2' %>
+</p>
+
+<p class="choice_question">Dans quel langue de SOUS-TITRAGE voudriez vous voir ce film ?</p>
+
+<p class="subs">
+  <%= render :partial => '/streaming_products/show/subtitle', :collection => streaming %>
+</p>

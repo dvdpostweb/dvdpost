@@ -212,4 +212,71 @@ $(function() {
     $(this).parent().parent().hide();
     return false;
   });
+  
+  
+  var bc = $('#buttonContainer'); 
+
+  var $container = $('#choice_new').cycle({ 
+      fx:     'scrollHorz', 
+      speed:   300, 
+      timeout: 0 
+  }); 
+
+  $(".language_btn").live("click", function() {
+    html_item = $(this).parent();
+    content = html_item.html();
+    /*html_item.html("Loading...");*/
+    step = $(this).parent().parent().attr('id')
+    if(step == 'step1')
+    {
+      next = '#step2'
+      cycle = 1
+    }
+    else
+    {
+      next ='#step3'
+      cycle = 2
+    }
+    root_item = html_item.parent();
+    $.ajax({
+      url: $(this).attr('href'),
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        $(next).html(data);
+        setTimeout ($container.cycle(cycle),200);  
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
+  $("#all_versions").live("click", function() {
+    html_item = $('#all_versions_data');
+    content = html_item.html();
+    html_item.html("<div ><div style='margin: 0 auto; width:32px'><img src='/images/loading.gif'/></div></div>");
+    $.ajax({
+      url: $(this).attr('href'),
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        $(html_item).html(data);
+        
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
+  $("#change_step2").live("click", function() {
+    $container.cycle(0)
+    return false;
+  });
+  $("#change_step3").live("click", function() {
+    $container.cycle(1)
+    return false;
+  });
+  
 });

@@ -178,7 +178,8 @@ class Customer < ActiveRecord::Base
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self.to_param)
       results = if recommendation_ids
-        hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
+        # to do seen_product
+        hidden_ids = (rated_products  + wishlist_products + uninterested_products).uniq.collect(&:id)
         result_ids = recommendation_ids - hidden_ids
         filter.update_attributes(:recommended_ids => result_ids)
         options.merge!(:subtitles => [2]) if I18n.locale == :nl

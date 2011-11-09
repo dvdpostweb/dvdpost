@@ -29,3 +29,4 @@ gem 'bullet', :group => :development
 gem "friendly_id", "~> 3.2.1"
 gem "db-charmer"
 gem 'routing-filter'
+gem 'mechanize'

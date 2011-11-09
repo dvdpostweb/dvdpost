@@ -1,0 +1,12 @@
+<% audio_title = streaming.language.by_language(I18n.locale).first.name %>
+<% if sub = streaming.subtitles.by_language(I18n.locale).first %>
+  <% sub_title = "<strong>#{sub.name}</strong>" %>
+<% else %>
+  <% sub_title = "<strong>#{t('streaming_products.show.kind.without_subtitle')}</strong>" %>
+<% end%>
+<p class="choice_valided"><%= t 'streaming_products.show.kinds_alpha.audio_title' %> : <span class="selected"><%= audio_title %></span> | <%= link_to "changer", streaming_product_path(:id => streaming.imdb_id), :id => 'change_step2' %> </p>
+<p class="choice_valided"><%= t 'streaming_products.show.kinds_alpha.sub_title' %> : <span class="selected"><%= sub_title %></span> | <%= link_to "changer", streaming_product_path(:id => streaming.imdb_id), :id => 'change_step3' %> </p>
+<p class='audios'>
+
+  <%= link_to "<strong>Lancer le film</strong>", streaming_product_path(:id => @streaming.imdb_id, :streaming_product_id => streaming.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+</p>

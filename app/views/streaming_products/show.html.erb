@@ -1,11 +1,7 @@
-<div id="maincontent">
+<div  <%= @code && @code.white_label ? 'id="maincontent_no_border"' : 'id="maincontent"' %> >
   <div id="vod-wrap">
-    <div class="top"></div>
       <h2>
         <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)&nbsp;<span>
-        <span class="stars" id="rating-stars-<%= @product.to_param %>" product_id="<%= @product.to_param %>">
-          <%= render :partial => 'products/rating', :locals => {:product => @product, :background => :white} %>
-        </span>
       </h2>
       <% if @token and @token_valid %>
         <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></div></div>
@@ -18,42 +14,65 @@
       </div>
       <a id='player'>
       </a>
-      <br />
-      <br />
-      <%= message_streaming(@token, @streaming_free, @streaming) %>
+      <%= message_streaming(@token, @streaming_free, @streaming) unless ENV['HOST_OK'] == "1" %>
 
       <% if @streaming_free == true %>
         <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
       <% end %>
-      <% if !current_customer.payment_suspended? %>
-        <% if current_customer.credits >= @streaming.credits || (@token && @token_valid) || (@streaming_free[:status] == true && @streaming_free[:available] == true) %>
+      <% if ENV['HOST_OK'] == "1" || !current_customer.payment_suspended? %>
+      <% code_public = StreamingCode.find_by_name(params[:code]) %>
+        <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) %>
           <% if (@streaming_prefered.count > 0 && @streaming_prefered.first.source == StreamingProduct.source[:alphanetworks]) || (@streaming_not_prefered && @streaming_not_prefered.count > 0 && @streaming_not_prefered.first.source == StreamingProduct.source[:alphanetworks]) %>
-            <%= render :partial => '/streaming_products/show/kinds_alpha', :locals => {:streaming_prefered => @streaming_prefered,:streaming_not_prefered => @streaming_not_prefered, :token => @token}  %>
+            <div class="choice_language">
+              <h3>Choix version du film </h3>
+              <div id="choice_new">
+                <div id="step1" class="step">
+                  <%= render :partial => '/streaming_products/show/audios', :locals => {:streaming => @streaming_prefered} %>
+                </div>
+                <div id="step2" class="step">
+                </div>
+                <div id="step3" class="step">
+                </div>
+              </div>
+              <p  class="info_vod" >
+                <%= link_to 'Voir toutes les versions disponibles', streaming_product_versions_path(:streaming_product_id => params[:id], :code => params[:code]), :id => :all_versions%>
+                <br /><br />
+
+              </p>
+          </div>
+          <p class="intro_vod">
+            <%= t 'streaming_products.show.kinds_alpha.reminder' %>
+          </p>
           <% else %>
             <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming_prefered => @streaming_prefered,:streaming_not_prefered => @streaming_not_prefered, :token => @token} %>
           <% end %>
         <% end %>
+        
       <% end %>
-      <% if current_customer.abo_active == 0 && current_customer.beta_test %>
+      <div id="all_versions_data">
+        
+      </div>
+      <% if ENV['HOST_OK'] == "0" && current_customer.abo_active == 0 && current_customer.beta_test %>
         <p align ="center"><%= link_to(image_tag("#{DVDPost.images_path}/free_movies/banner_relance_fr.jpg"), info_path(:page_name => :promotion)) %></p>
-      <% end%>
+      <% end %>
+      <% if @code.nil? || (@code && !@code.white_label) %>
       <div class="linkpc">
         <div class="icon_left">
-          <%= image_tag 'icon_tv.gif', :align => :absmiddle, :alt => 'icon tv' %>
+          <%= image_tag icon_tv, :align => :absmiddle, :alt => 'icon tv' %>
           <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %><br />
-          <%= image_tag 'icon_infos.gif', :align => :absmiddle, :alt => 'icon info' %>
+          <%= image_tag icon_infos, :align => :absmiddle, :alt => 'icon info' %>
           <%= link_to t('.info'), streaming_products_faq_path(), :class => 'connect_linkpc' %>
         </div>
         <div class="icon_right">
-            <%= image_tag 'icon_survey.gif', :align => :absmiddle, :alt => 'icon poll' %>
+            <%= image_tag icon_survey, :align => :absmiddle, :alt => 'icon poll' %>
             <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'><%= t '.poll' %></a><br />
-            <%= image_tag 'icon_problem.gif', :align => :absmiddle, :alt => 'icon problem' %>
+            <%= image_tag icon_problem, :align => :absmiddle, :alt => 'icon problem' %>
             <%= link_to t('.alert'), new_phone_request_path(:reason => 5), :class => :connect_linkpc %>   
         </div>
         <div class="clear"></div>
       </div>
     </div>
-    
+    <% end %>
   </div>
   <div class="end"></div>
   <div id='flash_problem' style='display:none'>

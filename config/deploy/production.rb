@@ -45,7 +45,7 @@ namespace :deploy do
   after "deploy:update_code" do
     db_config = <<-EOF
     production:
-      adapter: mysql
+      adapter: mysql2
       encoding: utf8
       database: dvdpost_be_prod
       username: webuser
@@ -53,7 +53,7 @@ namespace :deploy do
       host: 192.168.100.204
       port: 3306
       slave01:
-        adapter: mysql
+        adapter: mysql2
         encoding: utf8
         database: dvdpost_be_prod
         username: webuser
@@ -61,7 +61,7 @@ namespace :deploy do
         host: 192.168.100.14
         port: 3306
       slave02:
-        adapter: mysql
+        adapter: mysql2
         encoding: utf8
         database: dvdpost_be_prod
         username: webuser
@@ -126,7 +126,7 @@ after "deploy:symlink", "deploy:update_crontab"
 namespace :deploy do  
   desc "Update the crontab file"  
   task :update_crontab, :roles => :db do  
-    run "cd #{release_path} && whenever --update-crontab #{application}"  
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"  
   end  
 end
 

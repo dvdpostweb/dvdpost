@@ -50,6 +50,10 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :streaming_products, :only => [:show], :requirements => { :id => /\d+/ } do |stream|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+      stream.language 'language', :controller => :streaming_products, :action => :language, :conditions => {:method => :get}
+      stream.subtitle 'subtitle', :controller => :streaming_products, :action => :subtitle, :conditions => {:method => :get}
+      stream.versions 'versions', :controller => :streaming_products, :action => :versions, :conditions => {:method => :get}
+      #stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end
 
     localized.resource :streaming_products, :only => [] do |stream|
@@ -92,9 +96,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :contests, :only => [:new, :create, :index]
     localized.resources :quizzes, :only => [:show, :index]
     
-    localized.menu_tops 'menu_tops', :controller => :products, :action => :menu_tops, :conditions => {:method => :get}
     localized.validation 'validation', :controller => :home, :action => :validation, :conditions => {:method => :get}
-    localized.menu_categories 'menu_categories', :controller => :products, :action => :menu_categories, :conditions => {:method => :get}
     
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]

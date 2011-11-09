@@ -7,7 +7,7 @@
   <div class="content">
     <div class="critic"> 
       <a href="<%= customer_reviews_path(:customer_id => review.customer.to_param) %>">
-        <%= image_tag (get_avatar(review.customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) %>
+        <%= image_tag(get_avatar(review.customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) %>
       </a>
       <div class="name">
         <strong>

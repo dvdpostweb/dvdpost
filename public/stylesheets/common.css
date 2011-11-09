@@ -494,4 +494,48 @@ padding-top:10px;
 .adult #slider-wrap .pagination li a:hover, #slider-wrap .pagination li a.active {
   background-position: 0 100%;
 }
+#creditdorcel .new {
+  background-color: #85B52B;
+  color: white;
+  width: 149px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: center;
+  padding: 2px;
+  margin: 2px 6px;
+
+
+
+}
+
+
+#creditdorcel .credit {
+color:#85b52b;
+width:154px;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+text-align:center;
+font-weight:bold;
+padding-top:2px;
+
+
+}
 /*   End slider   */
+#bglink{
+  display:block;
+  height:100%;
+  width:100%;
+  left:0;
+  top:0;
+  z-index:0;
+  text-indent:-5000em;
+  position:fixed;
+  /* If you want to make only a part of background clickable,
+     adjust height/width/left/top here. */
+}
+#wrap
+{
+  position:relative;
+  z-index:10;
+}

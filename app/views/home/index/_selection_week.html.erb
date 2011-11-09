@@ -1,8 +1,8 @@
 <!-- Selection de la semaine -->
 <div id="selection-week-wrap">
-  <div class="ttl maven"><%= t '.title' %></div>
+  <div class="ttl maven"><%= params[:kind] == :normal ? t('.title') : t('.title_adult') %></div>
   <div id="selection-tabcontent-wrap">
-    <%= render :partial => '/home/index/menu_selection', :locals => {:selection_week => selection_week} %>
+    <%= render :partial => '/home/index/menu_selection', :locals => {:selection_week => selection_week} if params[:kind] != :adult %>
     <div class="tab-content-selection clearfix" id="selection-tab1">
       <!-- Carousel -->
       <div class="carousel-wrap">
@@ -12,11 +12,11 @@
         </ul>
         <div class="pagination">
           <span class="hide_arrow">
-            <%= will_paginate selection_week, :previous_label => '', :next_label => '', :param_name => :selection_page, :container => false %>
+            <%= will_paginate selection_week, :previous_label => '', :next_label => '', :container => false, :renderer => "RemoteLinkRenderer", :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
           </span>
         </div>
         <div class="pagination2">
-          <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :param_name => :selection_page, :container => false %>
+          <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
         </div> 
       
         
@@ -26,7 +26,7 @@
         <div class="caption">
           <h3 class="maven"><%= t '.vod' %></h3>
           <a href="<%= streaming_products_faq_path() %>"><%= t '.more' %></a> </div>
-        <a href="<%= streaming_products_faq_path() %>"><img src="/images/vod-banner.jpg" alt="<%= t '.vod' %>" /></a> </div>
+          <a href="<%= streaming_products_faq_path() %>"><img src="/images/vod-banner<%= params[:kind] == :adult ? '_adult' : '' %>.jpg" alt="<%= t '.vod' %>" /></a> </div>
     </div>
   </div>
 </div>

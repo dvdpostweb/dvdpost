@@ -16,9 +16,9 @@
       <li><%= link_to t('.performers'), actors_path(), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.studios'), studios_path(), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>
       <li>
-        <%= display_btn_categories %>
+        <div id="categories" class="active"><%= t('.categories') %></div>
         <ul id="categories_list">
-          <%= left_column_categories(@category, params[:kind], session[:sexuality]) %>
+          <%= left_column_categories(@category, params[:kind], session[:sexuality], ENV['HOST_OK']) %>
         </ul>
       </li>
     </ul>

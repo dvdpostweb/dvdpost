@@ -40,13 +40,16 @@
 	<%= yield :facebook %>
   <%= yield :head %>
 </head>
-<body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= "style=\"background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};\""if @theme && @theme.background_image == 1 %> <%= yield :option %>>
+<body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
+	<%= link_to @theme.name, theme_path(:id => @theme.to_param, :wallpaper => 1 ), :id => :bglink, :style => "background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};" if @theme && @theme.background_image == 1 && (@code.nil? || (@code && !@code.white_label)) %>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
-		<% if params[:kind] == :normal %>
-    	<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
-		<% else %>
-  		<%= render(:partial => 'layouts/header_adult') %>
+		<% if @code.nil? || (@code && !@code.white_label) %>
+			<% if params[:kind] == :normal %>
+	    	<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
+			<% else %>
+	  		<%= render(:partial => 'layouts/header_adult') %>
+			<% end %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
@@ -60,11 +63,11 @@
           <%= flash[:error] %>
         </p>
       <% end %>
-			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" %>
+			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) %>
       <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->
-    <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} %>
+    <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} if @code.nil? || (@code && !@code.white_label) %>
     <!--   ==============   END FOOTER   ==============   -->
   </body>
 </html>

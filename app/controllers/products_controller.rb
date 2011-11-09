@@ -60,34 +60,13 @@ class ProductsController < ApplicationController
     end
   end
 
-  def menu_tops
-    
-    type = params[:type] || 'open'
-    if type == 'close'
-      session[:menu_tops] = false
-    else
-      session[:menu_tops] = true
-      session[:menu_categories] = false
-      
-    end
-   render :nothing => true
-  end
-
-  def menu_categories
-    type = params[:type] || 'open'
-    if type == 'close'
-      session[:menu_categories] = false
-    else
-      session[:menu_categories] = true
-      session[:menu_tops] = false
-    end
-   render :nothing => true
-  end
-
   def drop_cached
-    expire_fragment ("/fr/products/product_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product_1_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_1_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_1_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product_0_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_0_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_0_#{params[:product_id]}")
     render :nothing => true
   end
 private

@@ -12,7 +12,7 @@
     <h2> <%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content">
       <div class="critic"> 
-        <%= link_to image_tag (get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
+        <%= link_to image_tag(get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
         <div class="name">
           <strong><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
           <%= customer_awards(customer, customer.customer_attribute.points) %>

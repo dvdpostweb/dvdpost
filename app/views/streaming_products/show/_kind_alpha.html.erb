@@ -14,8 +14,8 @@
           <% sub.collect do | sub | %>
           <td align="center"> 
             <div class="quality_vod">
-              <% title = sub.subtitles.count > 0 ? sub.subtitles.first.short_alpha : t('.without_subtitle') %>
-              <%= link_to title , streaming_product_path(:streaming_product_id => sub.to_param), :class => "btn qualityvod" %>              
+              <% title = sub.subtitles.count > 0 ? sub.subtitles.by_language(I18n.locale).first.name : t('.without_subtitle') %>
+              <%= link_to title , streaming_product_path(:streaming_product_id => sub.to_param, :code => params[:code]), :class => "btn qualityvod" %>              
             </div>
           </td>
           <% end %>

@@ -1,0 +1,2 @@
+<% title = "<strong>#{audio.language.name}</strong>"%>
+<%= link_to title, streaming_product_language_path(:streaming_product_id => params[:id], :language_id => audio.language_id, :code => params[:code]), :class => "btn language_btn" %>
