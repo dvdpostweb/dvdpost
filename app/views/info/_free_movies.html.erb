@@ -5,27 +5,27 @@
   <ul class="clearfix content_item">
     <li>
     <span class="vod_title">Vicky Cristina Barcelona</span>
-      <p><%= link_to 'Plus d\'info', product_path(:id => @product4.to_param) %></p>
+      <p><%= link_to t('.more'), product_path(:id => @product4.to_param) %></p>
       <p align="center">
-        <%= link_to 'Regarder en streaming', streaming_product_path(:id => @product4.imdb_id, :warning => 1), :title => 'Regarder en streaming', :class => 'btn add_choice_button' %>
+        <%= link_to t('.launch'), streaming_product_path(:id => @product4.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
       </p>
     </li>
     <li>
       <span class="vod_title">Le Gamin au Vélo</span>
-      <p><%= link_to 'Plus d\'info', product_path(:id => @product3.to_param) %></p>
-     <p align="center"> <%= link_to 'Regarder en streaming', streaming_product_path(:id => @product3.imdb_id, :warning => 1), :title => 'Regarder en streaming', :class => 'btn add_choice_button' %>
+      <p><%= link_to t('.more'), product_path(:id => @product3.to_param) %></p>
+     <p align="center"> <%= link_to t('.launch'), streaming_product_path(:id => @product3.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
      </p>
     </li>
     <li>
     <span class="vod_title">Le Chat du Rabbin</span>
-    <p><%= link_to 'Plus d\'info', product_path(:id => @product2.to_param) %></p>
-      <p align="center"><%= link_to 'Regarder en streaming', streaming_product_path(:id => @product2.imdb_id, :warning => 1), :title => 'Regarder en streaming', :class => 'btn add_choice_button' %>
+    <p><%= link_to t('.more'), product_path(:id => @product2.to_param) %></p>
+      <p align="center"><%= link_to t('.launch'), streaming_product_path(:id => @product2.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
       </p>
     </li>
     <li>
     <span class="vod_title">Largo Winch II</span>
-      <p><%= link_to 'Plus d\'info', product_path(:id => @product1.to_param) %></p>
-      <p align="center"><%= link_to 'Regarder en streaming', streaming_product_path(:id => @product1.imdb_id, :warning => 1), :title => 'Regarder en streaming', :class => 'btn add_choice_button' %>
+      <p><%= link_to t('.more'), product_path(:id => @product1.to_param) %></p>
+      <p align="center"><%= link_to t('.launch'), streaming_product_path(:id => @product1.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
       </p>
     </li>
   </ul>
