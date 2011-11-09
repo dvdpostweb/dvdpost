@@ -132,9 +132,9 @@ $(function() {
       timeout: 17000,
       before: change_carousel
   });
-  $container_x = $('.panels_adult').cycle({ 
+  $container_x = $('.slider_adult').cycle({ 
       fx: 'turnLeft', 
-      timeout: 30000,
+      timeout: 5000,
       before: change_carousel_adult,
       next:   '#next', 
       prev:   '#back',
@@ -148,13 +148,13 @@ $(function() {
   {
     current = _current;
   }
-  $('#slider-nav a').click(function() { 
+  $('.slider-wrap_adult .pagination a').click(function() { 
       id = $(this).attr('id');
       id = parseInt(id.replace("btn_",""),10);
       $container_x.cycle(id-1); 
       return false; 
   });
-  $('.pagination a').click(function() { 
+  $('.slider-wrap_normal .pagination a').click(function() { 
       id = $(this).attr('id');
       id = parseInt(id.replace("btn_",""),10);
       $container.cycle(id-1); 
@@ -169,11 +169,8 @@ $(function() {
     reg= new RegExp(/[^\d]/g)
     id = parseInt(image.replace(reg,''),10)+1
     setCurrent(id)
-    $('#slider-nav a.active').removeClass('active');
+    $('.pagination a.active').removeClass('active');
     $('#btn_'+id).addClass('active');
-    $('#carousel_title').html($('#title_'+id).html())
-    $('#carousel_link').html($('#name_'+id).html())
-    $('#carousel_link').attr('href',$('#link_'+id).html())
   }
   function change_carousel()
   {
