@@ -1,5 +1,5 @@
-<div id="slider-wrap" <%= ENV['HOST_OK'] == "1" ? 'style="margin:0"': ''%>>
-  <div class="slider slider_normal">
+<div id="slider-wrap" class="slider-wrap_<%= params[:kind] %>" <%= ENV['HOST_OK'] == "1" ? 'style="margin:0"': ''%>>
+  <div class="slider slider_<%= params[:kind] %>">
     <%= render :partial => '/home/index/carousel_item', :collection => carousel %>
   </div>
   <ul class="pagination">

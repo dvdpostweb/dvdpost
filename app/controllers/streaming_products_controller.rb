@@ -19,8 +19,8 @@ class StreamingProductsController < ApplicationController
     end
     if params[:code]
     @code = StreamingCode.find_by_name(params[:code]) 
-    if @code.nil?
-      @code = @streaming.generate_code(params[:code])
+    if @code.nil? && params[:uniq]
+      @code = @streaming.generate_code(params[:code], params[:uniq])
     end
     end
     @streaming_free = streaming_free(@product)
@@ -160,6 +160,14 @@ class StreamingProductsController < ApplicationController
       render :partial => 'streaming_products/show/launch', :locals => {:streaming => @streaming}, :layout => false
       
     end
+  end
+  def versions
+    if Rails.env == 'production' 
+      @streaming_prefered = StreamingProduct.available.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+    else
+      @streaming_prefered = StreamingProduct.available_beta.alpha.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+    end
+    render :partial => '/home/index/versions', :locals => {:version => @streaming_prefered}
   end
 
   def faq
