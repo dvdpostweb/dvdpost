@@ -13,12 +13,12 @@
 	    <strong><%= audio_title %></strong> | 
 	    <%= t 'streaming_products.show.kinds_alpha.sub_title' %>
 	    <img align="absmiddle" src="/images/subtitles_icon.gif" alt="icon sous-titres">: 
-	    <strong><%= sub_title %></strong>
+	    <strong><%= sub_title.capitalize %></strong>
 	  </p>
 	</td>
 	<td width="211">
 	  <p>
-	    <%= link_to "<strong>Lancer le film</strong>", streaming_product_path(:id => version.imdb_id, :streaming_product_id => version.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+	    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path(:id => version.imdb_id, :streaming_product_id => version.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
 	  </p>
 	</td>
 </tr>
