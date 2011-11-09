@@ -1,29 +1,29 @@
 
 <br /><br />
-<div align="center"><img src="http://www.dvdpost.be/images/free_movies/header.jpg" width="950" height="413" /></div>
+<div align="center"><img src="http://www.dvdpost.be/images/free_movies/header_<%= I18n.locale %>.jpg" width="950" height="413" /></div>
 <div>
   <ul class="clearfix content_item">
     <li>
-    <span class="vod_title">Vicky Cristina Barcelona</span>
+    <span class="vod_title"><%= @product4.title %></span>
       <p><%= link_to t('.more'), product_path(:id => @product4.to_param) %></p>
       <p align="center">
         <%= link_to t('.launch'), streaming_product_path(:id => @product4.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
       </p>
     </li>
     <li>
-      <span class="vod_title">Le Gamin au Vélo</span>
+      <span class="vod_title"><%= @product3.title %></span>
       <p><%= link_to t('.more'), product_path(:id => @product3.to_param) %></p>
      <p align="center"> <%= link_to t('.launch'), streaming_product_path(:id => @product3.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
      </p>
     </li>
     <li>
-    <span class="vod_title">Le Chat du Rabbin</span>
+    <span class="vod_title"><%= @product2.title %></span>
     <p><%= link_to t('.more'), product_path(:id => @product2.to_param) %></p>
       <p align="center"><%= link_to t('.launch'), streaming_product_path(:id => @product2.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
       </p>
     </li>
     <li>
-    <span class="vod_title">Largo Winch II</span>
+    <span class="vod_title"><%= @product1.title %></span>
       <p><%= link_to t('.more'), product_path(:id => @product1.to_param) %></p>
       <p align="center"><%= link_to t('.launch'), streaming_product_path(:id => @product1.imdb_id, :warning => 1), :title => t('.launch'), :class => 'btn add_choice_button' %>
       </p>
