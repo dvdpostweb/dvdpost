@@ -454,10 +454,10 @@ text-decoration:underline;
   padding-right: 15px;
   text-transform: uppercase;
 }
-.linkallversions a.btn_play {
+.adult .linkallversions a.btn_play {
   background: url("../images/vodslider-btn-bg-end-play-allversions_adult.png") no-repeat scroll 0 0 transparent;
 }
-.linkallversions a.btn_play strong {
+.adult .linkallversions a.btn_play strong {
   background: url("../images/vod-slider-btn-bg-allversions_adult.png ") no-repeat scroll 100% 0 transparent;
 }
 
