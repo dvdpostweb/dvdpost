@@ -142,6 +142,127 @@
 
 
 
+@charset "UTF-8";
+/* CSS Document */
+
+.contest_form {
+	padding: 10px;
+	width: 611px;
+}
+.question {
+	font-size:18px;
+	padding-top: 20px;
+}
+#contest_content {
+	color:#191e23;
+	float: right;
+	margin: 23px 43px 16px 0;
+	position: relative;
+	width: 708px;
+	z-index: 1;
+}
+#title_contest {
+	font-size:18px;
+}
+#contest_content #field_form {
+	font-size:14px;
+}
+.big_title {
+	font-size:24px;
+	font-weight:bold;
+}
+#leftcolumn_contest #left-cont li div.active {
+	border: 1px solid #FF3300;
+	color: #FF3300;
+	font-size: 1.2em;
+	font-weight: bold;
+	height: 33px;
+	margin: 15px 10px 2px 14px;
+	padding: 5px 0 5px 9px;
+	text-transform: uppercase;
+	width: 175px;
+}
+a.old
+{
+  color: #FF3300;
+}
+#leftcolumn_contest #left-cont li ul {
+	display: block;
+	padding: 6px 0 3px;
+	width: 182px;
+}
+ul .cont {
+	padding-left: 25px;
+}
+li .cont {
+	padding-bottom: 9px;
+}
+.cont a {
+	color: #595a5e;
+}
+.cont .active {
+	color: #FF3300;
+	font-weight:bold;
+}
+#leftcolumn_contest {
+	float: left;
+	margin: 12px 0 0;
+	position: relative;
+	width: 185px;
+}
+#contest_content .content_left {
+	float: left;
+	width: 500px;
+}
+#contest_content .content_right {
+	float: right;
+	padding-top: 20px;
+}
+#contest_content .content_right h3 {
+	font-size:20px;
+}
+#contest_content .content_right a {
+	text-decoration:underline;
+	color: #191E23;
+}
+#contest_content .button_contest {
+	background:url(../images/contest.png) no-repeat scroll 0 0 transparent;
+	display: inline-block;
+	 border: medium none;
+	cursor: pointer;
+	text-decoration: none;
+	padding:0 0 0 9px;
+	height: 24px;
+	width: auto;
+	
+}
+#contest_content .button_contest strong {
+	background: url(../images/contest_end.png) no-repeat scroll 100% 0 transparent;
+	display: inline-block;
+	color: #FFFFFF;
+	 border: medium none;
+	text-transform: uppercase;
+	cursor: pointer;
+	font-size: 1.30em;
+	padding-right: 9px;
+	 cursor: pointer;
+	line-height: 26px;
+
+}
+
+#contest_content .button_contest:hover {
+    background-position: 0 -31px;
+}
+
+#contest_content .button_contest:hover strong {
+    background-position: 100% -31px;
+}
+
+#field_form {
+padding-bottom:12px; 
+
+}
+
 
 
 

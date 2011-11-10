@@ -1,0 +1,3 @@
+<li class="cont">
+  <%= link_to title(item), contest_path(:id => item.to_param), :class => (item.to_param == params[:id] || item.to_param == params[:contest_id] ? 'active' : '') %>
+</li>

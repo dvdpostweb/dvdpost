@@ -16,7 +16,7 @@
         </li>
         <li><%= link_to t('.faq'), current_customer ? faq_path : php_path('faq_public.php') %></li>
         <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
-        <li><%= link_to t('.contest'), current_customer ? new_contest_path : php_path('quizz_public.php')%></li>
+        <li><%= link_to t('.contest'), current_customer ? contests_path : php_path('quizz_public.php')%></li>
         <li><%= link_to t('.quizz'), current_customer ? quizzes_path : php_path('contest_public.php') %></li>
       </ul>
     </div>
