@@ -1,0 +1,9 @@
+<div>
+  <%= image_tag old.image %>
+<p>
+  <span style="color:#999999; font-size:14px;"><%= t('.finish', :date => old.validity.strftime("%d/%m/%Y")) %></span> <br />
+  <strong><%= t '.winner' %> :</strong> 
+  <% winner = Contest.winner.find_all_by_contest_name_id(old.to_param) %>
+  <%= winner.collect(&:pseudo).join(', ') %>
+</p>
+</div>

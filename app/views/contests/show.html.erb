@@ -1,0 +1,15 @@
+<%= stylesheet 'contests', :media => :all %>
+<div class="container clearfix">
+  <!--   ==============   MAIN CONTENT   ==============   -->
+  <div id="contest_content">
+    <% if @contest %>
+      <%= render :partial => 'contests/new/form', :locals => {:contest => @contest, :already_played => @already_played} %>
+      <%= render :partial => 'contests/right', :locals => {:contest => @contest} %>
+    <% else %>
+        <%= t('.expired_contest') %>
+    <% end %> 
+  </div> 
+  <%= render :partial => 'contests/menu', :locals => {:contests => @contests_available} %>
+ 
+  <!--   ==============   END MAIN CONTENT   ==============   -->
+</div>

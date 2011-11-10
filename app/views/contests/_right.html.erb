@@ -1,0 +1,7 @@
+<div class="content_right"><h3><%= t '.about' %></h3>
+  <p><strong><%= t '.start' %> :</strong><%= @contest.available_from.strftime("%d/%m/%Y")%><br />
+    <strong><%= t '.end' %> :</strong> <%= @contest.validity.strftime("%d/%m/%Y") %></p>
+  <p>
+    <%= link_to t('.link'), root_path, :target => "_blank" %>
+  </p>
+</div><div class="clear"></div>

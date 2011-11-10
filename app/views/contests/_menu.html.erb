@@ -1,17 +1,15 @@
-<div id="leftcolumn">
-  <ul id="left-nav">
-    <li>
-      <%= link_to t('.title')%>
-    </li>
-    <li>
-      <ul id='cat'>
-        <li class='cat'>
-          <%= link_to t('.contest'), new_contest_path, :class => (@menu == 'contest') ? 'actived' : '' %>
-        </li>
-        <li class='cat'>
-          <%= link_to t('.quizz'), quizzes_path, :class => (@menu == 'quizz') ? 'actived' : '' %>
-        </li>
-      </ul>
-    </li>
-  </ul>
+<!--   ==============   LEFT COLUMN   ==============   -->
+<div id="leftcolumn_contest">
+    <ul id="left-cont">
+      <li>
+        <div id="contest" class="active"><%= t('.current_contests') %></div>
+        <ul id="contest_list">
+          <%= render :partial => "contests/item", :collection => contests %>
+        </ul>
+        <div id="contest" class="active">
+          <%= link_to t('.old_contests'), contests_path(:type => :old), :class => :old %>
+        </div>
+      </li>
+    </ul>
 </div>
+<!--   ==============   END LEFT COLUMN   ==============   -->

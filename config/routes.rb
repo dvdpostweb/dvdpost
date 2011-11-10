@@ -94,7 +94,10 @@ ActionController::Routing::Routes.draw do |map|
       review.resource :review_rating, :only => :create
     end
 
-    localized.resources :contests, :only => [:new, :create, :index]
+    localized.resources :contests, :only => [:index, :show] do |contest|
+      contest.resources :customers, :controller => :contests, :only => [:create]
+    end
+    
     localized.resources :quizzes, :only => [:show, :index]
     
     localized.validation 'validation', :controller => :home, :action => :validation, :conditions => {:method => :get}

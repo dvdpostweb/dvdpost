@@ -1,0 +1,13 @@
+<%= stylesheet 'contests', :media => :all %>
+<% if params[:type] == 'old' %>
+  <div id="contest_content">
+    <div id="title_contest"><span class="big_title"><%= t '.title' %></span></div>
+    <%= render :partial => "contests/index/old", :collection => @contests_old %>
+  </div>
+  <%= render :partial => 'contests/menu', :locals => {:contests => @contests_available} %>
+<% else%>
+  <div id="contest_content">
+    <%= t('contests.new.form.no_contest') %>
+  </div>
+  <%= render :partial => 'contests/menu', :locals => {:contests => @contests_available} %>
+<% end %>
