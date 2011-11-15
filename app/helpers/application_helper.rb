@@ -221,8 +221,13 @@ module ApplicationHelper
     end
   end
 
-  def time_left(stream)
-    distance_of_time_in_hours((stream.updated_at + 48.hours), Time.now)
+  def time_left(stream, kind)
+    if stream.products.first.kind == DVDPost.product_kinds[:adult]
+      hours_left = DVDPost.hours[:adult]
+    else
+      hours_left = DVDPost.hours[:normal]
+    end
+    distance_of_time_in_hours((stream.updated_at + hours_left.hours), Time.now)
   end
 
   def streaming_access?

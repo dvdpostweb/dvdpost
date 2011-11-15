@@ -5,7 +5,8 @@ gem 'mysql', :group => :bundle
 gem 'rmagick'
 
 gem 'capistrano-ext', :require => 'capistrano'
-gem 'hoptoad_notifier', '~> 2.4.0'
+#gem 'hoptoad_notifier', '~> 2.4.0'
+gem "airbrake", "~> 3.0.5"
 gem 'json'
 gem 'hpricot', '~> 0.8.2'
 gem 'oauth2', :git => 'git://github.com/redstorm/oauth2.git'
@@ -21,7 +22,7 @@ gem 'truncate_html'
 gem 'orderedhash'
 gem 'will_paginate', '~> 2.3.12'
 gem 'timed_fragment_cache'
-gem 'whenever'
+gem "whenever", "~> 0.7.0"
 gem 'i18n', '0.5.0'
 gem 'thinking-sphinx'
 

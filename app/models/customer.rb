@@ -343,11 +343,11 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def create_token(imdb_id, product, current_ip, streaming_product_id)
+  def create_token(imdb_id, product, current_ip, streaming_product_id, kind)
     file = StreamingProduct.find(streaming_product_id)
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 #|| super_user?
       if file.source == StreamingProduct.source[:alphanetworks]
-        token_string = DVDPost.generate_token_from_alpha(file.filename)
+        token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
         if token_string
           token = Token.create(          
             :customer_id => id,          
@@ -390,7 +390,7 @@ class Customer < ActiveRecord::Base
       if !abo_process || (customer_abo_process || abo_process.finished?)
         
         if file.source == StreamingProduct.source[:alphanetworks]
-          token_string = DVDPost.generate_token_from_alpha(file.filename)
+          token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
           if token_string
             Token.transaction do
               token = Token.create(          
@@ -522,7 +522,7 @@ class Customer < ActiveRecord::Base
   end
 
   def is_freetest?
-    if actions.reconduction.length > 0 && actions.reconduction.last.action == 7
+    if abo_active == 1 && actions.reconduction.length > 0 && actions.reconduction.last.action == 7
       false
     else
       true

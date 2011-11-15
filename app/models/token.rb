@@ -68,7 +68,12 @@ class Token < ActiveRecord::Base
   end
 
   def expired?
-    updated_at < 2.days.ago.localtime
+    if products.first.kind == DVDPost.product_kinds[:adult]
+      hours_left = DVDPost.hours[:adult]
+    else
+      hours_left = DVDPost.hours[:normal]
+    end
+    updated_at < hours_left.hours.ago.localtime
   end
 
   def current_status(current_ip)
@@ -86,11 +91,11 @@ class Token < ActiveRecord::Base
     return token_status == Token.status[:ok] || token_status == Token.status[:ip_valid]
   end
 
-  def self.create_token(imdb_id, product, current_ip, streaming_product_id, code)
+  def self.create_token(imdb_id, product, current_ip, streaming_product_id, kind, code)
     #to do valid code
     file = StreamingProduct.find(streaming_product_id)
       if file.source == StreamingProduct.source[:alphanetworks]
-        token_string = DVDPost.generate_token_from_alpha(file.filename)
+        token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
         if token_string
           token = Token.create(          
             :code => code,          

@@ -3,7 +3,7 @@
 <% else %> 
   <% if Token.dvdpost_ip?(request.remote_ip) %>
     <% if source == StreamingProduct.source[:alphanetworks] %>
-      <% token_code = DVDPost.generate_token_from_alpha(filename) %>
+      <% token_code = DVDPost.generate_token_from_alpha(filename, params[:kind]) %>
     <% else %>
       <% token_code = 'dvdpost' %>
     <% end %>
