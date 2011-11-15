@@ -46,17 +46,21 @@ GEM
     addressable (2.2.6)
     after_commit (1.0.8)
       activerecord (< 3.0.0)
+    airbrake (3.0.5)
+      activesupport
+      builder
     babosa (0.3.4)
     blankslate (2.1.2.4)
+    builder (3.0.0)
     bullet (2.0.1)
       uniform_notifier (~> 1.0.0)
     capistrano (2.6.0)
       highline
       net-scp (>= 1.0.0)
-      net-scp
       net-scp (>= 1.0.0)
-      net-sftp
+      net-scp
       net-sftp (>= 2.0.0)
+      net-sftp
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
@@ -128,6 +132,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake (~> 3.0.5)
   bullet
   capistrano-ext
   db-charmer
