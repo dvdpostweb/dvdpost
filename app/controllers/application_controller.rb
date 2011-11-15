@@ -80,6 +80,7 @@ class ApplicationController < ActionController::Base
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
     set_locale(locale || :fr)
+    #I18n.locale = 'en'
   end
 
   def last_login
