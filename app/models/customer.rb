@@ -630,7 +630,7 @@ class Customer < ActiveRecord::Base
 
   def notify_hoptoad()
     begin
-      HoptoadNotifier.notify(:error_message => "customer dont abo abo_type : #{to_param}")
+      Airbrake.notify(:error_message => "customer dont abo abo_type : #{to_param}")
     rescue => e
       logger.error("customer dont abo abo_type : #{to_param}")
       logger.error(e.backtrace)
@@ -639,7 +639,7 @@ class Customer < ActiveRecord::Base
   
   def notify_credit_hoptoad(action, action_type, quantity)
     begin
-      HoptoadNotifier.notify(:error_message => "customer have a problem with credit customer_id : #{to_param} action: #{action} action type: #{action_type} quantity: #{quantity}")
+      Airbrake.notify(:error_message => "customer have a problem with credit customer_id : #{to_param} action: #{action} action type: #{action_type} quantity: #{quantity}")
     rescue => e
       logger.error("customer have a problem with credit customer_id : #{to_param} action: #{action} action type: #{action_type} quantity: #{quantity}")
       logger.error(e.backtrace)
