@@ -3,9 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '~> 2.3.11'
 gem 'mysql', :group => :bundle
 gem 'rmagick'
-gem 'rake', '~> 0.9.2.2'
+gem 'rake', '0.9.2.2'
 gem 'capistrano-ext', :require => 'capistrano'
-gem 'hoptoad_notifier', '~> 2.4.0'
+#gem 'hoptoad_notifier', '~> 2.4.0'
 gem "airbrake", "~> 3.0.5"
 gem 'json'
 gem 'hpricot', '~> 0.8.2'
