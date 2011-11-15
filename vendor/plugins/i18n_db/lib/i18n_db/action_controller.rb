@@ -1,5 +1,6 @@
 module I18nDb
   module ActionController
+public
      def set_locale(locale=:fr)
         I18n.locale = locale
 
