@@ -64,7 +64,7 @@ class WishlistItem < ActiveRecord::Base
 
   def self.notify_hoptoad(message)
     begin
-      HoptoadNotifier.notify(:error_message => "wishlist_items : #{message}")
+      Airbrake.notify(:error_message => "wishlist_items : #{message}")
     rescue => e
       logger.error("wishlist_items : #{message}")
       logger.error(e.backtrace)
