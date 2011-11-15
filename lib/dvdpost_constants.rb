@@ -334,9 +334,15 @@ module DVDPost
       })
     end
     
-    def generate_token_from_alpha(filename)
-      url = "http://vod.dvdpost.be:8081/webservice?method=create&filename=#{filename}&lifetime=2880&simultIp=1"
-     open url do |data|
+    def generate_token_from_alpha(filename, kind)
+      if kind == :adult
+        time = 720
+      else
+        time = 2880
+      end
+      
+      url = "http://vod.dvdpost.be:8081/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
+      open url do |data|
        node = Hpricot(data).search('//create')
        if node.at('status').innerHTML == 'success'
          node.at('response').innerHTML
@@ -351,6 +357,13 @@ module DVDPost
         :dvd => 'DVD',
         :bluray => 'BLURAY',
         :vod => 'STREAMING'
+      })
+    end
+
+    def hours
+      HashWithIndifferentAccess.new.merge({
+        :adult => 12,
+        :normal => 48,
       })
     end
   end

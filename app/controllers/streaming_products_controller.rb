@@ -64,9 +64,9 @@ class StreamingProductsController < ApplicationController
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token || status == Token.status[:expired]
               if ENV['HOST_OK'] == "0"
-                creation = current_customer.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id])
+                creation = current_customer.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id], params[:kind])
               else
-                creation = Token.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id], params[:code])
+                creation = Token.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id], params[:kind], params[:code])
               end
               @token = creation[:token]
               error = creation[:error]
