@@ -3,7 +3,7 @@ module I18nDb
 public
      def set_locale(locale=:fr)
         I18n.locale = locale
-
+        RAILS_DEFAULT_LOGGER.debug("IN: set_locale")
         ensure_translations_updated(locale.to_s)
 
         unless I18n::Backend::Simple.instance_methods.include? "translate_without_default_passed_to_exception"
