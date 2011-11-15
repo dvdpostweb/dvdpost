@@ -11,7 +11,6 @@ module I18nDb
           end
         end
       end  
-    private
     
     def reload_translations_for_locale(locale, updated_at)
       translations = Rails.cache.fetch("locales/#{locale}/#{updated_at.to_i}") do
