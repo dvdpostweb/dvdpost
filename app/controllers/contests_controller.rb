@@ -50,6 +50,6 @@ class ContestsController < ApplicationController
   end
 
   def contests_available
-    @contests_available = ContestName.by_language(I18n.locale).by_date.new.all
+    @contests_available = ContestName.by_language(I18n.locale).by_date.new.ordered.all
   end
 end

@@ -1,12 +1,12 @@
 <%= stylesheet 'contests', :media => :all %>
-<%= render :partial => 'contests/menu', :locals => {:contests => @contests_available} %>
-<div id="maincontent">
-  <div id="concours-wrap">
-    <div class="ttl"><%= t('contests.new.title')%></div>
-    <div id="titles-wrap">
-      <div class="top"></div>
-      <%= render :partial => 'contests/create/result', :locals => {:contest => @contest} %>
-      <div class="end"></div>
-    </div>
-  </div>
+<div class="container clearfix">
+  <!--   ==============   MAIN CONTENT   ==============   -->
+  <div id="contest_content">
+      <div id="title_contest"><span class="big_title"><%= t 'contests.new.form.title' %> :</span> <%= t('contests.new.form.subtitle', :title => title(@contest), :count => @contest.winners_count) %></div>
+      <div><%= image_tag @contest.image_big %></div>
+      <p><strong><%= t('contests.new.success') %></strong></p>
+      <%= render :partial => 'contests/right', :locals => {:contest => @contest} %>
+  </div> 
+  <%= render :partial => 'contests/menu', :locals => {:contests => @contests_available} %>
+  <!--   ==============   END MAIN CONTENT   ==============   -->
 </div>
