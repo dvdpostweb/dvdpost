@@ -1,6 +1,16 @@
 module I18nDb
   module ActionController
-  
+     def set_locale(locale=:fr)
+        I18n.locale = locale
+
+        ensure_translations_updated(locale.to_s)
+
+        unless I18n::Backend::Simple.instance_methods.include? "translate_without_default_passed_to_exception"
+          I18n::Backend::Simple.class_eval do
+            alias_method_chain :translate, :default_passed_to_exception
+          end
+        end
+      end  
     private
     
     def reload_translations_for_locale(locale, updated_at)
@@ -50,16 +60,6 @@ module I18nDb
       I18n.backend.instance_eval { @locale_versions = cached_versions }
     end
 
-    def set_locale(locale=:fr)
-      I18n.locale = locale
-      
-      ensure_translations_updated(locale.to_s)
-                  
-      unless I18n::Backend::Simple.instance_methods.include? "translate_without_default_passed_to_exception"
-        I18n::Backend::Simple.class_eval do
-          alias_method_chain :translate, :default_passed_to_exception
-        end
-      end
-    end
+   
   end
 end
