@@ -79,7 +79,8 @@ class ApplicationController < ActionController::Base
   def set_locale_from_params
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
-    set_locale(locale || :fr)
+    #set_locale(locale || :fr)
+    I18n.locale = locale || :fr
   end
 
   def last_login

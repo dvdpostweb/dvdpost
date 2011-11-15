@@ -6,6 +6,7 @@ class Contest < ActiveRecord::Base
   set_primary_key :contest_id
 
   named_scope :winner, :conditions => {:is_a_winner => 1}
+  named_scope :ordered, :order => "available_from ASC"
 
   db_magic :slave => :slave01 if ENV['APP'] == "1"
 
