@@ -21,7 +21,8 @@
         <% end %>
         </li>
         <li>
-          <%= t('.credit') %>: <a href="<%= edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>"><%= current_customer.credit_per_month == 0 ? current_customer.credits : "#{current_customer.credits} #{t '.dvd'}" %></a> 
+          <%= t('.credit') %>:
+          <%= link_to current_credits(current_customer), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
           <% if current_customer.credit_empty? %>
             <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
           <% end %>

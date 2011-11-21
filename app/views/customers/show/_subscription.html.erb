@@ -8,13 +8,13 @@
       <tr>
         <td width="207" align="right"><strong><%= t '.abo' %></strong></td>
         <td width="141" align="left">
-          <%= customer.credit_per_month == 0 ? t('.unlimited') : "#{customer.credit_per_month} DVD" %>
+          <%= abo_type(current_customer) %>
         </td>
       </tr>
       <tr>
         <td align="right"><strong><%= current_customer.credit_per_month == 0 ? t('.credit_vod') : t('.credit') %></strong></td>
         <td align="left">
-          <%= current_customer.credit_per_month == 0 ? customer.credits : "#{customer.credits} DVD" %>
+          <%= current_credits(current_customer) %>
         </td>
       </tr>
       <tr>

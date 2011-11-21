@@ -6,7 +6,9 @@
           <table width="220" height="114" cellspacing="0" cellpadding="0" border="0" class="abo_actu_sub">
             <tbody>
               <tr>
-                <td valign="top"><span class="text_nb_movie"><%= t '.film' , :count => current_customer.credit_per_month %><br />
+                <td valign="top"><span class="text_nb_movie">
+                <%= current_customer.new_price? ? "#{t '.film' , :count => current_customer.credit_per_month} <br />dont #{current_customer.subscription_type.qty_dvd_max} DVD/bluray" : t('.film' , :count => current_customer.credit_per_month) %>
+                <br />
                   <span class="text_prices"><strong>€ <%= current_customer.price_per_month %></strong></span></td>
               </tr>
             </tbody>

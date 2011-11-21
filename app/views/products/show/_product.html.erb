@@ -4,10 +4,15 @@
     <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
   <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
-  <% if product.streaming? and streaming_access? %>
+  <% if product.in_streaming_or_soon? and streaming_access? %>
     <% credits = product.streaming_products.first.credits %>
-    <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token} %>
-    <%= render :partial => 'products/credit_vod', :locals => {:credits => credits} if credits > 1 %>
+    <% if product.streaming? %>
+      <%= render :partial => 'products/streaming',  :locals => {:product => product, :token => @token} %>
+    <% elsif product.next.to_i == 1 %>
+      <%= render :partial => 'products/streaming_soon' %>
+    
+    <% end %>
+    <%= render :partial => 'products/credit_vod', :locals => {:product => product, :credits => credits} if credits > 1 %>
   <% end %>
 </div>
 <div id="movie-info" class="<%= @product.streaming? ? 'height-stream' : 'height-classic' %>">
