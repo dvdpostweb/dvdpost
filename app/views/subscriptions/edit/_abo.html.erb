@@ -4,7 +4,7 @@
     <td width="33"><div class="check" id ='<%= abo.id %>'></div></td>
     <td><img align="absmiddle" src="/images/<%= abo.credits %>films.png" /></td>
     <td width="155">
-      <b><%= t '.film', :count => abo.credits %>
+      <b><%= t '.film', :count => abo.credits %> <%= "(dont #{abo.qty_dvd_max} dvd/bluray)" if  abo.qty_dvd_max > 0 %>
       <%= '<img align="middle" src="/images/freeupgradelogo.gif">' if abo.ordered == @free_upgrade %>
     </td>
     <td align="right"><strong><span class="title_prices"><%= abo.product.price %></span></strong></td>

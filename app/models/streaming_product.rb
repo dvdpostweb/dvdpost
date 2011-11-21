@@ -7,7 +7,7 @@ class StreamingProduct < ActiveRecord::Base
   has_many :products, :primary_key => :imdb_id, :foreign_key => :imdb_id, :limit => 1
   has_many :subtitles, :primary_key => :subtitle_id, :foreign_key => :undertitles_id
   has_many :languages, :foreign_key => :languages_id, :primary_key => :language_id
-  
+  belongs_to :studio, :foreign_key => :studio_id
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
   named_scope :by_version, lambda {|language_id, subtitle_id| {:conditions => {:language_id => language_id, :subtitle_id => subtitle_id}}}
   named_scope :by_language, lambda {|language_id| {:conditions => {:language_id => language_id}}}

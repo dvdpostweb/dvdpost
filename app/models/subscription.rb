@@ -36,7 +36,7 @@ class Subscription < ActiveRecord::Base
     diff_order = new_abo.ordered - current_customer.subscription_type.ordered
     if current_customer.free_upgrade == 0 && diff_order == 1
       diff_credit = new_abo.credits - current_customer.subscription_type.credits
-      status = current_customer.add_credit(diff_credit, 6)
+      status = current_customer.add_credit(2, 6)
       if status 
         current_customer.update_attribute(:free_upgrade, 1)
         current_customer.abo_history(Subscription.action[:free_upgrade])

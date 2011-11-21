@@ -2,6 +2,6 @@
   <p><strong><%= t '.start' %> :</strong><%= @contest.available_from.strftime("%d/%m/%Y")%><br />
     <strong><%= t '.end' %> :</strong> <%= @contest.validity.strftime("%d/%m/%Y") %></p>
   <p>
-    <%= link_to t('.link'), root_path, :target => "_blank" %>
+    <%= link_to t('.link'), info_path(:page_name => 'contest'), :target => "_blank" %>
   </p>
 </div><div class="clear"></div>

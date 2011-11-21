@@ -252,6 +252,10 @@ class Customer < ActiveRecord::Base
     credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
   end
 
+  def new_price?
+    subscription_type.qty_dvd_max > 0
+  end
+
   def suspended?
     suspension_status != 0
   end
@@ -291,7 +295,11 @@ class Customer < ActiveRecord::Base
     end
     Customer.transaction do
       begin
-        credit = self.update_attribute(:credits, (self.credits + quantity))
+        if new_price?
+          credit = self.update_attributes(:credits => (self.credits + quantity), :customers_abo_dvd_remain => (self.customers_abo_dvd_remain + quantity))
+        else
+          credit = self.update_attributes(:credits => (self.credits + quantity))
+        end
         date_added = 2.hours.from_now.localtime.to_s(:db)
         history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_free => quantity, :abo_type => abo_type_id)
        rescue ActiveRecord::StatementInvalid 
@@ -330,7 +338,7 @@ class Customer < ActiveRecord::Base
     if status == true
       Customer.transaction do
         begin
-          credit = self.update_attribute(:credits, (self.credits - quantity))
+          credit = self.update_attributes(:credits => (self.credits - quantity))
           history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().localtime.to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
         rescue ActiveRecord::StatementInvalid 
            notify_credit_hoptoad('remove',action,quantity)
@@ -595,7 +603,11 @@ class Customer < ActiveRecord::Base
   end
 
   def get_list_abo
-    group = 1
+    if self.new_price?
+      group = 6
+    else
+      group = 1
+    end
     ProductAbo.get_list(group)
   end
 
