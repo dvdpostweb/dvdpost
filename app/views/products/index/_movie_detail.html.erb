@@ -6,7 +6,16 @@
 <% end %>
 <div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
 <% view = params[:view_mode] == 'streaming' ? 0 : 1 %>
-<% cache "/#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" do %>
+<% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
+<% name_path = "views//#{name}" %>
+<% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
+  <% expire_fragment(product) %>
+<% end %>
+<% unless Rails.cache.exist? name_path %>
+  <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
+<% end %>
+
+<% cache name do %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>

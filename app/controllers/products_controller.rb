@@ -66,6 +66,7 @@ class ProductsController < ApplicationController
         
         @jacket_mode = Product.get_jacket_mode(params)
       end
+      
       format.js {
         if params[:category_id]
           render :partial => 'products/index/streaming', :locals => {:products => @popular}
@@ -185,12 +186,19 @@ class ProductsController < ApplicationController
   end
 
   def drop_cached
-    expire_fragment ("/fr/products/product_1_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_1_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_1_#{params[:product_id]}")
-    expire_fragment ("/fr/products/product_0_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_0_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_0_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product_1_1_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_1_1_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_1_1_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product_1_0_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_1_0_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_1_0_#{params[:product_id]}")
+
+    expire_fragment ("/fr/products/product_0_1_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_0_1_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_0_1_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product_0_0_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product_0_0_#{params[:product_id]}")
+    expire_fragment ("/en/products/product_0_0_#{params[:product_id]}")
     render :nothing => true
   end
 private

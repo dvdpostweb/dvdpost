@@ -403,5 +403,21 @@ module ProductsHelper
     end
     images
   end
+
+  def expire_fragment(product)
+    id = product.to_param
+    Rails.cache.delete "views//fr/products/product_1_1_#{id}"
+    Rails.cache.delete "views//nl/products/product_1_1_#{id}"
+    Rails.cache.delete "views//en/products/product_1_1_#{id}"
+    Rails.cache.delete "views//fr/products/product_1_0_#{id}"
+    Rails.cache.delete "views//nl/products/product_1_0_#{id}"
+    Rails.cache.delete "views//en/products/product_1_0_#{id}"
+    Rails.cache.delete "views//fr/products/product_0_1_#{id}"
+    Rails.cache.delete "views//nl/products/product_0_1_#{id}"
+    Rails.cache.delete "views//en/products/product_0_1_#{id}"
+    Rails.cache.delete "views//fr/products/product_0_0_#{id}"
+    Rails.cache.delete "views//nl/products/product_0_0_#{id}"
+    Rails.cache.delete "views//en/products/product_0_0_#{id}"
+  end
   
 end
