@@ -575,9 +575,9 @@ class Product < ActiveRecord::Base
 
   def self.get_top_view(kind, limit, sexuality)
     if sexuality == 1
-      Product.by_kind(kind).by_special_media([2,4,5]).available.limit(limit).order('most_viewed desc', :extended)
+      Product.by_kind(kind).by_special_media([2,4,5]).available.limit(limit).order('count_tokens desc', :extended)
     else
-      Product.by_kind(kind).by_special_media([2,4,5]).available.hetero.limit(limit).order('most_viewed desc', :extended)
+      Product.by_kind(kind).by_special_media([2,4,5]).available.hetero.limit(limit).order('count_tokens desc', :extended)
     end
   end
 
