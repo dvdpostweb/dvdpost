@@ -617,6 +617,5 @@ class Product < ActiveRecord::Base
       end
     end
     return ''
-  end  
-  
+  end
 end
