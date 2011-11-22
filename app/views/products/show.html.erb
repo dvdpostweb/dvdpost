@@ -34,9 +34,9 @@
               <% end %>
             </ul>
             <% if params[:kind] == :adult %>
-            <div>
-              <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
-            </div>
+              <div>
+                <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
+              </div>
             <% end %>
             <%= available_on_other_media(@product, params[:recommendation]) %>
             <%= available_on_other_language(@product, params[:recommendation]) %>
