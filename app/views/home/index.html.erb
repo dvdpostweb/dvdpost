@@ -23,7 +23,6 @@
       <%= render :partial => "/home/index/top_actors_adult", :locals => {:top_actors => @top_actors} %>
       <!-- Nouveautés  -->
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
-      </div>
     <% if @newsletter_x.nil? %>
       <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
     <% end %>

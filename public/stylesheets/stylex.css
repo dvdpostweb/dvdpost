@@ -96,7 +96,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 /*   ============   HOME PAGE   ============   */
 
 #hp-content {
-  padding: 15px 12px 15px 15px;
+  padding: 15px 12px 15px 15px !important;
   background: #fff;
 }
 
