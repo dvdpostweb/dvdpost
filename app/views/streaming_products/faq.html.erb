@@ -1,37 +1,108 @@
-<%= stylesheet 'sponsorships', :media => :all %>
-<%= javascript_include_tag 'streaming_products' %>
+<div id="faq-content-wrap">
+  <div id="faq-intro-wrap">
+    <%= link_to t('.back'), products_path(:view_mode => :streaming), :id => :retour %>
+    <h2><%= t '.what' %></h2>
+    <p><%= t '.what_e' %></p>
+  </div><!-- #faq-intro-wrap -->
 
-<div id="maincontent" >
-  <div class="top"></div>
-  <h2><%= t('.title') %></h2>
-  <div id="tool-wrap">
-    <div id="points-wrap">
-      <div id="contact-wrap">
-        <div id='faq'>
-          <ul id='faq-nav'>
-            <li>
-              <ul>
-                <% for n in 1..14 %>
-                <li>
-                  <%= link_to t(".q#{n}"), nil, :id => "q#{n}", :class => "q" %>
-                </li>
-                <% end %>
-              </ul>
+  <div id="vod-info-wrap">
+    <h3><%= t '.t1' %></h3>
+    <div id="vod-info" class="clearfix">
+      <div class="left">
+        <ul>
+          <li id="systeme">
+            <h4><%= t '.st1' %></h4>
+            <p><%= t '.st1_e' %></p>
+          </li>
+          <li id="support">
+            <h4><%= t '.st2' %></h4>
+            <p><%= t '.st2_e' %> 
+              <%= link_to "<strong>#{t('.here')}</strong>", info_path(:page_name => 'get_connected') %>
+            </p>
+          </li>
+        </ul>
+
+
+      </div><!-- .left -->
+
+      <div class="right">
+        <ul>
+
+          <li id="catalogue">
+            <h4><%= t '.st3' %></h4>
+            <p><%= t '.st3_e' %><%= link_to "<strong>#{t('.here')}</strong>", products_path(:view_mode => :streaming) %>. <br />
+              <%= t '.st3_e2' %> 
+              <%= link_to "<strong>#{t('.here')}</strong>", products_path(:kind => :adult, :view_mode => :streaming) %>.</p>
+            </li>
+            <li id="audio">
+              <h4><%= t '.st4' %></h4>
+              <p><%= t '.st4_e' %> </p>
             </li>
           </ul>
-          <% for n in 1..14 %>
-          <div style="<%= n == 1 ? '' : 'display:none' %>" id="r<%= n %>" class="faq-answer">
-            <h3><%= t(".q#{n}") %></h3>
-            <div class="box">
-              <p> 
-                <%= t(".r#{n}", :stream_link => products_path(:view_mode => :streaming) , :reconduction_link =>  edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => @customer_id) , :connect_link => info_path(:page_name => 'get_connected')) %>
-              </p>
-            </div>
-          </div>
-          <% end %>
-          <div class="clear"></div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+      </div><!-- #vod-info -->
+
+      <div id="vod-info-wrap">
+        <h3><%= t '.t2' %></h3>
+        <div id="vod-info" class="clearfix">
+          <div class="left">
+            <ul>
+              <li id="extrait_vod">
+                <h4><%= t '.st' %></h4>
+                <span class="intro">
+                  <p><strong><%= t '.st_e' %></p></span>
+                </li>
+              </ul>
+
+
+            </div><!-- .left -->
+
+            <div class="img-wrap">
+              <a href="<%= streaming_products_sample_path %>" target="_blank">
+                <%= image_tag "extrait-vod#{params[:kind] == :adult ? '_adult' : ''}.jpg" %>
+              </a>
+
+            </div><!-- .img-wrap -->
+          </div><!-- #vod-info -->
+
+          <div id="faq" class="clearfix">
+
+            <h3><%= t '.t3' %></h3>
+            <div id="vod-faq">
+              <div class="cols" id="col1">
+                <h4><%= t '.q_1' %></h4>
+                <p><%= t '.r_1' %></p>
+                <h4><%= t '.q_2' %></h4>
+                <p><%= t '.r_2' %></p>
+                <h4><%= t '.q_3' %></h4>
+                <p><%= t '.r_3' %></p>
+              </div><!-- #col1 -->
+              <div class="cols" id="col2">		
+                <h4><%= t '.q_4' %></h4>
+                <p><%= t '.r_4' %></p>
+                <h4><%= t '.q_5' %></h4>
+                <p><%= t '.r_5' %></p>
+              </div><!-- #col2 -->
+              <div class="cols" id="col3">
+                <h4><%= t '.q_6' %></h4>
+                <p><%= t '.r_6' %></p>		
+                <h4><%= t '.q_7' %></h4>
+                <p><%= t '.r_7' %></p>
+                <h4><%= t '.q_8' %></h4>
+                <p><%= t '.r_8' %></p>
+
+
+
+              </div><!-- #col3 -->
+              <div class="cols" id="col4">		
+                <h4><%= t '.q_9' %></h4>
+                <p><%= t '.r_9' %></p>
+                <p><%= t '.question' %></p>
+              </div><!-- #col4 -->
+
+            </div>
+          </div><!-- #faq -->
+
+        </div><!-- #vod-info-wrap -->
+      </div><!-- #faq-content-wrap -->

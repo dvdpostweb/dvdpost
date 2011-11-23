@@ -59,11 +59,12 @@ ActionController::Routing::Routes.draw do |map|
       stream.language 'language', :controller => :streaming_products, :action => :language, :conditions => {:method => :get}
       stream.subtitle 'subtitle', :controller => :streaming_products, :action => :subtitle, :conditions => {:method => :get}
       stream.versions 'versions', :controller => :streaming_products, :action => :versions, :conditions => {:method => :get}
-      #stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end
 
     localized.resource :streaming_products, :only => [] do |stream|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+      stream.sample 'sample', :controller => :streaming_products, :action => :sample, :conditions => {:method => :get}
+      
     end
 
     localized.resources :categories, :only => [:index] do |category|
