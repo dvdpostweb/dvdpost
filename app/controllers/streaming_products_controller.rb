@@ -170,6 +170,19 @@ class StreamingProductsController < ApplicationController
     render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered}
   end
 
+  def sample
+    if params[:kind] == :adult
+      @streaming = StreamingProduct.find(5474)
+    else
+      if I18n.locale == :fr
+        @streaming = StreamingProduct.find(5389)
+      else
+        @streaming = StreamingProduct.find(5472)
+      end
+    end
+    @token_name = DVDPost.generate_free_token_from_alpha(@streaming.filename)
+  end
+
   def faq
     @product = Product.find_by_imdb_id(params[:streaming_product_id])
     unless current_customer
