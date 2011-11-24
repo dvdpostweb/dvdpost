@@ -559,7 +559,7 @@ a#retour
 }
 
 #vod-info li#extrait_vod {
-	background-image: url(../images/extrait-icon.jpg);
+	background: url(../images/extrait-icon.jpg) 0 20px no-repeat;
 }
 #vod-info li#systeme {
 	background-image: url(../images/systeme-icon.jpg);
@@ -666,7 +666,7 @@ a#retour
     text-align: justify;
 }
 #faq p {
-	color: #444444;
+	color: #333;
 	font-size: 0.98em;
 	margin-bottom: 30px;
 	text-align: justify;
