@@ -70,7 +70,6 @@ namespace :deploy do
         port: 3306
     EOF
     put db_config, "#{release_path}/config/database.yml"
-    
   end
   
   # Restart passenger on deploy
@@ -110,6 +109,8 @@ namespace :deploy do
   end
 end
 
+before 'deploy:symlink', 'deploy:stop_ts'
+after 'deploy:symlink', 'deploy:update_ts'
 =begin
     pre_production:
       adapter: mysql
