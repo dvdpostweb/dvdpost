@@ -21,8 +21,20 @@
         <% end %>
         </li>
         <li>
-          <%= t('.credit') %>:
+          vous avez encore :
           <%= link_to current_credits(current_customer), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
+          <a href="?tool_tips=2" class="info tooltips" id='film_info'>
+            <%= image_tag 'info-icon.gif', :alt => "Info" %>
+          </a>
+          <!-- Tooltip -->
+          <div class="tooltip" id="film_info_popup" style ='display:none'>
+            <h4>votre formule</h4>
+            <p><%= abo_type(current_customer) %></p>
+            <h4>ce que vous avez consommé</h4>
+            <p></p>
+            <h4>ce que vous avez encore</h4>
+            <p><%= current_credits(current_customer) %></p>
+          </div>
           <% if current_customer.credit_empty? %>
             <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
           <% end %>

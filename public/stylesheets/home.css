@@ -144,7 +144,7 @@ body
   border: none;
 }
 
-#user-movies .tooltip {
+#user-movies .tooltip, #user-titles .tooltip {
   padding: 10px;
   width: 290px;
   background: #fff;
@@ -157,7 +157,12 @@ body
   box-shadow: 3px 3px 7px #000;
   z-index: 1000;
 }
-
+#user-titles .tooltip {
+position: absolute;
+margin: -38px 0 0 53px;
+right: initial;
+top: initial;
+}
 .tooltip:before, .tooltip:after {
   content: "";
   position: absolute;
