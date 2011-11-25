@@ -386,5 +386,12 @@ module DVDPost
         :adult => '4ece5d547b6db2.40859894'
       })
     end
+    def data_sample
+      HashWithIndifferentAccess.new.merge({
+        :normal => {:imdb_id =>1, :product_id => 106535},
+        :adult => {:imdb_id =>2, :product_id => 127348}
+      })
+    end
+    
   end
 end
