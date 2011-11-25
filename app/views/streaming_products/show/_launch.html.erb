@@ -7,6 +7,9 @@
 <p class="choice_valided"><%= t 'streaming_products.show.kinds_alpha.audio_title' %> : <span class="selected"><%= audio_title %></span> | <%= link_to t('.change'), streaming_product_path(:id => streaming.imdb_id), :id => 'change_step2' %> </p>
 <p class="choice_valided"><%= t 'streaming_products.show.kinds_alpha.sub_title' %> : <span class="selected"><%= sub_title %></span> | <%= link_to t('.change'), streaming_product_path(:id => streaming.imdb_id), :id => 'change_step3' %> </p>
 <p class='audios'>
-
-  <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path(:id => @streaming.imdb_id, :streaming_product_id => streaming.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+  <% if params[:sample] %>
+    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_products_sample_path(:streaming_product_id => streaming.to_param), :class => 'btn_play  qualityvod' %>
+  <% else %>
+    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path(:id => @streaming.imdb_id, :streaming_product_id => streaming.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+  <% end%>
 </p>

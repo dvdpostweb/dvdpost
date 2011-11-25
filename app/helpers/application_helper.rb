@@ -357,7 +357,7 @@ module ApplicationHelper
   end
 
   def streaming_free(product)
-    return {:status => false, :available => false} if ENV['HOST_OK'] == "1"
+    return {:status => false, :available => false} if ENV['HOST_OK'] == "1" || product.nil?
     streaming_free = StreamingProductsFree.by_imdb_id(product.imdb_id).available.first
     if streaming_free
       if streaming_free.kind = DVDPost.streaming_free_type[:beta_test] 

@@ -146,7 +146,7 @@ class StreamingProductsController < ApplicationController
       else
         @streaming_subtitle = StreamingProduct.available_beta.alpha.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
       end
-      render :partial => 'streaming_products/show/subtitles', :locals => {:streaming => @streaming_subtitle}, :layout => false
+      render :partial => 'streaming_products/show/subtitles', :locals => {:streaming => @streaming_subtitle, :sample => params[:sample]}, :layout => false
     end
   end
 
@@ -172,15 +172,20 @@ class StreamingProductsController < ApplicationController
 
   def sample
     if params[:kind] == :adult
-      @streaming = StreamingProduct.find(5474)
+      params[:id] = 2
     else
-      if I18n.locale == :fr
-        @streaming = StreamingProduct.find(5389)
-      else
-        @streaming = StreamingProduct.find(5472)
+      params[:id] = 1
+    end
+    @streaming_prefered = StreamingProduct.available.find_all_by_imdb_id(params[:id], I18n.locale)
+    @token_name = DVDPost.token_sample[params[:kind]]
+    respond_to do |format|
+      format.html do
+      end
+      format.js do
+         @streaming = StreamingProduct.find_by_id(params[:streaming_product_id])
+         render :layout => false
       end
     end
-    @token_name = DVDPost.generate_free_token_from_alpha(@streaming.filename)
   end
 
   def faq
