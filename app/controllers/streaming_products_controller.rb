@@ -176,7 +176,7 @@ class StreamingProductsController < ApplicationController
     else
       params[:id] = 1
     end
-    @streaming_prefered = StreamingProduct.available.find_all_by_imdb_id(params[:id], I18n.locale)
+    @streaming_prefered = StreamingProduct.group_by_language.available.find_all_by_imdb_id(params[:id], I18n.locale)
     @token_name = DVDPost.token_sample[params[:kind]]
     respond_to do |format|
       format.html do
