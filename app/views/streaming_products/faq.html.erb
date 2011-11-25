@@ -30,7 +30,7 @@
 
           <li id="catalogue">
             <h4><%= t '.st3' %></h4>
-            <p><%= t '.st3_e' %><%= link_to "<strong>#{t('.here')}</strong>", products_path(:view_mode => :streaming) %>. <br />
+            <p><%= t '.st3_e' %><%= link_to "<strong>#{t('.here')}</strong>", products_path(:kind => :normal, :view_mode => :streaming) %>. <br />
               <%= t '.st3_e2' %> 
               <%= link_to "<strong>#{t('.here')}</strong>", products_path(:kind => :adult, :view_mode => :streaming) %>.</p>
             </li>

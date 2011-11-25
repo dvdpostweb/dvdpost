@@ -244,7 +244,7 @@ $(function() {
       data: {},
       success: function(data) {
         $(next).html(data);
-        setTimeout ($container.cycle(cycle),200);  
+        $container.cycle(cycle),200;
       },
       error: function() {
         html_item.html(content);
