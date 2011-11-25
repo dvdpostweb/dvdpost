@@ -671,3 +671,16 @@ a#retour
 	margin-bottom: 30px;
 	text-align: justify;
 }
+a#vod_title_id
+{
+  text-decoration: none;
+  color: #21282F;
+}
+a#vod_title_id:hover
+{
+  color: #666;
+}
+.adult a#vod_title_id:hover
+{
+  color: #E2007C;
+}

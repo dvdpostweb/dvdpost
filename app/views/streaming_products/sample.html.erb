@@ -6,7 +6,7 @@
 <div id="maincontent">
   <div id='vod-wrap'>
     <h2>
-      <span id="vod_title"><%= t('.title') %><span>
+      <span id="vod_title"><%= t('.title') %> - <%= link_to @product.title, product_path(:id => @product.to_param), :id => :vod_title_id %><span>
     </h2>
     <div class="error"></div>
     <div id="presentation">
