@@ -428,7 +428,7 @@ class Product < ActiveRecord::Base
   end
 
   def in_streaming_or_soon?
-    streaming_products.alpha.count > 0
+    streaming_products.alpha.count > 0 || vod?
   end
 
   def streaming?
