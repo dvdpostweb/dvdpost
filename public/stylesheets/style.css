@@ -412,7 +412,7 @@ fieldset {
 .adult #titles-wrap .action a.btn:hover {
   background: url(../images/ajouterxbtn.png) 0 -39px no-repeat !important;
 }
-#titles-wrap .action a.streaming_btn, #titles-wrap .action .streaming_btn {
+#titles-wrap .action a.streaming_btn, #titles-wrap .action .streaming_soon_btn {
   background:url("../images/vodbtn.png") no-repeat scroll 0 -3px transparent;
   color:white;
   display:block;
@@ -425,6 +425,12 @@ fieldset {
   text-decoration:none;
   text-shadow:1px 1px 1px #999999;
   width:134px;
+}
+#titles-wrap .action .streaming_soon_btn
+{
+  background:url("../images/btn_vod_soon.png") no-repeat scroll 0 -3px transparent;
+  padding:1px 6px 0 1px;
+  width:158px;
 }
 #titles-wrap .action a.streaming_btn:hover, #titles-wrap .action .streaming_btn:hover {
   background:url("../images/vodbtn.png") no-repeat scroll 0 -42px transparent;
@@ -1272,7 +1278,7 @@ a#next10 {
   background: url(../images/ajouterxbtn.png) 0 100% no-repeat;
   text-decoration: none;
 }
-#details .cover a.streaming_btn, #details .cover .streaming_btn {
+#details .cover a.streaming_btn, #details .cover .streaming_soon_btn {
   background: url(../images/vodbtn.png) 0 -3px no-repeat;
   display: block;
   height: 38px;
@@ -1283,6 +1289,13 @@ a#next10 {
   font-size: 1em;
   text-shadow: 1px 1px 1px #555555;
   text-decoration: none;
+}
+#details .cover .streaming_soon_btn {
+  background: url(../images/btn_vod_soon.png) 0 -3px no-repeat;
+  width: 169px;
+  padding-left: 1px;
+  text-align:center;
+  display: table;
 }
 #details .cover .streaming_btn
 {

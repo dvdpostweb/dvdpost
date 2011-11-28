@@ -8,11 +8,11 @@
 <% view = params[:view_mode] == 'streaming' ? 0 : 1 %>
 <% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
 <% name_path = "views//#{name}" %>
-<% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
+<% if 1 == 0 product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
   <% expire_fragment(product) %>
 <% end %>
 <% unless Rails.cache.exist? name_path %>
-  <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
+  <% t = 1 #product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
 
 <% cache name do %>
