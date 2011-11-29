@@ -98,7 +98,7 @@ class Product < ActiveRecord::Base
     
     has "case 
     when (products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'DVD' and streaming_products.imdb_id is not null and products_next = 1) then 2
-    when (products_media = 'VOD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'VOD' and streaming_products.imdb_id is not null and products_next = 1) then 5
+    when (products_media = 'VOD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'VOD' and products_next = 1) then 5
     when products_media = 'DVD' then 1 
     when (products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'blueray' and streaming_products.imdb_id is not null and products_next = 1) then 4 
     when products_media = 'blueray' then 3
