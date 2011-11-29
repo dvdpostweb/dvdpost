@@ -16,9 +16,7 @@
           </li>
           <li id="support">
             <h4><%= t '.st2' %></h4>
-            <p><%= t '.st2_e' %> 
-              <%= link_to "<strong>#{t('.here')}</strong>", info_path(:page_name => 'get_connected') %>
-            </p>
+            <p><%= t '.st2_e', :link => info_path(:page_name => 'get_connected') %></p>
           </li>
         </ul>
 
