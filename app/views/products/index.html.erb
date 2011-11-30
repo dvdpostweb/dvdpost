@@ -3,7 +3,7 @@
   <div id="title"><%= products_index_title %></div>
   <%= render :partial => 'products/index/image', :locals => {:actor => @actor} if params[:kind] == :adult && @actor%>
   <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
-  <% if params[:category_id] %>
+  <% if params[:category_id] && streaming_access? %>
     <%= render :partial => 'products/index/streaming', :locals => {:products => @popular} %>
   <% end %>
   <div id="titles-wrap">
