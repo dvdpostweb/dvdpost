@@ -74,6 +74,8 @@ namespace :deploy do
   desc "Link up Sphinx's indexes."
   task :symlink_sphinx_indexes, :roles => [:app] do
     run "ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx"
+    run "ln -nfs /data/geoip/GeoIP.dat #{current_path}/GeoIP.dat"
+    
   end
 
   task :update_ts do
