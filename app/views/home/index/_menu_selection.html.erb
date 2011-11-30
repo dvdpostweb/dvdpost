@@ -3,5 +3,5 @@
     <li><a href="<%= root_path(:selection_kind => :vod) %>" class="vod <%= params[:selection_kind].nil? || params[:selection_kind] == 'vod' ? 'active' : '' %>"><%= t '.vod'%></a></li>
   <% end %>
   <li><a href="<%= root_path(:selection_kind => :dvd) %>" class="<%= params[:selection_kind] == 'dvd' ? 'active' : '' %>"><%= t '.dvd' %></a></li>
-  <li><a href="<%= root_path(:selection_kind => :bluray) %>" class="br <%= params[:selection_kind] == 'bluray' ? 'active' : '' %>"><%= t 'bluray' %></a></li>
+  <li><a href="<%= root_path(:selection_kind => :bluray) %>" class="br <%= params[:selection_kind] == 'bluray' ? 'active' : '' %>"><%= t '.bluray' %></a></li>
 </ul>

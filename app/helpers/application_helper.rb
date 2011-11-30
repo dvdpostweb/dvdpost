@@ -135,10 +135,6 @@ module ApplicationHelper
     "http://public.dvdpost.com/#{I18n.locale}/products/#{product.to_param}"
   end
 
-  def adult_path
-    php_path 'mydvdxpost.php'
-  end
-
   def my_shop_path
     php_path 'mydvdshop.php'
   end
@@ -170,7 +166,6 @@ module ApplicationHelper
   def product_assigned_path(product)
     if product
       if product.adult?
-        #php_path "product_info_adult.php?products_id=#{product.to_param}"
         product_path(:kind => :adult, :id => product.to_param)
       else
         product_path(:kind => :normal, :id => product.to_param)
