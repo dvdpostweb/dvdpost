@@ -370,6 +370,10 @@ bottom: 15px;
   margin: 0 15px 30px;
   height:251px;
 }
+.content #tab-content-2 li
+{
+  height: auto;
+}
 #tab-content-2 li.show
 {
   width:830px;

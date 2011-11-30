@@ -68,12 +68,13 @@ class HomeController < ApplicationController
       when DVDPost.home_review_types[:controverse_rate]
         @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
       else
-        @data = HighlightProduct.day(0).by_kind('best').ordered.paginate(:per_page => 9, :page => page)
+        @data = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
     end
   end
 
   def get_selection_week(kind, selection_kind, selection_page)
-    @selection_kind = selection_kind || :vod
+    @default = streaming_access? ? :vod : :dvd
+    @selection_kind = selection_kind || @default
     @selection_page = selection_page
     if kind == :adult
       @selection = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
