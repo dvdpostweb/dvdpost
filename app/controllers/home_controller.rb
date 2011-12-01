@@ -93,7 +93,7 @@ class HomeController < ApplicationController
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
-      get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
+      get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
       if Rails.env == "pre_production"
         @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)
       else

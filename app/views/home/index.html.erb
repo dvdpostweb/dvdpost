@@ -16,7 +16,7 @@
       <%= render :partial => '/home/index/actor_week_adult', :locals => {:actor => @actor_week, :actor_week_product => @actor_week_product} %>
       <!-- selection of the week-->
       <div style='clear:both'></div>
-      <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
+      <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} if streaming_access? %>
       <!-- Top des plus loués -->
       <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>
       <!-- Top Actrices -->
