@@ -1,4 +1,4 @@
-<div id="title_contest"><span class="big_title"><%= t('.title').upcase %> :</span> <%= t('.subtitle', :title => title(contest, '"'), :count => contest.winners_count).upcase %></div>
+<div id="title_contest"><span class="big_title"><%= t('.title').upcase %> :</span><%= big_title(contest).upcase %></div>
 <div><%= image_tag contest.image_big %></div>
 <div class="content_left">
 <% form_for :contests, :url => contest_customers_path(:contest_id => params[:id]), :html => {:class => :contest_form}  do |f| %>

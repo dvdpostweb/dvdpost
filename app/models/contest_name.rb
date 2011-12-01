@@ -4,7 +4,7 @@ class ContestName < ActiveRecord::Base
 
   named_scope :new, :conditions => {:new => true}
   named_scope :by_language, lambda {|language| {:conditions => {(language == :nl ? :active_nl : (language == :en ? :active_en : :active_fr)) => 1}}}
-  named_scope :by_date, :conditions => "validity > NOW() and available_from < now()"
+  named_scope :by_date, :conditions => "validity >= date(NOW()) and available_from <= date(now())"
   named_scope :by_old_date, :conditions => "validity < NOW()"
   named_scope :ordered, :order => "validity ASC"
 
