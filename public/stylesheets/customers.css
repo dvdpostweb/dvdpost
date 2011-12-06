@@ -78,9 +78,9 @@
 }
 
 .suppendre { 
-  font-size:14px;
   font-family:Arial, Helvetica, sans-serif;
   color:#acacac;
+  float:right;
 }
 
 ul, ol, dl, dt, dd {
@@ -195,4 +195,75 @@ li.links a {
     text-align: center;
     text-decoration: none;
     width: 93px;
+}
+
+#info_abo li:first-child {
+    margin: -5px 0 0;
+}
+#info_abo .title {
+    border-bottom: 1px solid #D9D9D9;
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+}
+
+
+#info_abo {
+padding-top:10px;
+text-align:left;
+color: #201F20;
+
+}
+
+#info_abo p {
+line-height: 16px;
+
+}
+
+
+.info_abo {
+color: #201F20;
+
+}
+
+.info_abo .bonus_vod {
+padding-left:119px;
+
+}
+
+
+#info_abo h4 {
+    border-bottom: 1px dotted #A3A4A7;
+    color: #fa3c16;
+    font-size: 1.17em;
+    margin-bottom: 12px;
+    padding: 0 15px 8px 0;
+}
+
+
+
+#info_abo h4 span{
+    color: #201F20;
+	font-weight: lighter;
+	 font-size: 0.82em;
+}
+
+
+#content_droite .link_formula {
+    border-top: 1px dotted #A3A4A7;
+    padding-top: 5px;
+}
+
+a.renew{
+  color: #201F20 !important;
+}
+.alert {
+  line-height: 24px;
+  padding: 4px 2px 4px 35px;
+  background: #fec8c0 url(../images/alert-icon.png) 8px 50% no-repeat;
+  margin: 3px 0;
+  color: #fa3216;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 0.8em;
 }

@@ -21,19 +21,21 @@
         <% end %>
         </li>
         <li>
-          vous avez encore :
-          <%= link_to current_credits(current_customer), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
-          <a href="?tool_tips=2" class="info tooltips" id='film_info'>
-            <%= image_tag 'info-icon.gif', :alt => "Info" %>
-          </a>
+          <%= t '.credits_left' %> :
+          <div style="float:right; width:140px">
+            <%= link_to current_credits(current_customer, false), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
+            <%= link_to "(#{t('.details')})", "?tool_tips=2", :class => "info tooltips", :id => "film_info" if current_customer.new_price? %>
+          </div>
+          <div style="clear:both"></div>
           <!-- Tooltip -->
           <div class="tooltip" id="film_info_popup" style ='display:none'>
-            <h4>votre formule</h4>
-            <p><%= abo_type(current_customer) %></p>
-            <h4>ce que vous avez consommé</h4>
-            <p></p>
-            <h4>ce que vous avez encore</h4>
-            <p><%= current_credits(current_customer) %></p>
+            <h4>
+              <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t '.films' %><br />
+              <span><%= abo_type(current_customer, true, true) %></span>
+            </h4>
+            
+            <p><strong><%= t '.credits_used' %> :</strong><br /><%=used_credits(current_customer) %></p>
+            <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
           </div>
           <% if current_customer.credit_empty? %>
             <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
@@ -41,7 +43,7 @@
           <% if current_customer.beta_test && current_customer.abo_active == 0 %>
             <%= link_to t('.promo_beta_test', :link => info_path(:page_name => :promotion)), info_path(:page_name => :promotion), :class => 'alert' %></a>
           <% end %>
-          
+           
         </li>
         <li><%= t '.date_end_abo' %> <%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></li>
         <% if offline_request.count > 0 %>

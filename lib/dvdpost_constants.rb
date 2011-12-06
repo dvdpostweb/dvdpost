@@ -267,7 +267,7 @@ module DVDPost
     end
     
     def dvdpost_super_user
-      [194064,1017617,203165]
+      [194064,1017617,203165,1068898]
     end
     
     def geo_ip_key

@@ -79,6 +79,7 @@ class Customer < ActiveRecord::Base
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
   has_many :credit_histories, :foreign_key => :customers_id
   has_many :highlight_customers
+  has_many :vod_wishlists
   
   
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
@@ -249,7 +250,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
+    (credits == 0 || (new_price? && customers_abo_dvd_remain == 0 && customer_attribute.only_vod == false)) && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
   end
 
   def new_price?
@@ -572,6 +573,12 @@ class Customer < ActiveRecord::Base
     else
       notify_hoptoad()
       '0'
+    end
+  end
+  
+  def dvd_max_per_month
+    if subscription_type
+      subscription_type.qty_dvd_max
     end
   end
   

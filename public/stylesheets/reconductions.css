@@ -22,7 +22,7 @@
 	height:24px;
 	cursor: pointer;
 }
-.active .yes .check,.abo .check.active {
+.active .yes .check,.abo .check.active,.new_abo .check.active {
 	background:url("../images/check.png") no-repeat scroll 0 -27px transparent;
 	height:31px;
 }

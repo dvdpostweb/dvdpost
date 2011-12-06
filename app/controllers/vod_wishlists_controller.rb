@@ -1,0 +1,25 @@
+class VodWishlistsController < ApplicationController
+  def index
+    @token_list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products, :tokens], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available_from < :time and streaming_products.expire_at > :time and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type and tokens.updated_at > :start and tokens.updated_at < :end and tokens.customer_id = :customer_id", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]], :start => 2.week.ago.localtime, :end => Time.now, :customer_id => current_customer.to_param}])
+    @all_list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available_from < :time and streaming_products.expire_at > :time and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]], :start => 2.week.ago.localtime, :end => Time.now}])
+    @list = @all_list - @token_list
+    @soon_list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["products_media = :media and products_next = 1 and products_status != -1 and products_type = :type", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]], :start => 2.week.ago.localtime, :end => Time.now, :media => DVDPost.product_types[:vod]}])
+    @soon_list = @soon_list - @list
+  end
+
+  def destroy
+    VodWishlist.find(params[:id]).destroy
+    @div = params[:div]
+    respond_to do |format|
+      format.html {redirect_back_or  wishlist_path}
+      format.js   do
+      end
+    end
+  end
+  private
+  def redirect_back_or(path)
+    redirect_to :back
+  rescue ::ActionController::RedirectBackError
+    redirect_to path
+  end
+end
