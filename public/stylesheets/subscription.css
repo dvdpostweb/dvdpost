@@ -113,3 +113,103 @@ background-color:#97dfeb;
     padding: 10px 30px 20px;
     width: 740px;
 }
+
+
+
+/*** sub new ****/
+
+
+.title_pricing {
+	color:#FF3300;
+	text-transform: uppercase;
+
+}
+
+
+.new_abo_actuel{
+font-size:18px;
+padding-bottom:20px;
+color: #201F20;
+
+
+
+}
+
+.new_abo {
+font-size:22px;
+padding-bottom:20px;
+color: #201F20;
+
+
+
+}
+
+.formula_nomination {
+font-size:16px;
+
+}
+
+.new_abo .month {
+font-size:18px;
+
+}
+
+.check {
+	cursor: pointer;
+	height: 24px;
+	background: url("../images/check.png") no-repeat scroll 0 0 transparent;
+	
+}
+
+#pricing {
+padding-bottom:30px;
+
+
+}
+
+tr.new_abo_actuel {
+    border: 5px solid #FF3300;
+	background-color:#FFFFFF;
+	height: 70px;
+}
+
+tr.new_abo {
+    border: 1px solid #201F20;
+}
+table.new_table_abo   { border-collapse: collapse }
+
+.button_confirm_rec {
+    background: url("../images/button-anticipation.png") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    height: 52px;
+    text-shadow: 1px 1px 1px #333333;
+    width: 269px;
+}
+
+.button_confirm_rec:hover {
+    background: url("../images/button-anticipation.png") no-repeat scroll 0 -55px transparent;
+}
+button {
+    text-indent: 0;
+    white-space: inherit;
+}
+
+h2#formula {
+    color: #FA3216;
+    font-size: 2em;
+    height: 34px;
+    padding: 10px 0 0 15px;
+}
+
+#header_pricing {
+    background: url("../images/user-info-bg.gif") repeat-x scroll 0 100% #F2F2F2;
+    padding: 23px 0 18px;
+}
+.free_upgrade
+{
+  background:#a9e2f2 ;
+}

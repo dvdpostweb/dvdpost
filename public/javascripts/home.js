@@ -229,11 +229,16 @@ $(function() {
     name =$(this).attr('id')+"_popup"
     var bulle = $("#"+name);
     bulle.show()
+    return false;
   });
   $(".tooltips").live('mouseout',function(){
     name =$(this).attr('id')+"_popup"
     var bulle = $("#"+name);
-    bulle.hide();  
+    bulle.hide();
+    return false;
+  });
+  $(".tooltips").live('click',function(){
+    return false;
   });
 
 });

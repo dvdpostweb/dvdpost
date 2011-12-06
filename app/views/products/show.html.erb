@@ -33,14 +33,14 @@
                 </li>
               <% end %>
             </ul>
-            <% if params[:kind] == :adult %>
+            <% if params[:kind] == :adult && product.in_streaming_or_soon? %>
               <div>
                 <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
               </div>
             <% end %>
             <%= available_on_other_media(@product, params[:recommendation]) %>
             <%= available_on_other_language(@product, params[:recommendation]) %>
-            <% if @product.available_to_sale? && 1 == 0 %>
+            <% if 1 == 0 && @product.available_to_sale? %>
               <div id="buy">
                 <%= link_to t('.buy'), product_shop_path(@product), :title => t('.buy'), :id => 'acheter-btn', :target => :_blank %>
                 <%= "&euro; #{@product.products_sale_price}" %>

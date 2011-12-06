@@ -1,0 +1,12 @@
+<tr>
+  <td width="207" align="right"><strong><%= t 'customers.show.subscription.abo' %></strong></td>
+  <td width="141" align="left">
+    <%= abo_type(current_customer, true, true) %>
+  </td>
+</tr>
+<tr>
+  <td align="right"><strong><%= current_customer.credit_per_month == 0 ? t('customers.show.subscription.credit_vod') : t('customers.show.subscription.credit') %></strong></td>
+  <td align="left">
+    <%= current_credits(current_customer) %>
+  </td>
+</tr>

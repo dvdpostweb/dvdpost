@@ -1,6 +1,6 @@
 $(function() {
   $('#show_all').live('click',function(){
-    $('.abo').show();
+    $('.abo, .new_abo').show();
     $(this).hide();
     return false;
   });
@@ -17,8 +17,8 @@ $(function() {
     selected=1
     $('#left_content').addClass('active');
     $('#right_content').removeClass('active');
-    $('.abo .check').removeClass('active');
-    $('.abo').removeClass('active');
+    $('.abo .check, .new_abo .check').removeClass('active');
+    $('.abo, .new_abo').removeClass('active');
     $('#customer_next_abo_type_id').attr('value','')
     $('#left_content .date_recondutcion').show();
     $('#right_content .date_recondutcion').hide();
@@ -28,9 +28,9 @@ $(function() {
     right()
   });
   
-  $('.abo .check').live('click',function(){
-    $('.abo .check').removeClass('active');
-    $('.abo').removeClass('active');
+  $('.abo .check, .new_abo .check').live('click',function(){
+    $('.abo .check, .new_abo .check').removeClass('active');
+    $('.abo, .new_abo').removeClass('active');
     $(this).addClass('active');
     $(this).parent().parent().addClass('active');
     id = $(this).attr('id')

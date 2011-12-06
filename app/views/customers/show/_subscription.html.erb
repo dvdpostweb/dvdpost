@@ -5,37 +5,31 @@
   
   <div id="content_droite">
     <table cellpadding="1" cellspacing="0" border="0">
+      <% if customer.new_price? %>
+        <%= render :partial => 'customers/show/new_pricing' %>
+      <% else %>
+        <%= render :partial => 'customers/show/old_pricing' %>
+      <% end%>
       <tr>
-        <td width="207" align="right"><strong><%= t '.abo' %></strong></td>
-        <td width="141" align="left">
-          <%= abo_type(current_customer) %>
-        </td>
-      </tr>
-      <tr>
-        <td align="right"><strong><%= current_customer.credit_per_month == 0 ? t('.credit_vod') : t('.credit') %></strong></td>
-        <td align="left">
-          <%= current_credits(current_customer) %>
-        </td>
-      </tr>
-      <tr>
-        <td align="right"><strong><%= t '.count_dvd' %></strong></td>
-        <td align="left"><%= "#{@wishlist_size} DVD" %></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center">
+        <td colspan="2" align="left">
           <% if customer.actived? && customer.subscription %>
             <ul>
               <li class="links">
-                
                 <% if !current_customer.is_freetest? %>
-                  <%= link_to t('.modify_abo'), edit_customer_subscription_path(:customer_id => current_customer.to_param), :class => 'modif' %>
-                  <span><%= image_tag 'delimiter.gif' %></span>
+                  <strong><%= link_to t('.modify_abo'), edit_customer_subscription_path(:customer_id => current_customer.to_param), :class => 'renew' %></strong>
                 <% end %>
                 <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' if current_customer.suspension_status == 0 %>
               </li>
             </ul>
           <% end %>
         </td>
+      </tr>
+      <tr>
+              <td colspan="2"><div class="ligne"></div></td>
+            </tr>
+      <tr>
+        <td align="right"><strong><%= t '.count_dvd' %></strong></td>
+        <td align="left"><%= "#{@wishlist_size} DVD" %></td>
       </tr>
       <tr>
         <td colspan="2">

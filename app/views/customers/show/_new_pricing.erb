@@ -1,0 +1,19 @@
+<tr>
+  <td align="right" colspan="2">
+    <div id="info_abo">
+      <h4>
+        <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t('.films').upcase %> <br />
+        <span><%= abo_type(current_customer, true, true) %></span>
+      </h4>
+      <p><strong><%= t '.credits_used' %> :</strong><br /><%=used_credits(current_customer) %></p>
+      <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
+    </div>
+  </td>
+</tr>
+<% if current_customer.credit_empty? %>
+<tr>
+  <td colspan="2"> 
+      <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
+    </td>
+</tr>
+<% end %>
