@@ -5,6 +5,7 @@ class VodWishlistsController < ApplicationController
     @list = @all_list - @token_list
     @soon_list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["products_media = :media and products_next = 1 and products_status != -1 and products_type = :type", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]], :start => 2.week.ago.localtime, :end => Time.now, :media => DVDPost.product_types[:vod]}])
     @soon_list = @soon_list - @list
+    @display_vod = current_customer.customer_attribute.display_vod
   end
 
   def destroy
@@ -15,6 +16,12 @@ class VodWishlistsController < ApplicationController
       format.js   do
       end
     end
+  end
+
+  def display_vod
+    value = params[:value] 
+    current_customer.display_vod(value)
+    redirect_to vod_wishlists_path 
   end
   private
   def redirect_back_or(path)

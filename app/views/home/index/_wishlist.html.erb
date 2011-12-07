@@ -14,7 +14,7 @@
        </div>
       <!-- Titres chez vous ou en transit  -->
       <ul id="user-titles">
-        <li><%= t '.lent' %>: <a href="<%= wishlist_path() %>"><%= transit_items.count %> <%= t '.dvd' %></a></li>
+        <li><%= t '.lent' %> <a href="<%= wishlist_path() %>"><%= transit_items.count %> <%= t '.dvd' %></a></li>
         <li><%= t '.wishlist_size' %> : <a href="<%= wishlist_path() %>"><%= wishlist_count %> <%= t '.dvd' %></a> 
         <% if WishlistItem.good_size?(current_customer, wishlist_count) %>
           <%= link_to t('.fill_in'), products_path(), :class => 'alert' %>

@@ -1,23 +1,18 @@
 <% abo = new_abo %>
 <% if (current_customer.free_upgrade == 0 ) || (current_customer.free_upgrade == 1 && selected_abo < abo.id ) %>
   <% showing = @showing_abo > 0 ? true : false %>
- <tr style="display: table-row;" class="new_abo<%= " free_upgrade" if abo.ordered == @free_upgrade %>">
-     <td width="33"><div class="check" id ='<%= abo.id %>'></div></td>
-    <td width="200" align="center"><b><span class="title_pricing"><%= abo.credits %> <%= t '.films' %></span></b> <span class="month"><%= t '.per_month' %></span> </td>
-    <td width="20"></td>
+  <tr style="display: table-row;" class="new_abo<%= " free_upgrade" if abo.ordered == @free_upgrade %>"><td width="92"><div class="check" id ='<%= abo.id %>'></div></td>
+    <td width="280" align="left"<b><span class="title_pricing"><%= abo.credits %> <%= t '.films' %></span></b> <span class="month"><%= t '.per_month' %></span> </td>
+    <td width="30"></td>
     <td width="600" align="left">
       <% if abo.qty_dvd_max == 0 %>
         <strong> <%= abo.credits %> <%= t '.films' %></strong> <%= t '.in_vod' %>
       <% else %>
         <strong><%= abo.qty_dvd_max %> <%= t '.films' %></strong> <%= t '.all_formats' %> 
         <strong>+ <%= abo.credits - abo.qty_dvd_max %> <%= t '.films' %></strong> <%= t '.in_vod' %>
+        <%= "<br /> #{image_tag "freeupgradelogo.gif"}" if abo.ordered == @free_upgrade %>
       <% end %>
-      
     </td>
     <td align="right"><%= image_tag "pricing#{abo.credits}.png" %></td>
-   
-  </tr>
-  <tr>
-    <td colspan="4" height="10"></td>
   </tr>
 <% end %>
