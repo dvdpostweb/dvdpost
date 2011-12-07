@@ -3,43 +3,39 @@
   <!-- BIENVENUE  -->
   <!-- user info -->
   <div id="header_pricing" class="clearfix">
-    <p align="center">
-      <%= image_tag "#{I18n.locale.to_s}/title_formula.jpg"%>
-    </p>
-    <p>
-    <table width="511" cellspacing="0" cellpadding="0" border="0" class="new_table_abo" align="center">
+    <p align="center"> <%= image_tag "#{I18n.locale.to_s}/title_formula.jpg"%> </p>
+    <div class="new_abo_left">
+    <table width="400" cellspacing="0" cellpadding="0" border="0" class="new_table_abo" align="center">
       <tbody>
         <tr class="new_abo_actuel">
           <td width="20"></td>
-          <td width="400">
-            <b><span class="title_pricing"> <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t '.films' %></span></b> <span class="month"><%= t '.per_month' %></span><br />
-            <span class="formula_nomination"><%= abo_type(current_customer, false, true, true) %></span>
-          </td>
+          <td width="240"><b><span class="title_pricing"> <%= t '.current_formula' %> </span><br />
+<%= current_customer.credit_per_month %> <%= t '.films' %></b> <span class="month"><%= t '.per_month' %></span><br />
+            <span class="formula_nomination"><%= abo_type(current_customer, false, true, true) %> </td>
+          
+          <td align="right"><%= image_tag "pricing#{current_customer.credit_per_month}.png", :align => "absmiddle" %> </td>
           <td width="20"></td>
-          <td align="right">
-            <%= image_tag "pricing#{current_customer.credit_per_month}.png", :align => "absmiddle" %>
-          </td>
-           <td width="20"></td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
+    <div class="new_abo_right"><p><%= t '.description' %></p>
+</div><div class="clear"></div>
+
     </p>
   </div>
   <div id="pricing">
     <h2 id="formula" class="maven"><%= t '.all_formula' %></h2>
-    <% form_for(:customer, :url => customer_subscription_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
-      <%= f.hidden_field :next_abo_type_id %>
-      <table width="900" cellspacing="0" cellpadding="0" border="0" class="new_table_abo" align="center">
+     <% form_for(:customer, :url => customer_subscription_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
+        <%= f.hidden_field :next_abo_type_id %>
+      <table width="680" cellspacing="0" cellpadding="0" border="0" class="new_table_abo" align="left">
         <tbody>
-
-      
-        <%= render :partial => 'subscriptions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.credit_per_month, :selected_abo => current_customer.abo_type_id, :free_upgrade => @free_upgrade}%>
-       </tbody>
+          <%= render :partial => 'subscriptions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.credit_per_month, :selected_abo => current_customer.abo_type_id, :free_upgrade => @free_upgrade}%>
+        </tbody>
       </table>
-      <div align="right" >
+      <div align="left" >
         <button type="submit" class="button_confirm_rec"><%= t '.confirm' %></button>
       </div>
-    <% end %>
+     <% end %>
   </div>
 <% else %>
 <div class="upgrade">

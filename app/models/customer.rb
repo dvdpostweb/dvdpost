@@ -556,6 +556,11 @@ class Customer < ActiveRecord::Base
     customer_attribute.update_attribute(:bluray_owner, status)
   end
 
+  def display_vod(status)
+    build_customer_attribute unless customer_attribute
+    customer_attribute.update_attribute(:display_vod, status)
+  end
+
   def last_login(kind)
     build_customer_attribute unless customer_attribute
     if kind == :normal

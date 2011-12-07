@@ -106,6 +106,7 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.bluray_owner 'wishlist/bluray_owner', :controller => :wishlist_items, :action => :bluray_owner, :conditions => {:method => :get}
+    localized.display_vod 'vod_wishlists/display_vod', :controller => :vod_wishlists, :action => :display_vod, :conditions => {:method => :get}
     
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}
     localized.wishlist_start 'wishlist_start', :controller => :wishlist_items, :action => :start, :conditions => {:method => :get}
