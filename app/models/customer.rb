@@ -513,7 +513,7 @@ class Customer < ActiveRecord::Base
         Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
       end
     end
-    vod_wishlists.find_by_imdb_id(imdb_id).destroy()
+    #vod_wishlists.find_by_imdb_id(imdb_id).destroy()
   end
   
   def recondutction_ealier?
