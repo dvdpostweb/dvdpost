@@ -419,5 +419,16 @@ module ProductsHelper
     Rails.cache.delete "views//nl/products/product_0_0_#{id}"
     Rails.cache.delete "views//en/products/product_0_0_#{id}"
   end
-  
+
+  def abo_details(abo, free_upgrade=0)
+    if abo.qty_dvd_max == 0
+      details = "<strong>#{pluralize(abo.credits, t('.in_vod'), t ('.in_vods'))}</strong>"
+    else
+      details =""
+      details = "<strong>#{abo.qty_dvd_max} #{t '.films'}</strong> #{t '.all_formats'}"
+      details += "<strong> + #{pluralize(abo.credits - abo.qty_dvd_max, t('.in_vod'), t ('.in_vods'))}</strong>"
+      details += "<br /> #{image_tag "freeupgradelogo.gif"}" if abo.ordered == free_upgrade 
+    end
+    details
+  end
 end

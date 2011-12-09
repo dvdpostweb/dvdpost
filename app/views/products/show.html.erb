@@ -33,7 +33,7 @@
                 </li>
               <% end %>
             </ul>
-            <% if params[:kind] == :adult && product.in_streaming_or_soon? %>
+            <% if params[:kind] == :adult && @product.in_streaming_or_soon? %>
               <div>
                 <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
               </div>

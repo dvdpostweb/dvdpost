@@ -18,10 +18,10 @@
         </tr>
       </tbody>
     </table></div>
-    <div class="new_abo_right"><p><%= t '.description' %></p>
-</div><div class="clear"></div>
-
-    </p>
+    <div class="new_abo_right">
+      <%= t '.description' %>
+    </div>
+    <div class="clear"></div>
   </div>
   <div id="pricing">
     <h2 id="formula" class="maven"><%= t '.all_formula' %></h2>
@@ -36,6 +36,7 @@
         <button type="submit" class="button_confirm_rec"><%= t '.confirm' %></button>
       </div>
      <% end %>
+     <div style="margin:20px 45px; font-size:10px">* <%= t('.send') %></div>
   </div>
 <% else %>
 <div class="upgrade">

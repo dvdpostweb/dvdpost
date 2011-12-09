@@ -29,7 +29,7 @@
             </tr>
       <tr>
         <td align="right"><strong><%= t '.count_dvd' %></strong></td>
-        <td align="left"><%= "#{@wishlist_size} DVD" %></td>
+        <td align="left"><%= "#{@wishlist_size}" %></td>
       </tr>
       <tr>
         <td colspan="2">
@@ -53,7 +53,7 @@
       </tr>
       <tr>
         <td colspan="2" class="rotation">
-          <strong><%= "#{t('.transit')} : #{customer.orders.in_transit.count} DVD" %></strong>
+          <strong><%= "#{t('.transit')} : #{customer.orders.in_transit.count}" %></strong>
         </td>
       </tr>
       <% customer.orders.in_transit.all(:include => :product).each do |transit_item| %>
