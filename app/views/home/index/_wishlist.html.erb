@@ -29,6 +29,7 @@
           </div>
           <div style="clear:both"></div>
           <!-- Tooltip -->
+          <%= if current_customer.new_price? %>
           <div class="tooltip" id="film_info_popup" style ='display:none'>
             <h4>
               <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t '.films' %><br />
@@ -38,6 +39,7 @@
             <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
             <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
           </div>
+          <% end %>
           <% if current_customer.credit_empty? %>
             <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
           <% end %>
