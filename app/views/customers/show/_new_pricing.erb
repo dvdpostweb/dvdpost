@@ -5,7 +5,7 @@
         <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t('.films').upcase %> <br />
         <span><%= abo_type(current_customer, true, true) %></span>
       </h4>
-      <p><strong><%= t '.credits_used' %> :</strong><br /><%=used_credits(current_customer) %></p>
+      <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
       <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
     </div>
   </td>

@@ -66,6 +66,9 @@ class Product < ActiveRecord::Base
     has products_dvdpostchoice,     :as => :dvdpost_choice
     has products_id,                :as => :id
     has products_next,              :as => :next
+    has "CAST(vod_next AS SIGNED)", :type => :integer, :as => :vod_next
+    has "if(products_next = 1,1,if(vod_next=1,1,0))", :type => :integer, :as => :all_next
+    
     has products_public,            :as => :audience
     has products_year,              :as => :year
     has products_language_fr,       :as => :french
@@ -97,10 +100,10 @@ class Product < ActiveRecord::Base
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 3 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
     
     has "case 
-    when (products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'DVD' and streaming_products.imdb_id is not null and products_next = 1) then 2
-    when (products_media = 'VOD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'VOD' and products_next = 1) then 5
+    when (products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'DVD' and vod_next = 1) then 2
+    when (products_media = 'VOD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'VOD' and vod_next = 1) then 5
     when products_media = 'DVD' then 1 
-    when (products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'blueray' and streaming_products.imdb_id is not null and products_next = 1) then 4 
+    when (products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'blueray' and vod_next = 1) then 4 
     when products_media = 'blueray' then 3
     else 6 end", :type  => :integer, :as => :special_media
     has "case 
@@ -156,7 +159,9 @@ class Product < ActiveRecord::Base
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :all_next => 1, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:dvd_soon)           {{:with =>      {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1, :dvdpost_rating => 3..5}}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
@@ -198,9 +203,9 @@ class Product < ActiveRecord::Base
     products = products.by_studio(options[:studio_id]) if options[:studio_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
-    products = products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
-    products = products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
-    products = products = products.by_special_media([3,4]) if options[:filter] && options[:filter] == "bluray"
+    products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
+    products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
+    products = products.by_special_media([3,4]) if options[:filter] && options[:filter] == "bluray"
     
     if filter.media? && options[:kind] == :normal
       
@@ -428,7 +433,7 @@ class Product < ActiveRecord::Base
   end
 
   def in_streaming_or_soon?
-    streaming_products.alpha.count > 0 || vod?
+    streaming_products.alpha.count > 0 || vod_next
   end
 
   def streaming?

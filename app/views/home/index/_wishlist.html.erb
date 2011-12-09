@@ -14,8 +14,9 @@
        </div>
       <!-- Titres chez vous ou en transit  -->
       <ul id="user-titles">
-        <li><%= t '.lent' %> <a href="<%= wishlist_path() %>"><%= transit_items.count %> <%= t '.dvd' %></a></li>
-        <li><%= t '.wishlist_size' %> : <a href="<%= wishlist_path() %>"><%= wishlist_count %> <%= t '.dvd' %></a> 
+        <li><%= t '.lent' %> <a href="<%= wishlist_path() %>"><%= transit_items.count %></a></li>
+        <li><%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t '.films' %></li>
+        <li><%= t '.wishlist_size' %> : <a href="<%= wishlist_path() %>"><%= wishlist_count %></a> 
         <% if WishlistItem.good_size?(current_customer, wishlist_count) %>
           <%= link_to t('.fill_in'), products_path(), :class => 'alert' %>
         <% end %>
@@ -34,7 +35,7 @@
               <span><%= abo_type(current_customer, true, true) %></span>
             </h4>
             
-            <p><strong><%= t '.credits_used' %> :</strong><br /><%=used_credits(current_customer) %></p>
+            <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
             <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
           </div>
           <% if current_customer.credit_empty? %>

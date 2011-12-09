@@ -58,7 +58,7 @@
 
 
 .upgrade_fevr .abo_actu {
-  background:url("http://private.dvdpost.com/images/bg_white.png") no-repeat scroll 0 50% transparent;
+  background:url("/images/bg_white.png") no-repeat scroll 0 50% transparent;
   margin:0 0 0 244px;
   padding:22px 0 0 0;
   width:223px;
@@ -156,7 +156,7 @@ font-size:18px;
 .check {
 	cursor: pointer;
 	height: 24px;
-	background: url("http://staging.dvdpost.be/images/check.png") no-repeat scroll 0 0 transparent;
+	background: url(/images/check.png) no-repeat scroll 0 2px transparent;
 	
 }
 
@@ -181,7 +181,7 @@ table.new_table_abo {
 }
 
 .button_confirm_rec {
-    background: url("http://staging.dvdpost.be/images/button-anticipation.png") no-repeat scroll 0 0 transparent;
+    background: url(/images/button-anticipation.png) no-repeat scroll 0 0 transparent;
     border: medium none;
     color: white;
     cursor: pointer;
@@ -193,7 +193,7 @@ table.new_table_abo {
     width: 269px;
 }
 .button_confirm_rec:hover {
-    background: url("http://staging.dvdpost.be/images/button-anticipation.png") no-repeat scroll 0 -55px transparent;
+    background: url(/images/button-anticipation.png) no-repeat scroll 0 -55px transparent;
 }
 button {
     text-indent: 0;
@@ -208,8 +208,8 @@ h2#formula {
 }
 
 #header_pricing {
-    background: url("http://staging.dvdpost.be/images/user-info-bg.gif") repeat-x scroll 0 100% #F2F2F2;
-    padding: 23px 0 18px;
+    background: url(/images/user-info-bg.gif) repeat-x scroll 0 100% #F2F2F2;
+    padding: 0 0 18px;
 }
 .free_upgrade {
     background: none repeat scroll 0 0 #95DEEC;

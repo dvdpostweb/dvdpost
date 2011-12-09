@@ -3,8 +3,11 @@ module CustomersHelper
     if customer.new_price?
       detail = show_details ? "(DVD/Blu-ray/VOD)" : ""
       separator = inline ? " + " : "<br />"
-      long_text = long ? " #{t('home.index.wishlist.films_s')}" : ""
-      "#{customer.subscription_type.qty_dvd_max} #{t('home.index.wishlist.all_formats')} #{detail}#{separator}#{customer.credit_per_month-customer.subscription_type.qty_dvd_max}#{long_text} VOD"
+      long_text = long ? " #{t('home.index.wishlist.films_s')}" : " VOD"
+      abo = ""
+      abo += "#{pluralize(customer.subscription_type.qty_dvd_max, 'film')} #{t('home.index.wishlist.all_formats')} #{detail}#{separator}" if customer.subscription_type.qty_dvd_max > 0
+      abo += "#{customer.credit_per_month-customer.subscription_type.qty_dvd_max}#{long_text}"
+      abo
     else
       if customer.credit_per_month == 0
         t '.unlimited'
@@ -20,9 +23,9 @@ module CustomersHelper
       all_credits = customer.credits <= customer.customers_abo_dvd_remain ? customer.credits : customer.customers_abo_dvd_remain
       only_vod = (customer.credits-customer.customers_abo_dvd_remain)
       if all_credits > 0 && only_vod > 0
-        "#{all_credits} #{t('home.index.wishlist.all_formats')}#{separator}#{only_vod} VOD"
+        "#{pluralize(all_credits, 'film')} #{t('home.index.wishlist.all_formats')}#{separator}#{only_vod} VOD"
       elsif all_credits > 0 && only_vod <= 0
-        "#{all_credits} #{t('home.index.wishlist.all_formats')}"
+        "#{pluralize(all_credits, 'film')} #{t('home.index.wishlist.all_formats')}"
       elsif all_credits == 0 && only_vod > 0
         "#{only_vod} VOD"
       else
@@ -49,9 +52,9 @@ module CustomersHelper
       vod_used = total_vod_max
     end
     if total_all_used > 0 && vod_used > 0
-      "#{total_all_used} #{t('home.index.wishlist.all_formats')} + #{vod_used} VOD"
+      "#{pluralize(total_all_used, 'film')} #{t('home.index.wishlist.all_formats')} + #{vod_used} VOD"
     elsif total_all_used > 0 && vod_used <= 0
-      "#{total_all_used} #{t('home.index.wishlist.all_formats')}"
+      "#{pluralize(total_all_used, 'film')} #{t('home.index.wishlist.all_formats')}"
     elsif total_all_used == 0 && vod_used > 0
       "#{vod_used} VOD"
     else

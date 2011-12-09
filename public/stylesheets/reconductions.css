@@ -18,13 +18,12 @@
 	color:#ff3300;
 }
 .check {
-	background:url("../images/check.png") no-repeat scroll 0 0 transparent;
+	background:url("../images/check.png") no-repeat scroll 0 3px transparent;
 	height:24px;
 	cursor: pointer;
 }
 .active .yes .check,.abo .check.active,.new_abo .check.active {
-	background:url("../images/check.png") no-repeat scroll 0 -27px transparent;
-	height:31px;
+	background:url("../images/check.png") no-repeat scroll 0 -21px transparent;
 }
 .abo.active
 {
@@ -161,3 +160,45 @@ button {
 {
   cursor: pointer;
 }
+
+
+/**new**/
+table.new_table_abo {
+    border-collapse: collapse;
+    margin-left: 40px;
+}
+
+tr.new_abo_actuel {
+    background-color: #FFFFFF;
+    border: 5px solid #FF3300;
+    height: 90px;
+}
+.new_abo_actuel {
+    color: #201F20;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+
+.title_pricing {
+    color: #FF3300;
+   font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.formula_nomination {
+    font-size: 12px;
+}
+
+tr.abo {
+    border-bottom: 1px dotted #201F20;
+}
+
+.abo {
+    color: #201F20;
+    font-size: 13px;
+}
+
+.free_upgrade {
+    background: none repeat scroll 0 0 #95DEEC;
+}
+/****/

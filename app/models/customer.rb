@@ -254,7 +254,7 @@ class Customer < ActiveRecord::Base
   end
 
   def new_price?
-    subscription_type.qty_dvd_max > 0 if subscription_type
+    subscription_type.qty_dvd_max >= 0 if subscription_type
   end
 
   def suspended?
