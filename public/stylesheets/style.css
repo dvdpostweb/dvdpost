@@ -2549,7 +2549,7 @@ div.top10.first p a {
   display: inline;
 }
 
-#leftcolumn form#search, #tabs-search form#search {
+#leftcolumn form, #tabs-search form#search {
   background: url(../images/search-fld-bg.png) 0 0 no-repeat;
   display: block;
 }
@@ -2557,7 +2557,7 @@ div.top10.first p a {
  height:35px;
  width:331px;
 }
-#leftcolumn form#search #search-field, #tabs-search form#search #search-field  {
+#leftcolumn form #search-field, #tabs-search form#search #search-field  {
   background: transparent;
   border: none;
   color: white;
@@ -2568,10 +2568,10 @@ div.top10.first p a {
   outline: none;
   width: 126px;
 }
-#tabs-search form#search #search-field {
+#tabs-search form #search-field {
   width: 274px;
 }
-#leftcolumn form#search button, #tabs-search form#search button {
+#leftcolumn form button, #tabs-search form#search button {
   background: url(../images/search-btn.png) 0 0 no-repeat;
   border: none;
   cursor: pointer;
