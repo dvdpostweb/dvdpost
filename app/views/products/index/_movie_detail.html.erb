@@ -93,7 +93,7 @@
     <% if product.streaming? && streaming_access? %>
       <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token } %>
     <% elsif product.in_streaming_or_soon? && streaming_access? && product.vod_next %>
-      <%= render :partial => 'products/streaming_soon' %>
+      <%= render :partial => 'products/streaming_soon', :locals => {:product => product} %>
     <% end %>
   </div>
   

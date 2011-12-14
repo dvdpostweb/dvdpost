@@ -6,6 +6,11 @@ class InfoController < ApplicationController
         @hide_menu = true
       end
     end
+    if params[:page_name] == 'get_connected_order'
+      params[:page_name] = 'get_connected'
+      params[:order] = 1 
+    end
+
     if params[:page_name] == 'get_connected' || params[:page_name] == 'new_website'
       @locale = true
     else

@@ -1,5 +1,5 @@
 <div style="display: none;" id="video_suggestion" class="suggestion">
-  <% if current_customer && !current_customer.cable_order && params['order'] == 1 %>
+  <% if current_customer && !current_customer.cable_order && params['order'] &&  params['order'].to_i == 1 %>
     <a href="<%= new_cable_order_path %>" id ='order_new'><%= t'.order' %></a>
   <% end %>
   <h3><%= t '.video_connect'%>:</h3>

@@ -18,6 +18,18 @@ class VodWishlistsController < ApplicationController
     end
   end
 
+  def create
+    item = VodWishlist.find_by_imdb_id(params[:vod_wishlist][:imdb_id])
+    unless item
+      current_customer.vod_wishlists.create(:imdb_id => params[:vod_wishlist][:imdb_id])
+    end
+    respond_to do |format|
+      format.html {redirect_back_or  wishlist_path}
+      format.js   do
+      end
+    end
+  end
+
   def display_vod
     value = params[:value] 
     current_customer.display_vod(value)
