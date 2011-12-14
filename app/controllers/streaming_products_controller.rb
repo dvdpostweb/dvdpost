@@ -140,27 +140,24 @@ class StreamingProductsController < ApplicationController
   end
 
   def language
-    if streaming_access? 
-      if Rails.env == 'production' 
-        @streaming_subtitle = StreamingProduct.available.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
-      else
-        @streaming_subtitle = StreamingProduct.available_beta.alpha.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
-      end
-      render :partial => 'streaming_products/show/subtitles', :locals => {:streaming => @streaming_subtitle, :sample => params[:sample]}, :layout => false
+    params[:id] = DVDPost.data_sample[params[:kind]][:imdb_id]
+    if Rails.env == 'production' 
+      @streaming_subtitle = StreamingProduct.available.by_language(params[:language_id]).find_all_by_imdb_id(params[:id])
+    else
+      @streaming_subtitle = StreamingProduct.available_beta.alpha.by_language(params[:language_id]).find_all_by_imdb_id(params[:id])
     end
+    render :partial => 'streaming_products/show/subtitles', :locals => {:streaming => @streaming_subtitle, :sample => params[:sample]}, :layout => false
   end
 
   def subtitle
-    if streaming_access?
-      if Rails.env == 'production' 
-        @streaming = StreamingProduct.available.find(params[:id])
-      else
-        @streaming = StreamingProduct.available_beta.alpha.find(params[:id])
-      end
-      render :partial => 'streaming_products/show/launch', :locals => {:streaming => @streaming}, :layout => false
-      
+    if Rails.env == 'production' 
+      @streaming = StreamingProduct.available.find(params[:id])
+    else
+      @streaming = StreamingProduct.available_beta.alpha.find(params[:id])
     end
+    render :partial => 'streaming_products/show/launch', :locals => {:streaming => @streaming}, :layout => false
   end
+
   def versions
     if Rails.env == 'production' 
       @streaming_prefered = StreamingProduct.available.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
