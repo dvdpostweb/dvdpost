@@ -161,7 +161,7 @@ ActionController::Routing::Routes.draw do |map|
       
       
     end
-    localized.resources :vod_wishlists, :only => [:index, :destroy, :create]
+    localized.resources :vod_wishlists
     
     localized.resources :search_filters, :only => [:create, :destroy]
 

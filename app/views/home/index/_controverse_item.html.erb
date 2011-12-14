@@ -3,20 +3,20 @@
   <% product_title = product.title%>
   <% reviews_count = product_reviews_count(product) %>
   <li>
-    <h2><%= link_to product_title, product_path(:id => product.to_param) %></h2>
+    <h2><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h2>
     <div class="content"> 
       <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
         <% if reviews_count > 0 %>
         <div style="margin: 5px 0 0 0">
            <% text = "#{reviews_count}  #{review_title(reviews_count)}" %>
-           <%= link_to text, product_path(:id => product.to_param), :class => 'view-all' %>
+           <%= link_to text, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]), :class => 'view-all' %>
         </div>
           
         <% end %>
     <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
     </div>
     <div class="thumb"> 
-      <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %> 
+      <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %> 
     </div>
   </li>
 <% end %>

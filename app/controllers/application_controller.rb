@@ -52,10 +52,18 @@ class ApplicationController < ActionController::Base
     if Rails.env == "pre_production"
       @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).last
       unless @theme
-        @theme = ThemesEvent.selected.by_kind(params[:kind]).last
+        theme_actif_production
       end
     else
-      @theme = ThemesEvent.selected.by_kind(params[:kind]).last
+      theme_actif_production
+    end
+  end
+
+  def theme_actif_production
+    if current_customer && current_customer.site == 'lavenir'
+      @theme = ThemesEvent.find_by_id(DVDPost.theme_versavenir)
+    else
+      @theme = ThemesEvent.selected.by_kind(params[:kind]).last 
     end
   end
 

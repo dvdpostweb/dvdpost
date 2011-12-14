@@ -30,7 +30,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 
 #header h1 a {
   height: 47px;
-  width:210px;
+  width:300px;
   background: url(../images/logo-normal.png) 0 0 no-repeat;
 }
 
