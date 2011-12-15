@@ -1,18 +1,25 @@
 module CustomersHelper
-  def abo_type(customer, show_details, inline, long = false)
-    if customer.new_price?
+  def abo_type(customer, show_details, inline, long = false, next_abo = false)
+    if next_abo 
+      sub = customer.next_subscription_type
+      credits = customer.next_credit_per_month
+    else
+      sub = customer.subscription_type
+      credits = customer.credit_per_month
+    end
+    if customer.new_price? || (next_abo && customer.next_new_price?)
       detail = show_details ? "(DVD/Blu-ray/VOD)" : ""
       separator = inline ? " + " : "<br />"
       long_text = long ? " #{t('home.index.wishlist.films_s')}" : " VOD"
       abo = ""
-      abo += "#{pluralize(customer.subscription_type.qty_dvd_max, 'film')} #{t('home.index.wishlist.all_formats')} #{detail}#{separator}" if customer.subscription_type.qty_dvd_max > 0
-      abo += "#{customer.credit_per_month-customer.subscription_type.qty_dvd_max}#{long_text}"
+      abo += "#{pluralize(sub.qty_dvd_max, 'film')} #{t('home.index.wishlist.all_formats')} #{detail}#{separator}" if sub.qty_dvd_max > 0
+      abo += "#{credits - sub.qty_dvd_max}#{long_text}"
       abo
     else
       if customer.credit_per_month == 0
         t '.unlimited'
       else
-        "#{customer.credit_per_month} DVD"
+        "#{credits} DVD"
       end
     end
   end

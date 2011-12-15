@@ -257,6 +257,10 @@ class Customer < ActiveRecord::Base
     subscription_type.qty_dvd_max >= 0 if subscription_type
   end
 
+  def next_new_price?
+    next_subscription_type.qty_dvd_max >= 0 if subscription_type
+  end
+
   def suspended?
     suspension_status != 0
   end
@@ -279,6 +283,22 @@ class Customer < ActiveRecord::Base
 
   def get_credits()
     credit_histories.last
+  end
+
+  def init_credits(subscription, action)
+    credit_paid = subscription.credits
+    dvd_remain = subscription.qty_dvd_max
+    Customer.transaction do
+      begin
+        credit = self.update_attributes(:credits => credit_paid, :customers_abo_dvd_remain => dvd_remain)
+        date_added = 2.hours.from_now.localtime.to_s(:db)
+        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => 0, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_paid => credit_paid, :abo_type => subscription.to_param)
+       rescue ActiveRecord::StatementInvalid 
+         notify_credit_hoptoad('init',action,credit_paid)
+         raise ActiveRecord::Rollback
+       end
+    end
+    return true
   end
 
   def add_credit(quantity, action)
@@ -521,12 +541,23 @@ class Customer < ActiveRecord::Base
   end
 
   def reconduction_now
-    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db))
+    #update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db))
     customer_attribute.update_attribute(:credits_already_recieved, 1)
     abo_history(Subscription.action[:reconduction_ealier])
-    add_credit(next_subscription_type.credits, 15)
+    
+    manage_credits(next_subscription_type, 15)
+    #add_credit(next_subscription_type.credits, 15)
   end
-  
+
+  def manage_credits(subscription, action)
+    if subscription.qty_dvd_max != -1
+      init_credits(subscription, 15)
+    else
+      add_credit(subscription.credits, 15)
+    end
+      
+  end
+
   def abo_history(action, new_abo_type = 0)
     Subscription.create(:customer_id => self.to_param, :Action => action, :Date => Time.now().to_s(:db), :product_id => (new_abo_type.to_i > 0 ? new_abo_type : self.abo_type_id), :site => 1, :payment_method => subscription_payment_method.name.upcase)
   end
@@ -617,6 +648,15 @@ class Customer < ActiveRecord::Base
 
   def get_list_abo
     if self.new_price?
+      group = 6
+    else
+      group = 1
+    end
+    ProductAbo.get_list(group)
+  end
+
+  def get_next_list_abo
+    if self.next_new_price?
       group = 6
     else
       group = 1

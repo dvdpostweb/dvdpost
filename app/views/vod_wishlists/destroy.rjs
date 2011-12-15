@@ -1,1 +1,5 @@
-page["##{@div}"].remove();
+if @div
+  page["##{@div}"].remove();
+else
+  page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product} if @product
+end
