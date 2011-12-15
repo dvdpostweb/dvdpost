@@ -541,7 +541,7 @@ class Customer < ActiveRecord::Base
   end
 
   def reconduction_now
-    #update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db))
+    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db))
     customer_attribute.update_attribute(:credits_already_recieved, 1)
     abo_history(Subscription.action[:reconduction_ealier])
     
