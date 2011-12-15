@@ -312,7 +312,17 @@ class Product < ActiveRecord::Base
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
-    self.class.available_in_dvd.find_all_by_products_id(recommendation_ids) if recommendation_ids
+    if recommendation_ids
+      if kind == :normal
+        Product.available.by_products_id(recommendation_ids) 
+      else
+        if categories.find_by_categories_id([76,72])
+          Product.available.gay.by_products_id(recommendation_ids)
+        else
+          Product.available.hetero.by_products_id(recommendation_ids)
+        end
+      end
+    end
   end
 
   def description
