@@ -499,6 +499,15 @@ fieldset {
   text-align:center;
   width:170px;
 }
+#titles-wrap .action .load2 {
+  display:block;
+  float:left;
+  height:29px;
+  line-height:35px;
+  margin:9px 0 0;
+  text-align:center;
+  width:170px;
+}
 
 #titles-wrap .dvd .cover,#titles-wrap .vod .cover, #titles-wrap .bluray .cover {
   background: url(../images/dvd-cover-bg.png) 0 0 no-repeat;

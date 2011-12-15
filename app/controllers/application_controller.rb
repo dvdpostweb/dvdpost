@@ -140,8 +140,8 @@ class ApplicationController < ActionController::Base
   def set_country
     if session[:country_id].nil? || session[:country_id] == 0
       c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
-      if c.country_code == 0
-        notify_hoptoad("country code is empty ip : #{request.remote_ip}")
+      if c.country_code == 0 && Rails.env == "production"
+        notify_hoptoad("country code is empty ip : #{request.remote_ip}") 
       end
       session[:country_id] = c.country_code
     end

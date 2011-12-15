@@ -1,18 +1,5 @@
 <% if current_customer %>
     <div class="streaming_soon_btn"><%= t '.soon' %></div>
-    <% if 1==0 %>
-    <% if item = current_customer.vod_wishlists.find_by_imdb_id(product.imdb_id) %>
-      <% form_for(:wishlist_item, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete}) do |f| %>
-        <%= submit_tag 'moins norm', :class => 'add_norm' %>
-      <% end %>
-    <% else %>
-      <% form_for :vod_wishlist, :url => vod_wishlists_path() do |f| %>
-        <%= f.hidden_field :imdb_id, :value => product.imdb_id %>
-        <%= submit_tag 'plus norm', :class => 'add_norm' %>
-      <% end %>
-    
-    <% end %>
-    <% end %>
-<% else %>
+ <% else %>
   <%= link_to t('.soon'), php_path('step1.php'), :class => "streaming_soon_btn" %>
 <% end %>

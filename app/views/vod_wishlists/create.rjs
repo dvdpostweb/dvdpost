@@ -1,0 +1,13 @@
+if flash[:notice]
+  page << "if ($('.notice').length == 0){"
+    page[".container"].prepend("<p class='notice'>#{flash[:notice]}</p>")
+    page[".notice"].css('height','1px')
+    page[".notice"].css('padding','0')
+    page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
+    
+  page << "}else{"
+    page[".container .notice"].html(flash[:notice])
+  page << "}"
+end
+page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product} if @product
+flash.discard

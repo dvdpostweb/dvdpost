@@ -407,6 +407,12 @@ $(function() {
     return false; // prevent default behaviour
   });
   
+  $('.streaming_add_list, .streaming_remove_list').live("click", function(){
+    $(this).parent().ajaxSubmit(options);
+    $(this).parent().html("<div class='load2'><img src='/images/ajax-loader.gif' /></div>")
+    return false; // prevent default behaviour
+  });
+  
   
   $('#bluray_ok').live('click', function(){
     url = $(this).attr('href');
