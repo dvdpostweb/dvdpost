@@ -8,7 +8,7 @@
     <% if product.streaming? %>
       <% credits = product.streaming_products.first.credits %>
       <%= render :partial => 'products/streaming',  :locals => {:product => product, :token => @token} %>
-      <%= render :partial => 'products/vod_list',  :locals => {:product => product} %>
+      <% render :partial => 'products/vod_list',  :locals => {:product => product} %>
     <% elsif product.vod_next %>
       <%= render :partial => 'products/streaming_soon' %>
     

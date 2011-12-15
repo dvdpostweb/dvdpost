@@ -92,7 +92,7 @@
     <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
     <% if product.streaming? && streaming_access? %>
       <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token } %>
-      <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+      <% render :partial => 'products/vod_list', :locals => {:product => product} %>
     <% elsif product.in_streaming_or_soon? && streaming_access? && product.vod_next %>
       <%= render :partial => 'products/streaming_soon' %>
     <% end %>
