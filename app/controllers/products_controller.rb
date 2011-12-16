@@ -117,15 +117,17 @@ class ProductsController < ApplicationController
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
         
-        fragment_name = "cinopsis_#{@product.id}"
-        @cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
-           begin
-              DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-            rescue => e
-              false
-              logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
-            end
-        end
+        #fragment_name = "cinopsis_#{@product.id}"
+        #@cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
+        #   begin
+        #      DVDPost.cinopsis_critics(@product.imdb_id.to_s)
+        #    rescue => e
+        #      false
+        #      logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
+        #    end
+        #end
+        
+        @cinopsis = nil
         #@cinopsis = Marshal.load(@cinopsis) if @cinopsis
         if params[:recommendation].to_i == @wishlist_source[:recommendation] || params[:recommendation].to_i == @wishlist_source[:recommendation_product]
           Customer.send_evidence('UserRecClick', @product.to_param, current_customer, request.remote_ip)
