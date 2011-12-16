@@ -177,6 +177,7 @@ class ApplicationController < ActionController::Base
   def retrieve_recommendations(page, options = {})
     fragment_name = fragment_name_by_customer
     Product.search()
+    Rails.logger.debug { "@@@recommandation" }
     recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
       begin
         if current_customer
