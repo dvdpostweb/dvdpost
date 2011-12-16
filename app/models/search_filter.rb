@@ -55,6 +55,7 @@ class SearchFilter < ActiveRecord::Base
   end
 
   def update_with_defaults(options)
+    logger.debug { "@@@#{options.inspect}" }
     self.media            = nil || options[:media]
     self.country_id       = nil || options[:country_id]
     self.audience_min     = nil || options[:audience_min]
