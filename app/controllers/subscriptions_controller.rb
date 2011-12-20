@@ -23,12 +23,16 @@ class SubscriptionsController < ApplicationController
       if(params[:customer] != nil && params[:customer][:next_abo_type_id] && !params[:customer][:next_abo_type_id].empty?)
         new_abo = Subscription.subscription_change(current_customer, params[:customer][:next_abo_type_id])
         freeupgrade_ok = Subscription.freeupgrade(current_customer, new_abo)
-      end
-      if freeupgrade_ok
-        flash[:notice] = t('subscriptions.freeupgrade',  :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :next_abo_price => new_abo.product.price, :next_abo_credits => new_abo.credits)
+        if freeupgrade_ok
+          flash[:notice] = t('subscriptions.freeupgrade',  :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :next_abo_price => new_abo.product.price, :next_abo_credits => new_abo.credits)
+        else
+          flash[:notice] = t('subscriptions.change',  :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :next_abo_price => new_abo.product.price, :next_abo_credits => new_abo.credits)
+        end
+        redirect_to customer_path(:id => current_customer.to_param)
       else
-        flash[:notice] = t('subscriptions.change',  :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :next_abo_price => new_abo.product.price, :next_abo_credits => new_abo.credits)
+        flash[:error] = t('subscriptions.edit.abo_missing')
+        redirect_to edit_customer_subscription_path(:customer_id => current_customer.to_param)
       end
-      redirect_to customer_path(:id => current_customer.to_param)
+      
   end
 end

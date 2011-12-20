@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
-
+    before_filter :adjust_format_for_iphone
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
     render :file => "#{Rails.root}/public/404.html", :status => 404
@@ -32,9 +32,16 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-  
   protected
 
+  def adjust_format_for_iphone
+    request.format = :iphone if iphone_request?
+  end
+  # Force all iPhone users to login
+  # Return true for requests to iphone.trawlr.com
+  def iphone_request?
+    return (request.subdomains.first == "iphone" || params[:format] == "iphone")
+  end
 
   def is_it_js?
     request.format.js?
@@ -177,13 +184,11 @@ class ApplicationController < ActionController::Base
   def retrieve_recommendations(page, options = {})
     fragment_name = fragment_name_by_customer
     Product.search()
-    Rails.logger.debug { "@@@recommandation" }
     recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
       begin
         if current_customer
-          Marshal.dump(current_customer.recommendations(get_current_filter(options),options))
+          Marshal.dump(current_customer.recommendations(get_current_filter({}),options))
         else
-            
           Marshal.dump(recommendation_public(options))
         end
       rescue => e
@@ -203,11 +208,11 @@ class ApplicationController < ActionController::Base
       expire_fragment(fragment_name_by_customer)
     end
     if recommendation_items
-      data = recommendation_items.paginate(:per_page => 8, :page => page)
+      data = recommendation_items.paginate(:per_page => options[:per_page], :page => page)
       page = params[:recommendation_page].to_i
       while data.size == 0 && page > 1
         page = page - 1
-        data = recommendation_items.paginate(:per_page => 8, :page => page)
+        data = recommendation_items.paginate(:per_page => options[:per_page], :page => page)
       end
       data
     else
