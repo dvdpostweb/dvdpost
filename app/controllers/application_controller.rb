@@ -40,7 +40,9 @@ class ApplicationController < ActionController::Base
   # Force all iPhone users to login
   # Return true for requests to iphone.trawlr.com
   def iphone_request?
-    return (request.subdomains.first == "iphone" || params[:format] == "iphone")
+    Rails.logger.debug { "@@#{request.subdomains.first}" }
+    Rails.logger.debug { "@@#{request.subdomains.inspect}" }
+    return (request.subdomains.first == "iphone" || request.subdomains.first == "staging.iphone" || params[:format] == "iphone")
   end
 
   def is_it_js?

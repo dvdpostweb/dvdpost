@@ -82,7 +82,6 @@ class ProductsController < ApplicationController
     @product_title = data[:title]
     @product_image = data[:image]
     @product_description =  data[:description]
-    Rails.logger.debug { "@@@#{request.format} #{request.format.iphone?}" }
     unless request.format.xml?
       @filter = get_current_filter({})
       @product.views_increment(@product_description)
