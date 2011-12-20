@@ -157,11 +157,11 @@ class Product < ActiveRecord::Base
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
-  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
-  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :all_next => 1, :dvdpost_rating => 3..5}}}
-  sphinx_scope(:dvd_soon)           {{:with =>      {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}}}
-  sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0}}}
+  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :all_next => 1}}}
+  sphinx_scope(:dvd_soon)           {{:with =>      {:in_cinema_now => 0, :next => 1}}}
+  sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
@@ -261,7 +261,8 @@ class Product < ActiveRecord::Base
       when :popular_streaming
           products.streaming.limit(10)
       when :recommended
-        products.by_recommended_ids(filter.recommended_ids)
+        recom = products.by_recommended_ids(filter.recommended_ids).limit(50)
+        recom
       when :popular
         products.popular_new.limit(800)
       else
@@ -308,11 +309,11 @@ class Product < ActiveRecord::Base
   def recommendations(kind)
     begin
       # external service call can't be allowed to crash the app
-      recommendation_ids = DVDPost.product_linked_recommendations(self, kind)
+      recommendation_ids = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
-    if recommendation_ids
+    if recommendation_ids && !recommendation_ids.empty?
       if kind == :normal
         Product.available.by_products_id(recommendation_ids) 
       else

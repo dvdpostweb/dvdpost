@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
       else
         @carousel = Landing.by_language(I18n.locale).not_expirated.public.order(:asc).limit(5)
       end
-      @recommendations = retrieve_recommendations(params[:recommendation_page])
+      @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8})
     end
     @filter = get_current_filter({})
     if params[:search] == t('products.left_column.search')
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
           end
           session[:sort]=params[:sort] 
           
-          retrieve_recommendations(params[:page], { :sort => params[:sort]})
+          retrieve_recommendations(params[:page], params.merge(:per_page => 20))
         else
           if session[:sexuality] == 0
             new_params = params.merge(:hetero => 1) 
@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
         if params[:category_id]
           render :partial => 'products/index/streaming', :locals => {:products => @popular}
         elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}  
+          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page], {:per_page => 8})}  
         end
       }
     end  
@@ -82,6 +82,7 @@ class ProductsController < ApplicationController
     @product_title = data[:title]
     @product_image = data[:image]
     @product_description =  data[:description]
+    Rails.logger.debug { "@@@#{request.format} #{request.format.iphone?}" }
     unless request.format.xml?
       @filter = get_current_filter({})
       @product.views_increment(@product_description)
@@ -113,6 +114,7 @@ class ProductsController < ApplicationController
     end
     @collections = Collection.by_size.random
     respond_to do |format|
+      
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product) if current_customer
@@ -141,7 +143,9 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
         end
       }
-      format.xml if params[:format] == 'xml'
+      format.iphone do
+        Rails.logger.debug { "@@@iphone" }
+      end
     end
   end
 

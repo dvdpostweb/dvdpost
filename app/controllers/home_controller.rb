@@ -16,7 +16,7 @@ class HomeController < ApplicationController
           get_selection_week(params[:kind], params[:selection_kind], 1)
           render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}
         elsif params[:close_rating]
-          recommendations = retrieve_recommendations(1)
+          recommendations = retrieve_recommendations(1,{:per_page => 8})
           render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => nil}
         elsif params[:review_kind] 
           get_reviews_data(params[:review_kind], params[:highlight_page], nil)
@@ -114,7 +114,7 @@ class HomeController < ApplicationController
       rescue => e
         logger.error("Failed to retrieve news: #{e.message}")
       end
-      @recommendations = retrieve_recommendations(params[:recommendation_page])
+      @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8})
       
       if Rails.env == "pre_production"
         @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)

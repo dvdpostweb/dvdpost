@@ -7,7 +7,7 @@
         <%= link_to t("products.left_column.#{@theme.name}"), theme_path(:id => @theme.to_param), :style => "color: #{@theme.banner_menu_text_color}"%>
       <% else%>
         <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
-        <%= link_to special.name, list_products_path(:list_id => special) %>
+        <%= link_to special.name, list_products_path(:list_id => special) if special %>
       <% end %>
     </p>
     <ul id="left-nav">

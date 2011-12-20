@@ -6,7 +6,7 @@
   <% product_image_title = recommendation.description_data %>
   <% product_title = product_image_title[:title] %>
   <% image = product_image_title[:image] %>
-  <% link_to path, :class => :dvd do %>
+  <% link_to path, :class => product_media_id(recommendation.media) do %>
     <%= product_image_tag image, :width => 76, :height => 118, :alt => "#{product_title} (#{recommendation.year})" %>
     <%= content_tag(:span, '', :class => 'new') if recommendation.is_new? %>
   <% end %>
