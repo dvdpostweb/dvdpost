@@ -1,0 +1,84 @@
+<% product = @product %>
+<div style='width:100%; background: #aaaaaa'>
+  <%= @product_title %> (<%= @product.year %>)
+</div>
+<p>
+<%= image_tag @product_image, :width => 100 %>
+</p>
+
+<li>
+  <strong>
+    <%= t '.product.duration' %>
+  </strong>
+  <%= "#{product.runtime} minutes" %>
+</li>
+<li>
+  <strong>
+    <%= t '.product.genre' %>
+  </strong>
+  <% if params[:kind] == :adult %>
+    <%= product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+  <% else %>
+    <%= product.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+  <% end %>
+</li>
+<li>
+  <strong>
+    <%= t '.product.country' %>
+  </strong>
+  <%= product.country.name %>
+</li>
+<li>
+  <strong>
+    <%= t '.product.audience' %>
+  </strong>
+  <%= image_tag product.public.image, :alt => product.public.description %>
+</li>
+<p>
+<% audio_bubble = audio_bubbles(product, 2)%>
+<% unless audio_bubble[:audio].blank? %>
+  <div class='language_title'>
+    <strong>
+      <%= t '.product.audio' %>
+    </strong>
+  </div>
+  <%= audio_bubble[:audio] %>
+<% end %>
+<% subtitles = subtitle_bubbles(product, 2) %>
+<% unless subtitles[:sub].blank? %>
+  <br style ="clear:both" /><div class='language_title'>
+    <strong>
+      <%= t '.product.subtitles' %>
+    </strong>
+  </div>
+  <%= subtitles[:sub] %>
+<% end %>
+</p>
+
+
+<p>
+  <strong>
+    <%= t '.product.image' %>
+  </strong>
+  <%= product.picture_format.name if product.picture_format %><br />
+  <strong>
+    <%= t '.product.sound' %>
+  </strong>
+  <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
+</p>
+<% if product.next == 1 and product.available_at%>
+<p>
+  <strong>
+    <%= t '.product.available' %>
+  </strong>
+  <%= product.available_at.strftime("%d/%m/%Y") if product.available_at %>
+</p>
+<% end %>
+
+<% actors = product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join('<br />') %>
+<% if actors %>
+<div style='width:100%; background: #aaaaaa'>
+  <%= t '.product.actors' %>
+</div>
+  <%= actors %>
+<% end %>

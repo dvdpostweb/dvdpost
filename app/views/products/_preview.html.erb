@@ -1,8 +1,10 @@
+<% time = type == :adult ? 6 : 5 %>
+<% size = type == :adult ? 205 : 121 %>
 <div style="width:700px;margin:10px 0 0 0">
-  <% 6.times do |i| %>
+  <% time.times do |i| %>
     <% t = i + 1 %>
     <div style="float:left; margin:3px">
-    <%= image_tag product.preview_image(t), :style => 'max-width:205px' %>
+    <%= image_tag product.preview_image(t, type), :style => "max-width:#{size}px", :alt => "" %>
     </div>
   <% end %>
   <div style="clear:both"></div>

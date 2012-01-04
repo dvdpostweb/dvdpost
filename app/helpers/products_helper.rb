@@ -274,18 +274,18 @@ module ProductsHelper
     title
   end
 
-  def title_add_to_wishlist(type_text, type_button)
+  def title_add_to_wishlist(type_text, type_button, media = nil)
     if type_button == :reserve
       if type_text == :short
         t('products.wishlist.short_reserve')
       else
-        t('products.wishlist.reserve')
+        t('products.wishlist.reserve', :media => media)
       end
     else
       if type_text == :short
         t('products.wishlist.short_add')
       else
-        t('products.wishlist.add')
+        t('products.wishlist.add', :media => media)
       end
     end  
   end
@@ -298,11 +298,11 @@ module ProductsHelper
     end  
   end
 
-  def title_remove_from_wishlist(type_text)
+  def title_remove_from_wishlist(type_text, media)
     if type_text == :short
       t('products.wishlist.short_remove')
     else
-      t('products.wishlist.remove')
+      t('products.wishlist.remove', :media => media)
     end
   end
 

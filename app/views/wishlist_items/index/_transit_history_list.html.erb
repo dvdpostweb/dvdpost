@@ -1,23 +1,12 @@
 <div class="on-way-with-nav">
   <div class="box" id="on-way">
-    <ul class="<%= list_indicator_class(@wishlist_size) %>">
-      <li class="first">
-        <% if transit_items %>
-          <h2><%= t '.out' %> <span><%= "#{transit_items.count} DVD" %></span></h2>
-        <% elsif history_items %>
-          <h2><%= t '.history' %><span><%= "#{history_count} DVD" %></span></h2>
-        <% end %>
-      </li>
-      <li>
-        <h2><%= t '.contains' %> <span><%= "#{wishlist_items_count} DVD" %></span></h2>
-      </li>
-    </ul>
-    <div class="head clearfix">
-      <div class="title">
-        <%= t '.titles' %>
-      </div>
-      <div class="status"><%= t '.statuses' %></div>
-    </div>
+    <h2>
+  	<% if transit_items %>
+      <%= t '.out' %> (<%= transit_items.count %>)</span>
+    <% elsif history_items %>
+      <%= t '.history' %> (<%= history_count %>)
+    <% end %>
+    </h2>
     <% if transit_items %>
       <%= render :partial => 'wishlist_items/index/transit_item', :collection => transit_items %>
     <% elsif history_items %>
@@ -25,6 +14,7 @@
       <%= will_paginate history_items, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :history_page %>
     <% end %>
   </div>
+  
   <ul id="on-way-nav">
     <li class="first">
       <% if history_items %>

@@ -51,6 +51,7 @@ GEM
       builder
     babosa (0.3.4)
     blankslate (2.1.2.4)
+    browser (0.1.3)
     builder (3.0.0)
     bullet (2.0.1)
       uniform_notifier (~> 1.0.0)
@@ -112,6 +113,7 @@ GEM
     timed_fragment_cache (0.0.1)
     truncate_html (0.5.1)
     uniform_notifier (1.0.1)
+    useragent (0.4.5)
     warden (1.0.4)
       rack (>= 1.0)
     whenever (0.7.0)
@@ -124,6 +126,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake (~> 3.0.5)
+  browser
   bullet
   capistrano-ext
   db-charmer
@@ -143,6 +146,7 @@ DEPENDENCIES
   thinking-sphinx
   timed_fragment_cache
   truncate_html
+  useragent
   warden
   warden_oauth!
   whenever (~> 0.7.0)

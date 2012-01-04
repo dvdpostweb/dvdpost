@@ -1,5 +1,6 @@
+<% media = DVDPost.product_types.invert[product.media] %>
 <% if current_customer.wishlist_products.include?(product) %>
-  <% title = title_remove_from_wishlist(text) %>
+  <% title = title_remove_from_wishlist(text, media) %>
   <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.to_param) %>
   <% form_for(:wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => {:method => :delete, :id => "form_#{wishlist_item.product.to_param}", :class => 'remvove_from_wishlist_form'}) do |f|%>
       <%= hidden_field_tag :product_id, product.to_param %>
@@ -9,7 +10,7 @@
     </span>
   <% end %>
 <% else %>
-  <% title = title_add_to_wishlist(text, :normal) %>
+  <% title = title_add_to_wishlist(text, :normal, media) %>
     <% form_for :wishlist_item, :url => wishlist_items_path(),:html => {:method => :post} do |f| %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :priority, :value => 1 %>

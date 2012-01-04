@@ -2,7 +2,6 @@
 <div class="<%= product_media_id(wishlist_item.product.media) %> clearfix" id = "<%= "div_#{wishlist_item.product.to_param}" %>">
   <div class="title" >
     <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param) %> 
-    <%= image_tag 'oeil.gif', :alt => 'already seen', :class => 'oeil' if wishlist_item.already_rented == 'YES' %>
   </div>
   <% if wishlist_item.product.streaming? and streaming_access? %>  
     <div class="availability streaming">
@@ -11,7 +10,13 @@
     </div>
   <% else %>  
     <div class="availability">
-      <%= wishlist_item.product.next == 1 && wishlist_item.product.available_at ? wishlist_item.product.available_at.strftime("%d/%m/%Y") : '&nbsp;' %>
+      <% if wishlist_item.product.next == 1 && wishlist_item.product.available_at %> 
+        <% wishlist_item.product.available_at.strftime("%d/%m/%Y") %>
+      <% elsif wishlist_item.already_rented == 'YES' %>
+        <span class="deja-vu"><%= t '.already_seen' %></span>
+      <% else %>
+        &nbsp;
+      <% end %>
     </div>
   <% end %>
   <ul class="HML" id="<%= wishlist_item.to_param %>">

@@ -31,3 +31,6 @@ gem "friendly_id", "~> 3.2.1"
 gem "db-charmer"
 gem 'routing-filter'
 gem 'geoip'
+gem 'useragent'
+gem 'browser'
+#gem 'subdomain-fu'

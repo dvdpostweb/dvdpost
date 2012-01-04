@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
+    #before_filter :redirect_for_mobile
+    #before_filter :adjust_format_for_mobile
     before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
@@ -24,7 +26,7 @@ class ApplicationController < ActionController::Base
     before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
-    before_filter :adjust_format_for_iphone
+    
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
     render :file => "#{Rails.root}/public/404.html", :status => 404
@@ -33,16 +35,25 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
-
-  def adjust_format_for_iphone
-    request.format = :iphone if iphone_request?
+  def redirect_for_mobile
+    @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
+    #@browser.iphone? && @browser.mobile? &&
+    if current_subdomain != "m" && !cookies[:format]
+      redirect_to url_for(:controller => request.parameters['controller'], :action => request.parameters['action'], :subdomain => "m", :params => params, :only_path => false)
+    end
   end
-  # Force all iPhone users to login
-  # Return true for requests to iphone.trawlr.com
-  def iphone_request?
-    Rails.logger.debug { "@@#{request.subdomains.first}" }
-    Rails.logger.debug { "@@#{request.subdomains.inspect}" }
-    return (request.subdomains.first == "iphone" || request.subdomains.first == "staging.iphone" || params[:format] == "iphone")
+  
+  def adjust_format_for_mobile
+    if mobile_request?
+      cookies[:format] = { :value => 'mobile', :expires => 10.year.from_now, :domain => request.domain }
+      request.format = :mobile 
+    else
+      cookies[:format] = { :value => 'website', :expires => 10.year.from_now, :domain => request.domain }
+    end
+  end
+  # Force all mobile users to login
+  def mobile_request?
+    return (request.subdomains.last == "m" || params[:format] == "mobile")
   end
 
   def is_it_js?
@@ -241,7 +252,7 @@ class ApplicationController < ActionController::Base
   
   def recommendation_public(options)
     filter = get_current_filter({})
-    recommendation_ids = DVDPost.home_page_recommendations(999999999)
+    recommendation_ids = DVDPost.home_page_recommendations(999999999, I18n.locale)
     results = if recommendation_ids
       filter.update_attributes(:recommended_ids => recommendation_ids)
       options.merge!(:subtitles => [2]) if I18n.locale == :nl
@@ -251,5 +262,4 @@ class ApplicationController < ActionController::Base
       []
     end
   end
-  
 end

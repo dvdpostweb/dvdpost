@@ -1,17 +1,17 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent" >
-  <div class="top"></div>
+  <%= render :partial => 'wishlist_items/index/list_menu', :locals => {:wishlist_items_count => @wishlist_items_current.count, :vod_count => @vod_count} %>
   <!-- DVD chez vous ou en transit -->
   <% locals = @transit_or_history == 'history' ? {:transit_items => nil, :history_items => @history_items, :history_count => nil} : {:transit_items => @transit_items, :history_items => nil, :history_count => @count} %>
   <%= render :partial => 'wishlist_items/index/transit_history_list', :locals => locals.merge(:wishlist_items_count => @wishlist_items_current.count) %>
   <!-- End DVD chez vous ou en transit -->
   <!-- Ma liste de films -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items_current} %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items_current, :wishlist_count => @wishlist_items_current.count} %>
   <!-- End Ma liste de films -->
   <!-- Ma liste de films à venir -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items_future} if @wishlist_items_future.count > 0 %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items_future, :wishlist_count => @wishlist_items_future.count} if @wishlist_items_future.count > 0 %>
   <!-- End Ma liste de films à venir -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'not_available_movie', :wishlist_items => @wishlist_items_not_available} if @wishlist_items_not_available.count > 0  %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'not_available_movie', :wishlist_items => @wishlist_items_not_available, :wishlist_count => @wishlist_items_not_available.count} if @wishlist_items_not_available.count > 0  %>
   
   <span id ='confirm' style="display:none"><%= t '.confirm' %></span>
   <div class="end"></div>

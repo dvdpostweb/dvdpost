@@ -1,0 +1,5 @@
+<p class="list-show-by">
+	<%= t('.title') %>: 
+	<%= link_to 'list', display_vod_path(:value => 0), :class => "list#{display_vod == 0 ? " selected":""}" %>
+  <%= link_to 'gallery', display_vod_path(:value => 1), :class => "gallery#{display_vod == 1 ? " selected":""}" %>
+</p>
