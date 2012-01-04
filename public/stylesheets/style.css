@@ -1542,11 +1542,11 @@ padding-left: 29px;
   height: 28px;
   line-height: 29px;
   margin: 0 0 1px;
-  padding: 4px 5px 0 0;
+  padding: 2px 5px 0 0;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 1px #999999;
-  width: 166px;
+  width: 161px;
 }
 #details .cover .reserver_btn:hover {
   background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
