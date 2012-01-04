@@ -12,6 +12,10 @@ module DVDPost
       'http://www.dvdpost.be/imagesx/screenshots'
     end
 
+    def images_preview_path
+      'http://www.dvdpost.be/images/screenshots'
+    end
+
     def images_carousel_path
       "#{images_path}/landings"
     end
@@ -197,26 +201,34 @@ module DVDPost
 
     def product_linked_recommendations(product, kind, language)
       include_adult = kind == :adult ? 'DVD_ADULT' : 'DVD_NORM' 
-      #url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30&includeAdult=#{include_adult}"
-      url = "http://api182.thefilter.com/dvdpost/sandbox/video(#{product.id})/recommendation/video?$filter=availability%20gt%200.1%20AND%20genre%20eq%20#{include_adult}"
+      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30&includeAdult=#{include_adult}"
+      #url = "http://api182.thefilter.com/dvdpost/sandbox/video(#{product.id})/recommendation/video?$take=30&$filter=availability%20gt%200.1%20AND%20genre%20eq%20#{include_adult}"
       unless kind == :adult
-        url += "%20AND%20Mediatype%20eq%20BlueRay" if product.bluray?
         case language
         when :fr
           url += "%20AND%20language%20eq%20French"
         when :en
           url += "%20AND%20language%20eq%20English"
         when :nl
-          url += "%20AND%20language%20eq%20Dutch"
+          url += "%20AND%20subTitleLanguage%20eq%20Dutch"
         end
       end
       open url do |data|
-        Hpricot(data).search('//item').collect{|dvd| dvd.attributes['id'].to_i}
+        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
       end
     end
 
-    def home_page_recommendations(customer_id)
+    def home_page_recommendations(customer_id, language)
       url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer_id}&number=100&includeAdult=false&verbose=false"
+      #url ="http://api182.thefilter.com/dvdpost/sandbox/video/recommendation/video?$take=100&extUserId=#{customer_id}&$filter="
+      case language
+      when :fr
+        url += "language%20eq%20French"
+      when :en
+        url += "language%20eq%20English"
+      when :nl
+        url += "subTitleLanguage%20eq%20Dutch"
+      end
       open url do |data|
         Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
       end
@@ -396,8 +408,8 @@ module DVDPost
 
     def token_sample
       HashWithIndifferentAccess.new.merge({
-        :normal => '4ece5d45dda758.82782111',
-        :adult => '4ece5d547b6db2.40859894'
+        :normal => '4efdba3451ea46.56001561',
+        :adult => '4efdba8eda30d7.01220202'
       })
     end
     def data_sample

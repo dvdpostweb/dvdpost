@@ -388,21 +388,21 @@ fieldset {
 }
 
 #titles-wrap .action a.btn {
-  background:url("../images/ajouter-btn.png") no-repeat scroll 0 0 transparent;
-  color:white;
-  display:block;
-  float:left;
-  height:41px;
-  line-height:35px;
-  margin:0 0 0 3px;
-  padding:2px 9px 0 32px;
-  text-align:center;
-  text-decoration:none;
-  text-shadow:1px 1px 1px #999999;
-  width:126px;
+    background: url("../images/ajouter-btn.png") no-repeat scroll 0 2px transparent;
+    color: white;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 29px;
+    margin: 0 0 0 3px;
+    padding: 1px 5px 0 7px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 166px;
 }
 #titles-wrap .action a.btn:hover {
-  background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
+    background: url("../images/ajouter-btn.png") no-repeat scroll 0 -31px transparent;
 }
 
 .adult #titles-wrap .action a.btn {
@@ -412,19 +412,19 @@ fieldset {
 .adult #titles-wrap .action a.btn:hover {
   background: url(../images/ajouterxbtn.png) 0 -39px no-repeat !important;
 }
-#titles-wrap .action a.streaming_btn, #titles-wrap .action .streaming_soon_btn {
-  background:url("../images/vodbtn.png") no-repeat scroll 0 -3px transparent;
-  color:white;
-  display:block;
-  float:left;
-  height:38px;
-  line-height:35px;
-  margin:0 0 0 3px;
-  padding:1px 6px 0 25px;
-  text-align:center;
-  text-decoration:none;
-  text-shadow:1px 1px 1px #999999;
-  width:134px;
+#titles-wrap .action a.streaming_btn {
+    background: url("../images/vodbtn.png") no-repeat scroll 0 2px transparent;
+    color: white;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 29px;
+    margin: 0 0 0 3px;
+    padding: 1px 5px 0 17px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 144px;
 }
 #titles-wrap .action .streaming_soon_btn
 {
@@ -433,13 +433,13 @@ fieldset {
   width:158px;
 }
 #titles-wrap .action a.streaming_btn:hover, #titles-wrap .action .streaming_btn:hover {
-  background:url("../images/vodbtn.png") no-repeat scroll 0 -42px transparent;
+    background: url("../images/vodbtn.png") no-repeat scroll 0 -31px transparent;
 }
 #titles-wrap .action a.streaming_btn_replay {
-  background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;  display: block;
+  background: url(../images/vodbtn_replay.png) 0 -2px no-repeat;  display: block;
   float: left;
-  height: 38px;
-  line-height: 35px;
+  height: 24px;
+  line-height: 22px;
   margin: 0 0 0 3px;
   padding:1px 6px 0 25px;
   width: 134px;
@@ -449,7 +449,7 @@ fieldset {
   text-align: center;
 } 
 #titles-wrap .action a.streaming_btn_replay:hover {
-  background:url("../images/vodbtn_replay.png") no-repeat scroll 0 -42px transparent;
+  background:url("../images/vodbtn_replay.png") no-repeat scroll 0 -35px transparent;
 }
 
 #titles-wrap .action a.btn_remove {
@@ -471,25 +471,60 @@ fieldset {
 }
 
 #titles-wrap .action .btn_remove_form {
-  background: url("../images/drop-btn.png") no-repeat scroll 0 -5px transparent;
-   border: 0 none;
-   color: white;
-   display: block;
-   float: left;
-   height: 35px;
-   line-height: 35px;
-   margin: 4px 0 0 3px;
-   padding: 0 7px 5px 32px;
-   text-align: center;
-   text-decoration: none;
-   text-shadow: 1px 1px 1px #999999;
-   width: 165px;
-   cursor:pointer;
-}
-#titles-wrap .action .btn_remove_form:hover {
-  background: url(../images/drop-btn.png) 0 -44px no-repeat;
+    background: url("../images/drop-btn.png") no-repeat scroll 0 2px transparent;
+    color: white;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 29px;
+    margin: 0 0 0 3px;
+    padding: 1px 5px 0 24px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 166px;
+    border: 0;
 }
 
+#titles-wrap .action .btn_remove_form:hover {
+    background: url("../images/drop-btn.png") no-repeat scroll 0 -31px transparent;
+}
+#titles-wrap .action .reserver_btn {
+    background: url("../images/reserver-btn.png") no-repeat scroll 0 2px transparent;
+    color: #2f2e33;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 29px;
+    margin: 0 0 0 3px;
+    padding: 1px 5px 0 0;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 166px;
+}
+
+#titles-wrap .action .reserver_btn:hover {
+    background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
+}
+#titles-wrap .action a.whishlist_btn, #titles-wrap .action .streaming_soon_btn {
+    background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transparent;
+    color: white;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 29px;
+    margin: 0 0 0 3px;
+    padding: 2px 5px 0 19px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 166px;
+}
+
+#titles-wrap .action a.whishlist_btn:hover, #titles-wrap .action .streaming_btn:hover {
+    background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -31px transparent;
+}
 #titles-wrap .action .load {
   display:block;
   float:left;
@@ -581,7 +616,7 @@ a#next10 {
 
 /* My WishList Page */
 
-#mywhishlist #maincontent, #one-col #maincontent, #info #maincontent, #sponsorships #maincontent {
+#one-col #maincontent, #info #maincontent, #sponsorships #maincontent {
   background: url(../images/content-bg-wishlist.gif) 0 0 repeat-y;
   float: none;
   margin: 24px 0 24px 24px !important;
@@ -607,8 +642,16 @@ a#next10 {
   padding-left: 5px;
   width: 18px;
 }
+#mywhishlist #maincontent{
+  float: none;
+  margin: 75px 39px 25px;
+  padding: 0;
+  position: relative;
+  width: 890px;
+  border: 1px solid #9E9FA2;
 
-#mywhishlist #maincontent .top, #mywhishlist #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end, #info #maincontent .top, #info #maincontent .end, #sponsorships #maincontent .end {
+}
+#one-col #maincontent .top, #one-col #maincontent .end, #info #maincontent .top, #info #maincontent .end, #sponsorships #maincontent .end {
   background-image: url(../images/content-end-bg-wishlist.gif);
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -636,10 +679,73 @@ a#next10 {
   margin: 0 0 -18px -15px;
 }
 
-#mywhishlist .box {
-  border: 1px solid #454545;
-  width: 886px;
+#mywhishlist-nav{
+position: absolute;
+left: -1px;
+top: -35px;
+overflow: hidden;
 }
+#mywhishlist-nav li{
+float: left;
+padding: 5px 10px;
+background: #36404e;
+font-size:17px;
+color: #fff;
+height: 22px;
+line-height:22px;
+margin: 3px 0 0;
+}
+#mywhishlist-nav li a{
+color: #fff;
+}
+#mywhishlist-nav li .bluray{
+border: 0 none;
+color: #1f9ee0;
+}
+#mywhishlist-nav li .vod{
+color: #85ba17;
+border: 0 none;
+}
+#mywhishlist-nav li small{
+font-weight: normal;
+}
+
+#mywhishlist-nav li.current{
+border: 1px solid #9E9FA2;
+border-bottom: none 0;
+padding: 6px 10px;
+background: #fff;
+border-radius: 4px 4px 0 0;
+color: #191e23;
+margin: 0;
+}
+#mywhishlist-nav li.current a{
+color: #191e23;
+}
+
+
+
+
+
+#mywhishlist h2 {
+padding: 28px 0 4px;
+text-indent: 24px;
+  color: #ff3200;
+  font-size: 1.33em;
+  border-bottom: 1px solid #9E9FA2;
+}
+
+#mywhishlist .box {
+  width: 890px;
+}
+
+
+#mywhishlist .dvd, #mywhishlist .bluray, #mywhishlist .xbox, #mywhishlist .wii, #mywhishlist .vod{
+border-bottom: 1px solid #9E9FA2;
+}
+
+
+
 
 #on-way ul {
   border-bottom: 3px solid white;
@@ -672,20 +778,14 @@ a#next10 {
   border-left: none;
 }
 
-#on-way li h2 {
-  color: #454545;
-  font-size: 1.33em;
-}
 
-#on-way li h2 span {
-  font-weight: normal;
-}
 
 #on-way-nav {
   display: block;
-  margin-bottom: 20px;
-  padding: 5px 35px 0 0;
   text-align: right;
+  position: absolute;
+  right: 0;
+  top: -30px;
 }
 
 #on-way-nav li {
@@ -797,35 +897,41 @@ a#next10 {
 }
 
 .box .availability, .box .status {
-  border-left: 2px solid #FFFFFF;
   float: left;
-  padding-left: 10px;
   width: 158px;
 }
 .box .availability.streaming 
 {
-  padding:0 0 0 10px;
-  height:22px;
 }
-
+.box .availability .deja-vu{
+display: inline-block;
+padding: 0 6px;
+height: 16px;
+margin: 2px 0 0;
+line-height:16px;
+background: #ff3200;
+text-transform: uppercase;
+color: #fff;
+}
 .box .availability a.streaming_btn_replay, .box .availability a.streaming_btn  {
   background: url(../images/wishlist_vod.png) 0 2px no-repeat;
   display: block;
-  height: 22px;
-  line-height: 27px;
-  width: 149px;
+  height: 20px;
+  line-height: 20px;
+  width: 162px;
   color: white;
-  font-size: 1em;
-  text-shadow: 1px 1px 1px #555555;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
   text-decoration: none;
-  text-align: center;
+  text-indent: 20px;
 }
 .box .status {
   width: 351px;
 }
 
 .box .HML, .box .trash {
-  border-left: 2px solid #FFFFFF;
+margin: 4px 0 0;
   display: block;
   float: left;
   width: 157px;
@@ -848,41 +954,154 @@ a#next10 {
 }
 
 .box .head {
-  background: #454545;
-  border-bottom: 2px solid white;
-  color: white;
   font-size: 1.17em;
   font-weight: bold;
 }
+.my-list .head{
+position: relative;
+margin: -24px 0 0;
+}
 
 .head .title, .head .availability, .head .HML, .head .trash, .box .status {
-  line-height: 23px;
-  min-height: 23px;
+  line-height: 26px;
+  min-height: 26px;
 }
 
 * html .head .title, * html .head .availability, * html .head .HML, * html .head .trash {
   height: 23px;
 }
+#in-progress{
+position: relative;
+}
+#ready, #coming{
+position: relative;
+}
+.list-show-by{
+position: absolute;
+right: 10px;
+top: -32px;
+}
+.list-show-by .gallery{
+display: inline-block;
+width: 11px;
+height: 11px;
+background: url(../images/list-show-by.png) no-repeat right bottom;
+text-indent: -10000px; 
+vertical-align: middle;
+}
+.list-show-by .gallery.selected, .list-show-by .gallery:hover{
+background: url(../images/list-show-by.png) no-repeat right top;
+}
+.list-show-by .list{
+display: inline-block;
+width: 11px;
+height: 11px;
+background: url(../images/list-show-by.png) no-repeat left bottom;
+text-indent: -10000px; 
+vertical-align: middle;
+margin: 0 2px 0 8px;
+}
+.list-show-by .list.selected, .list-show-by .list:hover{
+background: url(../images/list-show-by.png) no-repeat left top;
+}
+#in-progress .status, #ready .status, #coming .status{
+text-align: right;
+}
+#in-progress .status .time-remaining{
+display: block;
+/*background: url(../images/time-remaining.png) no-repeat;*/
+padding: 0 30px;
+color: #191E23;
+float: left;
+}
 
+#ready .status .alert{
+display: block;
+font-weight: normal;
+color: #ff3200;
+float: left;
+}
+#ready .status .pay-per-view{
+display: block;
+padding: 0 6px;
+height: 16px;
+margin: 5px 0 0;
+font-weight: normal;
+color: white;
+background: #27C182;
+float: left;
+text-transform: uppercase;
+line-height: 16px;
+}
+
+#ready .status .streaming_btn, #ready .streaming_btn_replay, #in-progress .status .streaming_btn_replay {
+display: inline-block;
+width: 91px;
+height: 15px;
+line-height:15px;
+color: #fff;
+font-size:10px;
+font-weight: bold;
+text-transform: uppercase;
+background: url(../images/watch-vod.png) no-repeat;
+vertical-align: middle;
+margin: 0 12px 0 0;
+text-align: center;
+}
+#in-progress .status .streaming_btn_replay
+{
+  margin: 6px 26px 0 0;
+  
+}
+#ready .status .rent{
+display: inline-block;
+width: 91px;
+height: 15px;
+line-height:15px;
+color: #fff;
+font-size:10px;
+font-weight: bold;
+text-transform: uppercase;
+background: url(../images/rent-vod.png) no-repeat;
+vertical-align: middle;
+margin: 0 12px 0 0;
+text-align: center;
+}
+#ready .status .trash{
+display: inline-block;
+float: none;
+width: auto;
+vertical-align: middle;
+margin: 0;
+}
+#coming .status .trash{
+display: inline-block;
+float: none;
+width: auto;
+margin: 5px 0 0;
+}
+#coming .status .alert{
+display: block;
+font-weight: normal;
+color: #4f4f4f;
+float: left;
+}
+/*
 .box .dvd, .box .reserved {
   background: #FFFFFF url(../images/on-way-tr-bg.gif) 0 0 repeat-x;
 }
+*/
 
-.box .xbox {
-  background: #FFFFFF url(../images/xbox-bg.gif) 0 0 repeat-x;
+
+.dvd .title, .bluray .title, .reserved .title, .xbox .title, .wii .title, .vod .title {
+padding: 3px 0;
+height: 20px;
+line-height: 20px;
 }
-
-.box .wii {
-  background: #FFFFFF url(../images/wii-bg.gif) 0 0 repeat-x;
-}
-
-.dvd .title, .dvd .availability, .dvd .HML, .dvd .trash, .bluray .title, .bluray .availability, .bluray .HML, .bluray .trash, .reserved .title, .reserved .availability, .reserved .HML, .reserved .trash, .xbox .title, .xbox .availability, .xbox .HML, .xbox .trash, .wii .title, .wii .availability, .wii .HML, .wii .trash {
-  padding-bottom: 6px;
-  padding-top: 3px;
-}
-
 .dvd .availability, .bluray .availability, .title-info .availability, .reserved .availability, .xbox .availability, .wii .availability {
-  font-size: 0.92em;
+padding: 3px 0;
+height: 20px;
+font-size: 0.92em;
 }
 
 .box .short-wait {
@@ -891,10 +1110,12 @@ a#next10 {
   width: 136px;
 }
 
-.dvd .title, .bluray .title, .xbox .title, .wii .title {
+.dvd .title, .bluray .title, .xbox .title, .wii .title, .vod .title {
   background: url(../images/icon-dvd.png) 23px 0 no-repeat;
   padding-left: 62px;
   width: 461px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .dvd .title a {
@@ -926,10 +1147,6 @@ a#next10 {
   color: #909090;
 }
 
-.box .bluray {
-  background: #FFFFFF url(../images/on-way-tr-blu-ray-bg.gif) 0 0 repeat-x;
-}
-
 .bluray .title {
   background: url(../images/icon-blu-ray.png) 23px 0 no-repeat;
 }
@@ -937,7 +1154,17 @@ a#next10 {
 .bluray .title a {
   color: #2390c9;
 }
-
+.vod .title{
+padding-left: 29px;
+  width: 494px;
+ background: none;
+}
+.vod .title a {
+  color: #454545;
+}
+#coming .vod .title a {
+  color: #7d7d7d;
+}
 .title-info {
   clear: both;
 }
@@ -1269,16 +1496,16 @@ a#next10 {
 }
 
 #details .cover a.btn {
-  background:url("../images/ajouterbtn.png") no-repeat scroll 0 -3px transparent;
-  color:white;
-  display:block;
-  font-size:1em;
-  height:38px;
-  line-height:34px;
-  padding:0 8px 0 30px;
-  text-align:center;
-  text-shadow:1px 1px 1px #555555;
-  width:127px;
+  background: url("../images/ajouter-btn.png") no-repeat scroll 0 -2px transparent;
+     color: white;
+     display: block;
+     font-size: 1em;
+     height: 24px;
+     line-height: 22px;
+     padding: 0 8px 0 30px;
+     text-align: center;
+     text-shadow: 1px 1px 1px #555555;
+     width: 127px;
 }
 .adult #details .cover a.btn {
   background:url("../images/ajouterxbtn.png") no-repeat scroll 0 -3px transparent;
@@ -1288,52 +1515,70 @@ a#next10 {
   text-decoration: none;
 }
 #details .cover a.streaming_btn, #details .cover .streaming_soon_btn {
-  background: url(../images/vodbtn.png) 0 -3px no-repeat;
-  display: block;
-  height: 38px;
-  line-height: 34px;
-  width: 134px;
-  padding-left: 36px;
+  background: url("../images/vodbtn.png") no-repeat scroll 0 -2px transparent;
   color: white;
+  display: block;
   font-size: 1em;
-  text-shadow: 1px 1px 1px #555555;
+  height: 26px;
+  line-height: 24px;
+  padding-left: 28px;
   text-decoration: none;
+  text-shadow: 1px 1px 1px #555555;
+  width: 137px;
 }
 #details .cover .streaming_soon_btn {
-  background: url(../images/btn_vod_soon.png) 0 -3px no-repeat;
-  width: 169px;
-  padding-left: 1px;
-  text-align:center;
+  background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -2px transparent;
   display: table;
+  height: 26px;
+  margin: 0 0 0;
+  padding: 0 0 2px 12px;
+  text-align: center;
+  width: 169px;
+}
+#details .cover .reserver_btn {
+  background: url("../images/reserver-btn.png") no-repeat scroll 0 2px transparent;
+  color: #2f2e33;
+  display: block;
+  height: 28px;
+  line-height: 29px;
+  margin: 0 0 1px;
+  padding: 4px 5px 0 0;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  width: 166px;
+}
+#details .cover .reserver_btn:hover {
+  background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
+}
+#details .cover .streaming_soon_btn:hover {
+  background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -35px transparent;
 }
 #details .cover .streaming_btn
 {
   display: table;
   width:167px;
 }
-#details .cover a.streaming_btn.fr {
-  padding-left: 30px;
-}
 #details .cover a.streaming_btn:hover, #details .cover .streaming_btn:hover
 {
-  background: url(../images/vodbtn.png) 0 -42px no-repeat;
+  background: url(../images/vodbtn.png) 0 -35px no-repeat;
 }
 #details .cover a.streaming_btn_replay:hover
 {
-  background: url(../images/vodbtn_replay.png) 0 -42px no-repeat;
+  background: url(../images/vodbtn_replay.png) 0 -35px no-repeat;
 }
 
 #details .cover a.streaming_btn_replay {
-  background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;
-  display: block;
-  height: 38px;
-  line-height: 34px;
-  width: 130px;
-  padding-left: 36px;
+  background: url("../images/vodbtn_replay.png") no-repeat scroll 0 -2px transparent;
   color: white;
+  display: block;
   font-size: 1em;
-  text-shadow: 1px 1px 1px #555555;
+  height: 26px;
+  line-height: 24px;
+  padding-left: 36px;
   text-decoration: none;
+  text-shadow: 1px 1px 1px #555555;
+  width: 130px;
 }
 #details .cover a.streaming_btn_replay.en
 {
@@ -1346,7 +1591,7 @@ a#next10 {
   width: 144px;
 }
 #details .cover a.btn:hover {
-  background: url(../images/ajouterbtn.png) 0 100% no-repeat;
+  background: url(../images/ajouter-btn.png) 0 -35px no-repeat;
   text-decoration: none;
 }
 
@@ -1363,28 +1608,28 @@ a#next10 {
 }
 
 #details .cover a.btn_remove:hover {
-  background: url(../images/drop-btn.png) 0 -43px no-repeat;
+  background: url(../images/drop-btn.png) 0 -35px no-repeat;
   text-decoration: none;
 }
 
 
 #details .cover .btn_remove_form {
-  background: url("../images/drop-btn.png") no-repeat scroll 0 -4px transparent;
+  background: url("../images/drop-btn.png") no-repeat scroll 0 -2px transparent;
   border: 0 none;
   color: white;
   cursor: pointer;
   display: block;
   font-size: 1em;
-  height: 38px;
-  line-height: 34px;
-  padding-bottom: 6px;
-  padding-left: 30px;
+  height: 26px;
+  line-height: 24px;
+  padding-bottom: 2px;
+  padding-left: 23px;
   text-shadow: 1px 1px 1px #555555;
   width: 165px;
 }
 
 #details .cover .btn_remove_form:hover {
-  background: url(../images/drop-btn.png) 0 -43px no-repeat;
+  background: url(../images/drop-btn.png) 0 -35px no-repeat;
   text-decoration: none;
 }
 #details .cover .load {
@@ -3182,7 +3427,7 @@ a#change_password
 }
 
 #add_to_vod:hover {
-  background:url(/images/vodbtn.png) no-repeat scroll 0 -41px transparent;
+  background:url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
 }
 
 	
@@ -3192,8 +3437,8 @@ a#change_password
   color:white;
   cursor:pointer;
   display:block;
-  height:26px;
-  padding:11px 0 0 19px;
+  height:17px;
+  padding:6px 0 0 19px;
   text-align:center;
   text-decoration:none;
   text-shadow:1px 1px 1px #999999;
@@ -3993,7 +4238,7 @@ margin: 9px 0;
 }
 .wishlist_remove
 {
-  background: url("../images/trash-icon.gif") no-repeat scroll 0 0 transparent;
+  background: url("../images/trash-icon.png") no-repeat scroll 0 0 transparent;
   border: 0 none;
   cursor: pointer;
   height: 15px;

@@ -372,5 +372,4 @@ module ApplicationHelper
       {:status => false, :available => false} #streaming not free
     end
   end
-
 end

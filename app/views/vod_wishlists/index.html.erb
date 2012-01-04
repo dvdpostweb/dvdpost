@@ -1,14 +1,23 @@
-token <br />
-<%= render :partial => 'vod_wishlists/index/item', :collection => @token_list, :locals => {:display_vod => @display_vod} %>
-<div style="clear:both"></div>
-list <br />
-<%= render :partial => 'vod_wishlists/index/item', :collection => @list, :locals => {:display_vod => @display_vod} %>
-<div style="clear:both"></div>
-
-soon <br />
-<%= render :partial => 'vod_wishlists/index/item', :collection => @soon_list, :locals => {:display_vod => @display_vod} %>
-<%= link_to 'display 1', display_vod_path(:value => 0) %>
-<%= link_to 'display 2', display_vod_path(:value => 1) %>
+<div id="maincontent" >
+<%= render :partial => 'wishlist_items/index/list_menu', :locals => {:wishlist_items_count => @wishlist_items_count, :vod_count => @list.count} %>
+<h2><%= t '.token_list' %> (<%= @token_list.count %>)</h2>    	
+<div class="box" id="in-progress">
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/item', :collection => @token_list, :locals => {:display_vod => @display_vod, :type => :token} %>
+</div>
+<h2><%= t '.list' %> (<%= @list.count %>)</h2>    	
+<div class="box" id="ready">
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/item', :collection => @list, :locals => {:display_vod => @display_vod, :type => :list} %>
+</div>
+<% if @soon_list.count %>
+<h2><%= t '.soon_list' %> (<%= @soon_list.count %>)</h2>    	
+<div class="box" id="coming">
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/item', :collection => @soon_list, :locals => {:display_vod => @display_vod, :type => :soon} %>
+</div>
+<% end %>
 <span id ='confirm' style="display:none"><%= t '.confirm' %></span>
 <div id='locale' style='display:none'><%= I18n.locale %></div>
 <div id='error_delete' style='display:none'><%= t('.product_not_delete') %></div>
+</div>

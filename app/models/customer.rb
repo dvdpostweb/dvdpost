@@ -177,7 +177,7 @@ class Customer < ActiveRecord::Base
   def recommendations(filter, options)
     begin
       # external service call can't be allowed to crash the app
-      recommendation_ids = DVDPost.home_page_recommendations(self.to_param)
+      recommendation_ids = DVDPost.home_page_recommendations(self.to_param, I18n.locale)
       results = if recommendation_ids
         hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
         result_ids = recommendation_ids - hidden_ids

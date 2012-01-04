@@ -18,6 +18,10 @@ $(function() {
   $('.remvove_from_wishlist').live("click", function(){
     loader = 'ajax-loader.gif';
     title = $(this).parent().parent().parent().parent().children('.title').children().html();
+    if (title == null)
+    {
+      title = $(this).parent().parent().parent().parent().parent().children('.title').children().html()
+    }
     question = $("#confirm").html();
     if(question){
       confirm_sentence =  question.replace('[title]',title);

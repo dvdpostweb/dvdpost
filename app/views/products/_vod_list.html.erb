@@ -4,14 +4,17 @@
     <% form_for(:vod_wishlist, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete}) do |f| %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
-      <%= submit_tag 'drop from vod list', :class => 'streaming_soon_btn streaming_remove_list', :style => 'border:0px;cursor:pointer' %>
+      <%= submit_tag t('.drop'), :class => 'btn_remove_form streaming_remove_list', :style => 'border:0px;cursor:pointer' %>
     <% end %>
   <% else %>
     <% form_for :vod_wishlist, :url => vod_wishlists_path() do |f| %>
       <%= f.hidden_field :imdb_id, :value => product.imdb_id %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
-      <%= submit_tag 'add to vod list', :class => "streaming_soon_btn streaming_add_list", :style => 'border:0px;cursor:pointer' %>
+      <% text = product.vod_next ? t('.reserve') : t('.add')  %>
+      <% class_name = product.vod_next ? 'reserver_btn' : 'streaming_soon_btn'  %>
+      
+      <%= submit_tag text, :class => "#{class_name} streaming_add_list", :style => 'border:0px;cursor:pointer' %>
     <% end %>
   <% end %>
 </div>

@@ -78,6 +78,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    user_agent = UserAgent.parse(request.user_agent)
     data = @product.description_data(true)
     @product_title = data[:title]
     @product_image = data[:image]
@@ -142,8 +143,7 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
         end
       }
-      format.iphone do
-        Rails.logger.debug { "@@@iphone" }
+      format.mobile do
       end
     end
   end

@@ -392,8 +392,12 @@ class Product < ActiveRecord::Base
     {:image => image, :title => title, :description => description}
   end
   
-  def preview_image(id)
-    File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
+  def preview_image(id, kind)
+    if kind == :adult
+      File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
+    else
+      File.join(DVDPost.images_preview_path, "#{imdb_id}_#{id}.jpg")
+    end
   end
 
 
@@ -444,7 +448,11 @@ class Product < ActiveRecord::Base
   end
 
   def in_streaming_or_soon?
-    streaming_products.alpha.count > 0 || vod_next
+    if Rails.env == "pre_production"
+      streaming_products.count > 0 || vod_next
+    else
+      streaming_products.available.count > 0 || vod_next
+    end
   end
 
   def streaming?
