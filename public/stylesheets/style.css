@@ -476,7 +476,7 @@ fieldset {
     display: block;
     float: left;
     height: 28px;
-    line-height: 29px;
+    line-height: 28px;
     margin: 0 0 0 3px;
     padding: 1px 5px 0 24px;
     text-align: center;
@@ -513,7 +513,7 @@ fieldset {
     display: block;
     float: left;
     height: 28px;
-    line-height: 29px;
+    line-height: 26px;
     margin: 0 0 0 3px;
     padding: 2px 5px 0 19px;
     text-align: center;
@@ -522,13 +522,13 @@ fieldset {
     width: 166px;
 }
 
-#titles-wrap .action a.whishlist_btn:hover, #titles-wrap .action .streaming_btn:hover {
+#titles-wrap .action a.whishlist_btn:hover, #titles-wrap .action .streaming_soon_btn:hover {
     background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -31px transparent;
 }
 #titles-wrap .action .load {
   display:block;
   float:left;
-  height:41px;
+  height:20px;
   line-height:35px;
   margin:9px 0 0;
   text-align:center;
@@ -537,7 +537,7 @@ fieldset {
 #titles-wrap .action .load2 {
   display:block;
   float:left;
-  height:29px;
+  height:19px;
   line-height:35px;
   margin:9px 0 0;
   text-align:center;
@@ -1047,6 +1047,13 @@ background: url(../images/watch-vod.png) no-repeat;
 vertical-align: middle;
 margin: 0 12px 0 0;
 text-align: center;
+}
+#ready.gallery .status .streaming_btn, #ready.gallery .streaming_btn_replay, .gallery .streaming_btn_replay {
+  margin: 0 !important;
+}
+.gallery .title
+{
+  line-height: 15px !important;
 }
 #in-progress .status .streaming_btn_replay
 {
@@ -1608,20 +1615,20 @@ padding-left: 29px;
 }
 
 #details .cover a.btn_remove:hover {
-  background: url(../images/drop-btn.png) 0 -35px no-repeat;
+  background: url(../images/drop-btn.png) 0 -34px no-repeat;
   text-decoration: none;
 }
 
 
 #details .cover .btn_remove_form {
-  background: url("../images/drop-btn.png") no-repeat scroll 0 -2px transparent;
+  background: url("../images/drop-btn.png") no-repeat scroll 0 -1px transparent;
   border: 0 none;
   color: white;
   cursor: pointer;
   display: block;
   font-size: 1em;
   height: 26px;
-  line-height: 24px;
+  line-height: 22px;
   padding-bottom: 2px;
   padding-left: 23px;
   text-shadow: 1px 1px 1px #555555;
@@ -1629,14 +1636,14 @@ padding-left: 29px;
 }
 
 #details .cover .btn_remove_form:hover {
-  background: url(../images/drop-btn.png) 0 -35px no-repeat;
+  background: url(../images/drop-btn.png) 0 -34px no-repeat;
   text-decoration: none;
 }
-#details .cover .load {
+#details .cover .load,#details .cover .load2 {
   display: block;
-  height: 38px;
+  height: 26px;
   line-height: 34px;
-  width: 130px;
+  width: 169px;
   text-align:center;
 }
 
@@ -4543,4 +4550,77 @@ padding: 5px 5px 5px 5px;
 {
   color:#FF3300; 
   font-size:18px;
+}
+/*
+mywishlist VOD gallery
+*/
+
+#mywhishlist .box.gallery {
+width: 850px;
+padding: 20px;
+}
+#mywhishlist .gallery .vod{
+border: 0 none;
+width: 12.5%;
+float: left;
+text-align: center;
+}
+#mywhishlist .gallery .vod img{
+border: 1px solid #000;
+}
+.gallery .vod .title {
+padding: 0;
+width: 100%;
+text-align: center;
+height: 31px;
+overflow: hidden;
+}
+.gallery .vod .title a {
+  font-size:13px;
+  font-weight: normal;
+}
+#mywhishlist .gallery .vod .status {
+width: 100%;
+text-align: center;
+line-height: normal;
+height: 15px;
+min-height: 15px;
+float: none;
+margin: 8px 0 4px;
+position: relative;
+}
+#mywhishlist .gallery .vod .status .watch {
+margin: 0;
+}
+#mywhishlist .gallery .vod .status .alert {
+display: inline;
+font-weight: bold;
+float: none;
+font-size: 10px;
+}
+#mywhishlist .gallery .vod .status .trash {
+display: block;
+position: absolute;
+bottom: -24px;
+right: 5px;
+float: none;
+padding: 2px 4px 2px 2px;
+vertical-align: middle;
+margin: 0;
+background: white;
+}
+#mywhishlist .gallery .vod .status .pay-per-view {
+display: inline-block;
+padding: 0 6px;
+height: 15px;
+margin: 0;
+font-weight: normal;
+color: white;
+background: #27C182;
+float: none;
+text-transform: uppercase;
+line-height: 15px;
+}
+#mywhishlist .gallery .vod .status .rent {
+margin: 0;
 }

@@ -279,13 +279,13 @@ module ProductsHelper
       if type_text == :short
         t('products.wishlist.short_reserve')
       else
-        t('products.wishlist.reserve', :media => media)
+        t('products.wishlist.reserve', :media => media.upcase)
       end
     else
       if type_text == :short
         t('products.wishlist.short_add')
       else
-        t('products.wishlist.add', :media => media)
+        t('products.wishlist.add', :media => media.upcase)
       end
     end  
   end
@@ -302,7 +302,7 @@ module ProductsHelper
     if type_text == :short
       t('products.wishlist.short_remove')
     else
-      t('products.wishlist.remove', :media => media)
+      t('products.wishlist.remove', :media => media.upcase)
     end
   end
 
