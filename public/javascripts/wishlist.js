@@ -18,23 +18,34 @@ $(function() {
   $('.remvove_from_wishlist').live("click", function(){
     loader = 'ajax-loader.gif';
     title = $(this).parent().parent().parent().parent().children('.title').children().html();
+    i=1
     if (title == null)
     {
       title = $(this).parent().parent().parent().parent().parent().children('.title').children().html()
+      i=2
+    }
+    if(i==1)
+    {
+      atr='height:12px'
+    }
+    else
+    {
+      atr='height: 18px;width: 12px;'
     }
     question = $("#confirm").html();
     if(question){
       confirm_sentence =  question.replace('[title]',title);
       if (confirm(confirm_sentence)) {
         $(this).parent().parent().ajaxSubmit(options);
-        $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
+        
+        $(this).parent().html("<div style='"+atr+"'><img src='/images/"+loader+"'/></div>")
       }
       
     }
     else
     {
       $(this).parent().parent().ajaxSubmit(options);
-      $(this).parent().html("<div style='height:12px'><img src='/images/"+loader+"'/></div>")
+      $(this).parent().html("<div style='"+atr+"'><img src='/images/"+loader+"'/></div>")
       
     }
     return false; // prevent default behaviour

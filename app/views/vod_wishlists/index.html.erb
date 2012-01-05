@@ -1,20 +1,22 @@
+<% path = @display_vod == 0 ? 'vod_wishlists/index/item' : 'vod_wishlists/index/item_gallery' %>
+<% class_name = @display_vod == 0 ? '' : ' gallery clearfix' %>
 <div id="maincontent" >
 <%= render :partial => 'wishlist_items/index/list_menu', :locals => {:wishlist_items_count => @wishlist_items_count, :vod_count => @list.count} %>
 <h2><%= t '.token_list' %> (<%= @token_list.count %>)</h2>    	
-<div class="box" id="in-progress">
+<div class="box<%= class_name %>" id="in-progress">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
-  <%= render :partial => 'vod_wishlists/index/item', :collection => @token_list, :locals => {:display_vod => @display_vod, :type => :token} %>
+  <%= render :partial => path, :collection => @token_list, :locals => {:display_vod => @display_vod, :type => :token} %>
 </div>
 <h2><%= t '.list' %> (<%= @list.count %>)</h2>    	
-<div class="box" id="ready">
+<div class="box<%= class_name %>" id="ready">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
-  <%= render :partial => 'vod_wishlists/index/item', :collection => @list, :locals => {:display_vod => @display_vod, :type => :list} %>
+  <%= render :partial => path, :collection => @list, :locals => {:display_vod => @display_vod, :type => :list} %>
 </div>
 <% if @soon_list.count %>
 <h2><%= t '.soon_list' %> (<%= @soon_list.count %>)</h2>    	
-<div class="box" id="coming">
+<div class="box<%= class_name %>" id="coming">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
-  <%= render :partial => 'vod_wishlists/index/item', :collection => @soon_list, :locals => {:display_vod => @display_vod, :type => :soon} %>
+  <%= render :partial => path, :collection => @soon_list, :locals => {:display_vod => @display_vod, :type => :soon} %>
 </div>
 <% end %>
 <span id ='confirm' style="display:none"><%= t '.confirm' %></span>
