@@ -56,6 +56,8 @@ module HomeHelper
         theme_path(:id => theme.to_param)
       when 'SURVEY'
         new_survey_customer_survey_path(:survey_id => carousel.reference_id)
+      when 'CONTEST'
+        contest_path(:id => carousel.reference_id)
       when 'URL'
         eval(t(".url_#{carousel.id}"))
       end
