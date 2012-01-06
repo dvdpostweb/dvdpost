@@ -1,12 +1,12 @@
 module StreamingProductsHelper
   def flowplayer(source_file, source, streaming, token_name, browser)
     if source == StreamingProduct.source[:alphanetworks]
-      if browser.iphone? && browser.mobile?
+      if 1==1 || (browser.iphone? && browser.ipad?)
         audio = streaming.languages.by_language(:fr).first.short_alpha
         sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
         url = DVDPost.hls_url(token_name, audio, sub)
         script = <<-script
-        $("#player").html("<video  width='696' height='389' src="#{url}"></video>")
+        $("#player").html("<video  width='696' height='389' src='#{url}'></video>")
         script
         
       else
