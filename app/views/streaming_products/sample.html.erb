@@ -1,6 +1,6 @@
 <% if @streaming %>
 <div>
-  <%= flowplayer(@streaming.filename, @streaming.source, @streaming, @token_name) %>
+  <%= flowplayer(@streaming.filename, @streaming.source, @streaming, @token_name, @browser) %>
 </div>
 <% else %>
 <div id="maincontent">

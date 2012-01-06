@@ -418,6 +418,9 @@ module DVDPost
         :adult => {:imdb_id =>2, :product_id => 127276}
       })
     end
-    
+  end
+
+  def hls_url(token, audio, sub)
+    "http://vod.dvdpost.be/#{token}_#{audio}_#{sub}.m3u8"
   end
 end

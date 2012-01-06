@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
-    #before_filter :redirect_for_mobile
+    before_filter :redirect_for_mobile
     #before_filter :adjust_format_for_mobile
     before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
@@ -38,9 +38,9 @@ class ApplicationController < ActionController::Base
   def redirect_for_mobile
     @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
     #@browser.iphone? && @browser.mobile? &&
-    if current_subdomain != "m" && !cookies[:format]
-      redirect_to url_for(:controller => request.parameters['controller'], :action => request.parameters['action'], :subdomain => "m", :params => params, :only_path => false)
-    end
+    #if current_subdomain != "m" && !cookies[:format]
+    #  redirect_to url_for(:controller => request.parameters['controller'], :action => request.parameters['action'], :subdomain => "m", :params => params, :only_path => false)
+    #end
   end
   
   def adjust_format_for_mobile
