@@ -1,10 +1,19 @@
 module StreamingProductsHelper
-  def flowplayer(source_file, source, streaming, token_name)
+  def flowplayer(source_file, source, streaming, token_name, browser)
     if source == StreamingProduct.source[:alphanetworks]
-     
-     script = <<-script
-      $("#player").html("<object width='696' height='389'><param name='movie' value='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf'/><param name='FlashVars' value='src=http://vod.dvdpost.be/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/><param name='allowFullScreen' value='true'/><param name='allowscriptaccess' value='always'/><embed src='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://vod.dvdpost.be/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/></object>")
-      script
+      if browser.iphone? && browser.mobile?
+        audio = streaming.languages.by_language(:fr).first.short_alpha
+        sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
+        url = hls_url(token_name, audio, sub)
+        script = <<-script
+        $("#player").html("<video  width='696' height='389' src="#{url}"></video>")
+        script
+        
+      else
+        script = <<-script
+        $("#player").html("<object width='696' height='389'><param name='movie' value='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf'/><param name='FlashVars' value='src=http://vod.dvdpost.be/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/><param name='allowFullScreen' value='true'/><param name='allowscriptaccess' value='always'/><embed src='http://vod.dvdpost.be:8081/swf/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://vod.dvdpost.be/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/></object>")
+        script
+      end
     else
       script = <<-script
       $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},

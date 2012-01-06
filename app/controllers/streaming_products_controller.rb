@@ -126,9 +126,9 @@ class StreamingProductsController < ApplicationController
             current_customer.remove_product_from_wishlist(params[:id], request.remote_ip) if current_customer
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip) if current_customer
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version }, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end
