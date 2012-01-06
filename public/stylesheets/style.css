@@ -1535,7 +1535,7 @@ padding-left: 29px;
 }
 #details .cover .streaming_soon_btn {
   background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -2px transparent;
-  display: table;
+  display: block;
   height: 26px;
   margin: 0 0 0;
   padding: 0 0 2px 12px;
