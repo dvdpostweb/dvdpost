@@ -12,7 +12,7 @@
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
   <%= render :partial => path, :collection => @list, :locals => {:display_vod => @display_vod, :type => :list} %>
 </div>
-<% if @soon_list.count %>
+<% if @soon_list.count > 0 %>
 <h2><%= t '.soon_list' %> (<%= @soon_list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="coming">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
