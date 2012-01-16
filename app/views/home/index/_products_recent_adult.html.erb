@@ -3,7 +3,7 @@
   <ul>
     <% products.collect do |product| %>
       <li class="clearfix"> 
-        <%= link_to(image_tag(product.preview_image(7, @kind), :width => 230, :height => 162), product_path(:id => product.to_param)) %>
+        <%= link_to(image_tag(product.preview_image(7, params[:kind]), :width => 230, :height => 162), product_path(:id => product.to_param)) %>
         <h3><strong><%= link_to product.title, product_path(:id => product.to_param) %></strong></h3>
         <div class="right"> 
           <span class="rating" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
