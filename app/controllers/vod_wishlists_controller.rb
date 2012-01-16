@@ -21,7 +21,7 @@ class VodWishlistsController < ApplicationController
   end
 
   def create
-    item = VodWishlist.find_by_imdb_id(params[:vod_wishlist][:imdb_id])
+    item = current_customer.vod_wishlists.find_by_imdb_id(params[:vod_wishlist][:imdb_id])
     @submit_id = params[:vod_wishlist][:submit_id]
     @product = Product.find(params[:vod_wishlist][:product_id])
     unless item
