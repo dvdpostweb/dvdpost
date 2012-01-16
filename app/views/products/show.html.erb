@@ -49,7 +49,7 @@
             <%= image_tag 'oeil.gif', :alt => 'already seen' if @already_seen %>
           </div>
           <div class="clear"></div>
-          <%= render :partial => 'products/preview', :locals => {:product => @product, :type => @kind} %>
+          <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind]} %>
           <div id="sinopsis">
             <h3>
               <%= t '.synopsis' %>
