@@ -12,7 +12,7 @@
           <td class="body"><div class="content">
               <div id="addwishlist_title" ><%= t('.title') %></div>
              
-              <p align="center"><%= link_to t('.over18'), validation_path(:valid => 1), :id => :yes %></p>
+              <p align="center"><%= link_to t('.over18'), validation_path(:valid => 1), :id => :yes, :class => I18n.locale %></p>
               <p align="center"><%= link_to t('.under18'), root_path(:kind => :normal), :id => :no %></p>
       
                 <div id="movix_explain">

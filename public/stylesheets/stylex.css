@@ -629,7 +629,10 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   text-decoration: none;
   margin: 10px 0 0 0
 }
-
+.nl#yes
+{
+  font-size: 1.2em;
+}
 #no
 {
   background: url(../images/boutonsmall_x.png) -15px -5px;
