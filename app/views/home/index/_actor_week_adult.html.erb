@@ -10,6 +10,6 @@
     <ul>
       <%= render :partial => "/home/index/product_adult", :collection => actor_week_product %>
     </ul>
-    <div class="links"><%= link_to 'Voir toute sa filmographie', actor_products_path(:actor_id => actor.to_param, :all => 1) %></a></div>
+    <div class="links"><%= link_to t('.all'), actor_products_path(:actor_id => actor.to_param, :all => 1) %></a></div>
   </div>
 </div>

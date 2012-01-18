@@ -1,6 +1,7 @@
 <% review = coeur_item.review %>
 <% product = review.product %>
 <% if product %>
+  <% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
   <% customer = review.customer %>
   <% if params[:kind] == :adult %>
     <% reviews_count = customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count %>
@@ -43,9 +44,9 @@
         <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
       </div>
     </div>
-    <div class="thumb"> 
+    <div class="thumb">
       <%= link_to product_image_tag(product.image, :width => 97, :height => 148, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
-      <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
+      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
     </div>
   </li>
 <% end %>

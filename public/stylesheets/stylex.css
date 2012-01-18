@@ -647,7 +647,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 }
 #movix_title
 {text-align:center;}
-#nouveautes .streaming_btn {
+#nouveautes .streaming_btn, #filmographie .streaming_btn, #nouveautes .streaming_btn_replay, #filmographie .streaming_btn_replay{
   background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
   color:white;
   display:inline-block;
@@ -665,6 +665,11 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 #nouveautes .btn {
   float:right;
 }
-#nouveautes .streaming_btn:hover {
+#nouveautes .streaming_btn:hover, #filmographie .streaming_btn:hover, #nouveautes .streaming_btn_replay:hover, #filmographie .streaming_btn_replay:hover  {
   background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -30px transparent;
+}
+#filmographie .streaming_btn, #filmographie .streaming_btn_replay
+{
+  float:none;
+} 
 }

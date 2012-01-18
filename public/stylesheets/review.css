@@ -247,7 +247,7 @@ margin: -1px -2px -1px 0;
   padding-right: 15px;
   background: url(../images/hp-ttls-nav-arrow.gif) 100% 0 no-repeat;
 }
-.tab-content a.btn, .tab-content-show a.btn {
+.tab-content a.btn, .tab-content-show a.btn, .tab-content a.reserver_btn, .tab-content-show a.reserver_btn  {
   background:url(../images/ajouter-btn-mid.png) no-repeat scroll 0 0 transparent;
 color:#FFFFFF;
 display:inline-block;
@@ -266,9 +266,9 @@ font-weight: bold;
  text-shadow:-1px -1px 0 #cd5101;
 }
 #tab-content-1 li .content a.btn, #tab-content-3 li .content a.btn {
-position: absolute;
+/*position: absolute;
 left: 6px;
-bottom: 15px;
+bottom: 15px;*/
 }
 
 

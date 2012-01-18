@@ -410,7 +410,7 @@ fieldset {
 }
 
 .adult #titles-wrap .action a.btn:hover {
-  background: url(../images/ajouterxbtn.png) 0 -39px no-repeat !important;
+  background: url(../images/ajouterxbtn.png) 0 -33px no-repeat !important;
 }
 #titles-wrap .action a.streaming_btn {
     background: url("../images/vodbtn.png") no-repeat scroll 0 2px transparent;
@@ -426,14 +426,27 @@ fieldset {
     text-shadow: 1px 1px 1px #999999;
     width: 144px;
 }
-#titles-wrap .action .streaming_soon_btn
-{
-  background:url("../images/btn_vod_soon.png") no-repeat scroll 0 -3px transparent;
-  padding:1px 6px 0 1px;
-  width:158px;
-}
+
 #titles-wrap .action a.streaming_btn:hover, #titles-wrap .action .streaming_btn:hover {
     background: url("../images/vodbtn.png") no-repeat scroll 0 -31px transparent;
+}
+.adult #titles-wrap .action a.streaming_btn {
+    background: url("../images/vodxbtn.png") no-repeat scroll 0 2px transparent;
+    color: white;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 29px;
+    margin: 0 0 0 3px;
+    padding: 1px 5px 0 17px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 144px;
+}
+
+.adult #titles-wrap .action a.streaming_btn:hover, .adult #titles-wrap .action .streaming_btn:hover {
+    background: url("../images/vodxbtn.png") no-repeat scroll 0 -31px transparent;
 }
 #titles-wrap .action a.streaming_btn_replay {
   background: url(../images/vodbtn_replay.png) 0 -2px no-repeat;  display: block;
@@ -447,11 +460,34 @@ fieldset {
   text-decoration: none;
   text-shadow: 1px 1px 1px #999999;
   text-align: center;
-} 
+}
+
 #titles-wrap .action a.streaming_btn_replay:hover {
   background:url("../images/vodbtn_replay.png") no-repeat scroll 0 -35px transparent;
 }
+.adult #titles-wrap .action a.streaming_btn_replay {
+  background: url(../images/vodxbtn_replay.png) 0 -2px no-repeat;  display: block;
+  float: left;
+  height: 24px;
+  line-height: 22px;
+  margin: 0 0 0 3px;
+  padding:1px 6px 0 25px;
+  width: 134px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: center;
+}
 
+.adult #titles-wrap .action a.streaming_btn_replay:hover {
+  background:url("../images/vodxbtn_replay.png") no-repeat scroll 0 -35px transparent;
+}
+#titles-wrap .action .streaming_soon_btn
+{
+  background:url("../images/btn_vod_soon.png") no-repeat scroll 0 -3px transparent;
+  padding:1px 6px 0 1px;
+  width:158px;
+}
 #titles-wrap .action a.btn_remove {
   background: url(../images/drop-btn.png) 0 0 no-repeat;
   display: block;
@@ -523,8 +559,27 @@ fieldset {
 }
 
 #titles-wrap .action a.whishlist_btn:hover, #titles-wrap .action .streaming_soon_btn:hover {
-    background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -31px transparent;
+    background: url("../images/ajoutervodbtn.png") no-repeat scroll 0 -31px transparent;
 }
+.adult #titles-wrap .action a.whishlist_btn, .adult #titles-wrap .action .streaming_soon_btn {
+    background: url("../images/ajoutervodxbtn.png") no-repeat scroll 0 2px transparent;
+    color: white;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 26px;
+    margin: 0 0 0 3px;
+    padding: 2px 5px 0 19px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #999999;
+    width: 166px;
+}
+
+.adult #titles-wrap .action a.whishlist_btn:hover, .adult #titles-wrap .action .streaming_soon_btn:hover {
+    background: url("../images/ajoutervodxbtn.png") no-repeat scroll 0 -31px transparent;
+}
+
 #titles-wrap .action .load {
   display:block;
   float:left;
@@ -1533,8 +1588,30 @@ padding-left: 29px;
   text-shadow: 1px 1px 1px #555555;
   width: 137px;
 }
+.adult #details .cover a.streaming_btn,.adult  #details .cover .streaming_soon_btn {
+  background: url("../images/vodxbtn.png") no-repeat scroll 0 -2px transparent;
+  color: white;
+  display: block;
+  font-size: 1em;
+  height: 26px;
+  line-height: 24px;
+  padding-left: 16px;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #555;
+  width: 148px;
+  text-align: center;
+}
 #details .cover .streaming_soon_btn {
   background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -2px transparent;
+  display: block;
+  height: 26px;
+  margin: 0 0 0;
+  padding: 0 0 2px 12px;
+  text-align: center;
+  width: 169px;
+}
+.adult #details .cover .streaming_soon_btn {
+  background: url("../images/ajoutervodxbtn.png") no-repeat scroll 0 -2px transparent;
   display: block;
   height: 26px;
   margin: 0 0 0;
@@ -1561,6 +1638,9 @@ padding-left: 29px;
 #details .cover .streaming_soon_btn:hover {
   background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -35px transparent;
 }
+.adult #details .cover .streaming_soon_btn:hover {
+  background: url("../images/ajoutervodxbtn.png") no-repeat scroll 0 -35px transparent;
+}
 #details .cover .streaming_btn
 {
   display: table;
@@ -1570,13 +1650,38 @@ padding-left: 29px;
 {
   background: url(../images/vodbtn.png) 0 -35px no-repeat;
 }
+.adult #details .cover .streaming_btn
+{
+  display: table;
+  width:167px;
+}
+.adult #details .cover a.streaming_btn:hover, .adult #details .cover .streaming_btn:hover
+{
+  background: url(../images/vodxbtn.png) 0 -35px no-repeat;
+}
 #details .cover a.streaming_btn_replay:hover
 {
   background: url(../images/vodbtn_replay.png) 0 -35px no-repeat;
 }
+.adult #details .cover a.streaming_btn_replay:hover
+{
+  background: url(../images/vodxbtn_replay.png) 0 -35px no-repeat;
+}
 
 #details .cover a.streaming_btn_replay {
   background: url("../images/vodbtn_replay.png") no-repeat scroll 0 -2px transparent;
+  color: white;
+  display: block;
+  font-size: 1em;
+  height: 26px;
+  line-height: 24px;
+  padding-left: 36px;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #555555;
+  width: 130px;
+}
+.adult #details .cover a.streaming_btn_replay {
+  background: url("../images/vodxbtn_replay.png") no-repeat scroll 0 -2px transparent;
   color: white;
   display: block;
   font-size: 1em;
@@ -3451,6 +3556,24 @@ a#change_password
   text-shadow:1px 1px 1px #999999;
   width:145px;
 }
+.adult #add_to_vod:hover {
+  background:url(/images/vodxbtn.png) no-repeat scroll 0 -35px transparent;
+}
+
+	
+.adult #add_to_vod  {
+  background:url("/images/vodxbtn.png") repeat scroll 0 -2px transparent;
+  border-style:hidden;
+  color:white;
+  cursor:pointer;
+  display:block;
+  height:17px;
+  padding:6px 0 0 19px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:145px;
+}
 .error_language
 {
   text-align:center;
@@ -4623,4 +4746,25 @@ line-height: 15px;
 }
 #mywhishlist .gallery .vod .status .rent {
 margin: 0;
+}
+.adult#mywhishlist #maincontent a{
+  text-decoration: none;
+}
+#review_tab .streaming_btn, #review_tab .streaming_btn_replay{
+  background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
+  color:white;
+  display:inline-block;
+  font-size:1.09em;
+  height:27px;
+  line-height:24px;
+  padding:0 9px 0 18px;
+  text-align:center;
+  text-shadow:1px 1px 1px #999999;
+  width:62px;
+  margin: 0 0 4px 1px;
+  text-decoration:none;
+}
+
+#review_tab .streaming_btn:hover, #review_tab .streaming_btn_replay:hover  {
+  background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -30px transparent;
 }

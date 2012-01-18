@@ -1,5 +1,6 @@
 <% product = best_item.product %>
 <% if product %>
+  <% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
   <% product_title = product.title %>
   <li>
     <h2><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h2>
@@ -8,7 +9,7 @@
     <div class="average_review">(<%= best_item.average %> <%= t('.avg') %>)</div>
     <div><span class="month_review"><%= best_item.count %> <%= rating_title(best_item.count) %></span> <br /><%= t('.avg_month') %>
     </div>
-    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
+    <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
     </div>
     <div class="thumb"> 
       <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
