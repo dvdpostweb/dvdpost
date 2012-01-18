@@ -162,6 +162,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :all_next => 1}}}
   sphinx_scope(:dvd_soon)           {{:with =>      {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
+  sphinx_scope(:not_soon)           {{:with =>          {:vod_next => 0}}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
@@ -246,6 +247,9 @@ class Product < ActiveRecord::Base
       products = products.with_subtitles(options[:subtitles]) if options[:subtitles] 
     end
     products = products.dvdpost_choice if filter.dvdpost_choice?
+    if options[:not_soon]
+      products = products.not_soon 
+    end
     if options[:view_mode]
       products = case options[:view_mode].to_sym
       when :recent
