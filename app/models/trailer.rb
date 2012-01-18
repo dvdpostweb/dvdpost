@@ -56,4 +56,8 @@ class Trailer < ActiveRecord::Base
   def ecranlarge?
     broadcast_service == 'ECRANLARGE'
   end
+
+  def imineo?
+    broadcast_service == 'IMINEO'
+  end
 end

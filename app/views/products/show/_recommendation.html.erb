@@ -1,4 +1,5 @@
 <% path = product_path(:id => recommendation.to_param, :recommendation => @wishlist_source[:recommendation_product]) %>
+<% streaming_product = (recommendation.streaming? and streaming_access?) ? true : false %>
 <li>
   <div class="stars" id="rating-stars-<%= recommendation.to_param %>" product_id ="<%= recommendation.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => recommendation, :background => rating_color, :size => :small} %>
@@ -10,6 +11,6 @@
     <%= product_image_tag image, :width => 76, :height => 118, :alt => "#{product_title} (#{recommendation.year})" %>
     <%= content_tag(:span, '', :class => 'new') if recommendation.is_new? %>
   <% end %>
-  <%= render :partial => 'products/wishlist', :locals => {:product => recommendation, :text => :short, :source => @wishlist_source[:recommendation_product]} %>
+  <%= render :partial => 'products/hybrid', :locals => {:product => recommendation, :text => :short, :source => @wishlist_source[:recommendation_product], :streaming_product => streaming_product} %>
   <%= link_to product_title, path, :class => 'more' %>
 </li>
