@@ -1,11 +1,26 @@
-<% time = type == :adult ? 6 : 5 %>
-<% size = type == :adult ? 205 : 121 %>
-<div style="width:700px;margin:10px 0 0 0">
-  <% time.times do |i| %>
+<% time = type == :adult ? "max-width" : 'max-height' %>
+<% size = type == :adult ? [205, 205, 205, 205, 205, 205] : [160, 77, 77, 77, 77, 160] %>
+<% margin = type == :adult ? 0 : 10 %>
+
+<div style="width:700px;margin:10px 0 0 <%= margin %>px">
+  <% 6.times do |i| %>
     <% t = i + 1 %>
-    <div style="float:left; margin:3px">
-    <%= image_tag product.preview_image(t, type), :style => "max-width:#{size}px", :alt => "" %>
+    <% if i == 1 && type != :adult %>
+      <div style="width:204px; float:left">
+    <% end %>
+    <div style="float:left; margin:3px" >
+    <%= image_tag product.preview_image(t, type), :style => "#{time}:#{size[i]}px", :alt => "", :id => "image_#{i}" %>
     </div>
+    <% if i == 5 && type != :adult && product.trailer %>
+      <div style="float:left; margin:3px; position:absolute; left:435px;display:none" id ="trailer_mask">
+        <% img = '<img src=\'/images/play_mask.gif\' style="height:160px;width:201px" />' %>
+        <%= link_to img, product_trailer_path(:product_id => product.to_param), {:class => 'trailer'} %>
+      </div>
+    <% end %>
+    <% if i == 4 && type != :adult %>
+      </div>
+    <% end %>
+    
   <% end %>
   <div style="clear:both"></div>
 </div>
