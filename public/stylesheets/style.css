@@ -1559,15 +1559,15 @@ padding-left: 29px;
 
 #details .cover a.btn {
   background: url("../images/ajouter-btn.png") no-repeat scroll 0 -2px transparent;
-     color: white;
-     display: block;
-     font-size: 1em;
-     height: 24px;
-     line-height: 22px;
-     padding: 0 8px 0 30px;
-     text-align: center;
-     text-shadow: 1px 1px 1px #555555;
-     width: 127px;
+  color: white;
+  display: block;
+  font-size: 1em;
+  height: 24px;
+  line-height: 22px;
+  padding: 0 1px 0 21px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #555;
+  width: 143px;
 }
 .adult #details .cover a.btn {
   background:url("../images/ajouterxbtn.png") no-repeat scroll 0 -3px transparent;
@@ -1626,11 +1626,11 @@ padding-left: 29px;
   height: 28px;
   line-height: 29px;
   margin: 0 0 1px;
-  padding: 2px 5px 0 0;
+  padding: 2px 0 0 21px;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 1px #999999;
-  width: 166px;
+  width: 143px;
 }
 #details .cover .reserver_btn:hover {
   background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
@@ -4767,4 +4767,8 @@ margin: 0;
 
 #review_tab .streaming_btn:hover, #review_tab .streaming_btn_replay:hover  {
   background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -30px transparent;
+}
+.trailer_product
+{
+  background:url("../images/play_mask.gif")
 }

@@ -2,7 +2,18 @@ $(function() {
   // Ajax history, only works on the product.reviews for now
   var options_review = {
     success: show_review
+  }  
+  var img = new Image();
+  img.onload = function() {
+     height_im = this.height
+     if(height_im > 3)
+     {
+       $('#trailer_mask').show()
+     }
   }
+  img.src = $('#image_5').attr('src');
+  
+  
   function show_review(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){
       item = html_item.html(responseText);
