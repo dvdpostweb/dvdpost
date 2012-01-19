@@ -1,7 +1,5 @@
 <%= javascript '/flowplayer/flowplayer-3.2.4.min.js','/flowplayer/flowplayer.ipad-3.2.1.js' %>
 <%= javascript 'streaming_products' %>
-<%= javascript 'http://vod.dvdpost.be:8081/lib/swfobject.js' %>
-<%= javascript 'http://vod.dvdpost.be:8081/js/jquery.strobemediaplayback.js' %>
 <%= stylesheet_link_tag 'streaming_products', :media => :all %>
 <% content_for :body_id do %>one-col<% end %>
 <% content_for :title do %>VOD : <%= @product.description.title if @product %><% end %>

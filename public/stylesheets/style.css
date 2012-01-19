@@ -1632,6 +1632,10 @@ padding-left: 29px;
   text-shadow: 1px 1px 1px #999999;
   width: 143px;
 }
+#details .cover .reserver_btn.streaming_add_list
+{
+  width: 166px !important;
+}
 #details .cover .reserver_btn:hover {
   background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
 }
@@ -1939,7 +1943,7 @@ html ul.tabs li.active a:hover {
 
 #carousel {
   background: url(../images/carousel-bg.png) no-repeat;
-  height: 262px;
+  height: 297px;
   margin-bottom: 10px;
   padding: 0 30px;
   position: relative;
@@ -1973,7 +1977,7 @@ html ul.tabs li.active a:hover {
 #carousel li {
   float: left;
   font-size: 0.92em;
-  height: 226px;
+  height: 261px;
   margin: 0 5px;
   overflow: hidden;
   text-align: center;
