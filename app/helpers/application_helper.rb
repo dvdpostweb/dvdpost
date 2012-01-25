@@ -127,24 +127,12 @@ module ApplicationHelper
     "#{result}#{result.include?('?') ? '&' : '?'}language=#{I18n.locale}"
   end
 
-  def product_shop_path(product)
-    php_path "product_info_shop.php?products_id=#{product.to_param}"
-  end
-
   def product_public_path(product)
     "http://public.dvdpost.com/#{I18n.locale}/products/#{product.to_param}"
   end
 
-  def my_shop_path
-    php_path 'mydvdshop.php'
-  end
-
   def remote_carousel_path(carousel)
     php_path carousel
-  end
-
-  def shop_path(url)
-    php_path url
   end
 
   def production_path(country_id=nil)

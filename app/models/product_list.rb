@@ -5,6 +5,7 @@ class ProductList < ActiveRecord::Base
 
   named_scope :top, :conditions => {:kind => 'TOP'}
   named_scope :theme, :conditions => {:kind => 'THEME'}
+  named_scope :shop, :conditions => {:kind => 'SHOP'}
   named_scope :status, :conditions => {:status => true}
   named_scope :not_highlighted, :conditions => {:home_page => false}
   named_scope :by_kind, lambda {|kind| {:conditions => {:restriction => kind}}}

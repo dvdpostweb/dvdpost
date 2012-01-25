@@ -386,7 +386,7 @@ $(function() {
     {
       alert($('#popup_rating_error').html())
       return false;
-    } 
+    }
   });
   $(".audio_more").live('click',function(){
     $(this).parent('.movie-descr').children('.audio_hide').removeClass('audio_hide');

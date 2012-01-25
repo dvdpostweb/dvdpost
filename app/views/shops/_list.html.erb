@@ -1,0 +1,16 @@
+<br />
+<div>
+  <div class="shop">
+    <% list.collect do | item |%>
+    <span>
+    <h3><%= item.name %></h3>
+    </span>
+    <div class="selection_theme" style="border:1px solid #89f455;" id ="carousel">
+      <ul>
+        <%= render :partial => 'products/shop', :collection => item.products %>
+      </ul>       
+      <div style="clear:both"></div>
+    </div>                
+    <% end %>                                     
+  </div>
+</div>

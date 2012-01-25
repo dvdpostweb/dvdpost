@@ -567,7 +567,7 @@ a#retour
 #vod-info li#support {
 	background-image: url(../images/vod-icon.jpg);
 }
-#vod-info li#catalogue {
+#vod-info li#catalogue2 {
 	background-image: url(../images/catalogue-icon.jpg);
 }
 #vod-info li#audio {
@@ -583,7 +583,7 @@ a#retour
 .adult #vod-info li#support {
 	background-image: url(../images/vod-icon_adult.jpg);
 }
-.adult #vod-info li#catalogue {
+.adult #vod-info li#catalogue2 {
 	background-image: url(../images/catalogue-icon_adult.jpg);
 }
 .adult #vod-info li#audio {

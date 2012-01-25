@@ -55,7 +55,7 @@
       </h3>
       <p><%= link_to product.director.name, director_products_path(:director_id => product.director.to_param) %></p>
     <% end %>
-    <% if product.studio %>
+    <% if product.studio && product.adult? %>
       <h3>
         <%= t '.studio' %>
       </h3>

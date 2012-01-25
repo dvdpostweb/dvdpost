@@ -6,7 +6,7 @@
   <% 6.times do |i| %>
     <% t = i + 1 %>
     <% if i == 1 && type != :adult %>
-      <div style="width:204px; float:left">
+      <div style="width:205px; float:left">
     <% end %>
     <div style="float:left; margin:3px" >
     <%= image_tag product.preview_image(t, type), :style => "#{time}:#{size[i]}px", :alt => "", :id => "image_#{i}" %>

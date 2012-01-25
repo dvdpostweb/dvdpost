@@ -138,7 +138,9 @@ ActionController::Routing::Routes.draw do |map|
     localized.info '/info/:page_name' , :controller => :info
     #localized.themes '/themes/:page_name' , :controller => :themes
     localized.resources 'themes', :controller => :themes_events, :only => [:index, :show]
-
+    localized.resource 'shop', :controller => :shops, :only => [:show]
+    localized.resource 'shopping_cart'
+    localized.resources 'shopping_orders', :only => [:show]
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.mail_copy 'mail_copy', :controller => :customers, :action => :mail_copy, :only => [:update]
