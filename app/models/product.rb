@@ -20,6 +20,8 @@ class Product < ActiveRecord::Base
   alias_attribute :price,           :products_price
   alias_attribute :next,            :products_next
   alias_attribute :studio,          :products_studio
+  alias_attribute :qty_sale,        :quantity_to_sale
+  alias_attribute :price_sale,      :products_sale_price
   
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :studio, :foreign_key => :products_studio
@@ -256,6 +258,8 @@ class Product < ActiveRecord::Base
         products.recent
       when :soon
         products.soon
+      when :vod_soon
+        products.vod_soon
       when :cinema
         products.cinema
       when :streaming

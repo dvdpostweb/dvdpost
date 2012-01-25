@@ -80,6 +80,9 @@ class Customer < ActiveRecord::Base
   has_many :credit_histories, :foreign_key => :customers_id
   has_many :highlight_customers
   has_many :vod_wishlists
+  has_many :shopping_carts, :foreign_key => :customers_id
+  has_many :shopping_products, :through => :shopping_carts, :source => :product
+  has_many :shopping_orders, :foreign_key => :customers_id
   
   
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
@@ -533,7 +536,7 @@ class Customer < ActiveRecord::Base
         Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
       end
     end
-    #vod_wishlists.find_by_imdb_id(imdb_id).destroy()
+    vod_wishlists.find_by_imdb_id(imdb_id).destroy()
   end
   
   def recondutction_ealier?

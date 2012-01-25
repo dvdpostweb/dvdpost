@@ -1,0 +1,23 @@
+<% total = 0 %>
+<% @orders.collect do |item| %>
+<% product = item.product %>
+<li style="float:left">
+  <%= image_tag product.image, :width => 120 %><br />
+  <%= product.title %> (<%= product.price_sale %> euro)<br >
+  <p id="quantity">
+        
+        <tr>
+          <td><%= item.quantity %></td>
+        </tr>
+        
+  </p>
+  <p> total => <%= (price = item.quantity*product.price_sale) %></p>
+  <% total += price %>
+</li>
+<% end %>
+<% shipping = ShoppingCart.shipping(@count) %>
+
+<%= total %>
+<%= shipping  %>
+<% total += shipping %>
+<%= total %>

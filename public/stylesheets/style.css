@@ -559,7 +559,7 @@ fieldset {
 }
 
 #titles-wrap .action a.whishlist_btn:hover, #titles-wrap .action .streaming_soon_btn:hover {
-    background: url("../images/ajoutervodbtn.png") no-repeat scroll 0 -31px transparent;
+    background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -31px transparent;
 }
 .adult #titles-wrap .action a.whishlist_btn, .adult #titles-wrap .action .streaming_soon_btn {
     background: url("../images/ajoutervodxbtn.png") no-repeat scroll 0 2px transparent;
@@ -1606,9 +1606,9 @@ padding-left: 29px;
   display: block;
   height: 26px;
   margin: 0 0 0;
-  padding: 0 0 2px 12px;
+  padding: 0 0 2px 21px;
   text-align: center;
-  width: 169px;
+  width: 165px;
 }
 .adult #details .cover .streaming_soon_btn {
   background: url("../images/ajoutervodxbtn.png") no-repeat scroll 0 -2px transparent;
@@ -1620,24 +1620,26 @@ padding-left: 29px;
   width: 169px;
 }
 #details .cover .reserver_btn {
-  background: url("../images/reserver-btn.png") no-repeat scroll 0 2px transparent;
+  background: url("../images/reserver-btn.png") no-repeat scroll 0 -1px transparent;
   color: #2f2e33;
+  border: 0 none;
+  cursor: pointer;
   display: block;
-  height: 28px;
-  line-height: 29px;
-  margin: 0 0 1px;
-  padding: 2px 0 0 21px;
-  text-align: center;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #999999;
-  width: 143px;
+  font-size: 1em;
+  height: 26px;
+  line-height: 22px;
+  padding-bottom: 2px;
+  padding-left: 23px;
+  text-shadow: 1px 1px 1px #555;
+  width: 165px;
+  border-image: initial;
 }
 #details .cover .reserver_btn.streaming_add_list
 {
-  width: 166px !important;
+  width: 165px !important;
 }
 #details .cover .reserver_btn:hover {
-  background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
+  background: url("../images/reserver-btn.png") no-repeat scroll 0 -34px transparent;
 }
 #details .cover .streaming_soon_btn:hover {
   background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 -35px transparent;
@@ -1752,7 +1754,7 @@ padding-left: 29px;
   display: block;
   height: 26px;
   line-height: 34px;
-  width: 169px;
+  width: 162px;
   text-align:center;
 }
 
@@ -2052,7 +2054,7 @@ html ul.tabs li.active a:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
 }
-.normal #carousel li a.btn {
+.normal #carousel li a.btn, .normal #carousel li a.reserver_btn, #carousel li .btn {
   background: url(../images/ajouter-btn-mid.png) 0 -1px no-repeat;
   display: block;
   height: 27px;
@@ -2064,6 +2066,11 @@ html ul.tabs li.active a:hover {
   text-align: center;
   font-size: 1.09em;
   margin: 0 0 4px 1px;
+}
+#carousel li .btn {
+  border:none;
+  width:90px;
+  cursor: pointer;
 }
 
 .normal #carousel li a.btn:hover {
@@ -2143,6 +2150,7 @@ html ul.tabs li.active a:hover {
   font-size: 1.09em;
   margin: 0 0 4px 1px;
   border:0px;
+  cursor: pointer;
 }
 
 #carousel li .btn_remove_form:hover, .content .btn_remove_form:hover {
