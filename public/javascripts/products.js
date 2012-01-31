@@ -379,7 +379,7 @@ $(function() {
     });
     return false;
   });
-
+  var options = {};
   $("#review_submit").live('click',function(){
     value = parseInt($('#review_rating').attr('value'),10);
     if( value == 0 || value > 5 )
@@ -387,6 +387,19 @@ $(function() {
       alert($('#popup_rating_error').html())
       return false;
     }
+    t=$('#review_text').val()
+    i=$('.cover').children().children().attr('src')
+    id=$('#review_product_id').html()
+    local=$('#review_locale').html()
+    
+    f=$('#facebook').attr('checked')?1:0;
+    if(f==1)
+    {
+      postToFeed(t, i, local, id, 'reviews from dvdpost user', 'dvdpost community' );
+    }
+    $("#new_review").ajaxSubmit(options);
+    $("#review_submit").parent().html("<div style='height:42px'><img src='/images/ajax-loader.gif'/></div>")
+    return false;
   });
   $(".audio_more").live('click',function(){
     $(this).parent('.movie-descr').children('.audio_hide').removeClass('audio_hide');
@@ -447,4 +460,5 @@ $(function() {
       });
     });
   }
+  
 });

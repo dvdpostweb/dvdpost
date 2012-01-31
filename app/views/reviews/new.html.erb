@@ -15,6 +15,9 @@
 	  <p class="critical_explain_footer">
 	     <%= t('.review_warning') %>
 	  </p>
+	  <!--<p align="right">
+	    <input type="checkbox" name="facebook" id="facebook" />paratger cette critique sur facebook
+	  </p>-->
 	  <p align="right">
 	    <%= f.submit t('.create'), :class => 'review_new' %>
 	  </p>
@@ -22,4 +25,7 @@
   <br/>
 <% end %>
 <div style="display:none" id='popup_rating_error'><%= t('.rating_error')%></div>
+<div style="display:none" id='review_locale'><%= I18n.locale %></div>
+<div style="display:none" id='review_product_id'><%= @product.id %></div>
+
 </div>
