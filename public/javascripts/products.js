@@ -3,6 +3,8 @@ $(function() {
   var options_review = {
     success: show_review
   }  
+  if(($('#image_5').attr('src')!=undefined))
+  {
   var img = new Image();
   img.onload = function() {
      height_im = this.height
@@ -12,9 +14,10 @@ $(function() {
      }
   }
   img.src = $('#image_5').attr('src');
-  
+  }
   
   function show_review(responseText, statusText){
+    alert('ici')
     if(jQuery.trim(statusText) == "success"){
       item = html_item.html(responseText);
     }

@@ -10,7 +10,7 @@
   <% if trailer.trailers.first.is_new? %>
     <span class="new">New</span>
   <% end %>
-  <h3><%= product_title %></h3>
+  <h3><%= link_to product_title, product_path(:id => trailer.id)  %></h3>
   <p><%= actors = trailer.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %></p>
 </li>
 <% end %>
