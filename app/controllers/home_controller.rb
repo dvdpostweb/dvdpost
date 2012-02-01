@@ -87,12 +87,13 @@ class HomeController < ApplicationController
     if(kind == :adult)
       @newsletter_x = current_customer.customer_attribute.newsletters_x
       @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
-      @actor_week = Actor.find_by_focus(1)
-      @actor_week_product = Product.search.by_kind(:adult).available.by_actor(@actor_week.id).random().limit(4)
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
+      @trailers_week = Product.all(:joins => :trailers, :conditions => {"products_trailers.focus" => 1, "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]})
+      @trailers = Product.all(:joins => :trailers, :conditions => { :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
+      @banners = ProductList.theme.by_kind(kind.to_s).by_style(:vod).find_by_home_page(true).products.paginate(:per_page => 3, :page => 1)
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
       if Rails.env == "pre_production"
         @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)

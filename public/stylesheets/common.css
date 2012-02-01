@@ -539,3 +539,7 @@ padding-top:2px;
   position:relative;
   z-index:10;
 }
+.fb_class{
+  height: 16px;
+  vertical-align: top;
+}

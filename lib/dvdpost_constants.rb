@@ -16,6 +16,22 @@ module DVDPost
       'http://www.dvdpost.be/images/screenshots'
     end
 
+    def imagesx_trailer_path
+      'http://www.dvdpost.be/images/trailersx'
+    end
+
+    def images_trailer_path
+      'http://www.dvdpost.be/images/trailers'
+    end
+
+    def imagesx_banner_path
+      'http://www.dvdpost.be/images/bannersx'
+    end
+
+    def images_banner_path
+      'http://www.dvdpost.be/images/banners'
+    end
+
     def images_carousel_path
       "#{images_path}/landings"
     end
