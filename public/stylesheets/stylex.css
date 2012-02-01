@@ -682,6 +682,7 @@ a.trailer-week {
   width: 298px;
   height: 253px;
   margin-left: 10px;
+  
 }
 a.trailer-week span {
   position: absolute;
@@ -697,6 +698,8 @@ a.trailer-week span strong {
   display: block;
   text-transform: uppercase;
   margin-top: 5px;
+  height: 20px;
+  overflow: hidden;
 }
 #bandes-annonces {
   float: left;
