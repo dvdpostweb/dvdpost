@@ -14,7 +14,7 @@ class Trailer < ActiveRecord::Base
   named_scope :focus, :conditions => {:focus => true}
 
   def is_new?
-    created_at.utc > 3.months.ago if created_at
+    created_at > 3.months.ago if created_at
   end
 
   def url
