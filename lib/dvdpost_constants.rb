@@ -17,7 +17,7 @@ module DVDPost
     end
 
     def imagesx_trailer_path
-      'http://www.dvdpost.be/images/trailersx'
+      'http://www.dvdpost.be/imagesx/trailers'
     end
 
     def images_trailer_path
@@ -25,7 +25,7 @@ module DVDPost
     end
 
     def imagesx_banner_path
-      'http://www.dvdpost.be/images/bannersx'
+      'http://www.dvdpost.be/imagesx/banners'
     end
 
     def images_banner_path
