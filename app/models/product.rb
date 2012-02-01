@@ -408,6 +408,21 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def trailer_image(kind)
+    if kind == :adult
+      File.join(DVDPost.imagesx_trailer_path, "#{id}.jpg")
+    else
+      File.join(DVDPost.images_trailer_path, "#{id}.jpg")
+    end
+  end
+
+  def banner_image(kind)
+    if kind == :adult
+      File.join(DVDPost.imagesx_banner_path, "#{id}.jpg")
+    else
+      File.join(DVDPost.images_banner_path, "#{id}.jpg")
+    end
+  end
 
   def rating(customer=nil)
     if customer && customer.has_rated?(self)

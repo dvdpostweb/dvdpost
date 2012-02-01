@@ -391,11 +391,11 @@ $(function() {
     i=$('.cover').children().children().attr('src')
     id=$('#review_product_id').html()
     local=$('#review_locale').html()
-    
+    title = $('#detail-wrap h2').html()
     f=$('#facebook').attr('checked')?1:0;
     if(f==1)
     {
-      postToFeed(t, i, local, id, 'reviews from dvdpost user', 'dvdpost community' );
+      postToFeed(t, i, local, id, title, 'www.dvdpost.be' );
     }
     $("#new_review").ajaxSubmit(options);
     $("#review_submit").parent().html("<div style='height:42px'><img src='/images/ajax-loader.gif'/></div>")

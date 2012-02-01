@@ -11,6 +11,11 @@ class Trailer < ActiveRecord::Base
   belongs_to :product, :foreign_key => :products_id
 
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => DVDPost.product_languages[language]}}}
+  named_scope :focus, :conditions => {:focus => true}
+
+  def is_new?
+    created_at > 3.months.ago if created_at
+  end
 
   def url
     broadcast_url = DVDPost.trailer_broadcasts_urls[broadcast_service]

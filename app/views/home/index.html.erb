@@ -12,18 +12,17 @@
       <br />
       <!-- BIENVENUE  -->
       <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
-      <!-- Actrice de la semaine -->
-      <%= render :partial => '/home/index/actor_week_adult', :locals => {:actor => @actor_week, :actor_week_product => @actor_week_product} %>
+      <%= render :partial => '/home/index/trailers_week', :locals => {:trailers => @trailers_week}%>
       <!-- selection of the week-->
       <div style='clear:both'></div>
       <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} if streaming_access? %>
-      <!-- Top des plus loués -->
-      <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>
-      <!-- Top Actrices -->
-      <%= render :partial => "/home/index/top_actors_adult", :locals => {:top_actors => @top_actors} %>
       <!-- Nouveautés  -->
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
-    <% if @newsletter_x.nil? %>
+      <%= render :partial => "/home/index/trailers", :locals => { :products => @trailers } %>
+      
+      <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>    
+      <%= render :partial => '/home/index/banners', :locals => {:banners => @banners} %>
+      <% if @newsletter_x.nil? %>
       <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
     <% end %>
   <% else %>
