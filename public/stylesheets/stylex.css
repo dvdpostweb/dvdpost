@@ -720,6 +720,13 @@ a.trailer-week span strong {
   margin: 0 7px 7px;
   color: #102537;
 }
+#bandes-annonces li p a{
+  text-decoration: none;
+}
+#bandes-annonces li p{
+  line-height: 1.3em;
+}
+
 #bandes-annonces li a.thumb {
   float: left;
   display: block;

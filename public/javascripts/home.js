@@ -198,7 +198,7 @@ $(function() {
   $('.top_products').live('mouseover',function(){
     image =$(this).attr('id');
     id = $(this).parent('li').attr('id')
-    var reg_jpg = new RegExp(/dvd\/[\w]*\.jpg/);
+    var reg_jpg = new RegExp(/dvd\/.*/);
     var reg_link = new RegExp(/\/[\d]+/);
     src = $('#top_product').attr('src')
     new_src = src.replace(reg_jpg, image);
