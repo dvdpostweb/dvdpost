@@ -9,11 +9,8 @@
 <% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
 <% name_path = "views/#{name}" %>
 <% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
-  <% Rails.logger.debug { "@@expire" }%>
   <% expire_fragment(product) %>
 <% end %>
-<% Rails.logger.debug { "@@@#{Rails.cache.exist? name_path}" }%>
-<% Rails.logger.debug { "@@@#{Rails.cache.exist? "views//#{name}"}" }%>
 <% unless Rails.cache.exist? name_path %>
   <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
