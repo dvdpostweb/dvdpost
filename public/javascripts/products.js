@@ -17,7 +17,6 @@ $(function() {
   }
   
   function show_review(responseText, statusText){
-    alert('ici')
     if(jQuery.trim(statusText) == "success"){
       item = html_item.html(responseText);
     }

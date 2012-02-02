@@ -7,9 +7,8 @@
 <div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
 <% view = params[:view_mode] == 'streaming' ? 0 : 1 %>
 <% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
-<% name_path = "views/#{name}" %>
+<% name_path = "views//#{name}" %>
 <% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
-  <% Rails.logger.debug { "@@@#expirated" }%>
   <% expire_fragment(product) %>
 <% end %>
 <% unless Rails.cache.exist? name_path %>
