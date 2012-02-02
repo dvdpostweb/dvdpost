@@ -7,7 +7,8 @@ config.cache_classes = true
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
-config.cache_store = :file_store, RAILS_ROOT + "/tmp/cache"
+#config.cache_store = :file_store, RAILS_ROOT + "/tmp/cache"
+config.cache_store = :mem_cache_store, '192.168.100.204:11211'
 config.action_view.cache_template_loading            = true
 ENV['APP'] = "0"
 # See everything in the log (default is :info)
