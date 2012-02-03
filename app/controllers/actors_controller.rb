@@ -1,8 +1,6 @@
 class ActorsController < ApplicationController
   def index
-    if Rails.env == "development"
-      require_dependency "#{Rails.root}/app/models/actor.rb"
-    end
+    require_dependency "#{Rails.root}/app/models/actor.rb"
     if !params[:letter]
       fragment_name = session[:sexuality] == 1 ? "actors_x_gay" : "actors_x_hetero"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
