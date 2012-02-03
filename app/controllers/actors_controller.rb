@@ -2,7 +2,7 @@ class ActorsController < ApplicationController
   def index
     require_dependency "#{Rails.root}/app/models/actor.rb"
     if !params[:letter]
-      fragment_name = session[:sexuality] == 1 ? "actors_x_gay" : "actors_x_hetero"
+      fragment_name = session[:sexuality] == 1 ? "actors_x_gay_hash" : "actors_x_hetero_hash"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
       begin
           @actors = Hash.new()
@@ -31,7 +31,7 @@ class ActorsController < ApplicationController
         end
       end
     else
-      fragment_name = session[:sexuality] == 1 ?  "actors_x_gay_#{params[:letter]}" : "actors_x_hetero_#{params[:letter]}"
+      fragment_name = session[:sexuality] == 1 ?  "actors_x_gay_hash_#{params[:letter]}" : "actors_x_hetero_hash_#{params[:letter]}"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
         begin
           @actors = Hash.new()
