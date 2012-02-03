@@ -107,7 +107,8 @@ class Product < ActiveRecord::Base
     when products_media = 'DVD' then 1 
     when (products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'blueray' and vod_next = 1) then 4 
     when products_media = 'blueray' then 3
-    else 6 end", :type  => :integer, :as => :special_media
+    when products_media = 'bluray3d' then 6
+    else 7 end", :type  => :integer, :as => :special_media
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 1
     else 0 end", :type => :integer, :as => :streaming_available
@@ -456,6 +457,10 @@ class Product < ActiveRecord::Base
 
   def bluray?
     media == DVDPost.product_types[:bluray]
+  end
+
+  def bluray3d?
+    media == DVDPost.product_types[:bluray3d]
   end
 
   def vod?
