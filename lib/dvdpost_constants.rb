@@ -138,6 +138,7 @@ module DVDPost
       HashWithIndifferentAccess.new.merge({
         :dvd => 'DVD',
         :bluray => 'BlueRay',
+        :bluray3d => 'bluray3d',
         :vod => 'VOD',
         :hdd => 'HDD',
         :ps3 => 'PS3',

@@ -1,12 +1,15 @@
 class ActorsController < ApplicationController
   def index
+    if Rails.env == "development"
+      require_dependency "#{Rails.root}/app/models/actor.rb"
+    end
     if !params[:letter]
       fragment_name = session[:sexuality] == 1 ? "actors_x_gay" : "actors_x_hetero"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
-        begin
-          @actors = OrderedHash.new()
+      begin
+          @actors = Hash.new()
           ('a'..'z').each do |l|
-            details = OrderedHash.new()
+            details = Hash.new()
             if session[:sexuality] == 1
               actors = Actor.by_kind(:adult).by_sexuality(:gay).by_letter(l).limit(10).ordered
             else
@@ -17,9 +20,9 @@ class ActorsController < ApplicationController
               actors.collect do |actor|
                 i += 1
                 count = Product.search.by_actor(actor.id).available.count
-                details.push(i, {:actor => actor, :count => count})
+                details[i] = {:actor => actor, :count => count}
               end
-              @actors.push(l, details) 
+              @actors[l] = details
             end
           end
           @actors
@@ -33,8 +36,8 @@ class ActorsController < ApplicationController
       fragment_name = session[:sexuality] == 1 ?  "actors_x_gay_#{params[:letter]}" : "actors_x_hetero_#{params[:letter]}"
       @actors = when_fragment_expired fragment_name, 1.week.from_now.localtime do
         begin
-          @actors = OrderedHash.new()
-          details = OrderedHash.new()
+          @actors = Hash.new()
+          details = Hash.new()
           if session[:sexuality] == 1
             actors = Actor.by_kind(:adult).by_sexuality(:gay).by_letter(params[:letter]).ordered
           else
@@ -45,9 +48,9 @@ class ActorsController < ApplicationController
             actors.collect do |actor|
               i += 1
               count = Product.search.by_actor(actor.id).available.count
-              details.push(i, {:actor => actor, :count => count})
+              details[i] = {:actor => actor, :count => count}
             end
-            @actors.push(params[:letter], details)
+            @actors[params[:letter]] = details
           end
           @actors
         rescue => e

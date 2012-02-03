@@ -227,7 +227,7 @@ fieldset {
   color:#303030;
 }
 
-#titles-wrap .dvd, #titles-wrap .vod, #titles-wrap .bluray {
+#titles-wrap .dvd, #titles-wrap .vod, #titles-wrap .bluray, #titles-wrap .bluray3d {
   background: white;
   background: white url(../images/movie-info-shadow.png) 495px 0 repeat-y;
   border: 1px solid #a7a7a7;
@@ -241,7 +241,7 @@ fieldset {
   padding-left: 0;
   border: none;
 } 
-#titles-wrap .bluray {
+#titles-wrap .bluray,#titles-wrap .bluray3d {
   background: #c2edfb url(../images/movie-info-shadow.png) 495px 0 repeat-y;
 }
 
@@ -599,7 +599,7 @@ fieldset {
   width:170px;
 }
 
-#titles-wrap .dvd .cover,#titles-wrap .vod .cover, #titles-wrap .bluray .cover {
+#titles-wrap .dvd .cover,#titles-wrap .vod .cover, #titles-wrap .bluray .cover, #titles-wrap .bluray3d .cover {
   background: url(../images/dvd-cover-bg.png) 0 0 no-repeat;
   display: block;
   height: 105px;
@@ -612,6 +612,10 @@ fieldset {
 
 
 #titles-wrap .bluray .cover {
+  background: url(../images/bluray-cover-bg.png) 0 0 no-repeat;
+  width: 67px;
+}
+#titles-wrap .bluray3d .cover {
   background: url(../images/bluray-cover-bg.png) 0 0 no-repeat;
   width: 67px;
 }
@@ -757,6 +761,10 @@ color: #fff;
 border: 0 none;
 color: #1f9ee0;
 }
+#mywhishlist-nav li .bluray3d{
+border: 0 none;
+color: #1f9ee0;
+}
 #mywhishlist-nav li .vod{
 color: #85ba17;
 border: 0 none;
@@ -795,7 +803,7 @@ text-indent: 24px;
 }
 
 
-#mywhishlist .dvd, #mywhishlist .bluray, #mywhishlist .xbox, #mywhishlist .wii, #mywhishlist .vod{
+#mywhishlist .dvd, #mywhishlist .bluray, #mywhishlist .xbox, #mywhishlist .wii, #mywhishlist .vod, #mywhishlist .bluray3d{
 border-bottom: 1px solid #9E9FA2;
 }
 
@@ -1526,7 +1534,7 @@ padding-left: 29px;
   /*margin-left: -178px;*/
 }
 
-#details .cover #dvd, #details .cover #bluray, #details .cover #vod {
+#details .cover #dvd, #details .cover #bluray, #details .cover #vod, #details .cover #bluray3d {
   background: url(../images/dvd-cover-big.png) 0 0 no-repeat;
   display: block;
   height: 231px;
@@ -1539,6 +1547,10 @@ padding-left: 29px;
 #details .cover #bluray {
   background: url(../images/bluray-cover-big.png) 0 0 no-repeat;
 }
+#details .cover #bluray3d {
+  background: url(../images/bluray-cover-big.png) 0 0 no-repeat;
+}
+
 #details .cover #vod {
   background: url(../images/vod-cover-big.png) 0 0 no-repeat;
 }
@@ -2003,7 +2015,7 @@ html ul.tabs li.active a:hover {
   display: inline;
 }
 
-#carousel li .dvd, #carousel li .bluray, #carousel li .vod {
+#carousel li .dvd, #carousel li .bluray, #carousel li .vod, #carousel li .bluray3d {
   background: url(../images/dvd-cover-mid.png) no-repeat;
   display: block;
   height: 125px;
@@ -2015,16 +2027,19 @@ html ul.tabs li.active a:hover {
 #carousel li .bluray {
   background: url(../images/bluray-cover-mid.png) 0 0 no-repeat;
 }
+#carousel li .bluray3d {
+  background: url(../images/bluray-cover-mid.png) 0 0 no-repeat;
+}
 #carousel li .vod {
   background: url(../images/vod-cover-mid.png) 0 0 no-repeat;
 }
 
-#carousel li .dvd img, #carousel li .bluray img, #carousel li .vod img {
+#carousel li .dvd img, #carousel li .bluray img, #carousel li .vod img, #carousel li .bluray3d img {
   float: left;
   margin-left: 4px;
 }
 
-#carousel li .dvd .new, #carousel li .bluray .new, #carousel li .vod .new {
+#carousel li .dvd .new, #carousel li .bluray .new, #carousel li .vod .new, #carousel li .bluray3d .new {
   background: url(../images/new-mid.png) no-repeat;
   display: block;
   height: 50px;
