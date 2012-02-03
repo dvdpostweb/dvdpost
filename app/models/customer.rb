@@ -523,8 +523,14 @@ class Customer < ActiveRecord::Base
     tokens.recent(2.week.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).last
   end
   
-  def get_all_tokens
-    tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_products, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+  def get_all_tokens(kind = nil)
+    if kind == :adult
+      tokens.available(DVDPost.hours[:adult].hours.ago.localtime, Time.now).ordered.all(:joins => {:streaming_products, :products}, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }, :products => {:products_type => DVDPost.product_kinds[:adult]}})
+    elsif kind == :normal
+      tokens.available(DVDPost.hours[:normal].hours.ago.localtime, Time.now).ordered.all(:joins => {:streaming_products, :products}, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }, :products => {:products_type => DVDPost.product_kinds[:normal]}})
+    else
+      tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_products, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+    end
   end
   
   def remove_product_from_wishlist(imdb_id, current_ip)

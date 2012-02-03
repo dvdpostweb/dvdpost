@@ -245,7 +245,7 @@ fieldset {
   background: #c2edfb url(../images/movie-info-shadow.png) 495px 0 repeat-y;
 }
 
-* html #titles-wrap .dvd, * html #titles-wrap .vod, * html #titles-wrap .bluray {
+* html #titles-wrap .dvd, * html #titles-wrap .vod, * html #titles-wrap .bluray, * html #titles-wrap .bluray3d {
   height: 132px;
 }
 
@@ -907,18 +907,18 @@ border-bottom: 1px solid #9E9FA2;
   margin-top: 5px;
 }
 
-#on-way .dvd .title a, #on-way .bluray .title a,#on-way .dvd .title, #on-way .bluray .title{
+#on-way .dvd .title a, #on-way .bluray .title a,#on-way .dvd .title, #on-way .bluray3d .title{
   font-size: 1.17em;
   font-weight: bold;
 }
 
-#on-way .dvd .status a, #on-way .bluray .status a {
+#on-way .dvd .status a, #on-way .bluray .status a, #on-way .bluray3d .status a {
   color: #454545;
   float: right;
   margin-right: 12px;
   text-decoration: underline;
 }
-#on-way .dvd .status .error, #on-way .bluray .status .error
+#on-way .dvd .status .error, #on-way .bluray .status .error, #on-way .bluray3d .status .error
 {
   color: #454545;
   float: right;
@@ -928,7 +928,7 @@ border-bottom: 1px solid #9E9FA2;
 {
   font-weight:bold;
 }
-#on-way .dvd .status a:hover, #on-way .bluray .status a:hover {
+#on-way .dvd .status a:hover, #on-way .bluray .status a:hover, #on-way .bluray3d .status a:hover {
   text-decoration: none;
 }
 
@@ -1163,12 +1163,12 @@ float: left;
 */
 
 
-.dvd .title, .bluray .title, .reserved .title, .xbox .title, .wii .title, .vod .title {
+.dvd .title, .bluray .title, .reserved .title, .xbox .title, .wii .title, .vod .title , .bluray3d .title {
 padding: 3px 0;
 height: 20px;
 line-height: 20px;
 }
-.dvd .availability, .bluray .availability, .title-info .availability, .reserved .availability, .xbox .availability, .wii .availability {
+.dvd .availability, .bluray .availability, .title-info .availability, .reserved .availability, .xbox .availability, .wii .availability, .bluray3d .availability {
 padding: 3px 0;
 height: 20px;
 font-size: 0.92em;
@@ -1180,7 +1180,7 @@ font-size: 0.92em;
   width: 136px;
 }
 
-.dvd .title, .bluray .title, .xbox .title, .wii .title, .vod .title {
+.dvd .title, .bluray .title, .xbox .title, .wii .title, .vod .title, .bluray3d .title {
   background: url(../images/icon-dvd.png) 23px 0 no-repeat;
   padding-left: 62px;
   width: 461px;
@@ -1220,8 +1220,13 @@ font-size: 0.92em;
 .bluray .title {
   background: url(../images/icon-blu-ray.png) 23px 0 no-repeat;
 }
-
+.bluray3d .title {
+  background: url(../images/icon-blu-ray.png) 23px 0 no-repeat;
+}
 .bluray .title a {
+  color: #2390c9;
+}
+.bluray3d .title a {
   color: #2390c9;
 }
 .vod .title{
@@ -1555,11 +1560,11 @@ padding-left: 29px;
   background: url(../images/vod-cover-big.png) 0 0 no-repeat;
 }
 
-#details .cover #dvd img, #details .cover #bluray img {
+#details .cover #dvd img, #details .cover #bluray img, #details .cover #bluray3d img {
   border: 1px solid #000000;
 }
 
-#details .cover #dvd .new, #details .cover #bluray .new, #details .cover #vod .new {
+#details .cover #dvd .new, #details .cover #bluray .new, #details .cover #bluray3d .new, #details .cover #vod .new {
   background: url(../images/new-label.png) 0 0 no-repeat;
   display: block;
   height: 63px;
@@ -4197,7 +4202,7 @@ float:left;
 margin-top:10px;
 width:629px;
 }
-#titles-wrap.reviews .dvd, #titles-wrap.reviews .vod, #titles-wrap.reviews .bluray {
+#titles-wrap.reviews .dvd, #titles-wrap.reviews .vod, #titles-wrap.reviews .bluray, #titles-wrap.reviews .bluray3d {
 background:url("../images/movie-info-shadow.png") repeat-y scroll 710px 0 white;
 border:1px solid #A7A7A7;
 margin-bottom:8px;
@@ -4281,6 +4286,10 @@ position:relative;
 .selection_theme#carousel li .bluray {
   background: url(../images/bluray-cover-theme.png) 0 0 no-repeat;
 }
+.selection_theme#carousel li .bluray3d {
+  background: url(../images/bluray-cover-theme.png) 0 0 no-repeat;
+}
+
 .selection_theme#carousel li .vod {
   background: url(../images/vod-cover-theme.png) 0 0 no-repeat;
 }
