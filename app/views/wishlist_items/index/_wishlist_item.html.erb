@@ -1,7 +1,7 @@
 <% product_title = wishlist_item.product.title %>
 <div class="<%= product_media_id(wishlist_item.product.media) %> clearfix" id = "<%= "div_#{wishlist_item.product.to_param}" %>">
   <div class="title" >
-    <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param) %> 
+    <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param) %>
   </div>
   <% if wishlist_item.product.streaming? and streaming_access? %>  
     <div class="availability streaming">
@@ -10,6 +10,7 @@
     </div>
   <% else %>  
     <div class="availability">
+      <%= image_tag "3d_icon.png" if wishlist_item.product.bluray3d? %>
       <% if wishlist_item.product.next == 1 && wishlist_item.product.available_at %> 
         <% wishlist_item.product.available_at.strftime("%d/%m/%Y") %>
       <% elsif wishlist_item.already_rented == 'YES' %>

@@ -7,7 +7,7 @@
       <li class="technology<%= ' open' if filter.media? %>">
         <%= link_to t('.tech'), products_path(:technology => 1) %>
         <div <%= "style='display:none'" unless filter.media? %>>
-          <% medias = streaming_access? ? [:dvd, :bluray, :streaming] : [:dvd, :bluray] %>
+          <% medias = streaming_access? ? [:dvd, :bluray, :bluray3d, :streaming] : [:dvd, :bluray, :bluray3d] %>
           <% medias.each do |media| %>
             <label>
               <%= filter_checkbox_tag :media, media, (filter.media? && filter.media.include?(media)) %>

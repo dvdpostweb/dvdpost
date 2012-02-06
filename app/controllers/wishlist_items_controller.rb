@@ -174,9 +174,14 @@ class WishlistItemsController < ApplicationController
   end
 
   def bluray_owner
-    current_customer.bluray_owner(true)
+    if params[:value]
+      current_customer.bluray_owner(params[:value])
+    else
+      current_customer.bluray_owner(true)
+    end
     render :nothing => true  
   end
+
 
   private
   def create_wishlist_item(params)
