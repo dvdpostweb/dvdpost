@@ -210,32 +210,37 @@ class Product < ActiveRecord::Base
     products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
     products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
     products = products.by_special_media([3,4]) if options[:filter] && options[:filter] == "bluray"
+    products = products.by_special_media([6]) if options[:filter] && options[:filter] == "bluray3d"
     
     if filter.media? && options[:kind] == :normal
       
       medias = filter.media.dup
+      media_i = Array.new
       if medias.include?(:dvd)
         if medias.include?(:bluray)
           if medias.include?(:streaming)
-            medias = [1,2,3,4]
+            media_i = [1,2,3,4,5]
           else
-            medias = [1,3]
+            media_i = [1,3]
           end
         elsif medias.include?(:streaming)
-          medias = [1,2,5]
+          media_i = [1,2,5]
         else
-          medias = [1,2]
+          media_i = [1,2]
         end
       elsif medias.include?(:bluray)
         if medias.include?(:streaming)
-          medias = [2,3,4,5]
+          media_i = [2,3,4,5]
         else
-          medias = [3,4]
+          media_i = [3,4]
         end
       elsif medias.include?(:streaming)
-        medias = [2,4,5]
+        media_i = [2,4,5]
       end
-      products = products.by_special_media(medias)
+      if medias.include?(:bluray3d)
+        media_i.push(6)
+      end
+      products = products.by_special_media(media_i)
     end
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year?

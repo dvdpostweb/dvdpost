@@ -675,7 +675,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 } 
 
 
-a.trailer-week {
+div.trailer-week {
   position: relative;
   display: block;
   float: left;
@@ -684,7 +684,7 @@ a.trailer-week {
   margin-left: 10px;
   
 }
-a.trailer-week span {
+a.trailer-week span, div.trailer-week a span {
   position: absolute;
   top: 203px;
   right: 10px;
@@ -694,7 +694,7 @@ a.trailer-week span {
   color: #fff;
   font-size: 1.42em;
 }
-a.trailer-week span strong {
+a.trailer-week span strong, div.trailer-week a span strong {
   display: block;
   text-transform: uppercase;
   margin-top: 5px;

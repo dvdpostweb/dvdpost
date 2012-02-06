@@ -37,6 +37,12 @@
           </label>
         </li>
         <li>
+          <label class="blue">
+            <%= radio_button_tag :filter, :bluray3d, (params[:filter] == 'bluray3d' ? true : false), {:class => 'filter_input', :id => 'bluray' } %>
+          <strong><span><%= t 'layouts.menu_adult.bluray3d' %></span></strong>
+          </label>
+        </li>
+        <li>
           <label class="green">
             <%= radio_button_tag :filter, :vod, (params[:filter] == 'vod' ? true : false), {:class => 'filter_input', :id => 'vod' } %>
           <strong><span><%= t 'layouts.menu_adult.vod' %></span></strong>

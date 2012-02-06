@@ -43,9 +43,17 @@
     <% unless @wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
       <div id ='attention_langues'><p><%= t '.error_language' %></p></div>
     <% end %>
-    <% if @wishlist_item.product.bluray? && current_customer.customer_attribute && current_customer.customer_attribute.bluray_owner == false %>
-      <div id ='attention_bluray'><p><%= t('.bluray_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path) %></p></div> 
+    <% if @wishlist_item.product.bluray? && current_customer.customer_attribute && current_customer.customer_attribute.bluray_owner == 0 %>
+      <div id ='attention_bluray'>
+        <p><%= t('.bluray_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path) %></p>
+      </div> 
     <% end %>
+    <% if @wishlist_item.product.bluray3d? && current_customer.customer_attribute && current_customer.customer_attribute.bluray_owner != 2 %>
+      <div id ='attention_bluray'>
+        <p><%= t('.bluray3d_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path(:value => 2)) %></p>
+      </div> 
+    <% end %>
+    
     <p class="align" id="add_to_wishlist">
     <% type_button = @wishlist_item.product.next.to_i == 1 ? :reserve : :normal %>
     <% media = DVDPost.product_types.invert[@wishlist_item.product.media] %>
