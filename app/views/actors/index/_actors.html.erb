@@ -1,7 +1,8 @@
+<% if details %>
 <li id="<%= letter %>"> <span class="letter"><%= letter.upcase %></span>
   <ol <%= type == :letter ? 'class="big"' : '' %>>
     <% i = 0 %>
-    <% details.each do |key, value| %>
+    <% details.sort.each do |key, value| %>
       <% actor = value[:actor] %>
       <% i += 1 %>
       <li>
@@ -24,3 +25,4 @@
     <% end %>
   </span>
 </li>
+<% end %>

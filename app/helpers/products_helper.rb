@@ -184,25 +184,48 @@ module ProductsHelper
   end
 
   def available_on_other_media(product, recommendation)
+    content = ''
     unless product.series?
       if product.dvd?
         bluray = product.media_alternative(:blueray)
+        bluray3d = product.media_alternative(:bluray3d)
         if bluray
           path = recommendation.to_i > 0 ? product_path(:id => bluray.to_param, :recommendation => recommendation) : product_path(:id => bluray.to_param)
-          link_to(t('.dispo_bluray'), path, :id => 'bluray-btn') 
+          content << link_to(t('.dispo_bluray'), path, :id => 'bluray-btn')
         end
-      elsif product.bluray?
+        if bluray3d
+          path = recommendation.to_i > 0 ? product_path(:id => bluray3d.to_param, :recommendation => recommendation) : product_path(:id => bluray3d.to_param)
+          content << link_to(t('.dispo_bluray_3d'), path, :id => 'bluray-btn') 
+        end
+      elsif product.bluray? 
         dvd = product.media_alternative(:dvd)
+        bluray3d = product.media_alternative(:bluray3d)
         if dvd
           path = recommendation.to_i > 0 ? product_path(:id => dvd.to_param, :recommendation => recommendation) : product_path(:id => dvd.to_param)
-          link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
+          content << link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
+        end
+        if bluray3d
+          path = recommendation.to_i > 0 ? product_path(:id => bluray3d.to_param, :recommendation => recommendation) : product_path(:id => bluray3d.to_param)
+          content << link_to(t('.dispo_bluray_3d'), path, :id => 'bluray-btn')
+        end
+      elsif product.bluray3d? 
+        dvd = product.media_alternative(:dvd)
+        bluray = product.media_alternative(:blueray)
+        if dvd
+          path = recommendation.to_i > 0 ? product_path(:id => dvd.to_param, :recommendation => recommendation) : product_path(:id => dvd.to_param)
+          content << link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
+        end
+        if bluray
+          path = recommendation.to_i > 0 ? product_path(:id => bluray.to_param, :recommendation => recommendation) : product_path(:id => bluray.to_param)
+          content << link_to(t('.dispo_bluray'), path, :id => 'bluray-btn')
         end
       else
-        ''
+        content << ''
       end
     else
-      ''
+      content << ''
     end
+    content
   end
 
   def available_on_other_language(product, recommendation)

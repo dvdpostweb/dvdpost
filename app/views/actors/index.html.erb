@@ -6,9 +6,10 @@
     <% end %>
   </p>
   <ul id="search-performers" class ="<%= params[:letter] ? :letter : :all %>">
-  <% if @actors %>  
-  <% @actors.each do |key , value|  %>
-    <%= render :partial => '/actors/index/actors', :locals => { :details => value, :letter => key, :type => params[:letter] ? :letter : :all} %>
+  <% if @actors %>
+  <% ('a'..'z').each do |l| %>
+  <% value = @actors[l]%>
+    <%= render :partial => '/actors/index/actors', :locals => { :details => value, :letter => l, :type => params[:letter] ? :letter : :all} %>
   <% end %>
   <% end %>
   </ul>

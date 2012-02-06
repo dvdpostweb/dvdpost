@@ -1,7 +1,7 @@
 class VodWishlistsController < ApplicationController
   def index
     kind = params[:kind] || :normal
-    @token_list = current_customer.get_all_tokens
+    @token_list = current_customer.get_all_tokens(params[:kind])
     @list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available_from < :time and streaming_products.expire_at > :time and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]]}])
     @soon_list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["vod_next = 1 and products_status != -1 and products_type = :type", {:type => DVDPost.product_kinds[params[:kind]], :media => DVDPost.product_types[:vod]}])
     @display_vod = current_customer.customer_attribute.display_vod
