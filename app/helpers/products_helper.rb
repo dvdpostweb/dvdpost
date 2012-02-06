@@ -306,7 +306,7 @@ module ProductsHelper
     end
   end
 
-  def left_column_categories(selected_category, kind, sexuality, host_ok)
+  def left_column_categories(selected_category, kind, sexuality, host_ok, view_mode)
     html_content = []
     cat = Category.active.roots.movies.by_kind(kind).remove_themes.ordered
     cat.collect do |category|
@@ -317,12 +317,12 @@ module ProductsHelper
         li_class = 'cat'
       end
       html_content << content_tag(:li, :class => li_class, :style => li_style) do
-        link_to category.name, category_products_path(:category_id => category), :class => a_class
+        link_to category.name, category_products_path(:category_id => category, :view_mode => view_mode), :class => a_class
       end
       if selected_category && (category == selected_category || category == selected_category.parent)
         category.children.active.movies.by_kind(:normal).remove_themes.ordered.collect do |sub_category|
           html_content << content_tag(:li, :class => 'subcat') do
-            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => ('actived' if sub_category == selected_category)
+            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category, :view_mode => view_mode), :class => ('actived' if sub_category == selected_category)
           end
         end
         html_content << content_tag(:li) do
@@ -333,7 +333,7 @@ module ProductsHelper
     if host_ok == '0'
     li_style = selected_category ? 'display:none' : ''
       html_content << content_tag(:li, :class => :cat, :style => li_style) do
-        kind == :adult ? link_to( t('.full_categories'), categories_path(), :id => 'catx') : link_to( t('.category_x'), root_path(:kind => :adult), :id => 'catx')
+        kind == :adult ? link_to( t('.full_categories'), categories_path(:view_mode => view_mode), :id => 'catx') : link_to( t('.category_x'), root_path(:kind => :adult), :id => 'catx')
       end
     end
     html_content
