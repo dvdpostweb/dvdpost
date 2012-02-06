@@ -2,8 +2,9 @@
   
   <% banners.collect do |banner| %>
   <li>
-    <%= image_tag banner.banner_image(params[:kind]), :width => 293, :height => 186 %>
-    <!--<a href="<%= streaming_product_path(:id => banner.imdb_id, :warning => 1) %>" class="btn">Regarder</a>-->
+    <a href="<%= product_path(:id => banner.to_param)%>">
+      <%= image_tag banner.banner_image(params[:kind]), :width => 293, :height => 186 %>
+    </a>
     <%= render :partial => 'products/streaming',  :locals => {:product => banner, :token => nil, :text => :short} %>
   </li>
   <% end %>

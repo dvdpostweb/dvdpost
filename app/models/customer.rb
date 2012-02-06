@@ -593,6 +593,7 @@ class Customer < ActiveRecord::Base
   end
 
   def bluray_owner(status)
+    Rails.logger.debug { "@@@#{status}" }
     build_customer_attribute unless customer_attribute
     customer_attribute.update_attribute(:bluray_owner, status)
   end

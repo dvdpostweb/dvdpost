@@ -374,6 +374,9 @@ padding-top:10px;
 #welcome #cotez .bluray, #bienvenue #cotez .bluray {
   background: url(../images/bluray-cover-sm.png) 0 0 no-repeat;
 }
+#welcome #cotez .bluray3d, #bienvenue #cotez .bluray3d {
+  background: url(../images/bluray-cover-sm.png) 0 0 no-repeat;
+}
 #header #login span#lang-box {
   background: url(../images/bg_langue.png) 0 0 no-repeat;
   display: block;
