@@ -4,7 +4,7 @@
   <ol>
     <% categories.collect do |category| %>
       <li>
-        <%= link_to "#{category.name}", category_products_path(:category_id => category.to_param), :class => "studios", :id => "#{letter}_#{category.to_param}" %>
+        <%= link_to "#{category.name}", category_products_path(:category_id => category.to_param, :filter => params[:filter]), :class => "studios", :id => "#{letter}_#{category.to_param}" %>
       </li>
     <% end %>
   </ol>

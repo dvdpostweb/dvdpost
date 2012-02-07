@@ -4,10 +4,10 @@
   <ol>
     <% studios.collect do |studio| %>
       <li>
-        <%= link_to "#{studio.name}", studio_products_path(:studio_id => studio.to_param), :class => "studios", :id => "#{letter}_#{studio.to_param}" %>
+        <%= link_to "#{studio.name}", studio_products_path(:studio_id => studio.to_param, :filter => params[:filter]), :class => "studios", :id => "#{letter}_#{studio.to_param}" %>
       </li>
     <% end %>
   </ol>
-<%= link_to t('.all'), studios_path(:letter => letter), :class => :more if studios_count > 10 if show == :limit %>
+<%= link_to t('.all'), studios_path(:letter => letter, :filter => params[:filter]), :class => :more if studios_count > 10 if show == :limit %>
 </li>
 <% end %>

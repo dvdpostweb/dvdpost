@@ -1,5 +1,5 @@
 <div class="container2">
-  <%= render :partial => '/actors/menu' %>
+  <%= render :partial => "/actors/menu_#{params[:kind]}" %>
   <p id="letters">
     <% ('a'..'z').each do |l| %>
       <%= link_to l.upcase, actors_path(:letter => l) %> |

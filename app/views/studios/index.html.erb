@@ -1,4 +1,4 @@
-<%= render :partial => 'actors/menu' %>
+<%= render :partial => "actors/menu_#{params[:kind]}" %>
 <p id="letters">
   <% ('a'..'z').each do |l| %>
     <%= link_to l.upcase, studios_path(:letter => l) %> |
