@@ -269,7 +269,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #search #filters ul {
   display: none;
   width: 115px;
-  height: 170px;
+  height: 203px;
   padding: 45px 25px 0;
   position: absolute;
   top: -27px;
