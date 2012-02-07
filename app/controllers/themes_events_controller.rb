@@ -2,7 +2,7 @@ class ThemesEventsController < ApplicationController
   before_filter :auth
   def index
     if params[:locale]
-      @themes = ThemesEvent.by_kind(:normal).old.ordered
+      @themes = ThemesEvent.by_kind(:normal).old.hp.ordered
     else
       @themes = ThemesEvent.ordered
     end

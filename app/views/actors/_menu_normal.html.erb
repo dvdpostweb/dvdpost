@@ -1,0 +1,6 @@
+<div id="options">
+  <%= t('actors.index.search_by') %> : 
+  <%= link_to t('actors.index.studios'), studios_path(), :class => params[:controller] == 'studios' ? "active" : "" %>  
+  |
+  <%= link_to t('actors.index.categories'), categories_path(), :class => params[:controller] == 'categories' ? "active" : ""  %> 
+</div>
