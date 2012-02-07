@@ -454,4 +454,27 @@ module ProductsHelper
     end
     details
   end
+
+  def left_column_vod(params)
+    html_content = []
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.all'), products_path(:view_mode => :streaming)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.rent'), products_path(:view_mode => :streaming, :sort => :token)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.new'), products_path(:view_mode => :vod_recent, :filter => :vod)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.soon'), products_path(:view_mode => :vod_soon, :filter => :vod)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.rating'), products_path(:sort => :rating, :filter => :vod)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.categorie'), categories_path(:filter => :vod)
+    end
+    
+  end
 end
