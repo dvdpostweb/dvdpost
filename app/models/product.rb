@@ -198,7 +198,7 @@ class Product < ActiveRecord::Base
   
   
   def self.filter(filter, options={})
-    products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
+    products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
@@ -319,6 +319,9 @@ class Product < ActiveRecord::Base
         products = products.order(sort, :extended)
       end
     end
+    #if options[:limit]
+  #    products = products.limit(options[:limit])
+    #end
     products
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
@@ -570,8 +573,9 @@ class Product < ActiveRecord::Base
     query_string = qs.join(' ')
 
     page = options[:page] || 1
+    limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = options[:per_page] || self.per_page
-    self.search(query_string, :max_matches => 100_000, :per_page => per_page, :page => page)
+    self.search(query_string, :max_matches => limit, :per_page => per_page, :page => page)
   end
 
   def self.replace_specials(str)

@@ -458,22 +458,54 @@ module ProductsHelper
   def left_column_vod(params)
     html_content = []
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.all'), products_path(:view_mode => :streaming)
-    end
-    html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rent'), products_path(:view_mode => :streaming, :sort => :token)
+      link_to t('.rent'), products_path(:filter => :vod, :sort => :token, :limit => 20)
     end
     html_content << content_tag(:li, :class => :cat) do
       link_to t('.new'), products_path(:view_mode => :vod_recent, :filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
+      link_to t('.rating'), products_path(:sort => :rating, :filter => :vod, :limit => 50)
+    end
+    html_content << content_tag(:li, :class => :cat) do
       link_to t('.soon'), products_path(:view_mode => :vod_soon, :filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rating'), products_path(:sort => :rating, :filter => :vod)
+      link_to t('.categorie'), categories_path(:filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.categorie'), categories_path(:filter => :vod)
+      link_to t('.studio'), categories_path(:filter => :vod)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.all'), products_path(:filter => :vod)
+    end
+    
+  end
+
+  def left_column(params)
+    html_content = []
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.rent'), products_path(:sort => :token, :limit => 20)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.rating'), products_path(:sort => :rating, :limit => 50)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.new'), products_path(:view_mode => :vod_recent)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.soon'), products_path(:view_mode => :soon)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.cinema'), products_path(:view_mode => :cinema)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.categorie'), categories_path()
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.studio'), categories_path(:filter => :vod)
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.all'), products_path()
     end
     
   end
