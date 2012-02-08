@@ -5,7 +5,7 @@
   <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil %>
 <% end %>
 <div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
-<% view = params[:view_mode] == 'streaming' ? 0 : 1 %>
+<% view = params[:view_mode] == 'streaming' || params[:filter] == 'vod' ? 0 : 1 %>
 <% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
 <% name_path = "views/#{name}" %>
 <% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
@@ -14,7 +14,7 @@
 <% unless Rails.cache.exist? name_path %>
   <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
-
+ 
 <% cache name do %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
@@ -95,7 +95,7 @@
       <% end %>
       <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
     <% end %>
-    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
+    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:filter] == "vod" || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
     
   </div>
   

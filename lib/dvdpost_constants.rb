@@ -439,5 +439,21 @@ module DVDPost
     def hls_url(token, audio, sub)
       "http://vod.dvdpost.be/#{token}_#{audio}_#{sub}.m3u8"
     end
+
+    def favorite_dvd
+      HashWithIndifferentAccess.new.merge({
+        :fr    => 316,
+        :nl    => 317,
+        :en    => 318
+      })
+    end
+    def favorite_vod
+      HashWithIndifferentAccess.new.merge({
+        :fr    => 319,
+        :nl    => 320,
+        :en    => 321
+      })
+    end
+
   end
 end

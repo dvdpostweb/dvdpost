@@ -18,7 +18,7 @@
     <ul id="left-nav">
       <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended), :class => ((params[:view_mode] == 'recommended') ? 'active_close' : 'close') %></li>
       
-      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close new' : 'close new') %>
+      <li><div class="active_close new"><%= t('.streaming') %></div>
       <ul id="categories_list">
         <%= left_column_vod(params) %>
       </ul>

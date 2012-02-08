@@ -31,11 +31,6 @@ class ProductsController < ApplicationController
     if params[:category_id]
       filter = get_current_filter
       @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
-      if params[:view_mode] == 'streaming'
-        @category_streaming = Category.find(params[:category_id])
-      else
-        @category = Category.find(params[:category_id])
-      end
       if params[:category_id].to_i == 76
         current_customer.customer_attribute.update_attribute(:sexuality, 1)
         session[:sexuality] = 1

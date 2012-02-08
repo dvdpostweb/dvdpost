@@ -406,7 +406,7 @@ module ProductsHelper
   end
 
   def bubbles(product)
-    if params[:view_mode] == 'streaming'
+    if params[:view_mode] == 'streaming' || params[:vod] == 'vod'
       "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
     else
       audio_bubble = audio_bubbles(product, 0)
@@ -458,25 +458,28 @@ module ProductsHelper
   def left_column_vod(params)
     html_content = []
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rent'), products_path(:filter => :vod, :sort => :token, :limit => 20)
+      link_to t('.rent'), products_path(:filter => :vod, :sort => :token, :limit => 20), :class => params[:filter] == "vod" && params[:sort] == "token" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.new'), products_path(:view_mode => :vod_recent, :filter => :vod)
+      link_to t('.rating'), products_path(:sort => :rating, :filter => :vod, :limit => 50), :class => params[:filter] == "vod" && params[:sort] == "rating" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rating'), products_path(:sort => :rating, :filter => :vod, :limit => 50)
+      link_to t('.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.soon'), products_path(:view_mode => :vod_soon, :filter => :vod)
+      link_to t('.new'), products_path(:view_mode => :vod_recent, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_recent" ? :actived : ''
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.soon'), products_path(:view_mode => :vod_soon, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_soon" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
       link_to t('.categorie'), categories_path(:filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.studio'), categories_path(:filter => :vod)
+      link_to t('.studio'), studios_path(:filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.all'), products_path(:filter => :vod)
+      link_to t('.all'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
     end
     
   end
@@ -484,28 +487,28 @@ module ProductsHelper
   def left_column(params)
     html_content = []
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rent'), products_path(:sort => :token, :limit => 20)
+      link_to t('.rent'), products_path(:sort => :token, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "token" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rating'), products_path(:sort => :rating, :limit => 50)
+      link_to t('.rating'), products_path(:sort => :rating, :limit => 50), :class => params[:filter] != "vod" && params[:sort] == "rating" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.new'), products_path(:view_mode => :vod_recent)
+      link_to t('.favorite'), list_products_path(:list_id => DVDPost.favorite_dvd[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale] ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.soon'), products_path(:view_mode => :soon)
+      link_to t('.new'), products_path(:view_mode => :recent), :class => params[:filter] != "vod" && params[:view_mode] == "recent" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.cinema'), products_path(:view_mode => :cinema)
+      link_to t('.soon'), products_path(:view_mode => :soon), :class => params[:filter] != "vod" && params[:view_mode] == "soon" ? :actived : ''
+    end
+    html_content << content_tag(:li, :class => :cat) do
+      link_to t('.cinema'), products_path(:view_mode => :cinema), :class => params[:view_mode] == "cinema" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
       link_to t('.categorie'), categories_path()
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.studio'), categories_path(:filter => :vod)
-    end
-    html_content << content_tag(:li, :class => :cat) do
-      link_to t('.all'), products_path()
+      link_to t('.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? ? :actived : ''
     end
     
   end

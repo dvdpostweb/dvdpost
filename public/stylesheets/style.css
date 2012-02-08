@@ -3024,7 +3024,6 @@ div.top10.first p a {
 #leftcolumn #left-nav li div.active {
   background: url(../images/leftnav-active-bg.png) no-repeat;
   color: white;
-  font-size:1.2em;
   font-weight:bold;
   height:14px;
   padding: 5px 0 5px 32px;
@@ -3039,10 +3038,15 @@ div.top10.first p a {
   background: url(../images/leftnav-active-close-bg.png) no-repeat;
   color: white;
 }
-#leftcolumn #left-nav li a.new.active_close {
+#leftcolumn #left-nav li div.new.active_close {
  background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
+ color: white;
+ font-weight:bold;
+ height:14px;
+ padding: 5px 0 5px 32px;
+ margin:3px 0 0 0;
 }
-.adult #leftcolumn #left-nav li a.new.active_close {
+.adult #leftcolumn #left-nav li div.new.active_close {
  background: url(../images/adult-left-tab-bg-vod.gif) 0 0 no-repeat;
 }
 
