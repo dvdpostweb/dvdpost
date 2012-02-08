@@ -95,23 +95,21 @@ class Product < ActiveRecord::Base
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
-    has "(select created_at s from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
+    has "(select created_at s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
   
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 1 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 2 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_nl
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 3 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
     
-    has "case 
-    when (products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'DVD' and vod_next = 1) then 2
-    when (products_media = 'VOD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'VOD' and vod_next = 1) then 5
+    has "(select case 
+    when (products_media = 'DVD' and streaming_products.imdb_id is not null) or (products_media = 'DVD' and vod_next = 1) then 2
+    when (products_media = 'VOD' and streaming_products.imdb_id is not null) or (products_media = 'VOD' and vod_next = 1) then 5
     when products_media = 'DVD' then 1 
-    when (products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok') or (products_media = 'blueray' and vod_next = 1) then 4 
+    when (products_media = 'blueray' and streaming_products.imdb_id is not null) or (products_media = 'blueray' and vod_next = 1) then 4 
     when products_media = 'blueray' then 3
     when products_media = 'bluray3d' then 6
-    else 7 end", :type  => :integer, :as => :special_media
-    has "case 
-    when  streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 1
-    else 0 end", :type => :integer, :as => :streaming_available
+    else 7 end from streaming_products where imdb_id = products.imdb_id and (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or streaming_products.status is null) limit 1)", :type  => :integer, :as => :special_media
+    has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1 limit 1)", :type => :integer, :as => :streaming_available
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
@@ -163,7 +161,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0}}}
   sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_created_at => 2.months.ago..Time.now, :streaming_available => 1 }}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :all_next => 1}}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:dvd_soon)           {{:with =>      {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
   sphinx_scope(:not_soon)           {{:with =>          {:vod_next => 0}}}
@@ -313,7 +311,8 @@ class Product < ActiveRecord::Base
       sort = sort_by("default_order desc, in_stock DESC", options)
     end
     if sort !=""
-      if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming )
+      if (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming)) || (options[:filter] && options[:filter].to_sym == :vod)
+        Rails.logger.debug { "@@@ici" }
         products = products.group('imdb_id', sort)
       else
         products = products.order(sort, :extended)
@@ -598,7 +597,8 @@ class Product < ActiveRecord::Base
         jacket_mode = :streaming
       end
     end
-    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming || params[:view_mode].to_sym == :weekly_streaming))
+    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming || params[:view_mode].to_sym == :weekly_streaming )) || (params[:filter] && params[:filter].to_sym == :vod)
+      Rails.logger.debug { "iici" }
       jacket_mode = :streaming
     end
     if jacket_mode.nil?
