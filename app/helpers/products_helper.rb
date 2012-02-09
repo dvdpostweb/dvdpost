@@ -458,28 +458,28 @@ module ProductsHelper
   def left_column_vod(params)
     html_content = []
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rent'), products_path(:filter => :vod, :sort => :token, :limit => 20), :class => params[:filter] == "vod" && params[:sort] == "token" ? :actived : ''
+      link_to t('products.left_column.rent'), products_path(:filter => :vod, :sort => :token_month, :limit => 20), :class => params[:filter] == "vod" && params[:sort] == "token_month" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rating'), products_path(:sort => :rating, :filter => :vod, :limit => 50), :class => params[:filter] == "vod" && params[:sort] == "rating" ? :actived : ''
+      link_to t('products.left_column.rating'), products_path(:sort => :rating, :filter => :vod, :limit => 50), :class => params[:filter] == "vod" && params[:sort] == "rating" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
+      link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.new'), products_path(:view_mode => :vod_recent, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_recent" ? :actived : ''
+      link_to t('products.left_column.new'), products_path(:view_mode => :vod_recent, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_recent" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.soon'), products_path(:view_mode => :vod_soon, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_soon" ? :actived : ''
+      link_to t('products.left_column.soon'), products_path(:view_mode => :vod_soon, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_soon" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.categorie'), categories_path(:filter => :vod)
+      link_to t('products.left_column.categorie'), categories_path(:filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.studio'), studios_path(:filter => :vod)
+      link_to t('products.left_column.studio'), studios_path(:filter => :vod)
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.all'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
+      link_to t('products.left_column.all'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
     end
     
   end
@@ -487,29 +487,33 @@ module ProductsHelper
   def left_column(params)
     html_content = []
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rent'), products_path(:sort => :token, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "token" ? :actived : ''
+      link_to t('products.left_column.rent'), products_path(:sort => :token, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "token" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.rating'), products_path(:sort => :rating, :limit => 50), :class => params[:filter] != "vod" && params[:sort] == "rating" ? :actived : ''
+      link_to t('products.left_column.rating'), products_path(:sort => :rating, :limit => 50), :class => params[:filter] != "vod" && params[:sort] == "rating" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.favorite'), list_products_path(:list_id => DVDPost.favorite_dvd[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale] ? :actived : ''
+      link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_dvd[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale] ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.new'), products_path(:view_mode => :recent), :class => params[:filter] != "vod" && params[:view_mode] == "recent" ? :actived : ''
+      link_to t('products.left_column.new'), products_path(:view_mode => :recent), :class => params[:filter] != "vod" && params[:view_mode] == "recent" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.soon'), products_path(:view_mode => :soon), :class => params[:filter] != "vod" && params[:view_mode] == "soon" ? :actived : ''
+      link_to t('products.left_column.soon'), products_path(:view_mode => :soon), :class => params[:filter] != "vod" && params[:view_mode] == "soon" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.cinema'), products_path(:view_mode => :cinema), :class => params[:view_mode] == "cinema" ? :actived : ''
+      link_to t('products.left_column.cinema'), products_path(:view_mode => :cinema), :class => params[:view_mode] == "cinema" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.categorie'), categories_path()
+      link_to t('products.left_column.categorie'), categories_path()
+    end
+    if params[:kind] == :adult
+      html_content << content_tag(:li, :class => :cat) do
+        link_to t('.performers'), actors_path()
+      end
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? ? :actived : ''
+      link_to t('products.left_column.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? ? :actived : ''
     end
-    
   end
 end

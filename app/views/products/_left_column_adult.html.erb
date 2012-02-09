@@ -11,14 +11,15 @@
       <% end %>
     </p>
     <ul id="left-nav">
-      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close new' : 'close new') if streaming_access? %></li>
-      <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>
-      <li><%= link_to t('.performers'), actors_path(), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
-      <li><%= link_to t('.studios'), studios_path(), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>
+      <li><div class="active_close new"><%= t('.streaming') %></div>
+      <ul id="categories_list">
+        <%= left_column_vod(params) %>
+      </ul>
+      </li>
       <li>
-        <div id="categories" class="active"><%= t('.categories') %></div>
+        <div id="categories" class="active"><%= t('products.left_column.all_medias') %></div>
         <ul id="categories_list">
-          <%= left_column_categories(@category, params[:kind], session[:sexuality], ENV['HOST_OK']) %>
+          <%= left_column(params) %>
         </ul>
       </li>
     </ul>

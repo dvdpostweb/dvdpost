@@ -1,19 +1,25 @@
-<%= render :partial => "actors/menu_#{params[:kind]}" %>
-<p id="letters">
-  <% ('a'..'z').each do |l| %>
-    <%= link_to l.upcase, studios_path(:letter => l) %> |
+<% if params[:filter].nil? %>
+  <%= render :partial => "actors/menu_#{params[:kind]}"  %>
+  <p id="letters">
+    <% ('a'..'z').each do |l| %>
+      <%= link_to l.upcase, studios_path(:letter => l) %> |
+    <% end %>
+  </p>
+  <br />
+  <ul id="search-studio">
+  <% if params[:letter].nil? %>
+    <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[0], :studios_count => @studios_count[0],  :letter => 0, :show => :limit} %>
+    <% ('a'..'z').each do |l|  %>
+      <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[l], :studios_count => @studios_count[l],  :letter => l, :show => :limit} %>
+    <% end %>
+  <% else %>
+    <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios, :studios_count => 0,  :letter => params[:letter] , :show => :all} %>
   <% end %>
-</p>
-<br />
-
-<ul id="search-studio">
-<% if !params[:letter] %>
-  <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[0], :studios_count => @studios_count[0],  :letter => 0, :show => :limit} %>
-
-  <% ('a'..'z').each do |l|  %>
-    <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios[l], :studios_count => @studios_count[l],  :letter => l, :show => :limit} %>
-  <% end %>
+  </ul>
 <% else %>
-  <%= render :partial => '/studios/index/studios', :locals => { :studios => @studios, :studios_count => 0,  :letter => params[:letter] , :show => :all} %>
+<li id="stu"> 
+  <ol>
+  <%= render :partial => '/studios/index/studio_pict', :collection =>  @studios %>
+  </ol>
+</li>
 <% end %>
-</ul>

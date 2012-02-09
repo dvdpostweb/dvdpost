@@ -92,6 +92,7 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
+    has streaming_products(:studio_id), :as => :streaming_studio_id
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
@@ -114,6 +115,7 @@ class Product < ActiveRecord::Base
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
+    has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 31))", :type => :integer, :as => :count_tokens_month
     has "case
     when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
@@ -145,6 +147,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
+  sphinx_scope(:by_streaming_studio){|studio|           {:with =>       {:streaming_studio_id => studio.to_param}}}
   sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
@@ -203,7 +206,13 @@ class Product < ActiveRecord::Base
     products = products.by_collection(options[:collection_id]) if options[:collection_id]
     products = products.hetero if options[:hetero]
     products = products.by_director(options[:director_id]) if options[:director_id]
-    products = products.by_studio(options[:studio_id]) if options[:studio_id]
+    if options[:studio_id]
+      if options[:filter] == "vod" && options[:kind] == :normal
+        products = products.by_streaming_studio(options[:studio_id]) 
+      else
+        products = products.by_studio(options[:studio_id]) 
+      end
+    end
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
     products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
@@ -312,7 +321,6 @@ class Product < ActiveRecord::Base
     end
     if sort !=""
       if (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming)) || (options[:filter] && options[:filter].to_sym == :vod)
-        Rails.logger.debug { "@@@ici" }
         products = products.group('imdb_id', sort)
       else
         products = products.order(sort, :extended)
@@ -542,6 +550,8 @@ class Product < ActiveRecord::Base
         "rating desc, in_stock DESC"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
+      elsif options[:sort] == 'token_month'
+        "count_tokens_month desc, streaming_id desc"
       elsif options[:sort] == 'most_viewed'
         "most_viewed desc"
       elsif options[:sort] == 'most_viewed_last_year'
@@ -598,7 +608,6 @@ class Product < ActiveRecord::Base
       end
     end
     if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming || params[:view_mode].to_sym == :weekly_streaming )) || (params[:filter] && params[:filter].to_sym == :vod)
-      Rails.logger.debug { "iici" }
       jacket_mode = :streaming
     end
     if jacket_mode.nil?
