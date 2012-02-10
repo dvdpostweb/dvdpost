@@ -8,7 +8,7 @@
         <% children = category.children %>
         <% if children.count > 0 %>
         <ul>
-          <% query = params[:filter] == "vod" ? children.vod : children %>
+          <% query = params[:filter] == "vod" ? children.active.movies.vod : children.active.movies %>
           <% query.collect do |category| %>
           
             <li>
