@@ -1638,22 +1638,26 @@ padding-left: 29px;
 }
 #details .cover .reserver_btn {
   background: url("../images/reserver-btn.png") no-repeat scroll 0 -1px transparent;
-  color: #2f2e33;
+  color: #2F2E33;
   border: 0 none;
   cursor: pointer;
   display: block;
   font-size: 1em;
   height: 26px;
-  line-height: 22px;
+  line-height: 25px;
   padding-bottom: 2px;
-  padding-left: 23px;
+  padding-left: 19px;
   text-shadow: 1px 1px 1px #555;
-  width: 165px;
+  width: 145px;
   border-image: initial;
+  text-align: center;
+  text-decoration :none;
 }
 #details .cover .reserver_btn.streaming_add_list
 {
   width: 165px !important;
+  line-height: 21px !important;
+  padding-left: 26px !important;
 }
 #details .cover .reserver_btn:hover {
   background: url("../images/reserver-btn.png") no-repeat scroll 0 -34px transparent;
@@ -3585,31 +3589,14 @@ a#change_password
   color:white;
   cursor:pointer;
   display:block;
-  height:17px;
-  padding:6px 0 0 19px;
+  height:18px;
+  padding:5px 0 0 19px;
   text-align:center;
   text-decoration:none;
   text-shadow:1px 1px 1px #999999;
   width:145px;
-}
-.adult #add_to_vod:hover {
-  background:url(/images/vodxbtn.png) no-repeat scroll 0 -35px transparent;
 }
 
-	
-.adult #add_to_vod  {
-  background:url("/images/vodxbtn.png") repeat scroll 0 -2px transparent;
-  border-style:hidden;
-  color:white;
-  cursor:pointer;
-  display:block;
-  height:17px;
-  padding:6px 0 0 19px;
-  text-align:center;
-  text-decoration:none;
-  text-shadow:1px 1px 1px #999999;
-  width:145px;
-}
 .error_language
 {
   text-align:center;

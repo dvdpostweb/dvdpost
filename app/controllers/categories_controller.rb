@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   def index
     query = params[:filter] && params[:filter].to_sym == :vod ? Category.roots.movies.vod.by_kind(params[:kind]) : Category.roots.movies.by_kind(params[:kind])
+    @filter = get_current_filter({})
+    @countries = ProductCountry.visible.order
     @categories = OrderedHash.new()
     @categories.push(0, query.all(:joins => :descriptions, :conditions => ['categories_description.categories_name REGEXP "^[0-9]" and language_id = ?', DVDPost.product_languages[I18n.locale]]) )
     ('a'..'z').each do |l|

@@ -473,10 +473,10 @@ module ProductsHelper
       link_to t('products.left_column.soon'), products_path(:view_mode => :vod_soon, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_soon" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('products.left_column.categorie'), categories_path(:filter => :vod)
+      link_to t('products.left_column.categorie'), categories_path(:filter => :vod), :class => params[:controller] == "categories" && params[:filter] == "vod" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('products.left_column.studio'), studios_path(:filter => :vod)
+      link_to t('products.left_column.studio'), studios_path(:filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
       link_to t('products.left_column.all'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
@@ -505,7 +505,7 @@ module ProductsHelper
       link_to t('products.left_column.cinema'), products_path(:view_mode => :cinema), :class => params[:view_mode] == "cinema" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('products.left_column.categorie'), categories_path()
+      link_to t('products.left_column.categorie'), categories_path(), :class => params[:controller] == "categories"  && params[:filter] != "vod" ? :actived : ''
     end
     if params[:kind] == :adult
       html_content << content_tag(:li, :class => :cat) do
@@ -513,7 +513,7 @@ module ProductsHelper
       end
     end
     html_content << content_tag(:li, :class => :cat) do
-      link_to t('products.left_column.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? ? :actived : ''
+      link_to t('products.left_column.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? && params[:controller] == 'products' ? :actived : ''
     end
   end
 end

@@ -1,4 +1,4 @@
-.container { padding: 15px; background: #fff;}
+.container { background: #fff;}
 .container2 { padding: 0 0 0 45px; background: #fff;}
 .container ul, .container ol, .container dl {
     line-height: 1.4em;
@@ -66,7 +66,7 @@ ul#search-performers {
 
 
 ul#search-studio li {
-  width: 130px;
+  width: 121px;
   padding-left: 50px;
   position: relative;
   margin: 0 5px 5px 0;

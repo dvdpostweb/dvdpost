@@ -1,9 +1,9 @@
 <% trailers.collect do |p| %>
-<div class="trailer-week trailer"> 
+<div class="trailer-week"> 
   <a href="<%= product_path(:id => p.id) %>">
     <span><%= t '.trailer_week' %><strong><%= p.title %></strong></span> 
   </a>
-  <a href="<%= product_trailer_path(:product_id => p.id) %>">
+  <a href="<%= product_trailer_path(:product_id => p.id) %>" class="trailer">
     <%= image_tag p.trailer_image(params[:kind]), :width => 298, :height => 253 %>
   </a>
 </div>

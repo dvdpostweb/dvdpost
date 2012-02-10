@@ -546,3 +546,21 @@ padding-top:2px;
   height: 16px;
   vertical-align: top;
 }
+.adult #add_to_vod:hover {
+  background:url(/images/vodxbtn.png) no-repeat scroll 0 -35px transparent;
+}
+
+	
+.adult #add_to_vod  {
+  background:url("/images/vodxbtn.png") repeat scroll 0 -2px transparent;
+  border-style:hidden;
+  color:white;
+  cursor:pointer;
+  display:block;
+  height:18px;
+  padding:5px 0 0 19px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:145px;
+}
