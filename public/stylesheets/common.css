@@ -564,3 +564,155 @@ padding-top:2px;
   text-shadow:1px 1px 1px #999999;
   width:145px;
 }
+
+
+
+#left_column #left-nav  li.collections a {
+    background: url("../images/left-tab-bg-collection.jpg") no-repeat scroll 0 0 transparent;
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 3px;
+    overflow: hidden;
+    padding: 0 2px 0 25px;
+    text-transform: uppercase;
+    width:166px;
+}
+
+#left_column #left-nav  li.collections a:hover{
+    background: url("../images/left-tab-bg-collection.jpg") no-repeat scroll 0 -36px transparent;
+	text-decoration:none;
+	
+    
+}
+
+#left_column #left-nav  li.recommandations a {
+    background: url("../images/left-tab-bg-recommandations.jpg") no-repeat scroll 0 0 transparent;
+    color: #626363;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 3px;
+    overflow: hidden;
+    padding: 0 2px 0 25px;
+    text-transform: uppercase;
+    width: 166px;
+}
+
+#left_column #left-nav  li.recommandations a:hover{
+    background: url("../images/left-tab-bg-recommandations.jpg") no-repeat scroll 0 -36px transparent;
+	text-decoration:none;
+
+    
+}
+
+#left_column {
+    float: left;
+    margin: 27px 0 0 20px;
+    position: relative;
+    width: 185px;
+}
+
+#catalogue_title_vod {
+  color:#8bb417;
+  border-bottom: solid 2px #8bb417;
+  text-transform:uppercase;
+  font-size:15px;
+}
+.adult #catalogue_title_vod {
+  color:#7B0499;
+  border-bottom: solid 2px #7B0499;
+}
+#catalogue_vod {
+    margin: 13px 0 0 5px;
+    width: 185px;
+}
+
+
+#catalogue_title_dvd {
+color:#ff3d00;
+border-bottom: solid 2px #ff3d00;
+text-transform:uppercase;
+font-size:15px;
+}
+.adult #catalogue_title_dvd {
+color:#E2007C;
+border-bottom: solid 2px #E2007C;
+}
+
+#catalogue_dvd {
+    margin: 13px 0 0 5px;
+    width: 185px;
+}
+
+.list a {
+line-height: 20px;
+color:#525355;
+font-weight: lighter;
+text-decoration:none;
+}
+
+#dvd_list .list a:hover{
+text-decoration:none;
+color:#ff3d00;
+}
+
+#dvd_list .list a.actived{
+text-decoration:none;
+color:#ff3d00;
+}
+
+#vod_list .list a:hover{
+text-decoration:none;
+color:#8bb417;
+}
+
+#vod_list .list a.actived{
+text-decoration:none;
+color:#8bb417;
+}
+
+.adult #dvd_list .list a:hover{
+color:#E2007C;
+}
+
+.adult #dvd_list .list a.actived{
+color:#E2007C ;
+}
+
+.adult #vod_list .list a:hover{
+color:#7B0499;
+}
+
+.adult #vod_list .list a.actived{
+color:#7B0499;
+}
+
+
+#vod_list {
+    padding-bottom: 4px;
+    padding-left: 16px;
+    padding-top: 4px;
+}
+#dvd_list {
+    padding-bottom: 4px;
+    padding-left: 16px;
+    padding-top: 4px;
+}
+#left_column #left-nav li.adultvod a {
+    background: url("../images/left-tab-bg-adult.jpg") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    font-size: 14px;
+    height: 31px;
+    line-height: 30px;
+    margin-top: 6px;
+    overflow: hidden;
+    padding: 0 2px 4px 38px;
+    text-transform: uppercase;
+    width: 153px;
+    text-decoration:none;
+}
