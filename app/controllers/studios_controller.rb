@@ -1,5 +1,7 @@
 class StudiosController < ApplicationController
   def index
+     @filter = get_current_filter({})
+      @countries = ProductCountry.visible.order
     if params[:filter] && params[:filter].to_sym == :vod
       @studios = Studio.by_kind(params[:kind]).vod.ordered
     else
@@ -19,7 +21,7 @@ class StudiosController < ApplicationController
         else
           @studios = query.by_letter(params[:letter]).ordered
         end
-    end
+      end
     end
   end
 end
