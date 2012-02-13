@@ -1,4 +1,5 @@
 <% path = studio_products_path(:studio_id => studio_pict.to_param, :filter => params[:filter]) %>
 <li>
-  <%= link_to image_tag studio_pict.image, :alt => studio_pict.name , :class => "studios" %>
+  <%= link_to image_tag(studio_pict.image), path, :alt => studio_pict.name , :class => "studios" %>
+  <%= link_to studio_pict.name, path, :alt => studio_pict.name , :class => "studios" %>
 </li>
