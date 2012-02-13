@@ -1,5 +1,4 @@
 <% path = studio_products_path(:studio_id => studio_pict.to_param, :filter => params[:filter]) %>
-<li>
+<div style="float:left">
   <%= link_to image_tag(studio_pict.image), path, :alt => studio_pict.name , :class => "studios" %>
-  <%= link_to studio_pict.name, path, :alt => studio_pict.name , :class => "studios" %>
-</li>
+</div>

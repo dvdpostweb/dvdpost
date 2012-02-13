@@ -1,6 +1,7 @@
 <% path = category_products_path(:category_id => item.to_param, :filter => params[:filter]) %>
+<% image = params[:filter] == "vod" ? item.image_vod : item.image %>
 <li class = 'cadre'>
-  <%= link_to image_tag(item.image, :size => "162x102"), path %>
+  <%= link_to image_tag(image, :size => "162x102"), path %>
   <p>
     <%= link_to "#{item.name}", path, :class => "title" %>
   </p>

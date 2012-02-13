@@ -34,4 +34,8 @@ class Category < ActiveRecord::Base
     File.join(DVDPost.images_path, "categories", "#{id}.jpg")
   end
 
+  def image_vod
+    File.join(DVDPost.images_path, "categories", "#{id}_vod.jpg")
+  end
+
 end
