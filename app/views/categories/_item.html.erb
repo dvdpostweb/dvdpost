@@ -1,0 +1,17 @@
+<% path = category_products_path(:category_id => item.to_param, :filter => params[:filter]) %>
+<li class = 'cadre'>
+  <%= link_to image_tag(item.image, :size => "162x102"), path %>
+  <%= link_to "#{item.name}", path, :class => "title" %>
+  <% children = item.children %>
+  <% if children.count > 0 %>
+  <ul>
+    <% query = params[:filter] == "vod" ? children.active.movies.vod : children.active.movies %>
+    <% query.collect do |sub_item| %>
+    
+      <li>
+        <%= link_to "#{sub_item.name}", category_products_path(:category_id => sub_item.to_param, :filter => params[:filter]), :class => "studios" %>
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
+</li>

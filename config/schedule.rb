@@ -24,10 +24,12 @@ every :reboot do
   rake "thinking_sphinx:start"  
 end
  
-every 12.hours do  
+every 1.day, :at => '11:59 am' do 
   rake "thinking_sphinx:reindex"  
 end
-
+every 1.day, :at => '01:00 am' do  
+  rake "thinking_sphinx:reindex"  
+end
 every 1.day, :at => '2:30 pm' do 
  rake "rake friendly_id:make_slugs MODEL=Director ORDER=directors_id SLUG=1"
 end
