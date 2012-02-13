@@ -590,7 +590,7 @@ padding-top:2px;
 
 #left_column #left-nav  li.recommandations a {
     background: url("../images/left-tab-bg-recommandations.jpg") no-repeat scroll 0 0 transparent;
-    color: #626363;
+    color: #fff;
     display: block;
     font-size: 14px;
     height: 30px;
