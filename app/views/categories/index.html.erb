@@ -1,15 +1,17 @@
-<div id="maincontent">
-  <ul id="search-studio" class="search-categories">
-    <%= render :partial => '/categories/items', :locals => { :categories => @categories[0], :letter => 0} %>
-
-    <% ('a'..'z').each do |l|  %>
-      <%= render :partial => '/categories/items', :locals => { :categories => @categories[l], :letter => l} %>
-    <% end %>
-  </ul>
-</div>
-<!--   ==============   END MAIN CONTENT   ==============   -->
 <% if params[:kind] == :normal %>
+<div id="maincontent">
+  <%= render :partial => '/categories/item', :collection =>  @categories %>
+</div>
   <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
 <% else %>
+  <div id="maincontent">
+    <ul id="search-studio" class="search-categories">
+      <%= render :partial => '/categories/items', :locals => { :categories => @categories[0], :letter => 0} %>
+
+      <% ('a'..'z').each do |l|  %>
+        <%= render :partial => '/categories/items', :locals => { :categories => @categories[l], :letter => l} %>
+      <% end %>
+    </ul>
+  </div>
   <%= render :partial => 'products/left_column_adult', :locals => {:filter => @filter} %>
 <% end %>

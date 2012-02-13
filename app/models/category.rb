@@ -29,4 +29,9 @@ class Category < ActiveRecord::Base
   def root?
     parent_id == 0
   end
+
+  def image
+    File.join(DVDPost.images_path, "categories", "#{id}.jpg")
+  end
+
 end
