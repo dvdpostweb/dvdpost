@@ -1,7 +1,9 @@
 <% path = category_products_path(:category_id => item.to_param, :filter => params[:filter]) %>
 <li class = 'cadre'>
   <%= link_to image_tag(item.image, :size => "162x102"), path %>
-  <%= link_to "#{item.name}", path, :class => "title" %>
+  <p>
+    <%= link_to "#{item.name}", path, :class => "title" %>
+  </p>
   <% children = item.children %>
   <% if children.count > 0 %>
   <ul>
