@@ -103,13 +103,15 @@ class Product < ActiveRecord::Base
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 3 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
     
     has "(select case 
-    when (products_media = 'DVD' and streaming_products.imdb_id is not null) or (products_media = 'DVD' and vod_next = 1) then 2
-    when (products_media = 'VOD' and streaming_products.imdb_id is not null) or (products_media = 'VOD' and vod_next = 1) then 5
-    when products_media = 'DVD' then 1 
-    when (products_media = 'blueray' and streaming_products.imdb_id is not null) or (products_media = 'blueray' and vod_next = 1) then 4 
-    when products_media = 'blueray' then 3
-    when products_media = 'bluray3d' then 6
-    else 7 end from streaming_products where imdb_id = products.imdb_id and (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or streaming_products.status is null) limit 1)", :type  => :integer, :as => :special_media
+        when (products_media = 'DVD' and streaming_products.imdb_id is not null) or (products_media = 'DVD' and vod_next = 1) then 2
+        when (products_media = 'VOD' and streaming_products.imdb_id is not null) or (products_media = 'VOD' and vod_next = 1) then 5
+        when products_media = 'DVD' then 1 
+        when (products_media = 'blueray' and streaming_products.imdb_id is not null) or (products_media = 'blueray' and vod_next = 1) then 4 
+        when products_media = 'blueray' then 3
+        when products_media = 'bluray3d' then 6
+        else 7 end from products p 
+        left join streaming_products on streaming_products.imdb_id = p.imdb_id
+        where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or p.vod_next=1)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
     has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1 limit 1)", :type => :integer, :as => :streaming_available
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
