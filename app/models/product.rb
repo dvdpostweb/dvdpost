@@ -111,7 +111,7 @@ class Product < ActiveRecord::Base
         when products_media = 'bluray3d' then 6
         else 7 end from products p 
         left join streaming_products on streaming_products.imdb_id = p.imdb_id
-        where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or p.vod_next=1)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
+        where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
     has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1 limit 1)", :type => :integer, :as => :streaming_available
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
