@@ -487,7 +487,7 @@ module ProductsHelper
   def left_column(params)
     html_content = []
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.rent'), products_path(:sort => :token, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "token" ? :actived : ''
+      link_to t('products.left_column.rent'), products_path(:sort => :most_viewed, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "most_viewed" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rating'), products_path(:sort => :rating, :limit => 50), :class => params[:filter] != "vod" && params[:sort] == "rating" ? :actived : ''
