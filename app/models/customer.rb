@@ -523,13 +523,21 @@ class Customer < ActiveRecord::Base
     tokens.recent(2.week.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).last
   end
   
-  def get_all_tokens(kind = nil)
-    if kind == :adult
-      tokens.available(DVDPost.hours[:adult].hours.ago.localtime, Time.now).ordered.all(:joins => {:streaming_products, :products}, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }, :products => {:products_type => DVDPost.product_kinds[:adult]}})
-    elsif kind == :normal
-      tokens.available(DVDPost.hours[:normal].hours.ago.localtime, Time.now).ordered.all(:joins => {:streaming_products, :products}, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }, :products => {:products_type => DVDPost.product_kinds[:normal]}})
+  def get_all_tokens(kind = nil, type = nil, page = 1)
+    if type == :old
+      if kind == :adult
+        tokens.expired(DVDPost.hours[:adult].hours.ago.localtime).ordered.all(:joins => :products, :group => :imdb_id,  :conditions => {:products => {:products_type => DVDPost.product_kinds[:adult]}}).paginate(:per_page => 20, :page => page)
+      else kind == :normal
+        tokens.expired(DVDPost.hours[:normal].hours.ago.localtime).ordered.all(:joins => :products, :group => :imdb_id, :conditions => {:products => {:products_type => DVDPost.product_kinds[:normal]}}).paginate(:per_page => 24, :page => page)
+      end
     else
-      tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_products, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+      if kind == :adult
+        tokens.available(DVDPost.hours[:adult].hours.ago.localtime, Time.now).ordered.all(:joins => {:streaming_products, :products}, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }, :products => {:products_type => DVDPost.product_kinds[:adult]}})
+      elsif kind == :normal
+        tokens.available(DVDPost.hours[:normal].hours.ago.localtime, Time.now).ordered.all(:joins => {:streaming_products, :products}, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }, :products => {:products_type => DVDPost.product_kinds[:normal]}})
+      else
+        tokens.available(2.days.ago.localtime, Time.now).ordered.all(:joins => :streaming_products, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+    end
     end
   end
   

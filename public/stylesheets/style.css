@@ -3080,13 +3080,13 @@ fieldset {
 }
 */
 
-.products-pagination {
+.products-pagination, .products-pagination2 {
   margin-top: 20px;
   text-align: center;
   padding-bottom: 3px;
 }
 
-.products-pagination a {
+.products-pagination a, .products-pagination2 a{
   color: #5b6377;
   border: 1px solid #5b6377;
   text-decoration: none !important;
@@ -3094,14 +3094,14 @@ fieldset {
   padding: 2px 5px;
 }
 
-.products-pagination a:hover {
+.products-pagination a:hover, .products-pagination2 a:hover  {
   color: #FFF;
   text-decoration: none;
   border: 1px solid #5b6377;
   background-color: #5b6377;
 }
 
-.products-pagination .current {
+.products-pagination .current, .products-pagination2 .current {
   color: #FFF;
   border: 1px solid #f64b00;
   background-color: #f64b00;
@@ -3109,12 +3109,12 @@ fieldset {
   font-style: normal;
   padding: 2px 5px;
 }
-.adult .products-pagination .current
+.adult .products-pagination .current, .adult .products-pagination2 .current
 {
   background-color: #e2007c
 }
 
-.products-pagination .prev_page, .products-pagination .next_page {
+.products-pagination .prev_page, .products-pagination .next_page, .products-pagination2 .prev_page, .products-pagination2 .next_page {
   border: none;
   width: 23px;
   display: inline-block;
@@ -3123,7 +3123,7 @@ fieldset {
   vertical-align: middle;
 }
 
-.products-pagination a:hover.prev_page, .products-pagination a:hover.next_page {
+.products-pagination a:hover.prev_page, .products-pagination a:hover.next_page, .products-pagination2 a:hover.prev_page, .products-pagination2 a:hover.next_page {
   border: none;
   width: 23px;
   display: inline-block;
@@ -3132,19 +3132,19 @@ fieldset {
   vertical-align: middle;
 }
 
-.products-pagination .prev_page {
+.products-pagination .prev_page, .products-pagination2 .prev_page {
   background: url(../images/precedent.gif) no-repeat;
 }
 
-.products-pagination .next_page {
+.products-pagination .next_page, .products-pagination2 .next_page {
   background: url(../images/suivant.gif) no-repeat;
 }
 
-.products-pagination .prev_page:hover {
+.products-pagination .prev_page:hover, .products-pagination2 .prev_page:hover {
   background: url(../images/precedent.gif) 0 100% no-repeat;
 }
 
-.products-pagination .next_page:hover {
+.products-pagination .next_page:hover, .products-pagination2 .next_page:hover {
   background: url(../images/suivant.gif) 0 100% no-repeat;
 }
 

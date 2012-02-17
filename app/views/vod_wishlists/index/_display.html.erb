@@ -1,5 +1,5 @@
 <p class="list-show-by">
 	<%= t('.title') %>: 
-	<%= link_to 'list', display_vod_path(:value => 0), :class => "list#{display_vod == 0 ? " selected":""}" %>
-  <%= link_to 'gallery', display_vod_path(:value => 1), :class => "gallery#{display_vod == 1 ? " selected":""}" %>
+	<%= link_to 'list', display_vod_path(:value => 0, :transit_or_history => params[:transit_or_history]), :class => "list#{display_vod == 0 ? " selected":""}" %>
+  <%= link_to 'gallery', display_vod_path(:value => 1, :transit_or_history => params[:transit_or_history]), :class => "gallery#{display_vod == 1 ? " selected":""}" %>
 </p>
