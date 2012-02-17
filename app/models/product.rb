@@ -231,7 +231,7 @@ class Product < ActiveRecord::Base
           if medias.include?(:streaming)
             media_i = [1,2,3,4,5]
           else
-            media_i = [1,3]
+            media_i = [1,2,3,4]
           end
         elsif medias.include?(:streaming)
           media_i = [1,2,5]
