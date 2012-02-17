@@ -1,12 +1,31 @@
 <% path = @display_vod == 0 ? 'vod_wishlists/index/item' : 'vod_wishlists/index/item_gallery' %>
 <% class_name = @display_vod == 0 ? '' : ' gallery clearfix' %>
 <div id="maincontent" >
+  <ul id="on-way-nav">
+    <li class="first">
+      <% if params[:transit_or_history] == 'history' %>
+        <%= link_to t('.see_out'), vod_wishlists_path(:transit_or_history => 'transit'), :class => 'transit_or_history2' %>
+      <% else %>
+        <%= link_to t('.see_history'), vod_wishlists_path(:transit_or_history => 'history'), :class => 'transit_or_history2' %>
+      <% end %>
+    </li>
+
+  </ul>
 <%= render :partial => 'wishlist_items/index/list_menu', :locals => {:wishlist_items_count => @wishlist_items_count, :vod_count => @list.count} %>
+<% if params[:transit_or_history] == 'history' %>
+<h2><%= t '.history_list' %></h2>    	
+<div class="box<%= class_name %>" id="in-progress">
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => path, :collection => @history_list, :locals => {:display_vod => @display_vod, :type => :history} %>
+</div>
+<%= will_paginate @history_list, :class => 'products-pagination2', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
+<% else %>
 <h2><%= t '.token_list' %> (<%= @token_list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="in-progress">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
   <%= render :partial => path, :collection => @token_list, :locals => {:display_vod => @display_vod, :type => :token} %>
 </div>
+<% end %>
 <h2><%= t '.list' %> (<%= @list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="ready">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>

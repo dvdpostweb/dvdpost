@@ -9,8 +9,8 @@
 		  <% if type == :token %>
 			  <span class="alert"><%= time_left(item, :normal)%></span>
 			<% end %>
-		  <%= "<strong class='alert'>#{t ".till"} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && 2.weeks.from_now.localtime > expire && type != :token %>
-		  <% if type != :token %>
+		  <%= "<strong class='alert'>#{t ".till"} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && 2.weeks.from_now.localtime > expire && type != :token && type != :history%>
+		  <% if type != :token && type != :history%>
   			<span class="trash">
           <% form_for(:vod_wishlists, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete, :id => "form_#{item.to_param}", :class => 'remvove_from_wishlist_form'}) do |f|%>
               <%= hidden_field_tag :list, 2 %>
@@ -24,7 +24,7 @@
 		</div>
 		<%= link_to image_tag(product.image, :alt => product_title, :size => "95x137"), product_path(:id => product.to_param)  %>
 		
-		  <% if type != :soon %>
+		  <% if type != :soon && type != :history%>
 		  <p class="status">
 		    <% @token = current_customer.get_token(item.imdb_id) %>
 		    <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token, :text => :short} %>

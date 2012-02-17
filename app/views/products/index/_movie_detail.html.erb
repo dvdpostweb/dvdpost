@@ -14,7 +14,7 @@
 <% unless Rails.cache.exist? name_path %>
   <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
- 
+ <%= "#{product.imdb_id}" unless Rails.env == "production" %>
 <% cache name do %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
