@@ -1,7 +1,7 @@
 <div id="addwishlist_title">
   <%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %> 
   <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d? %>
-  <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d2d? %>
+  <%= image_tag "3d2d_icon.png" if @wishlist_item.product.bluray3d2d? %>
 </div>
 <% unless @wishlist_item.product.vod?  %>
   <div id="addwishlist_explain">
