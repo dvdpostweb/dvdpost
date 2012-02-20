@@ -11,6 +11,7 @@
   <% else %>  
     <div class="availability">
       <%= image_tag "3d_icon.png" if wishlist_item.product.bluray3d? %>
+      <%= image_tag "3d_icon.png" if wishlist_item.product.bluray3d2d? %>
       <% if wishlist_item.product.next == 1 && wishlist_item.product.available_at %> 
         <% wishlist_item.product.available_at.strftime("%d/%m/%Y") %>
       <% elsif wishlist_item.already_rented == 'YES' %>

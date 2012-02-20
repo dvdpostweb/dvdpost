@@ -109,7 +109,8 @@ class Product < ActiveRecord::Base
         when (products_media = 'blueray' and streaming_products.imdb_id is not null) or (products_media = 'blueray' and vod_next = 1) then 4 
         when products_media = 'blueray' then 3
         when products_media = 'bluray3d' then 6
-        else 7 end from products p 
+        when products_media = 'bluray3d2d' then 7
+        else 8 end from products p 
         left join streaming_products on streaming_products.imdb_id = p.imdb_id
         where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
     has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1 limit 1)", :type => :integer, :as => :streaming_available
@@ -219,8 +220,8 @@ class Product < ActiveRecord::Base
     products = products.by_country(filter.country_id) if filter.country_id?
     products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
     products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
-    products = products.by_special_media([3,4]) if options[:filter] && options[:filter] == "bluray"
-    products = products.by_special_media([6]) if options[:filter] && options[:filter] == "bluray3d"
+    products = products.by_special_media([3,4,7]) if options[:filter] && options[:filter] == "bluray"
+    products = products.by_special_media([6,7]) if options[:filter] && options[:filter] == "bluray3d"
     
     if filter.media? && options[:kind] == :normal
       
@@ -229,9 +230,9 @@ class Product < ActiveRecord::Base
       if medias.include?(:dvd)
         if medias.include?(:bluray)
           if medias.include?(:streaming)
-            media_i = [1,2,3,4,5]
+            media_i = [1,2,3,4,5,7]
           else
-            media_i = [1,2,3,4]
+            media_i = [1,2,3,4,7]
           end
         elsif medias.include?(:streaming)
           media_i = [1,2,5]
@@ -240,15 +241,15 @@ class Product < ActiveRecord::Base
         end
       elsif medias.include?(:bluray)
         if medias.include?(:streaming)
-          media_i = [2,3,4,5]
+          media_i = [2,3,4,5,7]
         else
-          media_i = [3,4]
+          media_i = [3,4,7]
         end
       elsif medias.include?(:streaming)
-        media_i = [2,4,5]
+        media_i = [2,4,5,7]
       end
       if medias.include?(:bluray3d)
-        media_i.push(6)
+        media_i.push([6,7])
       end
       products = products.by_special_media(media_i)
     end
@@ -481,6 +482,10 @@ class Product < ActiveRecord::Base
 
   def bluray3d?
     media == DVDPost.product_types[:bluray3d]
+  end
+
+  def bluray3d2d?
+    media == DVDPost.product_types[:bluray3d2d]
   end
 
   def vod?
