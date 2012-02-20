@@ -1,4 +1,8 @@
-<div id="addwishlist_title"><%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %> <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d? %></div>
+<div id="addwishlist_title">
+  <%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %> 
+  <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d? %>
+  <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d2d? %>
+</div>
 <% unless @wishlist_item.product.vod?  %>
   <div id="addwishlist_explain">
     <%= t '.intro' %>
@@ -48,7 +52,7 @@
         <p><%= t('.bluray_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path) %></p>
       </div> 
     <% end %>
-    <% if @wishlist_item.product.bluray3d? && current_customer.customer_attribute && current_customer.customer_attribute.bluray_owner != 2 %>
+    <% if (@wishlist_item.product.bluray3d? || @wishlist_item.product.bluray3d2d?) && current_customer.customer_attribute && current_customer.customer_attribute.bluray_owner != 2 %>
       <div id ='attention_bluray'>
         <p><%= t('.bluray3d_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path(:value => 2)) %></p>
       </div> 

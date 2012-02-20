@@ -139,6 +139,7 @@ module DVDPost
         :dvd => 'DVD',
         :bluray => 'BlueRay',
         :bluray3d => 'bluray3d',
+        :bluray3d2d => 'bluray3d2d',
         :vod => 'VOD',
         :hdd => 'HDD',
         :ps3 => 'PS3',

@@ -14,6 +14,7 @@ module ApplicationHelper
       when 'DVD', 'HDD', 'PS3', 'Wii' then media.downcase
       when 'BlueRay'                  then 'bluray'
       when 'bluray3d'                  then 'bluray3d'
+      when 'bluray3d2d'                  then 'bluray3d'
       when 'XBOX 360'                 then 'xbox'
       else ''
     end

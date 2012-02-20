@@ -14,7 +14,7 @@
 <% unless Rails.cache.exist? name_path %>
   <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
- <%= "#{product.imdb_id}" unless Rails.env == "production" %>
+<%= "#{product.imdb_id}" unless Rails.env == "production" %>
 <% cache name do %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
@@ -22,7 +22,7 @@
 <% product_description =  data[:description] %>
   <div class="movie-descr">
     <h2>
-      <%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %>
+      <%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d_icon.png" if product.bluray3d2d? %>
     </h2>
     <p>
       <%= truncate_html(product_description.text, :length => 300) %>
