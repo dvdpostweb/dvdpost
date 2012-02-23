@@ -90,13 +90,13 @@ class Product < ActiveRecord::Base
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
-    has streaming_products(:available_from), :as => :available_from
-    has streaming_products(:expire_at), :as => :expire_at
-    has streaming_products(:studio_id), :as => :streaming_studio_id
+    has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_from
+    has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :expire_at
+    has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :integer, :as => :streaming_studio_id
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
-    has "(select created_at s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
+    has "(select created_at s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
   
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 1 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr
     has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 2 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_nl
@@ -112,8 +112,8 @@ class Product < ActiveRecord::Base
         when products_media = 'bluray3d2d' then 7
         else 8 end from products p 
         left join streaming_products on streaming_products.imdb_id = p.imdb_id
-        where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
-    has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from < now() and streaming_products.expire_at > now() and available = 1 limit 1)", :type => :integer, :as => :streaming_available
+        where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now()) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
+    has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now()) and available = 1 limit 1)", :type => :integer, :as => :streaming_available
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
@@ -164,18 +164,19 @@ class Product < ActiveRecord::Base
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
-  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0}}}
-  sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_created_at => 2.months.ago..Time.now, :streaming_available => 1 }}}
+  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
+  sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 2.months.ago..Time.now.end_of_day, :streaming_available => 1 }}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1}}}
-  sphinx_scope(:dvd_soon)           {{:with =>      {:in_cinema_now => 0, :next => 1}}}
+  sphinx_scope(:dvd_soon)           {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
   sphinx_scope(:not_soon)           {{:with =>          {:vod_next => 0}}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
+  sphinx_scope(:streaming2)         {{:with =>          {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:popular_new)        {{:with =>          {:popular => 1}}}
-  sphinx_scope(:weekly_streaming)   {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_created_at => 7.days.ago..Time.now, :streaming_available => 1 }}}
+  sphinx_scope(:weekly_streaming)   {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 7.days.ago..Time.now.end_of_day, :streaming_available => 1 }}}
   
   sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
@@ -310,7 +311,9 @@ class Product < ActiveRecord::Base
     elsif options[:search] && !options[:search].blank?
       sort = sort_by("", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
-      sort = sort_by("streaming_id desc", options)
+      sort = sort_by("available_from desc", options)
+    elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
+      sort = sort_by("available_from desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
       sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular
