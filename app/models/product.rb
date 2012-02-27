@@ -91,8 +91,10 @@ class Product < ActiveRecord::Base
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_from
-    has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :expire_at
-    has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :integer, :as => :streaming_studio_id
+    has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
+    has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_bc_from
+    has "(select expire_backcatalogue_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_backcatalogue_from asc limit 1)", :type => :datetime, :as => :expire_bc_at
+    has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at desc limit 1)", :type => :integer, :as => :streaming_studio_id
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
@@ -112,10 +114,10 @@ class Product < ActiveRecord::Base
         when products_media = 'bluray3d2d' then 7
         else 8 end from products p 
         left join streaming_products on streaming_products.imdb_id = p.imdb_id
-        where  (( streaming_products.status = 'online_test_ok' and streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now()) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
-    has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now()) and available = 1 limit 1)", :type => :integer, :as => :streaming_available
+        where  (( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
+    has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1 limit 1)", :type => :integer, :as => :streaming_available
     has "case 
-    when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
+    when  (streaming_products.available_from < now() and streaming_products.expire_at > now()) or (streaming_products.available_backcatalogue_from < now() and streaming_products.expire_backcatalogue_at > now()) then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 31))", :type => :integer, :as => :count_tokens_month
@@ -165,7 +167,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
-  sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 2.months.ago..Time.now.end_of_day, :streaming_available => 1 }}}
+  sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 2.months.ago..Time.now, :streaming_available => 1 }}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:dvd_soon)           {{:with =>          {:in_cinema_now => 0, :next => 1}}}
@@ -311,9 +313,11 @@ class Product < ActiveRecord::Base
     elsif options[:search] && !options[:search].blank?
       sort = sort_by("", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
-      sort = sort_by("available_from desc", options)
+      sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
       sort = sort_by("available_from desc", options)
+    elsif options[:view_mode] && options[:view_mode].to_sym == :vod_soon
+      sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
       sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular

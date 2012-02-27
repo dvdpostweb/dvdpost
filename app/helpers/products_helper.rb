@@ -463,9 +463,18 @@ module ProductsHelper
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rating'), products_path(:sort => :rating, :filter => :vod, :limit => 50), :class => params[:filter] == "vod" && params[:sort] == "rating" ? :actived : ''
     end
-    html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
+    if params[:kind] == :adult
+      list = ProductList.theme.by_kind(params[:kind].to_s).by_style(:vod).find_by_home_page(true)
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.favorite'), list_products_path(:list_id => list.to_param), :class => params[:list_id].to_i == list.to_param ? :actived : ''
+      end
+    else
+      
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
+      end
     end
+    
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.new'), products_path(:view_mode => :vod_recent, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_recent" ? :actived : ''
     end
@@ -492,8 +501,10 @@ module ProductsHelper
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rating'), products_path(:sort => :rating, :limit => 50), :class => params[:filter] != "vod" && params[:sort] == "rating" ? :actived : ''
     end
-    html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_dvd[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale] ? :actived : ''
+    unless params[:kind] == :adult
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_dvd[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale] ? :actived : ''
+      end
     end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.new'), products_path(:view_mode => :recent), :class => params[:filter] != "vod" && params[:view_mode] == "recent" ? :actived : ''
