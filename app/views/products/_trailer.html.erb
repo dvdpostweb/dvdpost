@@ -17,12 +17,7 @@
   <param name="flashvars" value="<%= trailer.remote_id %>"/>
   </object>
 <% elsif trailer.cinemovies? %>
-  <object id="ply" width="610" height="458" type="application/x-shockwave-flash" data="http://www.cinemovies.fr/player/export/CineMovies2.swf">
-  <param name="wmode" value="transparent">
-  <param name="allowfullscreen" value="true">
-  <param name="allowscriptaccess" value="always">
-  <param name="flashvars" value="<%= trailer.remote_id %>">
-  </object>
+  	<embed height="458" width="610" allowscriptaccess="always" allowfullscreen="true" flashvars="<%= trailer.remote_id %>" src="http://www.cinemovies.fr/player/export/CineMovies2.swf"></embed>
 <% elsif trailer.aamreviews? %>
   <object type="application/x-shockwave-flash" width="450" height="300"wmode="transparent" data="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/<%= trailer.remote_id %>&autostart=true&showfsbutton=true">
                   <param name="movie" value="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/3372.flv&autostart=true&showfsbutton=true" />
