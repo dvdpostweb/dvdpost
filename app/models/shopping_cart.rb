@@ -11,6 +11,8 @@ class ShoppingCart < ActiveRecord::Base
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :product, :foreign_key => :products_id
 
+  named_scope :ordered, :order => 'shopping_cart_id desc'
+
   def self.shipping(count)
   	if count == 0
 			price = 0
