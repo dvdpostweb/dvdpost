@@ -109,7 +109,7 @@ class ShoppingCartsController < ApplicationController
     redirect_to path
   end
   def init_data
-    cart = current_customer.shopping_carts
+    cart = current_customer.shopping_carts.ordered
     @cart_count = cart.count
     @cart = cart.paginate(:per_page => 3, :page => 1)
     @shipping = ShoppingCart.shipping(@cart_count)
