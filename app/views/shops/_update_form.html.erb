@@ -1,0 +1,6 @@
+<% form_for(:shopping_cart, :url => shopping_cart_path(), :html => {:method => method}) do |f|%>
+  <%= f.hidden_field :products_id,  :value => product.id %>
+  <span>
+    <%= submit_tag text, :class => class_name %>
+  </span>
+<% end %>

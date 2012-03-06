@@ -1,3 +1,14 @@
-<%= render(:partial => "shops/list", :locals => {:list => @list}) %>
-
-<%= link_to "shopping_cart", shopping_cart_path() %>
+<div id="hp-content">
+  <div id="toggle-link">
+    <%= link_to t('.Withdrawal'), info_path(:page_name => 'withdrawal_period'), :class => :add_to_wishlist_button %>
+  </div>
+  <!-- Vente Flash -->
+  <div id="vente-flash">
+    <%= render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @price} %>
+  </div>
+  <!-- Products -->
+  <p><%= @items ? t('.full') : t('.empty') %></p>
+  <ul id="products-wrap">
+    <%= render :partial => 'products/shop', :collection => @items %>      
+  </ul>
+</div>

@@ -1,0 +1,16 @@
+<% ht = ((total * 82.6).round).to_f/100 %>
+<% taxe = total - ht %>
+<tr>
+  <td colspan="3" align="right" valign="top" class="taxes"><strong><%= t '.total' %></strong><br />
+    <strong><%= t '.taxes' %></strong><br />
+    <strong><%= t '.ttc' %></strong><br />
+    <%= t '.without_ship' %><br />
+    <strong><%= t '.shipping' %></strong>
+  </td>
+  <td align="right" valign="top" class="taxes"><strong><%= ht %> &euro;</strong><br />
+    <strong><%= taxe %> &euro;</strong><br />
+    <strong><%= total %> &euro;</strong><br />
+    <%= total %> &euro;<br />
+    <strong><%= shipping %> &euro;</strong>
+  </td>
+</tr>

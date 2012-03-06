@@ -15,4 +15,5 @@ if flash[:notice]
   page["body"].trigger('close.facebox')
 end
 page["##{@submit_id}"].replaceWith render :partial => 'products/shop', :locals => {:shop => @product}
+page["#cart"].replaceWith render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @price}
 flash.discard

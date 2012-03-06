@@ -1,17 +1,19 @@
 <% product = item.product %>
-<li style="float:left">
-  <%= image_tag product.image, :width => 120 %><br />
-  <%= product.title %> (<%= product.price_sale %> euro)<br >
-  <p id="quantity">
-        <% fields_for "shopping_cart[]", item do |report_fields| %>
-        <tr>
-          <td><%= report_fields.text_field :quantity, :value => item.quantity %></td>
-        </tr>
-        <tr>
-          <td><%= report_fields.check_box :delete %></td>
-        </tr>
-        <% end %>
-  </p>
-  <p> total => <%= (price = item.quantity*product.price_sale) %></p>
-</li>
+<% price = item.quantity*product.price_sale %>
+<% ht = ((price * 82.6).round).to_f/100 %>
+<% taxe = price - ht %>
+<tr>
+  <td>
+    <div class="titre">
+      <%= image_tag product.image, :width => 61, :height => 90, :alt => product.title %>
+       <span><%= product.title %></span> 
+       <%= render :partial => 'shops/update_form', :locals => {:product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn"} %>
+    </div>
+  </td>
+  <td align="center" valign="top" class="padded"><%= product.price_sale %> &euro;</td>
+  <td align="center" valign="top" class="padded"></td>
+  <td align="center" valign="top" class="padded"><%= price %> &euro; TTC<br />
+    <span class="taxes"><%= taxe %> &euro; taxes<br />
+    <%= ht %> &euro; HT</span></td>
+</tr>
 <% @total += price %>

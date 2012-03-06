@@ -1,0 +1,351 @@
+/*
+===============
+developed by Vel
+at http://www.vhg-design.com
+===============
+*/
+
+a {
+  color: #201f20;
+}
+
+#header ul, #header ol, #header dl, #header dt, #header dd {
+  list-style: none;
+}
+
+
+p {
+  margin-bottom: 18px;
+
+}
+
+fieldset {
+  border: none;
+}
+
+input, select, textarea, button {
+  font: normal 1em Arial, Helvetica, sans-serif;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+textarea {
+  overflow: auto;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+}
+
+#wrap {
+  margin: 0 auto;
+  text-align: left;
+  width: 970px;
+}
+
+
+.f-btn {
+  display: block;
+  text-indent: -999em;
+  outline: none;
+}
+
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;margin:0;}
+
+#hp-content {
+  padding: 15px;
+  background: #fff;
+}
+
+#toggle-link {
+  text-align: right;
+  padding: 0 20px 5px 0;
+}
+#vente-flash {
+  min-height: 189px;
+  padding: 7px 0;
+  margin: 0 -15px 12px;
+  background: #d43213 url(../images/vente-flash-banner.png) 0 0 no-repeat;
+  }
+#cart {
+  width: 236px;
+  padding: 5px;
+  margin-left: 690px;
+  background: #fff;
+}
+#cart h4, #cart-wrap h4 {
+  color: #fa4e17;
+  text-transform: uppercase;
+  font-size: 1.17em;
+  position: relative;
+}
+#cart h4 span.articles, #cart-wrap h4 strong {
+  text-transform: none;
+  color: #000000;
+  font-size: 0.79em;
+  padding-right: 25px;
+  display: block;
+  line-height: 16px;
+  background: url(../images/cart-icon.gif) 100% 0 no-repeat;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+#cart dt, #cart dd {
+  float: left;
+  color: #000;
+  padding:0 4px 5px;
+}
+#cart dt {
+  clear: left;
+  width: 152px;
+}
+#cart dd {
+  width: 71px;
+  text-align: right;
+  padding-left: 0;
+}
+#cart form
+{
+  display: inline-block;
+}
+#cart dd .remove {
+  display: inline-block;
+  width: 12px;
+  height: 13px;
+  text-align: left;
+  background: url(../images/remove-icon.gif) 100% 100% no-repeat;
+  cursor: pointer;
+}
+#cart #items {
+  padding-top: 10px;
+}
+#cart #all-items {
+  text-align: right;
+   padding: 0 4px 7px;
+}
+#cart #all-items a, #products-wrap li .info-link a  {
+  color: #838282;
+  padding-left: 15px;
+  background: url(../images/plus-icon.gif) 0 1px no-repeat;
+}
+#totals dt, #totals dd {
+  padding: 3px;
+  border-top: 1px solid #aeadad;
+  color: #7e7d7d;
+}
+#cart .btn-wrap {
+  text-align: right;
+  padding-right: 4px;
+}
+#cart .btn-wrap a, #products-wrap li .btn, #products-wrap li .btn_remove_form, #cart-wrap a#continue-shopping {
+  display: inline-block;
+  width: 142px;
+  line-height: 28px;
+  color: #fff;
+  font-weight: bold;
+  padding-left: 29px;
+  background: url(../images/checkout-btn.png) 0 2px no-repeat;
+  text-align: left;
+  text-decoration: none;
+}
+#cart .btn-wrap a:hover {
+  text-decoration: underline;
+}
+#products-wrap {
+  margin-right: -10px;
+}
+#products-wrap li {
+  display: inline-block;
+  vertical-align: top;
+  width: 156px;
+  min-height: 185px;
+  padding: 10px 10px 10px 139px;
+  border: 1px solid #a8a8a8;
+  margin: 0 7px 6px 0;
+  position: relative;
+  color: #404040;
+}
+*+html #products-wrap li {
+  display: inline;
+}
+
+
+#products-wrap li h2 {
+  min-height: 40px;
+  font-size: 1.17em;
+  margin-bottom: 2px;
+}
+#products-wrap li .info-link {
+  min-height: 40px;
+}
+#products-wrap li .info-link a {
+  color: #404040;
+}
+#products-wrap li .price-info {
+  text-align: center;
+  color: #7c7a7a;
+  font-size: 0.92em;
+}
+#products-wrap li .price-info strong {
+  color: #fa4f17;
+  display: block;
+  font-size: 3.27em;
+}
+#products-wrap li .btn, #products-wrap li .btn_remove_form {
+  width: 166px;
+  padding-left: 32px;
+  background: url(../images/acheter-btn.png);
+  margin: 8px 0 0 -5px;
+  cursor:pointer;
+}
+#products-wrap li .btn:hover, #products-wrap li .btn_remove_form:hover {
+  background: url(../images/acheter-btn.png) 0 27px;
+}
+#products-wrap li .thumb {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #838282;
+  display: block;
+  width: 112px;
+}
+#products-wrap li .thumb img {
+  display: block;
+  margin-bottom: 6px;
+}
+#cart-wrap h4 {
+  font-size: 1.50em;
+  margin-bottom: 5px;
+}
+#cart-wrap h4 strong {
+  font-size: 0.78em;
+  padding: 0 0 0 27px;
+  background-position: 0 0;
+}
+#cart-wrap h4 strong span {
+  color: #fa4f17;
+}
+#cart-tbl, #cart-tbl th, #cart-tbl td {
+  border: 1px solid #aeadad;
+}
+#cart-tbl th {
+  text-align: center;
+  padding: 10px 0;
+}
+th#titre {
+  text-align: left;
+  padding-left: 43px;
+}
+
+
+#cart-tbl td {
+padding: 10px 0;
+}
+#cart-tbl td.padded {
+  padding-top: 30px;
+  font-size: 1.5em;
+  color: #fa4f17;
+  font-weight: bold;
+}
+#cart-tbl td.padded .taxes {
+  font-weight: normal;
+  color: #878786;
+  font-size: 0.67em;
+}
+#cart-tbl td.padded select {
+  border: 1px solid #595959;
+  color: #595959;
+}
+#cart-tbl td .titre {
+  position: relative;
+  padding-left: 43px;
+  font-size: 1.5em;
+}
+#cart-tbl td .titre span {
+   display: inline-block;
+   padding-top:30px;
+   width: 400px;
+}
+
+
+#cart-tbl td .titre img {
+  margin-right: 25px;
+}
+#cart-tbl td .titre .remove {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: url(../images/remove-icon.gif) 100% 100% no-repeat;
+  position: absolute;
+  top: 0;
+  left: 15px;
+  cursor:pointer;
+}
+#cart-tbl td.taxes {
+  padding-right: 20px;
+  color: #404040;
+  line-height: 20px;
+}
+#cart-tbl td.taxes strong {
+  font-size: 1.17em;
+}
+#cart-wrap #total-amount {
+  float: right;
+  padding: 2px 10px;
+  background: #fa4f17;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0 12px 20px 0;
+
+
+}
+#cart-wrap #total-amount span {
+  width: 131px;
+  display: inline-block;
+  text-align: right;
+}
+#cart-wrap a#finish-order {
+  float: right;
+  display: inline-block;
+  width: 162px;
+  line-height: 23px;
+  color: #fff;
+  font-weight: bold;
+  background: url(../images/finish-order-btn-bg.png) 0 0 no-repeat;
+  margin-right: 12px;
+  text-align: center;
+  text-decoration: none;
+}
+#cart-wrap a#continue-shopping {
+  margin-left: 12px;
+}
+
+
+#cart-wrap a#finish-order:hover, #cart-wrap a#continue-shopping:hover {
+  text-decoration: underline;
+}
+a.title, a.title:hover
+{
+  color:#000;
+  text-decoration: none;
+}

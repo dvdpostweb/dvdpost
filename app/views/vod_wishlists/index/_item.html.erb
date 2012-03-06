@@ -20,6 +20,11 @@
 			  <%= "<strong class='alert'>#{t '.available'} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && 2.weeks.from_now.localtime > expire %>
         <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token, :text => :short} %>
 			<% end %>
+		<% if type == :history %>
+		  <div class="status">
+        <%= "#{t('.history_see')} #{item.created_at.strftime("%d/%m/%Y")}"%> 
+      </div>
+	  <% end %>
 		<% if type != :token && type != :history %>
 		<span class="trash">
       <% form_for(:vod_wishlists, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete, :id => "form_#{item.to_param}", :class => 'remvove_from_wishlist_form'}) do |f|%>

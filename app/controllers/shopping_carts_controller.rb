@@ -3,25 +3,34 @@ class ShoppingCartsController < ApplicationController
     item = current_customer.shopping_carts.find_by_products_id(params[:shopping_cart][:products_id])
     unless item
       @product = Product.find(params[:shopping_cart][:products_id])
-      @cart = ShoppingCart.new(params[:shopping_cart].merge(:customer => current_customer, :price => @product.price_sale))
+      @cart_new = ShoppingCart.new(params[:shopping_cart].merge(:customer => current_customer, :price => @product.price_sale))
       @submit_id = "id_#{@product.id}"
-      if @cart.save
-        flash[:notice] = 'ok film ajouté'
+      if @cart_new.save
+        flash[:notice] = t 'shopping_carts.success'
         respond_to do |format|
           format.html {redirect_back_or(shopping_cart_path)}
-          format.js {render :layout => false}
+          format.js {
+            init_data
+            render :layout => false
+          }
         end
       else
-        flash[:error] = 'erreur lors de l\'ajout'
+        flash[:error] = t 'shopping_carts.error'
         respond_to do |format|
           format.html {redirect_back_or(shopping_cart_path)}
-          format.js {render :layout => false}
+          format.js {
+            init_data
+            render :layout => false
+          }
         end
       end
     else
       respond_to do |format|
-        format.html {redirect_to redirect_back_or(shopping_cart_path)}
-        format.js {render :layout => false}
+        format.html {redirect_back_or(shop_path)}
+        format.js {
+          init_data
+          render :layout => false
+        }
       end
     end
   end
@@ -32,8 +41,11 @@ class ShoppingCartsController < ApplicationController
     item = current_customer.shopping_carts.find_by_products_id(params[:shopping_cart][:products_id])
     item.destroy if item 
     respond_to do |format|
-      format.html {redirect_to redirect_back_or(shopping_cart_path)}
-      format.js {render :layout => false}
+      format.html {redirect_back_or(shop_path)}
+      format.js {
+        init_data
+        render :layout => false
+      }
     end
   end
 
@@ -49,7 +61,7 @@ class ShoppingCartsController < ApplicationController
         shop.update_attributes(value)
       end
     end
-    flash[:notice] = 'panier mis à jour!'
+    flash[:notice] = t 'shopping_carts.up'
     redirect_to :action => "show"
   end
 
@@ -83,6 +95,9 @@ class ShoppingCartsController < ApplicationController
     else
       @items = current_customer.shopping_carts.all
       @count = current_customer.shopping_carts.sum(:quantity)
+      @articles_count = current_customer.shopping_carts.count
+      
+      @shipping = ShoppingCart.shipping(@count)
       @total = 0
     end
   end
@@ -93,5 +108,12 @@ class ShoppingCartsController < ApplicationController
   rescue ::ActionController::RedirectBackError
     redirect_to path
   end
-
+  def init_data
+    cart = current_customer.shopping_carts
+    @cart_count = cart.count
+    @cart = cart.paginate(:per_page => 3, :page => 1)
+    @shipping = ShoppingCart.shipping(@cart_count)
+    @price = current_customer.shopping_carts.sum(:quantity)
+    @price += @shipping
+  end
 end

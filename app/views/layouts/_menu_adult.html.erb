@@ -41,12 +41,14 @@
           <strong><span><%= t '.dvd' %></span></strong>
           </label>
         </li>
+        <% if streaming_access? %>
         <li>
           <label class="green">
             <%= radio_button_tag :filter, :vod, (params[:filter] == 'vod' ? true : false), {:class => 'filter_input', :id => 'vod' } %>
           <strong><span><%= t '.vod' %></span></strong>
         </label>
         </li>
+        <% end %>
       </ul>
     </div>
     <input type="image" src="/images/search-btn-adult.png" alt="GO" id='filter_button' />

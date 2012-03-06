@@ -14,6 +14,7 @@
   <p> total => <%= (price = item.quantity*product.price_sale) %></p>
   <% total += price %>
 </li>
+
 <% end %>
 <% shipping = ShoppingCart.shipping(@count) %>
 

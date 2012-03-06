@@ -1,0 +1,17 @@
+<tr>
+  <td colspan="4"><div id="total-amount"><%= t '.ttc' %><span><%= (total + shipping) %> &euro;</span></div>
+    <div class="clear"></div>
+      <% if current_customer.address %>
+      <p style="float:right; margin:15px">
+        <%= t '.address' %><br />
+          <%= current_customer.address.name %><br/>
+          <%= current_customer.address.street %><br/>
+          <%= "#{current_customer.address.postal_code} #{current_customer.address.city}" %>
+      </p>
+      <div class="clear"></div>
+      <% end %>
+      
+    <%= link_to t('.finish'), shopping_cart_path(:confirm => 1), :id => "finish-order" %>
+    <%= link_to t('.continue'), shop_path, :id => "continue-shopping" %>
+  </td>
+</tr>

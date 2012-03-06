@@ -10,12 +10,14 @@
     <ul id="left-nav">
       <li class="collections"><%= link_to 'collection cinéma', themes_path() %></li>
       <li class="recommandations"><%= link_to t('.recommendations'), products_path(:view_mode => :recommended) %></li>
+      <% if streaming_access? %>
       <li id="catalogue_vod">
         <div id="catalogue_title_vod"><%= t('.streaming') %></div>
           <ul id="vod_list">
             <%= left_column_vod(params) %>
           </ul>
       </li>
+      <% end %>
       <li id="catalogue_dvd">
         <div id="catalogue_title_dvd"><%= t('.all_medias') %></div>
         <ul id="dvd_list">
