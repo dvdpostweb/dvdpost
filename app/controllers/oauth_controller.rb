@@ -29,7 +29,6 @@ class OauthController < ApplicationController
       end
       
       attempted_path = session[:attempted_path]
-      Rails.logger.debug { "@@@ path#{attempted_path}" }
       redirect_to attempted_path || root_path
     rescue Exception => e
       logger.warn "*** Invalid authorization code used. ***"

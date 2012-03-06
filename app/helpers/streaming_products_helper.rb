@@ -1,6 +1,5 @@
 module StreamingProductsHelper
   def flowplayer(source_file, source, streaming, token_name, browser)
-    if source == StreamingProduct.source[:alphanetworks]
       if browser.iphone? || browser.ipad?
         audio = streaming.languages.by_language(:fr).first.short_alpha
         sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
@@ -14,39 +13,6 @@ module StreamingProductsHelper
         $("#player").html("<object width='696' height='389'><param name='movie' value='http://vod.dvdpost.be/StrobeMediaPlayback.swf'/><param name='FlashVars' value='src=http://vod.dvdpost.be/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/><param name='allowFullScreen' value='true'/><param name='allowscriptaccess' value='always'/><embed src='http://vod.dvdpost.be/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://vod.dvdpost.be/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m'/></object>")
         script
       end
-    else
-      script = <<-script
-      $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf'},
-      {
-        key: '\#$dcba96641dab5d22c24',
-        version: [10, 0],
-        clip: {
-          url: '#{source_file}',
-          provider: 'softlayer'
-        },
-        canvas: {
-        		backgroundColor:'#000000'
-        },
-        plugins: {
-          softlayer: {
-            url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
-            netConnectionUrl: '#{CDN.connect_url(token_name, StreamingProduct.source[:softlayer])}'
-          },
-          controls: {
-            autoHide:
-            {
-              "enabled":true,
-              "mouseOutDelay":500,
-              "hideDelay":2000,
-              "hideDuration":400,
-              "hideStyle":"fade",
-              "fullscreenOnly":true
-            }
-          }
-        }
-      });
-      script
-    end
     javascript_tag script
   end
 

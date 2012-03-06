@@ -51,8 +51,10 @@ class Product < ActiveRecord::Base
   named_scope :adult_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:adult]}]
   named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
   named_scope :available_in_dvd, :conditions => ['products_availability != :status', {:status => '2'}]
+  named_scope :by_imdb_ids, lambda {|imdb| {:conditions => ["imdb_id in (#{imdb})"]}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'products_id desc'
+  named_scope :group_by_imdb, :group => 'imdb_id'
   define_index do
     indexes products_media
     indexes products_type
@@ -226,7 +228,7 @@ class Product < ActiveRecord::Base
     products = products.by_special_media([3,4,7]) if options[:filter] && options[:filter] == "bluray"
     products = products.by_special_media([6,7]) if options[:filter] && options[:filter] == "bluray3d"
     
-    if filter.media? && options[:kind] == :normal
+    if filter.media? && options[:kind] == :normal && options[:view_mode] != "streaming" && options[:filter] != "vod"
       
       medias = filter.media.dup
       media_i = Array.new

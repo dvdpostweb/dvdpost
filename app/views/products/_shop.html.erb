@@ -2,28 +2,22 @@
 <% path = product_path(:id => product.to_param, :recommendation => @wishlist_source[:theme]) %>
 <% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
 <% color = params[:kind] == :adult ? :pink : :white %>
-<% if product.qty_sale > 0 %>
+<% if product.qty_sale > 0 || Rails.env == 'development' %>
+<% media = DVDPost.product_types.invert[product.media] %>
+<% test = current_customer.shopping_products.include?(product) %>
+<% method = test ? :delete : :post %>
+<% media = t "products.index.filters.#{media}" %>
+<% text = test ? t('.remove', :media => media) : t('.add', :media => media) %>
+<% class_name = test ? "shop_action btn_remove_form" : "shop_action btn" %>
 <li id ="id_<%= product.to_param %>">
-  <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
-    <%= render :partial => 'products/rating', :locals => {:product => product, :background => color, :size => :small} %>
-  </div>
-  <% link_to path, :class => ( streaming_product ? 'vod' : product_media_id(product.media)) do %>
-    <%= product_image_tag product.image, :width => 82, :height => 121, :alt => "#{product.title} (#{product.year})" %>
-    <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
-  <% end %>
-  <% test = current_customer.shopping_products.include?(product) %>
-  <% method = test ? :delete : :post %>
-  <% text = test ? "supprimer" : "acheter" %>
-  <% class_name = test ? "btn_remove_form" : "btn" %>
-  <% form_for(:shopping_cart, :url => shopping_cart_path(), :html => {:method => method}) do |f|%>
-    <%= f.hidden_field :products_id,  :value => product.id %>
-    <span>
-      <%= submit_tag text, :class => "shop_action #{class_name}" %>
-    </span>
-  <% end %>
-  <%= product.qty_sale %> copy<br />
-  <%= product.price_sale %> euro<br />
-  
-  <%= link_to product.title, path, :class => 'more' %>
+  <h2><%= link_to product.title, path, :class =>'title' %></h2>
+  <div class="info-link"><%= link_to t('.more'), path %></div>
+  <div class="price-info"><strong><%= product.price_sale %> &euro;</strong> <%= t '.tva' %></div>
+
+  <%= render :partial => 'shops/update_form', :locals => {:product => product, :method => method, :text => text, :class_name => class_name} %>
+
+  <span class="thumb">
+    <%= link_to product_image_tag(product.image, :width => 112, :height => 166, :alt => "#{product.title} (#{product.year})"), path %> <%= product.qty_sale %> <%= media+" "+t('.stock') %>
+  </span>
 </li>
 <% end %>

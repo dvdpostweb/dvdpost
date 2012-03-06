@@ -16,6 +16,8 @@ class Token < ActiveRecord::Base
   named_scope :by_imdb_id, lambda {|imdb_id| {:conditions => {:imdb_id=> imdb_id}}}
   
   named_scope :ordered, :order => 'updated_at asc'
+  named_scope :ordered_old, :order => 'updated_at desc'
+  
   
   def self.validate(token_param, filename, ip)
     
@@ -95,41 +97,22 @@ class Token < ActiveRecord::Base
   def self.create_token(imdb_id, product, current_ip, streaming_product_id, kind, code)
     #to do valid code
     file = StreamingProduct.find(streaming_product_id)
-      if file.source == StreamingProduct.source[:alphanetworks]
-        token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
-        if token_string
-          token = Token.create(          
-            :code => code,          
-            :imdb_id     => imdb_id,          
-            :token       => token_string        
-          )
-          if token.id.blank?
-            return {:token => nil, :error => Token.error[:query_rollback]}
-          else
-            StreamingCode.find_by_name(code).update_attribute(:used_at, Time.now.localtime)
-            return {:token => token, :error => nil}
-          end
-        else
-          return {:token => nil, :error => Token.error[:generation_token_failed]}
-        end
+    token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+    if token_string
+      token = Token.create(          
+        :code => code,          
+        :imdb_id     => imdb_id,          
+        :token       => token_string        
+      )
+      if token.id.blank?
+        return {:token => nil, :error => Token.error[:query_rollback]}
       else
-        Token.transaction do
-          token = Token.create(
-            :code => code,
-            :imdb_id     => imdb_id
-          )
-          token_ip = TokenIp.create(
-            :token_id => token.id,
-            :ip => current_ip
-          )
-          if token.id.blank? || token_ip.id.blank? 
-            error = Token.error[:query_rollback]
-            raise ActiveRecord::Rollback
-            return {:token => nil, :error => Token.error[:query_rollback]}
-          end
-          return {:token => token, :error => nil}
-        end
+        StreamingCode.find_by_name(code).update_attribute(:used_at, Time.now.localtime)
+        return {:token => token, :error => nil}
       end
+    else
+      return {:token => nil, :error => Token.error[:generation_token_failed]}
+    end
   end  
 
   private

@@ -1,0 +1,22 @@
+<div id="cart">
+  <h4><%= t '.title' %> <span class="articles"><%= cart_count %> <%= t '.article' %></span></h4>
+  <dl id="items" class="clearfix">
+    <%= render :partial => "/shops/cart", :collection => cart %>
+  </dl>
+  <div id="all-items">
+    <%= link_to t('.all'), shopping_cart_path %>
+  </div>
+  <dl id="totals" class="clearfix">
+    <dt><%= t '.shipping' %></dt>
+    <dd><%= shipping %> &euro;</dd>
+    <dt>
+      <h4><%= t '.ttc' %></h4>
+    </dt>
+    <dd>
+      <h4><%= price %> &euro;</h4>
+    </dd>
+  </dl>
+  <div class="btn-wrap">
+    <%= link_to t('.final'), shopping_cart_path %>
+  </div>
+</div>

@@ -81,7 +81,7 @@ class Customer < ActiveRecord::Base
   has_many :highlight_customers
   has_many :vod_wishlists
   has_many :shopping_carts, :foreign_key => :customers_id
-  has_many :shopping_products, :through => :shopping_carts, :source => :product
+  has_many :shopping_products, :through => :shopping_carts, :source => :product, :order => 'shopping_cart_id desc'
   has_many :shopping_orders, :foreign_key => :customers_id
   
   
@@ -117,13 +117,15 @@ class Customer < ActiveRecord::Base
   def not_rated_products(kind)
     if kind == :adult
       seen = seen_products.adult_available
+      vod_seen = Product.group_by_imdb.adult_available.by_imdb_ids([tokens.collect(&:imdb_id).join(',')])
     else
       seen = seen_products.normal_available
+      vod_seen = Product.group_by_imdb.normal_available.by_imdb_ids([tokens.collect(&:imdb_id).join(',')])
     end
     return_product = return_products(kind)
-    
+    tokens = get_all_tokens(kind, :old)
     rated = rated_products
-    p = seen + return_product - rated
+    p = return_product + vod_seen + seen - rated
   end
 
   def return_products(kind)
@@ -377,8 +379,7 @@ class Customer < ActiveRecord::Base
 
   def create_token(imdb_id, product, current_ip, streaming_product_id, kind)
     file = StreamingProduct.find(streaming_product_id)
-    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 #|| super_user?
-      if file.source == StreamingProduct.source[:alphanetworks]
+    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || super_user?
         token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
         if token_string
           token = Token.create(          
@@ -394,24 +395,6 @@ class Customer < ActiveRecord::Base
         else
           return {:token => nil, :error => Token.error[:generation_token_failed]}
         end
-      else
-        Token.transaction do
-          token = Token.create(
-            :customer_id => id,
-            :imdb_id     => imdb_id
-          )
-          token_ip = TokenIp.create(
-            :token_id => token.id,
-            :ip => current_ip
-          )
-          if token.id.blank? || token_ip.id.blank? 
-            error = Token.error[:query_rollback]
-            raise ActiveRecord::Rollback
-            return {:token => nil, :error => Token.error[:query_rollback]}
-          end
-          return {:token => token, :error => nil}
-        end
-      end
     end
     if credits >= file.credits
       abo_process = AboProcess.today.last
@@ -420,45 +403,24 @@ class Customer < ActiveRecord::Base
       end
       
       if !abo_process || (customer_abo_process || abo_process.finished?)
-        
-        if file.source == StreamingProduct.source[:alphanetworks]
-          token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
-          if token_string
-            Token.transaction do
-              token = Token.create(          
-                :customer_id => id,          
-                :imdb_id     => imdb_id,          
-                :token       => token_string        
-              )
-              result_credit = remove_credit(file.credits, 12)
-              if token.id.blank? || result_credit == false
-                error = Token.error[:query_rollback]
-                raise ActiveRecord::Rollback
-                return {:token => nil, :error => Token.error[:query_rollback]}
-              end
-              {:token => token, :error => nil}
-            end
-          else
-            return {:token => nil, :error => Token.error[:generation_token_failed]}
-          end
-        else
+        token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+        if token_string
           Token.transaction do
-            token = Token.create(
-              :customer_id => id,
-              :imdb_id     => imdb_id
-            )
-            token_ip = TokenIp.create(
-              :token_id => token.id,
-              :ip => current_ip
+            token = Token.create(          
+              :customer_id => id,          
+              :imdb_id     => imdb_id,          
+              :token       => token_string        
             )
             result_credit = remove_credit(file.credits, 12)
-            if token.id.blank? || token_ip.id.blank? || result_credit == false
+            if token.id.blank? || result_credit == false
               error = Token.error[:query_rollback]
               raise ActiveRecord::Rollback
               return {:token => nil, :error => Token.error[:query_rollback]}
             end
             {:token => token, :error => nil}
           end
+        else
+          return {:token => nil, :error => Token.error[:generation_token_failed]}
         end
       else
         return {:token => nil, :error => Token.error[:abo_process_error]}
@@ -526,9 +488,9 @@ class Customer < ActiveRecord::Base
   def get_all_tokens(kind = nil, type = nil, page = 1)
     if type == :old
       if kind == :adult
-        tokens.expired(DVDPost.hours[:adult].hours.ago.localtime).ordered.all(:joins => :products, :group => :imdb_id,  :conditions => {:products => {:products_type => DVDPost.product_kinds[:adult]}}).paginate(:per_page => 20, :page => page)
+        tokens.expired(DVDPost.hours[:adult].hours.ago.localtime).ordered_old.all(:joins => :products, :group => :imdb_id,  :conditions => {:products => {:products_type => DVDPost.product_kinds[:adult]}}).paginate(:per_page => 20, :page => page)
       else kind == :normal
-        tokens.expired(DVDPost.hours[:normal].hours.ago.localtime).ordered.all(:joins => :products, :group => :imdb_id, :conditions => {:products => {:products_type => DVDPost.product_kinds[:normal]}}).paginate(:per_page => 24, :page => page)
+        tokens.expired(DVDPost.hours[:normal].hours.ago.localtime).ordered_old.all(:joins => :products, :group => :imdb_id, :conditions => {:products => {:products_type => DVDPost.product_kinds[:normal]}}).paginate(:per_page => 24, :page => page)
       end
     else
       if kind == :adult
