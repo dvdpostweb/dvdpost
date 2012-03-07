@@ -297,11 +297,9 @@ padding: 10px 0;
   font-size: 1.5em;
 }
 #cart-tbl td .titre span {
-   display: inline-block;
-   padding-top:30px;
-   width: 400px;
+    display: inline-block;
+    width: 400px;
 }
-
 
 #cart-tbl td .titre img {
   margin-right: 25px;

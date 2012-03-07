@@ -105,7 +105,7 @@ class ShoppingCartsController < ApplicationController
     
     @count = current_customer.shopping_carts.sum(:quantity)
     price_data = ShoppingCart.price(current_customer)
-    @price = price_data[:ttc]
+    @price = price_data[:total]
     @shipping = price_data[:shipping]
   end
 end
