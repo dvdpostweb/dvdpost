@@ -6,6 +6,7 @@
 <% media = DVDPost.product_types.invert[product.media] %>
 <% test = current_customer.shopping_products.include?(product) %>
 <% method = test ? :delete : :post %>
+<% cart = test ? current_customer.shopping_carts.find_by_products_id(product.to_param) : nil %>
 <% media = t "products.index.filters.#{media}" %>
 <% text = test ? t('.remove', :media => media) : t('.add', :media => media) %>
 <% class_name = test ? "shop_action btn_remove_form" : "shop_action btn" %>
@@ -14,7 +15,7 @@
   <div class="info-link"><%= link_to t('.more'), path %></div>
   <div class="price-info"><strong><%= product.price_sale %> &euro;</strong> <%= t '.tva' %></div>
 
-  <%= render :partial => 'shops/update_form', :locals => {:product => product, :method => method, :text => text, :class_name => class_name} %>
+  <%= render :partial => 'shops/update_form', :locals => {:cart => cart, :product => product, :method => method, :text => text, :class_name => class_name} %>
 
   <span class="thumb">
     <%= link_to product_image_tag(product.image, :width => 112, :height => 166, :alt => "#{product.title} (#{product.year})"), path %> <%= product.qty_sale %> <%= media+" "+t('.stock') %>

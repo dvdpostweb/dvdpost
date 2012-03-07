@@ -4,7 +4,7 @@
     <%= render :partial => "/shops/cart", :collection => cart %>
   </dl>
   <div id="all-items">
-    <%= link_to t('.all'), shopping_cart_path %>
+    <%= link_to t('.all'), shopping_carts_path %>
   </div>
   <dl id="totals" class="clearfix">
     <dt><%= t '.shipping' %></dt>
@@ -17,6 +17,6 @@
     </dd>
   </dl>
   <div class="btn-wrap">
-    <%= link_to t('.final'), shopping_cart_path %>
+    <%= link_to t('.final'), shopping_carts_path %>
   </div>
 </div>

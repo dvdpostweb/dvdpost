@@ -28,9 +28,23 @@ class ShoppingCart < ActiveRecord::Base
 			price = 0.51 * count
 		end
   end
+
+  def self.price(current_customer)
+    count = current_customer.shopping_carts.sum(:quantity)
+    
+    price = 0
+    current_customer.shopping_carts.each do |c|
+      price += c.quantity * c.product.price_sale
+    end
+    shipping = ShoppingCart.shipping(count)
+    price_ttc = price + shipping
+    {:hs => price, :total => price_ttc, :shipping => shipping}
+  end
+
   private
   def set_defaults
     self.created_at = Time.now.localtime.to_s(:db)
     self.quantity = 1
   end
+  
 end
