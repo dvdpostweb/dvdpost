@@ -1,4 +1,5 @@
 <% product = item.product %>
+<% qty = product.quantity_to_sale %>
 <% price = item.quantity*product.price_sale %>
 <% ht = ((price * 82.6).round).to_f/100 %>
 <% taxe = price - ht %>
@@ -7,13 +8,19 @@
     <div class="titre">
       <%= image_tag product.image, :width => 61, :height => 90, :alt => product.title %>
        <span><%= product.title %></span> 
-       <%= render :partial => 'shops/update_form', :locals => {:product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn"} %>
+       <%= render :partial => 'shops/update_form', :locals => {:cart => item, :product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn"} %>
     </div>
   </td>
   <td align="center" valign="top" class="padded"><%= product.price_sale %> &euro;</td>
-  <td align="center" valign="top" class="padded"></td>
+  <td align="center" valign="top" class="padded">
+    <% form_for(:shopping_cart, :url => shopping_cart_path(:id => item.to_param), :html => {:method => :put}) do |f|%>
+      <span>
+        <% @shopping_cart = item %>
+        <%= f.select :quantity, (1..qty).to_a %>
+      </span>
+    <% end %>
+  </td>
   <td align="center" valign="top" class="padded"><%= price %> &euro; TTC<br />
     <span class="taxes"><%= taxe %> &euro; taxes<br />
     <%= ht %> &euro; HT</span></td>
 </tr>
-<% @total += price %>

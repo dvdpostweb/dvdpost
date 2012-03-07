@@ -4,7 +4,7 @@
   </div>
   <!-- Vente Flash -->
   <div id="vente-flash">
-    <%= render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @price} %>
+    <%= render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @total} %>
   </div>
   <!-- Products -->
   <p><%= @items ? t('.full') : t('.empty') %></p>

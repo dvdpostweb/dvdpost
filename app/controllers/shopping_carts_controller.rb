@@ -36,9 +36,9 @@ class ShoppingCartsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:shopping_cart][:products_id])
+    item = current_customer.shopping_carts.find(params[:id])
+    @product = item.product
     @submit_id = "id_#{@product.id}"
-    item = current_customer.shopping_carts.find_by_products_id(params[:shopping_cart][:products_id])
     item.destroy if item 
     respond_to do |format|
       format.html {redirect_back_or(shop_path)}
@@ -50,30 +50,20 @@ class ShoppingCartsController < ApplicationController
   end
 
   def update
-    params[:shopping_cart].each do |key, value|
-      shop = ShoppingCart.find(key)
-      if value[:delete].to_i == 1
-        shop.destroy
-      else
-        if value[:quantity].to_i > shop.product.qty_sale
-          value[:quantity] = shop.product.qty_sale
-        end
-        shop.update_attributes(value)
-      end
+    item = current_customer.shopping_carts.find(params[:id])
+    
+    if params[:shopping_cart][:quantity].to_i <= item.product.qty_sale
+      item.update_attributes(params[:shopping_cart])
     end
     flash[:notice] = t 'shopping_carts.up'
-    redirect_to :action => "show"
+    redirect_to :action => "index"
   end
 
-  def show
+  def index
     if params[:confirm]
       @order_id = "#{current_customer.to_param}#{Time.now.strftime('%Y%m%d%H%M%S')}"
-      @price = 0;
-      current_customer.shopping_carts.collect do |item|
-        @price += item.quantity * item.product.price_sale
-      end
-      @count = current_customer.shopping_carts.sum(:quantity)
-      @price += ShoppingCart.shipping(@count)
+      price_data = ShoppingCart.price(current_customer)
+      @price = price_data[:total]
       @price *= 100
       @price = @price.round
       case I18n.locale
@@ -96,9 +86,10 @@ class ShoppingCartsController < ApplicationController
       @items = current_customer.shopping_carts.all
       @count = current_customer.shopping_carts.sum(:quantity)
       @articles_count = current_customer.shopping_carts.count
-      
-      @shipping = ShoppingCart.shipping(@count)
-      @total = 0
+      price_data = ShoppingCart.price(current_customer)
+      @total = price_data[:total]
+      @hs = price_data[:hs]
+      @shipping = price_data[:shipping]
     end
   end
 
@@ -113,11 +104,8 @@ class ShoppingCartsController < ApplicationController
     @cart = cart.paginate(:per_page => 3, :page => 1)
     
     @count = current_customer.shopping_carts.sum(:quantity)
-    @shipping = ShoppingCart.shipping(@count)
-    @price = 0
-    current_customer.shopping_carts.each do |c|
-      @price += c.quantity * c.product.price_sale
-    end
-    @price += @shipping
+    price_data = ShoppingCart.price(current_customer)
+    @price = price_data[:ttc]
+    @shipping = price_data[:shipping]
   end
 end
