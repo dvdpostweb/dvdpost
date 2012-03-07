@@ -20,7 +20,7 @@
       </span>
     <% end %>
   </td>
-  <td align="center" valign="top" class="padded"><%= price %> &euro; TTC<br />
-    <span class="taxes"><%= taxe %> &euro; taxes<br />
-    <%= ht %> &euro; HT</span></td>
+  <td align="center" valign="top" class="padded"><%= price %> &euro; <%= t '.ttc' %><br />
+    <span class="taxes"><%= taxe %> &euro; <%= t '.taxe' %><br />
+    <%= ht %> &euro; <%= t '.ht' %></span></td>
 </tr>
