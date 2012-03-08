@@ -65,4 +65,8 @@ class Trailer < ActiveRecord::Base
   def imineo?
     broadcast_service == 'IMINEO'
   end
+
+  def dorcel_mp4?
+    broadcast_service == 'DORCEL_MP4'
+  end
 end
