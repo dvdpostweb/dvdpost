@@ -42,7 +42,7 @@ class ReviewsController < ApplicationController
   def create
     begin
       @product = Product.both_available.find(params[:product_id])
-      params[:review][:text] = params[:review][:text].gsub(/\n/, '')
+      params[:review][:text] = params[:review][:text].gsub(/\n/, '').gsub(//, "'")
       review = @product.reviews.build(params[:review])
       review.customer = current_customer
       review.languages_id = DVDPost.product_languages[I18n.locale]
