@@ -117,15 +117,18 @@ class Customer < ActiveRecord::Base
   def not_rated_products(kind)
     if kind == :adult
       seen = seen_products.adult_available
-      vod_seen = Product.group_by_imdb.adult_available.by_imdb_ids([tokens.collect(&:imdb_id).join(',')])
+      list = tokens.collect(&:imdb_id).join(',')
+      vod_seen = !list.empty? ? Product.group_by_imdb.adult_available.by_imdb_ids([list]) : nil
     else
       seen = seen_products.normal_available
-      vod_seen = Product.group_by_imdb.normal_available.by_imdb_ids([tokens.collect(&:imdb_id).join(',')])
+      list = tokens.collect(&:imdb_id).join(',')
+      vod_seen = !list.empty? ? Product.group_by_imdb.normal_available.by_imdb_ids([list]) : nil
     end
     return_product = return_products(kind)
     tokens = get_all_tokens(kind, :old)
     rated = rated_products
-    p = return_product + vod_seen + seen - rated
+     p = vod_seen ?  return_product + vod_seen + seen - rated :  return_product + seen - rated
+   
   end
 
   def return_products(kind)
