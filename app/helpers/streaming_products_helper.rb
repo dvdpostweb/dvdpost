@@ -4,9 +4,15 @@ module StreamingProductsHelper
         audio = streaming.languages.by_language(:fr).first.short_alpha
         sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
         url = DVDPost.hls_url(token_name, audio, sub)
-        script = <<-script
-        $("#player").html("<video  width='696' height='389' src='#{url}'></video>")
-        script
+        if browser.iphone?
+          script = <<-script
+          $("#player").html("<video  width='696' height='389' src='#{url}'></video>")
+          script
+        else
+          script = <<-script
+            window.location.href ='#{url}'
+          script
+        end
         
       else
         script = <<-script
