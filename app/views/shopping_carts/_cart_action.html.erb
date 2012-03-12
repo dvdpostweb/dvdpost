@@ -1,7 +1,7 @@
 <tr>
   <td colspan="4"><div id="total-amount"><%= t '.ttc' %><span><%= total %> &euro;</span></div>
     <div class="clear"></div>
-      <% if current_customer.address %>
+      <% if current_customer.address && type != :orders %>
       <div class="adress_shipping">
         <p><strong> <%= t '.address' %></strong></p>
         <%= current_customer.address.name %><br/>
@@ -10,7 +10,9 @@
       </div>
       <div class="clear"></div>
       <% end %>
-    <%= link_to t('.finish'), shopping_carts_path(:confirm => 1), :id => "finish-order" %>
-    <%= link_to t('.continue'), shop_path, :id => "continue-shopping" %>
+    <% if type != :orders %>
+      <%= link_to t('.finish'), shopping_carts_path(:confirm => 1), :id => "finish-order" %>
+      <%= link_to t('.continue'), shop_path, :id => "continue-shopping" %>
+    <% end %>
   </td>
 </tr>

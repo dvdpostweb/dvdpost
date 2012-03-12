@@ -506,7 +506,7 @@ class Product < ActiveRecord::Base
   end
 
   def available_to_sale?
-    quantity_to_sale > 0
+    quantity_to_sale > 0 && ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first.products.include?(self)
   end
 
   def in_streaming_or_soon?

@@ -6,9 +6,9 @@
 <tr>
   <td>
     <div class="titre">
-      <%= image_tag product.image, :width => 61, :height => 90, :alt => product.title %>
+      <%= image_tag product.image, :width => 61, :height => 90, :alt => product.title if type != :orders %>
        <span><%= product.title %></span> 
-       <%= render :partial => 'shops/update_form', :locals => {:cart => item, :product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn"} %>
+       <%= render :partial => 'shops/update_form', :locals => {:cart => item, :product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn", :ref => nil} if type != :orders %>
     </div>
   </td>
   <td align="center" valign="top" class="padded"><%= product.price_sale %> &euro;</td>
@@ -16,7 +16,7 @@
     <% form_for(:shopping_cart, :url => shopping_cart_path(:id => item.to_param), :html => {:method => :put}) do |f|%>
       <span>
         <% @shopping_cart = item %>
-        <%= f.select :quantity, (1..qty).to_a %>
+        <%= type == :orders ? item.quantity : f.select(:quantity, (1..qty).to_a )%>
       </span>
     <% end %>
   </td>

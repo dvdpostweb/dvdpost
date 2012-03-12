@@ -81,7 +81,15 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   min-height: 189px;
   padding: 7px 0;
   margin: 0 -15px 12px;
-  background: #d43213 url(../images/vente-flash-banner.png) 0 0 no-repeat;
+}
+#vente-flash.fr{
+  background: #d43213 url(../images/fr/vente-flash-banner.png) 0 0 no-repeat;
+}
+#vente-flash.en{
+  background: #d43213 url(../images/en/vente-flash-banner.png) 0 0 no-repeat;
+}
+#vente-flash.nl{
+  background: #d43213 url(../images/nl/vente-flash-banner.png) 0 0 no-repeat;
 }
 a#vente-flash
 {
@@ -368,4 +376,11 @@ a.title, a.title:hover
   margin:0 15px 15px 15px;
   border:1px solid #AEADAD;
   padding:10px;
+}
+.adress_shipping_end {
+    border: 1px solid #AEADAD;
+    float: left;
+    margin: 4px 0 8px;
+    padding: 0 0 5px 30px;
+    width: 390px;
 }

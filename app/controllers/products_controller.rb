@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
       @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8})
     end
     @filter = get_current_filter({})
+    @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
     if params[:search] == t('products.left_column.search')
       params.delete(:search)
     else
@@ -79,6 +80,7 @@ class ProductsController < ApplicationController
 
   def show
     user_agent = UserAgent.parse(request.user_agent)
+    @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
     data = @product.description_data(true)
     @product_title = data[:title]
     @product_image = data[:image]

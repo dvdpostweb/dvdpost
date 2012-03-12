@@ -1,24 +1,29 @@
-<% total = 0 %>
-<% @orders.collect do |item| %>
-<% product = item.product %>
-<li style="float:left">
-  <%= image_tag product.image, :width => 120 %><br />
-  <%= product.title %> (<%= product.price_sale %> euro)<br >
-  <p id="quantity">
-        
-        <tr>
-          <td><%= item.quantity %></td>
-        </tr>
-        
-  </p>
-  <p> total => <%= (price = item.quantity*product.price_sale) %></p>
-  <% total += price %>
-</li>
-
-<% end %>
-<% shipping = ShoppingCart.shipping(@count) %>
-
-<%= total %>
-<%= shipping  %>
-<% total += shipping %>
-<%= total %>
+<div id="hp-content">
+  <div id="vente-flash" class="<%= I18n.locale%>"> </div>
+  <div id="cart-wrap">
+    <h4><%= t '.send' %> </h4>
+    
+    <div class="adress_shipping_end">
+      <br><strong><%= t '.address' %> :</strong><br>
+      <%= current_customer.address.name %><br/>
+      <%= current_customer.address.street %><br/>
+      <%= "#{current_customer.address.postal_code} #{current_customer.address.city}" %>
+    </div>
+    <div class="clear"></div>
+    <div>
+      <h4>
+        <%= render :partial => 'shopping_carts/cart', :locals => {:articles_count => @count, :type => @type} %>
+      </h4>
+    </div>
+    <br /><br />
+		<div class="clear"></div>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" id="cart-tbl">
+      <tbody>
+        <%= render :partial => 'shopping_carts/cart_header' %>
+        <%= render :partial => "shopping_carts/item", :collection => @items, :locals => {:type => @type}%>
+        <%= render :partial => 'shopping_carts/result', :locals => {:total => @hs, :shipping => @shipping} %>      
+        <%= render :partial => 'shopping_carts/cart_action', :locals => {:total => @total, :shipping => @shipping, :type => @type} %>
+      </tbody>
+    </table>
+  </div>
+</div>

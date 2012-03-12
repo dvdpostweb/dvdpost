@@ -2,5 +2,5 @@
 <dt><%= truncate(product.title, :length => 23) %></dt>
 <dd>
   <%= cart.quantity %> x <%= product.price_sale %> &euro; 
-  <%= render :partial => 'shops/update_form', :locals => {:cart => cart, :product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn"} %>
+  <%= render :partial => 'shops/update_form', :locals => {:cart => cart, :product => product, :method => :delete, :text => :drop, :class_name => "remove f-btn", :ref => nil} %>
   </dd>

@@ -1,4 +1,4 @@
-<% if params[:confirm] %>
+<% if params[:confirm] && @test %>
 <div style='height:75px;width:970px'>
   <div class='load' style='margin: 15px 0pt; text-align: center;'><%= t '.redirection' %></div>
   <div class='load' style='width: 32px; height: 32px; margin: 6px auto;'>
@@ -28,11 +28,11 @@
 <% else %>
 <div id="hp-content"> 
   <!-- Vente Flash -->
-  <%= link_to "flash", shop_path, :id => "vente-flash" %>
+  <%= link_to "flash", shop_path, :id => "vente-flash", :class => "#{I18n.locale}" %>
   <!-- Cart -->
   <div id="cart-wrap">
     <h4>
-      <%= render :partial => 'shopping_carts/cart', :locals => {:articles_count => @articles_count} %>
+      <%= render :partial => 'shopping_carts/cart', :locals => {:articles_count => @count} %>
     </h4>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" id="cart-tbl">
       <%= render :partial => 'cart_header' %>
