@@ -2,9 +2,15 @@
 <div id="apps-wrap" class="clearfix">
   <h3 class="maven"><%= t('.title') %></h3>
   <ul>
-    <li><%= image_tag 'http://www.dvdpost.be/images/quick_link/2.jpg' %> <%= link_to t('.quick_link_2'), themes_path() %></li>
-    <li><%= image_tag 'http://www.dvdpost.be/images/quick_link/3.jpg' %> <%= link_to t('.quick_link_3'), fb_url %></li>
-    <li><%= image_tag 'http://www.dvdpost.be/images/quick_link/4.jpg' %> <%= link_to t('.quick_link_4'), sponsorships_path %></li>
-    <li><%= image_tag 'http://www.dvdpost.be/images/quick_link/1.jpg' %> <%= link_to t('.quick_link_1'), root_path(:kind => :adult)%></li>
+    <li><%= image_tag('http://www.dvdpost.be/images/quick_link/2.jpg') %> <%= link_to t('.quick_link_2'), themes_path %></li>
+    <li><%= image_tag('http://www.dvdpost.be/images/quick_link/3.jpg') %> <%= link_to t('.quick_link_3'), fb_url %></li>
+    <li>
+      <% if @shop_list %>
+        <%= image_tag("http://www.dvdpost.be/images/quick_link/5_#{I18n.locale}.jpg") %> <%= link_to t('.quick_link_5'), shop_path %>
+      <% else %>
+        <%= image_tag('http://www.dvdpost.be/images/quick_link/4.jpg') %> <%= link_to t('.quick_link_4'), sponsorships_path %>
+      <% end %>
+    </li>
+    <li><%= image_tag('http://www.dvdpost.be/images/quick_link/1.jpg') %> <%= link_to t('.quick_link_1'), root_path(:kind => :adult)%></li>
   </ul>
 </div>

@@ -1,4 +1,4 @@
-<% path = method == :delete ? shopping_cart_path(:id => cart.to_param) : shopping_carts_path %>
+<% path = method == :delete ? shopping_cart_path(:id => cart.to_param, :ref => ref) : shopping_carts_path(:ref => ref) %>
 <% form_for(:shopping_cart, :url => path, :html => {:method => method}) do |f|%>
   <%= f.hidden_field :products_id,  :value => product.id %>
   <span>

@@ -8,7 +8,9 @@ class ShoppingCartsController < ApplicationController
       if @cart_new.save
         flash[:notice] = t 'shopping_carts.success'
         respond_to do |format|
-          format.html {redirect_back_or(shopping_cart_path)}
+          format.html {
+            params[:ref] == 'product' ? redirect_to(shop_path) : redirect_back_or(shop_path)
+          }
           format.js {
             init_data
             render :layout => false
@@ -17,7 +19,9 @@ class ShoppingCartsController < ApplicationController
       else
         flash[:error] = t 'shopping_carts.error'
         respond_to do |format|
-          format.html {redirect_back_or(shopping_cart_path)}
+          format.html {
+            params[:ref] == 'product' ? redirect_to(shop_path) : redirect_back_or(shop_path)
+          }
           format.js {
             init_data
             render :layout => false
@@ -26,7 +30,9 @@ class ShoppingCartsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html {redirect_back_or(shop_path)}
+        format.html {
+          params[:ref] == 'product' ? redirect_to(shop_path) : redirect_back_or(shop_path)
+        }
         format.js {
           init_data
           render :layout => false
@@ -40,8 +46,11 @@ class ShoppingCartsController < ApplicationController
     @product = item.product
     @submit_id = "id_#{@product.id}"
     item.destroy if item 
+    flash[:notice] = t 'shopping_carts.drop'
     respond_to do |format|
-      format.html {redirect_back_or(shop_path)}
+      format.html {
+        params[:ref] == 'product' ? redirect_to(shop_path) : redirect_back_or(shop_path)
+      }
       format.js {
         init_data
         render :layout => false
@@ -55,12 +64,18 @@ class ShoppingCartsController < ApplicationController
     if params[:shopping_cart][:quantity].to_i <= item.product.qty_sale
       item.update_attributes(params[:shopping_cart])
     end
-    flash[:notice] = t 'shopping_carts.up'
     redirect_to :action => "index"
   end
 
   def index
-    if params[:confirm]
+    @test = quantity_verify
+    if @test
+      if current_customer.shopping_carts.count == 0
+        @test = false
+      end
+    end
+    if params[:confirm] && @test
+      
       @order_id = "#{current_customer.to_param}#{Time.now.strftime('%Y%m%d%H%M%S')}"
       price_data = ShoppingCart.price(current_customer)
       @price = price_data[:total]
@@ -94,6 +109,20 @@ class ShoppingCartsController < ApplicationController
   end
 
   private
+  def quantity_verify
+    current_customer.shopping_carts.each do |c|
+      if c.product.qty_sale == 0
+        c.destroy
+        flash[:error] = t 'shopping_carts.force_destroy'
+        return false
+      elsif c.quantity > c.product.qty_sale
+        c.update_attribute(:quantity, c.product.qty_sale)
+        flash[:error] = t 'shopping_carts.force_update'
+        return false
+      end
+    end
+    return true
+  end
   def redirect_back_or(path)
     redirect_to :back
   rescue ::ActionController::RedirectBackError
@@ -103,7 +132,7 @@ class ShoppingCartsController < ApplicationController
     cart = current_customer.shopping_carts.ordered
     @cart = cart.paginate(:per_page => 3, :page => 1)
     
-    @count = current_customer.shopping_carts.sum(:quantity)
+    @cart_count = current_customer.shopping_carts.sum(:quantity)
     price_data = ShoppingCart.price(current_customer)
     @price = price_data[:total]
     @shipping = price_data[:shipping]

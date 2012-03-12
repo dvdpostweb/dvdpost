@@ -127,7 +127,7 @@ class Customer < ActiveRecord::Base
     return_product = return_products(kind)
     tokens = get_all_tokens(kind, :old)
     rated = rated_products
-     p = vod_seen ?  return_product + vod_seen + seen - rated :  return_product + seen - rated
+    p = vod_seen ?  return_product + vod_seen + seen - rated :  return_product + seen - rated
    
   end
 

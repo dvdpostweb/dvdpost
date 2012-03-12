@@ -3,11 +3,11 @@
     <%= link_to t('.Withdrawal'), info_path(:page_name => 'withdrawal_period'), :class => :add_to_wishlist_button %>
   </div>
   <!-- Vente Flash -->
-  <div id="vente-flash">
+  <div id="vente-flash" class="<%= I18n.locale %>">
     <%= render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @total} %>
   </div>
   <!-- Products -->
-  <p><%= @items ? t('.full') : t('.empty') %></p>
+  <h2><p><%= @items ? t('.full') : t('.empty') %></p></h2>
   <ul id="products-wrap">
     <%= render :partial => 'products/shop', :collection => @items %>      
   </ul>

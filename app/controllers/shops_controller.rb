@@ -1,9 +1,9 @@
 class ShopsController < ApplicationController
   def show
-    list = ProductList.shop.by_language(DVDPost.product_languages[I18n.locale]).first
+    list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
     @items = list ? list.products : nil 
     cart = current_customer.shopping_carts.ordered
-    @cart_count = cart.count
+    @cart_count = cart.sum(:quantity)
     @cart = cart.paginate(:per_page => 3, :page => 1)
     price_data = ShoppingCart.price(current_customer)
     @total = price_data[:total]
