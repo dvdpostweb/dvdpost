@@ -183,7 +183,10 @@ a#vente-flash
   background: url("../images/drop-btn.png") no-repeat scroll 0 1px !important;
   padding-left: 21px !important;
 }
-
+#products-wrap li .btn_remove_form.nl
+{
+  font-size:0.9em;
+}
 #cart .btn-wrap a:hover {
   text-decoration: underline;
 }
@@ -232,7 +235,7 @@ a#vente-flash
     cursor: pointer;
     height: 26px;
     margin: 8px 0 0 -5px;
-    padding-left: 32px;
+    padding-left: 28px;
     width: 166px;
 }
 #products-wrap li .btn:hover {

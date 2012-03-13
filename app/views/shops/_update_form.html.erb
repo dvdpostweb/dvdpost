@@ -2,6 +2,6 @@
 <% form_for(:shopping_cart, :url => path, :html => {:method => method}) do |f|%>
   <%= f.hidden_field :products_id,  :value => product.id %>
   <span>
-    <%= submit_tag text, :class => class_name %>
+    <%= submit_tag text, :class => "#{class_name} #{I18n.locale}" %>
   </span>
 <% end %>
