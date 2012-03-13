@@ -39,7 +39,11 @@ set :deploy_via, :remote_cache
 #############################################################
 #	Passenger
 #############################################################
+set :whenever_environment, defer { stage }
+set :whenever_identifier, defer { "#{application}_#{stage}" }
+set :whenever_command, "bundle exec whenever"
 
+require "whenever/capistrano"
 namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
@@ -111,6 +115,17 @@ end
 
 before 'deploy:symlink', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
+
+after "deploy:symlink", "deploy:update_crontab"  
+   
+namespace :deploy do  
+  desc "Update the crontab file"  
+  task :update_crontab, :roles => :db do  
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"  
+  end  
+end
+
+
 =begin
     pre_production:
       adapter: mysql
