@@ -113,11 +113,13 @@ class ShoppingCartsController < ApplicationController
     current_customer.shopping_carts.each do |c|
       if c.product.qty_sale == 0
         c.destroy
-        flash[:error] = t 'shopping_carts.force_destroy'
+        flash[:error] = t 'shopping_carts.force_destroy', :title => c.product.title
+        flash.discard(:error)
         return false
       elsif c.quantity > c.product.qty_sale
         c.update_attribute(:quantity, c.product.qty_sale)
-        flash[:error] = t 'shopping_carts.force_update'
+        flash[:error] = t 'shopping_carts.force_update', :title => c.product.title, :quantity => c.product.qty_sale
+        flash.discard(:error)
         return false
       end
     end

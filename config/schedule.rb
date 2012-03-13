@@ -30,6 +30,10 @@ end
 every 1.day, :at => '01:00 am' do  
   rake "thinking_sphinx:reindex"  
 end
+every 1.day, :at => '03:00 am' do  
+  rake "thinking_sphinx:reindex" ,:environment => 'pre_production' 
+end
+
 every 1.day, :at => '2:30 pm' do 
  rake "rake friendly_id:make_slugs MODEL=Director ORDER=directors_id SLUG=1"
 end
