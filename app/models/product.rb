@@ -327,7 +327,7 @@ class Product < ActiveRecord::Base
       sort = sort_by("available_at DESC, rating desc", options)
     elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :weekly_streaming || options[:view_mode].to_sym == :soon)
       sort = sort_by("available_at desc", options)
-    elsif options[:view_mode] && ptions[:view_mode].to_sym == :cinema
+    elsif options[:view_mode] && options[:view_mode].to_sym == :cinema
       sort = sort_by("created_at desc", options)
     else
       sort = sort_by("default_order desc, in_stock DESC", options)
