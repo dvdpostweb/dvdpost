@@ -183,7 +183,7 @@ a#vente-flash
   background: url("../images/drop-btn.png") no-repeat scroll 0 1px !important;
   padding-left: 21px !important;
 }
-#products-wrap li .btn_remove_form.nl
+#products-wrap li .btn_remove_form.nl,#products-wrap li .btn_remove_form.en
 {
   font-size:0.9em;
 }

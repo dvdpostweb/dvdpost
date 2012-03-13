@@ -67,6 +67,7 @@ class Product < ActiveRecord::Base
     has products_availability,      :as => :availability
     has products_countries_id,      :as => :country_id
     has products_date_available,    :as => :available_at
+    has products_date_added,        :as => :created_at
     has products_dvdpostchoice,     :as => :dvdpost_choice
     has products_id,                :as => :id
     has products_next,              :as => :next
@@ -324,10 +325,10 @@ class Product < ActiveRecord::Base
       sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular
       sort = sort_by("available_at DESC, rating desc", options)
-    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :weekly_streaming)
+    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :weekly_streaming || options[:view_mode].to_sym == :soon)
       sort = sort_by("available_at desc", options)
-    elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
-      sort = sort_by("available_at asc", options)
+    elsif options[:view_mode] && ptions[:view_mode].to_sym == :cinema
+      sort = sort_by("created_at desc", options)
     else
       sort = sort_by("default_order desc, in_stock DESC", options)
     end

@@ -38,6 +38,8 @@
   </object>
 <% elsif trailer.ecranlarge? %>
   <object width="640" height="510"><param name="movie" value="http://www.ecranlarge.com/v/<%= trailer.remote_id %>"></param><param name="wmode" value="transparent"></param><embed src="http://www.ecranlarge.com/v/<%= trailer.remote_id %>" type="application/x-shockwave-flash" wmode="transparent" width="640" height="510"></embed></object>
+<% elsif trailer.imdb? %>
+<video type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" controls="" autoplay="" preload="auto" width="854" height="480" src="<%= trailer.remote_id %>"></video>
 <% else %>
   <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
 <% end %>
