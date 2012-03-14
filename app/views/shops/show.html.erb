@@ -1,6 +1,8 @@
 <div id="hp-content">
   <div id="toggle-link">
-    <%= link_to t('.Withdrawal'), info_path(:page_name => 'withdrawal_period'), :class => :add_to_wishlist_button %>
+    <%= link_to t('.Withdrawal'), info_path(:page_name => 'withdrawal_period'), :class => :add_to_wishlist_button %> - 
+    <%= link_to t('.info'), info_path(:page_name => 'buy'), :class => :add_to_wishlist_button %>
+    
   </div>
   <!-- Vente Flash -->
   <div id="vente-flash" class="<%= I18n.locale %>">

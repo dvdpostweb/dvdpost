@@ -27,7 +27,7 @@ $(function() {
   });
   $('#news-wrap .pagination a, #news-wrap .pagination2 a').live('click',function(){
     url = this.href;
-    _gaq.push(['_trackPageview', url]);
+    set_page(url)
     html_item = $('#news-wrap');
     content = html_item.html()
     $.ajax({
@@ -44,7 +44,7 @@ $(function() {
   });
   $('#selection-tabcontent-wrap .content-tabs a').live('click',function(){
     url = this.href;
-    _gaq.push(['_trackPageview', url]);
+    set_page(url)
     html_item = $('#selection-week-wrap');
     html_content = $('#selection-tabcontent-wrap .carousel-wrap');
     content = html_content.html()
@@ -65,7 +65,7 @@ $(function() {
   });
   $('#selection-tabcontent-wrap .pagination a,#selection-tabcontent-wrap .pagination2 a').live('click',function(){
     url = this.href;
-    _gaq.push(['_trackPageview', url]);
+    set_page(url)
     html_item = $('#selection-week-wrap');
     html_content = $('#selection-tabcontent-wrap .slides');
     content = html_content.html()
@@ -85,7 +85,7 @@ $(function() {
   
   $('#tab1, #tab2, #tab3, #tab4').live('click',function(){
     url = this.href;
-    _gaq.push(['_trackPageview', url]);
+    set_page(url)
     html_item = $('#review_content');
     html_content = $('.tab-content');
     content = html_content.html()
@@ -108,7 +108,7 @@ $(function() {
 
   $('.tab-content a.next_page').live('click',function(){
     url = this.href;
-    _gaq.push(['_trackPageview', url]);
+    set_page(url)
     html_item = $('#review_content');
     html_content = $('.content_item');
     content = html_content.html()
@@ -165,7 +165,16 @@ $(function() {
       $container.cycle(id-1); 
       return false; 
   });
-  
+  function set_page(url)
+  {
+    url = url.replace('http://dvdpost.dev','')
+    url = url.replace('http://staging.dvdpost.be','')
+    url = url.replace('http://beta.dvdpost.com','')
+    url = url.replace('http://private.dvdpost.com','')
+    url = url.replace('http://public.dvdpost.com','')
+    alert(url)
+    _gaq.push(['_trackPageview', url]); 
+  }
   
 
   function change_carousel_adult()
