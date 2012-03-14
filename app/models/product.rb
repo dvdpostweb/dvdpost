@@ -338,6 +338,10 @@ class Product < ActiveRecord::Base
       else
         products = products.order(sort, :extended)
       end
+    else
+      if options[:filter] && options[:filter].to_sym == :vod
+         products = products.group('imdb_id', "streaming_id desc")
+      end
     end
     #if options[:limit]
   #    products = products.limit(options[:limit])
