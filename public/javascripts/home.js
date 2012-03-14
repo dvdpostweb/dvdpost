@@ -172,7 +172,6 @@ $(function() {
     url = url.replace('http://beta.dvdpost.com','')
     url = url.replace('http://private.dvdpost.com','')
     url = url.replace('http://public.dvdpost.com','')
-    alert(url)
     _gaq.push(['_trackPageview', url]); 
   }
   
