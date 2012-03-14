@@ -15,7 +15,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :themes, :controller => "themes_events", :only => [:index] do |theme|
     theme.resource :texts
   end
-
+  map.resources :trailers, :only => [:show]
+  
   map.with_options :path_prefix => '/:locale/:kind' do |localized|
     localized.filter "kind"
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}

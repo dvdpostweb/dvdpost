@@ -387,3 +387,104 @@ a.title, a.title:hover
     padding: 0 0 5px 30px;
     width: 390px;
 }
+
+#sale-info .left {
+	color: #444444;
+	font-size: 0.98em;
+	line-height: normal;
+	margin: 15px 0 0 15px;
+	text-align: justify;
+	width: 410px;
+}
+#sale-info .left .intro {
+	color: #444444;
+	font-size: 1.1em;
+	line-height: normal;
+	text-align: justify;
+	width: 800px;
+}
+#sale-info .right {
+	float: left;
+  margin: 15px 15px 0 20px;
+	text-align: justify;
+	width: 410px;
+}
+#sale-info li#films {
+	background-image: url(../images/dvd.jpg);
+	background-repeat: no-repeat;
+}
+#sale-info li#prix {
+	background-image: url(../images/50pourcent.jpg);
+	background-repeat: no-repeat;
+}
+#sale-info li#qualite {
+	background-image: url(../images/label.jpg);
+	background-repeat: no-repeat;
+}
+#sale-info li#livraison {
+	background-image: url(../images/truck.jpg);
+	background-repeat: no-repeat;
+}
+#sale-info li {
+	background-position:0 0;
+	color:#444444;
+	font-size:0.98em;
+	padding-left:80px;
+}
+
+#sale-info li {
+    color: #444444;
+    font-size: 0.98em;
+}
+
+#sale-info li h4, #sale-info li p {
+    margin-bottom: 12px;
+}
+
+#sale-info h4 {
+  color:#191E23;
+  font-size:1.5em;
+  margin-bottom:15px;
+}
+
+#sale-info {
+    background-color: #FFFFFF;
+    border: 1px solid #191E23;
+    height: 247px;
+    margin-bottom: 25px;
+}
+
+#livraison-info h4 {
+    color:#191E23;
+  font-size:1.5em;
+  margin-bottom:15px;
+  text-align: left;
+}
+
+
+
+#livraison-info table {
+    color: #191E23;
+    font-size: 1.3em;
+    width: 400px;
+}
+
+
+
+tr .livraison_price {
+    border-bottom: 1px dotted #191E23;
+    height: 30px;
+	text-align:left;
+}
+
+
+table.livraison-info {
+    border-collapse: collapse;
+}
+
+
+.livraison-info .price {
+ font-size: 1.3em;
+ text-align:right;
+
+}

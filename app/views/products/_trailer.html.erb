@@ -1,4 +1,4 @@
-<p align="center"><% if trailer.youtube? %>
+<p <%= trailers ? 'align="center' : '' %>"><% if trailer.youtube? %>
 <object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
 <% elsif trailer.dailymotion? %>
 <object width="480" height="285"><param name="movie" value="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation" width="480" height="285" allowfullscreen="true" allowscriptaccess="always"></embed></object>
@@ -39,9 +39,9 @@
 <% elsif trailer.ecranlarge? %>
   <object width="640" height="510"><param name="movie" value="http://www.ecranlarge.com/v/<%= trailer.remote_id %>"></param><param name="wmode" value="transparent"></param><embed src="http://www.ecranlarge.com/v/<%= trailer.remote_id %>" type="application/x-shockwave-flash" wmode="transparent" width="640" height="510"></embed></object>
 <% elsif trailer.imdb? %>
-<video type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" controls="" autoplay="" preload="auto" width="854" height="480" src="<%= trailer.remote_id %>"></video>
+<embed width="854" height="480" flashvars="file=<%= trailer.remote_id %>&amp;width=854&amp;height=480&amp;autostart=true&amp;backcolor=0x000000&amp;frontcolor=0xCCCCCC&amp;lightcolor=0xFFFFCC&amp;shuffle=false&amp;repeat=list&amp;linktarget=_top&amp;enablejs=true&amp;image=http://ia.media-imdb.com/images/M/MV5BMTA0NTQ4NTU2ODNeQTJeQWpwZ15BbWU3MDk4Mzk3MTM@._V1_.jpg" wmode="transparent" allowscriptaccess="always" allowfullscreen="true" quality="high" bgcolor="#FFFFFF" name="flash-1331722037243" id="flash-1331722037243" style="undefined" src="http://video-http.media-imdb.com/mediaplayer.swf?Expires=1331754435&amp;Signature=tZ9ewm~RLrL9L7d1sd9nhuQVWjripMPJM3~c607NUdS1HdEIe3frIJPnenfybHTuuXkwj1AqR~s4SxBmi59V2wp-BVqG4FrU2jIemA9NGMFeJE1afxEbJ0wbcTBdlhfkMszZSDH3UpAae5S8xSw5WSGw6LInkr1WXhuVYfoXj24_&amp;Key-Pair-Id=APKAILW5I44IHKUN2DYA" type="application/x-shockwave-flash">
 <% else %>
   <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
 <% end %>
-<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => 'trailer_page', :id => 'trailer_pagination' %>
+<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => 'trailer_page', :id => 'trailer_pagination' if trailers %>
 </p>
