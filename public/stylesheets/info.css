@@ -536,3 +536,134 @@ font-weight:bold;
     text-decoration: none;
     width: 150px;
 }
+body.ipad {
+	text-shadow: none !important;
+}
+.col_content h2 {
+	color: #ff6500;
+	font-size: 20px;
+	margin: 0 0 17px;
+}
+.list_visual ul {
+	padding-bottom:12px;
+}
+.col_content {
+	float: left;
+	padding: 0 0 0 24px;
+	width: 650px;
+}
+.topcontent {
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	font-family: Arial, Helvetica, sans-serif;
+	position: relative;
+	width: 971px;
+}
+.col_left .box .top {
+	display: block;
+	height: 4px;
+	overflow: hidden;
+}
+.col_left {
+	border-right: 1px solid #EAEAEA;
+	float: left;
+	min-height: 400px;
+	padding: 0 29px 0 60px;
+	width: 194px;
+}
+.topcontent h1, .topcontent h2, .topcontent p {
+	display: block;
+	position: absolute;
+}
+.app.col_content .topcontent h1 {
+	left: 343px;
+	top: 28px;
+}
+.appmob .topcontent h1 {
+	font-size: 31px;
+}
+.appmob .topcontent h1 {
+	color: #FF6600;
+	font-weight: 700;
+	line-height: 32px;
+	padding-left: 60px;
+	padding-top: 13px;
+	width: 500px;
+}
+.topcontent {
+	background-image: url(../images/iphone_ipad_bg.jpg);
+	background-repeat: no-repeat;
+	background-position: 0 95px;
+}
+.appmob .topcontent {
+	height: 500px;
+}
+.topcontent h2 {
+	font-size: 14px;
+	font-weight: lighter;
+	left: 385px;
+	text-align: justify;
+	top: 109px;
+	width: 430px;
+}
+.freeribbon {
+	background: url("../images/fr/ribbon_free.png") no-repeat scroll 0 0 transparent;
+	display: block;
+	height: 168px;
+	left: 100%;
+	margin: 3px 0 0 -159px;
+	position: absolute;
+	top: 0;
+	width: 170px;
+}
+.freeribbon.fr {
+	background: url("../images/fr/ribbon_free.png") no-repeat scroll 0 0 transparent;
+}	
+.freeribbon.en {
+	background: url("../images/en/ribbon_free.png") no-repeat scroll 0 0 transparent;
+}	
+.freeribbon.nl {
+	background: url("../images/nl/ribbon_free.png") no-repeat scroll 0 0 transparent;
+}	
+
+.list_function {
+	font-size: 14px;
+	margin: 0 0 30px;
+}
+.list_function ul {
+	padding-left: 20px;
+}
+.list_function li {
+	background: url("../images/box.gif") no-repeat scroll 0 4px transparent;
+	padding-bottom: 19px;
+	padding-left: 23px;
+}
+.list_visual li {
+	border: 1px solid #000000;
+	display: block;
+	float: left;
+	height: 98px;
+	margin-bottom: 30px;
+	margin-right: 20px;
+	width: 130px;
+}
+.uservoice {
+	text-align: center;
+}
+.col_left li {
+	font-size: 12px;
+	line-height: 14px;
+	margin: 0 0 10px;
+}
+.uservoice a {
+	color: #ff3200;
+	text-decoration: underline;
+}
+.itunesbox, .facebookbox {
+	border: #666666 1px solid;
+	padding: 5px;
+	text-align:center;
+}
+.facebookbox ul {
+	padding-top:10px;
+}
