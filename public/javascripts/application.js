@@ -132,6 +132,15 @@ $(function() {
     return false;
   });
 
+  $(".face_img").live("click", function() {
+    url = $(this);
+    jQuery.facebox(function() {
+      data = "<img src='"+url.attr('href')+"' />";
+      jQuery.facebox(data);
+    });
+    return false;
+  });
+
   $("#condition_promo").live("click", function() {
     a = $(this);
     jQuery.facebox(function() {

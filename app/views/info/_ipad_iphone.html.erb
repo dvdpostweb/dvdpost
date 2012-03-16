@@ -1,0 +1,44 @@
+<div id="hp-content">
+  <div class="appmob">
+    <div class="topcontent">
+      <h1><%= t '.h1' %></h1>
+      <h2><%= t '.h2' %></h2>
+      <span class="freeribbon <%= I18n.locale %>">&nbsp;</span> </div>
+    <div class="col_left">
+      <ul>
+        <li class="market">
+          <a target="_blank" href="http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8">
+            <%= image_tag "#{I18n.locale}/button_applestore.gif" %>
+          </a>
+        </li>
+        <li class="facebookbox"><%= t '.facebook' %></span>
+          <ul>
+            <li> 
+              <iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape("http://public.dvdpost.com/#{I18n.locale}/info/ipad_iphone") %>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe> </li>
+          </ul>
+        </li>
+        <li class="itunesbox"><%= t '.itunes' %>
+          <a target="_blank" title="Notez l'application sur iTunes" href="http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8">
+            <%= image_tag "stars.png" %>
+          </a>
+        </li>
+        <li class="uservoice"><%= t '.about' %><br>
+          <a title="Donner mon avis sur l'application DVDPost" target="_blank" href="http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8"><%= t '.advise' %></a> </li>
+      </ul>
+    </div>
+    <div class="col_content">
+      <ul class="list_visual">
+        <li><%= link_to image_tag("ipad_1_little.jpg"), image_path("ipad_1_big.jpg"), :class => :face_img %></li>
+        <li><%= link_to image_tag("ipad_2_little.jpg"), image_path("ipad_1_big.jpg"), :class => :face_img %></li>
+        <li><%= link_to image_tag("ipad_3_little.jpg"), image_path("ipad_1_big.jpg"), :class => :face_img %></li>
+        <li><%= link_to image_tag("ipad_4_little.jpg"), image_path("ipad_1_big.jpg"), :class => :face_img %></li>
+      </ul>
+      <h2><%= t '.features_title' %></h2>
+      <ul class="list_function">
+        <%= t '.features' %>
+      </ul>
+    </div>
+    
+     <div style="clear:both"></div>
+  </div>
+</div>
