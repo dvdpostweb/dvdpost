@@ -1,4 +1,5 @@
-<div style="display: block;width:450px" class="content">
+<% if (@vod_create_token == "1" && @vod_disable == "1") || Rails.env == "pre_production" %>
+<div stvod_disable = Geyle="display: block;width:450px" class="content">
 
   <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
   <div id="addwishlist_explain">
@@ -34,3 +35,6 @@
     <% end %>
   </div>
 </div>
+<% else %>
+  <%= t('streaming_products.not_available.offline') %>
+<% end %>

@@ -5,7 +5,8 @@ class TokensController < ApplicationController
     @product_in_wishlist = current_customer.wishlist_items.find_all_by_product_id(all)
     @streaming_free = streaming_free(@product)
     @streaming = StreamingProduct.find_by_imdb_id(@product.imdb_id)
-    
+    @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
+    @vod_disable = General.find_by_CodeType('VOD_ONLINE').value
     render :layout => false
   end
 end

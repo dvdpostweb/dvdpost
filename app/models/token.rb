@@ -97,7 +97,11 @@ class Token < ActiveRecord::Base
   def self.create_token(imdb_id, product, current_ip, streaming_product_id, kind, code)
     #to do valid code
     file = StreamingProduct.find(streaming_product_id)
-    token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+    begin
+      token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+    rescue => e
+      token_string = false
+    end
     if token_string
       token = Token.create(          
         :code => code,          
