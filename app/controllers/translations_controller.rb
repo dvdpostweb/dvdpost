@@ -39,6 +39,7 @@ class TranslationsController < ApplicationController
 
   def update
     @translation = Translation.find(params[:id])
+    #params[:translation][:text] = CGI::unescapeHTML(params[:translation][:text])
     if @translation.update_attributes(params[:translation])
       render :text => @translation.text
     else
