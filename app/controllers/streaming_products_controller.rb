@@ -33,7 +33,7 @@ class StreamingProductsController < ApplicationController
           if @vod_disable == "1" || Rails.env == "pre_production"
             if streaming_access?
               if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
-                if (@token_valid == false && @vod_create_token == "0") || Rails.env != "pre_production"
+                if @token_valid == false && @vod_create_token == "0" && Rails.env != "pre_production"
                   flash[:error] = t('streaming_products.not_available.offline')
                   redirect_to root_path
                 else
