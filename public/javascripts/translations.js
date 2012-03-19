@@ -5,6 +5,7 @@ $(function() {
       indicator : 'Saving...',
       tooltip   : 'Click to edit...',
       cancel    : 'cancel',
+      type      : 'textarea',
       submit    : 'OK'
     });
     function submitEditable(value, settings){
