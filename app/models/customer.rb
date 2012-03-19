@@ -383,7 +383,11 @@ class Customer < ActiveRecord::Base
   def create_token(imdb_id, product, current_ip, streaming_product_id, kind)
     file = StreamingProduct.find(streaming_product_id)
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || super_user?
-        token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+        begin
+          token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+        rescue => e
+          token_string = false
+        end
         if token_string
           token = Token.create(          
             :customer_id => id,          
@@ -406,7 +410,11 @@ class Customer < ActiveRecord::Base
       end
       
       if !abo_process || (customer_abo_process || abo_process.finished?)
-        token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+        begin
+          token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+        rescue => e
+          token_string = false
+        end
         if token_string
           Token.transaction do
             token = Token.create(          

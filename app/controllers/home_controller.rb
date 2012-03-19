@@ -103,7 +103,6 @@ class HomeController < ApplicationController
       not_rated_products = current_customer.not_rated_products(kind)
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
-      @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
       expiration_recommendation_cache()
       @offline_request = current_customer.payment.recovery
       not_rated_products = current_customer.not_rated_products(kind)

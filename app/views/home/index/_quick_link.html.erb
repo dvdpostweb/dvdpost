@@ -5,7 +5,7 @@
     <li><%= image_tag('http://www.dvdpost.be/images/quick_link/2.jpg') %> <%= link_to t('.quick_link_2'), themes_path %></li>
     <li><%= image_tag('http://www.dvdpost.be/images/quick_link/3.jpg') %> <%= link_to t('.quick_link_3'), fb_url %></li>
     <li>
-      <% if @shop_list %>
+      <% if current_customer %>
         <%= image_tag("http://www.dvdpost.be/images/quick_link/5_#{I18n.locale}.jpg") %> <%= link_to t('.quick_link_5'), shop_path %>
       <% else %>
         <%= image_tag('http://www.dvdpost.be/images/quick_link/4.jpg') %> <%= link_to t('.quick_link_4'), sponsorships_path %>

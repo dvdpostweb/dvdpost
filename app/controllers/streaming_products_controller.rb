@@ -1,6 +1,7 @@
 class StreamingProductsController < ApplicationController
   def show
-    
+    @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
+    @vod_disable = General.find_by_CodeType('VOD_ONLINE').value
     if Rails.env == 'production' 
       @product = Product.both_available.find_by_imdb_id(params[:id])
       @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
@@ -29,17 +30,27 @@ class StreamingProductsController < ApplicationController
             @token = current_customer.get_token(@product.imdb_id)
           end
           @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
-          if streaming_access?
-            if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
-             render :action => :show
+          if @vod_disable == "1" || Rails.env == "pre_production"
+            if streaming_access?
+              if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
+                if (@token_valid == false && @vod_create_token == "0") || Rails.env != "pre_production"
+                  flash[:error] = t('streaming_products.not_available.offline')
+                  redirect_to root_path
+                else
+                  render :action => :show
+                end
+              else
+                flash[:error] = t('streaming_products.not_available.not_available')
+                redirect_to root_path
+              end
             else
-              flash[:error] = t('streaming_products.not_available.not_available')
-              redirect_to root_path
-            end
+               flash[:error] = t('streaming_products.no_access.no_access')
+               redirect_to root_path
+            end  
           else
-             flash[:error] = t('streaming_products.no_access.no_access')
-             redirect_to root_path
-          end  
+            flash[:error] = t('streaming_products.not_available.offline')
+            redirect_to root_path
+          end
         else
           flash[:error] = t('streaming_products.not_available.not_available')
           redirect_to root_path

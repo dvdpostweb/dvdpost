@@ -65,6 +65,8 @@ module StreamingProductsHelper
         t('.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param))
       when Token.error[:user_suspended] then
         t('.customer_suspended')
+      when Token.error[:generation_token_failed] then
+        t('.rollback')
     end
   end
   
