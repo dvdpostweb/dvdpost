@@ -135,7 +135,7 @@ $(function() {
   $(".face_img").live("click", function() {
     url = $(this);
     jQuery.facebox(function() {
-      data = "<img src='"+url.attr('href')+"' />";
+      data = "<img src='"+url.attr('href')+"' width='800' height='600' />";
       jQuery.facebox(data);
     });
     return false;
