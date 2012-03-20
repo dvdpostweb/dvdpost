@@ -536,7 +536,7 @@ font-weight:bold;
     text-decoration: none;
     width: 150px;
 }
-body.ipad {
+body#ipad {
 	text-shadow: none !important;
 }
 .col_content h2 {

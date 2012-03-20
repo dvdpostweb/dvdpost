@@ -55,7 +55,7 @@ $(function() {
     html_item = $(this).parent()
     content =  html_item.html()
     loader = 'ajax-loader.gif';
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<img src='/images/"+loader+"' />");
     $.ajax({
       url: url+"?cable="+cable_type,
       type: 'POST',

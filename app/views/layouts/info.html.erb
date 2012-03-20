@@ -1,5 +1,10 @@
-<% content_for :body_id do %>info<% end %>
+
 <%= stylesheet 'info', :media => :all%>
 <%= javascript 'info' %>
+<% if params[:page_name] == 'ipad_iphone' %>
+  <% content_for :body_id do %>ipad<% end %>
+<% else %>
+  <% content_for :body_id do %>info<% end %>
+<% end %>
 <%= yield %>
 <% parent_layout 'application' %>
