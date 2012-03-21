@@ -24,8 +24,6 @@ $(function() {
         success: function(data) {
           html_item.parent().removeClass('miss susp old');
           html_item.parent().children('#url').attr('value', data)
-          alert(data)
-          alert(html_item.parent().children('#url').attr('value'))
           /*result = data;*/
         }
       });
