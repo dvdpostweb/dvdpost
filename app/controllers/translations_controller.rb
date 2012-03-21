@@ -11,7 +11,7 @@ class TranslationsController < ApplicationController
   end
   
   def index    
-    @groups = @main_locale.translations.find(:all, :order => 'namespace, id').group_by(&:namespace)
+    @groups = @main_locale.translations.find_all_by_namespace('info.ipad_iphone').group_by(&:namespace)#find(:all, :order => 'namespace, id').group_by(&:namespace)
   end
 
   def new
@@ -31,7 +31,8 @@ class TranslationsController < ApplicationController
     end
     @translation = @locale.translations.new(translation_params)
     if @translation.save
-      render :text => @translation.text
+      localized_translation = @translation.counterpart_in(@locale)
+      render :text => locale_translation_path(:locale_id => @locale.to_param, :id => localized_translation.to_param)
     else
       render :action => :new
     end
@@ -41,7 +42,7 @@ class TranslationsController < ApplicationController
     @translation = Translation.find(params[:id])
     #params[:translation][:text] = CGI::unescapeHTML(params[:translation][:text])
     if @translation.update_attributes(params[:translation])
-      render :text => @translation.text
+      render :text => locale_translation_path(:locale_id => @locale.to_param, :id => localized_translation.to_param)
     else
       render :action => :edit
     end
