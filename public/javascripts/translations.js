@@ -11,7 +11,7 @@ $(function() {
     function submitEditable(value, settings){
       result = value;
       html_item = $(this);
-      url = html_item.parent().find(':hidden').attr('value');
+      url = html_item.parent().children('#url').attr('value');
       if (url.match(/\/locales\/(\d*)\/translations\/(\d*)/)) {
         method = 'PUT';
       } else {
@@ -23,7 +23,10 @@ $(function() {
         data: ({'translation[text]': value}),
         success: function(data) {
           html_item.parent().removeClass('miss susp old');
-          result = data;
+          html_item.parent().children('#url').attr('value', data)
+          alert(data)
+          alert(html_item.parent().children('#url').attr('value'))
+          /*result = data;*/
         }
       });
       return result;
