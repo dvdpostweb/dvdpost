@@ -11,7 +11,7 @@ class TranslationsController < ApplicationController
   end
   
   def index    
-    @groups = @main_locale.translations.find_all_by_namespace('info.ipad_iphone').group_by(&:namespace)#find(:all, :order => 'namespace, id').group_by(&:namespace)
+    @groups = @main_locale.translations.find(:all, :order => 'namespace, id').group_by(&:namespace)
   end
 
   def new
