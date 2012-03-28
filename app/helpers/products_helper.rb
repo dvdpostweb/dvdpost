@@ -406,7 +406,6 @@ module ProductsHelper
   end
 
   def bubbles(product)
-    Rails.logger.debug { "@@@#{params.inspect}" }
     if params[:view_mode] == 'streaming' || params[:vod] == 'vod' || params[:filter] == 'vod'
       "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
     else

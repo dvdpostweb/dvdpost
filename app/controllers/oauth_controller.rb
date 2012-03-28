@@ -1,6 +1,7 @@
 class OauthController < ApplicationController
   skip_before_filter :save_attempted_path
   skip_before_filter :authenticate!
+  skip_before_filter :redirect_after_registration
 
   def authenticate
     # We need to send the locale so that SSO is in the correct locale
@@ -27,7 +28,6 @@ class OauthController < ApplicationController
         cookies[:expires_in] = { :value => access_token.expires_in, :expires => 10.year.from_now }
         cookies[:refresh_token] = { :value => access_token.refresh_token, :expires => 10.year.from_now }
       end
-      
       attempted_path = session[:attempted_path]
       redirect_to attempted_path || root_path
     rescue Exception => e

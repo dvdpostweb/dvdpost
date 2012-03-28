@@ -33,6 +33,10 @@ class WishlistItem < ActiveRecord::Base
   def self.wishlist_source(params, wishlist_source)
     if params[:view_mode] == 'recommended'
       source = wishlist_source[:recommendation]
+    elsif params[:sort] == 'most_viewed' && params[:limit].to_i == 20
+      source = wishlist_source[:most_viewed]
+    elsif params[:sort] == 'rating' && params[:limit].to_i == 50
+      source = wishlist_source[:prefered]
     elsif params[:view_mode] == 'recent'
       source = wishlist_source[:new]
     elsif params[:view_mode] == 'soon'
@@ -50,15 +54,11 @@ class WishlistItem < ActiveRecord::Base
     elsif params[:studio_id]
       source = wishlist_source[:studio]
     elsif params[:list_id] && !params[:list_id].blank?
-      list = ProductList.find(params[:list_id]) 
-      if list.theme?
-        source = wishlist_source[:theme]
-      else
-        source = wishlist_source[:top]
-      end
+      source = wishlist_source[:theme]
     else
       source = wishlist_source[:product_index]
     end
+    Rails.logger.debug { "source#{source}" }
     source
   end
 

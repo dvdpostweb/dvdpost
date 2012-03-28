@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
       home.news 'home/news', :action => :news, :conditions => {:method => :get}
     end
 
-    
+    localized.resources :chronicles, :only => [:index, :show]
 
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create

@@ -300,7 +300,7 @@ class Customer < ActiveRecord::Base
       begin
         credit = self.update_attributes(:credits => credit_paid, :customers_abo_dvd_remain => dvd_remain)
         date_added = 2.hours.from_now.localtime.to_s(:db)
-        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => 0, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_paid => credit_paid, :abo_type => subscription.to_param)
+        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => 0, :credit_free => 0, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_paid => credit_paid, :abo_type => subscription.to_param)
        rescue ActiveRecord::StatementInvalid 
          notify_credit_hoptoad('init',action,credit_paid)
          raise ActiveRecord::Rollback

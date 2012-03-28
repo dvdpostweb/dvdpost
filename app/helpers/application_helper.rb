@@ -32,6 +32,14 @@ module ApplicationHelper
     if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
       redirect_to php_path
     end
+    #if current_customer 
+    #  if current_customer.customers_registration_step.to_i == 31
+    #    redirect_to wishlist_path unless request.parameters['controller'] == 'wishlist_items'
+    #  elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+    #    redirect_to php_path
+    #  end
+    #end
+    
   end
 
   def localized_image_tag(source, options={})
