@@ -1,0 +1,8 @@
+<% if content = article.contents.by_language(I18n.locale).first %>
+  <p>article : 
+    <%= content.description %>
+    <%= image_tag article.category.image %>
+    
+    <%= link_to 'chronicle', chronicle_path(:id => article) %>
+  </p>  
+<% end %>

@@ -8,7 +8,7 @@ class RatingsController < ApplicationController
       expiration_recommendation_cache
     end
     respond_to do |format|
-      format.html {redirect_to product_path(:id => @product.to_param)}
+      format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
       format.js   {
         case params[:replace]
         when 'homepage'

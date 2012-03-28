@@ -6,7 +6,7 @@
 <% end %>
 <div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
 <% view = params[:view_mode] == 'streaming' || params[:filter] == 'vod' ? 0 : 1 %>
-<% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
+<% name = "#{I18n.locale}/products/product3_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
 <% name_path = "views/#{name}" %>
 <% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
   <% expire_fragment(product) %>
@@ -14,12 +14,16 @@
 <% unless Rails.cache.exist? name_path %>
   <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
-<%= "#{product.imdb_id}" unless Rails.env == "production" %>
-<% cache name do %>
+<%= "#{product.imdb_id}" unless Rails.env != "production" %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
-<% product_description =  data[:description] %>
+<% product_description = data[:description] %>
+  <div>
+    <% link_to path, :class => :cover, :title => product_title do %>
+      <%= product_image_tag product_image, :width => 62, :height => 95 %>
+    <% end %>
+  </div>
   <div class="movie-descr">
     <h2>
       <%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %>
@@ -36,6 +40,8 @@
       <%= link_to(t('.more'), path, :class => 'more') %>
     </p>
   </div>
+  <% cache name do %>
+  
   <div class="movie-info">
     <div class="subs">
       <%= image_tag product.public.image, :alt => product.public.description if product.public %>
@@ -63,12 +69,8 @@
     <% end %>
     
   </div>
-  <div>
-    <% link_to path, :class => :cover, :title => product_title do %>
-      <%= product_image_tag product_image, :width => 62, :height => 95 %>
-    <% end %>
-  </div>
-  <% end %>
+  
+  
   <div class="action">
     <h4>
       <% if @category %>
@@ -81,6 +83,7 @@
         <% end %>
       <% end %>
     </h4>
+    <% end %>
     <div class="stars" id="rating-stars-<%= product.to_param %>" product_id="<%= product.to_param %>">
       <%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color} %>
     </div>

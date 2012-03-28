@@ -110,7 +110,13 @@ class ProductsController < ApplicationController
       
       product_recommendations = @product.recommendations(params[:kind])
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
-      @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
+      if !params[:recommendation].nil?
+        @source = params[:recommendation]
+      elsif params[:source]
+        @source = params[:source]
+      else
+        @source = @wishlist_source[:elsewhere]
+      end
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
     @collections = Collection.by_size.random
@@ -132,7 +138,7 @@ class ProductsController < ApplicationController
         
         @cinopsis = nil
         #@cinopsis = Marshal.load(@cinopsis) if @cinopsis
-        if params[:recommendation].to_i == @wishlist_source[:recommendation] || params[:recommendation].to_i == @wishlist_source[:recommendation_product]
+        if  @source.to_i == @wishlist_source[:recommendation] ||  @source.to_i == @wishlist_source[:recommendation_product]
           Customer.send_evidence('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
         Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
@@ -155,7 +161,7 @@ class ProductsController < ApplicationController
       Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
     end
     respond_to do |format|
-      format.html {redirect_to product_path(:id => @product.to_param)}
+      format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
       format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
     end
   end
@@ -164,7 +170,7 @@ class ProductsController < ApplicationController
     @product.seen_customers << current_customer
     Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
     respond_to do |format|
-      format.html {redirect_to product_path(:id => @product.to_param)}
+      format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
       format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
     end
   end
@@ -185,7 +191,7 @@ class ProductsController < ApplicationController
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url
         else
-          redirect_to product_path(:id => @product.to_param)
+          redirect_to product_path(:id => @product.to_param, :source => params[:source])
         end
       end
     end

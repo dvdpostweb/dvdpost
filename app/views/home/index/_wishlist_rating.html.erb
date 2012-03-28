@@ -1,13 +1,13 @@
 <% data = product.description_data() %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
-
+<% path = product_path(:id => product.to_param, :source => @wishlist_source[:rating]) %>
 <!-- Donnez votre avis sur ce film -->
 <div class="comments">
   <h4><%= t '.title' %></h4>
   <ul>
     <li>
-      <h3><%= link_to product_title, product_path(:id => product.to_param)%></h3>
+      <h3><%= link_to product_title, path %></h3>
     </li>
     <li>
       <div id='rating-stars-<%= product.to_param %>'>
@@ -15,10 +15,10 @@
       </div>
     </li>
     <li>
-      <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
+      <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param, :source => @wishlist_source[:rating]), :class => :add_reviews %>
     </li>
     <li class="thumb">
-      <%= link_to product_image_tag(product_image, :size => '65x88', :alt => product_title), product_path(:id => product.to_param) %>
+      <%= link_to product_image_tag(product_image, :size => '65x88', :alt => product_title), path %>
     </li>
   </ul>
   <% if params[:kind] == :normal %>

@@ -27,7 +27,7 @@ module HomeHelper
   def carousel_path(carousel)
     case carousel.kind
       when 'MOVIE'
-        product_path(:id => carousel.reference_id)
+        product_path(:id => carousel.reference_id, :source => @wishlist_source[:carousel])
       when 'OTHER'
         info_path(:page_name => carousel.name)
       when 'OLD_SITE'

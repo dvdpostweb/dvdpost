@@ -1,0 +1,8 @@
+<% if @chronicle %>
+  <% first = @chronicle.contents.by_language(I18n.locale).first %>
+  <%= image_tag @chronicle.image, :width => 150 %>
+  title <%= first.title %>
+  description <%= first.description %>
+  <%= link_to 'article 1', chronicle_path(:id => @chronicle)%>
+<% end %>
+<%= render :partial => 'article', :collection => @chronicles %>

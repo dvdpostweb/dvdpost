@@ -6,12 +6,12 @@
           <% i=0 %>
           <% recommendations.collect do |item| %>
           <% i = i + 1 %>
-           
+          <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation]) %> 
           <li>
-            <a href="<%= product_path(:id => item.to_param)%>" class="overlay" style="display:none">
+            <a href="<%= path %>" class="overlay" style="display:none">
               <%= item.title %>
             </a>
-            <a href="<%= product_path(:id => item.to_param)%>">
+            <a href="<%= path %>">
               <%= image_tag item.image, :width => 65, :height => 88 %>
             </a>
           </li>
