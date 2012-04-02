@@ -47,7 +47,9 @@ class Customer < ActiveRecord::Base
   
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :next_subscription_type, :class_name => 'SubscriptionType', :foreign_key => :customers_next_abo_type
-  belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
+  belongs_to :address, :foreign_key => :customers_id, :primary_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
+  #has_one :address
+  #has_many :address_books, :foreign_key => :customers_id
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_one :beta_test
@@ -83,7 +85,7 @@ class Customer < ActiveRecord::Base
   has_many :shopping_carts, :foreign_key => :customers_id
   has_many :shopping_products, :through => :shopping_carts, :source => :product, :order => 'shopping_cart_id desc'
   has_many :shopping_orders, :foreign_key => :customers_id
-  
+  accepts_nested_attributes_for :address, :allow_destroy => true
   
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
