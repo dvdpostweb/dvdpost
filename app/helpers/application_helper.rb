@@ -29,16 +29,23 @@ module ApplicationHelper
   end
 
   def redirect_after_registration
-    if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
-      redirect_to php_path
+    if current_customer 
+      if current_customer.customers_registration_step.to_i == 31
+        if (params['controller'] == 'steps' and params[:id].to_i == 2) || (params['controller'] == 'customers' and params[:action] == 'update')
+        else
+          redirect_to step_path(:id => 2)
+        end
+      elsif current_customer.customers_registration_step.to_i == 33
+        if (params['controller'] == 'steps' and params[:id].to_i == 3)
+        else
+          redirect_to step_path(:id => 3)
+        end
+      elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+        #Rails.logger.debug { "php" }
+        
+        redirect_to php_path
+      end
     end
-    #if current_customer 
-    #  if current_customer.customers_registration_step.to_i == 31
-    #    redirect_to wishlist_path unless request.parameters['controller'] == 'wishlist_items'
-    #  elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
-    #    redirect_to php_path
-    #  end
-    #end
     
   end
 

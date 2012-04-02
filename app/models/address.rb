@@ -1,12 +1,11 @@
 class Address < ActiveRecord::Base
   set_table_name :address_book
-  set_primary_key :customers_id
+  #set_primary_key :customers_id
 
   before_save :replace_semicolon
   before_create :set_default
-  
+  #attr_accessible :first_name, :last_name, :street, :postal_code, :city, :country_id, :customers_id, :entry_country_id, :entry_gender, :address_book_id
   belongs_to :customer, :foreign_key => :customers_id
-
   alias_attribute :first_name, :entry_firstname
   alias_attribute :last_name, :entry_lastname
   alias_attribute :street, :entry_street_address
@@ -34,8 +33,14 @@ class Address < ActiveRecord::Base
 
   private
    def set_default
-     self.address_book_id = customer.addresses.maximum(:address_book_id) + 1
+     #Rails.logger.debug { "@@@setdefault#{customer.inspect} #{self.inspect}" }
+     self.address_book_id = customer.addresses.count > 0 ? customer.addresses.maximum(:address_book_id) + 1 : 1
      self.entry_gender = customer.gender
-     self.entry_country_id = customer.address.entry_country_id
+     self.entry_country_id = customer.address ? customer.address.entry_country_id : 21
+     self.first_name = customer.first_name unless self.first_name
+     self.last_name = customer.last_name unless self.last_name
+     
    end
+   
+   
 end

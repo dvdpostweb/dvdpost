@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :chronicles, :only => [:index, :show]
-
+    localized.resources :steps, :only => [:show]
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :reviews, :only => [:new, :create]

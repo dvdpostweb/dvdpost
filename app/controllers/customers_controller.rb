@@ -27,14 +27,25 @@ class CustomersController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:notice] = t(:customer_modify)
-          redirect_to customer_path
+          current_customer.update_attribute(:customers_registration_step, 33)
+          if current_customer.customers_registration_step.to_i < 95
+            redirect_to step_path(:id => 3)
+          else
+            redirect_to customer_path
+          end
         end
         format.js
       end
     else
       respond_to do |format|
         format.html do
-          render :action => :edit
+          if current_customer.customers_registration_step.to_i == 31
+            #render :controller => :steps, :action => :show, :id => 2
+            params[:id] = 2 #to do
+            render :template => "/steps/show"
+          else
+            render :action => :edit
+          end
         end
         format.js do
           render :action => :edit, :layout => false
