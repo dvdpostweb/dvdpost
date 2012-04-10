@@ -128,7 +128,9 @@ class Product < ActiveRecord::Base
     when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
-    has 'concat(if(products_quantity>0 or products_media = "vod",1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
+    has 'concat(if(products_quantity>0 or products_media = "vod" or (  select count(*) > 0 from products p
+          join streaming_products on streaming_products.imdb_id = p.imdb_id
+          where  (( streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
     has "case 
     when  products_status = -1 then 99
     else products_status end", :type => :integer, :as => :status
@@ -314,7 +316,7 @@ class Product < ActiveRecord::Base
     if options[:list_id] && !options[:list_id].blank?
       sort = sort_by("special_order asc", options)
     elsif options[:search] && !options[:search].blank?
-      sort = sort_by("", options)
+      sort = sort_by("default_order desc, in_stock DESC", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
       sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
