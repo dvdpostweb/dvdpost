@@ -51,6 +51,8 @@ class Customer < ActiveRecord::Base
   #has_one :address
   #has_many :address_books, :foreign_key => :customers_id
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
+  belongs_to :discount, :foreign_key => :activation_discount_code_id
+  
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_one :beta_test
   has_one :cable_order
@@ -671,6 +673,28 @@ class Customer < ActiveRecord::Base
     else
       File.join('avatars', 'waiting', "#{to_param}.jpg")
     end 
+  end
+  
+  def promo_price
+    abo_price = ProductAbo.find(abo_type_id).product.price.to_f
+    if activation_discount_code_type == 'A'
+      price = 0
+    elsif activation_discount_code_type == 'D'
+      case discount.type
+        #total = price - X%
+        when 1
+          price = (abo_price - (discount.value / 100 * abo_price)).round(2)
+        # tot = X € 
+        when 2
+          price = discount.value
+        # tot = price - X€
+        when 3
+          price = abo_price - discount.value
+      end
+    else
+      price = abo_price  
+    end
+    price.to_f
   end
   private
   def convert_created_at

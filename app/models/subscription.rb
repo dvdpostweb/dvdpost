@@ -14,6 +14,9 @@ class Subscription < ActiveRecord::Base
     action.push(:free_upgrade, 14)
     action.push(:add_rotation_adult, 26)
     action.push(:add_rotation_normal, 27)
+    action.push(:creation_without_promo, 1)
+    action.push(:creation_with_discount, 6)
+    action.push(:creation_with_activation, 7)
 
     action
   end

@@ -1,0 +1,10 @@
+<% form_for :steps, :html => {:method => :put} do |f| %>
+visa <%= radio_button_tag 'payment_type', 'VISA' %>
+master<%= radio_button_tag 'payment_type', 'Mastercard' %>
+american<%= radio_button_tag 'payment_type', 'American Express' %>
+<br />
+<%= radio_button_tag 'payment_type', 'bank' %>
+  virement<br />
+ <%= submit_tag t('.create'),:id => "submit_account2", :class => "submit submit_#{I18n.locale}" %>
+<% end %>
+
