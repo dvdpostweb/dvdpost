@@ -12,6 +12,7 @@ class Address < ActiveRecord::Base
   alias_attribute :postal_code, :entry_postcode
   alias_attribute :city, :entry_city
   alias_attribute :country_id, :entry_country_id
+  alias_attribute :gender, :entry_gender
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
@@ -33,9 +34,8 @@ class Address < ActiveRecord::Base
 
   private
    def set_default
-     #Rails.logger.debug { "@@@setdefault#{customer.inspect} #{self.inspect}" }
      self.address_book_id = customer.addresses.count > 0 ? customer.addresses.maximum(:address_book_id) + 1 : 1
-     self.entry_gender = customer.gender
+     self.gender = customer.gender unless self.gender
      self.entry_country_id = customer.address ? customer.address.entry_country_id : 21
      self.first_name = customer.first_name unless self.first_name
      self.last_name = customer.last_name unless self.last_name

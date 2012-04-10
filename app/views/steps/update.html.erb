@@ -1,0 +1,29 @@
+<form name="checkout_confirmation" id="checkout_confirmation" method="post" action="https://secure.ogone.com/ncol/prod/orderstandard.asp">                                                                         
+  <div style='height:75px;width:970px'>
+    <div class='load' style='margin: 15px 0pt; text-align: center;'><%= t '.redirection' %></div>
+    <div class='load' style='width: 32px; height: 32px; margin: 6px auto;'>
+      <%= image_tag 'loading.gif', :title => 'loading' %>
+    </div>
+  </div>
+  <input type="hidden" name="prod" value="">
+  <input type="hidden" name="orderID" value="<%= @order_id %>">
+  <input type="hidden" name="pspid" value="dvdpost">
+  <input type="hidden" name="RL" value="ncol-2.0">
+  <input type="hidden" name="currency" value="EUR">
+  <input type="hidden" name="language" value="<%= @ogone_language %>">
+  <input type="hidden" name="amount" value="<%= @price %>">
+  <input type="hidden" name="declineurl" value="<%= @url_back %>">
+  <input type="hidden" name="exceptionurl" value="<%= @url_back %>">
+  <input type="hidden" name="cancelurl" value="<%= @url_back %>">
+  <input type="hidden" name="CN" value="<%= current_customer.name %>">
+  <input type="hidden" name="catalogurl" value="<%= php_path 'catalog.php' %>">
+  <input type="hidden" name="accepturl" value="<%= @url_back %>">
+  <input type="hidden" name="COM" value="<%= @com %>">
+  <input type="hidden" name="PM" value="CreditCard">
+  <input type="hidden" name="BRAND" value="<%= @brand %>">
+  <input type="hidden" name="TP" value="<%= php_path @template_ogone %>">
+  <input type="hidden" name="ALIAS" value="<%= current_customer.to_param %>">
+  <input type="hidden" name="ALIASUSAGE" value="<%= @com %>">
+  <input type="hidden" name="SHASign" value="<%= @hash %>">
+</form>
+

@@ -105,30 +105,19 @@
   	</td>
   </tr>
   <tr>
-  	<td align="right">
-  		<strong>
-  		  <span class="explain_text"><%= t '.city' %> :</span>
-      </strong>
+    <td align="right" class="identification" >
+      <strong><span class="explain_text"><%= t '.country' %> :</span></strong>
     </td>
-    <td align="left">
-  		<%= af.text_field :first_name %>
-  	</td>
+    <td>
+      <span align="left">
+        <%= af.select :entry_country_id, @countries.collect{|country| [country.name, country.id]} %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+    </td>
   </tr>
   <tr>
-  	<td align="right">
-  		<strong>
-  		  <span class="explain_text"><%= t '.city' %> :</span>
-      </strong>
-    </td>
-    <td align="left">
-  		<%= af.text_field :last_name %>
-  		<%= af.hidden_field :customers_id, :value => @customer.to_param %>
-  	</td>
-  </tr>
-
   <% end %>
-  <tr>
-  
     <td colspan="3">  
       <p class="bouton_probleme" align="right">
         <%= submit_tag t('.create'),:id => "submit_account2", :class => "submit submit_#{I18n.locale}" %>

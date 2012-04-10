@@ -21,18 +21,22 @@ class CustomersController < ApplicationController
   end
 
   def update
+    if params[:customer][:address_attributes]
+      params[:customer][:address_attributes][:first_name] = params[:customer][:first_name]
+      params[:customer][:address_attributes][:last_name] = params[:customer][:last_name]
+      params[:customer][:address_attributes][:gender] = params[:customer][:gender]
+      params[:customer][:address_attributes][:customers_id] = current_customer.to_param
+    end
     @customer = current_customer
     params[:customer][:birthday] = "#{params[:date][:year]}-#{params[:date][:month]}-#{params[:date][:day]}"
     if @customer.update_attributes(params[:customer])
       respond_to do |format|
         format.html do
           flash[:notice] = t(:customer_modify)
-          current_customer.update_attribute(:customers_registration_step, 33)
-          if current_customer.customers_registration_step.to_i < 95
-            redirect_to step_path(:id => 3)
-          else
-            redirect_to customer_path
+          if current_customer.customers_registration_step != 100 && current_customer.customers_registration_step != 95
+            current_customer.update_attribute(:customers_registration_step, 33)
           end
+          redirect_after_registration customer_path
         end
         format.js
       end
@@ -40,7 +44,7 @@ class CustomersController < ApplicationController
       respond_to do |format|
         format.html do
           if current_customer.customers_registration_step.to_i == 31
-            #render :controller => :steps, :action => :show, :id => 2
+            @countries = Country.all
             params[:id] = 2 #to do
             render :template => "/steps/show"
           else
