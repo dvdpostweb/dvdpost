@@ -20,7 +20,7 @@
               </p>
             </div>
           </li>
-          <% break if i == 12 && !not_rated_product.nil? %>
+          <% 1==1 #to do break if i == 12 && !not_rated_product.nil? %>
           <% end %>
           
         </ul>
@@ -36,5 +36,5 @@
           <p><%= t('.tooltip_description') %></p>
         </div>
       </div>
-      <%= render :partial => '/home/index/wishlist_rating', :locals => {:product => not_rated_product} if !not_rated_product.nil? %>
+      <%= render :partial => '/home/index/wishlist_rating', :locals => {:product => not_rated_product} if 1==0 && !not_rated_product.nil? %>
     </div>
