@@ -25,10 +25,10 @@
           
         </ul>
         <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'>
-          <%= image_tag 'info-icon.gif', :alt => "Info" %>
+          <%= image_tag 'icon_info_home.png', :alt => "Info" %>
         </a>
         <p align="center">
-          <%= link_to t('.all'), products_path(:view_mode => :recommended) %>
+          <%= link_to t('home.index.recommendations.see_all'), products_path(:view_mode => :recommended) %>
         </p>
         <!-- Tooltip -->
         <div class="tooltip" id="recommendation_info_popup" style ='display:none'>
