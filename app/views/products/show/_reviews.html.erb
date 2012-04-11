@@ -5,9 +5,9 @@
 <div class="bysort">
   <div class="bysort_title"><%= t '.sorting' %> : </div>
   <div class="bysort_choice">
-    <% var = params[:sort] || 'interesting' %>
+    
     <% form_for(:review, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
-      <%= select_tag(:sort, options_for_select(sort_review2_for_select, var.to_sym)) %>
+      <%= select_tag(:sort, options_for_select(sort_review2_for_select, @review_sort)) %>
     <% end %>
   </div>
   <div style="clear:both"></div>

@@ -1,27 +1,35 @@
 <div id="user-movies-wrap">
       <!-- Cinéma pour Maud -->
       <div id="user-movies">
-        <h3><%= t('.recommendation', :firstname => current_customer.customers_firstname) %></h3>
+        <h3><%= link_to t('.recommendation', :firstname => current_customer.customers_firstname), products_path(:view_mode => :recommended) %></h3>
         <ul>
           <% i=0 %>
           <% recommendations.collect do |item| %>
           <% i = i + 1 %>
           <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation]) %> 
           <li>
-            <a href="<%= path %>" class="overlay" style="display:none">
-              <%= item.title %>
+            <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>'>
+              <%= image_tag item.image, :width => 60 %>
             </a>
-            <a href="<%= path %>">
-              <%= image_tag item.image, :width => 65, :height => 88 %>
-            </a>
+            <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" style ='display:none'>
+              <h4><%= item.title %> (<%= item.year %>)</h4>
+              <p>
+                <%= image_tag item.image, :class => :tool_float, :width => 120 %>
+                <p class="synopsis"><%= t 'products.show.synopsis' %></p>
+                <%= truncate_html item.description.text, :length => 450 %>
+              </p>
+            </div>
           </li>
-          <% break if i == 4 && !not_rated_product.nil? %>
+          <% break if i == 12 && !not_rated_product.nil? %>
           <% end %>
           
         </ul>
         <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'>
           <%= image_tag 'info-icon.gif', :alt => "Info" %>
         </a>
+        <p align="center">
+          <%= link_to t('.all'), products_path(:view_mode => :recommended) %>
+        </p>
         <!-- Tooltip -->
         <div class="tooltip" id="recommendation_info_popup" style ='display:none'>
           <h4><%= t('.tooltip_title') %></h4>
