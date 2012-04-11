@@ -238,13 +238,13 @@ $(function() {
     return false;
   });
   
-  $(".tooltips").live('mouseover',function(){
+  $(".tooltips, .tooltips_item").live('mouseover',function(){
     name =$(this).attr('id')+"_popup"
     var bulle = $("#"+name);
     bulle.show()
     return false;
   });
-  $(".tooltips").live('mouseout',function(){
+  $(".tooltips, .tooltips_item").live('mouseout',function(){
     name =$(this).attr('id')+"_popup"
     var bulle = $("#"+name);
     bulle.hide();
