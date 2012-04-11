@@ -88,10 +88,18 @@ class ProductsController < ApplicationController
       @filter = get_current_filter({})
       @product.views_increment(@product_description)
       @public_url = product_public_path(@product)
-       if params[:sort] && params[:sort] != Review.sort2[:interesting]
+       if params[:sort]
         sort = Review.sort2[params[:sort].to_sym]
+        @review_sort = params[:sort].to_sym
+        cookies[:review_sort] = { :value => params[:sort], :expires => 1.year.from_now }
       else
-        sort =  Review.sort2[:interesting]
+        if cookies[:review_sort]
+          sort =  Review.sort2[cookies[:review_sort].to_sym]
+          @review_sort = cookies[:review_sort].to_sym
+        else
+          sort =  Review.sort2[:date]
+          @review_sort = :date
+        end
       end
       if @product.imdb_id == 0
         if sort != Review.sort2[:interesting]
@@ -102,7 +110,10 @@ class ProductsController < ApplicationController
       else  
         if sort != Review.sort2[:interesting]
           @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+          Rails.logger.debug { "la" }
+          
         else
+          Rails.logger.debug { "ici" }
           @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
         end
       end
@@ -186,7 +197,13 @@ class ProductsController < ApplicationController
   def trailer
     trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     respond_to do |format|
-      format.js   {render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}}
+      format.js   {
+        if trailer.first && trailer.first.url
+          render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}
+        else
+          render :text => 'error'
+        end
+      }
       format.html do
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url
