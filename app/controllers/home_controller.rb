@@ -115,7 +115,7 @@ class HomeController < ApplicationController
       rescue => e
         logger.error("Failed to retrieve news: #{e.message}")
       end
-      @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8})
+      @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 12})
       
       if Rails.env == "pre_production"
         @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)

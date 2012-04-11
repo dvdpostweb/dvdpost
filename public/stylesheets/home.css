@@ -27,16 +27,20 @@ body
 }
 
 #user-container {
-  padding: 10px 10px 5px;
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  width: 600px;
+  background: none repeat scroll 0 0 !important;
+  border: 0px solid #D9D9D9 !important;
   float: left;
+  padding: 0px !important;
+  width: 637px !important;
 }
 
 #user-info {
-  float: left;
-  width: 270px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D9D9D9;
+    float: left;
+    height: 236px;
+    padding: 10px 14px 5px;
+    width: 277px;
 }
 
 #user {
@@ -100,9 +104,11 @@ body
   border-radius: 2px;
 }
 
-#user-movies-wrap {
-  float: right;
-  width: 300px;
+#user-movies {
+  background: none repeat scroll 0 0 #191e22;
+  float: left;
+	width: 300px;
+	height:244px;
 }
 
 #user-movies {
@@ -117,17 +123,36 @@ body
 
 
 #user-movies h3 {
-  font-size: 1.17em;
-  margin: 0 25px 5px 8px;
+  background: url("../images/bg_recommandations.png") repeat scroll 0 0 transparent;
+  color: #FFFFFF;
+  height: 24px;
+  text-align: center;
+  width: 300px;
+	line-height: 24px;
+	margin: 0 0 5px !important;
 }
-
+#user-movies h3 a {
+  color: #fff;
+  text-decoration: none;
+}
 #user-movies ul {
-  height: 88px;
+  padding-left: 5px;
 }
-
+#user-movies p a {
+  color: #FFFFFF;
+  text-align: center;
+	line-height: 24px;
+	text-transform:uppercase;
+	text-decoration:underline;
+	margin-top:10px;
+}
 #user-movies li {
   float: left;
   margin-left: 8px;
+  overflow:hidden;
+  height:60px;
+  border: #FFFFFF solid 1px;
+  margin-bottom:5px;
 }
 
 #user-movies li a img {
@@ -136,7 +161,7 @@ body
 
 #user-movies a.info {
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 5px;
 }
 
@@ -156,6 +181,24 @@ body
   -webkit-box-shadow: 3px 3px 7px #000;
   box-shadow: 3px 3px 7px #000;
   z-index: 1000;
+}
+.tooltip_items
+{
+  margin: -116px 69px;
+  right:inherit !important;
+  top:inherit !important;
+  width:390px !important;
+}
+.tool_float
+{
+  float:left;
+  padding-right: 5px;
+}
+.synopsis
+{
+  padding:0 0 6px 0;
+  font-size:1.1em;
+  font-weight: bold !important;
 }
 #user-titles .tooltip {
 position: absolute;
