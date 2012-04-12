@@ -58,7 +58,6 @@ class WishlistItem < ActiveRecord::Base
     else
       source = wishlist_source[:product_index]
     end
-    Rails.logger.debug { "source#{source}" }
     source
   end
 
