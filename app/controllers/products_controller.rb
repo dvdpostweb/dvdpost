@@ -110,10 +110,7 @@ class ProductsController < ApplicationController
       else  
         if sort != Review.sort2[:interesting]
           @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
-          Rails.logger.debug { "la" }
-          
         else
-          Rails.logger.debug { "ici" }
           @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
         end
       end
@@ -198,7 +195,7 @@ class ProductsController < ApplicationController
     trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     respond_to do |format|
       format.js   {
-        if trailer.first && trailer.first.url
+        if trailer.first
           render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}
         else
           render :text => 'error'
