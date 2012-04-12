@@ -1,6 +1,6 @@
 class Sponsorship < ActiveRecord::Base
   set_table_name :mem_get_mem_used
-
+  alias_attribute :created_at, :date
   named_scope :free, :conditions => 'points = 0 and expected_points > 0'
   named_scope :stop, :conditions => 'expected_points = 0'
   named_scope :ok, :conditions => 'points > 0 '

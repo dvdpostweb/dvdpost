@@ -285,7 +285,9 @@ module DVDPost
         :sponsorships_invitation    => 446,
         :streaming_product          => 571,
         :streaming_product_free     => 585,
-        :message_free               => 578
+        :message_free               => 578,
+        :welcome                    => 556,
+        :lavernir                   => 560
       })
     end
 
@@ -309,7 +311,7 @@ module DVDPost
     end
     
     def dvdpost_super_user
-      [194064,1017617,203165,1068898,1072027,206183]
+      [194064,1017617,203165,1068898,1072027]
     end
     
     def geo_ip_key

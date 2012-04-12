@@ -6,5 +6,6 @@ american<%= radio_button_tag 'payment_type', 'American Express' %>
 <%= radio_button_tag 'payment_type', 'bank' %>
   virement<br />
  <%= submit_tag t('.create'),:id => "submit_account2", :class => "submit submit_#{I18n.locale}" %>
+ <%= promotion(current_customer)%>
 <% end %>
 

@@ -32,6 +32,8 @@ class Customer < ActiveRecord::Base
   alias_attribute :auto_stop,                    :customers_abo_auto_stop_next_reconduction
   alias_attribute :next_abo_type_id,             :customers_next_abo_type
   alias_attribute :free_upgrade,                 :customers_locked__for_reconduction
+  alias_attribute :promo_type,                   :activation_discount_code_type
+  alias_attribute :promo_id,                     :activation_discount_code_id
   
 
   validates_length_of :first_name, :minimum => 2
@@ -52,6 +54,11 @@ class Customer < ActiveRecord::Base
   #has_many :address_books, :foreign_key => :customers_id
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   belongs_to :discount, :foreign_key => :activation_discount_code_id
+
+  belongs_to :product_abo, :foreign_key => :customers_abo_type
+  belongs_to :product, :foreign_key => :customers_abo_type
+  belongs_to :product_next_abo, :class_name => 'ProductAbo', :foreign_key => :customers_next_abo_type
+  belongs_to :product_next, :class_name => 'Product', :foreign_key => :customers_next_abo_type
   
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_one :beta_test
@@ -540,7 +547,6 @@ class Customer < ActiveRecord::Base
     abo_history(Subscription.action[:reconduction_ealier])
     
     manage_credits(next_subscription_type, 15)
-    #add_credit(next_subscription_type.credits, 15)
   end
 
   def manage_credits(subscription, action)
@@ -675,7 +681,7 @@ class Customer < ActiveRecord::Base
     end 
   end
   
-  def promo_price
+  def promo_price(abo_next = false)
     abo_price = ProductAbo.find(abo_type_id).product.price.to_f
     if activation_discount_code_type == 'A'
       price = 0

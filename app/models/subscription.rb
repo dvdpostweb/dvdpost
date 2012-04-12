@@ -16,7 +16,9 @@ class Subscription < ActiveRecord::Base
     action.push(:add_rotation_normal, 27)
     action.push(:creation_without_promo, 1)
     action.push(:creation_with_discount, 6)
-    action.push(:creation_with_activation, 7)
+    action.push(:creation_with_activation, 8)
+    action.push(:free_reconduction, 17)
+    action.push(:reconduction, 7)
 
     action
   end
