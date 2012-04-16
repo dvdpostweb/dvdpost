@@ -4,10 +4,11 @@
        <!--<div id="banners_imu"><a href="<%= php_path('step1.php') %>"><img src="<%= "#{DVDPost.images_path}/250X250terre_#{I18n.locale}.jpg"%>" /></a></div>-->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     <div style="clear:both;"></div>
-    <h3><%= t '.recommendation' %></h3>
-    <p class="text_intro"><%= t '.recommendation_description' %></p>
- <p align="center"><%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %></p>
-
+    <% if params[:kibd] == :normal %>
+      <h3><%= t '.recommendation' %></h3>
+      <p class="text_intro"><%= t '.recommendation_description' %></p>
+      <p align="center"><%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %></p>
+    <% end %>
   <div style="clear:both;"></div>
   <h3><%= t '.search' %></h3>
 <p class="text_intro"><%= t '.search_description' %></p>

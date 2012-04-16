@@ -130,6 +130,11 @@ a:hover {
 .langues {
 	margin-top:-9px;
 }
+.pink a
+{
+  color: #E2007C;
+  font-weight:bold;
+}
 .top-nav li {
 	float: left;
 	margin-left: -8px;

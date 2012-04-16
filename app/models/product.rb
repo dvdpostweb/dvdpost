@@ -215,7 +215,7 @@ class Product < ActiveRecord::Base
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
     products = products.by_collection(options[:collection_id]) if options[:collection_id]
-    products = products.hetero if options[:hetero]
+    products = products.hetero if options[:hetero] && (options[:category_id] && (options[:category_id].to_i != 76 && options[:category_id].to_i != 72) )
     products = products.by_director(options[:director_id]) if options[:director_id]
     if options[:studio_id]
       if options[:filter] == "vod" && options[:kind] == :normal

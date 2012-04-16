@@ -176,10 +176,11 @@ module ProductsHelper
       end
     end
     if current_customer && class_name == 'star'
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+      image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name)
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
     else
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+      image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name)
+      
     end
   end
 

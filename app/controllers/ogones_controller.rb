@@ -15,56 +15,76 @@ class OgonesController < ApplicationController
             @discount.update_attributes(:discount_limit => @discount.discount_limit - 1)
             duration = @discount.duration
             auto_stop = @discount.auto_stop
-            recurring = @discount.recurring > 0 ? @discount.recurring.months.from_now + 1.day : 0
-            credits = @discount.credits
-            abo_dvd_remain = @discount.abo_dvd_remain && @discount.abo_dvd_remain > 0 ? @discount.abo_dvd_remain : 0
+            recurring = @discount.recurring > 0 ? @discount.recurring.months.from_now + 1.day : nil
+            credits = @discount.credits > 0 ? @discount.credits : @product_abo.credits
+            abo_dvd_remain = 
+            if @discount.abo_dvd_remain && @discount.abo_dvd_remain > 0
+              @discount.abo_dvd_remain = 0
+            elsif @product_abo.qty_dvd_max && @product_abo.qty_dvd_max > 0
+              @product_abo.qty_dvd_max
+            else
+              0
+            end
           else
             action = Subscription.action[:creation_without_promo]
             duration = 1.month.from_now.localtime
             auto_stop = 0
-            recurring = 0
+            recurring = nil
             credits = @product_abo.credits
             abo_dvd_remain = @product_abo.qty_dvd_max && @product_abo.qty_dvd_max > 0 ? @product_abo.qty_dvd_max : 0
           end
-          current_customer.update_attributes(:customers_abo => 1, :customers_registration_step => 100,:customers_abo_payment_method => 1, :customers_abo_rank => 10, :customers_abo_start_rentthismonth => 0, :subscription_expiration_date => duration, :auto_stop => auto_stop, :customers_abo_discount_recurring_to_date => recurring)
-          @ogone.product(:products_quantity => @ogone.product.products_quantity - 1)
-          price = current_customer.promo_price
-          credit_at_home = @product_abo.qty_at_home
-          credit_at_home_adult = 0
+          
+          price = current_customer.promo_price({:type => 'D', :discount_id => @ogone.discount_code_id})
           credit_history_action = price > 0 ? 5 : 4
-          customer_credits = abo_dvd_remain > 0 ? credits : current_customer.credits + credits
-          current_customer.manage_credits(current_customer.subscription_type, 15)
-          current_customer.update_attributes(:customers_abo_dvd_norm => credit_at_home, :customers_abo_dvd_adult => credit_at_home_adult)
           if price > 0
             abo_action = 7
             current_customer.payment.create(:payment_method => 1, :abo_id => current_customer.abo_type_id, :amount => price, :payment_status => 2, :created_at => Time.now.localtime, :last_modified => Time.now.localtime)
           else
             abo_action = 17
           end
-          current_customer.abo_history(action, current_customer.next_abo_type_id)
-          current_customer.abo_history(abo_action, current_customer.next_abo_type_id)
-          
-        	if current_customer.gender == 'm' 
-            gender = t('mails.gender_male')
-          else
-            gender = t('mails.gender_female')
-          end
-          promotion = ''
-          options = {
-            "\\$\\$\\$customers_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", 
-            "\\$\\$\\$email\\$\\$\\$" => "#{current_customer.email}",
-            "\\$\\$\\$gender_simple\\$\\$\\$" => gender ,
-            "\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$" => mail_history.to_param
-            "\\$\\$\\$promotion\\$\\$\\$" => promotion
-            "\\$\\$\\$final_price\\$\\$\\$" => price
-            }
-          send_mail(DVDPost.email[:welcome], current_customer, options)
-          if current_customer.site == 'lavenir'
-            send_mail(DVDPost.email[:lavenir], current_customer, options)
-          end
-      #to do activation_code_actions.php
         when 'new_activation'
-      #to do activation by activation code
+          activation = Activation.find(@ogone.activation_code_id)
+          action = Subscription.action[:creation_with_activation]
+          price = 0
+          duration = activation.duration
+          auto_stop = activation.auto_stop
+          recurring = 0
+        	abo_action = 17
+        	credit_history_action = 4
+        	credits = activation.credits > 0 ? activation.credits : @product_abo.credits
+          abo_dvd_remain = 
+          if activation.abo_dvd_remain && activation.abo_dvd_remain > 0
+            activation.abo_dvd_remain = 0
+          elsif @product_abo.qty_dvd_max && @product_abo.qty_dvd_max > 0
+            @product_abo.qty_dvd_max
+          else
+            0
+          end
+          activation.update_attributes(:created_at => Time.now.localtime.to_s(:db), :customers_id => current_customer.to_param)
+      end
+      credit_at_home = @product_abo.qty_at_home
+      credit_at_home_adult = 0
+      current_customer.update_attributes(:customers_abo => 1, :customers_registration_step => 100,:customers_abo_payment_method => 1, :customers_abo_rank => 10, :customers_abo_start_rentthismonth => 0, :subscription_expiration_date => duration, :auto_stop => auto_stop, :customers_abo_discount_recurring_to_date => recurring, :customers_abo_dvd_norm => credit_at_home, :customers_abo_dvd_adult => credit_at_home_adult)
+      current_customer.insert_credits(credits, abo_dvd_remain, credit_history_action)
+      current_customer.abo_history(action, current_customer.next_abo_type_id)
+      current_customer.abo_history(abo_action, current_customer.next_abo_type_id)
+      @ogone.product(:products_quantity => @ogone.product.products_quantity - 1)
+      if current_customer.gender == 'm' 
+        gender = t('mails.gender_male')
+      else
+        gender = t('mails.gender_female')
+      end
+      
+      options = {
+        "\\$\\$\\$customers_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", 
+        "\\$\\$\\$email\\$\\$\\$" => "#{current_customer.email}",
+        "\\$\\$\\$gender_simple\\$\\$\\$" => gender,
+        "\\$\\$\\$promotion\\$\\$\\$" => promotion(current_customer)[:promo],
+        "\\$\\$\\$final_price\\$\\$\\$" => price
+        }
+      send_message(DVDPost.email[:welcome], options)
+      if current_customer.site == 'lavenir'
+        send_message(DVDPost.email[:lavenir], options)
       end
       sponsor = Sponsorship.find_by_son_id(current_customer.to_param)
       unless sponsor
@@ -79,5 +99,4 @@ class OgonesController < ApplicationController
       end  
     end
   end
-  
 end

@@ -322,3 +322,7 @@ input, select, textarea, button {
   margin: 0;
 }
 
+.inputs_codes
+{
+  border: 2px inset;
+}

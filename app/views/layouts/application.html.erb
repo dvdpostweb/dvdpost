@@ -92,7 +92,7 @@
 			<% if params[:kind] == :normal %>
 	    	<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
 			<% else %>
-	  		<%= render(:partial => 'layouts/header_adult') %>
+	  		<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_adult_public') : render(:partial => 'layouts/header_adult') %>
 			<% end %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->
