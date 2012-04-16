@@ -1,6 +1,7 @@
 class ShopsController < ApplicationController
   def show
-    list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
+    list_base = Rails.env == "production" ? ProductList.shop.status : ProductList.shop
+    list = list_base.by_language(DVDPost.product_languages[I18n.locale]).first
     @items = list ? list.products : nil 
     cart = current_customer.shopping_carts.ordered
     @cart_count = cart.sum(:quantity)

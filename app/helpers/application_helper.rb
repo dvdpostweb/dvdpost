@@ -46,7 +46,9 @@ module ApplicationHelper
         redirect_to path
       end
     end
-    
+    if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+         redirect_to php_path
+       end
   end
 
   def localized_image_tag(source, options={})
@@ -63,7 +65,7 @@ module ApplicationHelper
 
   def delegate_locale
     if params[:kind].nil?
-      params[:kind] = 'normal'
+      params[:kind] = :normal
     end
     #if params[:locale].nil?
     #  set_locale('fr')
@@ -204,7 +206,7 @@ module ApplicationHelper
   def email_data_replace(text,options)
     options.each {|key, value| 
       r = Regexp.new(key, true)
-      text = text.gsub(r, value)
+      text = text.gsub(r, value.to_s)
     }
     text
   end
@@ -322,8 +324,8 @@ module ApplicationHelper
 
   def send_message(mail_id, options)
     mail_object = Email.by_language(I18n.locale).find(mail_id)
-    recipient = current_customer.email
-    if current_customer.customer_attribute.mail_copy
+    recipient = Rails.env != 'development' ? current_customer.email : 'gs@dvdpost.be'
+    if current_customer.customer_attribute.mail_copy || mail_object.force_copy
       mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => current_customer.to_param, :mail_messages_id => mail_id, :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> current_customer.email)
       options["\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$"] = mail_history.to_param
     else
@@ -331,7 +333,7 @@ module ApplicationHelper
     end
       list = ""
       options.each {|k, v|  list << "#{k.to_s.tr("\\","")}:::#{v};;;"}
-      if current_customer.customer_attribute.mail_copy
+      if current_customer.customer_attribute.mail_copy || mail_object.force_copy
         email_data_replace(mail_object.subject, options)
         subject = email_data_replace(mail_object.subject, options)
         message = email_data_replace(mail_object.body, options)
@@ -378,20 +380,7 @@ module ApplicationHelper
     end
   end
 
-  def send_mail(mail_id, customer, options)
-    mail = Email.by_language(I18n.locale).find(mail_id)
-    recipient = Rails.env != 'development' ? current_customer.email : 'gs@dvdpost.be'
-    mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => customer.to_param, :mail_messages_id => mail_id, :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> recipient)
-    list = ""
-    options.each {|k, v|  list << "#{k.to_s.tr("\\","")}:::#{v};;;"}
-    mail_history.update_attributes(:lstvariable => list)
-    email_data_replace(mail.subject, options)
-    subject = email_data_replace(mail.subject, options)
-    message = email_data_replace(mail.body, options)
-    Emailer.deliver_send(recipient, subject, message)
-  end
-
-  def promotion(customer)
+  def promotion(customer, text = false)
     product_abo = customer.product_abo
     product_next_abo = customer.product_next_abo
     product_next = customer.product_next
@@ -402,30 +391,49 @@ module ApplicationHelper
     promo_type = product_abo.credits == 0 ? :unlimited : :freetrial
     if customer.promo_type == 'D'
       discount = customer.discount
-      credits_next = discount.credits > 0 ? discount.credits : credits
-      duration = case discount.duration_type
+      credits_promo = discount.credits > 0 ? discount.credits : credits
+      case discount.duration_type
       when 1
-        "#{discount.duration_value} days"
+        period = t 'promotion.promo_day', :duration => discount.duration_value, :credits => credits_promo
+        duration = t 'promotion.duration_day', :duration => discount.duration_value
       when 2
-        "#{discount.duration_value} month"
+        period = t 'promotion.promo_month', :duration => discount.duration_value, :credits => credits_promo
+        duration = t 'promotion.duration_month', :duration => discount.duration_value
       when 3
-        "#{discount.duration_value} year"
+        period = t 'promotion.promo_year', :duration => discount.duration_value, :credits => credits_promo
+        duration = t 'promotion.duration_year', :duration => discount.duration_value
       end
-      
-      period = "#{credits_next} films for #{duration}"
-      period_next = "#{credits} films per month #{rotation} films pour € #{price_abo}"
+    elsif customer.promo_type == 'A'
+      activation = customer.activation
+  		credits_promo = activation.credits > 0 ? activation.credits : credits
+   		promo_type = :pre_paid if activation.activation_waranty == 2
+   		case activation.duration_type
+  		when 1
+        period = t 'promotion.promo_day', :duration => activation.duration_value, :credits => credits_promo
+        duration = t 'promotion.duration_month', :duration => activation.duration_value
+      when 2
+        period = t 'promotion.promo_month', :duration => activation.duration_value, :credits => credits_promo
+        duration = t 'promotion.duration_month', :duration => activation.duration_value
+      when 3
+        period = t 'promotion.promo_year', :duration => activation.duration_value, :credits => credits_promo
+        duration = t 'promotion.duration_year', :duration => activation.duration_value
+      end
+    end
+    period_next = t 'promotion.promo_next', :credits => credits, :rotation => rotation, :price => price_abo
+    if customer.promo_type != 'D' && customer.promo_type != 'A'
+      return {:promo => nil , :promo_next => nil}
     end
     if promo_type == :pre_paid
-      #to do
+      return {:promo => period , :promo_next => period_next}
     else
-      if customer.promo_price > 0
-        return "<strong>#{t 'promotion.paid_promo' }</strong>: <span class='red_font'>#{period}</span>"
-      else
-        if promo_type != :unlimited
-          return "<strong>#{t 'promotion.trial'}</strong>: <span class='red_font'>#{period}</span>"
+      if promo_type != :unlimited
+        if customer.promo_price > 0
+          return text ? {:promo => t('promotion.paid_promo', :period => period), :promo_next => period_next} : {:promo => period, :promo_next => period_next}
         else
-          return t('promotion.unlimited', :duration => duration, :credits => credits_next)
+          return text ? {:promo => t('promotion.trial', :period => period), :promo_next => period_next} : {:promo => period, :promo_next => period_next}
         end
+      else
+        return {:promo => t('promotion.unlimited', :duration => duration, :credits => credits_promo), :promo_next => period_next}
       end
     end
   end

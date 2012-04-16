@@ -24,7 +24,7 @@
           <%= left_column(params) %>
         </ul>
       </li>
-      <li class='adultvod'><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming) if current_customer && streaming_access? %></li>
+      <li class='adultvod'><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming) if streaming_access? %></li>
       <% if current_customer %>
         <li>
           <%= link_to image_tag(File.join(I18n.locale.to_s, 'bannerflashvente.png')), shop_path %>

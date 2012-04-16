@@ -287,7 +287,7 @@ module DVDPost
         :streaming_product_free     => 585,
         :message_free               => 578,
         :welcome                    => 556,
-        :lavernir                   => 560
+        :lavenir                   => 560
       })
     end
 

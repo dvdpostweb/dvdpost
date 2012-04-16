@@ -54,6 +54,7 @@ class Customer < ActiveRecord::Base
   #has_many :address_books, :foreign_key => :customers_id
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   belongs_to :discount, :foreign_key => :activation_discount_code_id
+  belongs_to :activation, :foreign_key => :activation_discount_code_id
 
   belongs_to :product_abo, :foreign_key => :customers_abo_type
   belongs_to :product, :foreign_key => :customers_abo_type
@@ -349,6 +350,35 @@ class Customer < ActiveRecord::Base
     end
     return true
   end
+
+  def insert_credits(credits, dvd_remain, action)
+    credit_history = self.get_credits()
+    if new_price? && credit_history
+      credit_free = credit_history.credit_free + credit_history.quantity_free
+    else
+      credit_free = 0
+    end
+    if new_price? && credit_history
+      credit_paid = credit_history.credit_paid + credit_history.quantity_paid
+    else
+      credit_paid = 0
+    end
+    Customer.transaction do
+      begin
+        if new_price?
+          credit = self.update_attributes(:credits => credits, :customers_abo_dvd_remain => dvd_remain)
+        else
+          credit = self.update_attributes(:credits => (self.credits + credits))
+        end
+        date_added = 2.hours.from_now.localtime.to_s(:db)
+        history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_free => credits, :abo_type => abo_type_id)
+       rescue ActiveRecord::StatementInvalid 
+         notify_credit_hoptoad('add',action,quantity)
+         raise ActiveRecord::Rollback
+       end
+    end
+    return true
+  end
   
   def remove_credit(quantity, action)
     credit_history = self.get_credits()
@@ -551,11 +581,10 @@ class Customer < ActiveRecord::Base
 
   def manage_credits(subscription, action)
     if subscription.qty_dvd_max != -1
-      init_credits(subscription, 15)
+      init_credits(subscription, action)
     else
-      add_credit(subscription.credits, 15)
+      add_credit(subscription.credits, action)
     end
-      
   end
 
   def abo_history(action, new_abo_type = 0)
@@ -681,21 +710,24 @@ class Customer < ActiveRecord::Base
     end 
   end
   
-  def promo_price(abo_next = false)
+  def promo_price(promo = {}, abo_next = false)
     abo_price = ProductAbo.find(abo_type_id).product.price.to_f
-    if activation_discount_code_type == 'A'
+    type = promo[:type] ? promo[:type] : activation_discount_code_type
+    if type == 'A'
       price = 0
-    elsif activation_discount_code_type == 'D'
-      case discount.type
+    elsif type == 'D'
+      disc = promo[:discount_id] && promo[:discount_id] > 0 ? Discount.find(promo[:discount_id]) : discount
+      
+      case disc.type
         #total = price - X%
         when 1
-          price = (abo_price - (discount.value / 100 * abo_price)).round(2)
+          price = (abo_price - (disc.value / 100 * abo_price)).round(2)
         # tot = X € 
         when 2
-          price = discount.value
+          price = disc.value
         # tot = price - X€
         when 3
-          price = abo_price - discount.value
+          price = abo_price - disc.value
       end
     else
       price = abo_price  

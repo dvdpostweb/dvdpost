@@ -3,12 +3,20 @@ class ProductsController < ApplicationController
 
   def index
     if ENV['HOST_OK'] == "1"
-      if Rails.env == "pre_production"
-        @carousel = Landing.by_language_beta(I18n.locale).not_expirated.public.order(:asc).limit(5)
+      if params[:kind] == :adult
+        if Rails.env == "pre_production"
+          @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)
+        else
+          @carousel = Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5)
+        end
       else
-        @carousel = Landing.by_language(I18n.locale).not_expirated.public.order(:asc).limit(5)
+        if Rails.env == "pre_production"
+          @carousel = Landing.by_language_beta(I18n.locale).not_expirated.public.order(:asc).limit(5)
+        else
+          @carousel = Landing.by_language(I18n.locale).not_expirated.public.order(:asc).limit(5)
+        end
       end
-      @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8})
+      @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8}) if params[:kind] == :normal
     end
     @filter = get_current_filter({})
     if params[:search] == t('products.left_column.search')
@@ -35,7 +43,8 @@ class ProductsController < ApplicationController
       else
         @popular = nil
       end
-      if params[:category_id].to_i == 76
+      
+      if params[:category_id].to_i == 76 && current_customer
         current_customer.customer_attribute.update_attribute(:sexuality, 1)
         session[:sexuality] = 1
       end

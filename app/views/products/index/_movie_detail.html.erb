@@ -65,6 +65,8 @@
       <h3>
         <%= t '.studio' %>
       </h3>
+      <% Rails.logger.debug { "ici3" }%>
+      
       <p><%= link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param) %></p>
     <% end %>
     
@@ -84,7 +86,7 @@
       <% end %>
     </h4>
     <% end %>
-    <div class="stars" id="rating-stars-<%= product.to_param %>" product_id="<%= product.to_param %>">
+    <div class="stars" id="rating-stars-<%= product.id %>" product_id="<%= product.id %>">
       <%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color} %>
     </div>
     <% if current_customer %>
