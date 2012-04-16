@@ -8,7 +8,7 @@
         <li class="langues"><%= switch_locale_link :nl %></li>
         <li class="langues"><%= switch_locale_link :en %> </li>
         <li class="langues">
-          <%= link_to t('.normal'), root_path(:kind => :normal) %>
+          <%= link_to t('.normal'), products_path(:kind => :normal) %>
         </li>
         <li><a class="login" href="<%= php_path 'login.php' %>">Login</a></li>
       </ul>
