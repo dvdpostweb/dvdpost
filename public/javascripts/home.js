@@ -239,17 +239,27 @@ $(function() {
   });
   
   $(".tooltips, .tooltips_item").live('mouseover',function(){
+    $('.tooltip_items').hide()
     name =$(this).attr('id')+"_popup"
     var bulle = $("#"+name);
     bulle.show()
     return false;
   });
-  $(".tooltips, .tooltips_item").live('mouseout',function(){
+  $(".tooltips").live('mouseout',function(){
     name =$(this).attr('id')+"_popup"
     var bulle = $("#"+name);
     bulle.hide();
     return false;
   });
+  $("#user-info-wrap").live('mouseleave',function(){
+    $('.tooltip_items').hide()
+  });
+  
+  
+  $(".tooltip_items").live('mouseleave',function(){
+     $(this).hide();
+     return false;
+   });
   $(".tooltips").live('click',function(){
     return false;
   });

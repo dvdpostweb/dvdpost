@@ -17,6 +17,9 @@
                 <%= image_tag item.image, :class => :tool_float, :width => 120 %>
                 <p class="synopsis"><%= t 'products.show.synopsis' %></p>
                 <%= truncate_html item.description.text, :length => 450 %>
+                <div class="stars" id="rating-stars-<%= item.id %>" product_id="<%= item.id %>">
+                  <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white} %>
+                </div>
               </p>
             </div>
           </li>
