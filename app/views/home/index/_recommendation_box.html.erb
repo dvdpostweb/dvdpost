@@ -3,7 +3,7 @@
       <div id="user-movies">
         <h3><%= link_to t('.recommendation', :firstname => current_customer.customers_firstname), products_path(:view_mode => :recommended) %></h3>
         <ul>
-          <% i=0 %>
+          <% i = 0 %>
           <% recommendations.collect do |item| %>
           <% i = i + 1 %>
           <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation]) %> 
@@ -12,13 +12,34 @@
               <%= image_tag item.image, :width => 60 %>
             </a>
             <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" style ='display:none'>
-              <h4><%= item.title %> (<%= item.year %>)</h4>
+              <h4><%= item.title %> (<%= item.year %>) 
+                <span class="stars" id="rating-stars-<%= item.id %>" product_id="<%= item.id %>">
+                  <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white, :size => :small} %>
+                </span>
+              </h4>
               <p>
                 <%= image_tag item.image, :class => :tool_float, :width => 120 %>
+                <div class="tool_right">
                 <p class="synopsis"><%= t 'products.show.synopsis' %></p>
-                <%= truncate_html item.description.text, :length => 450 %>
-                <div class="stars" id="rating-stars-<%= item.id %>" product_id="<%= item.id %>">
-                  <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white} %>
+                <%= truncate_html item.description.text, :length => 350 %>
+                <br />
+                <%= link_to "plus d'info", path %>
+                <br />
+                <% path = item.imdb_id > 0 ? products_path(:imdb_id => item.imdb_id) : path %>
+                <%= link_to "ajouter a ma liste", path %>
+                <br />
+                <div class="action">
+                  <% if current_customer %>
+                  <div class="links" id="seen-uninterested-<%= item.to_param %>">
+                    <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => item} %>
+                  </div>
+                  <% end %>
+                </div>
+                <% if item.in_streaming_or_soon? && streaming_access? %>
+                  <% if item.streaming? %>
+                    <%= render :partial => 'products/streaming', :locals => {:product => item, :token => @token } %>
+                  <% end %>
+                <% end %>
                 </div>
               </p>
             </div>
