@@ -93,7 +93,7 @@ class Product < ActiveRecord::Base
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
-    has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_from
+    has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
     has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
     has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_bc_from
     has "(select expire_backcatalogue_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_backcatalogue_from asc limit 1)", :type => :datetime, :as => :expire_bc_at
