@@ -79,6 +79,7 @@ $(function() {
       type: 'POST',
       data: {},
       success: function(data) {
+        $('.tooltip_items').hide()
         if (url.match(/replace=homepage/)){
           if(data.match(/user-movies-wrap/))
           {
@@ -97,6 +98,7 @@ $(function() {
         html_item.html(content);
       }
     });
+    
     return false;
   });
 
@@ -182,12 +184,14 @@ $(function() {
       type: 'POST',
       data: {},
       success: function(data) {
+        $('.tooltip_items').hide()
         html_item.html(data);
       },
       error: function() {
         html_item.html(content);
       }
     });
+    
     return false;
   });
 

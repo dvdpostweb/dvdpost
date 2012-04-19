@@ -157,6 +157,7 @@ body
 
 #user-movies li a img {
   border: none;
+  vertical-align:top;
 }
 
 #user-movies a.info {
@@ -168,7 +169,11 @@ body
 #user-movies a.info img {
   border: none;
 }
-
+.tooltip_items h4
+{
+  margin-bottom: 9px !important;
+  padding: 0 0 4px !important;
+}
 #user-movies .tooltip, #user-titles .tooltip {
   padding: 10px;
   width: 290px;
@@ -185,15 +190,21 @@ body
 .tooltip_items
 {
   margin: -116px 69px;
-  margin: -315px -396px;
+  margin: -337px -396px;
   right:inherit !important;
   top:inherit !important;
   width:390px !important;
+  height: 240px;
 }
 .tool_float
 {
   float:left;
   padding-right: 5px;
+}
+.tool_right
+{
+  float:right;
+  width: 264px;
 }
 .synopsis
 {
