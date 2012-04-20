@@ -42,6 +42,7 @@ class TranslationsController < ApplicationController
     @translation = Translation.find(params[:id])
     #params[:translation][:text] = CGI::unescapeHTML(params[:translation][:text])
     if @translation.update_attributes(params[:translation])
+      localized_translation = @translation.counterpart_in(@locale)
       render :text => locale_translation_path(:locale_id => @locale.to_param, :id => localized_translation.to_param)
     else
       render :action => :edit
