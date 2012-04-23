@@ -1,0 +1,11 @@
+<% first = first_item.contents.by_language(I18n.locale).first %>
+<div id="article"> 
+  <%= image_tag first_item.image, :size => "237x318", :class => "left" %>
+  <!-- to do rating -->
+  <h2><%= first.title %></h2>
+  <h3><%= first.subtitle %></h3>
+  <p><%= first.description %></p>
+  <div align="right">
+    <%= link_to "<strong>Lire la suite</strong>", chronicle_path(:id => first_item) %>
+  </div>
+</div>

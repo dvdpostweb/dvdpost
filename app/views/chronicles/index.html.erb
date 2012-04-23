@@ -1,8 +1,18 @@
-<% if @chronicle %>
-  <% first = @chronicle.contents.by_language(I18n.locale).first %>
-  <%= image_tag @chronicle.image, :width => 150 %>
-  title <%= first.title %>
-  description <%= first.description %>
-  <%= link_to 'article 1', chronicle_path(:id => @chronicle)%>
-<% end %>
-<%= render :partial => 'article', :collection => @chronicles %>
+<div id="maincontent" >
+  <div id="hp-article">
+    <%= render :partial => "first", :locals => {:first_item => @chronicle} if @chronicle %>
+    <!-- Sidebar nav -->
+    <%= render :partial => "menu", :locals => {:categories => @categories} %>
+  </div><!-- #hp-article --> 
+  
+  <!-- ANCIENS ARTICLES -->
+  <div id="aa-wrap">
+    <div id="carousel-wrap">
+      <div class="ttl f-btn">ANCIENS ARTICLES</div>
+      <ul id="carousel">
+        <%= render :partial => 'article', :collection => @chronicles %>        
+      </ul>
+      <div id="carousel-nav"><a href="#" id="back" class="f-btn">Back</a> 1/30 <a href="#" id="next" class="f-btn">Next</a></div>
+    </div><!-- #carousel-wrap -->
+  </div>
+</div>

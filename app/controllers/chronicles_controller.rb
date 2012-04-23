@@ -1,14 +1,10 @@
 class ChroniclesController < ApplicationController
   def index
-    if params[:category_id]
-      @chronicles = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.ordered.limit(7) : ChronicleCategory.find(params[:category_id]).chronicles.beta.ordered.limit(7)
-      @chronicle = @chronicles.delete_at(0)
-    elsif params[:old]
-      @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered : Chronicle.beta.not_selected.ordered
-    else
-      @chronicle =  Rails.env == 'production' ? Chronicle.private.selected.ordered.first : Chronicle.selected.beta.ordered.first
-      @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered.limit(6) : Chronicle.beta.not_selected.ordered.limit(6)
-    end
+    data
+  end
+
+  def categories
+    data
   end
 
   def show
@@ -21,5 +17,19 @@ class ChroniclesController < ApplicationController
        flash[:notice] = msg
        redirect_to chronicles_path
      end
+  end
+
+  def data
+    if params[:category_id]
+      @chronicles = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.ordered.limit(7) : ChronicleCategory.find(params[:category_id]).chronicles.beta.ordered.limit(7)
+      @chronicle = @chronicles.delete_at(0)
+    elsif params[:old]
+      @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered : Chronicle.beta.not_selected.ordered
+    else
+      @chronicle =  Rails.env == 'production' ? Chronicle.private.selected.ordered.first : Chronicle.selected.beta.ordered.first
+      @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered.limit(6) : Chronicle.beta.not_selected.ordered.limit(6)
+      
+    end
+    @categories = ChronicleCategory.all
   end
 end
