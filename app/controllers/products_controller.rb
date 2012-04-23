@@ -238,27 +238,34 @@ class ProductsController < ApplicationController
   end
 private
   def find_product
-    if params[:id]
-      id = params[:id]
-    else
-      id = params[:product_id]
-    end
-    if Rails.env == "production"
-      if params[:kind] == :adult
-        @product = Product.adult_available.find(id)
-        @rating_color = :pink
+    begin 
+      if params[:id]
+        id = params[:id]
       else
-        @product = Product.normal_available.find(id)
-        @rating_color = :white
+        id = params[:product_id]
       end
-    else
-      if params[:kind] == :adult
-        @product = Product.find(id)
-        @rating_color = :pink
+      if Rails.env == "production"
+        if params[:kind] == :adult
+          @product = Product.adult_available.find(id)
+          @rating_color = :pink
+        else
+          @product = Product.normal_available.find(id)
+          @rating_color = :white
+        end
       else
-        @product = Product.find(id)
-        @rating_color = :white
+        if params[:kind] == :adult
+          @product = Product.find(id)
+          @rating_color = :pink
+        else
+          @product = Product.find(id)
+          @rating_color = :white
+        end
       end
+    rescue ActiveRecord::RecordNotFound
+      msg = "product not found"
+      logger.error(msg)
+      flash[:notice] = msg
+      redirect_to products_path
     end
   end
 end

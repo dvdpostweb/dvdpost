@@ -1,2 +1,23 @@
-<%= image_tag @chronicle.image, :width => 150 %>
-ok <%= @chronicle.contents.by_language(I18n.locale).first.title %>
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div id="articles-wrap">
+  	<div id="content">
+	  <!-- -to do star-->
+      <h2><%= @chronicle.contents.by_language(I18n.locale).first.title %></h2>
+      <p><em><%= @chronicle.contents.by_language(I18n.locale).first.subtitle %></em></p>
+      <p>
+        <%= @chronicle.contents.by_language(I18n.locale).first.full_description%>
+      </p>
+    </div><!-- #content -->
+    <div id="left-sidebar">
+    	<%= image_tag @chronicle.image, :size => "237x318" %>
+        <div id="social-wrap">
+    		<!-- vote -->
+        </div>
+    </div><!-- #left-sidebar -->
+  </div><!-- #articles-wrap --> 
+  
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   --> 
+</div>
+
