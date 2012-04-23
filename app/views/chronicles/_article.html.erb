@@ -1,16 +1,19 @@
 <% content = article.contents.by_language(I18n.locale).first %>
+<% path = chronicle_path(:id => article.to_param) %>
 <li> 
-  <%= image_tag article.image, :size => "200x200" %>
+  <div class="cross">
+    <%= link_to image_tag(article.image, :width => 200), path %>
+  </div>
    <span class="icon">
      <%= image_tag article.category.image, :size => "47x49" if article.category %>
    </span>
   <h3>
     
-    <%= link_to content.title, chronicle_path(:id => article.to_param) %>
+    <%= link_to content.title, path %>
   </h3>
   <p><em><%= content.subtitle %></em></p>
   <p><%= content.description %></p>
   <div align="right">
-    <%= link_to "lire la suite", chronicle_path(:id => article.to_param) %>
+    <%= link_to "lire la suite", path %>
   </div>
 </li>

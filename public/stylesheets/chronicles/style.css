@@ -243,12 +243,37 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   display: inline-block;
 
 }
-#carousel-nav #back {
+#carousel-nav .prev_page {
+  width: 16px;
+  height: 24px;
+  vertical-align: top;
+  background-image: url(/images/chronicles/carousel-arrows.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-indent: -999em;
   background-position:  0 0;
+  
 }
-#carousel-nav #next {
+#carousel-nav .next_page {
+  width: 16px;
+  height: 24px;
+  vertical-align: top;
+  background-image: url(/images/chronicles/carousel-arrows.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-indent: -999em;
   background-position:  100% 0;
+  
 }
+#prev .next_page
+{
+  display:none;
+}
+#next .prev_page
+{
+  display:none;
+}
+
 #carousel {
   width: 10000em;
 }
@@ -370,9 +395,12 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #articles-wrap #social-wrap {
   padding: 15px 0 0 11px;
 }
-
-
-
-
-
-
+.cross
+{
+  height:200px; 
+  overflow:hidden;
+}
+#content td
+{
+  padding: 2px;
+}
