@@ -3,6 +3,6 @@ class ChronicleCategory < ActiveRecord::Base
   has_many :chronicles, :foreign_key => :category_id
 
   def image
-    File.join(DVDPost.images_path, "chronicles", "categories", "#{id}.jpg")
+    File.join(DVDPost.images_path, "chronicles", "categories", "#{id}.png")
   end
 end
