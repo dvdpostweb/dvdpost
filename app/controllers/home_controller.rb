@@ -89,7 +89,7 @@ class HomeController < ApplicationController
       @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
       @trailers_week = Product.all(:joins => :trailers, :conditions => {"products_trailers.focus" => 1, "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]})
-      @trailers = Product.all(:joins => :trailers, :conditions => { :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
+      @trailers = Product.all(:joins => :trailers, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})

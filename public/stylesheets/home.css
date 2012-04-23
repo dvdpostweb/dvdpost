@@ -196,6 +196,7 @@ body
   width:390px !important;
   height: 240px;
 }
+
 .tool_float
 {
   float:left;
@@ -236,7 +237,9 @@ top: initial;
   left: -4px;
   z-index: 1002;
 }
-
+.tooltip_items:before, .tooltip_items:after {
+  border:none;
+}
 .tooltip h4 {
   color: #22272d;
   font-size: 1.17em;
