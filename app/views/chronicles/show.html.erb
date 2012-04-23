@@ -6,7 +6,8 @@
       <h2><%= @chronicle.contents.by_language(I18n.locale).first.title %></h2>
       <p><em><%= @chronicle.contents.by_language(I18n.locale).first.subtitle %></em></p>
       <p>
-        <%= @chronicle.contents.by_language(I18n.locale).first.full_description%>
+        <%= @chronicle.contents.by_language(I18n.locale).first.description %>
+        <%= @chronicle.contents.by_language(I18n.locale).first.full_description %>
       </p>
     </div><!-- #content -->
     <div id="left-sidebar">

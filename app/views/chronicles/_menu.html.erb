@@ -1,0 +1,10 @@
+<ul id="right-nav">
+  <li>
+    <h3 class="f-btn">CAtégories</h3>
+  </li>
+  <% categories.each do |li| %>
+    <li>
+      <%= link_to li.name, chronicles_path(:category_id => li.to_param) %>
+    </li>
+  <% end %>
+</ul>

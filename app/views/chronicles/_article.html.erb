@@ -1,8 +1,14 @@
-<% if content = article.contents.by_language(I18n.locale).first %>
-  <p>article : 
-    <%= content.description %>
-    <%= image_tag article.category.image %>
+<% content = article.contents.by_language(I18n.locale).first %>
+<li> 
+  <%= image_tag article.image, :size => "200x200" %>
+   <span class="icon"><img src="images/chronicles/vs-icon.png" width="47" height="49" alt="" /></span>
+  <h3>
     
-    <%= link_to 'chronicle', chronicle_path(:id => article) %>
-  </p>  
-<% end %>
+    <%= link_to content.title, chronicle_path(:id => article.to_param) %>
+  </h3>
+  <p><em><%= content.subtitle %></em></p>
+  <p><%= content.description %></p>
+  <div align="right">
+    <%= link_to "lire la suite", chronicle_path(:id => article.to_param) %>
+  </div>
+</li>
