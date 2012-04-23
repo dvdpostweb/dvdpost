@@ -12,7 +12,17 @@
       <ul id="carousel">
         <%= render :partial => 'article', :collection => @chronicles %>        
       </ul>
-      <div id="carousel-nav"><a href="#" id="back" class="f-btn">Back</a> 1/30 <a href="#" id="next" class="f-btn">Next</a></div>
+      <% if @nb_page > 1 %>
+      <div id="carousel-nav">
+        <span id="prev">
+          <%= will_paginate @chronicles, :previous_label => 'Prev', :next_label => '', :page_links => false, :container => false %>
+        </span>
+         <%= "#{@page}/#{@nb_page}"%> 
+        <span id="next">
+        <%= will_paginate @chronicles, :previous_label => '', :next_label => 'Next', :page_links => false, :container => false %>
+        </span>
+      </div>
+      <% end %>
     </div><!-- #carousel-wrap -->
   </div>
 </div>
