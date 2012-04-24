@@ -470,7 +470,6 @@ module ProductsHelper
         link_to t('products.left_column.favorite'), list_products_path(:list_id => list.to_param), :class => params[:list_id].to_i == list.to_param ? :actived : ''
       end
     else
-      
       html_content << content_tag(:li, :class => :list) do
         link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
       end
@@ -486,7 +485,12 @@ module ProductsHelper
       link_to t('products.left_column.categorie'), categories_path(:filter => :vod), :class => params[:controller] == "categories" && params[:filter] == "vod" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.studio'), studios_path(:filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" ? :actived : ''
+      link_to t('products.left_column.studio'), studios_path(:filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] != 804 ? :actived : ''
+    end
+    if params[:kind] == :normal
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.univercine'), studio_products_path(:studio_id => 804, :filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] == 804 ? "actived  univers" : 'univers'
+      end
     end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.all'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''

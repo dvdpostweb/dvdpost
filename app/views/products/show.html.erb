@@ -77,6 +77,7 @@ FB.init({
             <% end %>
             <%= image_tag 'oeil.gif', :alt => 'already seen' if @already_seen %>
           </div>
+          <%= image_tag "logouniverscine.gif" if @product.streaming_products.available.first && @product.streaming_products.available.first.studio.to_param.to_i == 804 %>
           <div class="clear"></div>
           <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind]} %>
           <div id="sinopsis">
