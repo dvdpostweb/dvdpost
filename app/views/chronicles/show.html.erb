@@ -2,7 +2,7 @@
 <div id="maincontent" >
   <div id="articles-wrap">
   	<div id="content">
-	  <!-- -to do star-->
+	    <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
       <h2><%= @chronicle.contents.by_language(I18n.locale).first.title %></h2>
       <p><em><%= @chronicle.contents.by_language(I18n.locale).first.subtitle %></em></p>
       <p>
@@ -10,10 +10,10 @@
       </p>
     </div><!-- #content -->
     <div id="left-sidebar">
-    	<%= image_tag @chronicle.image, :size => "237x318" %>
-        <div id="social-wrap">
-    		<!-- vote -->
-        </div>
+    	<%= image_tag @chronicle.image, :width => 237 %>
+      <div id="social-wrap">
+    		<iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape("http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}") %>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>
+      </div>
     </div><!-- #left-sidebar -->
   </div><!-- #articles-wrap --> 
   

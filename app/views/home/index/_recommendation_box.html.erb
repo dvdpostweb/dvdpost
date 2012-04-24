@@ -8,7 +8,7 @@
           <% i = i + 1 %>
           <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation]) %> 
           <li>
-            <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>'>
+            <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>' style="height:60px; display:block">
               <%= image_tag item.image, :width => 60 %>
             </a>
             <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" style ='display:none'>
@@ -21,25 +21,25 @@
                 <%= image_tag item.image, :class => :tool_float, :width => 120 %>
                 <div class="tool_right">
                 <p class="synopsis"><%= t 'products.show.synopsis' %></p>
-                <%= truncate_html item.description.text, :length => 350 %>
-                <br />
-                <%= link_to "plus d'info", path %>
-                <br />
+                <%= truncate_html item.description.text, :length => 300 %>
+                <span class="infos">
+                  <%= link_to t('.more'), path %>
+                </span>
                 <% path = item.imdb_id > 0 ? products_path(:imdb_id => item.imdb_id) : path %>
-                <%= link_to "ajouter a ma liste", path %>
-                <br />
+                <span class="ajouter">
+                  <%= link_to t('.add'), path %>
+                </span>
+                <% if item.in_streaming_or_soon? && streaming_access? %>
+                  <% if item.streaming? %>
+                    <%= render :partial => 'products/streaming', :locals => {:product => item, :token => @token } %>
+                  <% end %>
+                <% end %>
                 <div class="action">
                   <% if current_customer %>
                   <div class="links" id="seen-uninterested-<%= item.to_param %>">
                     <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => item} %>
                   </div>
                   <% end %>
-                </div>
-                <% if item.in_streaming_or_soon? && streaming_access? %>
-                  <% if item.streaming? %>
-                    <%= render :partial => 'products/streaming', :locals => {:product => item, :token => @token } %>
-                  <% end %>
-                <% end %>
                 </div>
               </p>
             </div>

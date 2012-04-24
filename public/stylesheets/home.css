@@ -189,12 +189,12 @@ body
 }
 .tooltip_items
 {
-  margin: -116px 69px;
-  margin: -337px -396px;
+  margin: -307px -396px;
   right:inherit !important;
   top:inherit !important;
   width:390px !important;
   height: 240px;
+  overflow:hidden;
 }
 
 .tool_float
@@ -964,4 +964,58 @@ color: #009EE0;
 .tooltip p {
 line-height: 16px;
 font-weight: lighter;
+}
+
+
+.infos a {
+  background-attachment: scroll;
+  background-color: transparent;
+  background-image: url("../images/button_infos.png");
+  background-position: 0 0;
+  color: #454545;
+  display: block;
+  font-size: 1em;
+  height: 19px;
+  line-height: 19px;
+  text-align: center;
+  text-decoration: none;
+  width: 81px;
+	margin-top:1px;
+}
+.ajouter a {
+  background-attachment: scroll;
+  background-color: transparent;
+  background-image: url("../images/ajouter-btn.png");
+  background-position: 0 1px;
+  color: #FFFFFF;
+  display: block;
+  font-size: 1.1em;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  text-decoration: none;
+  width: 166px;
+}
+.ajouter a:hover {background-position: 0 -32px;}
+
+a.streaming_btn {
+  background-attachment: scroll;
+  background-color: transparent;
+  background-image: url("../images/vodbtn.png");
+  background-position: 0 1px;
+  color: #FFFFFF;
+  display: block;
+  font-size: 1.1em;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  text-decoration: none;
+  width: 166px;
+	margin-top:1px;
+}
+
+a.streaming_btn a:hover {background-position: 0 -32px;}
+
+.action {
+text-align:left;
 }
