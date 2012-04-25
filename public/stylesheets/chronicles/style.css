@@ -198,6 +198,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   padding:0 5px 4px 16px;
   background: url(/images/chronicles/right-nav-div.png) 0 100% repeat-x;
 }
+#right-nav li.en {
+  background: url(/images/chronicles/right-nav-div.png) 0 100% repeat-x;
+}
+#right-nav li.nl {
+  background: url(/images/chronicles/right-nav-div.png) 0 100% repeat-x;
+}
+
 #right-nav li h3 {
   height: 109px;
 }
@@ -206,7 +213,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   text-transform: uppercase;
   font-weight: bold;
 }
-#right-nav li a:hover {
+#right-nav li a:hover, #right-nav li a.selected {
   color: #e54e19;
 }
 #aa-wrap {
@@ -218,6 +225,12 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #aa-wrap .ttl {
   height: 19px;
   margin-bottom: 18px;
+  background: url(/images/chronicles/ANCIENS-ARTICLES.png) 0 0 no-repeat;
+}
+#aa-wrap .ttl.en {
+  background: url(/images/chronicles/ANCIENS-ARTICLES.png) 0 0 no-repeat;
+}
+#aa-wrap .ttl.nl {
   background: url(/images/chronicles/ANCIENS-ARTICLES.png) 0 0 no-repeat;
 }
 #carousel-wrap {

@@ -1,4 +1,5 @@
 <% content = article.contents.by_language(I18n.locale).first %>
+<% if content %>
 <% path = chronicle_path(:id => article.to_param) %>
 <li> 
   <div class="cross">
@@ -14,6 +15,7 @@
   <p><em><%= content.subtitle %></em></p>
   <p><%= content.description %></p>
   <div align="right">
-    <%= link_to "lire la suite", path %>
+    <%= link_to t('.more'), path %>
   </div>
 </li>
+<% end %>
