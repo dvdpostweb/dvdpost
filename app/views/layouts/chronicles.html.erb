@@ -4,6 +4,7 @@
   <title>
     <%= h yield(:title).blank? ? t('.title') : yield(:title) %>
   </title>
+	<%= yield :facebook %>
   <%= render :partial => 'layouts/meta' %>
 	<%= stylesheet_link_tag 'chronicles/reset', :media => :all %>
 	<%= stylesheet_link_tag 'chronicles/style', :media => :all %>
@@ -47,16 +48,18 @@
 <div id="wrap"> 
   <!--   ==============   HEADER   ==============   -->
   <div id="header" >
-    <h1><a href="http://" class="f-btn">Les Chroniques de NINA</a></h1>
+    <h1>
+			<%= link_to "Les Chroniques de NINA", chronicles_path(), :class => "f-btn" %>
+		</h1>
     <ul id="nav" class="cf">
       <li>
-				<%= link_to "Accueil", chronicles_path %>
+				<%= link_to t('.accueil'), chronicles_path %>
 			</li>
       <li>
-				<%= link_to "A propos", chronicles_about_path %>
+				<%= link_to t('.about'), chronicles_about_path %>
 			</li>
       <li>
-      	<%= link_to "dvdpost", root_path %>
+      	<%= link_to t('.dvdpost'), ENV['HOST_OK'] == "1" ? php_path : root_path %>
       </li>
     </ul>
   </div>

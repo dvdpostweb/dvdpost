@@ -8,7 +8,7 @@
   <!-- ANCIENS ARTICLES -->
   <div id="aa-wrap">
     <div id="carousel-wrap">
-      <div class="ttl f-btn">ANCIENS ARTICLES</div>
+      <div class="ttl f-btn <%= I18n.locale %>"><%= t('.old') %></div>
       <ul id="carousel">
         <%= render :partial => 'article', :collection => @chronicles %>        
       </ul>
