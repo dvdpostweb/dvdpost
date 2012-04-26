@@ -312,7 +312,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #carousel > li h3 {
   font-size: 1.33em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin: 6px 0 3px 0;
 }
 #carousel > li h3 a {
   text-decoration: none;
@@ -416,4 +416,8 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #content td
 {
   padding: 2px;
+}
+#content img
+{
+  cursor: pointer;
 }
