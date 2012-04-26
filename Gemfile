@@ -23,7 +23,7 @@ gem 'timed_fragment_cache'
 gem "whenever", "~> 0.7.0"
 gem 'i18n', '0.5.0'
 gem 'thinking-sphinx'
-
+gem 'paperclip'
 gem 'bullet', :group => :development
 gem "friendly_id", "~> 3.2.1"
 gem "db-charmer"

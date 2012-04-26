@@ -10,7 +10,7 @@
       </p>
     </div><!-- #content -->
     <div id="left-sidebar">
-    	<%= image_tag @chronicle.image, :width => 237 %>
+    	<%= image_tag @chronicle.cover.url(:small), :width => 237 %>
       <div id="social-wrap">
         <% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
     		<iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(url) %>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>

@@ -10,8 +10,8 @@ class Chronicle < ActiveRecord::Base
   named_scope :not_selected, :conditions => {:selected => false}
   named_scope :ordered, :order => "id desc"
   named_scope :limit, lambda {|limit| {:limit => limit}}
+  has_attached_file :cover, :styles => { :small => "237>x237" },
+                            :url  => "http://private.dvdpost.com/images/chronicles/covers/:id/:style/:basename.:extension",
+                            :path => "/home/webapps/dvdpostapp/production/shared/uploaded/chronicles/:id/:style/:basename.:extension"
 
-  def image
-    File.join(DVDPost.images_path, "chronicles", "contents", "#{id}.jpg")
-  end
 end
