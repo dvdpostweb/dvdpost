@@ -22,7 +22,7 @@
 <!--   ==============   END MAIN CONTENT   ==============   --> 
 </div>
 <% content_for :facebook do %>
-    <meta property="og:image" content="<%= @chronicle.image %>"/> 
+    <meta property="og:image" content="<%= @chronicle.cover.url(:small) %>"/> 
     <meta property="og:type" content="article">
     <meta property="og:title" content="<%= "#{t('layouts.chronicles.title')} : #{title}" %>">
     <meta property="og:url" content="<%= url %>">
