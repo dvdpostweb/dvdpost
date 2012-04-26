@@ -178,6 +178,9 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #hp-article #article h2 {
   text-transform: uppercase;
 }
+#hp-article #article h2 a {
+  text-decoration: none;
+}
 #hp-article #article h3 {
  font: italic normal 1em Arial, Helvetica, sans-serif;
  margin-bottom: 20px;
@@ -362,10 +365,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   right: 18px;
 }
 #about-article {
-  height: 546px;
+  min-height: 546px;
   background: url(/images/chronicles/about-bg.jpg) 0 0 no-repeat;
   overflow: hidden;
-  padding: 62px 60px 10px 475px;
+  padding: 35px 60px 10px 475px;
+}
+#about-article.lang_en {
+  padding: 4px 60px 10px 475px; 
 }
 #about-article .ttl {
   margin-bottom: 20px;
