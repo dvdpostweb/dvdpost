@@ -3,7 +3,7 @@
   <div id="articles-wrap">
   	<div id="content">
 	    <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
-      <h2><%= title = @chronicle.contents.by_language(I18n.locale).first.title %></h2>
+      <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= title = @chronicle.contents.by_language(I18n.locale).first.title %></h2>
       <p><em><%= @chronicle.contents.by_language(I18n.locale).first.subtitle %></em></p>
       <p>
         <%= @chronicle.contents.by_language(I18n.locale).first.full_description %>
