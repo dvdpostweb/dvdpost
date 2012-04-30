@@ -13,7 +13,12 @@
     	<%= image_tag @chronicle.cover.url(:small), :width => 237 %>
       <div id="social-wrap">
         <% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
-    		<iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(url) %>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe> <%= link_to "add to wish", products_path(:imdb_id => @chronicle.imdb_id) if @chronicle.imdb_id %>
+    		<iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(url) %>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe> 
+    		<%= link_to "add to wish", products_path(:imdb_id => @chronicle.imdb_id), :class => :add if @chronicle.imdb_id %>
+    		<% if @chronicle.imdb_id %>
+    		  <% path = ENV['HOST_OK'] == "1" ? php_path('step1.php') : streaming_product_path(:id => @chronicle.imdb_id, :warning => 1) %>
+    		  <%= link_to "regarder en vod", path, :class => :streaming if streaming_access? %>
+    		<% end %>
       </div>
     </div><!-- #left-sidebar -->
   </div><!-- #articles-wrap --> 

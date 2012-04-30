@@ -489,7 +489,7 @@ module ProductsHelper
     end
     if params[:kind] == :normal
       html_content << content_tag(:li, :class => :list) do
-        link_to t('products.left_column.univercine'), studio_products_path(:studio_id => 804, :filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] == 804 ? "actived  univers" : 'univers'
+        link_to t('products.left_column.univercine'), studio_products_path(:studio_id => 804, :filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] == 804 ? "actived" : ''
       end
     end
     html_content << content_tag(:li, :class => :list) do
