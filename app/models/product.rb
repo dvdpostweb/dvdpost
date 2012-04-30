@@ -209,8 +209,13 @@ class Product < ActiveRecord::Base
   end
   
   
-  def self.filter(filter, options={})
-    products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
+  def self.filter(filter, options={}, exact=nil)
+    if options[:exact]
+      products = search_clean_exact(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
+    else
+      products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
+    end
+    products = products.exclude_products_id([exact.collect(&:products_id)]) if exact
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
@@ -609,6 +614,21 @@ class Product < ActiveRecord::Base
     page = options[:page] || 1
     limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = options[:per_page] || self.per_page
+    self.search(query_string, :max_matches => limit, :per_page => per_page, :page => page)
+  end
+
+  def self.search_clean_exact(query_string, options={})
+    qs = []
+    if query_string
+      qs = query_string.split.collect do |word|
+        "^#{replace_specials(word)}$".gsub(/[-_]/, ' ')
+      end
+    end
+    query_string = qs.join(' ')
+    query_string = "@descriptions_title #{query_string}"
+    page = 1
+    limit = options[:limit] ? options[:limit].to_s : "100_000"
+    per_page = 20
     self.search(query_string, :max_matches => limit, :per_page => per_page, :page => page)
   end
 

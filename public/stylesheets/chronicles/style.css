@@ -168,7 +168,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   background: url(/images/chronicles/hp-article-bg.jpg) 0 0 no-repeat;
 }
 #hp-article #article {
-  width: 655px;
+  width: 687px;
   float: left;
 }
 
@@ -441,4 +441,30 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 #content a:hover
 {
   text-decoration: underline;
+}
+a.add
+{
+  text-indent: -999em;
+  background: url(/images/chronicles/button_ajouter.png);
+  height: 40px;
+  width: 192px;
+  display: block;
+  margin:10px 0;
+}
+a.add:hover
+{
+  background: url(/images/chronicles/button_ajouter.png) 0 100%;
+}
+a.streaming
+{
+  text-indent: -999em;
+  background: url(/images/chronicles/button_vod.png);
+  height: 40px;
+  width: 192px;
+  display: block;
+  margin:10px 0;
+}
+a.streaming:hover
+{
+  background: url(/images/chronicles/button_vod.png) 0 100%;
 }

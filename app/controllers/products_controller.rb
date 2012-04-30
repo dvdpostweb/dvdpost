@@ -57,6 +57,9 @@ class ProductsController < ApplicationController
     @collections = Category.by_size.random
     respond_to do |format|
       format.html do
+        if params[:search] 
+          @exact_products = Product.filter(@filter, params.merge(:exact => 1))
+        end
         @products = if params[:view_mode] == 'recommended'
           if(session[:sort] != params[:sort])
             expiration_recommendation_cache()
@@ -70,7 +73,11 @@ class ProductsController < ApplicationController
           else
             new_params = params
           end
-          Product.filter(@filter, new_params)
+          if @exact_products && @exact_products.size > 0
+            Product.filter(@filter, new_params, @exact_products)
+          else
+            Product.filter(@filter, new_params)
+          end
         end
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @jacket_mode = Product.get_jacket_mode(params)
