@@ -48,7 +48,7 @@ module ApplicationHelper
     end
     if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
          redirect_to php_path
-       end
+    end
   end
 
   def localized_image_tag(source, options={})
