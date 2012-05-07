@@ -7,7 +7,7 @@ at http://www.vhg-design.com
 
 
 html, body{
-  background: #2a2523 url(/images/chronicles/bg.jpg) 50% 0 no-repeat;
+  background: #2a2523 url(/images/chronicles/bg.jpg) 50% 0 no-repeat fixed;
   margin: 0;
   padding: 0;
   text-align: center;
