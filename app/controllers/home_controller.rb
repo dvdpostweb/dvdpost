@@ -103,6 +103,9 @@ class HomeController < ApplicationController
       not_rated_products = current_customer.not_rated_products(kind)
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
+      if I18n.locale == :fr
+        @chronicle = Chronicle.private.selected.first 
+      end
       expiration_recommendation_cache()
       @offline_request = current_customer.payment.recovery
       not_rated_products = current_customer.not_rated_products(kind)

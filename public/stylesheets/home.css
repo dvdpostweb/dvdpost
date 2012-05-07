@@ -1019,3 +1019,115 @@ a.streaming_btn a:hover {background-position: 0 -32px;}
 .action {
 text-align:left;
 }
+#nina-wrap {
+	padding-top: 5px;
+	padding-bottom:7px;
+}
+#nina-wrap .ttl {
+	color: #FA3216;
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding: 10px 0 2px 0px;
+}
+#nina-wrap span {
+	background-color:#fd2305;
+	color:#FFFFFF;
+	padding:3px 3px 3px 3px;
+	font-size:14px;
+}
+#nina-tabcontent-wrap {
+	background:url(../images/bg_nina.jpg) no-repeat;
+	border: #554d43 solid 1px;
+	 height: 196px;
+}
+
+#nina-tabcontent-wrap .slides li.nina h3 a {
+    color: #594643;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#nina-tabcontent-wrap .slides li.nina h3{
+padding-bottom:6px;
+
+}
+
+.slides li.nina p {
+    color: #302924;
+    font-size: 11px;
+    line-height: 12px;
+    margin-bottom: 10px;
+    padding-left: 126px;
+    width: 300px;
+}
+.slides li.nina p a.lirelasuite{
+text-decoration:underline;
+font-weight:bold;
+  
+
+}
+
+
+
+.slides li.nina {
+    color: #302924;
+    font-size: 11px;
+    line-height: 14px;
+    margin-bottom: 10px;
+    padding-left: 26px;
+    width: 400px;
+}
+
+
+.slides li.intro_nina {
+    color: #302924;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    padding-left: 179px;
+    width: 259px;
+}
+
+.slides li.intro_nina p {
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.slides li.nina h4 {
+     color: #302924;
+    font-size: 16px;
+    margin-bottom: 5px;
+	text-transform:none;
+
+}
+
+
+#nina-wrap .carousel-wrap{
+padding-top:10px;
+
+
+}
+
+.nina_intro li{
+font-size:14px;
+
+
+}
+
+.nina_intro p{
+font-size:14px;
+
+
+}
+
+.btn_savoirplus {
+    background: url("../images/button_grey.png") repeat scroll 0 0 transparent;
+    display: block;
+    font-size: 12px;
+    height: 27px;
+    line-height: 28px;
+    padding-left: 10px;
+    text-decoration: none;
+    width: 95px;
+}

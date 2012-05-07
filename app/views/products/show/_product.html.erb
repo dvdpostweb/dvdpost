@@ -12,8 +12,6 @@
       <%= render :partial => 'products/credit_vod', :locals => {:product => product, :credits => credits} if credits && credits > 1 %>
   <% end %>
   <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
-  <% chronicle = Chronicle.find_by_imdb_id(product.imdb_id) %>
-  <%= link_to 'chronicles', chronicle_path(:id => chronicle.to_param) if chronicle %>
   <% if product.available_to_sale? && current_customer %>
     <% media = DVDPost.product_types.invert[product.media] %>
     <% test = current_customer.shopping_products.include?(product) %>

@@ -17,7 +17,7 @@
     		<%= link_to "add to wish", products_path(:imdb_id => @chronicle.imdb_id), :class => :add if @chronicle.imdb_id %>
     		<% if @chronicle.imdb_id %>
     		  <% path = ENV['HOST_OK'] == "1" ? php_path('step1.php') : streaming_product_path(:id => @chronicle.imdb_id, :warning => 1) %>
-    		  <%= link_to "regarder en vod", path, :class => :streaming if streaming_access? %>
+    		  <%= link_to "regarder en vod", path, :class => :streaming if streaming_access? && @chronicle.streaming_products.available.count > 0 %>
     		<% end %>
       </div>
     </div><!-- #left-sidebar -->
