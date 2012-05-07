@@ -31,15 +31,22 @@ module ApplicationHelper
   def redirect_after_registration(path = nil)
     if 1==0 && current_customer
       if current_customer.customers_registration_step.to_i == 31
-        if (params['controller'] == 'steps' and params[:id].to_i == 2) || (params[:controller] == 'customers' and params[:action] == 'update')
+        if (params['controller'] == 'steps' && params[:id].to_i == 2) || (params[:controller] == 'customers' && params[:action] == 'update')
         else
           redirect_to step_path(:id => 2)
         end
+      elsif current_customer.customers_registration_step.to_i == 21
+        if (params['controller'] == 'steps' && params[:id].to_i == 1)
+        else
+          redirect_to step_path(:id => 1)
+        end
       elsif current_customer.customers_registration_step.to_i == 33
-        if (params['controller'] == 'steps' and params[:id].to_i == 3) || (params[:controller] == 'ogones' and params[:action] == 'show')
+        if (params['controller'] == 'steps' && params[:id].to_i == 3) || (params[:controller] == 'ogones' && params[:action] == 'show')
         else
           redirect_to step_path(:id => 3)
         end
+      elsif params[:controller] == 'steps' && params[:id].to_i != 4 && (current_customer.customers_registration_step.to_i == 100 || current_customer.customers_registration_step.to_i == 95)
+        redirect_to root_path
       elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
         redirect_to php_path
       elsif path
@@ -428,7 +435,7 @@ module ApplicationHelper
     else
       if promo_type != :unlimited
         if customer.promo_price > 0
-          return text ? {:promo => t('promotion.paid_promo', :period => period), :promo_next => period_next} : {:promo => period, :promo_next => period_next}
+          return text ? {:promo => t('promotion.paid_promo', :period => period, :price => customer.promo_price), :promo_next => period_next} : {:promo => period, :promo_next => period_next}
         else
           return text ? {:promo => t('promotion.trial', :period => period), :promo_next => period_next} : {:promo => period, :promo_next => period_next}
         end
