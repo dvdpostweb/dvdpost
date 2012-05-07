@@ -675,11 +675,15 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def get_list_abo
-    if self.new_price?
-      group = 6
+  def get_list_abo(force_group = nil)
+    if force_group
+      group = force_group
     else
-      group = 1
+      if self.new_price?
+        group = 6
+      else
+        group = 1
+      end
     end
     ProductAbo.get_list(group)
   end

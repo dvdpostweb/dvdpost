@@ -384,7 +384,7 @@ module ProductsHelper
   def streaming_subtitle_bublles(product)
     content=[]
     country=[]
-    content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
+    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect{
     |product|
       if product.subtitle.by_language(I18n.locale).first && product.subtitle.by_language(I18n.locale).first.short
         lang = product.subtitle.by_language(I18n.locale).first

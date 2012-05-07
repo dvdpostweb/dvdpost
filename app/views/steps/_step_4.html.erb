@@ -1,0 +1,15 @@
+step4
+<%= current_customer.first_name %><br />
+<%= current_customer.last_name %><br />
+<%= current_customer.address.street %><br />
+<%= current_customer.address.postal_code %> <%= current_customer.address.city %><br />
+<br />
+promo<br />
+<%= @promo[:promo] %>
+<br />
+<% if current_customer.auto_stop == 0 %>
+  <%= current_customer.promo_price > 0 ? 'payed' : 'free' %> : <%= @promo[:promo_next] %>
+  <%= "DATE DU PREMIER PAIEMENT<BR /><BR />
+    Si vous décidez de prolonger l'essai gratuit, votre premier paiement pour un montant de #{current_customer.next_price_per_month} € sera dû le #{current_customer.subscription_expiration_date.strftime("%d/%m/%Y")} à condition que votre compte soit activé aujourd'hui par téléphone." %>
+<% end %>
+<br />
