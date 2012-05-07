@@ -1,18 +1,20 @@
 class ChroniclesController < ApplicationController
   def index
     @page = params[:page] || 1
-    per_page = 4
     if params[:category_id]
       @chronicle = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.ordered.first : ChronicleCategory.find(params[:category_id]).chronicles.beta.ordered.first
       @chronicles = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.exclude(@chronicle.to_param).ordered.paginate(:per_page => 5, :page => @page) : ChronicleCategory.find(params[:category_id]).chronicles.beta.exclude(@chronicle.to_param).ordered.paginate(:per_page => 5, :page => @page)
       chronicles_count = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.count : ChronicleCategory.find(params[:category_id]).chronicles.beta.count
+      @nb_page = ((chronicles_count.to_f)/5.0).ceil
     else
       @chronicle =  Rails.env == 'production' ? Chronicle.private.selected.ordered.first : Chronicle.selected.beta.ordered.first
-      @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered.paginate(:per_page => @per_page, :page => @page) : Chronicle.beta.not_selected.ordered.paginate(:per_page => 4, :page => @page)
+      @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered.paginate(:per_page => 4, :page => @page) : Chronicle.beta.not_selected.ordered.paginate(:per_page => 4, :page => @page)
       chronicles_count = Rails.env == 'production' ? Chronicle.private.not_selected.count : Chronicle.beta.not_selected.count
+      @nb_page = ((chronicles_count.to_f)/4.0).ceil
+      
     end
     @categories = ChronicleCategory.all
-    @nb_page = (chronicles_count.to_f/per_page.to_f).ceil
+    
   end
 
   def about
