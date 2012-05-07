@@ -31,7 +31,7 @@
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     <!-- BIENVENUE  -->
     <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request} %>
-    
+    <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale == :fr %>
     <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
     <div id="review_content">
     <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
