@@ -35,8 +35,8 @@ class AddressesController < ApplicationController
   end
 
   def create
-    @address = Address.new
-    if @address.update_attributes(params[:address].merge(:customer => current_customer))
+    @address = Address.new(params[:address].merge(:customer => current_customer))
+    if @address.save
       current_customer.update_attribute(:address_id, @address.address_book_id)
       respond_to do |format|
         format.html do
