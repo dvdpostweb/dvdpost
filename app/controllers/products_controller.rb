@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
     @collections = Category.by_size.random
     respond_to do |format|
       format.html do
-        if params[:search] 
+        unless params[:search].empty?
           @exact_products = Product.filter(@filter, params.merge(:exact => 1))
         end
         @products = if params[:view_mode] == 'recommended'
