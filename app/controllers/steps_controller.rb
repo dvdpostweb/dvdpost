@@ -11,6 +11,20 @@ class StepsController < ApplicationController
     elsif params[:id].to_i == 3
     elsif params[:id].to_i == 4
       @promo = promotion(current_customer, true)
+      classic_price = current_customer.price_per_month
+      @promo_price = current_customer.promo_price
+      if @promo_price == 0
+        if current_customer.activation_discount_code_type == 'a' && current_customer.activation.activation_waranty == 2
+          @type = :pre_paid
+        else
+          @type = :free
+        end
+      elsif @promo_price == classic_price
+        @type = :payed
+      else
+        @type = :promo
+      end
+      
     end
   end
 

@@ -1,4 +1,5 @@
 step4
+
 <%= current_customer.first_name %><br />
 <%= current_customer.last_name %><br />
 <%= current_customer.address.street %><br />
@@ -9,7 +10,18 @@ promo<br />
 <br />
 <% if current_customer.auto_stop == 0 %>
   <%= current_customer.promo_price > 0 ? 'payed' : 'free' %> : <%= @promo[:promo_next] %>
-  <%= "DATE DU PREMIER PAIEMENT<BR /><BR />
+  <%= "pendant #{current_customer.nb_recurring} mois" if current_customer.nb_recurring%>
+  <% if @type == :free %>
+      <%= "DATE DU PREMIER PAIEMENT<BR /><BR />
     Si vous décidez de prolonger l'essai gratuit, votre premier paiement pour un montant de #{current_customer.next_price_per_month} € sera dû le #{current_customer.subscription_expiration_date.strftime("%d/%m/%Y")} à condition que votre compte soit activé aujourd'hui par téléphone." %>
+    <% elsif @type != :payed %>
+      <% if current_customer.payment_method == 3 %>
+      <%= "Votre prochaine paiment<BR /><BR />
+      Le montant de #{current_customer.next_price_per_month} € sera dû le #{current_customer.subscription_expiration_date.strftime("%d/%m/%Y")} à condition que votre compte soit activé aujourd'hui par téléphone." %>
+      <% else %>
+      <%= "Votre prochaine paiment<BR /><BR />
+      Le montant de #{current_customer.next_price_per_month} € sera dû le #{current_customer.subscription_expiration_date.strftime("%d/%m/%Y")}" %>
+      <% end %>
+    <% end %>
 <% end %>
 <br />
