@@ -19,7 +19,7 @@ class ChroniclesController < ApplicationController
             end
           end
           format.rss do
-            @chronicles = Rails.env == 'production' ? Chronicle.private.new.ordered : Chronicle.beta.new.ordered
+            @chronicles = Rails.env == 'production' ? Chronicle.private.ordered : Chronicle.beta.ordered
             render :layout => false
           end
       end

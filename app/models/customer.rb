@@ -34,7 +34,8 @@ class Customer < ActiveRecord::Base
   alias_attribute :free_upgrade,                 :customers_locked__for_reconduction
   alias_attribute :promo_type,                   :activation_discount_code_type
   alias_attribute :promo_id,                     :activation_discount_code_id
-  
+  alias_attribute :nb_recurring,                 :discount_recurring_nbr_of_month
+  alias_attribute :payment_method, :customers_abo_payment_method
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
