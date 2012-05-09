@@ -10,6 +10,8 @@ class Chronicle < ActiveRecord::Base
   named_scope :selected, :conditions => {:selected => true}
   named_scope :not_selected, :conditions => {:selected => false}
   named_scope :ordered, :order => "id desc"
+  named_scope :new, :conditions => "id >14"
+  
   named_scope :limit, lambda {|limit| {:limit => limit}}
   has_attached_file :cover, :styles => { :small => "237>x237" },
                             :url  => "http://private.dvdpost.com/images/chronicles/covers/:id/:style/:basename.:extension",
