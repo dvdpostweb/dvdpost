@@ -13,7 +13,7 @@
     	<%= image_tag @chronicle.cover.url(:small), :width => 237 %>
       <div id="social-wrap">
         <% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
-    		<iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(url) %>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe> 
+    		<div class="fb-like" data-href="<%= url %>" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" style='height:62px'></div>
     		<%= link_to "add to wish", products_path(:imdb_id => @chronicle.imdb_id), :class => :add if @chronicle.imdb_id %>
     		<% if @chronicle.imdb_id %>
     		  <% path = ENV['HOST_OK'] == "1" ? php_path('step1.php') : streaming_product_path(:id => @chronicle.imdb_id, :warning => 1) %>
@@ -35,6 +35,14 @@
     <meta property="fb:admins" content="542538810,586983921"/>
     <meta property="og:description" content="<%= @chronicle.contents.by_language(I18n.locale).first.description.gsub(/<\/?.*?>/, "") %>">
 <% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=254486224617136";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <% content_for :title do %>
   <%= "#{t('layouts.chronicles.title')} : #{title}" %>
 <% end %>
