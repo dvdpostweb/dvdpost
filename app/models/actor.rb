@@ -34,7 +34,7 @@ class Actor < ActiveRecord::Base
 
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
-  sphinx_scope(:by_kind)            {|kind|             {:with => {:kind_int => DVDPost.actor_kinds_int[kind]}}}
+  sphinx_scope(:by_kind_int)            {|kind|             {:with => {:kind_int => DVDPost.actor_kinds_int[kind]}}}
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
