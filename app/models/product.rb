@@ -610,7 +610,7 @@ class Product < ActiveRecord::Base
       end
     end
     query_string = qs.join(' ')
-
+    query_string = "@descriptions_title #{query_string}" if !query_string.empty?
     page = options[:page] || 1
     limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = options[:per_page] || self.per_page

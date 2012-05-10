@@ -29,13 +29,6 @@ class ChroniclesController < ApplicationController
   end
 
   def show
-    begin
-       @chronicle = Rails.env == 'production' ? Chronicle.private.find(params[:id]) : Chronicle.beta.find(params[:id])
-     rescue ActiveRecord::RecordNotFound
-       msg = "Attention: chronicles with ID:#{params[:id]} not found in database"
-       logger.error(msg)
-       flash[:notice] = msg
-       redirect_to chronicles_path
-     end
+   @chronicle = Rails.env == 'production' ? Chronicle.private.find(params[:id]) : Chronicle.beta.find(params[:id])
   end
 end

@@ -36,6 +36,8 @@ class ProductsController < ApplicationController
       params['director_id'] = director.id
     end
     
+    
+    
     if params[:category_id]
       filter = get_current_filter
       if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
@@ -58,8 +60,10 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html do
         if params[:search] && !params[:search].empty?
-          @exact_products = Product.filter(@filter, params.merge(:exact => 1))
+          @exact_products = Product.filter(@filter, params.merge(:exact => 1)) 
+          #@actors = Actor.search_clean(params[:search], params[:kind])
         end
+        unless params[:type] == 'actors'
         @products = if params[:view_mode] == 'recommended'
           if(session[:sort] != params[:sort])
             expiration_recommendation_cache()
@@ -79,6 +83,7 @@ class ProductsController < ApplicationController
             Product.filter(@filter, new_params)
           end
         end
+        end 
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @jacket_mode = Product.get_jacket_mode(params)
       end

@@ -9,26 +9,33 @@
   <div id="titles-wrap">
     <div class="top"></div>
     <%= render :partial => 'products/index/sorting' %>
+    <% if @actors && @actors.size > 0 %>
+    <% @actors.each do |actor| %>
+      <li><%= link_to actor.name, actor_products_path(:actor_id => actor.to_param) %> </li>
+    <% end %>
+    <% end %>
     <% if @exact_products && @exact_products.size > 0 && (params[:page].nil? || params[:page].to_i == 1) %>
       <h2><%= t '.exact' %></h2>
       <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
     <% end %>
-      <% if @products %>
-        <% if @exact_products && @exact_products.size > 0 && (params[:page].nil? || params[:page].to_i == 1) %>
-          <h2><%= t '.other'  %></h2>
-        <% end %>
-        <%= render :partial => 'products/index/movie_detail', :collection => @products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
-        <% if @products.size == 0 %>
-          <p>
-          <% if params[:view_mode] == 'recommended'%>
-            <%= t '.recommendations_empty' %>
-          <% else %>
-            <%= t '.products_empty' %>
+      <% unless !@products || (@products.size == 0 && @exact_products && @exact_products.size > 0) %>
+        <% if @products %>
+          <% if @exact_products && @exact_products.size > 0 && (params[:page].nil? || params[:page].to_i == 1) %>
+            <h2><%= t '.other'  %></h2>
           <% end %>
-          </p>
+          <%= render :partial => 'products/index/movie_detail', :collection => @products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
+          <% if @products.size == 0 %>
+            <p>
+            <% if params[:view_mode] == 'recommended'%>
+              <%= t '.recommendations_empty' %>
+            <% else %>
+              <%= t '.products_empty' %>
+            <% end %>
+            </p>
+          <% end %>
+        <% else %>
+          <%= t '.recommendations_unavailable' %>
         <% end %>
-      <% else %>
-        <%= t '.recommendations_unavailable' %>
       <% end %>
     <div class="end"></div>
   </div>
