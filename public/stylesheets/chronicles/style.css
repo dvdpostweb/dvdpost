@@ -468,3 +468,13 @@ a.streaming:hover
 {
   background: url(/images/chronicles/button_vod.png) 0 100%;
 }
+#article a, #carousel p a
+{
+  text-decoration: none;
+  color: #9d4f21;
+  font-weight: bold;
+}
+#article a:hover, #carousel p a:hover
+{
+ text-decoration: underline;
+}
