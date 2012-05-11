@@ -7,7 +7,7 @@
     <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
     <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= link_to first.title, path %></h2>
     <h3><%= first.subtitle %></h3>
-    <p><%= first.description %></p>
+    <div class="description"><%= first.description %></div>
     <div align="right">
       <%= link_to "<strong>#{t('.more')}</strong>", path %>
     </div>
