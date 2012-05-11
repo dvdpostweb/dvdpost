@@ -278,5 +278,4 @@ $(function() {
     $container.cycle(1)
     return false;
   });
-  
 });

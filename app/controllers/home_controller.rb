@@ -104,7 +104,7 @@ class HomeController < ApplicationController
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
       if I18n.locale == :fr
-        @chronicle = Chronicle.private.selected.first 
+        @chronicle = Chronicle.private.last
       end
       expiration_recommendation_cache()
       @offline_request = current_customer.payment.recovery

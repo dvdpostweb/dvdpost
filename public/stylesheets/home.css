@@ -35,12 +35,12 @@ body
 }
 
 #user-info {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #D9D9D9;
-    float: left;
-    height: 236px;
-    padding: 10px 14px 5px;
-    width: 277px;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #D9D9D9;
+  float: left;
+  height: 236px;
+  padding: 10px 14px 5px;
+  width: 277px;
 }
 
 #user {
@@ -214,10 +214,10 @@ body
   font-weight: bold !important;
 }
 #user-titles .tooltip {
-position: absolute;
-margin: -66px 0 0 260px;
-right: initial;
-top: initial;
+  position: absolute;
+  margin: -66px 0 0 260px;
+  right: initial;
+  top: initial;
 }
 .tooltip:before, .tooltip:after {
   content: "";
@@ -464,22 +464,22 @@ top: initial;
   text-decoration:none;
 }
 #selection-tabcontent-wrap .slides li.vod h3 {
-background: #85ba17;
+  background: #85ba17;
 }
 #selection-tabcontent-wrap .slides li.dvd h3 {
-background: #333333;
+  background: #333333;
 }
 #selection-tabcontent-wrap .slides li.bluray h3 {
-background: #009EE0;
+  background: #009EE0;
 }
 #selection-tabcontent-wrap .slides li.vod h4 {
-color: #85ba17;
+  color: #85ba17;
 }
 #selection-tabcontent-wrap .slides li.dvd h4 {
 color: #333333;
 }
 #selection-tabcontent-wrap .slides li.bluray h4 {
-color: #009EE0;
+  color: #009EE0;
 }
 
 .slides li .wrap {
@@ -570,7 +570,7 @@ color: #009EE0;
 }
 .carousel-wrap .pagination2 .disabled
 {
-    visibility: visible;
+  visibility: visible;
 }
 .carousel-wrap .pagination2 a.next_page {
   background-position: 100% -23px;
@@ -923,47 +923,47 @@ color: #009EE0;
   display: block;
 }
 .adult #selection-week-wrap .slides li.vod h3 {
-    background: none repeat scroll 0 0 #7b0499;
+  background: none repeat scroll 0 0 #7b0499;
 }
 
 .adult #selection-week-wrap .slides li.vod h4 {
-    color: #7b0499;
+  color: #7b0499;
 }
 
 .adult #selection-week-wrap .ttl, .adult #community-wrap .ttl, .adult #news-wrap .ttl {
-    background: url("../images/selection-icon_adult.png") no-repeat scroll 0 0 transparent;
+  background: url("../images/selection-icon_adult.png") no-repeat scroll 0 0 transparent;
 	color: #E2007C;
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding: 10px 0 2px 35px;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding: 10px 0 2px 35px;
 }
 
 
 
 
 .tooltip h4 {
-    border-bottom: 1px dotted #A3A4A7;
-    color: #fa3c16;
-    font-size: 1.17em;
-    margin-bottom: 12px;
-    padding: 0 15px 8px 0;
+  border-bottom: 1px dotted #A3A4A7;
+  color: #fa3c16;
+  font-size: 1.17em;
+  margin-bottom: 12px;
+  padding: 0 15px 8px 0;
 }
 .tooltip h4 span{
-    color: #201F20;
+  color: #201F20;
 	font-weight: lighter;
 	 font-size: 0.82em;
 }
 
 
 .link_formula {
-    border-top: 1px dotted #A3A4A7;
-    margin-top: 12px;
-    padding-top: 5px;
+  border-top: 1px dotted #A3A4A7;
+  margin-top: 12px;
+  padding-top: 5px;
 }
 .tooltip p {
-line-height: 16px;
-font-weight: lighter;
+  line-height: 16px;
+  font-weight: lighter;
 }
 
 
@@ -1043,9 +1043,9 @@ text-align:left;
 }
 
 #nina-tabcontent-wrap .slides li.nina h3 a {
-    color: #594643;
-    font-size: 14px;
-    text-decoration: none;
+  color: #594643;
+  font-size: 14px;
+  text-decoration: none;
 }
 
 #nina-tabcontent-wrap .slides li.nina h3{
@@ -1054,80 +1054,59 @@ padding-bottom:6px;
 }
 
 .slides li.nina p {
-    color: #302924;
-    font-size: 11px;
-    line-height: 12px;
-    margin-bottom: 10px;
-    padding-left: 126px;
-    width: 300px;
+  color: #302924;
+  font-size: 11px;
+  line-height: 12px;
+  margin-bottom: 10px;
+  padding-left: 126px;
+  width: 300px;
 }
 .slides li.nina p a.lirelasuite{
-text-decoration:underline;
-font-weight:bold;
-  
-
+  text-decoration:underline;
+  font-weight:bold;
 }
-
-
-
 .slides li.nina {
-    color: #302924;
-    font-size: 11px;
-    line-height: 14px;
-    margin-bottom: 10px;
-    padding-left: 26px;
-    width: 400px;
+  color: #302924;
+  font-size: 11px;
+  line-height: 14px;
+  margin-bottom: 10px;
+  padding-left: 26px;
+  width: 400px;
 }
-
-
 .slides li.intro_nina {
-    color: #302924;
-    font-size: 14px;
-    line-height: 24px;
-    margin-bottom: 10px;
-    padding-left: 179px;
-    width: 259px;
+  color: #302924;
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  padding-left: 179px;
+  width: 259px;
 }
-
 .slides li.intro_nina p {
-    font-size: 12px;
-    line-height: 20px;
+  font-size: 12px;
+  line-height: 20px;
 }
-
 .slides li.nina h4 {
-     color: #302924;
-    font-size: 16px;
-    margin-bottom: 5px;
+  color: #302924;
+  font-size: 16px;
+  margin-bottom: 5px;
 	text-transform:none;
-
 }
-
-
 #nina-wrap .carousel-wrap{
-padding-top:10px;
-
-
+  padding-top:10px;
 }
-
 .nina_intro li{
 font-size:14px;
-
-
 }
-
 .nina_intro p{
 font-size:14px;
-
-
 }
-
 .btn_savoirplus {
-    background: url("../images/button_grey.png") repeat scroll 0 0 transparent;
-    display: block;
-    font-size: 12px;
-    height: 27px;
-    line-height: 28px;
-    padding-left: 10px;
-    text-decoration: none;
-    width: 95px;
+  background: url("../images/button_grey.png") repeat scroll 0 0 transparent;
+  display: block;
+  font-size: 12px;
+  height: 27px;
+  line-height: 28px;
+  padding-left: 10px;
+  text-decoration: none;
+  width: 95px;
 }
