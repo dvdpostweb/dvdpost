@@ -1,0 +1,107 @@
+
+
+#vod-faq {
+    border: 1px solid #191E23;
+    height: 600px;
+    margin-bottom: 25px;
+    padding: 30px;
+}
+
+#vod-info .left {
+    color: #444444;
+    font-size: 0.98em;
+    line-height: normal;
+    margin: 15px 0 0 23px;
+    text-align: justify;
+    width: 410px;
+}
+
+
+#vod-info .left .intro {
+    color: #444444;
+    font-size: 1.1em;
+    line-height: normal;
+    text-align: justify;
+    width: 800px;
+}
+#vod-info .right {
+    float: left;
+	margin: 15px 0 0 46px;
+	text-align: justify;
+	width: 410px;
+}
+#vod-info h4 {
+	color: #191E23;
+	font-size: 1.5em;
+	margin-bottom: 15px;
+}
+
+#vod-info li {
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    color: #444444;
+    font-size: 0.98em;
+   padding-left: 79px;
+}
+
+#vod-info li#extrait_vod {
+	background: url(../images/extrait-icon.jpg) 0 20px no-repeat;
+}
+#vod-info li#systeme {
+	background-image: url(../images/systeme-icon.jpg);
+}
+#vod-info li#support {
+	background-image: url(../images/vod-icon.jpg);
+}
+#vod-info li#catalogue2 {
+	background-image: url(../images/catalogue-icon.jpg);
+}
+#vod-info li#audio {
+	background-image: url(../images/audio-icon.jpg);
+}
+
+.adult #vod-info li#extrait_vod {
+	background-image: url(../images/extrait-icon_adult.jpg);
+}
+.adult #vod-info li#systeme {
+	background-image: url(../images/systeme-icon_adult.jpg);
+}
+.adult #vod-info li#support {
+	background-image: url(../images/vod-icon_adult.jpg);
+}
+.adult #vod-info li#catalogue2 {
+	background-image: url(../images/catalogue-icon_adult.jpg);
+}
+.adult #vod-info li#audio {
+	background-image: url(../images/audio-icon_adult.jpg);
+}
+
+#vod-info li h4, #vod-info li p {
+	margin-bottom: 12px;
+}
+#vod-info li a {
+  color: #ff1800;
+}
+
+#vod-info .img-wrap {
+  float: right;
+  height: 285px;
+  text-align: center;
+  font-size: .92em;
+  padding-left: 1px;
+  color: #fff;
+  
+  
+}
+
+#vod-info .img-wrap p {
+  margin: 0;
+  padding-top: 5px;
+  font-size: 1.33em;
+  font-weight: bold;
+}
+
+#vod-info .img-wrap a {
+  color: #fff;
+}
+

@@ -1,0 +1,191 @@
+<%= stylesheet 'streaming_products_normal', :media => :all %>
+  <div id="faq-content-wrap">
+    <div id="faq-intro-wrap">
+      <h2>Vos films accessibles immédiatement <br />
+        <span>avec la VOD (vidéo à la demande)</span> </h2>
+     <h3>Regardez vos films<br />
+        immédiatement <br />
+        <span>plus besoin 
+        d'attendre<br /> vos DVD & Blu-ray</span><br />
+        <%= link_to "Notre catalogue", products_path(:view_mode => :streaming) %>
+        </h3>
+    </div>
+    <!-- #vod-faq -->
+    <div id="faq_intro" class="clearfix">
+      <div id="vod-intro">
+        <div class="cols" id="col1">
+          <h4>Les plus de la VOD</h4>
+          <p>films accessibles immédiatement, plus besoin d'attendre vos DVD</p>
+          <p>aucun frais supplémentaire</p>
+          <p>films disponibles en VO sous-titrée</p>
+          <p>disponible pendant 48h</p>
+          <p>un catalogue de plus en plus large </p>
+          <a class="more" id="vod-plus-title-more" href="#">En savoir plus</a> </div>
+        <!-- #col1 -->
+        <div class="cols">
+          <h4>Accès via les boutons verts</h4>
+          <p><%= image_tag "#{I18n.locale}/button_streaming.jpg" %></p>
+          <p>Pour regarder vos films <strong>immédiatement</strong></p>
+          <p><%= image_tag "#{I18n.locale}/button_list.jpg" %></p>
+          <p>Pour ajouter vos films à votre liste
+            VOD et <strong>les regarder plus tard</strong></p>
+          <p><a class="more" id="vod-button-title-more" href="#">En savoir plus</a></p>
+        </div>
+        <!-- #col2 -->
+        <div class="cols">
+          <h4>Disponible sur tous vos écrans</h4>
+          <ul>
+            <li id="mac">
+              <p><strong>PC et Mac<br />
+                <a class="more tab1" id="vod-ecran-title-more" href="#">En savoir plus</a></strong></p>
+            </li>
+            <li id="ipad">
+              <p><strong>iPad et iPhone</strong><br />
+                Emportez vos films partout
+              avec l'application DVDPost<br />
+              <a class="more tab2" id="vod-ecran-title-more" href="#">En savoir plus</a></p>
+            </li>
+            <li id="tv">
+              <p><strong>TV</strong><br />
+Regardez vos films préférés
+                sur grand écran<br />
+             <a class="more tab3" id="vod-ecran-title-more" href="#">En savoir plus</a></p>
+            </li>
+          </ul>
+        </div>
+        <!-- #col3 -->
+      </div>
+    </div>
+    <!-- #vod-plus -->
+    <div id="vod-info-wrap">
+      <h3 class="close" id="vod-plus-title">Les Plus de la VOD en détail</h3>
+      <div id="vod-plus" class="clearfix" style="display:none">
+        <p><strong>plus besoin d'attendre vos DVD</strong>, regardez vos films immédiatement</p>
+        <p>la VOD est incluse dans votre abonnement, <strong>aucune action supplémentaire</strong> de votre part n'est requise</p>
+        <p><strong>coût identique aux DVD et Blu-ray: 1 DVD/BR = 1 VOD = 1 crédit</strong> (sauf pour <%= link_to "certains films adultes en VOD", products_path(:kind => :adult, :view_mode => :streaming)%>)</p>
+        <p><strong>catalogue de plus de 2500 films</strong> dont une large sélection adulte</p>
+        <p><strong>version originale (VO) sous-titrée</strong> disponible pour la majorité des films</p>
+      </div>
+      <!-- #vod-plus -->
+      <!-- #vod-button -->
+      <div id="vod-info-wrap">
+        <h3 class="close" id="vod-button-title">Maintenant ou plus tard</h3>
+        <div id="vod-button" class="clearfix" style="display:none">
+          Vous avez le choix de regarder vos films immédiatement ou de les placer dans votre liste VOD pour plus tard.<br />
+          <br />
+
+<%= image_tag "#{I18n.locale}/button_streaming.jpg" %>
+          <p>vous permet de <strong>regarder le film immédiatement</strong></p>
+          <p>votre location ne sera décomptée que lorsque le film démarrera</p>
+          <p>si vous changez d'avis avant de lancer le film, aucun crédit ne vous sera décompté</p>
+          <p><strong>vous pourrez changer de langue et sous-titres gratuitement </strong>autant de fois que vous le voulez</p>
+          <p><strong>le film restera disponible pendant 48h</strong> et vous pourrez le regarder autant de fois que vous le désirez</p>
+          <br />
+
+<%= image_tag "#{I18n.locale}/button_list.jpg" %>
+          <p>vous permet <strong>de sélectionner votre film choisi pour plus tard</strong>: il est alors ajouté à votre liste VOD dans l'onglet 
+            <%= link_to '"Mes Listes"', vod_wishlists_path %>
+          </p>
+        </div>
+      </div>
+      <!-- #vod-button -->
+      <!-- #vod-button -->
+      <div id="vod-info-wrap">
+        <h3 class="close" id="vod-ecran-title">Disponible sur tous vos écrans</h3>
+        <div id="vod-ecran" class="clearfix" style="display:none">
+          <div id="selection-week-wrap">
+            <div id="selection-tabcontent-wrap">
+              <ul class="content-tabs">
+                <li><a class="available vod active" id="tab1-title" href="#">PC et Mac</a></li>
+                <li><a class="available " id="tab2-title" href="#">iPad et iPhone</a></li>
+                <li><a class="available br " id="tab3-title" href="#">TV</a></li>
+              </ul>
+            </div>
+            <div id="selection-tab1" class="tab-content-selection clearfix">
+              <div class="carousel-wrap" id="tab1" >
+                <div class="left mac" >
+                  <h3>Regardez vos films<br />
+                    sur n'importe<br />
+                    quel ordinateur <br />
+                    <span>à partir du site internet</span>
+                    <p align="right"><%= link_to "Notre catalogue", products_path(:view_mode => :streaming) %></p>
+                  </h3>
+                  </h3>
+                </div>
+                <div class="right">
+                  <ul>
+                    <li id="systeme">
+                      <p><strong>Vitesse adaptée automatiquement à votre connexion internet</strong> afin d'éviter tout décrochage ou saccade lors de la vision du film</p>
+                    </li>
+                    <li id="audio">
+                      <p><strong>Langues et sous-titres au choix,</strong> la majorité des films étant disponible en version originale sous-titrée
+</p>
+                    </li>
+                    <li id="extrait_vod">
+                      <p><strong>Testez la VOD </strong>en regardant cet extrait. La couleur en haut de l'extrait indique la qualité de votre connexion internet: vert = meilleure qualité, rouge = mauvaise qualité <%= link_to "Testez la VOD", streaming_products_sample_path %></p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="carousel-wrap"  id="tab2" style='display:none'>
+                <div class="left ipad" >
+                  <h3>Emportez vos films <br />
+                    partout avec vous <span> (fonctionne en Wifi et 3G)</span>
+                    <p align="right"><%= link_to "Notre catalogue", products_path(:view_mode => :streaming) %></p>
+                  </h3>
+                  </h3>
+                </div>
+                <div class="right">
+                  <p>
+                    <strong>1-</strong> Téléchargez l'application DVDPost sur <%= link_to "l'AppStore", DVDPost.itunes_url %>
+                    </p>
+                  <p><strong>2-</strong> Authentifiez-vous</p>
+                  <p><strong>3-</strong> Regardez les films en streaming, gérez vos listes de films, soyez tenus au courant des nouveautés…</p>
+                  <ul class="list_visual">
+                    <li>
+                      <%= link_to image_tag("ipad_3_little.jpg"), image_path("ipad_3_big.jpg"), :class => :face_img %>
+                    </li>
+                    <li>
+                      <%= link_to image_tag("ipad_4_little.jpg"), image_path("ipad_3_big.jpg"), :class => :face_img %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+                        <div class="carousel-wrap"  id="tab3" style='display:none'>
+                          <div class="left tv" >
+                            <h3>Regardez vos films<br /> sur grand écran
+                              <p align="center"><%= link_to "Notre catalogue", products_path(:view_mode => :streaming) %></p>
+                            </h3>
+                            </h3>
+                          </div>
+                          <div class="right">
+                          <p><strong>Deux solutions: </strong></p>
+                          <ul>
+                              <li id="cable">
+              <p><strong>Via un câble</strong><br />
+              Connectez votre ordinateur à votre TV à l'aide d'un câble. <%= link_to "Suivez le guide ici", info_path(:page_name => :get_connected) %></p></li>
+                              <li id="appletv">
+              <p><strong>Via Apple TV</strong><br />
+              Si vous avez une <%= link_to "Apple TV", DVDPost.appletv_url[I18n.locale] %>, envoyez le film directement sur votre TV à partir de votre <%= link_to "iPhone", DVDPost.iphone_url[I18n.locale] %> ou <%= link_to "iPad", DVDPost.ipad_url[I18n.locale] %> à <%= link_to "AirPlay", DVDPost.airplay_url[I18n.locale] %>
+              </p>                    </li>
+
+                            </ul>
+                          </div>
+                        </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- #vod-button -->
+      <!-- #vod-faq -->
+      <div id="faq" class="clearfix">
+        <h3 class="close" id="vod-faq-title">FAQ sur la vod</h3>
+        <div id="vod-faq" style="display:none">
+          <%= render :partial => "faq" %>          
+        </div>
+      </div>
+      <!-- #faq -->
+    </div>
+    <!-- #vod-info-wrap -->
+  </div>

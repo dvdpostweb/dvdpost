@@ -40,6 +40,42 @@ module DVDPost
       "#{imagesx_path}/landings"
     end
 
+    def itunes_url
+      "http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8"
+    end
+
+    def airplay_url
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.apple.com/befr/appletv/airplay/',
+        :nl => 'http://www.apple.com/benk/appletv/airplay/',
+        :en => 'http://www.apple.com/uk/appletv/airplay/'
+      })
+    end
+
+    def appletv_url
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.apple.com/befr/appletv/',
+        :nl => 'http://www.apple.com/benk/appletv/',
+        :en => 'http://www.apple.com/uk/appletv//'
+      })
+    end
+
+    def iphone_url
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.apple.com/befr/iphone/',
+        :nl => 'http://www.apple.com/benk/iphone/',
+        :en => 'http://www.apple.com/uk/iphone/'
+      })
+    end
+
+    def ipad_url
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.apple.com/befr/ipad/',
+        :nl => 'http://www.apple.com/benk/ipad/',
+        :en => 'http://www.apple.com/uk/ipad/'
+      })
+    end
+
     def news_url
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',

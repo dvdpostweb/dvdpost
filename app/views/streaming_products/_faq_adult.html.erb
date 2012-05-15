@@ -1,0 +1,77 @@
+<%= stylesheet 'streaming_products_adult', :media => :all %>
+<div id="faq-content-wrap">
+  <div id="faq-intro-wrap">
+    <%= link_to t('streaming_products.faq.back'), products_path(:view_mode => :streaming), :id => :retour %>
+    <h2><%= t 'streaming_products.faq.what' %></h2>
+    <p><%= t 'streaming_products.faq.what_e' %></p>
+  </div><!-- #faq-intro-wrap -->
+
+  <div id="vod-info-wrap">
+    <h3><%= t 'streaming_products.faq.t1' %></h3>
+    <div id="vod-info" class="clearfix">
+      <div class="left">
+        <ul>
+          <li id="systeme">
+            <h4><%= t 'streaming_products.faq.st1' %></h4>
+            <p><%= t 'streaming_products.faq.st1_e' %></p>
+          </li>
+          <li id="support">
+            <h4><%= t 'streaming_products.faq.st2' %></h4>
+            <p><%= t 'streaming_products.faq.st2_e', :link => info_path(:page_name => 'get_connected') %></p>
+          </li>
+        </ul>
+
+
+      </div><!-- .left -->
+
+      <div class="right">
+        <ul>
+
+          <li id="catalogue2">
+            <h4><%= t 'streaming_products.faq.st3' %></h4>
+            <p><%= t 'streaming_products.faq.st3_e' %><%= link_to "<strong>#{t('.here')}</strong>", products_path(:kind => :normal, :view_mode => :streaming) %>. <br />
+              <%= t 'streaming_products.faq.st3_e2' %> 
+              <%= link_to "<strong>#{t('.here')}</strong>", products_path(:kind => :adult, :view_mode => :streaming) %>.</p>
+            </li>
+            <li id="audio">
+              <h4><%= t 'streaming_products.faq.st4' %></h4>
+              <p><%= t 'streaming_products.faq.st4_e' %> </p>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- #vod-info -->
+
+      <div id="vod-info-wrap">
+        <h3><%= t 'streaming_products.faq.t2' %></h3>
+        <div id="vod-info" class="clearfix">
+          <div class="left">
+            <ul>
+              <li id="extrait_vod">
+                <h4><%= t 'streaming_products.faq.st' %></h4>
+                <span class="intro">
+                  <p><%= t 'streaming_products.faq.st_e' %></p></span>
+                </li>
+              </ul>
+
+
+            </div><!-- .left -->
+
+            <div class="img-wrap">
+              <a href="<%= streaming_products_sample_path %>" target="_blank">
+                <%= image_tag "thumb-extrait-vod#{params[:kind] == :adult ? '_adult' : ''}.jpg" %>
+              </a>
+
+            </div><!-- .img-wrap -->
+          </div><!-- #vod-info -->
+
+          <div id="faq" class="clearfix">
+
+            <h3><%= t 'streaming_products.faq.t3' %></h3>
+            <div id="vod-faq">
+              <%= render :partial => "faq" %>
+            </div>
+          </div><!-- #faq -->
+
+        </div><!-- #vod-info-wrap -->
+      </div><!-- #faq-content-wrap -->

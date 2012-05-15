@@ -1,4 +1,7 @@
 $(function() {
+  function goToByScroll(id){
+    $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
+  }
   
   
   var isIE  = (navigator.appVersion.indexOf("MSIE") != -1) ? true : false;
@@ -276,6 +279,67 @@ $(function() {
   });
   $("#change_step3").live("click", function() {
     $container.cycle(1)
+    return false;
+  });
+  $("#faq h3, #vod-info-wrap h3").live("click", function() {
+    
+    id = $(this).attr('id')
+    content = id.replace('-title', '')
+    here = $(this)
+    $("#"+content).slideToggle('slow', function() {
+        if($(this).is(':visible'))
+        {
+          $(here).removeClass('close')
+        }
+        else
+        {
+          $(here).addClass('close')
+        }
+      });
+    return false;
+  });
+  $(".more").live("click", function() {
+    
+    parent = $(this)
+    id = $(this).attr('id')
+    content = id.replace('-title-more', '')  
+    here_id = content+"-title"
+    here = $("#"+here_id)
+    $("#"+content).slideDown('slow', function() {
+      $(here).removeClass('close')
+    });
+    if($(this).hasClass("tab1") || $(this).hasClass("tab2") || $(this).hasClass("tab3"))
+    {
+      if($(this).hasClass("tab1"))
+      {
+        title = "#tab1-title"
+        id="#tab1"
+      }
+      else if($(this).hasClass("tab2"))
+      {
+        title = "#tab2-title"
+        id="#tab2"
+      }
+      else
+      {
+        title = "#tab3-title"
+        id="#tab3"
+      }
+      $('.available').removeClass('active')
+      $(title).addClass('active')
+      $('.carousel-wrap').hide()
+      $(id).show()
+    }
+    goToByScroll(here_id); //to do
+    return false;
+  });
+  $(".available").live("click", function() {
+    id = $(this).attr('id')
+    $('.available').removeClass('active')
+    $(this).addClass('active')
+    content = id.replace('-title', '')
+    $('.carousel-wrap').hide()
+    $("#"+content).show()
     return false;
   });
 });
