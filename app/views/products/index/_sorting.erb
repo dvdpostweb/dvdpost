@@ -10,6 +10,7 @@
       <%= hidden_field_tag(:actor_id, params[:actor_id]) if params[:actor_id] %>
       <%= hidden_field_tag(:director_id, params[:director_id]) if params[:director_id] %>
       <%= hidden_field_tag(:studio_id, params[:studio_id]) if params[:studio_id] %>
+      <%= hidden_field_tag(:filter, params[:filter]) if params[:filter] %>
       <%= select_tag(:sort, options_for_select(sort_collection_for_select, var), { :onchange => '$("#sort_form").submit()'}) %>
     <% end %>
   </div>

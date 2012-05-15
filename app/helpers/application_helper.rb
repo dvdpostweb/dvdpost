@@ -29,38 +29,38 @@ module ApplicationHelper
   end
 
   def redirect_after_registration(path = nil)
-    if current_customer
-      if current_customer.customers_registration_step.to_i == 31
-        if (params['controller'] == 'steps' && params[:id].to_i == 2) || (params[:controller] == 'customers' && params[:action] == 'update')
-        else
-          redirect_to step_path(:id => 2)
-        end
-      elsif current_customer.customers_registration_step.to_i == 21
-        if (params['controller'] == 'steps' && params[:id].to_i == 1)
-        else
-          redirect_to step_path(:id => 1)
-        end
-      elsif current_customer.customers_registration_step.to_i == 33
-        if (params['controller'] == 'steps' && params[:id].to_i == 3) || (params[:controller] == 'ogones' && params[:action] == 'show')
-        else
-          redirect_to step_path(:id => 3)
-        end
-      elsif current_customer.customers_registration_step.to_i == 90
-        if (params['controller'] == 'steps' && params[:id].to_i == 5) || (params['controller'] == 'steps' && params[:id].to_i == 1 && params[:action] == 'update')
-        else
-          redirect_to step_path(:id => 5)
-        end
-      elsif params[:controller] == 'steps' && params[:id].to_i != 4 && (current_customer.customers_registration_step.to_i == 100 || current_customer.customers_registration_step.to_i == 95)
-        redirect_to root_path
-      elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
-        redirect_to php_path
-      elsif path
-        redirect_to path
-      end
-    end
-    #if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
-    #     redirect_to php_path
+    #if current_customer
+    #  if current_customer.customers_registration_step.to_i == 31
+    #    if (params['controller'] == 'steps' && params[:id].to_i == 2) || (params[:controller] == 'customers' && params[:action] == 'update')
+    #    else
+    #      redirect_to step_path(:id => 2)
+    #    end
+    #  elsif current_customer.customers_registration_step.to_i == 21
+    #    if (params['controller'] == 'steps' && params[:id].to_i == 1)
+    #    else
+    #      redirect_to step_path(:id => 1)
+    #    end
+    #  elsif current_customer.customers_registration_step.to_i == 33
+    #    if (params['controller'] == 'steps' && params[:id].to_i == 3) || (params[:controller] == 'ogones' && params[:action] == 'show')
+    #    else
+    #      redirect_to step_path(:id => 3)
+    #    end
+    #  elsif current_customer.customers_registration_step.to_i == 90
+    #    if (params['controller'] == 'steps' && params[:id].to_i == 5) || (params['controller'] == 'steps' && params[:id].to_i == 1 && params[:action] == 'update')
+    #    else
+    #      redirect_to step_path(:id => 5)
+    #    end
+    #  elsif params[:controller] == 'steps' && params[:id].to_i != 4 && (current_customer.customers_registration_step.to_i == 100 || current_customer.customers_registration_step.to_i == 95)
+    #    redirect_to root_path
+    #  elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+    #    redirect_to php_path
+    #  elsif path
+    #    redirect_to path
+    #  end
     #end
+    if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+      redirect_to php_path
+    end
   end
 
   def localized_image_tag(source, options={})

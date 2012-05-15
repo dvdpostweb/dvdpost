@@ -159,17 +159,17 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
 }
 
 #nav li a#nav3 {
-  width: 71px;
-  padding-left: 49px;
-  background: url(../images/nav3-bg-normal.png) 14px 10px no-repeat;
+  width: 80px;
+  padding-left: 41px;
+  background: url(../images/nav3-bg-normal.png) 10px 10px no-repeat;
 }
 
 #nav li a#nav3:hover {
-  background-position: 14px -41px;
+  background-position: 10px -41px;
 }
 
 #nav li a#nav3.active {
-  background-position: 14px -94px;
+  background-position: 10px -94px;
 }
 
 #nav li a#nav4 {
