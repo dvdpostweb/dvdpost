@@ -1,10 +1,10 @@
 <ul id="mywhishlist-nav">
-	<li <%= request.parameters['controller'] == 'wishlist_items' ? 'class="current"' : '' %>>
-	  <%= link_to t('.dvd', :count => wishlist_items_count), wishlist_path %>
-	</li>
 	<% if streaming_access? %>
 	<li <%= request.parameters['controller'] == 'vod_wishlists' ? 'class="current"' : '' %>>
 	  <%= link_to t('.vod', :count => vod_count), vod_wishlists_path %>
 	</li>
 	<% end %>
+	<li <%= request.parameters['controller'] == 'wishlist_items' ? 'class="current"' : '' %>>
+	  <%= link_to t('.dvd', :count => wishlist_items_count), wishlist_path %>
+	</li>
 </ul>

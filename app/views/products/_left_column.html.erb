@@ -1,7 +1,7 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="left_column" class="site_<%= ENV['HOST_OK'] %>">
   <!-- test -->
-  <% form_for :search_filter, filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id])} do |f| %>
+  <% form_for :search_filter, filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id], :filter => params[:filter])} do |f| %>
   <% if ENV['HOST_OK'] == "1" %>
     <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
