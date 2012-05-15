@@ -61,6 +61,11 @@ class OgonesController < ApplicationController
             0
           end
           activation.update_attributes(:created_at => Time.now.localtime.to_s(:db), :customers_id => current_customer.to_param)
+          action = ActivationAction.find_by_activation_id(@ogone.activation_code_id)
+          if action
+            class_name = action.activation_class
+            eval("action.action_#{class_name}(#{current_customer})")
+          end
       end
       credit_at_home = @product_abo.qty_at_home
       credit_at_home_adult = 0
@@ -86,6 +91,8 @@ class OgonesController < ApplicationController
       if current_customer.site == 'lavenir'
         send_message(DVDPost.email[:lavenir], options)
       end
+      
+      
       sponsor = Sponsorship.find_by_son_id(current_customer.to_param)
       unless sponsor
         sponsor_email = SponsorshipEmail.find_by_email(current_customer.email)
@@ -93,7 +100,12 @@ class OgonesController < ApplicationController
           father = Customer.find(sponsor_email.customers_id)
           if father.actived?
             Sponsorship.create(:created_at => Time.now.localtime, :father_id => father.to_param, :son_id => current_customer.to_param , :points => 0)
-            #to do send mail 447
+            options = {
+              "\\$\\$\\$godfather_name\\$\\$\\$" => "#{father.first_name.capitalize} #{father.last_name.capitalize}", 
+              "\\$\\$\\$son_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
+              "\\$\\$\\$godfather_point\\$\\$\\$" => father.inviation_points
+              }
+              send_message(DVDPost.email[:sponsorships_son], options, father)
           end
         end
       end  

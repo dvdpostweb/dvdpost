@@ -45,7 +45,7 @@ class CustomersController < ApplicationController
         format.html do
           if current_customer.customers_registration_step.to_i == 31
             @countries = Country.all
-            params[:id] = 2 #to do
+            params[:id] = 2
             render :template => "/steps/show"
           else
             render :action => :edit

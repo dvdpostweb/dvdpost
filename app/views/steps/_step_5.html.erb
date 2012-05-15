@@ -1,0 +1,13 @@
+step5
+
+step1
+<table cellpadding="0" cellspacing="0"  border="0" width="420" class="new_table_abo">
+<% form_for(:customer, :url => step_path(:id => 1), :id => :form_account, :html => {:method => :put}) do |f| %>
+<% @abo_available.collect do |abo| %>
+  <%= abo.to_param %> <%= abo.credits %><br />
+<% end %>
+<%= render :partial => 'subscriptions/edit/new_abo', :collection => @abo_available, :locals => {:current_abo_credit => current_customer.credit_per_month, :selected_abo => current_customer.next_abo_type_id} %>
+<%= f.hidden_field :next_abo_type_id %>
+<div align='center' style="width:920px; height:50px"><button type="submit" class="button_confirm"><%= t '.confirm' %></button></div>
+<% end %>
+</table>

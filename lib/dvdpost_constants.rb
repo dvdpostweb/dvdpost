@@ -290,6 +290,7 @@ module DVDPost
     def email
       HashWithIndifferentAccess.new.merge({
         :sponsorships_invitation    => 446,
+        :sponsorships_son           => 447,
         :streaming_product          => 571,
         :streaming_product_free     => 585,
         :message_free               => 578,
@@ -318,7 +319,7 @@ module DVDPost
     end
     
     def dvdpost_super_user
-      [194064,1017617,203165,1068898,1072027]
+      [203165,1068898,1072027,1034787]
     end
     
     def geo_ip_key

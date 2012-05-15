@@ -34,7 +34,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :free_upgrade,                 :customers_locked__for_reconduction
   alias_attribute :promo_type,                   :activation_discount_code_type
   alias_attribute :promo_id,                     :activation_discount_code_id
-  alias_attribute :nb_recurring,                 :discount_recurring_nbr_of_month
+  alias_attribute :nb_recurring,                 :customers_abo_discount_recurring_to_date
   alias_attribute :payment_method, :customers_abo_payment_method
 
   validates_length_of :first_name, :minimum => 2
@@ -739,6 +739,16 @@ class Customer < ActiveRecord::Base
     end
     price.to_f
   end
+  
+  def promo_date
+    type = activation_discount_code_type
+    if type == 'A'
+      activation.duration
+    elsif type == 'D'
+      discount.duration
+    end
+  end
+
   private
   def convert_created_at
     begin
