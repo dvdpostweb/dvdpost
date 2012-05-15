@@ -1,0 +1,323 @@
+#faq-intro-wrap {
+	background:url(../images/bg_faq.jpg) no-repeat;
+	height:407px;
+}
+#faq-intro-wrap h2 {
+	color: #85B91A;
+	font-size: 27px;
+	text-transform:uppercase;
+	padding-top: 14px;
+}
+#faq-intro-wrap h2 span {
+	color: #191e23;
+	font-size: 24px;
+	font-weight:lighter;
+}
+#faq-intro-wrap h3 {
+	color: #191E23;
+	font-size: 21px;
+	padding-left: 620px;
+	text-align: center;
+	text-transform: uppercase;
+	padding-top: 100px;
+}
+#faq-intro-wrap h3 span {
+	color: #191e23;
+	font-size: 21px;
+	text-transform:uppercase;
+	font-weight:lighter;
+}
+#faq-intro-wrap h3 a {
+	color: #85B91A;
+	font-size: 14px;
+	text-decoration:underline;
+	text-transform:none;
+}
+#faq .cols {
+	width: 205px !important;
+}
+#vod-faq {
+	border: 0px !important;
+	padding:0px !important;
+}
+#faq h3 {
+	height:16px;
+	padding-left: 24px;
+	background: url(../images/plus_moins.png) no-repeat scroll 0 -16px transparent;
+	cursor:pointer;
+}
+#vod-info-wrap h3 {
+	text-transform:uppercase;
+	height:16px;
+	padding-left: 24px;
+	background: url(../images/plus_moins.png) no-repeat scroll 0 -16px transparent;
+	cursor:pointer;
+	
+}
+#faq h3.close, #vod-info-wrap h3.close {
+	background: url(../images/plus_moins.png) no-repeat scroll 0 0 transparent;
+}
+#vod-info-wrap a {
+	color: #85B91A;
+	font-weight:bold;
+	text-decoration:underline;
+}
+#vod-info {
+	border: 0px !important;
+}
+
+#vod-plus p {
+    background: url("../images/big_cross.png") no-repeat scroll 0 0 transparent;
+    height: 28px;
+    line-height: 30px;
+    padding-left: 36px;
+}
+#vod-button p {
+    background: url("../images/green_box.gif") no-repeat scroll 0 7px transparent;
+ 
+    line-height: 22px;
+    padding-left: 20px;
+}
+#vod-plus, #vod-button {
+	font-size: 13px;
+	padding-bottom: 24px;
+	padding-top: 2px;
+}
+#vod-ecran li#audio {
+padding-top:8px;
+	height: 60px;
+	font-size:13px;
+	color: #191e23;
+	 line-height: 16px;
+}
+#vod-ecran li#systeme {
+	height: 52px;
+	font-size:13px;
+	color: #191e23;
+	 line-height: 16px;
+}
+#vod-ecran li#extrait_vod {
+	
+	height: 52px;
+	font-size:13px;
+	color: #191e23;
+	 line-height: 16px;
+}
+.content-tabs {
+	background:#191e23;
+	display: inline-block;
+	height: 32px;
+}
+.content-tabs li {
+	float: left;
+}
+.content-tabs li:first-child a {
+	background: none repeat scroll 0 0 transparent;
+	padding-left: 16px;
+}
+#vod-ecran .content-tabs li a.active {
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background: none repeat scroll 0 0 #FFFFFF !important;
+	border-color: #191E24 #191E24 -moz-use-text-color;
+	border-style: solid solid none;
+	border-width: 1px 1px medium;
+	color: #191e23;
+	position: relative;
+	z-index: 100;
+}
+#vod-ecran .content-tabs li a {
+	background: url("http://private.dvdpost.com/images/tabs-delimiter.gif") no-repeat scroll 0 0 transparent;
+	color: #FFFFFF;
+	display: block;
+	font-size: 1.33em;
+	font-weight: bold;
+	line-height: 32px;
+	padding: 0 16px 0 18px;
+	text-decoration: none;
+}
+#vod-ecran li {
+	padding-left: 0 ;
+}
+
+#vod-ecran #selection-tab1 {
+    border: 1px solid #36404E;
+    height: 244px;
+}
+
+
+#vod-ecran .left {
+    height: 185px;
+    width: 438px;
+}
+
+#vod-ecran .left.mac {
+    background: url("../images/bg_pcmac.jpg") no-repeat scroll 19px 28px transparent;
+
+}
+
+#vod-ecran .left.ipad {
+    background: url("../images/bg_ipad.jpg") no-repeat scroll 0px 28px transparent;
+	   height: 193px;
+
+}
+
+
+#vod-ecran .left.tv {
+    background: url("../images/bg_tv.jpg") no-repeat scroll 0px 28px transparent;
+    height: 193px;
+	
+}
+
+#vod-ecran .left.tv h3{
+  padding-left: 268px;;
+	
+}
+
+#vod-ecran .right {
+    float: right;
+    padding-right: 39px;
+    padding-top: 8px;
+    width: 378px;
+}
+#vod-ecran li#systeme {
+    background: url("http://private.dvdpost.com/images/systeme-icon.jpg") no-repeat scroll -8px 0px transparent;
+}
+
+#vod-ecran li#audio {
+    background: url("http://private.dvdpost.com/images/audio-icon.jpg") no-repeat scroll 2px 15px transparent;
+}
+
+
+#vod-ecran li#extrait_vod {
+    background: url("http://private.dvdpost.com/images/extrait-icon.jpg") no-repeat scroll -6px 0 transparent;
+}
+
+#vod-ecran li#cable {
+    background: url("../images/cable-icon.jpg") no-repeat scroll -6px 2px transparent;
+    height: 60px;
+}
+
+#vod-ecran li#appletv{
+    background:  url(../images/appletv-icon.jpg) no-repeat scroll -6px 0 transparent;
+}
+
+
+
+#vod-ecran .right li {
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    color: #444444;
+    font-size: 0.98em;
+    padding-left: 79px;
+	text-align:justify;
+}
+
+#vod-ecran {
+	font-size: 13px;
+	padding-bottom: 24px;
+	padding-top: 2px;
+}
+
+#vod-ecran .left h3 {
+    background: none repeat scroll 0 0 transparent;
+    color: #85B91A;
+    font-size: 15px;
+    padding-left: 227px;
+    padding-top: 40px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+#vod-ecran .left h3 span {
+    color: #36404E;
+	font-weight:lighter;
+}
+
+
+#vod-ecran .left h3 a {
+color: #85B91A;
+	font-weight:bold;
+	text-decoration:underline;
+	font-size:14px;
+	text-transform:none;
+	
+}
+
+#faq-content-wrap #faq_intro .cols {
+    float: left;
+    font-size: 14px;
+    margin-right: 29px;
+    padding-bottom: 30px;
+    width: 277px;
+}
+
+#faq_intro h4 {
+    border-bottom: 1px solid #000000;
+	font-size:15px;
+		text-transform:uppercase;
+		    color: #36404E;
+
+	
+    
+}
+
+#vod-intro #col1 p{
+background: url(../images/little_cross.png) no-repeat scroll 0 0 transparent;
+padding-left: 30px;
+}
+
+
+#vod-intro a {
+color: #85B91A;
+	font-weight:bold;
+	text-decoration:underline;
+	font-size:14px;
+	
+	
+}
+
+
+#vod-intro li#mac {
+    background: url(../images/mac.jpg) no-repeat scroll 0 0 transparent;
+	    height: 45px;
+}
+
+#vod-intro li#ipad {
+    background: url("../images/ipad.jpg") no-repeat scroll 4px 0px transparent;
+ 
+}
+
+
+ 
+#vod-intro li#tv {
+    background: url(../images/tv.jpg) no-repeat scroll 0 0 transparent;
+}
+
+
+#vod-intro li {
+padding-left:90px;
+}
+
+#vod-ecran .left.ipad {
+    width: 448px;
+	  padding-top: 28px;
+}
+
+#vod-ecran .right.ipad p strong{
+font-size:16px;
+}
+
+#vod-ecran  .right .list_visual li {
+    border: 1px solid #000000;
+    display: block;
+    float: left;
+    height: 98px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    width: 130px;
+	padding-left: 0px;
+}
