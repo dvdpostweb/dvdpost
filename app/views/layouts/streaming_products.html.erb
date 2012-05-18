@@ -4,7 +4,7 @@
 <%= stylesheet 'white', :media => :all if @code && @code.white_label %>
 
 <% content_for :body_id do %>one-col<% end %>
-<% content_for :title do %>VOD : <%= @product.description.title if @product %><% end %>
+<% content_for :title do %>VOD <%= " : #{@product.description.title}" if @product %><% end %>
 
 <%= yield %>
 <% parent_layout 'application' %>
