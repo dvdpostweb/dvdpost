@@ -20,6 +20,9 @@
 </div>
 <%= will_paginate @history_list, :class => 'products-pagination2', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
 <% else %>
+<% if @token_list.count == 0 && @list.count == 0 && @soon_list.count == 0 %>
+<%= link_to image_tag("http://www.dvdpost.be/images/vod_#{I18n.locale}.jpg"), streaming_products_faq_path %>
+<% end %>
 <h2><%= t '.token_list' %> (<%= @token_list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="in-progress">
   <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>

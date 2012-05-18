@@ -338,6 +338,8 @@ class Product < ActiveRecord::Base
       sort = sort_by("available_at desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :cinema
       sort = sort_by("created_at desc", options)
+    elsif options[:filter] && options[:filter].to_sym == :vod
+      sort = sort_by("streaming_id desc", options)
     else
       sort = sort_by("default_order desc, in_stock DESC", options)
     end
