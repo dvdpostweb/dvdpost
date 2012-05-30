@@ -93,6 +93,7 @@ class Product < ActiveRecord::Base
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
+    has "(select if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :integer, :as => :new_vod
     has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
     has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
     has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_bc_from
@@ -173,6 +174,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
   sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 2.months.ago..Time.now, :streaming_available => 1 }}}
+  sphinx_scope(:new_vod)            {{:with =>          {:new_vod => 1}}}
+  sphinx_scope(:vod_fresh)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_bc_from => 2.months.ago..Time.now, :streaming_available => 1 }}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:dvd_soon)           {{:with =>          {:in_cinema_now => 0, :next => 1}}}
@@ -289,7 +292,7 @@ class Product < ActiveRecord::Base
       when :recent
         products.recent
       when :vod_recent
-        products.vod_recent
+        products.new_vod
       when :soon
         products.soon
       when :vod_soon
