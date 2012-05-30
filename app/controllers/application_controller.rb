@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
-    before_filter :redirect_for_mobile
+    #before_filter :redirect_for_mobile
     #before_filter :adjust_format_for_mobile
     before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
   end
 
   def validation_adult
-    if params[:kind] == :adult && !session[:adult] && params['action'] != 'validation' && params['action'] != 'authenticate'
+    if params[:kind] == :adult && !session[:adult] && params[:code].nil? && params['action'] != 'validation' && params['action'] != 'authenticate'
       session['current_uri'] = request.env['PATH_INFO']
       redirect_to validation_path
     end
