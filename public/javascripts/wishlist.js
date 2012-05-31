@@ -284,5 +284,16 @@ $(function() {
       image.attr('src','/images/'+image.attr('name'));
     }
   });
-  
+  $(".tooltips, .tooltips_item").live('mouseover',function(){
+    name =$(this).attr('id')+"_popup"
+    var bulle = $("#"+name);
+    bulle.show()
+    return false;
+  });
+  $(".tooltips, .tooltips_item").live('mouseout',function(){
+    name =$(this).attr('id')+"_popup"
+    var bulle = $("#"+name);
+    bulle.hide();
+    return false;
+  });  
 });
