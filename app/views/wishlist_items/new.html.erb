@@ -1,3 +1,4 @@
+<% test = @wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
 <div id="addwishlist_title" class="content-wishlist">
   <%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %> 
   <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d? %>
@@ -64,9 +65,7 @@
         </tr>
       </table>
     </fieldset>
-    <% unless @wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
-      <div id ='attention_langues'><p><%= t '.error_language' %></p></div>
-    <% end %>
+    
     <% if @wishlist_item.product.bluray? && current_customer.customer_attribute && current_customer.customer_attribute.bluray_owner == 0 %>
       <div id ='attention_bluray'>
         <p><%= t('.bluray_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path) %></p>
@@ -77,13 +76,18 @@
         <p><%= t('.bluray3d_owner', :link_bluray => DVDPost.bluray_link[I18n.locale], :bluray_owner_path => bluray_owner_path(:value => 2)) %></p>
       </div> 
     <% end %>
-    
+    <% unless test %>
+      <div id ='attention_langues'><p><%= t '.error_language' %></p>
+    <% end %>
     <p class="align" id="add_to_wishlist">
     <% type_button = @wishlist_item.product.next.to_i == 1 ? :reserve : :normal %>
     <% media = DVDPost.product_types.invert[@wishlist_item.product.media] %>
     <%= f.submit title_add_to_wishlist(:long, type_button, media), :class => 'item', :title => title_add_to_wishlist(:long, type_button, media) %>
     <%= f.submit title_add_all_to_wishlist(type_button), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if @wishlist_item.product.series? %>
     </p>
+    <% unless test %>
+      </div>
+    <% end %>
     <% if @wishlist_item.product.next == 1 && @wishlist_item.product.available_at %>
       <p class="align">
         <strong>
