@@ -11,3 +11,4 @@ if flash[:notice]
 end
 page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product} if @product
 flash.discard
+page["body"].trigger('close.facebox')
