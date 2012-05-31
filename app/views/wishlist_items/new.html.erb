@@ -1,8 +1,28 @@
-<div id="addwishlist_title">
+<div id="addwishlist_title" class="content-wishlist">
   <%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %> 
   <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d? %>
   <%= image_tag "3d2d_icon.png" if @wishlist_item.product.bluray3d2d? %>
 </div>
+<% if @wishlist_item.product.in_streaming_or_soon? && streaming_access? %> 
+<div id="addwishlist_vod">
+  <p id="vod">
+    <%= t '.title' %>
+  </p>
+  <% if @wishlist_item.product.streaming? %>
+  <div class="availability streaming">
+      <% @token = current_customer.get_token(@wishlist_item.product.imdb_id) %>
+      <%= render :partial => 'products/streaming', :locals => {:product => @wishlist_item.product, :token => @token} %>
+  </div>
+  <% end %>
+  <div id="vodadd" >
+    <%= render :partial => 'products/vod_list', :locals => {:product => @wishlist_item.product} %>  </div> 
+  <div class="clear"></div>
+  <br />
+  <div align="center" id="informations">
+    <%= link_to t('.faq'), streaming_products_faq_path(), :target => "_blank" %>
+  </div>
+</div>
+<% end %>
 <% unless @wishlist_item.product.vod?  %>
   <div id="addwishlist_explain">
     <%= t '.intro' %>
