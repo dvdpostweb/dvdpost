@@ -116,6 +116,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   background: url(/images/chronicles/header-bg.jpg) 0 0 no-repeat;
   width: 100%;
 }
+#header.nl
+{
+  background: url(/images/chronicles/header-bg-nl.png) 0 0 no-repeat;
+}
+#header.en
+{
+  background: url(/images/chronicles/header-bg-en.png) 0 0 no-repeat;
+}
 #header h1 {
   height: 63px;
   padding-top: 40px;
@@ -195,6 +203,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   background: url(/images/chronicles/cats-bg.png) 0 0 no-repeat;
   float: right;
 }
+#right-nav.nl {
+  background: url(/images/chronicles/cats-bg-nl.png) 0 0 no-repeat;
+}
+#right-nav.en {
+  background: url(/images/chronicles/cats-bg-en.png) 0 0 no-repeat;
+}
+
 #right-nav li {
   display: block;
   line-height: 25px;
@@ -231,10 +246,10 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   background: url(/images/chronicles/ANCIENS-ARTICLES.png) 0 0 no-repeat;
 }
 #aa-wrap .ttl.en {
-  background: url(/images/chronicles/ANCIENS-ARTICLES.png) 0 0 no-repeat;
+  background: url(/images/chronicles/ANCIENS-ARTICLES_en.png) 0 0 no-repeat;
 }
 #aa-wrap .ttl.nl {
-  background: url(/images/chronicles/ANCIENS-ARTICLES.png) 0 0 no-repeat;
+  background: url(/images/chronicles/ANCIENS-ARTICLES_nl.png) 0 0 no-repeat;
 }
 #carousel-wrap {
   position: relative;
@@ -455,6 +470,23 @@ a.add:hover
 {
   background: url(/images/chronicles/button_ajouter.png) 0 100%;
 }
+a.add.nl
+{
+  background: url(/images/chronicles/button_ajouter-nl.png);
+}
+a.add.en
+{
+  background: url(/images/chronicles/button_ajouter-en.png);
+}
+a.add.nl:hover
+{
+  background: url(/images/chronicles/button_ajouter-nl.png) 0 100%;
+}
+a.add.en:hover
+{
+  background: url(/images/chronicles/button_ajouter-en.png) 0 100%;
+}
+
 a.streaming
 {
   text-indent: -999em;
@@ -467,6 +499,23 @@ a.streaming
 a.streaming:hover
 {
   background: url(/images/chronicles/button_vod.png) 0 100%;
+}
+
+a.streaming.nl
+{
+  background: url(/images/chronicles/button_vod-nl.png);
+}
+a.streaming.nl:hover
+{
+  background: url(/images/chronicles/button_vod-nl.png) 0 100%;
+}
+a.streaming.en
+{
+  background: url(/images/chronicles/button_vod-en.png);
+}
+a.streaming.en:hover
+{
+  background: url(/images/chronicles/button_vod-en.png) 0 100%;
 }
 #article .description a, #carousel p a
 {

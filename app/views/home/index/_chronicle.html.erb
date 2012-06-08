@@ -1,22 +1,17 @@
 <% path = chronicle_path(:id => chronicle.to_param) %>
 <div id="nina-wrap">
-  <div class="ttl maven">Les chroniques de Nina <span>NEW</span></div>
+  <div class="ttl maven"><%= t '.main_title' %></div>
   <div id="nina-tabcontent-wrap">
     <div id="selection-tab1" class="tab-content-selection clearfix">
       <div class="carousel-wrap">
         <ul class="slides">
-          <li class=intro_nina><h3>Un nouvel espace sur DVDPost...</h3>
-            <p>Qui parle de cinéma<br />
-              Avec des critiques,<br />
-              Des focus,<br />
-              Des coups de coeur,<br />
-              Des films à découvrir,<br />
-              ... un regard différent sur le 7ème Art...</p>
-              <p><%= link_to "En savoir plus", chronicles_path(), :class => :btn_savoirplus %></a></p>
+          <li class=intro_nina><h3><%= t '.details_title' %></h3>
+            <p><%= t '.details' %></p>
+              <p><%= link_to t('.more'), chronicles_path(), :class => :btn_savoirplus %></a></p>
             
           </li>
           <li class="nina">
-            <h4>Notre dernier article :</h4>
+            <h4><%= t '.title' %> :</h4>
             <h3>
               <% text = "<strong>#{t("chronicles.menu.cat_#{@chronicle.category.to_param}")} : #{chronicle.contents.by_language(I18n.locale).first.title}</strong><br />
               </a>" %>
@@ -26,7 +21,7 @@
             <div class="wrap">
               <p><%= truncate_html(chronicle.contents.by_language(I18n.locale).first.description.gsub(/<\/?.*?>/, ""), :length => 450) %></p>    
               <p>
-                <%= link_to "LIRE LA SUITE", path, :class => :lirelasuite, :target => "_blank" %>
+                <%= link_to t('.read_more'), path, :class => :lirelasuite, :target => "_blank" %>
               </p>
               <%= link_to image_tag(chronicle.cover.url(:small), :width => 107), path, :class => :thumb %> </div>
           </li>

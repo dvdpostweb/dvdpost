@@ -30,9 +30,9 @@
           <%= link_to image_tag(File.join(I18n.locale.to_s, 'bannerflashvente.png')), shop_path %>
         </li>
       <% end %>
-      <% if I18n.locale == :fr %>
+      <% if I18n.locale != :en %>
       <li>
-        <%= link_to image_tag('banner_nina.png'), chronicles_path %>
+        <%= link_to image_tag("banner_nina#{I18n.locale == :nl ? '_nl' : ''}.png"), chronicles_path %>
       </li>
       <% end %>
     </ul>
