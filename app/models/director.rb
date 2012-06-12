@@ -4,13 +4,14 @@ class Director < ActiveRecord::Base
   set_primary_key :directors_id
 
   alias_attribute :name, :directors_name
-  
+  alias_attribute :birth_at, :directors_dateofbirth
+
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :cache_column => 'cached_slug' 
 
   has_many :products, :foreign_key => :products_directors_id
   
   define_index do
-    indexes directors_name,                 :as => :actors_name, :sortable => true
+    indexes directors_name,                 :as => :directors_name, :sortable => true
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -20,13 +21,21 @@ class Director < ActiveRecord::Base
     set_property :field_weights => {:directors_name => 5}
   end
 
+  def image(number = 1)
+    if image_active
+      File.join(DVDPost.images_path, "directors", "#{id}.jpg")
+    else
+      '/images/no_picture.jpg'
+    end
+  end
+
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
-  def self.search_clean(query_string, kind)
+  def self.search_clean(query_string, count = false)
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
@@ -34,10 +43,32 @@ class Director < ActiveRecord::Base
       end
     end
     query_string = qs.join(' ')
-    self.search.by_kind(kind).search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
+    if count
+      self.search.search_count(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :directors_name, :match_mode => :extended)
+    else
+      self.search.search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :directors_name, :match_mode => :extended)
+    end
   end
   
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    #str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str
   end
+
+  def human_birth
+    if birth_at
+      str = "<b>Né(e) le :</b> #{birth_at.strftime('%d/%m/%Y') } #{}"
+      str += " à #{birth_place}<br>" if birth_place
+    end
+    str
+  end
+
+  def human_death
+    if death_at
+      str = "<b>décédé(e) le :</b> #{death_at.strftime('%d/%m/%Y') }"
+      str += " à #{death_place}<br>" if death_place
+    end
+    str
+  end
+
 end

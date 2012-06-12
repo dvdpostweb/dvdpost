@@ -615,7 +615,7 @@ class Product < ActiveRecord::Base
       end
     end
     query_string = qs.join(' ')
-    query_string = "@descriptions_title #{query_string}" if 1==0 && !query_string.empty?
+    query_string = "@descriptions_title #{query_string}" if !query_string.empty?
     page = options[:page] || 1
     limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = options[:per_page] || self.per_page
@@ -638,7 +638,8 @@ class Product < ActiveRecord::Base
   end
 
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    #str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str
   end
 
   def self.notify_hoptoad(ghost)

@@ -4788,3 +4788,13 @@ background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transpare
   font-size: 1.3em;
   margin: 6px;
 }
+.studios{
+  display:block;
+  width: 162px;
+  height:100px;
+  overflow:hidden;
+}
+.studios img:hover{
+  position: relative;
+  top: -102px;
+}

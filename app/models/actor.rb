@@ -5,7 +5,7 @@ class Actor < ActiveRecord::Base
 
   alias_attribute :name, :actors_name
   alias_attribute :top, :top_actors
-  
+  alias_attribute :birth_at, :actors_dateofbirth   
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :by_kind, lambda {|kind| {:conditions => {:actors_type => DVDPost.actor_kinds[kind]}}}
   named_scope :by_sexuality, lambda {|sexuality| {:conditions => {:sexuality => sexuality.to_s}}}
@@ -40,14 +40,38 @@ class Actor < ActiveRecord::Base
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
   def image(number = 1)
-    File.join(DVDPost.imagesx_path, "actors", "#{id}_#{number}.jpg")
+    if number > 0
+      File.join(DVDPost.imagesx_path, "actors", "#{id}_#{number}.jpg")
+    else
+      if image_active
+        File.join(DVDPost.images_path, "actors", "#{id}.jpg")
+      else
+        '/images/no_picture.jpg'
+      end
+    end
+  end
+
+  def human_birth
+    if birth_at
+      str = "<b>Né(e) le :</b> #{birth_at.strftime('%d/%m/%Y') } #{}"
+      str += " à #{birth_place}<br>" if birth_place
+    end
+    str
+  end
+
+  def human_death
+    if death_at
+      str = "<b>décédé(e) le :</b> #{death_at.strftime('%d/%m/%Y') }"
+      str += " à #{death_place}<br>" if death_place
+    end
+    str
   end
 
   def top?
     top && top > 0
   end
   
-  def self.search_clean(query_string, kind)
+  def self.search_clean(query_string, kind, count = false)
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
@@ -55,11 +79,16 @@ class Actor < ActiveRecord::Base
       end
     end
     query_string = qs.join(' ')
-    self.search.by_kind(kind).search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
+    if count
+      self.search.by_kind_int(kind).search_count(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
+    else
+      self.search.by_kind_int(kind).search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
+    end
   end
   
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    #str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str
   end
   
 end

@@ -1,6 +1,19 @@
-<% if actor.image_active %>
-  <% 3.times do |i| %>
-    <% i += 1 %>
-    <%= image_tag actor.image(i), :width => 150 %>
+  <% if params[:kind] == :adult %>
+    <% 3.times do |i| %>
+      <% i += 1 %>
+      <%= image_tag actor.image(i), :width => 150 %>
+    <% end %>
+  <% else %>
+  <div class="detail-box">
+    <div class="people">
+      <%= image_tag actor.image(0), :height => 193 %>
+    </div>
+    <div class="detail-text" align="justify">
+      <p><em><%= actor.class.to_s == 'Actor' ? 'Acteur' : 'réalisateur' %></em><br>
+      <%= actor.human_birth %>
+      <%= actor.human_death %>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+  <br />
   <% end %>
-<% end %>

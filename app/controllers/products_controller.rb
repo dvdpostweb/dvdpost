@@ -32,8 +32,8 @@ class ProductsController < ApplicationController
       params['actor_id'] = @actor.id
     end
     if params['director_id']
-      director = Director.find(params['director_id'])
-      params['director_id'] = director.id
+      @director = Director.find(params['director_id'])
+      params['director_id'] = @director.id
     end
     
     
@@ -59,31 +59,50 @@ class ProductsController < ApplicationController
     @collections = Category.by_size.random
     respond_to do |format|
       format.html do
+        
         if params[:search] && !params[:search].empty?
-          @exact_products = Product.filter(@filter, params.merge(:exact => 1)) 
-          #@actors = Actor.search_clean(params[:search], params[:kind])
+          @exact_products = Product.filter(@filter, params.merge(:exact => 1))
+          @directors_count =  Director.search_clean(params[:search], true)
+          @actors_count = Actor.search_clean(params[:search], params[:kind], true)
         end
-        unless params[:type] == 'actors'
-        @products = if params[:view_mode] == 'recommended'
+        if session[:sexuality] == 0
+          new_params = params.merge(:hetero => 1) 
+        else
+          new_params = params
+        end
+        @products = 
+        if params[:view_mode] == 'recommended'
           if(session[:sort] != params[:sort])
             expiration_recommendation_cache()
           end
           session[:sort]=params[:sort] 
-          
+
           retrieve_recommendations(params[:page], params.merge(:per_page => 20))
         else
-          if session[:sexuality] == 0
-            new_params = params.merge(:hetero => 1) 
-          else
-            new_params = params
-          end
+          
           if @exact_products && @exact_products.size > 0
             Product.filter(@filter, new_params, @exact_products)
           else
             Product.filter(@filter, new_params)
           end
         end
-        end 
+        @products_count = @products.count
+        
+        if params[:search] && !params[:search].empty?
+          if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
+            if @actors_count > 0
+              params[:type] = 'actors'
+            elsif @directors_count > 0
+               params[:type] = 'directors'
+            end 
+          end
+          if params[:type] == 'actors'
+            @actors = Actor.search_clean(params[:search], params[:kind], false)
+          elsif params[:type] == 'directors'
+            @directors = Director.search_clean(params[:search], false)
+          end
+        end
+        
         @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @jacket_mode = Product.get_jacket_mode(params)
       end
