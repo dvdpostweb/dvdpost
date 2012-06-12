@@ -1,0 +1,142 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {text-shadow: none !important;}
+
+#titles-wrap, #detail-wrap {
+    background: none !important;
+	    padding: 0 15px 5px 0 !important;
+
+}
+
+#search-wrap .content-tabs li a.active {
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background: none repeat scroll 0 0 #FFFFFF !important;
+	border-color: #191E24 #191E24 -moz-use-text-color;
+	border-style: solid solid none;
+	border-width: 1px 1px medium;
+	color: #191e23;
+	position: relative;
+	z-index: 100;
+	line-height: 32px;
+}
+
+#search-wrap .content-tabs li a {
+	background: url("http://private.dvdpost.com/images/tabs-delimiter.gif") no-repeat scroll 0 0 transparent;
+	color: #FFFFFF;
+	display: block;
+	font-size: 1.33em;
+	font-weight: bold;
+	line-height: 32px;
+	padding: 0 16px 0 18px;
+	text-decoration: none;
+}
+
+#search-wrap .content-tabs {
+	background:#191e23;
+	display: inline-block;
+	height: 32px;
+}
+#search-wrap .content-tabs li {
+	float: left;
+}
+
+#search-wrap li {
+	padding-left: 0 ;
+}
+
+#search-wrap  #selection-tab1 {
+    border: 1px solid #36404E;
+    height: 244px;
+}
+
+
+#search-wrap .content-tabs {
+	background:#191e23;
+	display: inline-block;
+	height: 32px;
+}
+
+#search-wrap .content-tabs li {
+	float: left;
+}
+
+.bysort {
+    margin: 6px 0 0 458px !important;
+}
+
+#search_content {
+border:#191e23 1px solid;
+min-height:123px;
+ width: 715px;
+
+}
+
+
+#titles-wrap .dvd, #titles-wrap .vod, #titles-wrap .bluray, #titles-wrap .bluray3d {
+  margin-left: 18px;
+  margin-top: 12px;
+  width: 585px;
+}
+
+ul.grid {
+  margin-left: 15px;
+  overflow: hidden;
+  width: auto; padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.unit img {
+    margin: 0 0 8px;
+}
+
+.unit h3 {
+  margin: 4px 0 15px 0;
+	color: #191E23;
+  font-weight: bold;
+}
+
+ul.grid li {
+  display: inline;
+  float: left;
+  margin: 0 0 0 20px;
+  overflow: hidden;
+}
+.detail-box .people {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+
+.detail-text {color: #646464;}
+
+h4 {
+  color: #646464;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 4px 0 7px;
+  text-transform: uppercase; 
+}
+
+.detail-box { padding-bottom: 10px;}
+
+.button-more-txt, .button-less-txt {
+  background: url("../images/arrow.png") no-repeat scroll 47px 3px transparent;
+  color: #191E23;
+  height: 0;
+  padding: 0 23px 0 7px;
+}
+.unit a.img
+{
+  display: block;
+  height: 193px;
+  overflow: hidden;
+}
+.unit a
+{
+  color: black;
+}

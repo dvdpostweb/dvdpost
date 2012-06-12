@@ -18,6 +18,6 @@ class Studio < ActiveRecord::Base
   has_many :products, :foreign_key => :products_studio
 
   def image
-    File.join(DVDPost.images_path, "distributors", "#{id}.jpg")
+    File.join(DVDPost.images_path, "distributors", "#{id}b.jpg")
   end
 end
