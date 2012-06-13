@@ -41,7 +41,11 @@ class Actor < ActiveRecord::Base
 
   def image(number = 1)
     if number > 0
-      File.join(DVDPost.imagesx_path, "actors", "#{id}_#{number}.jpg")
+      if image_active
+        File.join(DVDPost.imagesx_path, "actors", "#{id}_#{number}.jpg")
+      else
+        '/images/no_picture.jpg'
+      end
     else
       if image_active
         File.join(DVDPost.images_path, "actors", "#{id}.jpg")
