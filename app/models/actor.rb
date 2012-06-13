@@ -68,7 +68,7 @@ class Actor < ActiveRecord::Base
   end
 
   def adult?
-    actors_type == 'dvd_adult'
+    actors_type == 'DVD_ADULT'
   end
 
   def top?
