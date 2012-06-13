@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
         
         if params[:search] && !params[:search].empty?
           @exact_products = Product.filter(@filter, params.merge(:exact => 1))
-          @directors_count =  Director.search_clean(params[:search], true)
+          params[:kind] == :normal ? @directors_count =  Director.search_clean(params[:search], true) : 0
           @actors_count = Actor.search_clean(params[:search], params[:kind], true)
         end
         if session[:sexuality] == 0

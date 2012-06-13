@@ -1,6 +1,7 @@
 <li class="unit">
   <% path = people.class.to_s == 'Actor' ? actor_products_path(:actor_id => people.to_param) : director_products_path(:director_id => people.to_param) %>
-  <% img = image_tag people.image(0), :width => 145 %>
+  <% image_number = people.class.to_s == 'Actor' ? (people.adult? ? 1 : 0) : 0 %>
+  <% img = image_tag people.image(image_number), :width => 145 %>
   <%= link_to img, path, :class => :img %>
   <h3><%= link_to truncate(people.name, 20), path %></h3>
 </li>
