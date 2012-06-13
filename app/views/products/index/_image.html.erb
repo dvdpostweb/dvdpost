@@ -1,5 +1,5 @@
   <% if params[:kind] == :adult %>
-    <% if actor.image_active == 1 %>
+    <% if actor.image_active %>
       <% 3.times do |i| %>
         <% i += 1 %>
         <%= image_tag actor.image(i), :width => 150 %>
