@@ -4798,3 +4798,7 @@ background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transpare
   position: relative;
   top: -102px;
 }
+#search_content h2
+{
+  padding: 0 0 0 16px;
+}
