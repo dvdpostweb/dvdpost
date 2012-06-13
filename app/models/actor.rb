@@ -67,6 +67,10 @@ class Actor < ActiveRecord::Base
     str
   end
 
+  def adult?
+    actors_type == 'dvd_adult'
+  end
+
   def top?
     top && top > 0
   end
