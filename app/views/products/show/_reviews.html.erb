@@ -7,7 +7,7 @@
   <div class="bysort_choice">
     
     <% form_for(:review, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
-      <%= select_tag(:sort, options_for_select(sort_review2_for_select, @review_sort)) %>
+      <%= select_tag(:sort, options_for_select(sort_review2_for_select, review_sort)) %>
     <% end %>
   </div>
   <div style="clear:both"></div>

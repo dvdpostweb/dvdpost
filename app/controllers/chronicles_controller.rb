@@ -6,17 +6,15 @@ class ChroniclesController < ApplicationController
           format.html do
             @page = params[:page] || 1
             if params[:category_id]
-              @chronicle = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.ordered.first : ChronicleCategory.find(params[:category_id]).chronicles.beta.ordered.first
-              @chronicles = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.exclude(@chronicle.to_param).ordered.paginate(:per_page => 4, :page => @page) : ChronicleCategory.find(params[:category_id]).chronicles.beta.exclude(@chronicle.to_param).ordered.paginate(:per_page => 4, :page => @page)
-              chronicles_count = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private.count : ChronicleCategory.find(params[:category_id]).chronicles.beta.count
-              @nb_page = ((chronicles_count.to_f)/4.0).ceil
+              sql = Rails.env == 'production' ? ChronicleCategory.find(params[:category_id]).chronicles.private : ChronicleCategory.find(params[:category_id]).chronicles.beta
+              @chronicle =  sql.ordered.first(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
+              @chronicles =   sql.exclude(@chronicle.to_param).ordered.all(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}}).paginate(:per_page => 4, :page => @page)
             else
-              @chronicle =  Rails.env == 'production' ? Chronicle.private.selected.ordered.first : Chronicle.selected.beta.ordered.first
-              @chronicles = Rails.env == 'production' ? Chronicle.private.not_selected.ordered.paginate(:per_page => 4, :page => @page) : Chronicle.beta.not_selected.ordered.paginate(:per_page => 4, :page => @page)
-              chronicles_count = Rails.env == 'production' ? Chronicle.private.not_selected.count : Chronicle.beta.not_selected.count
-              @nb_page = ((chronicles_count.to_f)/4.0).ceil
-
+              sql = Rails.env == 'production' ? Chronicle.private : Chronicle.beta
+              @chronicle = sql.selected.ordered.first(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
+              @chronicles = sql.not_selected.ordered.all(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}}).paginate(:per_page => 4, :page => @page)
             end
+            @nb_page = @chronicles.total_pages
           end
           format.rss do
             @chronicles = Rails.env == 'production' ? Chronicle.private.ordered : Chronicle.beta.ordered

@@ -119,16 +119,35 @@ class ProductsController < ApplicationController
 
   def show
     user_agent = UserAgent.parse(request.user_agent)
-    @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
-    data = @product.description_data(true)
-    @product_title = data[:title]
-    @product_image = data[:image]
-    @product_description =  data[:description]
-    unless request.format.xml?
-      @filter = get_current_filter({})
+    @filter = get_current_filter({})
+    if request.format.html?
+      @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
+      data = @product.description_data(true)
+      @product_title = data[:title]
+      @product_image = data[:image]
+      @product_description =  data[:description]
       @product.views_increment(@product_description)
       @public_url = product_public_path(@product)
-       if params[:sort]
+      @categories = @product.categories
+      @already_seen = current_customer.assigned_products.include?(@product) if current_customer
+      @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
+      @collections = Collection.by_size.random if params[:kind] == :adult
+      #@chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
+      #fragment_name = "cinopsis_#{@product.id}"
+      #@cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
+      #   begin
+      #      DVDPost.cinopsis_critics(@product.imdb_id.to_s)
+      #    rescue => e
+      #      false
+      #      logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
+      #    end
+      #end
+      
+      @cinopsis = nil
+      #@cinopsis = Marshal.load(@cinopsis) if @cinopsis
+    end
+    if request.format.html? || (request.format.js? && (params[:reviews_page] || params[:sort]))
+      if params[:sort]
         sort = Review.sort2[params[:sort].to_sym]
         @review_sort = params[:sort].to_sym
         cookies[:review_sort] = { :value => params[:sort], :expires => 1.year.from_now }
@@ -155,7 +174,8 @@ class ProductsController < ApplicationController
         end
       end
       @reviews_count = product_reviews_count(@product)
-      
+    end
+    if request.format.html? || (request.format.js? && params[:recommendation_page])
       product_recommendations = @product.recommendations(params[:kind])
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       if !params[:recommendation].nil?
@@ -165,27 +185,10 @@ class ProductsController < ApplicationController
       else
         @source = @wishlist_source[:elsewhere]
       end
-      @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
     end
-    @collections = Collection.by_size.random
     respond_to do |format|
       
       format.html do
-        @categories = @product.categories
-        @already_seen = current_customer.assigned_products.include?(@product) if current_customer
-        
-        #fragment_name = "cinopsis_#{@product.id}"
-        #@cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
-        #   begin
-        #      DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-        #    rescue => e
-        #      false
-        #      logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
-        #    end
-        #end
-        
-        @cinopsis = nil
-        #@cinopsis = Marshal.load(@cinopsis) if @cinopsis
         if  @source.to_i == @wishlist_source[:recommendation] ||  @source.to_i == @wishlist_source[:recommendation_product]
           Customer.send_evidence('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
@@ -193,7 +196,7 @@ class ProductsController < ApplicationController
       end
       format.js {
         if params[:reviews_page] || params[:sort]
-          render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
+          render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort}
         elsif params[:recommendation_page]
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
         end

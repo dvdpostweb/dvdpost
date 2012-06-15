@@ -61,6 +61,11 @@ FB.init({
                   <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
                 </li>
               <% end %>
+              <% if @chronicle %>
+              <li>
+                chonicles
+              </li>
+              <% end %>
             </ul>
             <% if params[:kind] == :adult && @product.in_streaming_or_soon? %>
               <div>
@@ -116,7 +121,7 @@ FB.init({
           <div id="tab-content-movie" class="tab_content">
             <% if @reviews_count > 0 %>
             <ul class="clearfix content_item">
-              <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
+              <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort} %>
             </ul>
             <% else %>
               <% if current_customer %>
