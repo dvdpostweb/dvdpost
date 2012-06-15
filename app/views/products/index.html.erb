@@ -1,6 +1,6 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
-  <div id="title"><%= products_index_title %></div>
+  <div id="title"><%= products_index_title unless (@actor && !@actor.adult?) || @director %></div>
   <%= render :partial => 'products/index/image', :locals => {:actor => @actor} if @actor %>
   <%= render :partial => 'products/index/image', :locals => {:actor => @director} if @director %>
   <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
@@ -15,9 +15,9 @@
           <div id="selection-tabcontent-wrap">
             <% if params[:search] && !params[:search].empty? %>
             <ul class="content-tabs">
-              <%= "<li>#{link_to 'Films', url_for(params.merge(:type => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
-              <%= "<li>#{link_to 'Réalisateurs', url_for(params.merge(:type => 'directors')), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
-              <%= "<li>#{link_to 'Acteurs', url_for(params.merge(:type => 'actors')), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
+              <%= "<li>#{link_to t('.films')  , url_for(params.merge(:type => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
+              <%= "<li>#{link_to t('.directors'), url_for(params.merge(:type => 'directors')), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
+              <%= "<li>#{link_to t('.actors'), url_for(params.merge(:type => 'actors')), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
             </ul>
             <% end %>
             <div id="search_content">

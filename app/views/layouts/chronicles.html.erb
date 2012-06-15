@@ -68,6 +68,13 @@
       <li>
       	<%= link_to t('.dvdpost'), ENV['HOST_OK'] == "1" ? php_path : root_path %>
       </li>
+			<li>
+      	<%= link_to 'fr', params.merge(:locale => I18n.locale) %>
+      </li>
+			<li>
+      	<%= link_to 'nl', params.merge(:locale => I18n.locale) %>
+      </li>
+			
     </ul>
   </div>
   <!--   ==============   END HEADER   ==============   -->

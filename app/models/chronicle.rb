@@ -6,7 +6,7 @@ class Chronicle < ActiveRecord::Base
 
   named_scope :private, :conditions => {:status => 'ONLINE'}
   named_scope :beta, :conditions => {:status => ['ONLINE','TEST']}
-  named_scope :exclude, lambda {|id| {:conditions => ["id != ?", id]}}
+  named_scope :exclude, lambda {|id| {:conditions => ["chronicles.id != ?", id]}}
   named_scope :selected, :conditions => {:selected => true}
   named_scope :not_selected, :conditions => {:selected => false}
   named_scope :ordered, :order => "id desc"

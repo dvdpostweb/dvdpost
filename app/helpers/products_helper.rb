@@ -532,4 +532,21 @@ module ProductsHelper
       link_to t('products.left_column.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? && params[:controller] == 'products' ? :actived : ''
     end
   end
+
+  def human_birth(people)
+    if people.birth_at
+      str = "<b>#{t '.birth_at'} :</b> #{people.birth_at.strftime('%d/%m/%Y') }"
+      str += " #{t '.at'} #{people.birth_place}<br>" if people.birth_place
+    end
+    str
+  end
+
+  def human_death(people)
+    if people.death_at
+      str = "<b>#{t '.death_at'} :</b> #{people.death_at.strftime('%d/%m/%Y') }"
+      str += " #{t '.at'} #{people.death_place}<br>" if people.death_place
+    end
+    str
+  end
+  
 end

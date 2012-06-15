@@ -3753,7 +3753,7 @@ min-height:254px;
 padding-left:20px;
 padding-right:20px;
 position:relative;
-width:612px;
+width:671px;
 }
 
 #carousel_vod-wrap {
@@ -3766,13 +3766,6 @@ width:612px;
   text-transform: uppercase;
 }
 
-#carousel_vod {
-  height: 262px;
-  margin-bottom: 10px;
-  padding: 0 30px;
-  position: relative;
-  width: 612px;
-}
 #carousel_vod .error, #flash-news .error, .tab_container .error
 {
   background: url("/images/attention_icon.png") no-repeat scroll 0 0 transparent;
@@ -3805,7 +3798,7 @@ width:612px;
   margin: 0 5px;
   overflow: hidden;
   text-align: center;
-  width: 92px;
+  width: 100px;
 }
 
 #carousel_vod-wrap-hp #carousel_vod li {
@@ -3815,7 +3808,7 @@ width:612px;
   margin: 0 5px;
   overflow: hidden;
   text-align: center;
-  width: 92px;
+  width: 101px;
 }
 * html #carousel_vod li {
   display: inline;

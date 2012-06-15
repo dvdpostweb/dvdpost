@@ -55,22 +55,6 @@ class Actor < ActiveRecord::Base
     end
   end
 
-  def human_birth
-    if birth_at
-      str = "<b>Né(e) le :</b> #{birth_at.strftime('%d/%m/%Y') } #{}"
-      str += " à #{birth_place}<br>" if birth_place
-    end
-    str
-  end
-
-  def human_death
-    if death_at
-      str = "<b>décédé(e) le :</b> #{death_at.strftime('%d/%m/%Y') }"
-      str += " à #{death_place}<br>" if death_place
-    end
-    str
-  end
-
   def adult?
     actors_type == 'DVD_ADULT'
   end

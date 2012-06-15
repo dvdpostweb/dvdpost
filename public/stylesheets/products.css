@@ -140,3 +140,11 @@ h4 {
 {
   color: black;
 }
+.detail-text #detail
+{
+  line-height: 21px;
+}
+#titles-wrap .top, #titles-wrap .end
+{
+  background:none !important;
+}

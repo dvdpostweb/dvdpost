@@ -11,9 +11,12 @@
       <%= image_tag actor.image(0), :height => 193 %>
     </div>
     <div class="detail-text" align="justify">
-      <p><em><%= actor.class.to_s == 'Actor' ? 'Acteur' : 'réalisateur' %></em><br>
-      <%= actor.human_birth %>
-      <%= actor.human_death %>
+      <div id="title"><%= actor.name %></div>
+      <p><em><%= actor.class.to_s == 'Actor' ? t('products.index.actors') : t('products.index.directors') %></em><br></p>
+      <div id="detail">
+        <%= human_birth(actor) %>
+        <%= human_death(actor) %>
+      </div>
     </div>
   </div>
   <div style="clear:both"></div>
