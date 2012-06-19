@@ -17,7 +17,16 @@ class Token < ActiveRecord::Base
   
   named_scope :ordered, :order => 'updated_at asc'
   named_scope :ordered_old, :order => 'updated_at desc'
-  
+
+  def self.regen
+    Token.recent(2.days.ago.localtime, Time.now).each do |token|
+      filename = token.streaming_products.alpha.first.filename
+      puts filename
+      token_string = DVDPost.generate_token_from_alpha(filename, :normal)
+      puts token_string
+      token.update_attribute(:token, token_string)
+    end
+  end
   
   def self.validate(token_param, filename, ip)
     

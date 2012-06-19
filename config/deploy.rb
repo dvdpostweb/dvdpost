@@ -10,7 +10,7 @@ require 'capistrano/ext/multistage'
 
 require 'bundler/capistrano'
 
-after 'deploy:symlink' do
+after 'deploy:create_symlink' do
   run "ln -nfs #{deploy_to}/shared/uploaded/partner_logos #{deploy_to}/#{current_dir}/public/images/logo"
   run "ln -nfs #{deploy_to}/shared/uploaded/chronicles #{deploy_to}/#{current_dir}/public/images/chronicles/covers"
 end

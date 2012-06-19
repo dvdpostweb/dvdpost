@@ -144,7 +144,7 @@ h4 {
 {
   line-height: 21px;
 }
-#titles-wrap .top, #titles-wrap .end
+#titles-wrap .top, #titles-wrap .end, #detail-wrap .top, #detail-wrap .end 
 {
   background:none !important;
 }
