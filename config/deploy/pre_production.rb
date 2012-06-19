@@ -113,10 +113,10 @@ namespace :deploy do
   end
 end
 
-before 'deploy:symlink', 'deploy:stop_ts'
-after 'deploy:symlink', 'deploy:update_ts'
+before 'deploy:create_symlink', 'deploy:stop_ts'
+after 'deploy:create_symlink', 'deploy:update_ts'
 
-after "deploy:symlink", "deploy:update_crontab"  
+after "deploy:create_symlink", "deploy:update_crontab"  
    
 namespace :deploy do  
   desc "Update the crontab file"  
