@@ -1,4 +1,4 @@
-<%= content = Rails.env == 'production' ? @chronicle.contents.by_language(I18n.locale).private.first : @chronicle.contents.by_language(I18n.locale).beta.first %>
+<% content = Rails.env == 'production' ? @chronicle.contents.by_language(I18n.locale).private.first : @chronicle.contents.by_language(I18n.locale).beta.first %>
 <% if content %>
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent" >
