@@ -534,9 +534,8 @@ module ProductsHelper
   end
 
   def human_birth(people)
-    Rails.logger.debug { "@@@#{people.birth_at}" }
     if people.birth_at
-      date = Date.strptime(people.birth_at, "%Y-%m-%d")
+      date = Date.parse(people.birth_at)
       str = "<b>#{t '.birth_at'} :</b> #{date.strftime('%d/%m/%Y') }"
       str += " #{t '.at'} #{people.birth_place}<br>" if people.birth_place
     end
@@ -545,8 +544,7 @@ module ProductsHelper
 
   def human_death(people)
     if people.death_at
-      date = Date.strptime(people.death_at, "%Y-%m-%d")
-      str = "<b>#{t '.death_at'} :</b> #{date.strftime('%d/%m/%Y') }"
+      str = "<b>#{t '.death_at'} :</b> #{people.death_at.strftime('%d/%m/%Y') }"
       str += " #{t '.at'} #{people.death_place}<br>" if people.death_place
     end
     str
