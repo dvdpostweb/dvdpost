@@ -3,7 +3,7 @@
 <% path = chronicle_path(:id => article.to_param) %>
 <li> 
   <div class="cross">
-    <%= link_to image_tag(article.cover.url(:small), :width => 200), path %>
+    <%= link_to image_tag(content.cover.url(:small), :width => 200), path %>
   </div>
    <span class="icon">
      <%= image_tag article.category.image, :size => "47x49" if article.category %>

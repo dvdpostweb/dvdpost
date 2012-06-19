@@ -3,4 +3,9 @@ class ChronicleContent < ActiveRecord::Base
   belongs_to :chronicle
 
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => DVDPost.product_languages[language]}}}
+  named_scope :private, :conditions => {:status => 'ONLINE'}
+  named_scope :beta, :conditions => {:status => ['ONLINE','TEST']}
+  has_attached_file :cover, :styles => { :small => "237>x237" },
+                            :url  => "http://private.dvdpost.com/images/chronicles/covers/:id/:style/:basename.:extension",
+                            :path => "/home/webapps/dvdpostapp/production/shared/uploaded/chronicles/:id/:style/:basename.:extension"
 end

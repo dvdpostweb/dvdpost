@@ -1,16 +1,18 @@
+<%= content = Rails.env == 'production' ? @chronicle.contents.by_language(I18n.locale).private.first : @chronicle.contents.by_language(I18n.locale).beta.first %>
+<% if content %>
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent" >
   <div id="articles-wrap">
   	<div id="content">
 	    <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
-      <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= title = @chronicle.contents.by_language(I18n.locale).first.title %></h2>
-      <p><em><%= @chronicle.contents.by_language(I18n.locale).first.subtitle %></em></p>
+      <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= title = content.title %></h2>
+      <p><em><%= content.subtitle %></em></p>
       <p>
-        <%= @chronicle.contents.by_language(I18n.locale).first.full_description %>
+        <%= content.full_description %>
       </p>
     </div><!-- #content -->
     <div id="left-sidebar">
-      <% img = image_tag @chronicle.cover.url(:small), :width => 237 %>
+      <% img = image_tag content.cover.url(:small), :width => 237 %>
     	<%=  @chronicle.imdb_id ? link_to(img, products_path(:imdb_id => @chronicle.imdb_id)) : img %>
       <div id="social-wrap">
         <% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
@@ -27,14 +29,15 @@
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   --> 
 </div>
+<% end %>
 <% content_for :facebook do %>
-    <meta property="og:image" content="<%= @chronicle.cover.url(:small) %>"/> 
+    <meta property="og:image" content="<%= content.cover.url(:small) %>"/> 
     <meta property="og:type" content="article">
     <meta property="og:title" content="<%= "#{t('layouts.chronicles.title')} : #{title}" %>">
     <meta property="og:url" content="<%= url %>">
     <meta property="og:site_name" content="DVDPost"/>
     <meta property="fb:admins" content="542538810,586983921"/>
-    <meta property="og:description" content="<%= @chronicle.contents.by_language(I18n.locale).first.description.gsub(/<\/?.*?>/, "") %>">
+    <meta property="og:description" content="<%= content.description.gsub(/<\/?.*?>/, "") %>">
 <% end %>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {

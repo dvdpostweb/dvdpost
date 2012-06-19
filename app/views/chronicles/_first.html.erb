@@ -3,7 +3,7 @@
 
 <% path = chronicle_path(:id => first_item) %>
   <div id="article"> 
-    <%= link_to image_tag(first_item.cover.url(:small), :width => 237, :class => "left"), path %>
+    <%= link_to image_tag(first.cover.url(:small), :width => 237, :class => "left"), path %>
     <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
     <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= link_to first.title, path %></h2>
     <h3><%= first.subtitle %></h3>
