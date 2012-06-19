@@ -9,7 +9,7 @@ xml.rss :version => "2.0" do
       post = article.contents.by_language(I18n.locale).first
       xml.item do
         xml.title "Les Chroniques de Nina : #{post.title}"
-        xml.image article.cover.url(:small)
+        xml.image post.cover.url(:small)
         xml.description post.description
         xml.pubDate post.created_at.to_s(:rfc822)
         xml.link chronicle_url(:id => article.to_param)
