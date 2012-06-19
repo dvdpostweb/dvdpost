@@ -1,7 +1,7 @@
 <!-- Selection de la semaine -->
 <div id="selection-week-wrap">
   <div class="ttl maven"><%= params[:kind] == :normal ? t('.title') : t('.title_adult') %></div>
-  <div id="selection-tabcontent-wrap">
+  <div id="selection-tabcontent-wrap" class='home'>
     <%= render :partial => '/home/index/menu_selection', :locals => {:selection_week => selection_week} if params[:kind] != :adult %>
     <div class="tab-content-selection clearfix" id="selection-tab1">
       <!-- Carousel -->

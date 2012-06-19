@@ -42,7 +42,7 @@ $(function() {
     });
     return false;
   });
-  $('#selection-tabcontent-wrap .content-tabs a').live('click',function(){
+  $('#selection-tabcontent-wrap.home .content-tabs a').live('click',function(){
     url = this.href;
     set_page(url)
     html_item = $('#selection-week-wrap');
@@ -63,7 +63,7 @@ $(function() {
     });
     return false;
   });
-  $('#selection-tabcontent-wrap .pagination a,#selection-tabcontent-wrap .pagination2 a').live('click',function(){
+  $('#selection-tabcontent-wrap.home .pagination a,#selection-tabcontent-wrap .pagination2 a').live('click',function(){
     url = this.href;
     set_page(url)
     html_item = $('#selection-week-wrap');
