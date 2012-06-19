@@ -103,7 +103,7 @@ class HomeController < ApplicationController
       not_rated_products = current_customer.not_rated_products(kind)
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
-      if I18n.locale == :fr
+      if I18n.locale != :en
         status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
         @chronicle = Chronicle.private.last(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})  
       end
