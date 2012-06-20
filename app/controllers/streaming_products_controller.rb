@@ -34,26 +34,26 @@ class StreamingProductsController < ApplicationController
             if streaming_access?
               if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
                 if @token_valid == false && @vod_create_token == "0" && Rails.env != "pre_production"
-                  flash[:error] = t('streaming_products.not_available.offline')
-                  redirect_to root_path
+                  error = t('streaming_products.not_available.offline')
+                  show_error(error, @code)
                 else
                   render :action => :show
                 end
               else
-                flash[:error] = t('streaming_products.not_available.not_available')
-                redirect_to root_path
+                error = t('streaming_products.not_available.not_available')
+                show_error(error, @code)
               end
             else
-               flash[:error] = t('streaming_products.no_access.no_access')
-               redirect_to root_path
+               error = t('streaming_products.no_access.no_access')
+               show_error(error, @code)
             end  
           else
-            flash[:error] = t('streaming_products.not_available.offline')
-            redirect_to root_path
+            error = t('streaming_products.not_available.offline')
+            show_error(error, @code)
           end
         else
-          flash[:error] = t('streaming_products.not_available.not_available')
-          redirect_to root_path
+          error = t('streaming_products.not_available.not_available')
+          show_error(error, @code)
         end
       end
       format.js do
@@ -195,6 +195,15 @@ class StreamingProductsController < ApplicationController
       @customer_id = 0
     else
       @customer_id = current_customer.to_param
+    end
+  end
+
+  def show_error(error, code)
+    if code.nil?
+      flash[:error] = error
+      redirect_to root_path
+    else
+      render :partial => '/streaming_products/show/error', :layout => true, :locals => {:error => error}
     end
   end
 end
