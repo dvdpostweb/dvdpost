@@ -12,7 +12,7 @@
     </div>
     <div class="detail-text" align="justify">
       <div id="title"><%= actor.name %></div>
-      <p><em><%= actor.class.to_s == 'Actor' ? t('products.index.actors') : t('products.index.directors') %></em><br></p>
+      <p><em><%= actor.class.to_s == 'Actor' ? t('products.index.actor') : t('products.index.director') %></em><br></p>
       <div id="detail">
         <%= human_birth(actor) %>
         <%= human_death(actor) %>
