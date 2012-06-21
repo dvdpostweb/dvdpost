@@ -38,6 +38,8 @@ class Product < ActiveRecord::Base
   has_many :product_views
   has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
+  has_many :recommendations
+  has_many :recommendations_products, :through => :recommendations, :source => :product
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :collections, :join_table => :products_to_themes, :foreign_key => :products_id, :association_foreign_key => :themes_id
@@ -93,6 +95,7 @@ class Product < ActiveRecord::Base
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
+    has "concat(GROUP_CONCAT(DISTINCT IFNULL(`products_languages`.`languages_id`, '0') SEPARATOR ','),',', GROUP_CONCAT(DISTINCT IFNULL(`products_undertitles`.`undertitles_id`, '0') SEPARATOR ','))", :type => :multi, :as => :speaker
     has "(select if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :integer, :as => :new_vod
     has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
     has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
@@ -170,6 +173,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
+  sphinx_scope(:with_speaker)       {|speaker_ids|      {:with =>       {:speaker => speaker_ids}}}
   sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
@@ -364,7 +368,7 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
-  def recommendations(kind)
+  def recommendations2(kind)
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
@@ -374,6 +378,21 @@ class Product < ActiveRecord::Base
     if recommendation_ids && !recommendation_ids.empty?
       if kind == :normal
         Product.available.by_products_id(recommendation_ids) 
+      else
+        if categories.find_by_categories_id([76,72])
+          Product.available.gay.by_products_id(recommendation_ids)
+        else
+          Product.available.hetero.by_products_id(recommendation_ids)
+        end
+      end
+    end
+  end
+  
+  def get_recommendations(kind)
+    recommendation_ids = recommendations.collect(&:recommendation_id)
+    if recommendation_ids && !recommendation_ids.empty?
+      if kind == :normal
+        Product.search.available.by_products_id(recommendation_ids).with_speaker(DVDPost.product_languages[I18n.locale.to_s])
       else
         if categories.find_by_categories_id([76,72])
           Product.available.gay.by_products_id(recommendation_ids)

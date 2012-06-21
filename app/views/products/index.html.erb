@@ -55,7 +55,7 @@
       <% end %>
     </div></div></div></div></div>
   </div>
-  <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' if @products && params[:view_mode] != 'popular_streaming' %>
+  <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' if @products && params[:type].nil? && params[:view_mode] != 'popular_streaming' %>
   
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
