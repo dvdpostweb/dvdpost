@@ -97,8 +97,8 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has "concat(GROUP_CONCAT(DISTINCT IFNULL(`products_languages`.`languages_id`, '0') SEPARATOR ','),',', GROUP_CONCAT(DISTINCT IFNULL(`products_undertitles`.`undertitles_id`, '0') SEPARATOR ','))", :type => :multi, :as => :speaker
     has "(select 
-    if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month)))) limit 1)", :type => :integer, :as => :new_vod
-    has "(select unix_timestamp(if(available_from is null, available_backcatalogue_from,available_from)) date_order from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month)))) limit 1)", :type => :datetime, :as => :available_order
+    if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = 1852006 and status = 'online_test_ok' and available = 1 and (date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))) limit 1)", :type => :integer, :as => :new_vod
+    has "(select unix_timestamp(if(available_from is null, available_backcatalogue_from,available_from)) date_order from streaming_products where imdb_id = 1852006 and status = 'online_test_ok' and available = 1 and (date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))) limit 1)", :type => :datetime, :as => :available_order
     has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
     has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
     has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id asc limit 1)", :type => :datetime, :as => :available_bc_from
@@ -215,7 +215,8 @@ class Product < ActiveRecord::Base
      
      sort
   end
-
+  
+  
   def self.filter(filter, options={}, exact=nil)
     if options[:exact]
       products = search_clean_exact(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
@@ -230,7 +231,7 @@ class Product < ActiveRecord::Base
     products = products.hetero if options[:hetero] && (options[:category_id] && (options[:category_id].to_i != 76 && options[:category_id].to_i != 72) )
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
-
+    
     if options[:studio_id]
       if options[:filter] == "vod" && options[:kind] == :normal
         products = products.by_streaming_studio(options[:studio_id]) 
@@ -244,9 +245,9 @@ class Product < ActiveRecord::Base
     products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
     products = products.by_special_media([3,4,7]) if options[:filter] && options[:filter] == "bluray"
     products = products.by_special_media([6,7]) if options[:filter] && options[:filter] == "bluray3d"
-
+    
     if filter.media? && options[:kind] == :normal && options[:view_mode] != "streaming" && options[:filter] != "vod"
-
+      
       medias = filter.media.dup
       media_i = Array.new
       if medias.include?(:dvd)
