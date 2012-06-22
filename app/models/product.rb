@@ -38,7 +38,7 @@ class Product < ActiveRecord::Base
   has_many :product_views
   has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
-  has_many :recommendations
+  #has_many :recommendations
   has_many :recommendations_products, :through => :recommendations, :source => :product
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
@@ -96,12 +96,14 @@ class Product < ActiveRecord::Base
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has "concat(GROUP_CONCAT(DISTINCT IFNULL(`products_languages`.`languages_id`, '0') SEPARATOR ','),',', GROUP_CONCAT(DISTINCT IFNULL(`products_undertitles`.`undertitles_id`, '0') SEPARATOR ','))", :type => :multi, :as => :speaker
-    has "(select if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :integer, :as => :new_vod
+    has "(select 
+    if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = 1852006 and status = 'online_test_ok' and available = 1 and (date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))) limit 1)", :type => :integer, :as => :new_vod
+    has "(select unix_timestamp(if(available_from is null, available_backcatalogue_from,available_from)) date_order from streaming_products where imdb_id = 1852006 and status = 'online_test_ok' and available = 1 and (date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))) limit 1)", :type => :datetime, :as => :available_order
     has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
     has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
-    has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :available_bc_from
+    has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id asc limit 1)", :type => :datetime, :as => :available_bc_from
     has "(select expire_backcatalogue_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_backcatalogue_from asc limit 1)", :type => :datetime, :as => :expire_bc_at
-    has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at desc limit 1)", :type => :integer, :as => :streaming_studio_id
+    has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at asc limit 1)", :type => :integer, :as => :streaming_studio_id
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
@@ -177,7 +179,6 @@ class Product < ActiveRecord::Base
   sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
-  sphinx_scope(:vod_recent)         {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 2.months.ago..Time.now, :streaming_available => 1 }}}
   sphinx_scope(:new_vod)            {{:with =>          {:new_vod => 1}}}
   sphinx_scope(:vod_fresh)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_bc_from => 2.months.ago..Time.now, :streaming_available => 1 }}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
@@ -334,7 +335,7 @@ class Product < ActiveRecord::Base
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
       sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
-      sort = sort_by("available_from desc", options)
+      sort = sort_by("available_order desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_soon
       sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
@@ -368,7 +369,7 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
-  def recommendations2(kind)
+  def recommendations(kind)
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
