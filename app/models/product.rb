@@ -215,8 +215,7 @@ class Product < ActiveRecord::Base
      
      sort
   end
-  
-  
+
   def self.filter(filter, options={}, exact=nil)
     if options[:exact]
       products = search_clean_exact(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
@@ -231,7 +230,7 @@ class Product < ActiveRecord::Base
     products = products.hetero if options[:hetero] && (options[:category_id] && (options[:category_id].to_i != 76 && options[:category_id].to_i != 72) )
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
-    
+
     if options[:studio_id]
       if options[:filter] == "vod" && options[:kind] == :normal
         products = products.by_streaming_studio(options[:studio_id]) 
@@ -245,9 +244,9 @@ class Product < ActiveRecord::Base
     products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
     products = products.by_special_media([3,4,7]) if options[:filter] && options[:filter] == "bluray"
     products = products.by_special_media([6,7]) if options[:filter] && options[:filter] == "bluray3d"
-    
+
     if filter.media? && options[:kind] == :normal && options[:view_mode] != "streaming" && options[:filter] != "vod"
-      
+
       medias = filter.media.dup
       media_i = Array.new
       if medias.include?(:dvd)
