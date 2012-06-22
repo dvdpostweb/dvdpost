@@ -125,7 +125,6 @@ after "deploy:restart" do
 
 end
 
-after "deploy:create_symlink", "deploy:update_crontab"  
    
 namespace :deploy do  
   desc "Update the crontab file"  
@@ -136,6 +135,7 @@ end
 
 before 'deploy:create_symlink', 'deploy:stop_ts'
 after 'deploy:create_symlink', 'deploy:update_ts'
+after 'deploy:create_symlink', 'deploy:update_crontab'
 
 =begin
     production:
