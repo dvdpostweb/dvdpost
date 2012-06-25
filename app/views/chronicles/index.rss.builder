@@ -8,7 +8,7 @@ xml.rss :version => "2.0" do
     for article in @chronicles
       post = article.contents.by_language(I18n.locale).first
       xml.item do
-        xml.title "Les Chroniques de Nina : #{post.title}"
+        xml.title "#{t '.title'} : #{post.title}"
         xml.image post.cover.url(:small)
         xml.description post.description
         xml.pubDate post.created_at.to_s(:rfc822)
