@@ -409,13 +409,14 @@ class Customer < ActiveRecord::Base
     if status == true
       Customer.transaction do
         begin
-          credit = self.update_attributes(:credits => (self.credits - quantity))
+          new_qty = (self.credits - quantity)
+          credit = self.update_attributes(:credits => new_qty)
           history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().localtime.to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
-        rescue ActiveRecord::StatementInvalid 
-           notify_credit_hoptoad('remove',action,quantity)
-           raise ActiveRecord::Rollback
+        rescue ActiveRecord::StatementInvalid
+          notify_credit_hoptoad('remove',action,quantity)
+          raise ActiveRecord::Rollback
         end
-      end 
+      end
       true 
     else
       false  
@@ -430,6 +431,7 @@ class Customer < ActiveRecord::Base
         rescue => e
           token_string = false
         end
+        
         if token_string
           token = Token.create(          
             :customer_id => id,          
@@ -445,6 +447,7 @@ class Customer < ActiveRecord::Base
           return {:token => nil, :error => Token.error[:generation_token_failed]}
         end
     end
+    
     if credits >= file.credits
       abo_process = AboProcess.today.last
       if abo_process 
