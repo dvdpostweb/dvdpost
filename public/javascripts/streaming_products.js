@@ -59,6 +59,7 @@ $(function() {
     $('.error').html('');
     $('#player').html('')
     $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
+    $(this).hide()
     $.ajax({
       url: $(this).attr('href'),
       type: 'GET',
@@ -66,9 +67,11 @@ $(function() {
       success: function(data) {
         $('#flow').html(data);
         $('#presentation').html('')
+        $('.qualityvod').show()
       },
       error: function() {
         $('#presentation').html(content);
+        $('.qualityvod').show();
       }
       
     });
