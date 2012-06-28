@@ -658,8 +658,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.replace_specials(str)
-    #str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
-    str
+    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
   end
 
   def self.notify_hoptoad(ghost)

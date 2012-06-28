@@ -15,11 +15,7 @@
       <% if @nb_page > 1 %>
       <div id="carousel-nav">
         <span id="prev">
-          <%= will_paginate @chronicles, :previous_label => 'Prev', :next_label => '', :page_links => false, :container => false %>
-        </span>
-         <%= "#{@page}/#{@nb_page}"%> 
-        <span id="next">
-        <%= will_paginate @chronicles, :previous_label => '', :next_label => 'Next', :page_links => false, :container => false %>
+          <%= will_paginate @chronicles, :previous_label => 'Prev', :next_label => 'Next'  %>
         </span>
       </div>
       <% end %>

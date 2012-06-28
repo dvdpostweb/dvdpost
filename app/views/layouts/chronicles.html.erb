@@ -69,12 +69,21 @@
       	<%= link_to t('.dvdpost'), ENV['HOST_OK'] == "1" ? php_path : root_path %>
       </li>
 			<li>
-      	<% link_to 'fr', params.merge(:locale => :fr) %>
+      	
       </li>
 			<li>
       	<% link_to 'nl', params.merge(:locale => :nl) %>
       </li>
     </ul>
+		<ul id="lang-nav">
+	    <li class="langues selected">
+				<%= link_to 'fr', params.merge(:locale => :fr) %>
+			</li>
+	    <li>|</li>
+	    <li class="langues">
+				<%= link_to 'nl', params.merge(:locale => :fr) %>
+			</li>
+	  </ul>
   </div>
   <!--   ==============   END HEADER   ==============   -->
   <div class="container clearfix"> 
