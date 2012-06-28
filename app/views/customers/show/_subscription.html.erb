@@ -24,9 +24,10 @@
           <% end %>
         </td>
       </tr>
+      <% unless current_customer.svod? %>
       <tr>
-              <td colspan="2"><div class="ligne"></div></td>
-            </tr>
+        <td colspan="2"><div class="ligne"></div></td>
+      </tr>
       <tr>
         <td align="right"><strong><%= t '.count_dvd' %></strong></td>
         <td align="left"><%= "#{@wishlist_size}" %></td>
@@ -51,16 +52,20 @@
       <tr>
         <td colspan="2" height="10"></td>
       </tr>
-      <tr>
-        <td colspan="2" class="rotation">
-          <strong><%= "#{t('.transit')} : #{customer.orders.in_transit.count}" %></strong>
-        </td>
-      </tr>
-      <% customer.orders.in_transit.all(:include => :product).each do |transit_item| %>
-      <tr>
-        <td align="left" class="transit"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 30), product_assigned_path(transit_item.product) %></td>
-        <td align="right" class="transit"><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
-      </tr>
+      <% end %>
+      <% transit = customer.orders.in_transit %>
+      <% if transit.size > 0 %>
+        <tr>
+          <td colspan="2" class="rotation">
+            <strong><%= "#{t('.transit')} : #{customer.orders.in_transit.count}" %></strong>
+          </td>
+        </tr>
+        <% transit.all(:include => :product).each do |transit_item| %>
+        <tr>
+          <td align="left" class="transit"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 30), product_assigned_path(transit_item.product) %></td>
+          <td align="right" class="transit"><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <% end %>
       <% end %>
       <% stream_count = 0 %>
       <% streaming_available.each do |stream| %>

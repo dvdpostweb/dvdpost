@@ -2,15 +2,19 @@
   <td align="right" colspan="2">
     <div id="info_abo">
       <h4>
-        <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t('.films').upcase %> <br />
-        <span><%= abo_type(current_customer, true, true) %></span>
+        <%= subscription_description(current_customer) %> <br />
+        <% unless current_customer.svod? %>
+          <span><%= abo_type(current_customer, true, true) %></span>
+        <% end %>
       </h4>
-      <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
-      <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
+      <% unless current_customer.svod? %>
+        <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
+        <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
+      <% end %>
     </div>
   </td>
 </tr>
-<% if current_customer.credit_empty? %>
+<% if current_customer.credit_empty? && !current_customer.svod? %>
 <tr>
   <td colspan="2"> 
       <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>

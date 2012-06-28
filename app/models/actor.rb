@@ -63,7 +63,7 @@ class Actor < ActiveRecord::Base
     top && top > 0
   end
   
-  def self.search_clean(query_string, kind, count = false)
+  def self.search_clean(query_string, kind, page = 0 ,count = false)
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
@@ -74,12 +74,13 @@ class Actor < ActiveRecord::Base
     if count
       self.search.by_kind_int(kind).search_count(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
     else
-      self.search.by_kind_int(kind).search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
+      self.search.by_kind_int(kind).search(query_string.gsub(/[-_]/, ' '), :per_page => 40, :page => page, :max_matches => 1000, :order => :actors_name, :match_mode => :extended)
     end
   end
   
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    #str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str
   end
   
 end

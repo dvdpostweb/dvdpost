@@ -14,8 +14,11 @@
        </div>
       <!-- Titres chez vous ou en transit  -->
       <ul id="user-titles">
-        <li><%= t '.lent' %> <a href="<%= wishlist_path() %>"><%= transit_items.count %></a></li>
-        <li><%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t '.films' %></li>
+        <% unless current_customer.svod? %>
+          <li><%= t '.lent' %> <a href="<%= wishlist_path() %>"><%= transit_items.count %></a></li>
+        <% end %>
+        <li><%= subscription_description(current_customer) %></li>
+        <% unless current_customer.svod? %>
         <li><%= t '.wishlist_size' %> : <a href="<%= wishlist_path() %>"><%= wishlist_count %></a> 
         <% if WishlistItem.good_size?(current_customer, wishlist_count) %>
           <%= link_to t('.fill_in'), products_path(), :class => 'alert' %>
@@ -32,7 +35,7 @@
           <% if current_customer.new_price? %>
           <div class="tooltip" id="film_info_popup" style ='display:none'>
             <h4>
-              <%= t '.current_formula' %> : <%= current_customer.credit_per_month %> <%= t '.films' %><br />
+              <%= subscription_description(current_customer) %><br />
               <span><%= abo_type(current_customer, true, true) %></span>
             </h4>
             
@@ -48,6 +51,7 @@
           <% end %>
            
         </li>
+        <% end %>
         <li><%= t '.date_end_abo' %> <%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></li>
         <% if offline_request.count > 0 %>
         <li>
