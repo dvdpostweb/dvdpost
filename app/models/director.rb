@@ -35,7 +35,7 @@ class Director < ActiveRecord::Base
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
-  def self.search_clean(query_string, count = false)
+  def self.search_clean(query_string, page = 0, count = false)
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
@@ -46,12 +46,13 @@ class Director < ActiveRecord::Base
     if count
       self.search.search_count(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :directors_name, :match_mode => :extended)
     else
-      self.search.search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :order => :directors_name, :match_mode => :extended)
+      self.search.search(query_string.gsub(/[-_]/, ' '), :max_matches => 1000, :per_page => 40, :page => page, :order => :directors_name, :match_mode => :extended)
     end
   end
   
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    #str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str
   end
 
   def human_birth

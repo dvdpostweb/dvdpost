@@ -15,9 +15,9 @@
           <div id="selection-tabcontent-wrap">
             <% if params[:search] && !params[:search].empty? %>
             <ul class="content-tabs">
-              <%= "<li>#{link_to t('.films')  , url_for(params.merge(:type => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
-              <%= "<li>#{link_to t('.directors'), url_for(params.merge(:type => 'directors')), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
-              <%= "<li>#{link_to t('.actors'), url_for(params.merge(:type => 'actors')), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
+              <%= "<li>#{link_to t('.films')  , url_for(params.merge(:type => nil, :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
+              <%= "<li>#{link_to t('.directors'), url_for(params.merge(:type => 'directors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
+              <%= "<li>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
             </ul>
             <% end %>
             <div id="search_content">
@@ -56,6 +56,8 @@
     </div></div></div></div></div>
   </div>
   <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' if @products && params[:type].nil? && params[:view_mode] != 'popular_streaming' %>
+  <%= will_paginate @actors, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :actors_page if @actors && params[:type] == 'actors' && params[:view_mode] != 'popular_streaming' %>
+  <%= will_paginate @directors, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :directors_page if @directors && params[:type] == 'directors' && params[:view_mode] != 'popular_streaming' %>
   
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->

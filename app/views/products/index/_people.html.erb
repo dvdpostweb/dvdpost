@@ -3,7 +3,7 @@
   <% image_number = people.class.to_s == 'Actor' ? (people.adult? ? 1 : 0) : 0 %>
   <% img = image_tag people.image(image_number), :width => 145 %>
   <%= link_to img, path, :class => :img %>
-  <h3><%= link_to truncate(people.name, 20), path %></h3>
+  <h3><%= link_to truncate(people.name, :length => 20), path %></h3>
 </li>
                 
                 

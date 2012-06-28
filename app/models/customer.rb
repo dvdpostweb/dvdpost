@@ -277,6 +277,10 @@ class Customer < ActiveRecord::Base
   def new_price?
     subscription_type.qty_dvd_max >= 0 if subscription_type
   end
+  
+  def svod?
+    subscription_type.credits == 10000
+  end
 
   def next_new_price?
     next_subscription_type.qty_dvd_max >= 0 if subscription_type
@@ -639,7 +643,7 @@ class Customer < ActiveRecord::Base
 
   def credit_per_month
     if subscription_type
-      subscription_type.credits
+        subscription_type.credits
     else
       notify_hoptoad()
       '0'

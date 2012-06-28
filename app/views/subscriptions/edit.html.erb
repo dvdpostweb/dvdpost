@@ -9,11 +9,12 @@
       <tbody>
         <tr class="new_abo_actuel">
           <td width="20"></td>
-          <td width="240"><b><span class="title_pricing"> <%= t '.current_formula' %> </span><br />
-<%= current_customer.credit_per_month %> <%= t '.films' %></b> <span class="month"><%= t '.per_month' %></span><br />
+          <td width="240"><b>
+          <%= subscription_description(current_customer, true) %><br />
+          <% unless current_customer.svod? %>
             <span class="formula_nomination"><%= abo_type(current_customer, false, true, true) %> </td>
-          
-          <td align="right"><%= image_tag "pricing#{current_customer.credit_per_month}.png", :align => "absmiddle" %> </td>
+            <td align="right"><%= image_tag "pricing#{current_customer.credit_per_month}.png", :align => "absmiddle" %> </td>
+          <% end %>
           <td width="20"></td>
         </tr>
       </tbody>

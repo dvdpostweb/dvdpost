@@ -62,8 +62,8 @@ class ProductsController < ApplicationController
         
         if params[:search] && !params[:search].empty?
           @exact_products = Product.filter(@filter, params.merge(:exact => 1))
-          @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], true) : 0
-          @actors_count = Actor.search_clean(params[:search], params[:kind], true)
+          @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
+          @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
         end
         if session[:sexuality] == 0
           new_params = params.merge(:hetero => 1) 
@@ -97,9 +97,9 @@ class ProductsController < ApplicationController
             end 
           end
           if params[:type] == 'actors'
-            @actors = Actor.search_clean(params[:search], params[:kind], false)
+            @actors = Actor.search_clean(params[:search], params[:kind], params[:actors_page], false)
           elsif params[:type] == 'directors'
-            @directors = Director.search_clean(params[:search], false)
+            @directors = Director.search_clean(params[:search], params[:directors_page], false)
           end
         end
         
