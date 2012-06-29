@@ -9,16 +9,20 @@
       <% link_to letter.upcase, "##{letter}" %>
       <% end %>
     </div>
-    <% i = 0 %>
+    <% i = 1 %>
     <div class="col">
-    <% image_tag "chronicles/0.png", :size => '16x24', :id => "zera" %>
-    <!-- #image_tag "chronicles/#{letter.upcase}.png", :size => '16x24', :id => letter -->
+    <%= image_tag "chronicles/0.png", :size => '16x24', :id => "zero" %>
     <ul>
+      <% @contents['0'].each do |article| %>
+    	  <% content = article.contents.by_language(I18n.locale).first %>
+    	  <li><%= link_to content.title.upcase, chronicle_path(:id => article.to_param)%></li>
+      <% end %>
     </ul>
     
     <% ('a'..'z').each do |letter| %>
     <% i = i + 1%>
-    <%= letter  %>
+    <%= image_tag "chronicles/#{letter.upcase}.png", :id => letter %>
+    <% letter  %>
     <ul>
     	<% @contents[letter].each do |article| %>
     	  <% content = article.contents.by_language(I18n.locale).first %>

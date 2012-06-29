@@ -1858,7 +1858,7 @@ ul.tabs li {
   float: left;
   height: 30px;
   line-height: 30px;
-  margin: 0 4px -1px 0;
+  margin: 0 1px -1px 0;
   overflow: hidden;
   position: relative;
 }

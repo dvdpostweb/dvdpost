@@ -132,7 +132,7 @@ class ProductsController < ApplicationController
       @already_seen = current_customer.assigned_products.include?(@product) if current_customer
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
       @collections = Collection.by_size.random if params[:kind] == :adult
-      #@chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
+      @chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
       #fragment_name = "cinopsis_#{@product.id}"
       #@cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
       #   begin
@@ -176,7 +176,7 @@ class ProductsController < ApplicationController
       @reviews_count = product_reviews_count(@product)
     end
     if !request.format.js? || (request.format.js? && params[:recommendation_page])
-      product_recommendations = @product.get_recommendations(params[:kind])
+      product_recommendations = @product.recommendations(params[:kind])
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       if !params[:recommendation].nil?
         @source = params[:recommendation]
