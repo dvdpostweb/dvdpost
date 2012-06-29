@@ -122,7 +122,7 @@ FB.init({
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
           <div id="tab2" class="tab_content" <%= 'style="display:none"' if !@chronicle %>>
-            <%= render :partial => "chronicles/first", :locals => {:first_item => @chronicle}  %>
+            <%= render :partial => "chronicles/first", :locals => {:first_item => @chronicle} if @chronicle  %>
           </div>
           <div id="tab-content-movie" class="tab_content" <%= 'style="display:none"' if @chronicle %>>
             <% if @reviews_count > 0 %>
