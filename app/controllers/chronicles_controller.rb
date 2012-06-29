@@ -30,4 +30,19 @@ class ChroniclesController < ApplicationController
   def show
    @chronicle = Rails.env == 'production' ? Chronicle.private.find(params[:id]) : Chronicle.beta.find(params[:id])
   end
+  
+  def create
+  end
+  
+  def new
+  end
+  
+  def archive
+    status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
+    sql = Rails.env == 'production' ? Chronicle.private : Chronicle.beta
+    @contents = Hash.new()
+    ('a'..'z').each do |letter|
+      @contents[letter] =  sql.ordered.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title like ?', DVDPost.product_languages[I18n.locale], status, letter+'%'])
+    end
+  end
 end
