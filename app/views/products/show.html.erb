@@ -61,12 +61,13 @@ FB.init({
                   <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
                 </li>
               <% end %>
-              <% if @chronicle %>
-              <li>
-                chonicles
-              </li>
-              <% end %>
             </ul>
+            <% if I18n.locale != :en && @chronicle %>
+            <p>
+              <%= link_to image_tag("/images/chronicles/#{I18n.locale}/bouton_nina.jpg"), chronicle_path(:id => @chronicle.to_param)%>
+            </p>
+            <% end %>
+            
             <% if params[:kind] == :adult && @product.in_streaming_or_soon? %>
               <div>
                 <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
@@ -105,20 +106,25 @@ FB.init({
     <!-- End Carousel -->
     <!-- Critique -->
     <ul class="tabs">
-      <li class="active" id='tab1_li'>
+      <% active = 'active' %>
+      <% if @chronicle %>
+        <li class="active" id='tab2_li'>
+          <%= link_to t('.chronicle'), '#tab2', :id => 'tab2_menu' %>
+        </li>
+        <% active = '' %>
+      <% end %>
+      <li class="<%= active %>" id='tab1_li'>
         <%= link_to t('.members_critic'), '#tab1', :id => 'tab1_menu' %>
       </li>
-      <% if (@cinopsis && !@cinopsis.empty?) %>
-        <li id='tab2_li'>
-          <%= link_to t('.cinopsis_critic'), '#tab2', :id => 'tab2_menu' %>
-        </li>
-      <% end %>
     </ul>
     <div class="box">
       <div class="box-content clearfix">
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
-          <div id="tab-content-movie" class="tab_content">
+          <div id="tab2" class="tab_content" <%= 'style="display:none"' if !@chronicle %>>
+            <%= render :partial => "chronicles/first", :locals => {:first_item => @chronicle}  %>
+          </div>
+          <div id="tab-content-movie" class="tab_content" <%= 'style="display:none"' if @chronicle %>>
             <% if @reviews_count > 0 %>
             <ul class="clearfix content_item">
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort} %>
@@ -130,16 +136,6 @@ FB.init({
                   <%= link_to "#{t('.be_the_first')} #{@product_title}!", new_product_review_path(:product_id => @product.to_param), :id => 'add_new_review' %>
                 </p>
                 <% end %>
-            <% end %>
-          </div>
-          <div id="tab2" class="tab_content" style="display:none">
-            <% if @cinopsis == false %>
-              <br />
-              <p class='error'>
-                <%= t '.critic_unavailable' %>
-              </p>
-            <% else %>
-              <%= @cinopsis %>
             <% end %>
           </div>
         </div>

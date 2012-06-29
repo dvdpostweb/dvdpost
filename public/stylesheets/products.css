@@ -148,3 +148,19 @@ h4 {
 {
   background:none !important;
 }
+#article img.left
+{
+  width:150px;
+  margin: 0 25px 10px 10px;
+  padding:0px;
+}
+#article h2, #article h3
+{
+  display:none;
+}
+#article a
+{
+  color: #625A57;
+  text-decoration: underline;
+  font-weight: bold;
+}

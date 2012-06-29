@@ -14,7 +14,6 @@ class ChroniclesController < ApplicationController
           @chronicle = sql.ordered.first(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :selected => true, :status => status}})
           @chronicles = sql.ordered.all(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :selected => false, :status => status}}).paginate(:per_page => 4, :page => @page)
         end
-        @nb_page = @chronicles.total_pages
       end
       format.rss do
         sql = Rails.env == 'production' ? Chronicle.private : Chronicle.beta
@@ -41,6 +40,7 @@ class ChroniclesController < ApplicationController
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
     sql = Rails.env == 'production' ? Chronicle.private : Chronicle.beta
     @contents = Hash.new()
+    @contents['0'] = sql.ordered.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title REGEXP ?', DVDPost.product_languages[I18n.locale], status, '^[0-9]'])
     ('a'..'z').each do |letter|
       @contents[letter] =  sql.ordered.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title like ?', DVDPost.product_languages[I18n.locale], status, letter+'%'])
     end
