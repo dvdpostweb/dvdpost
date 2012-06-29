@@ -26,7 +26,7 @@ body {text-shadow: none !important;}
 }
 
 #search-wrap .content-tabs li a {
-	background: url("http://private.dvdpost.com/images/tabs-delimiter.gif") no-repeat scroll 0 0 transparent;
+	background: url("/images/tabs-delimiter.gif") no-repeat scroll 0 0 transparent;
 	color: #FFFFFF;
 	display: block;
 	font-size: 1.33em;

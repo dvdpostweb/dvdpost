@@ -14,6 +14,7 @@ class ChroniclesController < ApplicationController
           @chronicle = sql.ordered.first(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :selected => true, :status => status}})
           @chronicles = sql.ordered.all(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :selected => false, :status => status}}).paginate(:per_page => 4, :page => @page)
         end
+        @nb_page = @chronicles.total_pages
       end
       format.rss do
         sql = Rails.env == 'production' ? Chronicle.private : Chronicle.beta
