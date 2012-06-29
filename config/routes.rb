@@ -29,6 +29,7 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resource :chronicles, :only => [:index] do |chronicles|
       chronicles.about 'about', :controller => :chronicles, :action => :about
+      chronicles.archive 'archive', :controller => :chronicles, :action => :archive
     end
     localized.resources :steps, :only => [:show, :update]
     localized.resource :ogone, :only => [:show]

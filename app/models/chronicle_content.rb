@@ -3,6 +3,7 @@ class ChronicleContent < ActiveRecord::Base
   belongs_to :chronicle
 
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => DVDPost.product_languages[language]}}}
+  named_scope :by_letter, lambda {|letter| {:conditions => ["title like ?", letter+'%' ]}}
   named_scope :private, :conditions => {:status => 'ONLINE'}
   named_scope :beta, :conditions => {:status => ['ONLINE','TEST']}
   has_attached_file :cover, :styles => { :small => "237>x237" },

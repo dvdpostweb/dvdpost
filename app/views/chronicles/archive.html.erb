@@ -1,0 +1,37 @@
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div id="indexfilms">
+    <div class="ttl">
+      
+      <%= image_tag 'chronicles/indexfilms-ttl.png', :size => '150x24' %> 
+      <% link_to '0-9', "#zero" %>
+      <% ('a'..'z').each do |letter| %>
+      <% link_to letter.upcase, "##{letter}" %>
+      <% end %>
+    </div>
+    <% i = 0 %>
+    <div class="col">
+    <% image_tag "chronicles/0.png", :size => '16x24', :id => "zera" %>
+    <!-- #image_tag "chronicles/#{letter.upcase}.png", :size => '16x24', :id => letter -->
+    <ul>
+    </ul>
+    
+    <% ('a'..'z').each do |letter| %>
+    <% i = i + 1%>
+    <%= letter  %>
+    <ul>
+    	<% @contents[letter].each do |article| %>
+    	  <% content = article.contents.by_language(I18n.locale).first %>
+    	  <li><%= link_to content.title.upcase, chronicle_path(:id => article.to_param)%></li>
+      <% end %>
+    </ul>
+    <%= "</div><div class='col'>" if i.modulo(8) == 0 %>
+    <% end %>
+    </div>
+    <a href="#header" id="back-to-top">
+      <%= image_tag "chronicles/back-to-top-icon.png", :size => '46x46' %>
+    </a>
+  </div><!-- #indexfilms --> 
+  
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->
