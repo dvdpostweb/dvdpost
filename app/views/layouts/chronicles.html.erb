@@ -71,12 +71,6 @@
       <li>
       	<%= link_to t('.dvdpost'), ENV['HOST_OK'] == "1" ? php_path : root_path %>
       </li>
-			<li>
-      	
-      </li>
-			<li>
-      	<% link_to 'nl', params.merge(:locale => :nl) %>
-      </li>
     </ul>
 		<ul id="lang-nav">
 	    <li class="langues selected">
@@ -84,7 +78,7 @@
 			</li>
 	    <li>|</li>
 	    <li class="langues">
-				<%= link_to 'nl', params.merge(:locale => :fr) %>
+				<%= link_to 'nl', params.merge(:locale => :nl) %>
 			</li>
 	  </ul>
   </div>
