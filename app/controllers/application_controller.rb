@@ -80,11 +80,8 @@ class ApplicationController < ActionController::Base
   end
 
   def theme_actif_production
-    if current_customer && current_customer.site == 'lavenir'
-      @theme = ThemesEvent.find_by_id(DVDPost.theme_versavenir)
-    else
-      @theme = ThemesEvent.selected.by_kind(params[:kind]).last 
-    end
+    @themes = ThemesEvent.selected.by_kind(params[:kind]).ordered.limit(2)
+    @theme = @themes.last
   end
 
   def theme_actif_hp

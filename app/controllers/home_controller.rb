@@ -107,6 +107,8 @@ class HomeController < ApplicationController
         status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
         @chronicle = Chronicle.private.last(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})  
       end
+      status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
+      @news = News.by_kind(params[:kind]).beta.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})  
       expiration_recommendation_cache()
       @offline_request = current_customer.payment.recovery
       not_rated_products = current_customer.not_rated_products(kind)
