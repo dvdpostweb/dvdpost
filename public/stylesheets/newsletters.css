@@ -129,3 +129,14 @@ padding-bottom: 20px;
 }
 #article h2 a {
 color:#85BA17;}
+#collection li {
+display: inline-block;
+margin-right: 5px;
+position: relative;
+vertical-align: top;
+padding-top: 12px;
+width: 182px;
+}
+#collection h3 a {
+color: white;
+}
