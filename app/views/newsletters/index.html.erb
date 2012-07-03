@@ -1,7 +1,7 @@
 <% first = @news_first.contents.by_language(I18n.locale).first if @news_first %>
-<% if first %>
-  <% path = newsletter_path(:id => @news_first) %>
-  <% render :layout => 'menu', :locals => {:cat => @cat} do %>
+<% render :layout => 'menu', :locals => {:cat => @cat} do %>
+  <% if first %>
+    <% path = newsletter_path(:id => @news_first) %>
     <div id="article"> 
       <%= link_to image_tag(first.cover.url(:small), :class => :left), path %>
       <h2><%= t ".last_cat_#{@cat.to_param}" %> : <%= link_to first.title,  path %></h2>
