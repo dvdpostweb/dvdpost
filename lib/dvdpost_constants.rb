@@ -146,6 +146,13 @@ module DVDPost
       product_publics.invert
     end
 
+    def news_kinds
+      HashWithIndifferentAccess.new.merge({
+        :normal => 'NORMAL',
+        :adult => 'ADULT',
+      })
+    end
+
     def product_kinds
       HashWithIndifferentAccess.new.merge({
         :normal => 'DVD_NORM',

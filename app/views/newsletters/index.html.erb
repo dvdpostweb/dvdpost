@@ -1,0 +1,38 @@
+<% first = @news_first.contents.by_language(I18n.locale).first if @news_first %>
+<% if first %>
+  <% path = newsletter_path(:id => @news_first) %>
+  <% render :layout => 'menu', :locals => {:cat => @cat} do %>
+    <div id="article"> 
+        <%= link_to image_tag(first.cover.url(:small), :class => :left), path %>
+        <h2><%= t ".last_cat_#{@cat.to_param}" %> : <%= link_to first.title,  path %></h2>
+        <%= image_rating(@news_first.rating) if @news_first.rating > 0 %>
+        <h3><%= first.subtitle %></h3>
+        <div class="description">
+          <p>
+            <%= first.description %>
+          </p>
+        </div>
+        <div align="right">
+          <strong><%= link_to t('.more'), path %></strong>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div id="collection">
+        <h2><%= t '.old' %></h2>
+        <ul class="collection">
+          <% @news.each do |news| %>
+          <% content = @news_first.contents.by_language(I18n.locale).first %>
+          <% path = newsletter_path(:id => news) %>
+          <li class="clearfix" >
+            <%= link_to image_tag(content.thumbs.url(:small)), path %>
+            <h3>
+              <%= link_to content.title, path %>
+            </h3>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+      

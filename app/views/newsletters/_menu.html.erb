@@ -1,0 +1,11 @@
+<div class="container clearfix">
+  <ul id="menu">
+    <li>
+      <%= link_to t('.cat_1'), newsletters_path(:category_id => 2), :class => (cat.to_i == 2 ? 'selected' : '' ) %>
+    </li>
+    <li>
+      <%= link_to t('.cat_2'), newsletters_path(:category_id => nil), :class => (cat.to_i == 1 ? 'selected' : '' ) %>
+    </li>
+  </ul>
+  <%= yield %>
+</div>
