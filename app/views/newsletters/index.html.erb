@@ -21,7 +21,7 @@
         <h2><%= t '.old' %></h2>
         <ul class="collection">
           <% @news.each do |news| %>
-          <% content = @news_first.contents.by_language(I18n.locale).first %>
+          <% content = news.contents.by_language(I18n.locale).first %>
           <% path = newsletter_path(:id => news) %>
           <li class="clearfix" >
             <%= link_to image_tag(content.thumbs.url(:small)), path %>
