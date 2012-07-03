@@ -17,6 +17,7 @@
       <div style='clear:both'></div>
       <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} if streaming_access? %>
       <!-- Nouveautés  -->
+      <%= render :partial => '/home/index/newsletters', :locals => {:news => @news} %>
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
       <%= render :partial => "/home/index/trailers", :locals => { :products => @trailers } %>
       
@@ -30,6 +31,7 @@
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     <!-- BIENVENUE  -->
     <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request} %>
+    <%= render :partial => '/home/index/newsletters', :locals => {:news => @news, :themes => @themes} %>
     <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
     <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
     <div id="review_content">
