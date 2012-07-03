@@ -17,7 +17,7 @@
       <div style='clear:both'></div>
       <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} if streaming_access? %>
       <!-- Nouveautés  -->
-      <%= render :partial => '/home/index/newsletters', :locals => {:news => @news} %>
+      <%= render :partial => '/home/index/newsletters', :locals => {:news => @news, :themes => @themes} %>
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
       <%= render :partial => "/home/index/trailers", :locals => { :products => @trailers } %>
       
