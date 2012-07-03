@@ -1,0 +1,6 @@
+<% render :layout => 'menu', :locals => {:cat => @cat} do %>
+  <div id="collection">
+    <h4><%= link_to t(".old_cat_#{@cat.to_param}"), newsletters_path() %></h4>
+    <%= @content.full_description %>
+  </div>
+<% end %>
