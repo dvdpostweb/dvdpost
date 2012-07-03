@@ -7,7 +7,7 @@ class NewslettersController < ApplicationController
         @cat = params[:category_id] || 1
         sql = Rails.env == 'production' ? NewsCategory.find(@cat).news.private : NewsCategory.find(@cat).news.beta
         @news_first =  sql.by_kind(params[:kind]).ordered.first(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})
-        @news =   sql.exclude(@news_first.to_param).ordered.all(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})
+        @news =   sql.by_kind(params[:kind]).exclude(@news_first.to_param).ordered.all(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})
       end
     end
   end
