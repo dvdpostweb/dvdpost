@@ -3,18 +3,17 @@
   <% path = newsletter_path(:id => @news_first) %>
   <% render :layout => 'menu', :locals => {:cat => @cat} do %>
     <div id="article"> 
-        <%= link_to image_tag(first.cover.url(:small), :class => :left), path %>
-        <h2><%= t ".last_cat_#{@cat.to_param}" %> : <%= link_to first.title,  path %></h2>
-        <%= image_rating(@news_first.rating) if @news_first.rating > 0 %>
-        <h3><%= first.subtitle %></h3>
-        <div class="description">
-          <p>
-            <%= first.description %>
-          </p>
-        </div>
-        <div align="right">
-          <strong><%= link_to t('.more'), path %></strong>
-        </div>
+      <%= link_to image_tag(first.cover.url(:small), :class => :left), path %>
+      <h2><%= t ".last_cat_#{@cat.to_param}" %> : <%= link_to first.title,  path %></h2>
+      <%= image_rating(@news_first.rating) if @news_first.rating > 0 %>
+      <h3><%= first.subtitle %></h3>
+      <div class="description">
+        <p>
+          <%= first.description %>
+        </p>
+      </div>
+      <div align="right">
+        <strong><%= link_to t('.more'), path %></strong>
       </div>
       <div class="clear"></div>
       <div id="collection">
