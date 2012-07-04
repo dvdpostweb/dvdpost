@@ -1135,29 +1135,30 @@ font-size:14px;
 }
 
 #newsletters-tabcontent-wrap {
-    border: 1px solid #554D43;
-    height: 255px;
+  border: 1px solid #554D43;
+  min-height: 230px;
 }
+#newsletters-tabcontent-wrap .theme a
+{
+   text-transform: none
+}
+
 #newsletters-wrap .newsletters h3 {
-
-
-    color: #4B545F;
-    font: italic 1em Arial,Helvetica,sans-serif;
-    margin-bottom: 20px;
+  color: #4B545F;
+  font: italic 1em Arial,Helvetica,sans-serif;
+  margin-bottom: 20px;
 	font-size:12px;
-
 }
 
 .slides li.newsletters h4, .slides li.theme h4 {
-    color: #302924;
-    font-size: 16px;
-    margin-bottom: 5px;
-    text-transform: none;
+  color: #302924;
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-transform: none;
 }
 
 
 .slides li.newsletters h2 a {
-
 	text-decoration:none;
 }
 
