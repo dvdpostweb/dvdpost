@@ -55,7 +55,7 @@
         <li><%= t '.date_end_abo' %> <%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></li>
         <% if offline_request.count > 0 %>
         <li>
-            <%= t '.offline', :link => messages_urgent_path, :class => :alert %> 
+          <%= t '.offline', :link => messages_urgent_path, :class => :alert %> 
         </li>
         <% end %>
       </ul>
@@ -63,6 +63,6 @@
     <%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} if recommendations %>
   </div>
   <!-- Thème de la semaine -->
-  <%= render :partial => '/home/index/theme_of_week' %>
+  <%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
 
 </div>

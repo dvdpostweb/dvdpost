@@ -23,13 +23,7 @@
           <li class="theme">
             <h4><%= t '.last_themes' %> :</h4>
           <% themes.each do |theme| %> 
-            <% if theme.url %>
-      			  <% path = eval(theme.url) %>
-      		  <% elsif theme.banner_hp == 1 %>
-      			  <% path = theme_path(:id => theme.to_param, :wallpaper => 1 ) %>
-      		  <% end %>
-      		
-            <a href="<%= path %>">
+            <a href="<%= get_path(theme) %>">
               <%= image_tag theme.image_thumbs, :alt =>  theme.name, :title => theme.name %>
             </a>
           <% end%>

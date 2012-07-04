@@ -74,11 +74,7 @@
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
 	<% if @theme && @theme.background_image == 1 && (@code.nil? || (@code && !@code.white_label)) %>
-		<% if @theme.url %>
-			<% path = eval(@theme.url) %>
-		<% elsif @theme.banner_hp == 1 %>
-			<% path = theme_path(:id => @theme.to_param, :wallpaper => 1 ) %>
-		<% end %>
+		<% path = get_path(@theme) %>
 		<% if path %>
 			<%= link_to @theme.name, path, :id => :bglink, :style => "background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};" %>
 		<% else %>

@@ -92,7 +92,7 @@ class HomeController < ApplicationController
 
   def get_data(kind)
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
-    news_serial = when_fragment_expired "#{Rails.env}_news_hp_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+    news_serial = when_fragment_expired "#{Rails.env}_news_hp3_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
       Marshal.dump(News.by_kind(params[:kind]).private.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
     end
     News.class
@@ -142,11 +142,6 @@ class HomeController < ApplicationController
       #to do 
       @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       @rating_count = current_customer.ratings.count
-      if @theme && @theme.banner_hp == 1
-        @theme_hp = @theme
-      else
-        @theme_hp = theme_actif_hp
-      end
       wishlist_size
       @offline_request = current_customer.payment.recovery
       @transit_items = current_customer.orders.in_transit.all
