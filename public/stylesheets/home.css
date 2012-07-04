@@ -437,9 +437,6 @@ body
   padding-top: 32px;
 }
 
-#selection-tab1 {
-  height: 235px;
-}
 
 .slides {
   /*width: 10000em;*/
@@ -1140,7 +1137,7 @@ font-size:14px;
 }
 #newsletters-tabcontent-wrap .theme a
 {
-   text-transform: none
+	text-decoration:none;
 }
 
 #newsletters-wrap .newsletters h3 {
