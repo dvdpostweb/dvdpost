@@ -9,6 +9,8 @@ class HomeController < ApplicationController
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
         elsif params[:highlight_page]
           get_reviews_data(params[:review_kind], params[:highlight_page], params[:precision])
+        elsif params[:action]
+          render :partial => '/home/index/product_action', :locals => {:item => Product.find(params[:product_id])}
         elsif params[:selection_page]
           get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
           render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}  
@@ -76,14 +78,36 @@ class HomeController < ApplicationController
     @default = streaming_access? ? :vod : :dvd
     @selection_kind = selection_kind || @default
     @selection_page = selection_page
-    if kind == :adult
-      @selection = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
-    else
-      @selection = ProductList.theme.by_kind(kind.to_s).by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+    selection = when_fragment_expired "#{Rails.env}_selection_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+      if kind == :adult
+        sql = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+      else
+        sql = ProductList.theme.by_kind(kind.to_s).by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+      end
+      Marshal.dump(sql)
     end
+    Product.class
+    @selection = Marshal.load(selection)
   end
 
   def get_data(kind)
+    status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
+    news_serial = when_fragment_expired "#{Rails.env}_news_hp_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+      Marshal.dump(News.by_kind(params[:kind]).beta.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+    end
+    News.class
+    @news = Marshal.load(news_serial)
+    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp_#{I18n.locale}_#{params[:kind]}", 30.minutes.from_now.localtime do
+      if Rails.env == "pre_production"
+        sql = params[:kind] == :adult ? Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
+      else
+        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+      end
+      Marshal.dump(sql)
+    end
+    Landing.new
+    @carousel = Marshal.load(landing_serial)
+    
     if(kind == :adult)
       @newsletter_x = current_customer.customer_attribute.newsletters_x
       @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
@@ -95,42 +119,27 @@ class HomeController < ApplicationController
       @filter = get_current_filter({})
       @banners = ProductList.theme.by_kind(kind.to_s).by_style(:vod).find_by_home_page(2).products.paginate(:per_page => 3, :page => 1)
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
-      if Rails.env == "pre_production"
-        @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)
-      else
-        @carousel = Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5)
-      end
       not_rated_products = current_customer.not_rated_products(kind)
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
     else
       if I18n.locale != :en
-        status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
-        @chronicle = Chronicle.private.last(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})  
+        chronicle_serial = when_fragment_expired "#{Rails.env}_chronicle_hp_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+          Marshal.dump(Chronicle.private.last(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+        end
+        Chronicle.class
+        @chronicle = Marshal.load(chronicle_serial)
       end
-      status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
-      @news = News.by_kind(params[:kind]).beta.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}})  
-      expiration_recommendation_cache()
-      @offline_request = current_customer.payment.recovery
-      not_rated_products = current_customer.not_rated_products(kind)
-      @not_rated_product = not_rated_products[rand(not_rated_products.count)]
-      
-      
-      @transit_items = current_customer.orders.in_transit.all
+      #expiration_recommendation_cache()
       begin
         @news_items = retrieve_news
       rescue => e
         logger.error("Failed to retrieve news: #{e.message}")
       end
       @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 12})
-      
-      if Rails.env == "pre_production"
-        @carousel = Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
-      else
-        @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
-      end
-      @streaming_available = current_customer.get_all_tokens
+      #@streaming_available = current_customer.get_all_tokens
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
       get_reviews_data(params[:review_kind], params[:highlight_page], nil)
+      #to do 
       @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       @rating_count = current_customer.ratings.count
       if @theme && @theme.banner_hp == 1
@@ -139,6 +148,8 @@ class HomeController < ApplicationController
         @theme_hp = theme_actif_hp
       end
       wishlist_size
+      @offline_request = current_customer.payment.recovery
+      @transit_items = current_customer.orders.in_transit.all
     end
   end
 

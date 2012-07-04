@@ -245,7 +245,7 @@ module ApplicationHelper
   end
 
   def streaming_access?
-    !current_customer || ((current_customer.address && current_customer.address.belgian? && (session[:country_id] == 22 || session[:country_id] == 0)) || current_customer.super_user?)
+    !current_customer || session[:country_id] == 22 || session[:country_id] == 0 || current_customer.super_user?
   end
 
   def set_title(alter_title, replace = true)

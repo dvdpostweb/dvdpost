@@ -29,23 +29,21 @@
   <% else %>
     <!-- Tabs rotattor -->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
-    <!-- BIENVENUE  -->
     <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request} %>
     <%= render :partial => '/home/index/newsletters', :locals => {:news => @news, :themes => @themes} %>
     <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
     <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
     <div id="review_content">
-    <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
-      <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month} %>
-    <% else %>
-      <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>
-    <% end %>
+      <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
+        <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month} %>
+      <% else %>
+        <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>
+      <% end %>
     </div>
-    <div class="clear"></div>
+    
+    <div class="end"></div>
     <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
     <%= render :partial => '/home/index/quick_link' %>
-
-    <div class="end"></div>
     <% end %>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->

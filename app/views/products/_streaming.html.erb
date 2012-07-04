@@ -1,5 +1,5 @@
 <% text = text || :long %>
-<% if current_customer %>
+<% if current_customer && ENV['HOST_OK'] == "0" %>
   <% if token && !token.expired? %>
     <%= link_to streaming_btn_title(:replay, text), streaming_product_path(:id => product.imdb_id), :class => "streaming_btn_replay #{I18n.locale}", :title => t('.replay') %>
   <% else %>

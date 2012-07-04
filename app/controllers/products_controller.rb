@@ -133,18 +133,7 @@ class ProductsController < ApplicationController
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
       @collections = Collection.by_size.random if params[:kind] == :adult
       @chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
-      #fragment_name = "cinopsis_#{@product.id}"
-      #@cinopsis = when_fragment_expired fragment_name, 1.week.from_now do
-      #   begin
-      #      DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-      #    rescue => e
-      #      false
-      #      logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
-      #    end
-      #end
-      
       @cinopsis = nil
-      #@cinopsis = Marshal.load(@cinopsis) if @cinopsis
     end
     if !request.format.js? || (request.format.js? && (params[:reviews_page] || params[:sort]))
       if params[:sort]
@@ -210,6 +199,7 @@ class ProductsController < ApplicationController
     unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product) || current_customer.uninterested_products.include?(@product)
       @product.uninterested_customers << current_customer
       Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
+      expiration_recommendation_cache()
     end
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
@@ -220,6 +210,7 @@ class ProductsController < ApplicationController
   def seen
     @product.seen_customers << current_customer
     Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
+    expiration_recommendation_cache()
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
       format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}

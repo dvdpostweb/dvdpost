@@ -1,0 +1,17 @@
+<% path = item.imdb_id > 0 ? products_path(:imdb_id => item.imdb_id) : path %>
+<% if item.in_streaming_or_soon? && streaming_access? %>
+  <% if item.streaming? %>
+      <% token = current_customer ? current_customer.get_token(item.imdb_id) : nil %>
+    <%= render :partial => 'products/streaming', :locals => {:product => item, :token => @token } %>
+  <% end %>
+<% end %>
+<span class="ajouter">
+  <%= link_to t('.add'), path %>
+</span>
+<div class="action">
+  <% if current_customer %>
+  <div class="links" id="seen-uninterested-<%= item.to_param %>">
+    <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => item} %>
+  </div>
+  <% end %>
+</div>
