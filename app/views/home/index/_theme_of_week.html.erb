@@ -1,8 +1,8 @@
 <div id="week-theme">
-  <div class="caption maven"> <%= t '.title' unless @theme_hp.url %>
-    <% path = @theme_hp.url ? eval(@theme_hp.url) : theme_path(:id => @theme_hp.to_param) %>
-    <h3><%= link_to t(".event_name_#{@theme_hp.id}"), path, :style => "color: #{@theme_hp.color_hp}" %></h3>
-    <%= link_to t('.see'), path unless @theme_hp.url %>
+  <div class="caption maven"> <%= t '.title' unless theme.url %>
+    <% path = get_path(theme) %>
+    <h3><%= link_to t(".event_name_#{theme.id}"), path, :style => "color: #{theme.color_hp}" %></h3>
+    <%= link_to t('.see'), path %>
   </div>
-  <%= link_to image_tag(@theme_hp.image_home_page), path %>
+  <%= link_to image_tag(theme.image_home_page), path %>
 </div>
