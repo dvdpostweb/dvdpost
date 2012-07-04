@@ -93,7 +93,7 @@ class HomeController < ApplicationController
   def get_data(kind)
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
     news_serial = when_fragment_expired "#{Rails.env}_news_hp_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
-      Marshal.dump(News.by_kind(params[:kind]).beta.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+      Marshal.dump(News.by_kind(params[:kind]).private.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
     end
     News.class
     @news = Marshal.load(news_serial)
