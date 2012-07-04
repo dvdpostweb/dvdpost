@@ -2,13 +2,13 @@
   <% first = news.contents.by_language(I18n.locale).first  %>
   <% path = newsletter_path(:id => news.to_param) %>
 <div id="newsletters-wrap">
-  <div class="ttl maven">News DVDPost</div>
+  <div class="ttl maven"><%= t '.title' %></div>
   <div id="newsletters-tabcontent-wrap">
     <div class="tab-content-selection clearfix" id="selection-tab1">
       <div class="carousel-wrap">
         <ul class="slides">
           <li class="newsletters">
-            <h4>Notre dernière newsletter :</h4>
+            <h4><%= t '.last_news' %> :</h4>
             <div class="description">
               <%= link_to image_tag(first.thumbs.url(:small), :class => :left), path %>
               <h2>
@@ -21,7 +21,7 @@
             </div>
           </li>
           <li class="theme">
-            <h4>Nos derniers thèmes :</h4>
+            <h4><%= t '.last_themes' %> :</h4>
           <% themes.each do |theme| %> 
             <% if theme.url %>
       			  <% path = eval(theme.url) %>
