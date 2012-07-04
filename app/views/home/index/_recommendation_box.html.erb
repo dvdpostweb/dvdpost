@@ -3,50 +3,41 @@
       <div id="user-movies">
         <h3><%= link_to t('.recommendation', :firstname => current_customer.customers_firstname), products_path(:view_mode => :recommended) %></h3>
         <ul>
-          <% i = 0 %>
           <% recommendations.collect do |item| %>
-          <% i = i + 1 %>
-          <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation]) %> 
-          <li>
-            <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>' style="height:60px; display:block">
-              <%= image_tag item.image, :width => 60 %>
-            </a>
-            <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" style ='display:none'>
-              <h4><%= item.title %> (<%= item.year %>) 
-                <span class="stars" id="rating-stars-<%= item.id %>" product_id="<%= item.id %>">
-                  <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white, :size => :small} %>
-                </span>
-              </h4>
-              <p>
-                <%= image_tag item.image, :class => :tool_float, :width => 120 %>
-                <div class="tool_right">
-                <p class="synopsis"><%= t 'products.show.synopsis' %></p>
-                <%= truncate_html item.description.text, :length => 300 %>
-                <span class="infos">
-                  <%= link_to t('.more'), path %>
-                </span>
-                <% path = item.imdb_id > 0 ? products_path(:imdb_id => item.imdb_id) : path %>
-                <% if item.in_streaming_or_soon? && streaming_access? %>
-                  <% if item.streaming? %>
-                    <%= render :partial => 'products/streaming', :locals => {:product => item, :token => @token } %>
+            <% name = "#{Rails.env}_#{ENV['HOST_OK']}_#{I18n.locale}/products/wishlist_#{item.to_param}" %>
+            <% name_path = "views/#{name}" %>
+            <% cache name do %>
+            <% data = item.description_data(true) %>
+            <% product_title = data[:title] %>
+            <% product_image = data[:image] %>
+            <% description = data[:description] %>
+            <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation]) %> 
+            <li>
+              <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>' style="height:60px; display:block">
+                <%= image_tag product_image, :width => 60 %>
+              </a>
+              <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" style ='display:none'>
+                <h4><%= product_title %> (<%= item.year %>) 
+                  <span class="stars" id="rating-stars-<%= item.id %>" product_id="<%= item.id %>">
+                    <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white, :size => :small} %>
+                  </span>
+                </h4>
+                <p>
+                  <%= image_tag product_image, :class => :tool_float, :width => 120 %>
+                  <div class="tool_right">
+                  <p class="synopsis"><%= t 'products.show.synopsis' %></p>
+                  <%= truncate_html description.text, :length => 300 %>
+                  <span class="infos">
+                    <%= link_to t('.more'), path %>
+                  </span>
                   <% end %>
-                <% end %>
-                <span class="ajouter">
-                  <%= link_to t('.add'), path %>
-                </span>
-                <div class="action">
-                  <% if current_customer %>
-                  <div class="links" id="seen-uninterested-<%= item.to_param %>">
-                    <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => item} %>
+                  <div class="action">
+                    <img src='/images/ajax-loader.gif' class="img_load" />
                   </div>
-                  <% end %>
-                </div>
-              </p>
-            </div>
-          </li>
-          <% 1==1 #to do break if i == 12 && !not_rated_product.nil? %>
+                </p>
+              </div>
+            </li>
           <% end %>
-          
         </ul>
         <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'>
           <%= image_tag 'icon_info_home.png', :alt => "Info" %>

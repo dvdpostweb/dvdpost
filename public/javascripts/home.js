@@ -241,6 +241,21 @@ $(function() {
   $(".tooltips, .tooltips_item").live('mouseover',function(){
     $('.tooltip_items').hide()
     name =$(this).attr('id')+"_popup"
+    product_id = $(this).attr('id').replace('product_','')
+    if($("#"+name+" .action .img_load").attr('src') == '/images/ajax-loader.gif')
+    {
+      url = '/?action=1&product_id='+product_id;
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(data) {
+          $("#"+name+" .action").html(data);
+        },
+        error: function() {
+          html_content.html(content);
+        }
+      });
+    }
     var bulle = $("#"+name);
     bulle.show()
     return false;

@@ -1,6 +1,6 @@
 <% media = DVDPost.product_types.invert[product.media] %>
 <% if !product.vod? %>
-  <% if current_customer %>
+  <% if current_customer && ENV['HOST_OK'] == "0" %>
     <% load_color = load_color || :normal %>
     <% type_button = product.next.to_i == 1 ? :reserve : :normal %>
     <% if current_customer.wishlist_products.include?(product) %>

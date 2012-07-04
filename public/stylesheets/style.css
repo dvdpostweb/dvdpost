@@ -4606,6 +4606,10 @@ margin: 0;
   text-decoration:none;
 }
 
+#review_tab li .btn_remove_form
+{
+  position: initial;
+}
 #review_tab .streaming_btn:hover, #review_tab .streaming_btn_replay:hover  {
   background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -30px transparent;
 }
