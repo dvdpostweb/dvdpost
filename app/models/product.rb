@@ -378,7 +378,7 @@ class Product < ActiveRecord::Base
     end
     if recommendation_ids && !recommendation_ids.empty?
       if kind == :normal
-        Product.available.by_products_id(recommendation_ids) 
+        Product.available.by_products_id(recommendation_ids)
       else
         if categories.find_by_categories_id([76,72])
           Product.available.gay.by_products_id(recommendation_ids)
@@ -388,12 +388,33 @@ class Product < ActiveRecord::Base
       end
     end
   end
-  
+
+  def recommendations_new(kind, customer_id, type)
+    begin
+      # external service call can't be allowed to crash the app
+      recommendation_ids = DVDPost.product_linked_recommendations_new(self, kind, customer_id, type)
+      Rails.logger.debug { "@@@#{recommendation_ids.inspect}" }
+    rescue => e
+      logger.error("Failed to retrieve recommendations: #{e.message}")
+    end
+    if recommendation_ids && !recommendation_ids.empty?
+      if kind == :normal
+        Product.search(:max_matches => 200, :per_page => 100).available.by_imdb_id(recommendation_ids).group('imdb_id', "default_order desc")
+      else
+        if categories.find_by_categories_id([76,72])
+          Product.available.gay.by_products_id(recommendation_ids)
+        else
+          Product.available.hetero.by_products_id(recommendation_ids)
+        end
+      end
+    end    
+  end
+
   def get_recommendations(kind)
     recommendation_ids = recommendations.collect(&:recommendation_id)
     if recommendation_ids && !recommendation_ids.empty?
       if kind == :normal
-        Product.search.available.by_products_id(recommendation_ids).with_speaker(DVDPost.product_languages[I18n.locale.to_s])
+        Product.search(:max_matches => 200, :per_page => 8, :page => pa).available.by_products_id(recommendation_ids).with_speaker(DVDPost.product_languages[I18n.locale.to_s])
       else
         if categories.find_by_categories_id([76,72])
           Product.available.gay.by_products_id(recommendation_ids)
