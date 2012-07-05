@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
           @carousel = Landing.by_language(I18n.locale).not_expirated.public.order(:asc).limit(5)
         end
       end
-      @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8}) if params[:kind] == :normal
+      @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]}) if params[:kind] == :normal
     end
     @filter = get_current_filter({})
     if params[:search] == t('products.left_column.search')
@@ -77,7 +77,7 @@ class ProductsController < ApplicationController
           end
           session[:sort]=params[:sort] 
 
-          retrieve_recommendations(params[:page], params.merge(:per_page => 20))
+          retrieve_recommendations(params[:page], params.merge(:per_page => 20, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]))
         else
           
           if @exact_products && @exact_products.size > 0
@@ -111,7 +111,7 @@ class ProductsController < ApplicationController
         if params[:category_id]
           render :partial => 'products/index/streaming', :locals => {:products => @popular}
         elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page], {:per_page => 8})}  
+          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page], {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})}  
         end
       }
     end  

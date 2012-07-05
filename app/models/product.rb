@@ -311,7 +311,7 @@ class Product < ActiveRecord::Base
       when :popular_streaming
           products.streaming.limit(10)
       when :recommended
-        recom = products.by_recommended_ids(filter.recommended_ids).limit(50)
+        recom = products.by_recommended_ids(filter.recommended_ids).with_speaker(options[:language]).limit(50)
         recom
       when :popular
         products.popular_new.limit(800)
@@ -352,7 +352,7 @@ class Product < ActiveRecord::Base
       sort = sort_by("default_order desc, in_stock DESC", options)
     end
     if sort !=""
-      if (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming)) || (options[:filter] && options[:filter].to_sym == :vod)
+      if (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming || options[:view_mode].to_sym == :recommended)) || (options[:filter] && options[:filter].to_sym == :vod)
         products = products.group('imdb_id', sort)
       else
         products = products.order(sort, :extended)

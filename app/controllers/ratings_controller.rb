@@ -19,7 +19,8 @@ class RatingsController < ApplicationController
             render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product}
           else
             if params[:kind] == :normal
-              recommendations = retrieve_recommendations(1, {:per_page => 8})
+              #to do 
+              recommendations = retrieve_recommendations(1, {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
               render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => nil} 
             else
               render :nothing => true
