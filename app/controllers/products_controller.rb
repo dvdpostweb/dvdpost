@@ -165,7 +165,11 @@ class ProductsController < ApplicationController
       @reviews_count = product_reviews_count(@product)
     end
     if !request.format.js? || (request.format.js? && params[:recommendation_page])
-      product_recommendations = @product.recommendations(params[:kind])
+      #product_recommendations = @product.recommendations(params[:kind])
+      customer_id = current_customer ? current_customer.id : 0
+      r_type = params[:r_type].to_i || 1
+      product_recommendations = @product.recommendations_new(params[:kind], customer_id, r_type)
+      
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
       if !params[:recommendation].nil?
         @source = params[:recommendation]

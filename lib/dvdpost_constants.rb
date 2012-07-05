@@ -286,6 +286,13 @@ module DVDPost
       end
     end
 
+    def product_linked_recommendations_new(product, kind, customer_id, type)
+      include_adult = kind == :adult ? 'true' : 'false' 
+      url = "http://www.dvdpost.be:2348/recomm/#{type == 1 ? 'GetSimilarMovieToMovie' : 'GetMovieToMovieByRating'}?imdbID=#{product.imdb_id}&nmbr=200&isAdult=#{include_adult}"
+      url += "&custId=#{customer_id}" if customer_id > 0
+      ids = open(url).read.gsub('"','').split(',')
+    end
+
     def home_page_recommendations(customer_id, language)
       url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer_id}&number=100&includeAdult=false&verbose=false"
       #url ="http://api182.thefilter.com/dvdpost/sandbox/video/recommendation/video?$take=100&extUserId=#{customer_id}&$filter="
