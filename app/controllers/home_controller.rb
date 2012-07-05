@@ -129,13 +129,13 @@ class HomeController < ApplicationController
         Chronicle.class
         @chronicle = Marshal.load(chronicle_serial)
       end
-      #expiration_recommendation_cache()
+      expiration_recommendation_cache()
       begin
         @news_items = retrieve_news
       rescue => e
         logger.error("Failed to retrieve news: #{e.message}")
       end
-      @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 12})
+      @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 12, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
       #@streaming_available = current_customer.get_all_tokens
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
       get_reviews_data(params[:review_kind], params[:highlight_page], nil)

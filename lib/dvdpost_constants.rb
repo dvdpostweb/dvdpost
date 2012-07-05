@@ -287,9 +287,15 @@ module DVDPost
     end
 
     def product_linked_recommendations_new(product, kind, customer_id, type)
-      include_adult = kind == :adult ? 'true' : 'false' 
+      include_adult = kind == :adult ? 'true' : 'false'
       url = "http://www.dvdpost.be:2348/recomm/#{type == 1 ? 'GetSimilarMovieToMovie' : 'GetMovieToMovieByRating'}?imdbID=#{product.imdb_id}&nmbr=200&isAdult=#{include_adult}"
       url += "&custId=#{customer_id}" if customer_id > 0
+      ids = open(url).read.gsub('"','').split(',')
+    end
+
+    def home_page_recommendations_new(customer_id, kind)
+      include_adult = kind == :adult ? 'true' : 'false'
+      url = "http://www.dvdpost.be:2348/recomm/GetCustomerRecommendedProducts?custId=#{customer_id}&nmbr=8000&isAdult=#{include_adult}"
       ids = open(url).read.gsub('"','').split(',')
     end
 
