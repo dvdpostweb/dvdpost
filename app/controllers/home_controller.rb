@@ -97,11 +97,11 @@ class HomeController < ApplicationController
     end
     News.class
     @news = Marshal.load(news_serial)
-    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp_#{I18n.locale}_#{params[:kind]}", 30.minutes.from_now.localtime do
+    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp2_#{I18n.locale}_#{params[:kind]}", 30.minutes.from_now.localtime do
       if Rails.env == "pre_production"
         sql = params[:kind] == :adult ? Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
       else
-        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
       end
       Marshal.dump(sql)
     end
