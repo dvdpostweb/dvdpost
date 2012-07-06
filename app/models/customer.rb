@@ -73,6 +73,7 @@ class Customer < ActiveRecord::Base
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings, :foreign_key => :customers_id
   has_many :rated_products, :through => :ratings, :source => :product, :uniq => true
+  has_many :rated_products_imdb, :through => :ratings, :source => :product_imdb, :uniq => true
   has_many :reviews, :foreign_key => :customers_id
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
@@ -154,7 +155,11 @@ class Customer < ActiveRecord::Base
   end
 
   def has_rated?(product)
-    rated_products.exists?(product)
+    if product.imdb_id > 0
+      rated_products.exists?(:imdb_id => product.imdb_id)
+    else
+      rated_products.exists?(product)
+    end
   end
 
   def active?
