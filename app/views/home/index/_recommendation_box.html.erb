@@ -4,9 +4,6 @@
         <h3><%= link_to t('.recommendation', :firstname => current_customer.customers_firstname), products_path(:view_mode => :recommended) %></h3>
         <ul>
           <% recommendations.collect do |item| %>
-            <% name = "#{Rails.env}_#{ENV['HOST_OK']}_#{I18n.locale}/products/wishlist_#{item.to_param}" %>
-            <% name_path = "views/#{name}" %>
-            <% cache name do %>
             <% data = item.description_data(true) %>
             <% product_title = data[:title] %>
             <% product_image = data[:image] %>
@@ -37,7 +34,6 @@
                 </p>
               </div>
             </li>
-          <% end %>
         </ul>
         <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'>
           <%= image_tag 'icon_info_home.png', :alt => "Info" %>

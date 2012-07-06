@@ -30,6 +30,7 @@ class Product < ActiveRecord::Base
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
   has_many :ratings, :foreign_key => :products_id
+  has_many :ratings_imdb, :class_name => 'Rating', :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_many :reviews, :foreign_key => :products_id
   has_many :trailers, :foreign_key => :products_id
   has_many :uninteresteds, :foreign_key => :products_id
@@ -517,7 +518,11 @@ class Product < ActiveRecord::Base
 
   def rating(customer=nil)
     if customer && customer.has_rated?(self)
-      ratings.by_customer(customer).first.value.to_i * 2
+      if imdb_id > 0
+        ratings_imdb.by_customer(customer).first.value.to_i * 2
+      else
+        ratings.by_customer(customer).first.value.to_i * 2
+      end
     else
       rating_count == 0 ? 0 : ((rating_users.to_f / rating_count) * 2).round
     end
