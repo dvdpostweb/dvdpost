@@ -244,7 +244,7 @@ $(function() {
     product_id = $(this).attr('id').replace('product_','')
     if($("#"+name+" .action .img_load").attr('src') == '/images/ajax-loader.gif')
     {
-      url = '/?action=1&product_id='+product_id;
+      url = '/?action_popup=1&product_id='+product_id;
       $.ajax({
         url: url,
         type: 'GET',
