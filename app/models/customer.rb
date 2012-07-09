@@ -203,14 +203,16 @@ class Customer < ActiveRecord::Base
   def recommendations(filter, options)
     begin
       # external service call can't be allowed to crash the app
-      recommendation_ids = DVDPost.home_page_recommendations_new(self.to_param, options[:kind])
+      #recommendation_ids = DVDPost.home_page_recommendations_new(self.to_param, options[:kind])
+      recommendation_ids = DVDPost.home_page_recommendations(self.to_param, I18n.locale)
+      
       results = if recommendation_ids
         hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
         result_ids = recommendation_ids - hidden_ids
         #result_ids = recommendation_ids
         filter.update_attributes(:recommended_ids => result_ids)
-        #options.merge!(:subtitles => [2]) if I18n.locale == :nl
-        #options.merge!(:audio => [1]) if I18n.locale == :fr
+        options.merge!(:subtitles => [2]) if I18n.locale == :nl
+        options.merge!(:audio => [1]) if I18n.locale == :fr
         Product.filter(filter, options.merge(:view_mode => :recommended))
       else
         []
