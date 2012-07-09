@@ -4,7 +4,7 @@
   <%= image_tag "3d_icon.png" if @wishlist_item.product.bluray3d? %>
   <%= image_tag "3d2d_icon.png" if @wishlist_item.product.bluray3d2d? %>
 </div>
-<% if @wishlist_item.product.in_streaming_or_soon? && streaming_access? %> 
+<% if @wishlist_item.product.streaming? && streaming_access? %> 
 <div id="addwishlist_vod">
   <p id="vod">
     <%= t '.title' %>
