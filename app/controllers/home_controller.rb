@@ -9,7 +9,7 @@ class HomeController < ApplicationController
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
         elsif params[:highlight_page]
           get_reviews_data(params[:review_kind], params[:highlight_page], params[:precision])
-        elsif params[:action]
+        elsif params[:action_popup]
           render :partial => '/home/index/product_action', :locals => {:item => Product.find(params[:product_id])}
         elsif params[:selection_page]
           get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
