@@ -1,0 +1,48 @@
+#faq-intro-wrap {
+background: url(../images/bg_faq.jpg) no-repeat;
+height: 407px;
+}
+#faq-intro-wrap h2 {
+font-size: 2em;
+margin-bottom: 15px;
+border:none;
+text-indent:0px;
+margin-left:24px;
+}
+#faq-intro-wrap h2 {
+color: #85B91A;
+font-size: 24px;
+text-transform: uppercase;
+padding-top: 14px;
+}
+#faq-intro-wrap h2 span {
+color: #191E23;
+font-size: 24px;
+font-weight: lighter;
+}
+#faq-intro-wrap h3 {
+  color: #191E23;
+  font-size: 21px;
+  padding-left: 564px;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 53px;
+}
+#faq-intro-wrap h3 a {
+color: #85B91A;
+font-size: 14px;
+text-decoration: underline;
+text-transform: none;
+}
+#faq-intro-wrap h3 span {
+color: #191E23;
+font-size: 20px;
+text-transform: uppercase;
+font-weight: lighter;
+}
+#faq-intro-wrap p a {
+    background: url("../images/play.png") no-repeat scroll 0 -3px transparent;
+    line-height: 7px;
+    margin-left: 100px;
+    padding-left: 25px;
+}
