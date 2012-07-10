@@ -41,9 +41,9 @@ class ChroniclesController < ApplicationController
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
     sql = Rails.env == 'production' ? Chronicle.private : Chronicle.beta
     @contents = Hash.new()
-    @contents['0'] = sql.ordered.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title REGEXP ?', DVDPost.product_languages[I18n.locale], status, '^[0-9]'])
+    @contents['0'] = sql.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title REGEXP ?', DVDPost.product_languages[I18n.locale], status, '^[0-9]'], :order => "title asc")
     ('a'..'z').each do |letter|
-      @contents[letter] =  sql.ordered.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title like ?', DVDPost.product_languages[I18n.locale], status, letter+'%'])
+      @contents[letter] =  sql.all(:joins =>:contents, :conditions => ['language_id = ? and chronicle_contents.status in (?) and title like ?', DVDPost.product_languages[I18n.locale], status, letter+'%'], :order => "title asc")
     end
   end
 end
