@@ -21,7 +21,13 @@
 <%= will_paginate @history_list, :class => 'products-pagination2', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
 <% else %>
 <% if @token_list.count == 0 && @list.count == 0 && @soon_list.count == 0 %>
-<%= link_to image_tag("http://www.dvdpost.be/images/vod_#{I18n.locale}.jpg"), streaming_products_faq_path %>
+  <% link = link_to t('.catalogue'), products_path(:view_mode => :streaming) %>
+  <% link2 = link_to t('.about'), streaming_products_faq_path %>
+    <div id="faq-content-wrap">
+      <div id="faq-intro-wrap">
+        <%= t '.intro', :link => link, :link2 => link2 %>
+      </div>
+    </div>
 <% end %>
 <h2><%= t '.token_list' %> (<%= @token_list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="in-progress">
