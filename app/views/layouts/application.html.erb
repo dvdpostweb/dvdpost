@@ -103,7 +103,7 @@
           <%= flash[:error] %>
         </p>
       <% end %>
-			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) %>
+			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:action] != 'unsubscribe' %>
       <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->

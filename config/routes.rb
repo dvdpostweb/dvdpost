@@ -172,7 +172,7 @@ ActionController::Routing::Routes.draw do |map|
       
     end
     localized.resources :vod_wishlists
-    
+    localized.unsubscribe 'unsubscribe', :controller => :customers, :action => :unsubscribe, :conditions => {:method => :get}
     localized.resources :search_filters, :only => [:create, :destroy]
 
     localized.resource :sponsorships do |sponsorship|
