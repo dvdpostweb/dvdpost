@@ -1,6 +1,12 @@
 module CustomersHelper
-  def subscription_description(customer, html = false)
-    sub = html ? "<span class='title_pricing'>#{t '.current_formula'}</span><br />" : "#{t '.current_formula'} : "
+  def subscription_description(customer, html = 0)
+    sub = if html == 0
+      "#{t '.current_formula'} : "
+    elsif html == 1
+      "<span class='title_pricing'>#{t '.current_formula'}</span><br />"
+    else
+      ""
+    end
     if customer.subscription_type
       sub += unless customer.svod?
         "#{current_customer.credit_per_month} #{t('.films').upcase}"
@@ -8,7 +14,7 @@ module CustomersHelper
         t '.vod_unlimited'
       end
     end
-    sub += " <span class='month'>#{t '.per_month'}</span>" if html
+    sub += " <span class='month'>#{t '.per_month'}</span>" if html == 1
     sub
   end
 

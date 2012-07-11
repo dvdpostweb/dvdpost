@@ -1,8 +1,9 @@
-<!--   ==============   MAIN CONTENT   ==============   -->
-<div id='hp-content'>
+  <!--   ==============   Slider   ==============   -->
+<div id="slider-wrap">
+<h2>ACCUEIL</h2>
+<%= link_to "VOIR TOUT LE CATALOGUE", products_path(),:id => :browse, :class => :osc %>
   <% if current_customer.payment_suspended? %>
     <ul id='suspended'>
-      
       <li><%= current_customer.suspended_notification %></li>
     </ul>
   <% end %>
@@ -29,6 +30,9 @@
   <% else %>
     <!-- Tabs rotattor -->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
+    </div>
+    <!-- #slider-wrap -->
+    
     <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
     <%= render :partial => '/home/index/newsletters', :locals => {:news => @news, :themes => @themes} %>
     <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>

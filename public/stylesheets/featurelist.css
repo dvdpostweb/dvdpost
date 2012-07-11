@@ -1,0 +1,155 @@
+div#featurelist-slider {
+  height: 343px;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+}
+
+div#featurelist-slider ul {
+  position: absolute;
+  top: 0;
+}
+
+ul.tabs {
+  right: 20px;
+  z-index: 2;
+  width: 299px;
+}
+
+ul.tabs li {
+/*height: 56px;*/
+  display: block;
+  position: relative;
+}
+
+ul.tabs li.last a {
+  padding-bottom: 1px;
+}
+
+ul.tabs li img {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  filter:alpha(opacity=30);
+  -moz-opacity: 0.3;
+  -khtml-opacity: 0.3;
+  opacity: 0.3;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";/* IE8 */
+}
+
+ul.tabs li a {
+  background: #e6e6e6;
+  border-top: 1px solid #dfdfdf;
+  text-decoration: none;
+  display: block;
+  padding: 10px 95px 0 18px;
+  height: 46px;
+}
+
+ul.tabs span {
+  display: block;
+}
+
+ul.tabs span.arrow {
+  display: none;
+  position: absolute;
+  width: 10px;
+  height: 21px;
+  background: url(../images/fl-arrow.png) 0 0 no-repeat;
+  left: -10px;
+  top: 17px;
+}
+
+ul.tabs a .ttl {
+  font-size: 24px;
+  color: #8a8a8a;
+  line-height: 1;
+  font-weight: bold;
+}
+
+ul.tabs a .g {
+  font-size: 14px;
+  color: #a7a7a7;
+  line-height: 1;
+}
+
+ul.tabs li a:hover, ul.tabs li a.current {
+  background: #fff;
+}
+
+ul.tabs li a:hover img, ul.tabs li a.current img {
+  filter:alpha(opacity=100);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";/* IE8 */
+}
+
+ul.tabs li a.current:hover {
+  text-decoration: none;
+  cursor: default;
+}
+
+ul.tabs li a.current .arrow {
+  display: block;
+}
+
+ul.tabs li a:hover .ttl, ul.tabs li a.current .ttl {
+  color: #212a31;
+}
+
+ul.tabs li a:hover .g, ul.tabs li a.current .g {
+  color: #50606c;
+}
+
+ul#output {
+  left: 0;
+  width: 620px;
+  height: 343px;
+  position: relative;
+}
+
+ul#output li {
+  position: absolute;
+  width: 620px;
+  height: 343px;
+}
+
+ul#output li img {
+  border: 1px solid #1b2228;
+}
+
+ul#output li .caption {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  width: 260px;
+  font-size: 18px;
+  color: #FFF;
+}
+
+ul#output li .caption p {
+  margin-bottom: 0;
+}
+
+ul#output li .caption h2 {
+  font-size: 36px;
+  line-height: 1;
+  float: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+ul#output li a.watch-now {
+  position: absolute;
+  display: block;
+  width: 243px;
+  line-height: 62px;
+  background: url(../images/sprite.png) 0 -64px no-repeat;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 71px;
+  right: 20px;
+  bottom: 20px;
+}
