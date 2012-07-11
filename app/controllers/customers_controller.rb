@@ -134,4 +134,7 @@ class CustomersController < ApplicationController
         }
     end
   end
+
+  def unsubscribe
+  end
 end

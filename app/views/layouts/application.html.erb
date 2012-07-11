@@ -88,7 +88,17 @@
     <% end %>
 
     <div class="container clearfix">
-			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:controller] !='home' %>
+      <% if flash[:notice] %>
+        <p class="notice">
+          <%= flash[:notice] %>
+        </p>
+      <% end %>
+      <% if flash[:error] %>
+        <p class="flash_error">
+          <%= flash[:error] %>
+        </p>
+      <% end %>
+			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:action] != 'unsubscribe' && params[:controller] !='home' %>
       <%= yield %>
     </div>
 </div>
