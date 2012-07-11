@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
   $('#user-movies li').live('mouseover',function(){
     $(this).children('.overlay').show()
   });
@@ -130,7 +130,7 @@ $(function() {
   });
   
   //carousel
-  var current;
+  /*var current;
   setCurrent(5);
   $container = $('.slider_normal').cycle({ 
       fx: 'turnLeft', 
@@ -143,7 +143,7 @@ $(function() {
       before: change_carousel_adult,
       next:   '#next', 
       prev:   '#back',
-  });
+  });*/
   
   function getCurrent()
   {

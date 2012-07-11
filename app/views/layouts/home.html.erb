@@ -2,9 +2,20 @@
   <%= javascript 'customer' %>
 <% end %>
 <%= javascript 'home', 'products', 'reviews' %>
-<%= stylesheet 'review', :media => :all%>
-<%= stylesheet  'home', :media => :all %>
-<% content_for :body_id do %>one-col<% end %>
+<%= stylesheet  'hp', :media => :all %>
+<%= stylesheet  'featurelist', :media => :all %>
+<%= stylesheet  'etabs', :media => :all %>
+<%= stylesheet  'jcarousel', :media => :all %>
+<%= javascript_include_tag 'jquery.featureList-1.0.0' %>
+<%= javascript_include_tag 'jquery.easytabs.min' %>
+<%= javascript_include_tag 'jquery.query-2.1.7' %>
+<%= javascript_include_tag 'jquery.jcarousel.min' %>
+<%= javascript_include_tag 'jquery.form' %>
+<%= javascript_include_tag 'facebox' %>
+<%= javascript_include_tag 'json2' %>
+
+
+<% content_for :body_id do %>hp<% end %>
 <% content_for :style do %><%= params[:kind] == :adult ? 'stylex' : 'style' %><% end %>
 <%= yield %>
 <% parent_layout 'application' %>

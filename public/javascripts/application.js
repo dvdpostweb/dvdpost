@@ -13,7 +13,8 @@ $(function() {
     }
   });
   // Enable fragmetChange. This will allow us to put ajax into browser history
-  $.fragmentChange(true);
+  //#to do
+  //$.fragmentChange(true);
 
   // hides the slickbox as soon as the DOM is ready
   // (a little sooner than page load)
@@ -47,8 +48,8 @@ $(function() {
     $.getScript($("#close a").attr('href'));
     return false;
   });
-
-  $(".datepicker").datepicker({
+  //#to do
+  /*$(".datepicker").datepicker({
     disabled: true,
     showButtonPanel: false,
     firstDay: 1,
@@ -120,7 +121,7 @@ $(function() {
         })
       }
     },
-    minDate: new Date()});
+    minDate: new Date()});*/
 
   $(".streaming_action").live("click", function() {
     wishlist_item = $(this);

@@ -7,36 +7,41 @@
   <%= render :partial => 'layouts/meta' %>
   <link rel="SHORTCUT ICON" href="/favicon.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<% style = yield(:style).blank? ? 'style' : yield(:style) %>
-  <%= stylesheet_link_tag style, :media => :all %>
-  <%= stylesheet_link_tag 'common', :media => :all %>
-  <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
-	<% if params[:kind] == :adult %>
-		<%= stylesheet_link_tag 'menux', :media => :all %>
-	<% else %>
-		<%= stylesheet_link_tag 'menu', :media => :all %>
-	<% end %>
-	
-  <%= stylesheet_link_tag 'facebox', :media => :all %>
-  <%= stylesheet_link_tag 'messages', :media => :all %>
-  <%= stylesheet_link_tag 'fonts', :media => :all %>
-  <%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.custom', :media => :all %>
-  <%= stylesheet_link_tag 'jquery_custom', :media => :all %>
-	
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css' />
 
-  <%= javascript_include_tag 'jquery-1.4.2.min' %>
+  <%= stylesheet_link_tag 'reset', :media => :all %>
+  <%= stylesheet_link_tag 'main', :media => :all %>
+ 	<%= stylesheet_link_tag 'facebox', :media => :all %>
+  <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript">
+			$(document).ready(function() {
+				$('#featurelist-slider .tabs li a').featureList({
+					output			:	'#output li',
+					start_item		:	0
+				});
+				$('.tab-container').easytabs({
+					animationSpeed: 100,				
+					updateHash: false
+				});
+				jQuery('.jc').jcarousel({
+					scroll: 3
+				});
+			});
+		</script>
+
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min' %>
+  <%= javascript_include_tag 'application' %>
+	
   <%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
   <%= javascript_include_tag 'jquery.ba-url.min' %>
   <%= javascript_include_tag 'jquery.query-2.1.7' %>
   <%= javascript_include_tag 'jquery.cycle.all.min' %>
   <%= javascript_include_tag 'jquery.form' %>
-  <%= javascript_include_tag 'facebox' %>
-  <%= javascript_include_tag 'json2' %>
-  <%= javascript_include_tag 'application' %>
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   <!--[if IE 6]>
-  <%= javascript_include_tag 'DD_belatedPNG' %>
-  <%= javascript_include_tag 'ie6-dd-decl' %>
+  	<%= javascript_include_tag 'ie' %>
   <![endif]-->
 	<%= yield :facebook %>
   <%= yield :head %>
@@ -73,22 +78,12 @@
 	} catch(err) {}</script>
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
-	<% if @theme && @theme.background_image == 1 && (@code.nil? || (@code && !@code.white_label)) %>
-		<% path = get_path(@theme) %>
-		<% if path %>
-			<%= link_to @theme.name, path, :id => :bglink, :style => "background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};" %>
-		<% else %>
-			<%= content_tag :div, @theme.name, :id => :bglink, :style => "background:url('#{@theme.image_wallpaper}') no-repeat #{@theme.background_attachment} center 0 #{@theme.background_color};" %>
-		<% end %>
-	<% end %>
-	
-  <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
 		<% if @code.nil? || (@code && !@code.white_label) %>
 			<% if params[:kind] == :normal %>
-	    	<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_public') : render(:partial => 'layouts/header') %>
+	    	<%= render(:partial => 'layouts/header') %>
 			<% else %>
-	  		<%= ENV['HOST_OK'] == "1" ? render(:partial => 'layouts/header_adult_public') : render(:partial => 'layouts/header_adult') %>
+	  		<%= render(:partial => 'layouts/header_adult') %>
 			<% end %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->
