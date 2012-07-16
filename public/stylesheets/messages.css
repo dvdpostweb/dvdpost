@@ -91,7 +91,7 @@
   font-size: 1.17em;
 }
 #contact-wrap #messages #table_message td {
-  padding: 2px 8px;
+  padding: 6px 8px 2px;
   border-bottom: 1px solid #0e0e0e;
 }
 #contact-wrap #messages tr.new {

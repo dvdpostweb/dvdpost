@@ -1,20 +1,13 @@
-<div id="news-wrap">
-  <div class="ttl maven">Actualités cinéma</div>
-  <!-- Carousel -->
-  <% if news_items %>
-  <div class="carousel-wrap clearfix">
-    <ul class="slides">
-      <%= render :partial => '/home/index/news_item', :collection => news_items if news_items %>
-    </ul>
-    <div class="pagination">
-      <span class="hide_arrow">
-        <%= will_paginate news_items, :previous_label => '',:next_label => '',:param_name => :news_page,:id => 'news_next',:container => false if news_items %>  
-      </span>
-    </div>
-    <div class="pagination2">
-      <%= will_paginate news_items, :previous_label => '',:next_label => '',:page_links => false,:param_name => :news_page,:id => 'news_next',:container => false if news_items %>  
-    </div>
-    
+<div id="actualites-wrap">
+	<h2>ACTUALITÉS</h2>
+	<ul class="jc jcarousel-skin-tango">
+	  <%= render :partial => '/home/index/news_item', :collection => news_items if news_items %>
+  </ul>
+  <div class="pagination arrow_left">
+    <%= will_paginate news_items, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :news_page %>
   </div>
-  <% end %>
-</div>
+  <span class="jc-items"><%= "#{news_page} of #{news_nb_page}" %></span>
+  <div class="pagination arrow_right">
+    <%= will_paginate news_items, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :news_page %>
+  </div>
+</div><!-- #actualites-wrap -->

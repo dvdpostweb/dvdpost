@@ -59,8 +59,5 @@
 			<% link_to "DETAIL DE MON COMPTE", customer_path(:id => current_customer), :class => :osc %>
 		</div>
 		<%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} if recommendations %>
-	<div id="week-theme">
-		<h3>THEME DE LA SEMAINE</h3>
-		<img src="images/weekly-theme.jpg" width="267" height="121" alt="THEME DE LA SEMAINE" /> <a href="#" class="osc">PLUS DE DETAILS</a> 
-	</div>
+		<%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
 </div>

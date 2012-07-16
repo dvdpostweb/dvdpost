@@ -1,18 +1,21 @@
 <% if params[:kind] == :adult %>
   <%= javascript 'customer' %>
+  <%= javascript  "home_adult", :media => :all %>
+  <%= stylesheet  'common', :media => :all %>
+  <%= stylesheet  'hp_adult', :media => :all %>
+  
+<% else %>
+  <%= stylesheet  'hp', :media => :all %>
+  <%= stylesheet  'featurelist', :media => :all %>
+  <%= stylesheet  'etabs', :media => :all %>
+  <%= stylesheet  'jcarousel', :media => :all %>
+  <%= javascript_include_tag 'jquery.featureList-1.0.0' %>
+  <%= javascript_include_tag 'json2' %>
+  <%= javascript  "home_normal", :media => :all %>
+  
 <% end %>
-<%= javascript 'home', 'products', 'reviews' %>
-<%= stylesheet  'hp', :media => :all %>
-<%= stylesheet  'featurelist', :media => :all %>
-<%= stylesheet  'etabs', :media => :all %>
-<%= stylesheet  'jcarousel', :media => :all %>
-<%= javascript_include_tag 'jquery.featureList-1.0.0' %>
-<%= javascript_include_tag 'jquery.easytabs.min' %>
-<%= javascript_include_tag 'jquery.query-2.1.7' %>
-<%= javascript_include_tag 'jquery.jcarousel.min' %>
-<%= javascript_include_tag 'jquery.form' %>
-<%= javascript_include_tag 'facebox' %>
-<%= javascript_include_tag 'json2' %>
+<%= javascript 'products', 'reviews' %>
+
 
 
 <% content_for :body_id do %>hp<% end %>

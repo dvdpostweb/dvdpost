@@ -287,7 +287,7 @@ class Customer < ActiveRecord::Base
   end
   
   def svod?
-    subscription_type.credits == 10000
+    subscription_type.credits == 10000 if subscription_type
   end
 
   def next_new_price?

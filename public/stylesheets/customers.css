@@ -1,5 +1,8 @@
 @charset "ISO-8859-1";
-
+#moncompte td,tr
+{
+  padding:1px 2px;
+}
 .account {
   margin: 20px 40px;
 }
@@ -113,10 +116,10 @@ li.links a {
 }
 
 .adresse {
-  padding-top:10px;
+  padding-top:10px !important;
 }
 .transit {
-  padding-top:3px;
+  padding-top:3px !important;
 }
 .transit a{
   color: #505050;

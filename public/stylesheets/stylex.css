@@ -4,19 +4,6 @@ developed by Vel
 at http://www.vhg-design.com
 ===============
 */
-html, body{
-  background: url(../images/bg.gif);
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  font-size: 62.5%;
-}
-
-body {
-  color: #201f20;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2em;
-}
 
 ul, ol, dl, dt, dd {
   margin: 0;
@@ -61,9 +48,7 @@ textarea {
 }
 
 #wrap {
-  margin: 0 auto;
-  text-align: left;
-  width: 970px;
+background: white;
 }
 
 .container {}
@@ -96,7 +81,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 /*   ============   HOME PAGE   ============   */
 
 #hp-content {
-  padding: 15px 12px 15px 15px !important;
+  padding: 15px 8px 15px 8px !important;
   background: #fff;
 }
 
@@ -610,13 +595,6 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   width: 15px;
   display: inline;
 }
-#wrap {
-  background: url(../images/content-bg.png) 0 0 repeat-y;
-  margin: 0 auto;
-  padding: 0 8px;
-  text-align: left;
-  width: 970px;
-}
 #yes
 {
   background: url(../images/bouton_x.png);
@@ -800,10 +778,11 @@ a.trailer-week span strong, div.trailer-week a span strong {
   overflow: hidden;
 }
 #banners {
-  display: block;
-  margin: 0 -12px 30px -15px;
-  background: #f2f2f2 url(../images/banners-bg.gif) 0 0 repeat-x;
-  padding: 25px 0 15px;
+display: block;
+margin: 0 9px 0px -8px;
+background: #F2F2F2 url(../images/banners-bg.gif) 0 0 repeat-x;
+padding: 25px 0 15px;
+width: 960px;
 }
 #banners li {
   float: left;
@@ -830,4 +809,11 @@ a.trailer-week span strong, div.trailer-week a span strong {
 }
 #banners li a.streaming_btn:hover, #banners li a.streaming_btn_replay:hover {
   text-decoration: underline;
+}
+#contact-wrap
+{
+  background: white;
+}
+.container ul, .container ol, .container dl {
+  margin-bottom: 0px;
 }

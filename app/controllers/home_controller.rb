@@ -2,24 +2,22 @@ class HomeController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        Rails.logger.debug { "@@@html" }
         get_data(params[:kind])
       }
       format.js {
-        Rails.logger.debug { "@@@js" }
-        
         if params[:news_page]
-          render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
+          get_news
+          render :partial => '/home/index/news', :locals => {:news_items => @news_items, :news_page => @news_page, :news_nb_page => @news_nb_page}
         elsif params[:highlight_page]
           get_reviews_data(params[:review_kind], params[:highlight_page], params[:precision])
         elsif params[:action_popup]
           render :partial => '/home/index/product_action', :locals => {:item => Product.find(params[:product_id])}
         elsif params[:selection_page]
           get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
-          render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}  
+          render :partial => "/home/index/selection_week#{params[:kind] == :adult ? '_adult' : ''}", :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page}
         elsif params[:selection_kind]
           get_selection_week(params[:kind], params[:selection_kind], 1)
-          render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection}
+          render :partial => "/home/index/selection_week#{params[:kind] == :adult ? '_adult' : ''}", :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page}
         elsif params[:close_rating]
           recommendations = retrieve_recommendations(1,{:per_page => 8})
           render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => nil}
@@ -80,23 +78,28 @@ class HomeController < ApplicationController
   def get_selection_week(kind, selection_kind, selection_page)
     @default = streaming_access? ? :vod : :dvd
     @selection_kind = selection_kind || @default
-    @selection_page = selection_page
-    selection = when_fragment_expired "#{Rails.env}_selection_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+    @selection_page = selection_page || 1
+    selection = when_fragment_expired "#{Rails.env}_selection_new2_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
       if kind == :adult
         sql = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
       else
-        sql = ProductList.theme.by_kind(kind.to_s).by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
+        sql = ProductList.theme.by_kind(kind.to_s).by_language(DVDPost.product_languages[I18n.locale]).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 3, :page => selection_page)
       end
       Marshal.dump(sql)
     end
     Product.class
     @selection = Marshal.load(selection)
+    @selection_nb_page = @selection.total_pages
   end
 
   def get_data(kind)
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
-    news_serial = when_fragment_expired "#{Rails.env}_news_hp3_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
-      Marshal.dump(News.by_kind(params[:kind]).private.last(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+    news_serial = when_fragment_expired "#{Rails.env}_news_hp_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+      if params[:kind] == :adult
+        Marshal.dump(News.ordered.by_kind(params[:kind]).private.first(:joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+      else
+        Marshal.dump(News.ordered.by_kind(params[:kind]).private.all(:limit => 4, :joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+      end
     end
     News.class
     @news = Marshal.load(news_serial)
@@ -124,6 +127,8 @@ class HomeController < ApplicationController
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
       not_rated_products = current_customer.not_rated_products(kind)
       @not_rated_product = not_rated_products[rand(not_rated_products.count)]
+      @themes = ThemesEvent.old.by_kind(params[:kind]).ordered.limit(2)
+      @theme = @themes.first
     else
       if I18n.locale != :en
         chronicle_serial = when_fragment_expired "#{Rails.env}_chronicle_hp_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
@@ -133,11 +138,8 @@ class HomeController < ApplicationController
         @chronicle = Marshal.load(chronicle_serial)
       end
       expiration_recommendation_cache()
-      begin
-        @news_items = retrieve_news
-      rescue => e
-        logger.error("Failed to retrieve news: #{e.message}")
-      end
+      @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.first
+      get_news
       @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
       #@streaming_available = current_customer.get_all_tokens
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
@@ -151,7 +153,17 @@ class HomeController < ApplicationController
     end
   end
 
-  def retrieve_news
+  def get_news
+    begin
+      @news_page = params[:news_page] || 1
+      @news_items = retrieve_news(@news_page)
+      @news_nb_page = @news_items.total_pages
+    rescue => e
+      logger.error("Failed to retrieve news: #{e.message}")
+    end
+    
+  end
+  def retrieve_news(news_page)
     fragment_name = "#{I18n.locale.to_s}/home/news"
     news_items = when_fragment_expired fragment_name, 2.hour.from_now do
       begin
@@ -162,7 +174,7 @@ class HomeController < ApplicationController
         nil
       end
     end
-    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_items
+    news_items.paginate(:per_page => 3, :page => news_page) if news_items
   end
 
   def retrieve_popular

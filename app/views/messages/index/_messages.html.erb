@@ -15,7 +15,7 @@
       <tr>
         <th width="50" align="left">ID</th>
         <th width="559"></th>
-        <th width="210" align="left"> 
+        <th width="220" align="left"> 
           <div id="bysort">
             <div class="bysort_message"><%= t '.sort' %> : </div>
             <form action='<%= messages_path() %>' id='sort_form'>
@@ -29,7 +29,7 @@
         </div>
       </th>
       <% unless params[:filter] == Ticket.filter[:archive] %>
-      <th class="center">
+      <th class="center" width="41">
         <%= image_tag 'icon_archive.gif', :size => '25x25', :alt => 'Archive' %>
       </th>
       <% end %>

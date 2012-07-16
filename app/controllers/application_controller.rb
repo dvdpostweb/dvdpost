@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     before_filter :set_country, :unless => :is_it_xml?
     before_filter :get_wishlist_source, :unless => :is_it_xml?
     before_filter :last_login, :if => :is_it_html?
-    before_filter :theme_actif, :if => :is_it_html?
+    #before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
     
@@ -80,8 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   def theme_actif_production
-    @themes = ThemesEvent.old.by_kind(params[:kind]).ordered.limit(2)
-    @theme = @themes.first
+    @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.last
   end
 
   def is_special_page?

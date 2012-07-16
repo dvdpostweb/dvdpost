@@ -67,12 +67,12 @@ element.style {
 }
 
 .checkalive {
-    background: url("../images/check.png") no-repeat scroll 0 -27px transparent;
+    background: url("../images/check.png") no-repeat scroll 0 -25px transparent;
     height: 26px;
     cursor:pointer;
 }
 .check {
-    background: url("../images/check.png") no-repeat scroll 0 0 transparent;
+    background: url("../images/check.png") no-repeat scroll 0 2pxe transparent;
     height: 26px;
     cursor:pointer;
 }
