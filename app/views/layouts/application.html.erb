@@ -12,26 +12,16 @@
   <%= stylesheet_link_tag 'reset', :media => :all %>
   <%= stylesheet_link_tag 'main', :media => :all %>
  	<%= stylesheet_link_tag 'facebox', :media => :all %>
+
+	<%= stylesheet 'style', 'all', :media => :all if (params[:controller] != 'home' && params[:kind] == :normal) || params[:kind] == :adult  %>
+	
+	<%= stylesheet 'stylex', :media => :all if params[:kind] == :adult %>
+
   <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script language="javascript" type="text/javascript">
-			$(document).ready(function() {
-				$('#featurelist-slider .tabs li a').featureList({
-					output			:	'#output li',
-					start_item		:	0
-				});
-				$('.tab-container').easytabs({
-					animationSpeed: 100,				
-					updateHash: false
-				});
-				jQuery('.jc').jcarousel({
-					scroll: 3
-				});
-			});
-		</script>
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  
 
-  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min' %>
   <%= javascript_include_tag 'application' %>
 	
   <%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
@@ -39,6 +29,8 @@
   <%= javascript_include_tag 'jquery.query-2.1.7' %>
   <%= javascript_include_tag 'jquery.cycle.all.min' %>
   <%= javascript_include_tag 'jquery.form' %>
+  <%= javascript_include_tag 'facebox' %>
+
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   <!--[if IE 6]>
   	<%= javascript_include_tag 'ie' %>
@@ -83,7 +75,7 @@
 			<% if params[:kind] == :normal %>
 	    	<%= render(:partial => 'layouts/header') %>
 			<% else %>
-	  		<%= render(:partial => 'layouts/header_adult') %>
+	  		<%= render(:partial => 'layouts/header') %>
 			<% end %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->
@@ -101,6 +93,7 @@
 			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) %>
       <%= yield %>
     </div>
+</div>
     <!--   ==============   FOOTER   ==============   -->
     <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} if @code.nil? || (@code && !@code.white_label) %>
     <!--   ==============   END FOOTER   ==============   -->

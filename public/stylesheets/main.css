@@ -46,7 +46,7 @@ h5 {
 }
 
 a {
-  color: #ac5347;
+  color: #212A31;
   text-decoration: none;
 }
 
@@ -88,7 +88,7 @@ textarea {
 -webkit-box-shadow: 0px 0px 45px #000000;
 box-shadow: 0px 0px 45px #000000;
 }
-#hp #wrap {
+#hp.normal #wrap {
 background: #c3d1db url(../images/rc-bg.gif) 100% 0 repeat-y;
 }
 
@@ -390,7 +390,40 @@ border-radius: 4px;
   font-size: 14px;
 }
 
+/*   ============   ARROW pagination   ============   */
 
 
 
-
+.pagination.arrow_left .prev_page, .pagination.arrow_right .next_page {
+  position: absolute;
+  top: 0px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-image: url(../images/jc-arrows.png);
+  background-repeat: no-repeat;
+}
+.pagination.arrow_left .next_page, .pagination.arrow_right .prev_page
+{
+  display:none;
+}
+.pagination.arrow_left .prev_page
+{
+  right: 106px;
+  top: 14px;
+  background-position: 0 0;
+}
+.pagination.arrow_right .next_page
+{
+  right: 29px;
+  top: 14px;
+  background-position: 100% 0;
+}
+.pagination.arrow_left span.prev_page, .pagination.arrow_right span.next_page {
+  cursor: default;
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}

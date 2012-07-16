@@ -42,20 +42,21 @@ $(document).ready(function() {
     });
     return false;
   });
-  $('#selection-tabcontent-wrap.home .content-tabs a').live('click',function(){
+  /* selection */
+  $('#weekly-selection-wrap .content-tabs a').live('click',function(){
     url = this.href;
     set_page(url)
-    html_item = $('#selection-week-wrap');
-    html_content = $('#selection-tabcontent-wrap .carousel-wrap');
+    html_item = $('#weekly-selection-wrap');
+    html_content = $('#weekly-selection-wrap .panel-container');
     content = html_content.html()
-    $('#selection-tabcontent-wrap .content-tabs a').removeClass('active') 
+    $('#weekly-selection-wrap .content-tabs a').removeClass('active') 
     $(this).addClass('active')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
     $.ajax({
       url: url,
       type: 'GET',
       success: function(data) {
-        html_item.html(data);
+        html_item.replaceWith(data);
       },
       error: function() {
         html_content.html(content);
@@ -63,6 +64,7 @@ $(document).ready(function() {
     });
     return false;
   });
+  /* *** */
   $('#selection-tabcontent-wrap.home .pagination a,#selection-tabcontent-wrap .pagination2 a').live('click',function(){
     url = this.href;
     set_page(url)
@@ -176,26 +178,7 @@ $(document).ready(function() {
   }
   
 
-  function change_carousel_adult()
-  {
-    image = $(this).attr('id')
-    reg= new RegExp(/[^\d]/g)
-    id = parseInt(image.replace(reg,''),10)+1
-    setCurrent(id)
-    $('.pagination a.active').removeClass('active');
-    $('#btn_'+id).addClass('active');
-  }
-  function change_carousel()
-  {
-    image = $(this).attr('id')
-    reg= new RegExp(/[^\d]/g)
-    id = parseInt(image.replace(reg,''),10)+1
-    setCurrent(id)
-    $('.pagination a.active').removeClass('active');
-    $('#btn_'+id).addClass('active');
-    
-  }
-
+  
   $('.top_actors').live('mouseover',function(){
     var reg = new RegExp('[actor_id]', 'gi');
     id =$(this).attr('id').replace(reg,'');

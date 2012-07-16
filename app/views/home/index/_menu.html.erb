@@ -1,22 +1,22 @@
-<ul id="tabs-review">
-  <li>
+<ul class="etabs osc">
+  <li class='tab'>
     <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["BEST_RATE"]) %>" id="tab1" <%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_rate] || @review_kind.nil? ? 'class="active pie"' : '' %> >
-    <%= t('.best_rates') %>
+    <%= t('.best_rates').upcase %>
     </a>
   </li>
-  <li>
+  <li class='tab'>
     <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["BEST_REVIEW"]) %>" id="tab2" <%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_review] ? 'class="active pie"' : '' %>>
-      <%= t('.best_reviews') %>
+      <%= t('.best_reviews').upcase %>
     </a>
   </li>
-  <li>
+  <li class='tab'>
     <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["CONTROVERSE_RATE"]) %>" id="tab3"<%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:controverse_rate] ? 'class="active pie"' : '' %>>
-      <%= t('.controverse_rates') %>
+      <%= t('.controverse_rates').upcase %>
     </a>
   </li>
-  <li class="last">
+  <li class='tab'>
     <a href="<%= root_path(:review_kind => DVDPost.home_review_types.invert["BEST_CUSTOMER"]) %>" id="tab4" <%= DVDPost.home_review_types[review_kind] == DVDPost.home_review_types[:best_customer] ? 'class="active pie"' : '' %>>
-      <%= t('.best_customers') %>
+      <%= t('.best_customers').upcase %>
     </a>
   </li>
 </ul>

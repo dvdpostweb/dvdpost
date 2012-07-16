@@ -1,21 +1,21 @@
 <% if ENV['HOST_OK'] == "0" %>
-    <div id="tab-content-1" class="tab-content pie">
-      <h3><%= t '.title' %></h3>
-      <ul class="clearfix content_item">
-        <%= render :partial => "home/index/best_item", :collection => @data %>
-      </ul>
-      <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_RATE"], :precision => nil} %>
-    </div>
+<div id="tab-content-1">
+  <p class="intro"><%= t '.title' %></p>
+    <ul id="films-preferes-content" class="comm-reaction">
+      <%= render :partial => "home/index/best_item", :collection => @data %>
+    </ul>
+    <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_RATE"], :precision => nil} %>        
+</div>
 <% else %>
-  <% name = "#{I18n.locale}/customers/best_reviews_#{Date.today.strftime("%d_%m_%Y")}" %>
+  <% name = "#{I18n.locale}/customers/best_reviews_new_#{Date.today.strftime("%d_%m_%Y")}" %>
   <% name_path = "views/#{name}" %>
   <% cache name do %>
-    <div id="tab-content-1" class="tab-content pie">
-      <h3><%= t '.title' %></h3>
-      <ul class="clearfix content_item">
-        <%= render :partial => "home/index/best_item", :collection => @data %>
-      </ul>
-      <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_RATE"], :precision => nil} %>
+    <div id="tab-content-1">
+      <p class="intro"><%= t '.title' %></p>
+        <ul id="films-preferes-content" class="comm-reaction">
+          <%= render :partial => "home/index/best_item", :collection => @data %>
+        </ul>
+        <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_RATE"], :precision => nil} %>        
     </div>
-  <% end %>
+  <%  end %>
 <% end %>

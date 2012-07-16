@@ -4,62 +4,12 @@ developed by Vel
 at http://www.vhg-design.com
 ===============
 */
-a {
-  color: #ac5347;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-html, body {
-  background: url(../images/bg.gif) 0 0 repeat-x;
-  font-size: 62.5%;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-body.halloween
+body
 {
-  background:url("../images/overlay.jpg") no-repeat fixed center 0 #18162e;
-}
-body.xmas
-{
-  background:url("../images/special/magorium.jpg") no-repeat fixed center 0 #e8373d;
-}
-body.darco
-{
-  background:url("../images/special/darko.jpg") no-repeat center 0 #000000;
-}
-body.valentine
-{
-  background:url("../images/special/stvalentin.jpg") no-repeat fixed center 0 #c51e15;
-}
-body.oscar
-{
-  background:url("../images/special/oscar.jpg") no-repeat fixed center 0 #211f20;
-}
-
-img {
-  border: 0px;
-}
-
-body {
-  color: #454545;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2em;
-  text-shadow: 0 0 0 #000;
+  text-shadow: 0 0 0 black;
 }
-
-h1, h2, h3, h4, h5, h6, form, fieldset {
-  margin: 0;
-  padding: 0;
-}
-
-fieldset {
-  border: none;
-}
-
 .left {
   float: left;
   padding-top: 8px;
@@ -80,16 +30,15 @@ fieldset {
   height: 0;
   line-height: 0;
 }
-
+h1, h2, h3, h4, h5 {
+  font-family: Arial,Helvetica,sans-serif;
+}
 #wrap {
-  background: url(../images/content-bg.png) 0 0 repeat-y;
-  margin: 0 auto;
-  padding: 0 8px;
-  text-align: left;
-  width: 970px;
+  background: white;
 }
 
-.container {
+#maincontent {
+  display:block !important;
 }
 
 #twocols-container {
@@ -107,19 +56,6 @@ fieldset {
 
 
 
-/* ============ MAIN CONTENT ============ */
-
-#maincontent {
-  float: right;
-  margin: 23px 26px 16px 0;
-  position: relative;
-  width: 708px;
-  z-index: 1;
-}
-
-* html #maincontent {
-  display: inline;
-}
 
 /* Theme Page */
 
@@ -689,11 +625,14 @@ a#next10 {
   background: url(../images/content-bg-wishlist.gif) 0 0 repeat-y;
   float: none;
   margin: 24px 0 24px 24px !important;
-  padding: 25px 0 18px 15px;
+  padding: 25px 15px 18px 15px;
   position: relative;
-  width: 922px;
+  width: 907px;
 }
-
+#info #maincontent
+{
+  background: none;
+}
 * html #one-col #maincontent {
   display: block;
 }
@@ -728,6 +667,10 @@ a#next10 {
   left: 0;
   position: absolute;
   width: 922px;
+}
+#info #maincontent .top, #info #maincontent .end
+{
+  background-image:none;
 }
 
 * html #maincontent .top, * html #maincontent .end {
@@ -4799,3 +4742,4 @@ background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transpare
 {
   padding: 0 0 0 16px;
 }
+

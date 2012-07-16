@@ -185,7 +185,7 @@ color: #fff;
 .comm-reaction a.regarder {
   background-position: -352px -32px;
 }
-a.plus-btn {
+#review_tab a.next_page {
   width: 581px;
   height: 24px;
   line-height: 22px;
@@ -196,10 +196,18 @@ a.plus-btn {
   color: #96a1aa;
   background: url(../images/plus-btn.png) 0 0 no-repeat;
 }
+#review_tab span.next_page {
+  display:none;
+}
 #actualites-wrap {
   padding-left: 30px;
   position: relative;
   margin-bottom: 35px;
+}
+#actualites-wrap img{
+  float: initial !important;
+  display: block;
+  margin: 0 0 5px 0;
 }
 #actualites-wrap h2 {
   font-size: 30px;
@@ -212,6 +220,10 @@ a.plus-btn {
   background: url(../images/sprite.png) -480px 0 no-repeat;
   display: inline-block;
   line-height: 17px;
+}
+#actualites-wrap a
+{
+  text-decoration: none;
 }
 #sub-footer {
   padding: 30px 10px 20px 30px;
@@ -469,4 +481,13 @@ font-weight: bold !important;
 
 #user-info-wrap .right li {
 overflow: hidden;
+}
+.comm-reaction
+{
+  width: 610px;
+}
+
+.no_bold
+{
+  font-weight: normal !important;
 }

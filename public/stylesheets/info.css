@@ -1,7 +1,5 @@
 @charset "UTF-8";
 /* CSS Document */
-@charset "UTF-8";
-/* CSS Document */
 
 #header #logout {
 display:block;
@@ -74,10 +72,6 @@ padding-left: 112px;
 }
 #wrap {
 background:url("../images/content-bg.png") repeat-y scroll 0 0 transparent;
-margin:0 auto;
-padding:0 8px 10px;
-text-align:left;
-width:970px;
 }
 #top_box {
 background:url("../images/vod_connect.jpg") no-repeat scroll 0 0 #FFFFFF;
@@ -611,7 +605,7 @@ body#ipad {
 	display: block;
 	height: 168px;
 	left: 100%;
-	margin: 3px 0 0 -159px;
+	margin: -1px 0 0 -170px;
 	position: absolute;
 	top: 0;
 	width: 170px;

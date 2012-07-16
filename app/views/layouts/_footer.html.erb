@@ -1,31 +1,42 @@
-<% if current_customer %>
-<div id="footer" >
-  <div id="subfooter">
-    <div id="footer-nav">
-      <h3>
-        <%= t '.quick_links' %>
-      </h3>
-      <ul>
-        <li><%= link_to t('.who'), info_path(:page_name => 'whoweare') %></li>
-        <li><%= link_to t('.privacy'), info_path(:page_name => 'privacy') %></li>
-        <li><%= link_to t('.conditions'), info_path(:page_name => 'conditions') %></li>
-      </ul>
-      <ul id="contacts">
-        <li>
-          <h4><%= link_to t('.contact'), current_customer ? new_phone_request_path : php_path('contact_public.php') %></h4>
-        </li>
-        <li><%= link_to t('.faq'), current_customer ? faq_path : php_path('faq_public.php') %></li>
-        <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
-        <li><%= link_to t('.contest'), current_customer ? contests_path : php_path('quizz_public.php')%></li>
-        <li><%= link_to t('.quizz'), current_customer ? quizzes_path : php_path('contest_public.php') %></li>
-      </ul>
-    </div>
-    <%= render :partial => 'layouts/partners', :locals => {:partners => partners} %>
-    <div class="clear"></div>
-    <p id="copyr"><%= t '.copyright' %> </p>
-  </div>
-</div>
-
+<!--   ==============   FOOTER   ==============   -->
+   <div id="footer" >
+   	<div class="wrap">
+     	<ul>
+         	<li><h4>Explore</h4></li>
+             <li><a href="">Film</a></li>
+             <li><a href="#">Serie TV</a></li>
+             <li><a href="#">Reportage</a></li>
+             <li><a href="#">Sitemap</a></li>
+             <li><a href="#">Contact</a></li>
+         </ul>
+         <ul>
+         	<li><h4>Follow Us</h4></li>
+             <li><a href="#">Facebook</a></li>
+             <li><a href="#">Twitter</a></li>
+             <li><a href="#">Netlog</a></li>
+         </ul>
+         <ul>
+         	<li><h4>HOW IT WORKS</h4></li>
+             <li><a href="#">Lorem </a></li>
+             <li><a href="#">ipsum </a></li>
+             <li><a href="#">dolor </a></li>
+             <li><a href="#">sit amet</a></li>
+             <li><a href="#">consetetur </a></li>
+             <li><a href="#">sadipscing</a></li>
+         </ul>
+         <ul>
+         	<li><h4>About DVD Post</h4></li>
+             <li><a href="#">Lorem </a></li>
+             <li><a href="#">ipsum </a></li>
+             <li><a href="#">dolor </a></li>
+             <li><a href="#">sit amet</a></li>
+             <li><a href="#">consetetur </a></li>
+             <li><a href="#">sadipscing</a></li>
+         </ul>
+     </div>
+   </div>
+   <!--   ==============   END FOOTER   ==============   -->
+ <% if current_customer %>
 <!-- Google Code for Clients &lt;30 days Remarketing List -->
 <script type="text/javascript">
 /* <![CDATA[ */
