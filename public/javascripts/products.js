@@ -175,7 +175,7 @@ $(function() {
     return false;
   });
   
-  $(".action .links a").live("click", function() {
+  $(".oters .links a").live("click", function() {
     html_item = $(this).parent();
     content = html_item.html();
     html_item.html("Saving...");

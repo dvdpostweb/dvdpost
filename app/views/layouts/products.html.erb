@@ -1,8 +1,8 @@
 <%= javascript 'products','reviews' %>
 <%= javascript 'home' if ENV['HOST_OK'] == "1" %>
-<%= stylesheet 'products', :media => :all %>
+<%= stylesheet 'products2', :media => :all %>
 
-<% content_for :body_id do %>product_body<% end %>
+<% content_for :body_id do %>cl<% end %>
 <% if @product && !@product.adult? %>
   <% content_for :facebook do %>
     <meta property="og:image" content="<%= @product_image %>"/> 

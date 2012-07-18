@@ -1,10 +1,11 @@
-<% if params[:kind] == :normal %>
 <div id="maincontent">
+<h2 class="ttl"><%= t(".categories#{params[:filter].nil? ? '' : '_vod'}")  %></h2>
+
+<% if params[:kind] == :normal %>
+<ul id="categories">
   <%= render :partial => '/categories/item', :collection =>  @categories %>
-</div>
-  <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
+</ul>
 <% else %>
-  <div id="maincontent">
     <ul id="search-studio" class="search-categories">
       <%= render :partial => '/categories/items', :locals => { :categories => @categories[0], :letter => 0} %>
 
@@ -12,6 +13,6 @@
         <%= render :partial => '/categories/items', :locals => { :categories => @categories[l], :letter => l} %>
       <% end %>
     </ul>
-  </div>
-  <%= render :partial => 'products/left_column_adult', :locals => {:filter => @filter} %>
 <% end %>
+</div>
+<%= render :partial => "products/left_column#{params[:kind] == :normal ? '' : '_adult'}", :locals => {:filter => @filter} %>

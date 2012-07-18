@@ -13,30 +13,30 @@ module ProductsHelper
 
   def audio_bubbles(product, additional_bubble = 0)
     audio_count=0
-    total_bubble = 5 + additional_bubble 
+    total_bubble = 3 + additional_bubble 
     preferred_audio = product.languages.preferred
     audio = Array.new
     unless preferred_audio.count == 0
       audio = preferred_audio.collect{|language| 
         audio_count +=1
-        content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+        content_tag(:li, language.short.upcase, :class => "right red osc", :alt => language.name, :title => language.name)
       }
     end
-    
+  
     not_preferred_audio = product.languages.not_preferred
     unless not_preferred_audio.count == 0
       audio << not_preferred_audio.collect{|language| 
         audio_count +=1
         display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
-          content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)} #{display}", :alt => language.name, :title => language.name)
+          content_tag(:li, language.short.upcase, :class => "right red osc", :alt => language.name, :title => language.name)
         else
-          content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text #{display}")
+          content_tag(:li, language.name,:class => "#{language.class.name.underscore}_text #{display}")
         end
       }
     end
     if audio_count > total_bubble
-      audio << content_tag(:div, '', :class => "audio_more")
+      audio << content_tag(:li, '', :class => "audio_more")
       hide = true
     else
       hide = false
@@ -47,13 +47,13 @@ module ProductsHelper
 
   def subtitle_bubbles(product, additional_bubble)
     subtitle_count=0
-    total_bubble = 5 + additional_bubble 
+    total_bubble = 3 + additional_bubble 
     preferred_subtitle = product.subtitles.preferred
     sub = Array.new
     unless preferred_subtitle.count == 0
       sub = preferred_subtitle.preferred.collect{|subtitle| 
         subtitle_count += 1
-        content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
+        content_tag(:li, subtitle.short.upcase, :class => "right gray osc", :alt => subtitle.name, :title => subtitle.name)
       }
     end
     if subtitle_count < total_bubble
@@ -69,14 +69,14 @@ module ProductsHelper
             else
               class_undertitle = class_bubble(subtitle.short, :classic)
             end
-            content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_undertitle} #{display}", :alt => subtitle.name, :title => subtitle.name)
+            content_tag(:li, subtitle.short.upcase, :class => "right gray osc", :alt => subtitle.name, :title => subtitle.name)
           else
-            content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
+            content_tag(:li, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
           end
         }
       end
       if subtitle_count > total_bubble
-        sub << content_tag(:div, '', :class => "subtitle_more")
+        sub << content_tag(:li, '', :class => "subtitle_more")
         hide = true
       else
         hide = false
@@ -148,39 +148,30 @@ module ProductsHelper
        name = 'star'
        class_name = ''
     end
-    if size == 'small' || size == :small
-      name = "small-#{name}"
+    #if size == 'small' || size == :small
+    #  name = "small-#{name}"
+    #else
+    #  if background == :black
+    #    name = "black-#{name}" 
+    #  end
+    #end
+    #if background == :pink
+    #  name = "pink-#{name}" 
+    #end
+    
+    image_name = if rating >= 2
+      "#{name}-on.png"
+    elsif rating == 1
+      "#{name}-half.png"
     else
-      if background == :black
-        name = "black-#{name}" 
-      end
+      "#{name}-off.png"
     end
-    if background == :pink
-      name = "pink-#{name}" 
-    end
-    if size == 'small' || size == :small || background == :pink
-      image_name = if rating >= 2
-        "#{name}-on.png"
-      elsif rating == 1
-        "#{name}-half.png"
-      else
-        "#{name}-off.png"
-      end
-    else
-      image_name = if rating >= 2
-        "#{name}-on.jpg"
-      elsif rating == 1
-        "#{name}-half.jpg"
-      else
-        "#{name}-off.jpg"
-      end
-    end
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => '12x12')
+    
     if current_customer && class_name == 'star'
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name)
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
     else
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name)
-      
+      image
     end
   end
 
@@ -286,6 +277,7 @@ module ProductsHelper
     title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
     title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
     title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
+    title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:view_mode] == 'cinema'
     title = t('.recommendation') if params[:view_mode] == 'recommended'
     title = t('.streaming_title') if params[:view_mode] == 'streaming'
     title = t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
@@ -295,6 +287,7 @@ module ProductsHelper
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
     title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
     title = "#{t '.search'}: #{params[:search]}" if params[:search]
+    title = t('products.left_column.all') if title.nil?
     title
   end
 
@@ -374,7 +367,7 @@ module ProductsHelper
         name = lang.name
         if !country.include?(short)
           country << short
-          content_tag(:div, short.upcase, :class => "language  #{class_bubble(name)}", :alt => name, :title => name) 
+          content_tag(:li, short.upcase, :class => "right red osc", :alt => name, :title => name) 
         end
       end
     }
@@ -399,7 +392,7 @@ module ProductsHelper
           else
             class_undertitle = class_bubble(short, :classic)
           end
-          content_tag(:div, short.upcase, :class => "subtitle #{class_undertitle}", :alt => name, :title => name)
+          content_tag(:li, short.upcase, :class => "right gray osc", :alt => name, :title => name)
         end
       end
     }
@@ -408,12 +401,12 @@ module ProductsHelper
 
   def bubbles(product)
     if params[:view_mode] == 'streaming' || params[:vod] == 'vod' || params[:filter] == 'vod'
-      "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
+      "#{streaming_subtitle_bublles(product)} #{streaming_audio_bublles(product)}"
     else
       audio_bubble = audio_bubbles(product, 0)
       subtitle_bubble = subtitle_bubbles(product, 0)
       separator = (audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
-      "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
+      "#{subtitle_bubble[:sub]} #{separator} #{audio_bubble[:audio]}"
     end
   end
 
@@ -549,5 +542,16 @@ module ProductsHelper
     end
     str
   end
-  
+
+  def category(product, cat)
+    if cat
+      cat.name
+    else
+      if product.adult?  
+        product.categories.first.name unless product.categories.empty?
+      else
+        product.categories.active.first.name unless product.categories.active.empty?
+      end
+    end
+  end
 end

@@ -4,7 +4,6 @@
 <% if product.streaming? %>
   <% @token = current_customer ? current_customer.get_token(product.imdb_id) : nil %>
 <% end %>
-<div class="<%= jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %> clearfix">
 <% view = params[:view_mode] == 'streaming' || params[:filter] == 'vod' ? 0 : 1 %>
 <% name = "#{I18n.locale}/products/product3_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
 <% name_path = "views/#{name}" %>
@@ -19,89 +18,52 @@
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
 <% product_description = data[:description] %>
-  <div>
-    <% link_to path, :class => :cover, :title => product_title do %>
-      <%= product_image_tag product_image, :width => 62, :height => 95 %>
-    <% end %>
-  </div>
-  <div class="movie-descr">
-    <h2>
-      <%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %>
-    </h2>
-    <p>
-      <%= truncate_html(product_description.text, :length => 300) %>
-      <%= bubbles(product) %>
-    </p>
-    <p class="links">
-      <% if product.trailer %>
-        <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) %>
-        <%= content_tag(:span, image_tag('delimiter.gif')) if (!product_description.url.nil? && !product_description.url.empty?) %>
-      <% end %>
-      <%= link_to(t('.more'), path, :class => 'more') %>
-    </p>
-  </div>
-  <% cache name do %>
-  
-  <div class="movie-info">
-    <div class="subs">
-      <%= image_tag product.public.image, :alt => product.public.description if product.public %>
-      <div style='clear:left'></div>
-    </div>
-    <% if product.actors.count > 0  %>
-    <div class="cast">
-      <h3>
-        <%= t '.actors' %>
-      </h3>
-      <p><%= product.actors.limit(8).collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
-    </div>
-    <% end %>
-    <% if product.director %>
-      <h3>
-        <%= t '.director' %>
-      </h3>
-      <p><%= link_to product.director.name, director_products_path(:director_id => product.director.to_param) %></p>
-    <% end %>
-    <% if product.studio && product.adult? %>
-      <h3>
-        <%= t '.studio' %>
-      </h3>
-      <p><%= link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param) %></p>
-    <% end %>
-    
-  </div>
-  
-  
-  <div class="action">
-    <h4>
-      <% if @category %>
-        <%= @category.name %>
-      <% else %>
-        <% if product.adult? %>  
-          <%= product.categories.first.name unless product.categories.empty? %>
-        <% else %>
-          <%= product.categories.active.first.name unless product.categories.active.empty? %>
-        <% end %>
-      <% end %>
-    </h4>
-    <% end %>
-    <div class="stars" id="rating-stars-<%= product.id %>" product_id="<%= product.id %>">
-      <%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color} %>
-    </div>
-    <% if current_customer %>
-    <div class="links" id="seen-uninterested-<%= product.to_param %>">
-      <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
-    </div>
-    <% end %>
-    <% if product.in_streaming_or_soon? && streaming_access? %>
-      <% if product.streaming? %>
-        <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token } %>
-      <% end %>
-      <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
-    <% end %>
-    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:filter] == "vod" || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
-    
-  </div>
-  
-</div>
+<% media = jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %>
 
+<div class="movie-wrap">
+	<div class="movie-ttl">
+  	<h3><%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %></h3>
+    <div class="osc"><%= category(product, @category) %></div>
+    <div class="stars vote" id="rating-stars-<%= product.id %>" product_id="<%= product.id %>">
+      &nbsp;<%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color} %>
+    </div>
+  </div><!-- .movie-ttl -->
+  <div class="movie-content">
+  	<div class="movie-descr">
+      	<p><%= truncate_html(product_description.text, :length => 300) %></p>
+          <%= link_to(t('.more'), path, :class => 'osc') %>
+          <div class="thumb-wrap">
+            <% link_to path, :class => :cover, :alt => product_title do %>
+              <%= product_image_tag product_image, :width => 62, :height => 95 %>
+            <% end %>
+            <span class="<%= media %> osc"><%= media %></span>
+          </div>
+      </div><!-- .movie-descr -->
+      
+      <div class="cast">
+        <% if product.actors.count > 0  %>
+        <h4><%= t '.actors' %></h4>
+        <p><%= product.actors.limit(8).collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
+        <% end %>
+        <% if product.director %>
+          <h4><%= t '.director' %></h4>
+          <p><%= link_to product.director.name, director_products_path(:director_id => product.director.to_param) %></p>
+        <% end %>
+      </div>
+      <div class="oters">
+      	<ul class="lang">
+          	<li class="left dark osc"><%= product.public.name if product.public %></li>
+          	<%= bubbles(product) %>
+          </ul>
+           <div class="links" id="seen-uninterested-<%= product.to_param %>">
+              <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
+            </div>
+          <ul class="btns osc">
+          	<li><a href="#" class="ajouter">Ajouter</a></li>
+              <li><a href="#" class="regarder">Regarder</a></li>
+              <li><a href="#" class="trailer">Bande d'annonce</a></li>
+          </ul>
+      </div><!-- .oters -->
+  </div><!-- .movie-content -->
+</div><!-- .movie-wrap -->
 <% end %>
