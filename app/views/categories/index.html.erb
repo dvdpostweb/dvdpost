@@ -6,6 +6,7 @@
   <%= render :partial => '/categories/item', :collection =>  @categories %>
 </ul>
 <% else %>
+    <%= render :partial => "/actors/menu_#{params[:kind]}" %>
     <ul id="search-studio" class="search-categories">
       <%= render :partial => '/categories/items', :locals => { :categories => @categories[0], :letter => 0} %>
 
@@ -15,4 +16,4 @@
     </ul>
 <% end %>
 </div>
-<%= render :partial => "products/left_column#{params[:kind] == :normal ? '' : '_adult'}", :locals => {:filter => @filter} %>
+<%= render :partial => "products/left_column", :locals => {:filter => @filter} %>
