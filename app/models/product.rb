@@ -394,7 +394,6 @@ class Product < ActiveRecord::Base
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.product_linked_recommendations_new(self, kind, customer_id, type)
-      Rails.logger.debug { "@@@#{recommendation_ids.inspect}" }
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
