@@ -1,5 +1,6 @@
 <div id="maincontent">
   <% if params[:filter].nil? %>
+    <h2 class="ttl"><%= t('products.left_column.studio') %></h2>
     <p id="letters">
       <% ('a'..'z').each do |l| %>
         <%= link_to l.upcase, studios_path(:letter => l) %> |
@@ -17,7 +18,10 @@
     <% end %>
     </ul>
   <% else %>
-    <%= render :partial => '/studios/index/studio_pict', :collection =>  @studios %>
+    <h2 class="ttl"><%= t('.studio_vod') %></h2>
+    <div class='center'>
+      <%= render :partial => '/studios/index/studio_pict', :collection =>  @studios %>
+    </div>
   <% end %>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->

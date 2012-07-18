@@ -817,3 +817,7 @@ width: 960px;
 .container ul, .container ol, .container dl {
   margin-bottom: 0px;
 }
+.adult #header h1 a {
+height: 47px;
+background: url(/images/logo_adult.png) 0 0 no-repeat;
+}

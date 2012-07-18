@@ -1,37 +1,25 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div id="maincontent">
-  <div id="title"><%= products_index_title unless (@actor && !@actor.adult?) || @director %></div>
-  <%= render :partial => 'products/index/image', :locals => {:actor => @actor} if @actor %>
-  <%= render :partial => 'products/index/image', :locals => {:actor => @director} if @director %>
-  <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
-  <% unless @popular.nil? %>
-    <%= render :partial => 'products/index/streaming', :locals => {:products => @popular} %>
-  <% end %>
-  
-  <div id="titles-wrap">
-    <div id="titles-wrap">
-      <div id="search-wrap">
-        <div class="clearfix">
-          <div id="selection-tabcontent-wrap">
-            <% if params[:search] && !params[:search].empty? %>
-            <ul class="content-tabs">
-              <%= "<li>#{link_to t('.films')  , url_for(params.merge(:type => nil, :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
-              <%= "<li>#{link_to t('.directors'), url_for(params.merge(:type => 'directors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
-              <%= "<li>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
-            </ul>
-            <% end %>
-            <div id="search_content">
-    <%= render :partial => 'products/index/sorting' if params[:type].nil? %>
-    <% if @actors && @actors.size > 0 %>
-      <%= render :partial => 'products/index/peoples', :locals => {:people => @actors} %>
-    <% end %>
-    <% if @directors && @directors.size > 0 %>
-      <%= render :partial => 'products/index/peoples', :locals => {:people => @directors} %>
-    <% end %>
-    <% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) && params[:type].nil? %>
-      <h2><%= t '.exact' %></h2>
-      <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
-    <% end %>
+<div id="maincontent" >
+      <% unless (@actor && !@actor.adult?) || @director %>
+        <h2 class="ttl"><%= products_index_title  %></h2>
+      <% end %>
+      <%= render :partial => 'products/index/image', :locals => {:actor => @actor} if @actor %>
+      <%= render :partial => 'products/index/image', :locals => {:actor => @director} if @director %>
+      <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
+      <% unless @popular.nil? %>
+        <%= render :partial => 'products/index/streaming', :locals => {:products => @popular} %>
+      <% end %>
+      <!--   ==============   MOVIES   ==============   -->
+      <% if @actors && @actors.size > 0 %>
+        <%= render :partial => 'products/index/peoples', :locals => {:people => @actors} %>
+      <% end %>
+      <% if @directors && @directors.size > 0 %>
+        <%= render :partial => 'products/index/peoples', :locals => {:people => @directors} %>
+      <% end %>
+      <% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) && params[:type].nil? %>
+        <h2><%= t '.exact' %></h2>
+        <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
+      <% end %>
       <% if params[:type].nil? %>
         <% unless !@products || (@products.size == 0 && @exact_products && @exact_products.size > 0)   %>
           <% if @products %>
@@ -53,16 +41,16 @@
           <% end %>
         <% end %>
       <% end %>
-    </div></div></div></div></div>
-  </div>
-  <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' if @products && params[:type].nil? && params[:view_mode] != 'popular_streaming' %>
-  <%= will_paginate @actors, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :actors_page if @actors && params[:type] == 'actors' && params[:view_mode] != 'popular_streaming' %>
-  <%= will_paginate @directors, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :directors_page if @directors && params[:type] == 'directors' && params[:view_mode] != 'popular_streaming' %>
-  
-</div>
-<!--   ==============   END MAIN CONTENT   ==============   -->
-<% if params[:kind] == :normal %>
-  <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
-<% else %>
-  <%= render :partial => 'products/left_column_adult', :locals => {:filter => @filter} %>
-<% end %>
+      <%= will_paginate @products, :class => 'products-pagination osc', :id => :pagination, :previous_label => '«', :next_label => '»' if @products && params[:type].nil? && params[:view_mode] != 'popular_streaming' %>
+      <%= will_paginate @actors, :class => 'products-pagination osc', :id => :pagination, :previous_label => '«', :next_label => '»', :param_name => :actors_page if @actors && params[:type] == 'actors' && params[:view_mode] != 'popular_streaming' %>
+      <%= will_paginate @directors, :class => 'products-pagination osc', :id => :pagination, :previous_label => '«', :next_label => '»', :param_name => :directors_page if @directors && params[:type] == 'directors' && params[:view_mode] != 'popular_streaming' %>
+      
+      
+      <!--   ==============   END MOVIES   ==============   -->
+    </div>
+    <% if params[:kind] == :normal %>
+      <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
+    <% else %>
+      <%= render :partial => 'products/left_column_adult', :locals => {:filter => @filter} %>
+    <% end %>
+<!--   ==============   END MAIN CONTENT   ==============   --> 

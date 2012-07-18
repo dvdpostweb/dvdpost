@@ -252,3 +252,40 @@ ul#search-performers li li a.star {
 .clearfix {
   display: block;
 }
+
+.cadre
+{
+  border: 1px solid #666;
+  width:162px;
+  list-style: none;
+  float:left;
+  margin: 5px;
+  min-height:269px;
+}
+.cadre p
+{
+  margin:5px 5px 5px 10px;
+}
+.cadre .title
+{
+  color: #666;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.cadre li 
+{
+  color: #666;
+  margin:0 0 0 10px;
+}
+.cadre li a
+{
+  color: #666;
+}
+#maincontent {
+  float: right;
+}
+.container
+{
+  background: #C3D1DB url(../images/lc-bg.gif) 0 0 repeat-y;  
+}

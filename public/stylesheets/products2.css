@@ -1,0 +1,328 @@
+#cl .container {
+  background: #c3d1db url(../images/lc-bg.gif) 0 0 repeat-y;
+}
+#cl #maincontent {
+  float: right;
+}
+#cl #maincontent h2.ttl {
+   padding: 17px 20px;
+   background: #fff;
+   font-size: 45px;
+}
+
+
+#filter-wrap {
+  background:#fff url(../images/filter-shadow.png) 0 0 repeat-x;
+ border-top: 1px solid #d8d8d8;
+ min-height: 24px;
+ overflow: hidden;
+ padding: 14px 5px 12px 18px;
+ font-family: 'PT Sans', Arial, Helvetica, sans-serif;
+}
+
+#filter-wrap ul {
+  float: left;
+  margin-bottom: 0;
+}
+#filter-wrap h4 {
+  font-family: 'PT Sans', Arial, Helvetica, sans-serif !important;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+#filtrer-resultat {
+  width: 186px;
+  padding-right: 10px;
+}
+#filter-wrap li {
+  margin-bottom: 3px;
+}
+
+
+#filtrer-resultat .remove {
+  display: inline-block;
+  padding: 6px 0 5px 39px;
+  background: url(../images/filter-close-icon.png) 0 50% no-repeat;
+}
+#filtrer-resultat #add-filter {
+  display: inline-block;
+  width: 140px;
+  padding-left: 24px;
+  line-height: 23px;
+  background: url(../images/sprite.png) 0 -160px no-repeat;
+  color: #6b7176;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+#filtrer-resultat #clear-all {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  margin:8px 0 0 11px;
+}
+#trier-result {
+  width: 190px;
+  padding-right: 10px;
+}
+
+
+#trier-result select {
+  padding: 6px;
+  border: 1px solid #dcdcdc;
+  background: #f5f5f5;
+  color: #888b8e;
+  width: 150px;
+}
+#options-affichage {
+  max-width: 210px;
+}
+#options-affichage a {
+  padding-left:30px;
+  display: inline-block;
+  line-height: 24px;
+  background-image: url(../images/filter-icons.png);
+  background-repeat: no-repeat;
+}
+#options-affichage a#grid {
+  background-position: 0 -80px;
+}
+#options-affichage a#grid.active {
+  background-position: 0 0;
+}
+#options-affichage a#list-thumbs {
+  background-position: 0 -240px;
+}
+#options-affichage a#list-thumbs.active {
+  background-position: 0 -160px;
+}
+#options-affichage a#list {
+  background-position: 0 100%;
+}
+#options-affichage a#list.active {
+  background-position: 0 -320px;
+}
+.movie-wrap {
+  overflow: hidden;
+}
+.movie-ttl {
+  overflow: hidden;
+  line-height:34px;
+  background: url(../images/film-ttl-bg.gif) 0 0 repeat-x;
+  border-bottom: 1px solid #b7bdc1;
+  border-top: 1px solid #9eabb5;
+  padding-left: 20px;
+}
+.movie-ttl h3 {
+  float: left;
+  width: 320px;
+  padding-right: 7px;
+  font-size: 18px;
+}
+.movie-ttl .osc {
+  float: left;
+  width: 196px;
+  padding-right: 7px;
+  font-size: 14px;
+}
+.movie-content {
+  overflow: hidden;
+  padding: 12px 0 20px 20px;
+  background: #c3d1db url(../images/film-cont-bg.gif) 0 0 repeat-x;
+  min-height: 120px;
+
+}
+.movie-descr {
+  float: left;
+  position: relative;
+  width: 238px;
+  padding: 0 8px 0 82px;
+  min-height: 106px;
+  color: #5f6f7b;
+}
+.movie-descr p {
+  margin-bottom: 5px;
+}
+
+.movie-descr a.osc {
+  font-size: 14px;
+  font-weight: bold;
+}
+.movie-descr .thumb-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 62px;
+}
+.movie-descr .thumb-wrap .vod {
+  display: block;
+  height: 11px;
+  line-height: 10px;
+  font-size: 10px;
+  text-align: center;
+  color: #fff;
+  background: #a3c41b;
+}
+.cast {
+  width: 130px;
+  padding-right: 8px;
+  float: left;
+}
+.cast h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 10px 0 6px;
+  line-height: 1;
+}
+.cast h4:first-child {
+  margin-top: 0;
+}
+.cast p {
+  margin-bottom: 0;
+  font-size: 10px;
+  color: #5f6f7b
+}
+.oters {
+  width: 134px;
+  float: left;
+  position: relative;
+  min-height: 120px;
+}
+.oters .lang {
+  display: block;
+  height: 21px;
+  margin:-5px 0 5px;
+}
+.oters .lang li {
+  display: block;
+  width: 21px;
+  height: 21px;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+.oters .lang li.dark {
+  background: url(../images/sprite.png) -512px -128px no-repeat;
+}
+.oters .lang li.red {
+  background: url(../images/sprite.png) -544px -128px no-repeat;
+}
+.oters .lang li.gray {
+  background: url(../images/sprite.png) -576px -128px no-repeat;
+}
+.oters .lang li.left {
+  margin-left: 2px;
+}
+.oters .lang li.right {
+  margin-right: 2px;
+}
+.oters .links {
+  margin-bottom: 10px;
+  text-align: right;
+  font-size: 10px;
+  font-weight: bold;
+}
+.oters .links a, .oters .links {
+  color: #fff;
+}
+.oters .links a:first-child {
+  margin-right: 17px;
+}
+.oters .btns {
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ width: 134px;
+ margin-bottom: 0;
+}
+.oters .btns li {
+  margin-top: 3px;
+}
+.oters .btns a {
+  display: block;
+  height: 23px;
+  line-height: 21px;
+  padding-left: 33px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  background-image: url(../images/sprite.png);
+  background-repeat: no-repeat;
+}
+.oters .btns a.ajouter {
+  background-position: -192px -160px;
+}
+.oters .btns a.regarder {
+  background-position: -352px -160px;
+}
+.oters .btns a.trailer {
+  background-position: -352px -128px;
+}
+.oters .btns a.reserve {
+  background-position: -352px -192px;
+  color: #323a40;
+  text-shadow: 1px 1px 1px #fff;
+}
+#pagination {
+  padding: 18px 0 20px;
+  text-align: center;
+  background: url(../images/tab-content-div.gif) 0 0 repeat-x;
+}
+#pagination a, #pagination span.current{
+  display: inline-block;
+  line-height: 23px;
+  padding: 0 7px;
+  min-width: 10px;
+  font-weight: bold;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   border-radius: 4px;
+   background: url(../images/pagination-bg.png) 0 100% repeat-x;
+   margin: 0 2px 0 1px;
+   font-size: 14px;
+   -moz-box-shadow: 1px 1px 1px #96a1a8;
+   -webkit-box-shadow: 1px 1px 1px #96a1a8;
+   box-shadow: 1px 1px 1px #96a1a8;
+   color: #6f7980;
+   text-shadow: 1px 1px 1px #dce3e9;
+}
+
+#pagination a:hover, #pagination span.current {
+  background-position: 0 0;
+  color: #323a40;
+  text-shadow: 1px 1px 1px #fff;
+  -moz-box-shadow: 1px 1px 1px #52585c;
+  -webkit-box-shadow: 1px 1px 1px #52585c;
+  box-shadow: 1px 1px 1px #52585c;
+  text-decoration: none;
+}
+
+#pagination span.gap {
+  display: inline-block;
+  width: 18px;
+}
+
+#pagination .disabled
+{
+  display:none;
+}
+.detail-box .people {
+float: left;
+margin: 0 20px 0 0;
+}
+#title {
+color: #303030;
+font-size: 1.33em;
+font-weight: bold;
+margin: 4px 0 7px;
+text-transform: uppercase;
+}
+.detail-text #detail {
+line-height: 21px;
+}
+.detail-box
+{
+  margin: 10px;  
+}

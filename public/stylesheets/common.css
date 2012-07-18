@@ -751,35 +751,7 @@ color:#7B0499;
   height: 35px;
   width: 38px;
 }
-.cadre
-{
-  border: 1px solid #666;
-  width:162px;
-  list-style: none;
-  float:left;
-  margin: 5px;
-  min-height:269px;
-}
-.cadre p
-{
-  margin:5px 5px 5px 10px;
-}
-.cadre .title
-{
-  color: #666;
-  font-size: 1.2em;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.cadre li 
-{
-  color: #666;
-  margin:0 0 0 10px;
-}
-.cadre li a
-{
-  color: #666;
-}
+
 #hp-content .slide,#hp-content .slider
 {
   height:249px !important;
