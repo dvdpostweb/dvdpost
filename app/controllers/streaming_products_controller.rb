@@ -64,7 +64,7 @@ class StreamingProductsController < ApplicationController
           else
             @token = current_customer.get_token(@product.imdb_id)
           end
-          if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip))
+          if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip) && !current_customer.super_user?)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
@@ -133,7 +133,7 @@ class StreamingProductsController < ApplicationController
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip) if current_customer
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
-          elsif Token.dvdpost_ip?(request.remote_ip)
+          elsif Token.dvdpost_ip?(request.remote_ip) || current_customer.super_user?
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false

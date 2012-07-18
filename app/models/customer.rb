@@ -438,7 +438,7 @@ class Customer < ActiveRecord::Base
 
   def create_token(imdb_id, product, current_ip, streaming_product_id, kind)
     file = StreamingProduct.find(streaming_product_id)
-    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || super_user?
+    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0
         begin
           token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
         rescue => e
