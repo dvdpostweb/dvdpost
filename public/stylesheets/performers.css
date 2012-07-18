@@ -19,36 +19,7 @@ h1, h2, h3, h4, h5, h6, form, fieldset, p {
 }
 /*   Search Studio   */
 
-#options {
-  font-size: 1.50em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  position: relative;
-  color :#201F20;
-}
-#options a, p#letters a, ul#search-studio li li a, ul#search-performers li li a, p#filter a {
-  text-decoration: none;
-}
-#options a:hover, #options a.active, p#letters a:hover, ul#search-studio li li a:hover, ul#search-performers li li a:hover,
-p#filter a:hover, p#filter a.active {
-  color: #e2007c;
-}
-#options a.right {
-  font-size: 0.61em;
-  text-decoration: underline;
-  padding-left:16px;
-  background: url(../images/link-arrow.gif) 0 0 no-repeat;
-}
-*+html #options a.right {
-  position: absolute;
-  top: 5px;
-  right: 0;
-}
 
-
-#options a.right:hover {
-  text-decoration: none;
-}
 p#letters {
   text-align: center;
   font-size: 1.5em;

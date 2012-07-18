@@ -48,9 +48,5 @@
       
       <!--   ==============   END MOVIES   ==============   -->
     </div>
-    <% if params[:kind] == :normal %>
-      <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
-    <% else %>
-      <%= render :partial => 'products/left_column_adult', :locals => {:filter => @filter} %>
-    <% end %>
+    <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
 <!--   ==============   END MAIN CONTENT   ==============   --> 
