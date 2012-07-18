@@ -78,7 +78,7 @@ class HomeController < ApplicationController
     @default = streaming_access? ? :vod : :dvd
     @selection_kind = selection_kind || @default
     @selection_page = selection_page
-    selection = when_fragment_expired "#{Rails.env}_selection_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+    selection = when_fragment_expired "#{Rails.env}_selection2_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
       if kind == :adult
         sql = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
       else
