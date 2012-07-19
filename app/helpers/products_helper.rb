@@ -274,21 +274,29 @@ module ProductsHelper
   end
 
   def products_index_title
-    title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
-    title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
-    title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
-    title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:view_mode] == 'cinema'
-    title = t('.recommendation') if params[:view_mode] == 'recommended'
-    title = t('.streaming_title') if params[:view_mode] == 'streaming'
-    title = t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
-    title = t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
-    title = "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
-    title = "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
+    return "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
+    return "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
+    return "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
+    return t ".cinema" if params[:view_mode] == 'cinema'
+    return t('.recommendation') if params[:view_mode] == 'recommended'
+    return t('.streaming_title') if params[:view_mode] == 'streaming'
+    return t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
+    return t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
+    return t('.most_rent_vod') if params[:sort] == 'token_month' && params[:filter] == 'vod'
+    return t(".index_rating#{params[:filter]}") if params[:sort] == 'rating'
+    return "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    return "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
+    return "#{t '.search'}: #{params[:search]}" if params[:search]
+    return t(".hearts_vod}") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale]))
+    return t(".hearts") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale]))
+    return t(".vod_recent") if params[:view_mode] == 'vod_recent'
+    return t(".recent") if params[:view_mode] == 'recent'
+    return t(".soon") if params[:view_mode] == 'soon'
+    return t(".most_viewed") if params[:sort] == 'most_viewed'
+    
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
-    title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
-    title = "#{t '.search'}: #{params[:search]}" if params[:search]
-    title = t('products.left_column.all') if title.nil?
-    title
+    return (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
+    return t('products.left_column.all')
   end
 
   def title_add_to_wishlist(type_text, type_button, media = nil)

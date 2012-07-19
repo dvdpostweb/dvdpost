@@ -60,7 +60,9 @@
             </div>
           <ul class="btns osc">
           	<li><a href="#" class="ajouter">Ajouter</a></li>
-              <li><a href="#" class="regarder">Regarder</a></li>
+              <li>
+                <%= render :partial => 'products/streaming',  :locals => {:product => product, :token => @token, :text => :short} %>
+              </li>
               <li><a href="#" class="trailer">Bande d'annonce</a></li>
           </ul>
       </div><!-- .oters -->
