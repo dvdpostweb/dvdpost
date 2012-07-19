@@ -90,6 +90,9 @@ class Customer < ActiveRecord::Base
   has_many :gifts_history, :foreign_key => :customers_id
   has_many :additional_card, :foreign_key => :customers_id
   has_many :tokens
+  #has_many :tokens_products, :through => :tokens, :source => :product, :uniq => true
+  has_and_belongs_to_many :tokens_products, :class_name => 'Product', :join_table => :tokens, :foreign_key => 'products.imdb_id', :association_foreign_key => 'tokens.imdb_id'
+  
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
   has_many :credit_histories, :foreign_key => :customers_id
   has_many :highlight_customers
@@ -793,5 +796,9 @@ class Customer < ActiveRecord::Base
       logger.error("customer have a problem with credit customer_id : #{to_param} action: #{action} action type: #{action_type} quantity: #{quantity}")
       logger.error(e.backtrace)
     end
+  end
+
+  def vod_currently_seen?(product)
+    tokens
   end
 end
