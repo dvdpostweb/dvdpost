@@ -10,14 +10,14 @@
   <% end %>
   <% product_title = product.title %>
   <li>
-    <h2> <%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h2>
+    <h3><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h3>
     <div class="content">
       <div class="critic"> 
         <%= link_to image_tag(get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
         <div class="name">
           <strong><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
           <%= customer_awards(customer, customer.customer_attribute.points) %>
-          (<%= reviews_count %> <%= review_title(reviews_count) %>) 
+          (<%= reviews_count %> <%= review_title(reviews_count) %>)<br />
           <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
         </div>
         <strong style='clear:both'><%= t '.rating' %> :</strong> 
@@ -27,7 +27,7 @@
       </div>
       <p class="short_review">
         <strong><%= t '.critic' %> :</strong> 
-        <%= truncate_html(review.text, :length => 240) %>
+        <%= truncate_html(review.text, :length => 350) %>
         
       </p>
       <% if review.text.length > 240 %>
@@ -40,6 +40,7 @@
       <div class="relevant">
         <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
       </div>
+      <div class="clearfix"></div>
       <div class="write">
         <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
       </div>

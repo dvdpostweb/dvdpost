@@ -78,17 +78,22 @@
 			<% end %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->
+    <% if flash[:notice] %>
+		<div class='flash_message'>
+      <div class="notice">
+        <%= flash[:notice] %>
+      </div>
+		</div>
+    <% end %>
+    <% if flash[:error] %>
+		<div class='flash_message'>
+      <div class="flash_error">
+        <%= flash[:error] %>
+      </div>
+		</div>
+    <% end %>
+
     <div class="container clearfix">
-      <% if flash[:notice] %>
-        <p class="notice">
-          <%= flash[:notice] %>
-        </p>
-      <% end %>
-      <% if flash[:error] %>
-        <p class="flash_error">
-          <%= flash[:error] %>
-        </p>
-      <% end %>
 			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) %>
       <%= yield %>
     </div>

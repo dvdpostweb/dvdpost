@@ -91,8 +91,8 @@ $(document).ready(function() {
     html_item = $('#review_content');
     html_content = $('.tab-content');
     content = html_content.html()
-    $('#tabs-review li a.active').removeClass('pie') 
-    $('#tabs-review li a.active').removeClass('active')
+    $('#tab-container li a.active').removeClass('pie') 
+    $('#tab-container li a.active').removeClass('active')
     $(this).addClass('active pie')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
     $.ajax({

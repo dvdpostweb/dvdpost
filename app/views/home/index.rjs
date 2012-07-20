@@ -14,10 +14,10 @@ case DVDPost.home_review_types[@review_kind]
     end
     
   when DVDPost.home_review_types[:best_review]
-    page[".tab-content a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
-    content ="<ul class='clearfix content_item'    style='display:none'>#{render :partial => '/home/index/coeur_item', :collection => @data}</ul></ul>"
-    page[".tab-content .content_item:last"].after(content)
-    page[".tab-content .content_item:last"].slideDown(1000)
+    page["#review_tab  a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
+    content ="<ul id='coeur' class='comm-reaction' style='display:none'>#{render :partial => '/home/index/coeur_item', :collection => @data}</ul></ul>"
+    page["#review_tab .comm-reaction:last"].after(content)
+    page["#review_tab .comm-reaction:last"].slideDown(1000)
     
   when DVDPost.home_review_types[:controverse_rate]
     page[".tab-content a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}

@@ -1,5 +1,6 @@
 class VodWishlistsController < ApplicationController
   def index
+    @tokens = current_customer.get_all_tokens_id(params[:kind])
     kind = params[:kind] || :normal
     if params[:transit_or_history] == "history"
       @history_list = current_customer.get_all_tokens(params[:kind], :old, params[:page])
