@@ -1,7 +1,8 @@
 <div id="tab-content-2" class="tab-content pie">
-  <h3><%= t '.title' %></h3>
-  <ul class="clearfix content_item">
+  <p class="intro"><%= t '.title' %></p>
+  <ul id="coeur-content" class="comm-reaction">
     <%= render :partial => 'home/index/coeur_item', :collection => @data %>
   </ul>
+  <br />
   <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["BEST_REVIEW"], :precision => nil} %>
 </div>

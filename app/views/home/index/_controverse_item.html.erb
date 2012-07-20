@@ -4,7 +4,7 @@
   <% product_title = product.title%>
   <% reviews_count = product_reviews_count(product) %>
   <li>
-    <h2><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h2>
+    <h3><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h3>
     <div class="content"> 
       <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
         <% if reviews_count > 0 %>

@@ -121,7 +121,7 @@
 }
 #image_vod {
     background: url(../images/vod.jpg) repeat scroll 0 0 transparent;
-    height: 334px;
+    height: 329px;
     padding: 60px 0 0;
     width: 696px;
 }
@@ -164,7 +164,7 @@
 .choice_language {
     background-color: #212830;
     color: #FFFFFF;
-    margin-left: 113px;
+    margin-left: 105px;
     text-align: center;
     width: 696px;
 	 padding-bottom: 12px;

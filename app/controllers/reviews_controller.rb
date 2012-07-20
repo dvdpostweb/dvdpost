@@ -24,6 +24,7 @@ class ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @tokens = current_customer.get_all_tokens_id(params[:kind], @review.product.imdb_id) if current_customer
     respond_to do |format|
       format.html
       format.js {render :layout => false}

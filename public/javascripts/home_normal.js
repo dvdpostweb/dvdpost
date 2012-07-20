@@ -59,11 +59,11 @@ $(document).ready(function() {
  $('#tab1, #tab2, #tab3, #tab4').live('click',function(){
    url = this.href;
    set_page(url)
-   html_item = $('#review_content');
+   html_item = $('#community-wrap');
    html_content = $('.tab-content');
    content = html_content.html()
-   $('#tabs-review li a.active').removeClass('pie') 
-   $('#tabs-review li a.active').removeClass('active')
+   $('#community-wrap li a.active').removeClass('pie') 
+   $('#community-wrap li a.active').removeClass('active')
    $(this).addClass('active pie')
    html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
    $.ajax({
@@ -78,7 +78,15 @@ $(document).ready(function() {
    });
    return false;
  });
-
+ $(".review_more").live("click", function() {
+   wishlist_item = $(this);
+   jQuery.facebox(function() {
+     $.getScript(wishlist_item.attr('href'), function(data) {
+       jQuery.facebox(data);
+     });
+   });
+   return false;
+ });
  $('#review_tab a.next_page').live('click',function(){
    url = this.href;
    set_page(url)

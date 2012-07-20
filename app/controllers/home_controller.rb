@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
     respond_to do |format|
       format.html {
         get_data(params[:kind])
@@ -67,9 +68,9 @@ class HomeController < ApplicationController
           @data_all = HighlightCustomer.day(0).by_kind('all').ordered.paginate(:per_page => 5, :page => page)
         end
       when DVDPost.home_review_types[:best_review]
-        @data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 4, :page => page)
+        @data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 3, :page => page)
       when DVDPost.home_review_types[:controverse_rate]
-        @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
+        @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 8, :page => page)
       else
         @data = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
     end

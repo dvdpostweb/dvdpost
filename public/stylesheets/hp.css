@@ -185,6 +185,132 @@ color: #fff;
 .comm-reaction a.regarder {
   background-position: -352px -32px;
 }
+#tab-content-1 li .content a.view-all, #tab-content-3 li .content a.view-all {
+padding-right: 15px;
+background: url(../images/hp-ttls-nav-arrow.gif) 100% 0 no-repeat;
+}
+#tab-content-1 li .content, #tab-content-3 li .content {
+float: right;
+width: 156px;
+height: 112px;
+position: relative;
+background: #F7F7F7;
+font-size: .92em;
+padding: 3px 3px 3px 6px;
+color: #36404E;
+font-weight: bold;
+}
+#tab-content-2 li .critic img {
+float: left;
+border: 1px solid #838383;
+margin-right: 6px;
+}
+#tab-content-2 li .critic .stars-wrap img {
+float: none;
+margin: 0;
+border: none;
+vertical-align: baseline;
+}
+#tab-content-2 li .thumb img {
+border: 1px solid #272727;
+margin-bottom: 4px;
+}
+#tab-content-2 li .thumb {
+float: left;
+width: 100px;
+}
+#tab-content-2 li.show {
+width: 830px !important;
+}
+.content .comm-reaction {
+width: 840px !important;
+}
+#tab-content-2 li.show .content {
+width: 700px;
+}
+#tab-content-2 .comm-reaction li {
+  width: 600px;
+  margin: 0 14px 0 0;
+}
+#tab-content-2 .comm-reaction
+{
+  margin: 0 0 10px 0;
+}
+#tab-content-2 li .content {
+float: right;
+width: 473px;
+min-height: 205px;
+padding: 8px 5px 0 10px;
+background: #F7F7F7;
+overflow: hidden;
+font-size:1.2em;
+}
+#tab-content-2 li .content .relevant {
+font-size: .92em;
+color: #414850;
+}
+#tab-content-2 li .content .write a {
+font-size: .92em;
+font-weight: bold;
+padding-left: 15px;
+background: url(../images/speach-bbl.png) 0 0 no-repeat;
+}
+#tab-content-2 li .critic .name img {
+border: none;
+}
+#tab-content-2 li .critic .name a.all_critics {
+font-size: 1.10em;
+text-transform: none;
+padding-right: 15px;
+background: url(../images/hp-ttls-nav-arrow.gif) 100% 0 no-repeat;
+margin-bottom: 10px;
+display: inline-block;
+}
+#tab-content-2 li .content p {
+line-height: normal;
+margin: 5px 0;
+}
+#tab-content-2 .review_more u{
+  text-align: right;
+  width: 466px;
+  display: block;
+}
+#tab-content-2 .align
+{
+  float:left;
+}
+#tab-content-2 .yn
+{
+  float:right;
+}
+#tab-content-2 li .content p.short_review
+{
+  margin:10px 0 3px 0;
+}
+#tab-content-3 li .thumb {
+float: left;
+width: 78px;
+}
+#tab-content-3 li .content {
+width: 174px;
+padding: 20px 0 0 0;
+text-align:center;
+}
+#tab-content-3 .comm-reaction li {
+width: 276px;
+margin: 0 20px 5px 0;
+font-size: 1.5em;
+
+}
+#tab-content-3 li .content .votes .up {
+padding: 5px 24px 0 0;
+background: url(../images/thumb-up.png) 15px 4px no-repeat;
+}
+#tab-content-3 li .content .votes .down {
+padding: 5px 24px 0 0px;
+background: url(../images/thumb-down.png) 15px 5px no-repeat;
+}
+
 #review_tab a.next_page {
   width: 581px;
   height: 24px;

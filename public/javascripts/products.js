@@ -50,7 +50,7 @@ $(function() {
     html_item = $(this);
     content = html_item.html();
     html_item.html("Loading...");
-    root_item = html_item.parent().parent();
+    root_item = html_item.parent().parent().parent();
     $.ajax({
       url: html_item.attr('href'),
       type: 'GET',

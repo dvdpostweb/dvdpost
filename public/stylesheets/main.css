@@ -511,3 +511,58 @@ margin-top: 15px;
 text-align: center;
 text-decoration: none;
 }
+div.flash_message
+{
+  background:white;
+  padding:9px 20px;
+}
+div.notice {
+  background: none repeat scroll 0 0 #CDE4EC;
+  border: 1px solid #888888;
+  font-size: 14px;
+  padding: 10px;
+  text-align: center;
+  width: 900px;
+}
+div.flash_error {
+  background: none repeat scroll 0 0 #D9A0A7;
+  border: 1px solid #888888;
+  font-size: 14px;
+  padding: 10px;
+  text-align: center;
+  width: 900px;
+}
+#facebox td.body {
+background-color: #EEE;
+}
+.review_new {
+border-style: hidden;
+display: block;
+color: white;
+text-shadow: 1px 1px 1px #555;
+height: 42px;
+margin: 0 0 0 40px;
+width: 166px;
+background: url("../images/review_new.png") no-repeat scroll 0 0 transparent;
+cursor: pointer;
+line-height: 38px;
+padding-bottom: 7px;
+}
+#critical_title {
+border-bottom: 1px solid #454545;
+color: #454545;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 24px;
+font-weight: bold;
+left: 0;
+margin: 10px 0;
+padding-bottom: 5px;
+padding-top: 5px;
+text-align: center;
+text-decoration: none;
+top: 0;
+}
+.fb_class {
+height: 16px;
+vertical-align: top;
+}

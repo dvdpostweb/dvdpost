@@ -122,11 +122,11 @@ module ProductsHelper
     5.times do |i|
       i += 1
       image_name = if rating >= 2
-        "star-on-review.png"
+        "star-on.png"
       elsif rating == 1
-        "star-half-review.png"
+        "star-half.png"
       else
-        "star-off-review.png"
+        "star-off.png"
       end
       links << image_tag(image_name, :name => image_name)
       rating -= 2
@@ -277,7 +277,7 @@ module ProductsHelper
     return "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
     return "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
     return "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
-    return t ".cinema" if params[:view_mode] == 'cinema'
+    return t('.cinema') if params[:view_mode] == 'cinema'
     return t('.recommendation') if params[:view_mode] == 'recommended'
     return t('.streaming_title') if params[:view_mode] == 'streaming'
     return t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'

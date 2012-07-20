@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show]
-
   def index
     if ENV['HOST_OK'] == "1"
       if params[:kind] == :adult
@@ -35,7 +34,7 @@ class ProductsController < ApplicationController
       @director = Director.find(params['director_id'])
       params['director_id'] = @director.id
     end
-    
+    @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
     
     
     if params[:category_id]
@@ -119,6 +118,7 @@ class ProductsController < ApplicationController
 
   def show
     user_agent = UserAgent.parse(request.user_agent)
+    @tokens = current_customer.get_all_tokens_id(params[:kind], @product.imdb_id) if current_customer
     @filter = get_current_filter({})
     unless request.format.js?
       @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
