@@ -73,7 +73,7 @@ $(function() {
     if ($(this).attr('src').match(/black-star-/i)){
       loader = 'black-'+loader;
     }
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<div style='height:19px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: url,
       type: 'POST',
@@ -160,10 +160,11 @@ $(function() {
     return false;
   });
   
-  $(".oters .links a").live("click", function() {
+  $(".links a").live("click", function() {
     html_item = $(this).parent();
     content = html_item.html();
-    html_item.html("Saving...");
+    loader = 'ajax-loader.gif';
+    html_item.html("<div style='height:15px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: this.href,
       type: 'POST',
