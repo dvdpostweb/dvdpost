@@ -1,6 +1,6 @@
 <%= javascript 'products','reviews' %>
 <%= javascript 'home' if ENV['HOST_OK'] == "1" %>
-<%= stylesheet 'products2', :media => :all %>
+<%= stylesheet 'products2','etabs', :media => :all %>
 
 <% content_for :body_id do %>cl<% end %>
 <% if @product && !@product.adult? %>

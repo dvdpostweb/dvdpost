@@ -1,12 +1,12 @@
 
 .cadre
 {
-  border: 1px solid #666;
-  width:162px;
+  width: 162px;
   list-style: none;
-  float:left;
-  margin: 5px;
-  min-height:269px;
+  float: left;
+  margin: 6px 4px;
+  min-height: 269px;
+  background: white;
 }
 .cadre p
 {
@@ -39,13 +39,13 @@
 font-family: 'Open Sans Condensed', sans-serif !important;
 }
 #maincontent h2.ttl {
-padding: 17px 20px;
+padding: 0 20px;
 background: white;
 font-size: 45px;
 }
 #categories
 {
-  margin:10px;
+  margin:10px 5px;
 }
 p#letters {
   text-align: center;
@@ -59,7 +59,7 @@ ul#search-studio{
   margin:0 -5px 0 0;
 }
 ul#search-studio li {
-width: 150px;
+width: 110px;
 padding-left: 50px;
 position: relative;
 margin: 0 5px 5px 0;

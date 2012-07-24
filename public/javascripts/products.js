@@ -108,21 +108,6 @@ $(function() {
     rating_value = data[1];
 
     image = 'star-voted-';
-    if ($(this).attr('src').match(/black-star-(on|half|off)/i)){
-      image = 'black-'+image;
-    }
-    if ($(this).attr('src').match(/small-star-(on|half|off)/i)){
-      image = 'small-'+image;
-      ext = 'png'
-    }
-    else
-    {
-      ext = 'jpg'
-    }
-    if ($(this).attr('src').match(/pink/i)){
-       image = 'pink-'+image;
-       ext = 'png'
-    }
     for(var i=1; i<=5; i++)
     {
       if(i <= rating_value){
@@ -130,7 +115,7 @@ $(function() {
       }else{
         full_image = image+'off';
       }
-      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.'+ext);
+      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.png?t=1');
     }
   });
 
@@ -408,12 +393,12 @@ $(function() {
     return false;
   });
   $(".audio_more").live('click',function(){
-    $(this).parent('.movie-descr').children('.audio_hide').removeClass('audio_hide');
+    $(this).parent('.lang').children('.audio_hide').removeClass('audio_hide');
     $(this).parent('#movie-info').children('.audio_hide').removeClass('audio_hide');
     $(this).hide();
   });
   $(".subtitle_more").live('click',function(){
-    $(this).parent('.movie-descr').children('.subtitle_hide').removeClass('subtitle_hide');
+    $(this).parent('.lang').children('.subtitle_hide').removeClass('subtitle_hide');
     $(this).parent('#movie-info').children('.subtitle_hide').removeClass('subtitle_hide');
     $(this).hide();
   });
@@ -450,18 +435,10 @@ $(function() {
     $('#attention_bluray').hide();
     return false;
   });
-  if ($('#add').html()!=undefined)
+  if ($('#add, #review, #rating').html()!=undefined)
   {
     jQuery.facebox(function() {
       $.getScript($('#add').html(), function(data) {
-        jQuery.facebox(data);
-      });
-    });
-  }
-  if ($('#review').html()!=undefined)
-  {
-    jQuery.facebox(function() {
-      $.getScript($('#review').html(), function(data) {
         jQuery.facebox(data);
       });
     });

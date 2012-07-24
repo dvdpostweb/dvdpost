@@ -5,12 +5,26 @@
   float: right;
 }
 #cl #maincontent h2.ttl {
-   padding: 17px 20px;
+   padding: 0 20px;
    background: #fff;
    font-size: 45px;
+   text-align: left;
 }
 
-
+#cl .etabs
+{
+  margin: 15px 0 0 0 !important;
+}
+#cl .etabs .tab .active {
+  background: white;
+  
+}
+#cl h2
+{
+  background: white;
+  text-align:center;
+  padding: 12px 0;
+}
 #filter-wrap {
   background:#fff url(../images/filter-shadow.png) 0 0 repeat-x;
  border-top: 1px solid #d8d8d8;
@@ -121,7 +135,7 @@
 }
 .movie-ttl .osc {
   float: left;
-  width: 196px;
+  width: 170px;
   padding-right: 7px;
   font-size: 14px;
 }
@@ -154,14 +168,24 @@
   left: 0;
   width: 62px;
 }
-.movie-descr .thumb-wrap .vod {
+.movie-descr .thumb-wrap .vod, .movie-descr .thumb-wrap .bluray, .movie-descr .thumb-wrap .dvd, .movie-descr .thumb-wrap .bluray3d {
   display: block;
   height: 11px;
   line-height: 10px;
   font-size: 10px;
   text-align: center;
   color: #fff;
-  background: #a3c41b;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.movie-descr .thumb-wrap .vod {
+  background: #85BA17;
+}
+.movie-descr .thumb-wrap .dvd {
+  background: #000014;
+}
+.movie-descr .thumb-wrap .bluray3d, .movie-descr .thumb-wrap .bluray {
+  background: #0497D0;
 }
 .cast {
   width: 130px;
@@ -183,7 +207,7 @@
   color: #5f6f7b
 }
 .oters {
-  width: 134px;
+  width: 194px;
   float: left;
   position: relative;
   min-height: 120px;
@@ -224,6 +248,7 @@
   text-align: right;
   font-size: 10px;
   font-weight: bold;
+  clear: both;
 }
 .oters .links a, .oters .links {
   color: #fff;
@@ -328,4 +353,43 @@ line-height: 21px;
 .detail-box
 {
   margin: 10px;  
+}
+ul.grid {
+margin-left: 3px;
+overflow: hidden;
+width: auto;
+padding-top: 25px;
+padding-bottom: 25px;
+}
+ul.grid li {
+display: inline;
+float: left;
+margin: 0 0 0 11px;
+overflow: hidden;
+}
+.unit a.img {
+display: block;
+height: 193px;
+overflow: hidden;
+}
+.unit h3 {
+margin: 4px 0 15px 0;
+color: #191E23;
+font-weight: bold;
+}
+.stars img
+{
+  margin-top: 8px;
+  display: inline-block;
+}
+.subtitle_hide, .audio_hide {
+display: none !important;
+}
+.oters .lang li.audio_more, .oters .lang li.subtitle_more {
+background: url(/images/plus.png);
+width: 16px;
+height: 16px;
+float: right;
+cursor: pointer;
+margin: 4px 0 0;
 }

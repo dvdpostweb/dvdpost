@@ -5,19 +5,19 @@
   <% reviews_count = product_reviews_count(product) %>
   <li>
     <h3><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h3>
-    <div class="content"> 
-      <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
-        <% if reviews_count > 0 %>
-        <div style="margin: 5px 0 0 0">
-           <% text = "#{reviews_count}  #{review_title(reviews_count)}" %>
-           <%= link_to text, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]), :class => 'view-all' %>
-        </div>
+      <div class="content"> 
+        <div class="votes"><span class="up"><%= controverse_item.plus %></span> | <span class="down"><%= controverse_item.minder %></span></div>
+          <% if reviews_count > 0 %>
+          <div style="margin: 5px 0 0 0">
+             <% text = "#{reviews_count}  #{review_title(reviews_count)}" %>
+             <%= link_to text, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]), :class => 'view-all' %>
+          </div>
           
-        <% end %>
-    <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
-    </div>
-    <div class="thumb"> 
-      <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %> 
-    </div>
+          <% end %>
+      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
+      </div>
+      <div class="thumb"> 
+        <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %> 
+      </div>
   </li>
 <% end %>

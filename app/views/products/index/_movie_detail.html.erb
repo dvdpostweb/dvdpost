@@ -23,7 +23,7 @@
   	<h3><%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %></h3>
     <div class="osc"><%= category(product, @category) %></div>
     <div class="stars vote" id="rating-stars-<%= product.id %>" product_id="<%= product.id %>">
-      &nbsp;<%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color} %>
+      <%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color, :size => :long} %>
     </div>
   </div><!-- .movie-ttl -->
   <div class="movie-content">

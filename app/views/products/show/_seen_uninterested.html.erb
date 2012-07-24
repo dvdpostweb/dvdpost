@@ -1,9 +1,13 @@
-<% if current_customer.seen_products.include?(product) %>
+<% seen = current_customer.seen_products.include?(product) %>
+<% uninterrested = current_customer.uninterested_products.include?(product) %>
+<% delimiter = (seen || uninterrested) ? "<span>#{image_tag "delimiter.gif"}</span>" : "<br />" %>
+<% if seen %>
   <%= t '.already_seen' %>
 <% else %>
   <%= link_to t('.already_link'), product_seen_path(:product_id => product) %>
 <% end %>
-<% if current_customer.uninterested_products.include?(product) %>
+<%= delimiter %>
+<% if uninterrested %>
   <%= t '.not_interested' %>
 <% else %>
     <%= link_to t('.not_interested_link'), product_uninterested_path(:product_id => product) %>

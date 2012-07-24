@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
 
   def index
+    @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
     if params[:sort]
       sort = Review.sort[params[:sort].to_sym]
     else

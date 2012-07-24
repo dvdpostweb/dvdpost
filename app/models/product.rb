@@ -213,6 +213,7 @@ class Product < ActiveRecord::Base
      sort.push(:most_viewed, 'most_viewed')
      sort.push(:most_viewed_last_year, 'most_viewed_last_year')
      sort.push(:new, 'new')
+     sort.push(:production_year, 'production_year')
      
      sort
   end
@@ -629,6 +630,8 @@ class Product < ActiveRecord::Base
         "descriptions_title_#{I18n.locale} desc"
       elsif options[:sort] == 'rating'
         "rating desc, in_stock DESC"
+      elsif options[:sort] == 'production_year'
+        "year desc, in_stock DESC"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'

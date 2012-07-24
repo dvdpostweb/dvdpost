@@ -154,3 +154,6 @@ FB.init({
 <% if params[:review].to_i == 1%>
   <div id='review' style='display:none'><%= new_product_review_path(:product_id => @product.to_param) %></div>
 <% end %>
+<% if params[:rating].to_i == 1%>
+  <div id='rating' style='display:none'><%= product_rating_path(:product_id => @product.to_param) %></div>
+<% end %>

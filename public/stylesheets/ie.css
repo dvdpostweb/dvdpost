@@ -1,0 +1,11 @@
+#wrap, #fb-wrap .btn, .comm-reaction .status, #pagination a, #pagination a:hover, #pagination a.active {
+  behavior: url(stylesheets/PIE.htc);
+  position: relative;
+}
+.rc-thumbs li {
+   width: 51px;
+}
+#sub-footer li {
+  width: 223px;
+}
+
