@@ -741,3 +741,24 @@ a.critics_month
 {
   padding: 0 0 10px 5px;
 }
+.header_review {
+height: 85px;
+padding: 0px 5px 0 0px;
+width: 500px;
+float:left;
+}
+.critiqueur_area #title.reviews {
+color: #FA3216;
+text-align: left;
+margin: 20px 0 0 0px;
+}
+.critiqueur_area {
+margin: 0 0 0 40px;
+}
+.critiqueur_area .bysort {
+float:right;
+margin:55px 0 0 0 !important;
+}
+a.ajouter,a.regarder  {
+  margin:0 auto;
+}

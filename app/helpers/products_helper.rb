@@ -29,7 +29,7 @@ module ProductsHelper
         audio_count +=1
         display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
-          content_tag(:li, language.short.upcase, :class => "right red osc", :alt => language.name, :title => language.name)
+          content_tag(:li, language.short.upcase, :class => "right red osc #{display}", :alt => language.name, :title => language.name)
         else
           content_tag(:li, language.name,:class => "#{language.class.name.underscore}_text #{display}")
         end
@@ -69,7 +69,7 @@ module ProductsHelper
             else
               class_undertitle = class_bubble(subtitle.short, :classic)
             end
-            content_tag(:li, subtitle.short.upcase, :class => "right gray osc", :alt => subtitle.name, :title => subtitle.name)
+            content_tag(:li, subtitle.short.upcase, :class => "right gray osc# #{display}", :alt => subtitle.name, :title => subtitle.name)
           else
             content_tag(:li, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
           end
@@ -128,7 +128,7 @@ module ProductsHelper
       else
         "star-off.png"
       end
-      links << image_tag(image_name, :name => image_name)
+      links << image_tag(image_name, :name => image_name, :size => '12x12')
       rating -= 2
     end
     links
@@ -148,17 +148,7 @@ module ProductsHelper
        name = 'star'
        class_name = ''
     end
-    #if size == 'small' || size == :small
-    #  name = "small-#{name}"
-    #else
-    #  if background == :black
-    #    name = "black-#{name}" 
-    #  end
-    #end
-    #if background == :pink
-    #  name = "pink-#{name}" 
-    #end
-    
+
     image_name = if rating >= 2
       "#{name}-on.png"
     elsif rating == 1
@@ -166,7 +156,8 @@ module ProductsHelper
     else
       "#{name}-off.png"
     end
-    image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => '12x12')
+    s = size == :long || size == 'long' ? '19x19' : '12x12'
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => s)
     
     if current_customer && class_name == 'star'
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
@@ -413,7 +404,7 @@ module ProductsHelper
     else
       audio_bubble = audio_bubbles(product, 0)
       subtitle_bubble = subtitle_bubbles(product, 0)
-      separator = (audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
+      separator = '' #(audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
       "#{subtitle_bubble[:sub]} #{separator} #{audio_bubble[:audio]}"
     end
   end

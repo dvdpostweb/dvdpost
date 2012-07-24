@@ -13,8 +13,7 @@
       </div>
       <h4><%= best_item.count %> <%= rating_title(best_item.count) %></h4>
       <%= t('.avg_month') %>
-      <a href="#" class="osc ajouter">Ajouter</a>
-      <a href="#" class="osc regarder">Regarder</a>
+      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
     </div>
   </li>
 <% end %>

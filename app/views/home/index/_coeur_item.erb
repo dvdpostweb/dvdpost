@@ -11,6 +11,7 @@
   <% product_title = product.title %>
   <li>
     <h3><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h3>
+    <div class="contents">
     <div class="content">
       <div class="critic"> 
         <%= link_to image_tag(get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
@@ -49,5 +50,7 @@
       <%= link_to product_image_tag(product.image, :width => 97, :height => 148, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
       <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
     </div>
+    </div>
+    
   </li>
 <% end %>

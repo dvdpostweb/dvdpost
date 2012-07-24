@@ -7,24 +7,21 @@
     <%= t('.critic', :nickname =>  @customer.customer_attribute.nickname, :count => reviews_count) %>
   <% end %>
   </div>
-  
   <div class="header_review">
     <%= image_tag(get_avatar(@customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 85) %>
     <%= customer_awards(@customer, @customer.customer_attribute.points) %>
   </div>
-  <div class="clear"></div>
-
-
-<div class="bysort">
-  <div class="bysort_title"><%= t '.sorting' %> : </div>
-  <div class="bysort_choice">
-    <% var = params[:sort] || 'date' %>
-    <% form_for(:review, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
-      <%= select_tag(:sort, options_for_select(sort_review_for_select, var.to_sym), { :onchange => '$("#sort_form").submit();'}) %>
-    <% end %>
+  <div class="bysort">
+    <div class="bysort_title"><%= t '.sorting' %> : </div>
+    <div class="bysort_choice">
+      <% var = params[:sort] || 'date' %>
+      <% form_for(:review, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
+        <%= select_tag(:sort, options_for_select(sort_review_for_select, var.to_sym), { :onchange => '$("#sort_form").submit();'}) %>
+      <% end %>
+    </div>
   </div>
-  <div style="clear:both"></div>
-</div>
+  <div class="clear"></div>
+  
 </div>
 
 <div id="titles-wrap" class="reviews customer_reviews">

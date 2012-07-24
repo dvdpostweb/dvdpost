@@ -308,7 +308,7 @@ h1, h2, h3, h4, h5 {
   vertical-align: middle;
 }
 
-#titles-wrap .action a, #detail-wrap .action li.links a {
+/*#titles-wrap .action a, #detail-wrap .action li.links a {
   color: #352c2c;
   margin: 0 6px;
   text-decoration: underline;
@@ -347,7 +347,7 @@ h1, h2, h3, h4, h5 {
 
 .adult #titles-wrap .action a.btn:hover {
   background: url(../images/ajouterxbtn.png) 0 -33px no-repeat !important;
-}
+}*/
 #titles-wrap .action a.streaming_btn, .content a.streaming_btn {
     background: url("../images/vodbtn.png") no-repeat scroll 0 2px transparent;
     color: white;
@@ -3936,7 +3936,7 @@ width:62px;
 }
 #titles-wrap.reviews
 {
-  margin :25px 0 0 25px ;
+  margin :18px 0 0 25px ;
 }
 
 #titles-wrap.reviews .movie-descr p {

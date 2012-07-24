@@ -60,7 +60,7 @@ $(document).ready(function() {
    url = this.href;
    set_page(url)
    html_item = $('#community-wrap');
-   html_content = $('.tab-content');
+   html_content = $('#review_tab');
    content = html_content.html()
    $('#community-wrap li a.active').removeClass('pie') 
    $('#community-wrap li a.active').removeClass('active')

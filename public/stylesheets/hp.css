@@ -1,4 +1,6 @@
-
+#maincontent {
+width: 640px;
+}
 #slider-wrap {
   padding: 22px 0 21px 20px;
   background: #fff url(../images/slider-bg.gif) 100% 0 repeat-y;
@@ -118,7 +120,7 @@
   color: #212a31;
   margin-bottom: 15px;
   line-height: 1;
-  padding-left: 30px;
+  padding-left: 3px;
 }
 p.intro {
   font-size: 14px;
@@ -138,10 +140,7 @@ p.intro {
   font-size: 10px;
   color: #4a5863;
 }
-.comm-reaction h3 {
-  font-size: 18px;
-  margin-bottom: 4px;
-}
+
 .comm-reaction .status {
   padding: 2px 10px 4px;
   background: #afbfcb;
@@ -200,6 +199,35 @@ padding: 3px 3px 3px 6px;
 color: #36404E;
 font-weight: bold;
 }
+#tab-content-1 li .stat img{
+  vertical-align: bottom;
+}
+#tab-content-4 li .stat
+{
+  font-size: 1.2em;
+}
+#tab-content-1 li .thumb .no-change, #weekly-position li .no-change, #period-position li .no-change {
+color: #FA6818;
+}
+#tab-content-1 li .thumb .up, #weekly-position li .up, #period-position li .up {
+color: #7ECA31;
+}
+#tab-content-1 li .thumb .down, #weekly-position li .down, #period-position li .down {
+color: #FF1301;
+}
+#tab-content-1 li .thumb .new, #weekly-position li .new, #period-position li .new {
+  color: #fbb21d;
+  font-weight: normal;
+  font-size: 0.81em;
+  text-transform: uppercase;
+}
+
+#tab-content-1 li .thumb .stat img, #weekly-position li .stat img, #period-position li .stat img {
+float: none;
+border: none;
+margin: 0 auto 2px;
+display: block;
+}
 #tab-content-2 li .critic img {
 float: left;
 border: 1px solid #838383;
@@ -236,15 +264,29 @@ width: 700px;
 {
   margin: 0 0 10px 0;
 }
+#tab-content-2 li .contents {
+background: #C3D1DB url(../images/film-cont-bg.gif) 0 0 repeat-x;
+}
+
 #tab-content-2 li .content {
 float: right;
 width: 473px;
 min-height: 205px;
 padding: 8px 5px 0 10px;
-background: #F7F7F7;
 overflow: hidden;
 font-size:1.2em;
 }
+
+#tab-content-2 h3 {
+  overflow: hidden;
+  line-height: 34px;
+  background: url(../images/film-ttl-bg.gif) 0 0 repeat-x;
+  border-bottom: 1px solid #B7BDC1;
+  border-top: 1px solid #9EABB5;
+  padding-left: 20px;
+}
+
+
 #tab-content-2 li .content .relevant {
 font-size: .92em;
 color: #414850;
@@ -302,6 +344,10 @@ margin: 0 20px 5px 0;
 font-size: 1.5em;
 
 }
+#tab-content-3 .view-all
+{
+  font-size: 0.7em;
+}
 #tab-content-3 li .content .votes .up {
 padding: 5px 24px 0 0;
 background: url(../images/thumb-up.png) 15px 4px no-repeat;
@@ -310,7 +356,111 @@ background: url(../images/thumb-up.png) 15px 4px no-repeat;
 padding: 5px 24px 0 0px;
 background: url(../images/thumb-down.png) 15px 5px no-repeat;
 }
+#tab-content-4 #positions h4 {
+padding: 0 6px;
+line-height: 27px;
+background: #8997AA;
+color: white;
+font-size: 1.33em;
+margin-bottom: 20px;
+}
+#tab-content-4 li a {
+color: #4A5863;
+}
+#tab-content-4 #period-position li, #tab-content-4 #period-position li a {
+color: #8997AA;
+}
+.comm-reaction h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+#tab-content-4 #weekly-position {
+float: left;
+width: 300px;
+}
+#tab-content-4 #period-position {
+float: right;
+width: 300px;
+margin: 0 4px 0 0;
+}
+#tab-content-4 li .count {
+width: 26px;
+float: left;
+text-align: center;
+font-weight: bold;
+font-size: 1.17em;
+padding-top: 7px;
+height: 41px;
+display: block;
+background: #181D23;
+color: white;
+}
+#tab-content-4 .big_details{
+margin: 0 0 0 26px;
+text-align: center;
+font-size: 1.2em;
+}
+#tab-content-4 li .content h2, #tab-content-4 li .content h2 a.nickname {
+font-size: 1.1em;
+text-transform: uppercase;
+color: #FA3216 !important;
+margin: 2px 0 0 !important;
+font-family:  Arial, Helvetica, sans-serif !important;
+font-weight:bold;
+}
+#tab-content-4 li .content {
+width: 189px;
+float: right;
+padding-right: 8px;
+font-weight: bold;
+}
+#tab-content-4 li {
+display: block;
+min-height: 48px;
+background: #F7F7F7;
+margin:0 0 3px 0;
+width:300px;
+}
+#tab-content-4 #period-position li{
+  min-height:84px;
+}
+#tab-content-4 #period-position li .content
+{
+  width: 179px;  
+}
 
+#tab-content-4 li .stat {
+width: 30px;
+float: left;
+text-align: center;
+padding-top: 8px;
+}
+#tab-content-4 li .stat img {
+float: none;
+}
+#tab-content-4 .pen {
+float: left;
+margin-right: 4px;
+margin-top: -2px;
+}
+#tab-content-4 .thumb_img {
+  float:left
+}
+
+#tab-content-4 #period-position li {
+display: block;
+height: 93px;
+margin-top: 1px;
+padding-top: 6px;
+background: #191E24;
+}
+#tab-content-4 #period-position li .count {
+background: white;
+color: #454545;
+height: 92px;
+width: 25px;
+margin: -6px 0 0 0;
+}
 #review_tab a.next_page {
   width: 581px;
   height: 24px;
@@ -322,6 +472,10 @@ background: url(../images/thumb-down.png) 15px 5px no-repeat;
   color: #96a1aa;
   background: url(../images/plus-btn.png) 0 0 no-repeat;
 }
+ #review_tab #tab-content-4 a.next_page {
+  width: 303px;
+}
+
 #review_tab span.next_page {
   display:none;
 }
