@@ -202,23 +202,27 @@ class ProductsController < ApplicationController
 
   def uninterested
     unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product) || current_customer.uninterested_products.include?(@product)
+      delimiter_present = params[:delimiter_present] || 0
+      delimiter_present = delimiter_present.to_i
       @product.uninterested_customers << current_customer
       Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
       expiration_recommendation_cache()
     end
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
-      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :delimiter_present => delimiter_present}}
     end
   end
 
   def seen
     @product.seen_customers << current_customer
+    delimiter_present = params[:delimiter_present] || 0
+    delimiter_present = delimiter_present.to_i
     Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
     expiration_recommendation_cache()
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
-      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :delimiter_present => delimiter_present}}
     end
   end
 

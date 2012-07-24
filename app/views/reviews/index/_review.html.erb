@@ -1,43 +1,55 @@
 <% path = product_path(:id => review.product.to_param, :recommendation => source) %>
-<div class="dvd clearfix">
-  <div class="movie-descr">
-    <h2>
-      <%= link_to review.product.title, path %> 
+<% product = review.product %>
+<% product_title = review.product.title %>
+<% product_streaming = product.streaming? %>
+<% media = product.vod? ? 'vod' : product_media_id(product.media) %>
+<div class="movie-wrap">
+	<div class="movie-ttl">
+  	<h3>
+      <%= link_to product_title, path %> 
       <span class="publish">
-        <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
+        (<%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>)
       </span>
-      <div style="clear:both"></div>
-    </h2>
-    <p>
-      <%= t '.rating' %> : 
-      <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
-    </p>
-    
-    <p>
-      <strong><%= t '.critic' %> :</strong> 
-      <%= review.text %>
-    </p>
-    <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
-  </div>
-  <div class="action">
-    <h4>
-      <%= review.product.categories.first.name unless review.product.categories.empty? %>
-    </h4>
-    <div class="stars" id="rating-stars-<%= review.product.to_param %>" product_id="<%= review.product.to_param %>">
-      <%= render :partial => 'products/rating', :locals => {:product => review.product, :background => :white, :size => :long} %>
-    </div>
-    <% if current_customer %>
-      <div class="links" id="seen-uninterested-<%= review.product.to_param %>">
-        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => review.product } %>
+    </h3>
+      <div class="osc"><%= review.product.categories.first.name unless review.product.categories.empty? %></div>
+      <div class="stars vote" id="rating-stars-<%= review.product.to_param %>" product_id="<%= review.product.to_param %>">
+        <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white, :size => :long} %>
       </div>
-    <% end %>
-    <%= render :partial => 'products/wishlist', :locals => {:product => review.product, :text => :short, :source => source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
-    <%= render :partial => 'products/streaming', :locals => {:product => review.product, :text => :short } if review.product.streaming? and streaming_access? %>
-    
-  </div>
-  <div>
-    <% link_to path, :class => :cover, :title => review.product.title do %>
-      <%= product_image_tag review.product.image, :width => 62, :height => 95 %>
-    <% end %>
+  </div>    
+  <div class="movie-content">
+  	<div class="movie-descr">
+    	<p>
+        <b><%= t '.rating' %> : </b>
+        <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
+      </p>
+
+      <p>
+        <strong><%= t '.critic' %> :</strong> 
+        <%= review.text %>
+      </p>
+      <p>
+        <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
+      </p>
+      <div class="thumb-wrap">
+        <% link_to path, :class => :cover, :alt => product_title do %>
+          <%= product_image_tag product.image, :width => 62, :height => 95 %>
+        <% end %>
+        <span class="<%= media %> osc"><%= media %></span>
+      </div>
+    </div>  
+    <div class="oters">
+      <div class="links" id="seen-uninterested-<%= product.to_param %>">
+        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
+      </div>
+      <ul class="btns osc">
+        <li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => source} %></li>
+        <li><%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short} if product_streaming %></li>
+        <% if product.trailer %>
+          <li>
+            <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) %>
+          </li>
+        <% end %>
+      </ul>
+    </div><!-- .oters -->
   </div>
 </div>
