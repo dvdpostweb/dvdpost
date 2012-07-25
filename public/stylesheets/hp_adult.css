@@ -227,6 +227,7 @@ color: #333333;
 
 #vod-banner .caption h3 {
   font-size: 1.64em;
+  color: #fff;
 }
 
 #vod-banner .caption a {
@@ -577,4 +578,19 @@ font-size: 12px;
 #newsletters-wrap .theme img.left {
     margin: 0 11px 80px 0;
 
+}
+#subscribe-wrap
+{
+  margin:0 0 5px 0;
+}
+#subscribe-wrap .wrap {
+width: 593px;
+
+}
+#subscribe-wrap h3 {
+  font-size:23px;
+}
+#banners a.regarder
+{
+  margin: 0 auto;
 }

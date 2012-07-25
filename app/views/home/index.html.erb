@@ -5,7 +5,12 @@
       <%= render :partial => '/home/index/carousel_adult', :locals => {:carousel => @carousel} %>
       <br />
       <!-- BIENVENUE  -->
-      <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+      <% if ENV['HOST_OK'] == "1" %>
+        <%= render :partial => '/home/index/public_info' %>
+        <%= render :partial => 'layouts/call_to_action' %>
+      <% else %>
+        <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+      <% end %>
       <%= render :partial => '/home/index/trailers_week', :locals => {:trailers => @trailers_week}%>
       <!-- selection of the week-->
       <div style='clear:both'></div>
@@ -17,7 +22,7 @@
       
       <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>    
       <%= render :partial => '/home/index/banners', :locals => {:banners => @banners} %>
-      <% if @newsletter_x.nil? %>
+      <% if ENV['HOST_OK'] == "0" && @newsletter_x.nil? %>
       <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
     <% end %>
     </div>
@@ -26,7 +31,7 @@
   <h2>ACCUEIL</h2>
   <%= link_to "VOIR TOUT LE CATALOGUE", products_path(),:id => :browse, :class => :osc %>
 
-    <% if current_customer.payment_suspended? %>
+    <% if ENV['HOST_OK'] == "0" && current_customer && current_customer.payment_suspended? %>
       <ul id='suspended'>
         <li><%= current_customer.suspended_notification %></li>
       </ul>
@@ -35,9 +40,12 @@
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     </div>
     <!-- #slider-wrap -->
-    
-    <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
-    
+    <% if ENV['HOST_OK'] == "1" %>
+      <%= render :partial => '/home/index/public_info' %>
+      <%= render :partial => 'layouts/call_to_action' %>
+    <% else %>
+      <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
+    <% end %>
     <!--   ==============   MAIN CONTENT   ==============   -->
     <div id="maincontent" >
       <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} %>
@@ -53,36 +61,10 @@
       <%= render :partial => '/home/index/newsletters', :locals => {:news => @news} %>
    	  <%= link_to image_tag("vod-banner.jpg", :size => "320x254"), streaming_products_faq_path() %>
    	  <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
-      <div class="rc-thumbs">
-      	<h3>NOUVEAUX FILMS</h3>
-        <ul>
-        	<li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-        </ul>
-        <a href="#" class="osc">VOIR TOUS LES NOUVEAUX FILMS</a>
-      </div><!-- .rc-thumbs -->
-      <div class="rc-thumbs">
-      	<h3>NOUVEAUX ÉPISODES SERIE </h3>
-        <ul>
-        	<li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-            <li><a href="#"><img src="images/new-films-thumb.jpg" width="49" height="75" alt="" /></a></li>
-        </ul>
-        <a href="#" class="osc">VOIR TOUS LES NOUVEAUX EPISODES</a>
-      </div><!-- .rc-thumbs -->
-      <div id="fb-wrap">
-      	<h3>ACTIVITÉ FACEBOOK</h3>
-        <div class="wrap">
-        </div>
-        <a href="#" class="btn">J'aime</a>
-      </div><!-- #fb-wrap -->
-    </div>
     <!--   ==============   END RIGHT COLUMN   ==============   -->
-    <%= render :partial => '/home/index/quick_link' %>
+    
+  </div>
+  <%= render :partial => '/home/index/quick_link' %>
     <% end %>
 
 <!--   ==============   END MAIN CONTENT   ==============   -->

@@ -245,7 +245,7 @@
 }
 .oters .links {
   margin-bottom: 10px;
-  text-align: right;
+  text-align: center;
   font-size: 10px;
   font-weight: bold;
   clear: both;
@@ -258,7 +258,7 @@
 }
 .oters .btns {
  position: absolute;
- left: 0;
+ left: 30px;
  bottom: 0;
  width: 134px;
  margin-bottom: 0;

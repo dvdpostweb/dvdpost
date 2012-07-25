@@ -1,5 +1,9 @@
-<div class="banner_title"><%= t '.huge_catalog' %></div>
-<div class="banner_step" align="center" style='background: url("http://www.dvdpost.be/images/landings_public<%= params[:kind] == :adult ? '_adult' : '' %>/<%= I18n.locale%>/bg_banner_<%= rand(5)+1 %>.jpg") no-repeat scroll 32px 0pt transparent;'>
-  <p><%= t '.promo' %></p>
-        <span><a href="<%= php_path 'step1.php' %>" target="_blank" class="signup_button"><%= t '.signup' %></a></span> <span><a id="codePromo" href="<%= info_path(:page_name => 'promo') %>"><%= t '.code_promo' %></a></span>
+<div id="subscribe-wrap" class="osc">
+  <div class="wrap"><h3><%= t '.huge_catalog' %></h3>
+    <div id="promo"><%= t '.promo' %></div>
+  </div>
+  <div id="subscribe">
+    <a href="#" class="btn"><%= t '.signup_short' %></a>
+    <p><a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t '.code_promo' %></a></p>
+  </div>
 </div>

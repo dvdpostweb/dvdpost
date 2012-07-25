@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_special_page?
-    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || request.parameters['controller'] == 'themes_events' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles')
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles')
     return test
   end
 

@@ -104,11 +104,11 @@ class HomeController < ApplicationController
     end
     News.class
     @news = Marshal.load(news_serial)
-    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp2_#{I18n.locale}_#{params[:kind]}", 30.minutes.from_now.localtime do
+    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp3_#{I18n.locale}_#{params[:kind]}", 30.minutes.from_now.localtime do
       if Rails.env == "pre_production"
-        sql = params[:kind] == :adult ? Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(5)
+        sql = params[:kind] == :adult ? Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(7)
       else
-        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(7)
       end
       Marshal.dump(sql)
     end
@@ -116,8 +116,12 @@ class HomeController < ApplicationController
     @carousel = Marshal.load(landing_serial)
     
     if(kind == :adult)
-      @newsletter_x = current_customer.customer_attribute.newsletters_x
-      @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
+      if ENV['HOST_OK'] == "0"
+        @newsletter_x = current_customer.customer_attribute.newsletters_x
+        @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
+        not_rated_products = current_customer.not_rated_products(kind)
+        @not_rated_product = not_rated_products[rand(not_rated_products.count)]
+      end
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
       @trailers_week = Product.all(:joins => :trailers, :conditions => {"products_trailers.focus" => 1, "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]})
       @trailers = Product.all(:joins => :trailers, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
@@ -126,8 +130,6 @@ class HomeController < ApplicationController
       @filter = get_current_filter({})
       @banners = ProductList.theme.by_kind(kind.to_s).by_style(:vod).find_by_home_page(2).products.paginate(:per_page => 3, :page => 1)
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
-      not_rated_products = current_customer.not_rated_products(kind)
-      @not_rated_product = not_rated_products[rand(not_rated_products.count)]
       @themes = ThemesEvent.old.by_kind(params[:kind]).ordered.limit(2)
       @theme = @themes.first
     else
@@ -138,19 +140,21 @@ class HomeController < ApplicationController
         Chronicle.class
         @chronicle = Marshal.load(chronicle_serial)
       end
-      expiration_recommendation_cache()
-      @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.first
       get_news
-      @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
       #@streaming_available = current_customer.get_all_tokens
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page])
       get_reviews_data(params[:review_kind], params[:highlight_page], nil)
-      #to do 
-      @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
-      @rating_count = current_customer.ratings.count
-      wishlist_size
-      @offline_request = current_customer.payment.recovery
-      @transit_items = current_customer.orders.in_transit.all
+      #to do
+      if ENV['HOST_OK'] == "0"
+        @review_count = current_customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+        @rating_count = current_customer.ratings.count
+        wishlist_size
+        @offline_request = current_customer.payment.recovery
+        @transit_items = current_customer.orders.in_transit.all
+        @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.first
+        expiration_recommendation_cache()
+        @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
+      end
     end
   end
 

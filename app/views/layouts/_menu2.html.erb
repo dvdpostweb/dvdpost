@@ -3,10 +3,21 @@
   
   <li><%= link_to t('layouts.header.home'), root_path, {:id => 'nav1', :class => (( id == 'hp') ? 'active': '')} %></li>
   <li><%= link_to t('layouts.header.explore'), products_path, {:id => 'nav2', :class => (( id == 'product_body') ? 'active': '')} %></li>
-  <li><%= link_to t('layouts.header.wishlist'), vod_wishlists_path, {:id => 'nav3', :class => (( id == 'mywhishlist') ? 'active': '')} %></li>
-  <li><%= link_to t('layouts.menu.contact'), messages_path, {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
-  <li><%= link_to t('layouts.header.summer_card'), sponsorships_path, {:id => 'nav6', :class => (( id == 'sponsorships') ? 'active': '')} %></li>
+  <% if ENV['HOST_OK'] == "0" %>
+    <li><%= link_to t('layouts.header.wishlist'), vod_wishlists_path, {:id => 'nav3', :class => (( id == 'mywhishlist') ? 'active': '')} %></li>
+    <li><%= link_to t('layouts.menu.contact'), messages_path, {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
+    <li><%= link_to t('layouts.header.summer_card'), sponsorships_path, {:id => 'nav6', :class => (( id == 'sponsorships') ? 'active': '')} %></li>
+  <% else %>
+    <li><%= link_to t('layouts.menu.contact'), messages_path, {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
+    <% if params[:kind] == :adult %>
+      <li><%= link_to t('layouts.header.normal'), root_path(:kind => :normal), {:id => 'nav3'} %></li>
+    <% else %>
+    <li><%= link_to t('layouts.header.adult'), root_path(:kind => :adult), {:id => 'nav3'} %></li>
+    <% end %>
+  <% end %>
 </ul>
 <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
   <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field'} %>
+  <%= submit_tag 'search', :id => 'search-btn' %>
+  <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
 <% end %>

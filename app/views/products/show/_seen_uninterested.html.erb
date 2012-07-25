@@ -1,7 +1,8 @@
 <% seen = current_customer.seen_products.include?(product) %>
 <% uninterrested = current_customer.uninterested_products.include?(product) %>
 <% delimiter_present = delimiter_present || 0 %>
-<% delimiter = (seen || uninterrested) ? "<br />" : "<span>#{image_tag "delimiter.gif"}</span>" if delimiter_present %>
+<% del = delimiter_present == 1 ? "<span>#{image_tag "delimiter.gif"}</span>" : "" %>
+<% delimiter = (seen || uninterrested) ? "<br />" : del  %>
 <% if seen %>
   <%= t '.already_seen' %>
 <% else %>
