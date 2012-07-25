@@ -504,7 +504,7 @@ module DVDPost
     end
 
     def hls_url(token, audio, sub)
-      "http://vod.dvdpost.be/#{token}_#{audio}_#{sub}.m3u8"
+      "http://94.139.63.189/#{token}_#{audio}_#{sub}.m3u8"
     end
 
     def favorite_dvd
