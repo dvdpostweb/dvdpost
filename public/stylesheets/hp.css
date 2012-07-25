@@ -13,7 +13,7 @@ width: 640px;
 }
 #browse {
   display: inline-block;
-  width: 294px;
+  width: 276px;
   line-height: 39px;
   float: right;
   margin: 0 8px 25px 0;
@@ -533,41 +533,6 @@ margin: -6px 0 0 0;
   color: #fff;
   font-size: 18px;
 }
-#services-wrap {
-  overflow: hidden;
-  background: url("../images/slider-bg.gif") repeat-y 100% 0 #FFFFFF;
-  padding-bottom: 7px;
-}
-#services-wrap .wrap {
-  float: left;
-  width: 250px;
-  margin-left: 30px;
-  padding-right: 40px;
-  font-size: 14px;
-  color: #29333b;
-}
-
-#services-wrap h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-#services-wrap p {
-  margin-bottom: 7px;
-}
-#services-wrap ul {
-  margin-bottom: 0;
-}
-#services-wrap li {
-  margin-bottom: 10px;
-}
-#services-wrap li a {
-  font-weight: bold;
-  font-size: 14px;
-  color: #a3c41b;
-  padding-left: 22px;
-  background: url(../images/sprite.png) -608px 0 no-repeat;
-}
-
 
 #apps h3 {
   margin-bottom: 7px;
@@ -580,70 +545,6 @@ margin: -6px 0 0 0;
 #apps img {
   margin-bottom: 20px;
 }
-#subscribe-wrap {
-  background: #ff8a00 url(../images/orange-bg-rc.gif) 100% 0 repeat-y;
-  overflow: hidden;
-}
-#subscribe-wrap .wrap {
-  float: left;
-  width: 610px;
-  padding:12px 0 14px 30px;
-  background: url(../images/orange-shadow.gif) 0 0 repeat-x;
-  overflow: hidden;
-}
-#subscribe-wrap h3 {
-  float: left;
-  width: 405px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 36px;
-}
-#subscribe-wrap #promo {
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
-  width: 150px;
-  float: left;
-  padding-top: 4px;
-}
-#subscribe-wrap #subscribe {
-  float: right;
-  width: 280px;
-  padding: 10px 10px 10px 30px;
-  background: url(../images/orange-shadow-rc.png) 0 0 no-repeat;
-}
-#subscribe-wrap #subscribe a.btn {
-  display: inline-block;
-  width: 254px;
-  height: 54px;
-  line-height: 50px;
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 30px;
-  text-align: center;
-  background: url(../images/sprite.png) -352px -64px no-repeat;
-  text-shadow: -1px -1px 0 #283239;
-  margin-bottom: 5px;
-}
-#subscribe-wrap #subscribe p {
-  color: #fff;
-  margin-bottom: 0;
-  padding-left: 12px;
-  font-weight: bold;
-  font-size: 14px;
-}
-#subscribe-wrap #subscribe p a {
-  color: #222b33;
-  text-decoration: underline;
-}
-#subscribe-wrap #subscribe p a:hover {
-  text-decoration: none;
-}
-
-
-
 
 #user-info .alert {
   display: inline-block;

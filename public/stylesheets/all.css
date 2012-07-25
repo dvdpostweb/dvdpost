@@ -18,9 +18,6 @@ p
 {
   margin: 1em 0;
 }
-button, input, select, textarea {
-  margin: 3px 0.5ex;
-}
 #addwishlist_title {
 color: #454545;
 font-family: Arial,Helvetica,sans-serif;
@@ -51,7 +48,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 #add_to_wishlist .item:hover {
 background: url("../images/ajouterbtn.png") no-repeat scroll 0 -42px transparent;
 }
-productsmedia="all"
 #add_to_wishlist .item {
 background: url("../images/ajouterbtn.png") no-repeat scroll 0 -3px transparent;
 border-style: hidden;

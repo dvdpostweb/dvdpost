@@ -3,6 +3,8 @@
     <% if current_customer %>
       <%= link_to 'Mon compte', customer_path(:id => current_customer) %>
       <%= "#{link_to t('.logout'), sign_out_path, :id => :logout} <span>(#{current_customer.email})</span>" %>
+    <% else %>
+      <%= "#{link_to t('.login'), "http://private.dvdpost.com", :id => :login}" %>
     <% end %>
   </div>
 </div>

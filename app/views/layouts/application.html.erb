@@ -5,7 +5,7 @@
     <%= h yield(:title).blank? ? t('.title') : yield(:title) %>
   </title>
   <%= render :partial => 'layouts/meta' %>
-  <link rel="SHORTCUT ICON" href="/favicon.ico" />
+  <link rel="SHORTCUT ICON" href="/images/favicon_<%= params[:kind] %>.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css' />
 
@@ -16,7 +16,6 @@
 	
 	<%= stylesheet 'stylex', :media => :all if params[:kind] == :adult %>
 
-  <%= stylesheet_link_tag 'style_public', :media => :all if ENV['HOST_OK'] == "1" %>
 
 	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
   
@@ -94,7 +93,7 @@
     <% end %>
 
     <div class="container clearfix">
-			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) %>
+			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:controller] !='home' %>
       <%= yield %>
     </div>
 </div>
