@@ -28,10 +28,12 @@
     <%= link_to image_tag("#{I18n.locale}/vente-flash-banner.png"), shop_path %>
   <% end %>
     <div id="nina-wrap">
-      <h3>CHRONIQUE DE NINA</h3>
+      <h3>
+        <%= t '.chronicle_title' %>
+      </h3>
       <%= link_to image_tag("banner_nina#{I18n.locale == :nl ? '_nl' : ''}.png"), chronicles_path %>      
-      <p>Qui parle de cinéma, Avec des critiques, Des focus, Des coups de coeur, Des films à découvrir, ... un regard différent sur le 7ème Art...</p>        
-      <%= link_to 'VOIR TOUTES LES ARTICLES', chronicles_path, :class => 'more osc' %>
+      <p><%= t '.details' %></p>        
+      <%= link_to t('.all'), chronicles_path, :class => 'more osc' %>
     </div>
   <% end %>
 </div>

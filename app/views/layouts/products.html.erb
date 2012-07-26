@@ -1,8 +1,12 @@
 <%= javascript 'products','reviews' %>
-<%= javascript 'home' if ENV['HOST_OK'] == "1" %>
-<%= stylesheet 'products2','etabs', :media => :all %>
+<% if params[:action] == 'index' %>
+  <%= stylesheet 'products2','etabs', :media => :all %>
+  <% content_for :body_id do %>cl<% end %>
+<% else %>
+  <%= stylesheet 'film','etabs-film','jcarousel-film', :media => :all %>
+  <% content_for :body_id do %>film-details<% end %>
+<% end %>
 
-<% content_for :body_id do %>cl<% end %>
 <% if @product && !@product.adult? %>
   <% content_for :facebook do %>
     <meta property="og:image" content="<%= @product_image %>"/> 

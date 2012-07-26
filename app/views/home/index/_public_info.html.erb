@@ -1,25 +1,30 @@
 <!-- Services -->
 <div id="services-wrap">
   <div id="bluray-dvd" class="wrap">
-    <h3>BLU-RAY / DVD</h3>
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam </p>
+    <h3><%= t '.dvd' %></h3>
+    <p><%= t '.dvd_text' %></p>
     <ul class="osc">
-      <li><a href="#">VOIR TOUT LE CATALOGUE BLU-RAY / DVD</a></li>
+      <li>
+        <%= link_to t('.dvd_link'), products_path() %>
+      </li>
     </ul>
   </div>
   <div id="vod-ppv" class="wrap">
-    <h3>VOD / PPV</h3>
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam </p>
+    <h3>VOD</h3>
+    <p><%= t '.vod_text' %></p>
     <ul class="osc">
-      <li><a href="#">VOIR TOUT LE CATALOGUE VOD</a></li>
-      <li><a href="#">VOIR TOUT LE CATALOGUE PPV</a></li>
+      <li>
+        <%= link_to t('.vod_link'), products_path(:view_mode => :streaming)%>
+      </li>
     </ul>
   </div>
   <div id="apps">
-    <h3>MULTI PLATEFORME</h3>
-    <img src="images/apps.png" width="212" height="63" alt="Apps" />
+    <h3><%= t '.ipad' %></h3>
+    <%= link_to image_tag('apps.png', :size => '212x63', :alt => "ipad info"), info_path(:page_name => 'ipad_iphone') %>
     <ul class="osc">
-      <li><a href="#">PLUS DE DETAILS</a></li>
+      <li>
+        <%= link_to t('.ipad_link'), info_path(:page_name => 'ipad_iphone') %>
+      </li>
     </ul>
   </div>
 </div><!-- #services-wrap -->

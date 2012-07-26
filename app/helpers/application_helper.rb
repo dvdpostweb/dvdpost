@@ -450,5 +450,9 @@ module ApplicationHelper
       end
     end
   end
-	
+
+  def login_path
+    "http://private.dvdpost.com/#{request.fullpath}"
+  end
+
 end

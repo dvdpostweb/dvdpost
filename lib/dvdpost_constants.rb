@@ -492,8 +492,8 @@ module DVDPost
 
     def token_sample
       HashWithIndifferentAccess.new.merge({
-        :normal => '4fdee37dcdaba0.85270852',
-        :adult => '4fdee3c15a1231.67007950'
+        :normal => '5010f783cae2b2.37546579',
+        :adult => '5010f798467c58.07295355'
       })
     end
     def data_sample
@@ -521,6 +521,5 @@ module DVDPost
         :en    => 321
       })
     end
-
   end
 end

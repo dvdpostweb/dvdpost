@@ -424,7 +424,7 @@ $(function() {
     $('#attention_bluray').hide();
     return false;
   });
-  if ($('#add, #review, #rating').html()!=undefined)
+  if ($('#add_p, #review, #rating').html()!=undefined)
   {
     jQuery.facebox(function() {
       $.getScript($('#add').html(), function(data) {
