@@ -28,8 +28,8 @@
     </div>
   <% else %>
   <div id="slider-wrap">
-  <h2>ACCUEIL</h2>
-  <%= link_to "VOIR TOUT LE CATALOGUE", products_path(),:id => :browse, :class => :osc %>
+  <h2><%= t '.home' %></h2>
+  <%= link_to t('.all_products'), products_path(),:id => :browse, :class => :osc %>
 
     <% if ENV['HOST_OK'] == "0" && current_customer && current_customer.payment_suspended? %>
       <ul id='suspended'>

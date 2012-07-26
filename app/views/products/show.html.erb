@@ -29,127 +29,170 @@ FB.init({
 			}
 </script>
 <div id="maincontent">
-  <%= render :partial => 'layouts/filters', :locals => {:filter => @filter } %>
-  <div id="detail-wrap">
-    <div class="top"></div>
-    <!-- Detail -->
-    <h2>
-      <%= "#{@product_title} (#{@product.year})" %> <%= image_tag "3d_icon.png" if @product.bluray3d? %> <%= image_tag "3d2d_icon.png" if @product.bluray3d2d? %>
-    </h2>
-    <div class="box">
-      <div class="box-content clearfix">
-        <img src="/images/right-shadow-top.gif" alt="" class="right" />
-        <div id="details">
-          <%= render :partial => 'products/show/product', :object => @product %>
-          <div class="action">
-            <% if @product.dvdposts_choice? %>
-              <div id="dvdpost-coup">
-                <%= image_tag 'dvdpost-coup.png' %>
-                <%= t '.dvdpost_choice' %>
-              </div>
-            <% end %>
-            <div align="center">
-                <%= t '.rate' %>
-                <%= "(#{@product.rating_count} #{t('.count')})" %>
-            </div>
-            <ul>
-              <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
-                <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color} %>
-              </li>
-              <% if current_customer %>
-                <li class="links" id="seen-uninterested-<%= @product.to_param %>">
-                  <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
-                </li>
-              <% end %>
-            </ul>
-            <% if I18n.locale != :en && @chronicle %>
-            <p>
-              <%= link_to image_tag("/images/chronicles/#{I18n.locale}/bouton_nina.jpg"), chronicle_path(:id => @chronicle.to_param)%>
-            </p>
-            <% end %>
-            
-            <% if params[:kind] == :adult && @product.in_streaming_or_soon? %>
-              <div>
-                <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
-              </div>
-            <% end %>
-            <%= available_on_other_media(@product, params[:recommendation]) %>
-            <%= available_on_other_language(@product, params[:recommendation]) %>
-            <% if 1 == 0 && @product.available_to_sale? %>
-              <div id="buy">
-                <%= link_to t('.buy'), product_shop_path(@product), :title => t('.buy'), :id => 'acheter-btn', :target => :_blank %>
-                <%= "&euro; #{@product.products_sale_price}" %>
-              </div>
-            <% end %>
-            <%= image_tag 'oeil.gif', :alt => 'already seen' if @already_seen %>
-            <% if @product.streaming_products.available.first && @product.streaming_products.available.first.studio.to_param.to_i == 804 %>
-              <p align='center' style='margin:12px 0 0 0'>
-                <%= image_tag "logouniverscine.gif" %>
-              </p>
-            <% end %>
-            
-          </div>
-          <div class="clear"></div>
-          <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind]} %>
-          <div id="sinopsis">
-            <h3>
-              <%= t '.synopsis' %>
-            </h3>
-            <p><%= @product_description.text %></p>
-          </div>
-        </div>
-      </div>
+  <div class="ttl-wrap">
+    <div class="ttl osc">
+      <h2><%= "#{@product_title} (#{@product.year})" %> <%= image_tag "3d_icon.png" if @product.bluray3d? %> <%= image_tag "3d2d_icon.png" if @product.bluray3d2d? %></h2>
+      <h3><% if params[:kind] == :adult %>
+        <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+      <% else %>
+        <%= @product.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+      <% end %></h3>
     </div>
-    <!-- End Detail -->
-    <!-- Carousel -->
-    <%= render :partial => 'products/show/recommendations', :object => @recommendations, :locals => { :rating_color => @rating_color } if @recommendations && @recommendations.size > 0 %>
-    <!-- End Carousel -->
-    <!-- Critique -->
-    <ul class="tabs">
-      <% active = 'active' %>
-      <% if @chronicle %>
-        <li class="active" id='tab2_li'>
-          <%= link_to t('.chronicle'), '#tab2', :id => 'tab2_menu' %>
-        </li>
-        <% active = '' %>
-      <% end %>
-      <li class="<%= active %>" id='tab1_li'>
-        <%= link_to t('.members_critic'), '#tab1', :id => 'tab1_menu' %>
+    <div id="votes-wrap">
+       <% if @product.dvdposts_choice? %>
+          <div id="fav">
+            <%= image_tag 'badge.png', :size => '33x44', :alt => t('.dvdpost_choice') %><b><%= t '.dvdpost_choice' %></b>
+          </div>
+        <% end %>
+      <div id="votes">
+        <span class="osc"><%= "(#{@product.rating_count} #{t('.count')})" %></span>
+        <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
+          <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long} %>
+        </div>
+        <div><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %></div>
+      </div>
+    </div><!-- #votes-wrap -->
+  </div><!-- .ttl-wrap -->
+  <div id="film-info">
+    <div id="film-img-wrap" class="<%= @product.vod? ? 'vod' : product_media_id(@product.media) %>">
+      <%= product_image_tag @product_image, :width => 241, :height => 330, :alt => "#{@product_title} (#{@product.year})" %>
+      <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
+      <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
+    </div>
+    <h3>
+      <%= t '.synopsis' %>
+    </h3>
+    <p><%= @product_description.text %></p>
+
+    <% actors = @product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %>
+    <% if actors %>
+    <div id="actors">
+      <h3><%= t '.actors' %></h3>
+      <%= actors %>
+    </div>
+    <% end %>
+    <% if @product.studio && @product.adult? %>
+    <div id="directors">
+      <h3><%= t('.studio') %></h3>
+      <%= link_to @product.studio.name, studio_products_path(:studio_id => @product.studio.to_param)%>
+    </div>
+    <% end %>
+    <% if @product.director %>
+    <div id="directors">
+      <h3><%= t('.directed_by') %></h3>
+      <%= link_to @product.director.name, director_products_path(:director_id => @product.director.to_param) %>
+    </div>
+    <% end %>
+    <div id="btns-wrap" class="osc">
+      <a href="#" id="watch">Regarder ce film maintenant</a>
+      <a href="#" id="add">Ajouter ce DVD</a>
+      <a href="#" id="add-to-vod">Ajouter à ma liste VOD</a>
+      <a href="#" id="trailer">Bande d'annonce</a>
+    </div>
+    <div id="thumbs-wrap">
+      <h3>PHOTOS DU FILM :</h3>
+      <div><a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a></div>
+    </div>
+    <div id="fb">FB stuff goes here</div>    
+  </div><!-- #film-info -->
+  <div id="formats">
+    <table border="0">
+      <tr>
+        <th>FORMAT DISPONIBLE</th>
+        <th>AUDIO</th>
+        <th>SOUS-TITRE</th>
+        <th>PUBLIC</th>
+        <th>DURÉE</th>
+        <th>Image</th>
+        <th>Son</th>
+        <th>Pays</th>
+      </tr>
+      <tr>
+        <td>VOD<br />BLU-RAY<br />DVD</td>
+        <td><span class="red osc">EN</span><span class="red osc">FR</span></td>
+        <td><span class="gray osc">FR</span><span class="gray osc">NL</span></td>
+        <td><span class="dark osc">12</span></td>
+        <td>100min</td>
+        <td>16/9 <br /> (2.40:1)</td>
+        <td>Dolby Digital</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    <div id="festival">
+      <h3>FESTIVAL DU FILM DE CANNES</h3>
+      <p>Meilleure Réalisation</p>
+    </div>
+  </div><!-- #formats -->
+  <div id="rented-wrap">
+    <h3>LES MEMBRES ONT AUSSI LOUÉ</h3>
+    <ul class="jc jcarousel-skin-tango osc">
+      <li>                        	
+        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
+        Les neiges du Kilimandjaro
       </li>
+      <li>                        	
+        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
+        Bloody Mallory
+      </li>
+      <li>                        	
+        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
+        Les neiges du Kilimandjaro
+      </li>
+      <li>                        	
+        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
+        Bloody Mallory
+      </li>
+      <li>                        	
+        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
+        Les neiges du Kilimandjaro
+      </li>
+      <li>                        	
+        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
+        Bloody Mallory
+      </li>
+      <li>                        	
+        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
+        Les neiges du Kilimandjaro
+      </li>
+      <li>                        	
+        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
+        Bloody Mallory
+      </li>
+      <li>                        	
+        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
+        Les neiges du Kilimandjaro
+      </li>
+      <li>                        	
+        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
+        Bloody Mallory
+      </li>            
     </ul>
-    <div class="box">
-      <div class="box-content clearfix">
-        <img src="/images/right-shadow-top.gif" alt="" class="right" />
-        <div class="tab_container">
-          <div id="tab2" class="tab_content" <%= 'style="display:none"' if !@chronicle %>>
-            <%= render :partial => "chronicles/first", :locals => {:first_item => @chronicle} if @chronicle  %>
+    <span class="jc-items">1 of 10</span>
+
+    <div id="critics-wrap">
+      <div class="tab-container">
+        <ul class="etabs osc">
+          <li class="tab"><a href="#c-nina">CRITIQUE DES CHRONIQUES DE NINA</a></li>
+          <li class="tab"><a href="#c-members">CRITIQUE DES MEMBRES</a></li>                
+        </ul>
+        <div class="panel-container">
+          <div id="c-nina">
+            <span class="thumb"><img src="images/c-thumb.jpg" width="141" height="202" alt="Drive" /></span>
+            <div class="vote"><img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-off.png" width="21" height="20" alt="" /></div>
+            <p>Un jeune homme solitaire, « The Driver », conduit le jour à Hollywood pour le cinéma en tant que cascadeur et la nuit pour des truands. Ultra professionnel et peu bavard, il a son propre code de conduite. Jamais il n'a pris part aux crimes de ses employeurs autrement qu'en conduisant - et au volant, il est le meilleur! C'est alors que la route du pilote croise celle d'Irene et de son jeune fils. Pour la première fois de sa vie, il n'est plus seul... </p>
+            <p><a href="#" class="more">Lire la suite</a></p>
           </div>
-          <div id="tab-content-movie" class="tab_content" <%= 'style="display:none"' if @chronicle %>>
-            <% if @reviews_count > 0 %>
-            <ul class="clearfix content_item">
-              <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort} %>
-            </ul>
-            <% else %>
-              <% if current_customer %>
-                <p>
-                  <%= t '.no_review' %>
-                  <%= link_to "#{t('.be_the_first')} #{@product_title}!", new_product_review_path(:product_id => @product.to_param), :id => 'add_new_review' %>
-                </p>
-                <% end %>
-            <% end %>
-          </div>
+          <div id="c-members"> CRITIQUE DES MEMBRES </div>                
         </div>
       </div>
-    </div>
-    <!-- End Critique -->
-    <div class="end"></div>
-  </div>
+    </div><!-- #critics-wrap -->
+  </div><!-- #rented-wrap-->
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
 <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
 <% if params[:add].to_i == 1%>
   <% submit_id = "p_#{@product.to_param}_#{rand(10)}"%>
-  <div id='add' style='display:none'><%= new_product_wishlist_item_path(:product_id => @product.to_param, :source => @source, :submit_id => submit_id, :text => :long, :load_color => :normal) %></div>
+  <div id='add_p' style='display:none'><%= new_product_wishlist_item_path(:product_id => @product.to_param, :source => @source, :submit_id => submit_id, :text => :long, :load_color => :normal) %></div>
 <% end %>
 <% if params[:review].to_i == 1%>
   <div id='review' style='display:none'><%= new_product_review_path(:product_id => @product.to_param) %></div>

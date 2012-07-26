@@ -55,7 +55,7 @@
           </ul>
       <% end %>
            <div class="links" id="seen-uninterested-<%= product.to_param %>">
-              <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
+              <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} if current_customer %>
             </div>
           <ul class="btns osc">
           	<li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @source} unless params[:view_mode] == 'streaming' || params[:filter] == "vod" || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %></li>
