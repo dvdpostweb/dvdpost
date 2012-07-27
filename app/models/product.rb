@@ -621,6 +621,12 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def media_alternative_all(media)
+    if imdb_id > 0
+      self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).limit(1).first
+    end
+  end
+
   def self.sort_by(default, options={})
     if options[:sort]
       type =

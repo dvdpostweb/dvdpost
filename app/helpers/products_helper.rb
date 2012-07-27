@@ -11,7 +11,7 @@ module ProductsHelper
     end
   end
 
-  def audio_bubbles(product, additional_bubble = 0)
+  def audio_bubbles(product, additional_bubble = 0, content = :li)
     audio_count=0
     total_bubble = 3 + additional_bubble 
     preferred_audio = product.languages.preferred
@@ -19,7 +19,7 @@ module ProductsHelper
     unless preferred_audio.count == 0
       audio = preferred_audio.collect{|language| 
         audio_count +=1
-        content_tag(:li, language.short.upcase, :class => "right red osc", :alt => language.name, :title => language.name)
+        content_tag(content, language.short.upcase, :class => "right red osc", :alt => language.name, :title => language.name)
       }
     end
   
@@ -29,14 +29,14 @@ module ProductsHelper
         audio_count +=1
         display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
-          content_tag(:li, language.short.upcase, :class => "right red osc #{display}", :alt => language.name, :title => language.name)
+          content_tag(content, language.short.upcase, :class => "right red osc #{display}", :alt => language.name, :title => language.name)
         else
-          content_tag(:li, language.name,:class => "#{language.class.name.underscore}_text #{display}")
+          content_tag(content, language.name,:class => "#{language.class.name.underscore}_text #{display}")
         end
       }
     end
     if audio_count > total_bubble
-      audio << content_tag(:li, '', :class => "audio_more")
+      audio << content_tag(content, '', :class => "audio_more")
       hide = true
     else
       hide = false
@@ -45,7 +45,7 @@ module ProductsHelper
   end
   
 
-  def subtitle_bubbles(product, additional_bubble)
+  def subtitle_bubbles(product, additional_bubble, content = :li)
     subtitle_count=0
     total_bubble = 3 + additional_bubble 
     preferred_subtitle = product.subtitles.preferred
@@ -53,7 +53,7 @@ module ProductsHelper
     unless preferred_subtitle.count == 0
       sub = preferred_subtitle.preferred.collect{|subtitle| 
         subtitle_count += 1
-        content_tag(:li, subtitle.short.upcase, :class => "right gray osc", :alt => subtitle.name, :title => subtitle.name)
+        content_tag(content, subtitle.short.upcase, :class => "right gray osc", :alt => subtitle.name, :title => subtitle.name)
       }
     end
     if subtitle_count < total_bubble
@@ -69,14 +69,14 @@ module ProductsHelper
             else
               class_undertitle = class_bubble(subtitle.short, :classic)
             end
-            content_tag(:li, subtitle.short.upcase, :class => "right gray osc# #{display}", :alt => subtitle.name, :title => subtitle.name)
+            content_tag(content, subtitle.short.upcase, :class => "right gray osc #{display}", :alt => subtitle.name, :title => subtitle.name)
           else
-            content_tag(:li, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
+            content_tag(content, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
           end
         }
       end
       if subtitle_count > total_bubble
-        sub << content_tag(:li, '', :class => "subtitle_more")
+        sub << content_tag(content, '', :class => "subtitle_more")
         hide = true
       else
         hide = false
@@ -165,7 +165,26 @@ module ProductsHelper
       image
     end
   end
-
+  def available_on_other_media_title(product)
+    bluray = product.media_alternative_all(:blueray)
+    bluray3d = product.media_alternative_all(:bluray3d)
+    dvd = product.media_alternative_all(:dvd)
+    vod = product.streaming?
+    content = ''
+    if bluray
+      content << "#{t('products.index.filters.bluray')}<br />"
+    end
+    if bluray3d
+      content << "#{t('products.index.filters.bluray3d')}<br />"
+    end
+    if dvd
+      content << "#{t('products.index.filters.dvd')}<br />"
+    end
+    if vod
+      content << "VOD<br />"
+    end
+    content
+  end
   def available_on_other_media(product, recommendation)
     content = ''
     unless product.series?
@@ -416,6 +435,17 @@ module ProductsHelper
     end
       (5-review.rating).times do
       images += image_tag "star-off-review.png"
+    end
+    images
+  end
+
+  def green_stars(rating)
+    images = ""
+    rating.times do
+      images += image_tag "green-star-on.png", :size => '21x20'
+    end
+      (5-rating).times do
+      images += image_tag "green-star-off.png", :size => '21x20'
     end
     images
   end

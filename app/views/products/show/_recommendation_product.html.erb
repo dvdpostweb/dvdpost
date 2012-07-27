@@ -1,0 +1,12 @@
+<% path = product_path(:id => recommendation_product.to_param, :recommendation => @wishlist_source[:recommendation]) %>
+<% data = recommendation_product.description_data() %>
+<% product_title = data[:title] %>
+<% product_image = data[:image] %>
+<% streaming_product = (recommendation_product.streaming? and streaming_access?) ? true : false %>
+<li class="jcarousel-item jcarousel-item-horizontal">              	
+  <a href="<%= path %>" class="<%= (streaming_product ? 'vod' : product_media_id(recommendation_product.media)) %>">
+    <%= product_image_tag product_image, :width => 112, :height => 167, :alt => "#{product_title} (#{recommendation_product.year})" %>
+    <%= (streaming_product ? 'vod' : product_media_id(recommendation_product.media)) %>
+  </a>
+  <%= link_to product_title, path %>
+</li>

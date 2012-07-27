@@ -168,10 +168,15 @@ class ProductsController < ApplicationController
       #product_recommendations = @product.recommendations(params[:kind])
       customer_id = current_customer ? current_customer.id : 0
       r_type = params[:r_type].to_i || 1
+      @recommendation_page = params[:recommendation_page].to_i
+      @recommendation_page = 1 if @recommendation_page == 0
+      
       #product_recommendations = @product.recommendations_new(params[:kind], customer_id, r_type)
       product_recommendations = @product.recommendations(params[:kind])
-      
-      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
+      if product_recommendations
+      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5) 
+      @recommendation_nb_page = @recommendations.total_pages
+      end
       if !params[:recommendation].nil?
         @source = params[:recommendation]
       elsif params[:source]
@@ -192,11 +197,9 @@ class ProductsController < ApplicationController
         if params[:reviews_page] || params[:sort]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort}
         elsif params[:recommendation_page]
-          render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color }, :object => @recommendations
+          render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :products => @recommendations}
         end
       }
-      format.mobile do
-      end
     end
   end
 

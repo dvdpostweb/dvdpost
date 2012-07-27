@@ -12,7 +12,7 @@
   <%= stylesheet_link_tag 'reset', :media => :all %>
   <%= stylesheet_link_tag 'main', :media => :all %>
  	<%= stylesheet_link_tag 'facebox', :media => :all %>
-	<%= stylesheet 'style', 'all', :media => :all if ((params[:controller] != 'home' && params[:controller] != 'products') && params[:kind] == :normal) || params[:kind] == :adult  %>
+	<%= stylesheet 'style', 'all', :media => :all if ((params[:controller] != 'home' && params[:controller] != 'products') && params[:kind] == :normal) || (params[:kind] == :adult && params[:controller] != 'products')  %>
 	
 	<%= stylesheet 'stylex', :media => :all if params[:kind] == :adult %>
 
@@ -70,11 +70,7 @@
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
     <!--   ==============   HEADER   ==============   -->
 		<% if @code.nil? || (@code && !@code.white_label) %>
-			<% if params[:kind] == :normal %>
-	    	<%= render(:partial => 'layouts/header') %>
-			<% else %>
-	  		<%= render(:partial => 'layouts/header') %>
-			<% end %>
+    	<%= render(:partial => 'layouts/header') %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->
     <% if flash[:notice] %>

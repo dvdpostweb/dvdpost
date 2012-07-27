@@ -327,7 +327,7 @@ module ApplicationHelper
     else
       ENV['HOST_OK'] = "0"
     end
-    ENV['HOST_OK'] = "1"
+    #ENV['HOST_OK'] = "1"
   end
 
   def no_param

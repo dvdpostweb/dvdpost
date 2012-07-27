@@ -211,6 +211,7 @@ width:101px;
 #nav {
   float: left;
   margin-top: 35px;
+  max-width: 540px;
 }
 #nav li {
   float: left;
@@ -225,9 +226,9 @@ width:101px;
   color: #fff;
 }
 #search {
-  float: right;
-  margin: 33px 10px 0 0;
-
+  position: absolute;
+  top: 33px;
+  right: 10px;
 }
 #search input[type=text] {
   color: #F7F7F7;
@@ -248,9 +249,9 @@ width:101px;
   text-indent: -999em;
   position:absolute;
   cursor:pointer;
-  top: 36px;
-  right: 14px;
-}
+  top: 4px;
+  right: 5px;
+  }
 #search-btn:hover
 {
   background: url(/images/search.png) no-repeat scroll 0 100% transparent;
@@ -632,29 +633,30 @@ width: 145px;
 background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
 }
 #subscribe-wrap {
-  background: #ff8a00 url(../images/orange-bg-rc.gif) 100% 0 repeat-y;
+  background: #AECB3B url(../images/green-bg-rc.gif) 100% 0 repeat-y;
   overflow: hidden;
+  height: 95px;
 }
 #subscribe-wrap .wrap {
   float: left;
   width: 610px;
-  padding:12px 0 14px 30px;
-  background: url(../images/orange-shadow.gif) 0 0 repeat-x;
+  padding: 12px 0 14px 30px;
+  background: url(../images/green-shadow.gif) 0 0 repeat-x;
   overflow: hidden;
 }
 #subscribe-wrap h3 {
   float: left;
   width: 405px;
-  color: #fff;
+  color: white;
   font-weight: bold;
   font-size: 30px;
   line-height: 36px;
 }
 #subscribe-wrap #promo {
-  color: #fff;
+  color: white;
   font-weight: bold;
   font-size: 14px;
-  width: 150px;
+  width: 153px;
   float: left;
   padding-top: 4px;
 }
@@ -662,7 +664,7 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   float: right;
   width: 280px;
   padding: 10px 10px 10px 30px;
-  background: url(../images/orange-shadow-rc.png) 0 0 no-repeat;
+  background: url(../images/green-shadow-rc.png) 0 0 no-repeat;
 }
 #subscribe-wrap #subscribe a.btn {
   display: inline-block;
@@ -727,4 +729,9 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   color: #a3c41b;
   padding-left: 22px;
   background: url(../images/sprite.png) -608px 0 no-repeat;
+}
+#p_suspended
+{
+  padding: 9px 0 1px 38px;
+  background: white;
 }
