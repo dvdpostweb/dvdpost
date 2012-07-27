@@ -49,7 +49,7 @@ FB.init({
         <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
           <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long} %>
         </div>
-        <div><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %></div>
+        <div><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} if ENV['HOST_OK'] == "0" %></div>
       </div>
     </div><!-- #votes-wrap -->
   </div><!-- .ttl-wrap -->
@@ -84,108 +84,69 @@ FB.init({
     </div>
     <% end %>
     <div id="btns-wrap" class="osc">
-      <a href="#" id="watch">Regarder ce film maintenant</a>
-      <a href="#" id="add">Ajouter ce DVD</a>
-      <a href="#" id="add-to-vod">Ajouter à ma liste VOD</a>
-      <a href="#" id="trailer">Bande d'annonce</a>
+
+      <% if @product.in_streaming_or_soon? and streaming_access? %>
+        <% if @product.streaming? %>
+          <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
+          <% credits = @product.streaming_products.first.credits %>
+        <% else %>
+          <div style="width:124px height:80px">&nbsp;</div>
+        <% end %>
+          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :long, :source => @source} %>
+          <%= render :partial => 'products/vod_list',  :locals => {:product => @product} %>
+          <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
+      <% else %>
+        <div id="stream_fake">&nbsp;</div>
+        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :long, :source => @source} %>
+      <% end %>
+      <% if trailer = @product.trailer %>
+         <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+      <% end %>
     </div>
     <div id="thumbs-wrap">
-      <h3>PHOTOS DU FILM :</h3>
-      <div><a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a> <a href="#"><img src="images/film-thumb.jpg" width="112" height="112" alt="" /></a></div>
+      <h3><%= t '.photo' %></h3>
+      <div>
+        <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind]} %>
+      </div>
     </div>
-    <div id="fb">FB stuff goes here</div>    
+    <div id="fb">
+      <% unless @product.adult? %>
+      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(@public_url) %>&amp;layout=standard&amp;show_faces=true&amp;width=400&amp;action=recommend&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:80px;" allowTransparency="true"></iframe>
+      <% end %>
+    </div>    
   </div><!-- #film-info -->
   <div id="formats">
     <table border="0">
       <tr>
-        <th>FORMAT DISPONIBLE</th>
-        <th>AUDIO</th>
-        <th>SOUS-TITRE</th>
-        <th>PUBLIC</th>
-        <th>DURÉE</th>
-        <th>Image</th>
-        <th>Son</th>
-        <th>Pays</th>
+        <th width="135">FORMAT DISPONIBLE</th>
+        <th width="45">AUDIO</th>
+        <th width="73">SOUS-TITRE</th>
+        <th width="47">PUBLIC</th>
+        <th width="52"><%= t '.duration' %></th>
+        <th width="68"><%= t '.picture' %></th>
+        <th width="45"><%= t '.sound' %></th>
+        <th width="92"><%= t '.country' %></th>
       </tr>
       <tr>
-        <td>VOD<br />BLU-RAY<br />DVD</td>
-        <td><span class="red osc">EN</span><span class="red osc">FR</span></td>
-        <td><span class="gray osc">FR</span><span class="gray osc">NL</span></td>
-        <td><span class="dark osc">12</span></td>
-        <td>100min</td>
-        <td>16/9 <br /> (2.40:1)</td>
-        <td>Dolby Digital</td>
-        <td>&nbsp;</td>
+        <td>
+          <%= available_on_other_media_title(@product) %>
+        </td>
+        <td><% audio_bubble = audio_bubbles(@product, 2, :span)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></td>
+        <td><% subtitles = subtitle_bubbles(@product, 2, :span) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></td>
+        <td><span class="dark osc"><%=  @product.public.name %></span></td>
+        <td><%= "#{@product.runtime} #{t '.minutes'}" %></td>
+        <td><%= @product.picture_format.name if @product.picture_format %></td>
+        <td><%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %></td>
+        <td><%= @product.country.name %></td>
       </tr>
     </table>
     <div id="festival">
-      <h3>FESTIVAL DU FILM DE CANNES</h3>
-      <p>Meilleure Réalisation</p>
+      <%= render :partial => 'products/show/awards', :locals => {:product => @product , :size => 'small'} %>
     </div>
   </div><!-- #formats -->
-  <div id="rented-wrap">
-    <h3>LES MEMBRES ONT AUSSI LOUÉ</h3>
-    <ul class="jc jcarousel-skin-tango osc">
-      <li>                        	
-        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
-        Les neiges du Kilimandjaro
-      </li>
-      <li>                        	
-        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
-        Bloody Mallory
-      </li>
-      <li>                        	
-        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
-        Les neiges du Kilimandjaro
-      </li>
-      <li>                        	
-        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
-        Bloody Mallory
-      </li>
-      <li>                        	
-        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
-        Les neiges du Kilimandjaro
-      </li>
-      <li>                        	
-        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
-        Bloody Mallory
-      </li>
-      <li>                        	
-        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
-        Les neiges du Kilimandjaro
-      </li>
-      <li>                        	
-        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
-        Bloody Mallory
-      </li>
-      <li>                        	
-        <a href="#" class="vod"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> VOD</a>
-        Les neiges du Kilimandjaro
-      </li>
-      <li>                        	
-        <a href="#" class="dvd"><img src="images/film-jc-thumb.jpg" width="112" height="167" alt="" /> DVD</a>
-        Bloody Mallory
-      </li>            
-    </ul>
-    <span class="jc-items">1 of 10</span>
-
-    <div id="critics-wrap">
-      <div class="tab-container">
-        <ul class="etabs osc">
-          <li class="tab"><a href="#c-nina">CRITIQUE DES CHRONIQUES DE NINA</a></li>
-          <li class="tab"><a href="#c-members">CRITIQUE DES MEMBRES</a></li>                
-        </ul>
-        <div class="panel-container">
-          <div id="c-nina">
-            <span class="thumb"><img src="images/c-thumb.jpg" width="141" height="202" alt="Drive" /></span>
-            <div class="vote"><img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-on.png" width="21" height="20" alt="" /> <img src="images/green-star-off.png" width="21" height="20" alt="" /></div>
-            <p>Un jeune homme solitaire, « The Driver », conduit le jour à Hollywood pour le cinéma en tant que cascadeur et la nuit pour des truands. Ultra professionnel et peu bavard, il a son propre code de conduite. Jamais il n'a pris part aux crimes de ses employeurs autrement qu'en conduisant - et au volant, il est le meilleur! C'est alors que la route du pilote croise celle d'Irene et de son jeune fils. Pour la première fois de sa vie, il n'est plus seul... </p>
-            <p><a href="#" class="more">Lire la suite</a></p>
-          </div>
-          <div id="c-members"> CRITIQUE DES MEMBRES </div>                
-        </div>
-      </div>
-    </div><!-- #critics-wrap -->
+   <div id="rented-wrap">
+    <%= render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :products => @recommendations, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page } if @recommendations && @recommendations.size > 0 %>
+    <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle} %>
   </div><!-- #rented-wrap-->
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
