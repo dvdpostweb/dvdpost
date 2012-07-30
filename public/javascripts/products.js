@@ -14,7 +14,7 @@ $(function() {
      }
      else
      {
-       $('#thumbs-wrap h3').hide()
+       $('#thumbs-wrap').hide()
      }
      
   }
