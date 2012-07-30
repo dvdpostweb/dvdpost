@@ -94,6 +94,11 @@ class HomeController < ApplicationController
   end
 
   def get_data(kind)
+    if @theme && @theme.banner_hp == 1
+      @theme_hp = @theme
+    else
+      @theme_hp = theme_actif_hp
+    end
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
     news_serial = when_fragment_expired "#{Rails.env}_news_hp_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
       if params[:kind] == :adult

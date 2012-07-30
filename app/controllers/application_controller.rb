@@ -80,6 +80,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def theme_actif_hp
+    if Rails.env == "pre_production"
+  	  theme_hp = ThemesEvent.selected_beta.hp.by_kind(params[:kind]).last
+        unless theme_hp
+          theme_hp = ThemesEvent.selected.hp.by_kind(params[:kind]).last
+        end  
+      return theme_hp
+    else
+      return ThemesEvent.selected.hp.by_kind(params[:kind]).last
+    end
+  end
+ 
   def theme_actif_production
     @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.last
   end
