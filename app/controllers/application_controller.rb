@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   def theme_actif
     if Rails.env == "pre_production"
       @themes = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.limit(2)
-      @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).last
+      @theme = ThemesEvent.selected_beta.by_kind(params[:kind]).first
       unless @theme
         theme_actif_production
       end
@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
 
   def theme_actif_production
     @themes = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.limit(2)
-    @theme = ThemesEvent.selected.by_kind(params[:kind]).ordered.last
+    @theme = ThemesEvent.selected.by_kind(params[:kind]).ordered.first
   end
 
   def is_special_page?
