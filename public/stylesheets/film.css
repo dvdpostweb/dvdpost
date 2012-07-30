@@ -186,14 +186,21 @@
   font-size: 13px;
   padding-left: 30px;
 }
-#btns-wrap #add-to-vod
+#btns-wrap #add-to-vod, #btns-wrap .shop_action
 {
   width: 155px;
   background-color: transparent;
   font-family: 'Open Sans Condensed', sans-serif;
   padding: 0 0 2px 18px;
+  border:0;
+  cursor:pointer;
 }
-
+#btns-wrap .shop_action {
+  background: url("../images/acheter-btn.png")
+}
+#btns-wrap  .btn_remove_form {
+background: url(../images/drop-btn.png) 0 28px !important;
+}
 #btns-wrap a.ajouter {
   background-position: -192px -224px;
 }
@@ -345,4 +352,24 @@ font-size: 11px;
 text-align: center;
 padding: 2px;
 margin: 4px 6px 2px;
+}
+#not_available.fr {
+height: 62px;
+}
+#not_available {
+border: 1px solid #C00;
+height: 77px;
+margin: 14px 0 5px;
+font-family: Arial, Helvetica, sans-serif;
+width:395px;
+}
+#not_available_title {
+background: none repeat scroll 0 0 #C00;
+color: white;
+display: block;
+padding: 2px 5px;
+}
+#not_available #not_available_description {
+font-size: 12px;
+margin: 2px 7px;
 }

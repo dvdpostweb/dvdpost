@@ -444,6 +444,7 @@ margin:0 !important;
 background:url("../images/content-bg-wishlist.gif") repeat-y scroll 0 0 transparent;
 padding:18px 24px 5px 20px;
 position:relative;
+font-size: 14px;
 }
 #titles-wrap.urgent {
 margin:25px 25px 0;

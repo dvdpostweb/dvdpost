@@ -90,7 +90,7 @@ FB.init({
           <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
           <% credits = @product.streaming_products.first.credits %>
         <% else %>
-          <div style="width:124px height:80px">&nbsp;</div>
+          <div id="stream_fake">&nbsp;</div>
         <% end %>
           <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :long, :source => @source} %>
           <%= render :partial => 'products/vod_list',  :locals => {:product => @product} %>
@@ -99,8 +99,35 @@ FB.init({
         <div id="stream_fake">&nbsp;</div>
         <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :long, :source => @source} %>
       <% end %>
+      <% if @product.available_to_sale? && current_customer %>
+        <% media = DVDPost.product_types.invert[@product.media] %>
+        <% test = current_customer.shopping_products.include?(@product) %>
+        <% method = test ? :delete : :post %>
+        <% cart = test ? current_customer.shopping_carts.find_by_products_id(@product.to_param) : nil %>
+        <% media = t "products.index.filters.#{media}" %>
+        <% text = test ? t('.remove', :media => media) : t('.add', :media => media) %>
+        <% class_name = test ? "shop_action btn_remove_form" : "shop_action btn" %>
+        <%= render :partial => 'shops/update_form', :locals => {:cart => cart, :product => @product, :method => method, :text => text, :class_name => class_name, :ref => :product} %>
+      <% end %>
+      
       <% if trailer = @product.trailer %>
          <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+      <% end %>
+      <% if @product.next == 1 and @product.available_at%>
+      <div class="clearfix"></div>
+      <div>
+        <strong>
+          <%= t '.available' %>
+        </strong>
+        <%= @product.available_at.strftime("%d/%m/%Y") if @product.available_at %>
+      </div>
+      <% end %>
+      <% if @product.availability == -1 %>
+      <div class="clearfix"></div>
+      <div id="not_available" class="<%= I18n.locale %>">
+        <div id='not_available_title'><%= t '.not_available' %></div>
+        <div id='not_available_description'><%= t '.not_available_description' %></div>
+      </div>
       <% end %>
     </div>
     <div id="thumbs-wrap">
@@ -110,6 +137,7 @@ FB.init({
       </div>
     </div>
     <div id="fb">
+      
       <% unless @product.adult? %>
       <iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(@public_url) %>&amp;layout=standard&amp;show_faces=true&amp;width=400&amp;action=recommend&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:80px;" allowTransparency="true"></iframe>
       <% end %>

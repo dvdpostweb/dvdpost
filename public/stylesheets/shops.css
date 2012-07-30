@@ -83,13 +83,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;
   margin: 0 -15px 12px;
 }
 #vente-flash.fr{
-  background: #d43213 url(../images/fr/vente-flash-banner.png) 0 0 no-repeat;
+  background: #d43213 url(../images/fr/vente-flash-hp.png) 0 0 no-repeat;
 }
 #vente-flash.en{
-  background: #d43213 url(../images/en/vente-flash-banner.png) 0 0 no-repeat;
+  background: #d43213 url(../images/en/vente-flash-hp.png) 0 0 no-repeat;
 }
 #vente-flash.nl{
-  background: #d43213 url(../images/nl/vente-flash-banner.png) 0 0 no-repeat;
+  background: #d43213 url(../images/nl/vente-flash-hp.png) 0 0 no-repeat;
 }
 a#vente-flash
 {
