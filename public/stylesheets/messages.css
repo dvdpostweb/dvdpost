@@ -614,7 +614,20 @@ text-align:left;
     min-height: 475px;
     padding: 20px 25px;
 }
-
+#contact-wrap #tabs-content.public {
+  padding: 0;
+  border: 0;
+}
+#contact-wrap #tabs-content.public #question
+{
+  float:left;
+  width:475px;
+}
+#contact-wrap #tabs-content .form
+{
+  width: 475px;
+  border:0;
+}
 #contact-wrap #question {
     color:#212429;
     font-size: 1.08em;

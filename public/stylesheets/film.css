@@ -124,13 +124,11 @@
 #film-img-wrap {
   float: left;
   margin: 4px 15px 0 0;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
   -moz-box-shadow: 0px 0px 4px #000000;
   -webkit-box-shadow: 0px 0px 4px #000000;
   box-shadow: 0px 0px 4px #000000;
   overflow: hidden;
+  position:relative;
 }
 
 #film-img-wrap.dvd {
@@ -372,4 +370,21 @@ padding: 2px 5px;
 #not_available #not_available_description {
 font-size: 12px;
 margin: 2px 7px;
+}
+#film-img-wrap .new {
+  background: url(../images/big_banner_new.png) 0 0 no-repeat;
+  display: block;
+  height: 85px;
+  left: 167px;
+  position: absolute;
+  top: 0px;
+  width: 74px;
+}
+#uninterested
+{
+  width:180px;
+}
+#uninterested a:last-child
+{
+  float:right;
 }

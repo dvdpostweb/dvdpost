@@ -106,9 +106,9 @@ class HomeController < ApplicationController
     @news = Marshal.load(news_serial)
     landing_serial = when_fragment_expired "#{Rails.env}_landings_hp3_#{I18n.locale}_#{params[:kind]}", 30.minutes.from_now.localtime do
       if Rails.env == "pre_production"
-        sql = params[:kind] == :adult ? Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(7)
+        sql = params[:kind] == :adult ? Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language_beta(I18n.locale).not_expirated.private.order(:asc).limit(6)
       else
-        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(7)
+        sql = params[:kind] == :adult ? Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5) : Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(6)
       end
       Marshal.dump(sql)
     end
@@ -121,9 +121,12 @@ class HomeController < ApplicationController
         @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
         not_rated_products = current_customer.not_rated_products(kind)
         @not_rated_product = not_rated_products[rand(not_rated_products.count)]
+        trailer_limit = 2
+      else
+        trailer_limit = 3
       end
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
-      @trailers_week = Product.all(:joins => :trailers, :conditions => {"products_trailers.focus" => 1, "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]})
+      @trailers_week = Product.all(:joins => :trailers, :conditions => ["products_trailers.focus > 0 and products_trailers.language_id = ? ", DVDPost.product_languages[I18n.locale]], :limit => trailer_limit, :order => "products_trailers.focus desc")
       @trailers = Product.all(:joins => :trailers, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
@@ -151,7 +154,7 @@ class HomeController < ApplicationController
         wishlist_size
         @offline_request = current_customer.payment.recovery
         @transit_items = current_customer.orders.in_transit.all
-        @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.first
+        @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.first
         expiration_recommendation_cache()
         @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
       end
