@@ -6,13 +6,14 @@
   <% if ENV['HOST_OK'] == "0" %>
     <li><%= link_to t('layouts.header.wishlist'), vod_wishlists_path, {:id => 'nav3', :class => (( id == 'mywhishlist') ? 'active': '')} %></li>
     <li><%= link_to t('layouts.menu.contact'), messages_path, {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
-    <li><%= link_to t('layouts.header.summer_card'), sponsorships_path, {:id => 'nav6', :class => (( id == 'sponsorships') ? 'active': '')} %></li>
+    <% unless params[:kind] == :adult %>
+    <li><%= link_to t('layouts.header.adult'), root_path(:kind => :adult), {:id => 'nav7'} %></li>
+    <% end %>
   <% else %>
-    <li><%= link_to t('layouts.menu.contact'), messages_path, {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
-    <% if params[:kind] == :adult %>
-      <li><%= link_to t('layouts.header.normal'), root_path(:kind => :normal), {:id => 'nav3'} %></li>
-    <% else %>
-    <li><%= link_to t('layouts.header.adult'), root_path(:kind => :adult), {:id => 'nav3'} %></li>
+    <li><%= link_to t('layouts.header.price'), info_path(:page_name => 'price'), {:id => 'nav5', :class => (( params[:page_name] == 'price') ? 'active': '') }  %></li>
+    <li><%= link_to t('layouts.menu.contact'), new_phone_request_path(), {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
+    <% unless params[:kind] == :adult %>
+      <li><%= link_to t('layouts.header.adult'), root_path(:kind => :adult), {:id => 'nav7'} %></li>
     <% end %>
   <% end %>
 </ul>
@@ -20,4 +21,7 @@
   <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field'} %>
   <%= submit_tag 'search', :id => 'search-btn' %>
   <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
+<% end %>
+<% if params[:kind] == :adult %>
+  <div id="back_classic"><%= link_to t('layouts.header.normal'), root_path(:kind => :normal), {:id => 'nav8'} %></div>
 <% end %>

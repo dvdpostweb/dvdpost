@@ -11,7 +11,7 @@
       <%= render :partial => 'products/vod_list',  :locals => {:product => product} %>
       <%= render :partial => 'products/credit_vod', :locals => {:product => product, :credits => credits} if credits && credits > 1 %>
   <% end %>
-  <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @source} %>
   <% if product.available_to_sale? && current_customer %>
     <% media = DVDPost.product_types.invert[product.media] %>
     <% test = current_customer.shopping_products.include?(product) %>

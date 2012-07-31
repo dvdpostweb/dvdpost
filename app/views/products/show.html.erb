@@ -49,7 +49,7 @@ FB.init({
         <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
           <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long} %>
         </div>
-        <div><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} if ENV['HOST_OK'] == "0" %></div>
+        <div id="uninterested"><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} if ENV['HOST_OK'] == "0" %></div>
       </div>
     </div><!-- #votes-wrap -->
   </div><!-- .ttl-wrap -->
@@ -92,12 +92,12 @@ FB.init({
         <% else %>
           <div id="stream_fake">&nbsp;</div>
         <% end %>
-          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :long, :source => @source} %>
+          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
           <%= render :partial => 'products/vod_list',  :locals => {:product => @product} %>
           <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
       <% else %>
         <div id="stream_fake">&nbsp;</div>
-        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :long, :source => @source} %>
+        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
       <% end %>
       <% if @product.available_to_sale? && current_customer %>
         <% media = DVDPost.product_types.invert[@product.media] %>
