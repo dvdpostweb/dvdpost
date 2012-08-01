@@ -4,51 +4,51 @@
   <% current_phone = current_customer ? current_customer.phone : nil %>
   <% phone_init = phone_request.phone && !phone_request.phone.empty? ? phone_request.phone : current_phone %>
   <%- form_for :phone_request, :url => url do |f| %>
-    <h3> <%= t('.title') %></h3>
-    <p>
-      <%= t('.intro') if ENV['HOST_OK'] == "0" %>
-    </p>
-    <div class="form">
-      <%= f.error_messages %>
-      <div style="clear:both"></div>
-      <div id='field_form'>
-        <% if ENV['HOST_OK'] == "0" %>
-          <% PhoneRequest.reason_codes.each do |key, code| %>
-          <p>
-            <%= f.radio_button :reason, code, :checked => (phone_request.reason == code || (!phone_request.reason && params[:reason].to_i == code)) ? true : false %>
-            <%= f.label :reason, t(".reason_label_#{code}"), :class => :reason_label %>
-            <br />
-            <%= t(".reason_description_#{code}") %>
-          </p>
-          <% end %>
-        <% else %>
-          <%= f.hidden_field :reason, :value => 4 %>
-        <% end %>
-        <p>
-          <strong><%= t('.languages') %></strong>
-        </p>
-        <% PhoneRequest.languages.each do |key, code| %>
-          <%= f.radio_button :language_id, key, :checked => (phone_request.language_id == key || (!phone_request.language_id && I18n.locale == code.to_sym ) ? true : false) %>
-          <%= f.label "language_id_#{key}", t(".#{code}") %>
-        <% end %>
-        <% if ENV['HOST_OK'] == "1" %>
-          <p id="name">
-            <%= f.label :name, t('.name') %><br />
-            <%= f.text_field :name, :class => "fld" %>
-          </p>
-        <% end %>
-        <p id="phone">
-          <%= f.label :phone, t('.phone') %><br />
-          <%= f.text_field :phone, :value => phone_init, :class => "fld" %>
-        </p>
-        <div class="form_dates">
-          <div class="date">
-              <strong> <%= t '.call_date' %> </strong>
-            <div><%= f.text_field :requested_date, :class => "datepicker fld" %></div>
-          </div>
-          <div class="hours">
-            <strong>  <%= t '.time_slots' %> </strong>
-            <div><%= f.collection_select(:hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %></div>
+  <h3> <%= t('.title') %></h3>
+  <p>
+    <%= t('.intro') if ENV['HOST_OK'] == "0" %>
+  </p>
+  <div class="form">
+    <%= f.error_messages %>
+    <div style="clear:both"></div>
+    <div id='field_form'>
+      <% if ENV['HOST_OK'] == "0" %>
+      <% PhoneRequest.reason_codes.each do |key, code| %>
+      <p>
+        <%= f.radio_button :reason, code, :checked => (phone_request.reason == code || (!phone_request.reason && params[:reason].to_i == code)) ? true : false %>
+        <%= f.label :reason, t(".reason_label_#{code}"), :class => :reason_label %>
+        <br />
+        <%= t(".reason_description_#{code}") %>
+      </p>
+      <% end %>
+      <% else %>
+      <%= f.hidden_field :reason, :value => 4 %>
+      <% end %>
+      <p>
+        <strong><%= t('.languages') %></strong>
+      </p>
+      <% PhoneRequest.languages.each do |key, code| %>
+      <%= f.radio_button :language_id, key, :checked => (phone_request.language_id == key || (!phone_request.language_id && I18n.locale == code.to_sym ) ? true : false) %>
+      <%= f.label "language_id_#{key}", t(".#{code}") %>
+      <% end %>
+      <% if ENV['HOST_OK'] == "1" %>
+      <p id="name">
+        <%= f.label :name, t('.name') %><br />
+        <%= f.text_field :name, :class => "fld" %>
+      </p>
+      <% end %>
+      <p id="phone">
+        <%= f.label :phone, t('.phone') %><br />
+        <%= f.text_field :phone, :value => phone_init, :class => "fld" %>
+      </p>
+      <div class="form_dates">
+        <div class="date">
+          <strong> <%= t '.call_date' %> </strong>
+          <div><%= f.text_field :requested_date, :class => "datepicker fld" %></div>
+        </div>
+        <div class="hours">
+          <strong>  <%= t '.time_slots' %> </strong>
+          <div><%= f.collection_select(:hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %></div>
         </div>
       </div>
     </div>
@@ -60,4 +60,5 @@
     </p>
 
   </div>
-<% end%>
+  <% end%>
+</div>

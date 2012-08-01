@@ -72,13 +72,13 @@ FB.init({
     </div>
     <% end %>
     <% if @product.studio && @product.adult? %>
-    <div id="directors">
+    <div id="studio">
       <h3><%= t('.studio') %></h3>
       <%= link_to @product.studio.name, studio_products_path(:studio_id => @product.studio.to_param)%>
     </div>
     <% end %>
-    <% if @product.director %>
-    <div id="directors">
+    <% if @product.director && !@product.adult? %>
+    <div id="directors" class="<%= I18n.locale.to_s %>">
       <h3><%= t('.directed_by') %></h3>
       <%= link_to @product.director.name, director_products_path(:director_id => @product.director.to_param) %>
     </div>

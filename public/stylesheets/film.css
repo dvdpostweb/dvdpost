@@ -100,20 +100,24 @@
   margin-bottom: 8px;
 }
 
-#actors, #directors {
+#actors, #directors, #studio {
   position: relative;
   padding-left: 70px;
+  padding-top: 3px;
   margin-bottom: 8px;
   overflow: hidden;
   font-size: 12px;
-  height:26PX;
+  min-height:26px;
 }
 
 #directors {
   padding-left: 90px;
 }
+#directors.nl {
+  padding-left: 124px;
+}
 
-#actors h3, #directors h3 {
+#actors h3, #directors h3, #studio h3{
   position: absolute;
   top: 0;
   left: 0;
@@ -262,17 +266,18 @@ background: url(../images/drop-btn.png) 0 28px !important;
 
 #formats table span {
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
   font-size: 14px;
   line-height: 19px;
   text-align: center;
   color: white;
   font-weight: bold;
   margin-bottom: 2px;
-  padding-left: 2px;
-  float:none;
+  padding-left: 1px;
+  float: none;
   padding-top: 0;
+  }
 }
 
 #formats table span.dark {

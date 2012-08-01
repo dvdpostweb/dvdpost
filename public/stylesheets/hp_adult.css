@@ -597,15 +597,3 @@ width: 593px;
 #apps img {
 margin-bottom: 20px;
 }
-#back_classic
-{
-  position: absolute;
-  left: 18px;
-  top: 69px;
-  color: white;
-  font-size: 12px;
-}
-#back_classic a
-{
-  color:white;
-}
