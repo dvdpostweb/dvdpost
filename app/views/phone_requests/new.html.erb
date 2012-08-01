@@ -1,4 +1,3 @@
-
 <div id="contact-wrap">
   <%= render :partial => 'messages/menu', :locals => {:active_menu => 'contact'} if ENV['HOST_OK'] == "0" %>
     <div id="tabs-content" class="<%= ENV['HOST_OK'] == "0" ? 'private' : 'public' %>">

@@ -742,3 +742,15 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   padding: 9px 0 1px 38px;
   background: white;
 }
+#back_classic
+{
+  position: absolute;
+  left: 18px;
+  top: 69px;
+  color: white;
+  font-size: 12px;
+}
+#back_classic a
+{
+  color:white;
+}
