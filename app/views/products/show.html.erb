@@ -41,7 +41,7 @@ FB.init({
     <div id="votes-wrap">
        <% if @product.dvdposts_choice? %>
           <div id="fav">
-            <%= image_tag 'badge.png', :size => '33x44', :alt => t('.dvdpost_choice') %><b><%= t '.dvdpost_choice' %></b>
+            <%= image_tag 'badge.png', :size => '33x44', :alt => t('.dvdpost_choice') %><strong><%= t '.dvdpost_choice' %></strong>
           </div>
         <% end %>
       <div id="votes">

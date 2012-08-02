@@ -1,8 +1,6 @@
 <div id="c-members" <%= 'style="display:none"' if chronicle %>>
   <% if @reviews_count > 0 %>
-  <ul class="clearfix content_item">
     <%= render :partial => 'products/show/reviews', :locals => {:product => product, :reviews_count => reviews_count, :reviews => reviews, :review_sort => review_sort} %>
-  </ul>
   <% else %>
     <% if current_customer %>
       <p>
