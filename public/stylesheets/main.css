@@ -130,6 +130,9 @@ background-repeat: no-repeat;
 text-align: left;
 width:101px;
 }
+.adult a.ajouter {
+background-image: url(../images/sprite_adult.png);
+}
 a.regarder {
 background-position: -352px -160px;
 display: block;
@@ -144,6 +147,10 @@ background-repeat: no-repeat;
 text-align: left;
 width:101px;
 }
+.adult a.regarder {
+  background-image: url(../images/sprite_adult.png);
+}
+
 .adult a.ajouter, .adult a.regarder {
   color: white;
   text-decoration: none;
