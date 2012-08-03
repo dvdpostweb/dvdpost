@@ -107,7 +107,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 #bienvenue #liste {
   padding: 4px 20px;
   margin: 0 -20px 10px;
-  background: #e2007c;
+  background: #bd1f83;
   color: #fff;
   font-size: 1.25em;
 }
@@ -735,7 +735,7 @@ a.trailer-week span strong, div.trailer-week a span strong {
 }
 #coup-de-coeur-wrap .ttl, #nouveautes .ttl, #bandes-annonces .ttl, #top-loues-wrap .ttl, #selection-week-wrap .ttl {
   font-size: 1.83em;
-  color: #9839a7 !important;
+  color: #bd1f83 !important;
   margin-bottom: 7px;
   font-weight: bold;
 }
@@ -853,4 +853,8 @@ p#filter a:hover, p#filter a.active {
 
 #options a.right:hover {
   text-decoration: none;
+}
+.ico img
+{
+  vertical-align: text-bottom;
 }

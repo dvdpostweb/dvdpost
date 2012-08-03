@@ -4,7 +4,7 @@
   <% current_phone = current_customer ? current_customer.phone : nil %>
   <% phone_init = phone_request.phone && !phone_request.phone.empty? ? phone_request.phone : current_phone %>
   <%- form_for :phone_request, :url => url do |f| %>
-  <h3> <%= t('.title') %></h3>
+  <h4> <%= t('.title') %></h4>
   <p>
     <%= t('.intro') if ENV['HOST_OK'] == "0" %>
   </p>
@@ -53,12 +53,11 @@
       </div>
     </div>
     <div class="clear"></div>
-    <p align="right">
+    <div align="right">
       <button type="submit">
         <%= t '.contact' %>
       </button>
-    </p>
-
+    </div>
   </div>
   <% end%>
 </div>

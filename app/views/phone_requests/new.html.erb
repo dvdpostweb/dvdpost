@@ -1,10 +1,14 @@
 <div id="contact-wrap">
   <%= render :partial => 'messages/menu', :locals => {:active_menu => 'contact'} if ENV['HOST_OK'] == "0" %>
-    <div id="tabs-content" class="<%= ENV['HOST_OK'] == "0" ? 'private' : 'public' %>">
-      <div id="contact">
-        <%= render :partial => 'phone_requests/new/info' if ENV['HOST_OK'] == "1" %>
-        <%= render :partial => 'phone_requests/new/form', :locals => {:phone_request => @phone_request} %>
-      <div class="clear"></div>
+  <%= '<div id="tabs-content" class="private">' if ENV['HOST_OK'] == "0" %>
+    <h3><%= t '.title' %></h3>
+
+    <div id="tabs-content" class="public">
+    	<div id="contact">
+    		<%= render :partial => 'phone_requests/new/info' if ENV['HOST_OK'] == "1" %>
+    		<%= render :partial => 'phone_requests/new/form', :locals => {:phone_request => @phone_request} %>
+    		<div class="clear"></div>
+    	</div>
     </div>
-  </div>
+  <%= '</div>' if ENV['HOST_OK'] == "0" %>
 </div>

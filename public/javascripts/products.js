@@ -205,7 +205,25 @@ $(function() {
     });
     return false;
   });
-
+  $("#c-members #pagination a").live("click", function() {
+    html_item = $(this).parent();
+    content = html_item.html();
+    loader = 'ajax-loader.gif';
+    html_item.html("<div style='height:24px; margin:10px 0 0 0'><img src='/images/"+loader+"'/></div>");
+    $.ajax({
+      url: this.href,
+      dataType: 'script',
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        $('#c-members').html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
 
   $("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
@@ -429,10 +447,11 @@ $(function() {
     $('#attention_bluray').hide();
     return false;
   });
-  if ($('#add_p, #review, #rating').html()!=undefined)
+  if ($('.action_face').html()!=undefined)
   {
     jQuery.facebox(function() {
-      $.getScript($('#add').html(), function(data) {
+      
+      $.getScript($('.action_face').html(), function(data) {
         jQuery.facebox(data);
       });
     });

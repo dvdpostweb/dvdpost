@@ -467,7 +467,7 @@ color: #333333;
   display: block;
 }
 .adult #selection-week-wrap .slides li.vod h3 {
-  background: none repeat scroll 0 0 #7b0499;
+  background: none repeat scroll 0 0 #bd1f83;
 }
 
 .adult #selection-week-wrap .slides li.vod h4 {
@@ -476,7 +476,7 @@ color: #333333;
 
 .adult #selection-week-wrap .ttl, .adult #community-wrap .ttl, .adult #news-wrap .ttl {
   background: url("../images/selection-icon_adult.png") no-repeat scroll 0 0 transparent;
-	color: #E2007C;
+	color: #bd1f83;
   font-size: 2em;
   font-weight: bold;
   margin-bottom: 10px;
@@ -484,7 +484,7 @@ color: #333333;
 }
 
 #newsletters-wrap .ttl {
-    color: #FA3216;
+    color: #bd1f83;
     font-size: 2em;
     font-weight: bold;
     margin-bottom: 10px;

@@ -1,8 +1,27 @@
 /*   Contact Pages   */
 
-#contact-wrap {
-  padding: 23px 53px 33px;
 
+body {
+   
+    text-shadow: none;
+}
+
+.osc, h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans Condensed',sans-serif;
+}
+
+
+#contact-wrap h3 {
+color: #212A31;
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 15px;
+   
+
+}
+
+#contact-wrap {
+    padding: 30px;
 }
 #contact-wrap #tabs {
   display: block;
@@ -248,18 +267,22 @@
 #contact-wrap #contact label {
   margin-bottom: 10px;
 }
-#contact-wrap #contact .fld {
-  width: 210px;
+
+#contact-wrap #contact  {
+
   padding: 3px 2px 0;
   height: 24px;
-  border: 1px solid #c1c1c1;
+
   border-top: none;
-  background: white url(../images/contact-form-fld-bg.gif) 0 0 repeat-x;
   margin-bottom: 10px;
 }
-#contact-wrap #contact div {
-  margin: 8px 0;
+
+#contact-wrap #contact input {
+  border: 1px solid #29333B;
+  height:20px;
 }
+
+
 #contact-wrap #contact select {
   font-size: 0.89em;
 
@@ -269,40 +292,39 @@
   display: block;
   width: 137px;
   height: 27px;
-  background: url(../images/recontacter-btn.png) 0 0 no-repeat;
+  background: url(../images/button_contact.png) 0 0 no-repeat;
   border: none;
   clear: both;
   font-weight: bold;
   color: white;
-  text-shadow: 1px 1px 1px #333333;
-  margin: 5px 0 10px 460px !important;
 }
+
+
+
+
+
 #contact-wrap #contact ul {
   float: left;
-  width: 380px;
+ width: 330px;
 }
 #contact-wrap #contact li {
   margin-bottom: 5px;
   font-size: 1.17em;
-  color: #505050;
+  color: #29333B;
 }
 #contact-wrap #contact li a {
-  color:#00a3d5;
+  color:#A3C41B;
 }
 
 
-#contact-wrap #contact li h3 {
-  font-size:1.43em;
-  color: #505050;
-  margin:0 0 10px 8px;
-}
+
 #contact-wrap #contact li h4 {
-  font-size: 1em;
+    font-size: 1.14em;
+    font-weight: bold;
 }
 #contact-wrap #contact li#phone {
-  color: #00a3d5;
-padding-left: 84px;
-background: url(../images/phone-icon.jpg) 6px 0 no-repeat;
+
+padding-left: 30px;
 min-height: 59px;
 height: auto !important;
 height: 59px;
@@ -311,24 +333,21 @@ height: 59px;
   font-size: 1.14em;
 }
 #contact-wrap #contact li#mail {
-padding-left: 84px;
-background: url(../images/mail-icon.jpg) 0 0 no-repeat;
+padding-left: 30px;
 min-height: 45px;
 height: auto !important;
 height: 59px;
 padding-top: 14px;
 }
 #contact-wrap #contact li#fax {
-padding-left: 84px;
-background: url(../images/fax-icon.jpg) 0 0 no-repeat;
+padding-left: 30px;
 min-height: 45px;
 height: auto !important;
 height: 59px;
 padding-top: 14px;
 }
 #contact-wrap #contact li#courrier {
-padding-left: 84px;
-background: url(../images/courier-icon.jpg) 0 0 no-repeat;
+padding-left: 30px;
 min-height: 45px;
 height: auto !important;
 height: 59px;
@@ -338,35 +357,30 @@ padding-top: 14px;
    padding: 20px 0 0 30px;
 }
 #contact-wrap #contact li#social a {
-  float: left;
-  display: block;
-  margin-right: 25px;
-  padding-top: 65px;
-  font-size: 0.86em;
-  text-align: center;
-  color: #505050;
-  width: 60px;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  position: relative;
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    color: #29333B;
+    display: block;
+    float: left;
+    font-size: 0.86em;
+    padding-top: 59px;
+    position: relative;
+    text-align: center;
+    width: 60px;
 }
 #contact-wrap #contact li#social a:hover {
-  text-decoration: none;
-  color:#00a3d5;
+  text-decoration: underline;
+ 
 }
 
-#contact-wrap #contact li#social a#blog {
-  background-image: url(../images/blog-icon.png);
-}
+
 #contact-wrap #contact li#social a#fb {
-  background-image: url(../images/fb-icon.png);
+  background-image: url(../images/facebook_icon.png);
 }
 #contact-wrap #contact li#social a#tw {
-  background-image: url(../images/tw-icon.png);
+  background-image: url(../images/twitter_icon.png);
 }
-#contact-wrap #contact li#social a#vm {
-  background-image: url(../images/vimeo-icon.png);
-}
+
 
 /*   Questions Page   */
 
@@ -381,7 +395,7 @@ padding-top: 14px;
 }
 #contact-wrap #question p {
   padding: 0;
-  margin: 12px 0 12px;
+  margin: 5px 0;
 }
 #contact-wrap textarea {
   padding: 2px;
@@ -390,31 +404,19 @@ padding-top: 14px;
   border: 1px solid #000000;
   background: white;
 }
-#contact-wrap #question button, .new_ticket button{
-  border: none;
-  background: url(../images/button.png) 0 0 no-repeat;
-  margin: 5px 0 0 705px;
-  cursor: pointer;
-  
-  color: white;
-  display: block;
-  font-size: 1.09em;
-  height: 34px;
-  line-height: 34px;
-  text-align: center;
-  text-shadow: 1px 1px 1px #999999;
-  width: 122px;
-}
-.new_ticket button{
-  margin: 5px 0 0 460px !important;
-}
+
 #contact-wrap #question button:hover {
-  background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
+text-decoration:underline;
 }
 #messages a {
   color:#000;
 }
 
+.form_dates.hours {
+padding:0px;
+
+
+}
 
 .errorExplanation {
 color:#e78c15 !important;
@@ -618,21 +620,32 @@ text-align:left;
   padding: 0;
   border: 0;
 }
-#contact-wrap #tabs-content.public #question
-{
-  float:left;
-  width:474px;
+#contact-wrap #tabs-content.public #question {
+    float: left;
+    padding-left: 100px;
+    width: 450px;
 }
-#contact-wrap #tabs-content .form
-{
-  width: 474px;
-  border:0;
+#contact-wrap .private #tabs-content.public #question {
+  width: 600px;
+}
+#contact-wrap #tabs-content .form {
+    background: url("../images/tab-content-bg.png") repeat-x scroll 0 0 #C3D1DB;
+    border: 0 none;
+    margin-top: 10px;
+    width: 380px;
+}
+ #contact-wrap .private #tabs-content .form {
+  width: 580px;
 }
 #contact-wrap #question {
     color:#212429;
     font-size: 1.08em;
 }
 
+#field_form {
+padding:10px;
+
+}
 
 #question {
 
@@ -655,18 +668,18 @@ padding:10px;
 
 }
 
-#contact-wrap #question h3 {
-    font-size: 18px;
-	border-bottom:#535353 dotted 1px;
+#contact-wrap #question h4 {
+   font-size: 1.30em;
+    font-weight: bold;
+	
 
 }
-.form_dates 
-{ 
-  width:400px;
-  height:75px;
-  margin: 0 !important;
+.form_dates {
+    height: 42px;
+    margin: 0 !important;
+    padding-top: 10px;
+    width: 330px;
 }
-
 
 
 #question a.btn {
@@ -835,4 +848,8 @@ a.btn_all_message:hover {
 .filter a
 {
   color: #454545;
+}
+#phone_request_hour
+{
+  margin:4px 0 0 0;
 }

@@ -142,6 +142,9 @@
 #film-img-wrap.vod {
   background: #85BA17;
 }
+.adult #film-img-wrap.vod {
+  background: #BD1F83;
+}
 #film-img-wrap.bluray, #film-img-wrap.bluray_3d {
   background: #0497D0;
 }
@@ -166,17 +169,17 @@
   background-repeat: no-repeat;
   font-weight: bold;
 }
-.adult #btns-wrap a, #btns-wrap input {
+.adult #btns-wrap a, .adult #btns-wrap input {
   background-image: url(../images/sprite_adult.png);
 }
 #btns-wrap input:hover {
   text-decoration: underline;
 }
 #btns-wrap a#watch {
-  width: 122px;
+  width: 121px;
   height: 57px;
   font-size: 17px;
-  padding: 18px 0 0 62px;
+  padding: 18px 0 0 63px;
   background-position: 0 -224px;
   margin-right: 10px;
   float: left;
@@ -199,12 +202,23 @@
   padding: 0 0 2px 18px;
   border:0;
   cursor:pointer;
+  height:24px;
 }
 #btns-wrap .shop_action {
   background: url("../images/acheter-btn.png")
 }
-#btns-wrap  .btn_remove_form {
-background: url(../images/drop-btn.png) 0 28px !important;
+#btns-wrap .shop_action.btn_remove_form {
+background: url(../images/sprite.png) -192px -385px !important;
+height: 25px !important;
+text-align:left;
+padding: 0 0 5px 29px;
+}
+
+#btns-wrap .shop_action.btn {
+background: url(../images/sprite.png) -192px -352px !important;
+height: 25px !important;
+text-align:left;
+padding: 0 0 3px 29px;
 }
 #btns-wrap a.ajouter {
   background-position: -192px -224px;
@@ -223,7 +237,12 @@ background: url(../images/drop-btn.png) 0 28px !important;
   padding-top: 10px;
   margin-bottom: 10px;
 }
-
+#btns-wrap .streaming_remove_list
+{
+  background-position: -192px -320px !important;
+  text-align:left !important;
+  padding: 0 0 2px 30px !important;
+}
 #thumbs-wrap h3 {
   font-size: 16px;
   margin-bottom: 10px;
@@ -340,7 +359,7 @@ text-align: left;
   float: left;
 }
 #creditdorcel .credit {
-color: #8A00B4;
+color: #bd1f83;
 width: 154px;
 font-family: Arial, Helvetica, sans-serif;
 font-size: 14px;
@@ -349,7 +368,7 @@ font-weight: bold;
 padding-top: 2px;
 }
 #creditdorcel .new {
-background-color: #8A00B4;
+background-color: #bd1f83;
 color: white;
 width: 149px;
 font-family: Arial, Helvetica, sans-serif;
@@ -398,8 +417,9 @@ margin: 2px 7px;
 }
 #c-members .bysort
 {
-  margin: 0 0 8px 500px;
-  padding: 8px 0 0 0;
+  margin: 0 0 8px 0px;
+  padding: 0px 0 0 0;
+  float: right;
 }
 #c-members a {
     color: #444444;
@@ -407,7 +427,7 @@ margin: 2px 7px;
     text-decoration: underline;
 }
 #c-members ul {
-	margin: 0 -15px;
+	margin: 0 -20px;
 }
 #c-members li {
 	padding: 0 15px 0;
@@ -446,8 +466,7 @@ margin: 2px 7px;
 }
 
 #c-members li .critic .name a.all_critics {
-    background: url("../images/hp-ttls-nav-arrow2.gif") no-repeat scroll 100% 2px transparent;
-    color: #6F778A;
+    color: #212A31;
     display: inline-block;
     font-size: 1.1em;
     margin-bottom: 8px;
@@ -461,10 +480,11 @@ margin: 2px 7px;
 }
 
 #c-members .numbers a {
-  background: url("../images/chat-icon.png") no-repeat scroll 0 11px transparent;
+  background: url("../images/chat-icon.png") no-repeat scroll 0 0px transparent;
   color: #1B2228;
   float: right;
-  padding: 10px 8px 0 22px;    
+  padding: 0px 0px 0 22px;
+  margin: 0 0 0 163px;
 }
 
 
@@ -472,6 +492,7 @@ margin: 2px 7px;
     font-size: 1.17em;
     font-weight: bold;
     margin: 0 0 10px 13px;
+    float:left;
 }
 
 
@@ -498,7 +519,7 @@ margin: 2px 7px;
    font-weight: bold;
 }
 #c-members .publish {
-float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
+float: right; font-size: 14px; font-weight: normal; margin: 0 12px 0 0;
 }
 #review_text 
 {
@@ -595,15 +616,15 @@ float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
   color: #e2007c;
 }
 
-.tab-container .links {
+.tab-container #pagination {
   font-size: 0.92em;
-  width: 660px;
-  margin: 0 0 -15px -15px;
+  width: 670px;
+  margin: 0 0 -12px -20px;
 }
-.tab-container .links a {
+.tab-container  #pagination a {
   color: #454545;
 }
-.tab-container .links a.next_page {
+.tab-container  #pagination a.next_page {
   float:right;
 }
 .bysort_title { 
@@ -622,6 +643,9 @@ float: right; font-size: 12px; font-weight: normal; margin: 0 12px 0 0;
   margin: 0;
   color: #212A31;
 }
+.movie-ttl a{
+color: #212A31;
+}
 #rented-wrap .movie-ttl h3 {
 float: left;
 width: 639px;
@@ -633,4 +657,24 @@ color: #212A31;
 #rented-wrap .movie-ttl h3 a {
 font-family:'Open Sans Condensed', sans-serif;
 text-decoration: none;
+padding:26px;
+}
+#rented-wrap .movie-ttl h3 a:hover{
+  text-decoration:underline;
+}
+.disabled {
+visibility: hidden;
+}
+.load2 {
+  display:block;
+  float:left;
+  height:21px;
+  line-height:35px;
+  margin:5px 0 0;
+  text-align:center;
+  width:170px;
+}
+#creditdorcel
+{
+  margin:0 9px;
 }
