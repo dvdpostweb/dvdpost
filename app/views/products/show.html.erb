@@ -65,7 +65,7 @@ FB.init({
     <p><%= @product_description.text %></p>
 
     <% actors = @product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %>
-    <% if actors %>
+    <% if actors.size > 0 %>
     <div id="actors">
       <h3><%= t '.actors' %></h3>
       <%= actors %>
@@ -94,10 +94,21 @@ FB.init({
         <% end %>
           <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
           <%= render :partial => 'products/vod_list',  :locals => {:product => @product} %>
+          <% if trailer = @product.trailer %>
+             <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+          <% end %>
           <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
+          <% if params[:kind] == :adult %>
+            <div class="ico">
+              <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
+            </div>
+          <% end %>
       <% else %>
         <div id="stream_fake">&nbsp;</div>
         <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
+        <% if trailer = @product.trailer %>
+           <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+        <% end %>
       <% end %>
       <% if @product.available_to_sale? && current_customer %>
         <% media = DVDPost.product_types.invert[@product.media] %>
@@ -110,9 +121,7 @@ FB.init({
         <%= render :partial => 'shops/update_form', :locals => {:cart => cart, :product => @product, :method => method, :text => text, :class_name => class_name, :ref => :product} %>
       <% end %>
       
-      <% if trailer = @product.trailer %>
-         <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
-      <% end %>
+      
       <% if @product.next == 1 and @product.available_at%>
       <div class="clearfix"></div>
       <div>
@@ -181,11 +190,11 @@ FB.init({
 <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
 <% if params[:add].to_i == 1%>
   <% submit_id = "p_#{@product.to_param}_#{rand(10)}"%>
-  <div id='add_p' style='display:none'><%= new_product_wishlist_item_path(:product_id => @product.to_param, :source => @source, :submit_id => submit_id, :text => :long, :load_color => :normal) %></div>
+  <div id='add_p' style='display:none' class='action_face'><%= new_product_wishlist_item_path(:product_id => @product.to_param, :source => @source, :submit_id => submit_id, :text => :long, :load_color => :normal) %></div>
 <% end %>
 <% if params[:review].to_i == 1%>
-  <div id='review' style='display:none'><%= new_product_review_path(:product_id => @product.to_param) %></div>
+  <div id='review' style='display:none' class='action_face'><%= new_product_review_path(:product_id => @product.to_param) %></div>
 <% end %>
-<% if params[:rating].to_i == 1%>
-  <div id='rating' style='display:none'><%= product_rating_path(:product_id => @product.to_param) %></div>
+<% if params[:trailer].to_i == 1 && @product.trailer%>
+  <div id='rating' style='display:none' class='action_face'><%= product_trailer_path(:product_id => @product.to_param) %></div>
 <% end %>

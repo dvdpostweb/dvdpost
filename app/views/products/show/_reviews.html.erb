@@ -12,6 +12,7 @@
   </div>
   <div style="clear:both"></div>
 </div>
+<div style="clear:both"></div>
 <ul class="clearfix content_item">
 
 <%= render :partial => 'products/show/review', :collection => reviews %>
@@ -20,5 +21,5 @@
                            :previous_label => "&laquo; #{t('.previous')}",
                            :next_label => "#{t('.next')} &raquo;",
                            :page_links => false,
-                           :class => 'links movie-ttl',
+                           :class => 'movie-ttl',
                            :id => 'pagination' %>

@@ -43,9 +43,14 @@
         <h4><%= t '.actors' %></h4>
         <p><%= product.actors.limit(8).collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
         <% end %>
-        <% if product.director %>
+        <% if product.director && !product.adult? %>
           <h4><%= t '.director' %></h4>
           <p><%= link_to product.director.name, director_products_path(:director_id => product.director.to_param) %></p>
+        <% end %>
+        <% if product.studio && product.adult? %>
+          <h4><%= t '.studio' %></h4>
+          <p><%= link_to product.studio.name, studio_products_path(:studio_id => product.studio.to_param) %></p>
+        
         <% end %>
       </div>
       <div class="oters">
@@ -59,9 +64,17 @@
             </div>
           <ul class="btns osc">
           	<li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @source} unless params[:view_mode] == 'streaming' || params[:filter] == "vod" || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %></li>
-              <li>
-                <%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short} if product_streaming %>
-              </li>
+          	  <% if product.in_streaming_or_soon? and streaming_access? %>
+            	  <% if product_streaming %>
+                  <li>
+                    <%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short} %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= render :partial => 'products/vod_list',  :locals => {:product => product} %>
+                  </li>
+                <% end %>
+              <% end %>
               <% if product.trailer %>
               <li>
                 <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) %>

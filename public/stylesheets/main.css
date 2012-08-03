@@ -579,7 +579,7 @@ div.flash_message
   background:white;
   padding:9px 20px;
 }
-div.notice {
+.notice {
   background: none repeat scroll 0 0 #CDE4EC;
   border: 1px solid #888888;
   font-size: 14px;
@@ -587,13 +587,16 @@ div.notice {
   text-align: center;
   width: 900px;
 }
-div.flash_error {
+.flash_error {
   background: none repeat scroll 0 0 #D9A0A7;
   border: 1px solid #888888;
   font-size: 14px;
   padding: 10px;
   text-align: center;
   width: 900px;
+}
+p.notice, p.flash_error{
+  margin: 0 20px 9px 20px;
 }
 #facebox td.body {
 background-color: #EEE;

@@ -431,10 +431,10 @@ module ProductsHelper
   def product_review_stars(review, kind)
     images = ""
     review.rating.times do
-      images += image_tag "star-on-review.png"
+      images += image_tag "star-on.png", :size => '13x13'
     end
       (5-review.rating).times do
-      images += image_tag "star-off-review.png"
+      images += image_tag "star-off.png", :size => '13x13'
     end
     images
   end

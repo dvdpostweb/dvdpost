@@ -4733,3 +4733,6 @@ background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transpare
   padding: 0 0 0 16px;
 }
 
+#mywhishlist a.regarder {
+display:inline-block !important;
+}
