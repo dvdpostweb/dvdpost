@@ -29,7 +29,7 @@ class SearchFilter < ActiveRecord::Base
   end
 
   def year?
-    (year_min? || year_max?) && !(year_min == 0 && year_max >= Time.now.year)
+    (year_min? || year_max?) && !((year_min == 0 || year_min == 1910) && year_max >= Time.now.year)
   end
 
   def transform_hashes_to_arrays

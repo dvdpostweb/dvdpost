@@ -1,5 +1,6 @@
-<%= stylesheet 'categories', :media => :all %>
-
+<%= javascript 'products','reviews' %>
+<%= javascript 'jquery-ui-1.8.1.custom.min', 'jquery-form', 'jquery.query-2.1.7' %>
+<%= stylesheet 'categories','smoothness/jquery-ui-1.8.custom','jquery_custom', :media => :all %>
 <% content_for :body_id do %><% end %>
 <%= yield %>
 <% parent_layout 'application' %>

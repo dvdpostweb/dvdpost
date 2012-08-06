@@ -44,6 +44,7 @@ width: 640px;
   font-size: 14px;
   padding-left: 23px;
   background: url(../images/sprite.png) -608px 0 no-repeat;
+  text-transform: uppercase;
 }
 
 .adult #user-info-wrap a.osc {
@@ -701,4 +702,8 @@ float: left;
 display: block;
 overflow: hidden;
 font-size: 1em;
+}
+.tool_right .infos
+{
+  font-weight: bold;
 }

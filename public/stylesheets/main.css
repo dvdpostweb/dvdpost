@@ -395,6 +395,7 @@ color: #bd1f83;
 #nina-wrap img {
   border: 1px solid #754803;
   margin-bottom: 5px;
+  max-width: 100%;
 }
 #nina-wrap h4 {
    font-size: 14px;
@@ -763,4 +764,90 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
 #back_classic a
 {
   color:white;
+}
+/* Filters */
+
+.f-btn {
+  display: block;
+  text-indent: -999em;
+  outline: none;
+}
+#filters
+{
+  margin: 10px 40px;
+}
+#filters h3 {
+  background: url(../images/filters-ttl-bg.gif) 0 0 no-repeat;
+  color: white;
+  font-size: 1.08em;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 1px;
+  text-align: center;
+  width:180px;
+}
+
+#filters ul#main {
+  background: url(../images/subnav-bg.png) bottom no-repeat white;
+  padding: 4px 1px 5px;
+  width: 178px;
+  border-right: 1px solid #555;
+  border-left: 1px solid #555;
+}
+
+#filters li {
+  background: url(../images/filters-li-bg.jpg) 0 0 no-repeat;
+  margin-bottom: 4px;
+}
+
+#filters li a {
+  background: url(../images/filters-arrows.gif) 11px 6px no-repeat;
+  color: #5c6377;
+  display: block;
+  font-size: 1.17em;
+  font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 30px;
+  text-decoration: none;
+}
+
+#filters li.open a {
+  background: url(../images/filters-arrows.gif) 11px -22px no-repeat;
+}
+
+#filters li label {
+  color: #5c6377;
+  cursor: pointer;
+  display: block;
+  padding: 0 0 0 12px;
+}
+
+#filters li label:hover {
+  background: #fafafa;
+}
+
+#filters li label input {
+  vertical-align: middle;
+}
+
+#filters li.li_submit {
+  background: #fff;
+}
+
+#filters .submit {
+  cursor: pointer;
+  border-style: hidden;
+  display: block;
+  color: white;
+  height: 25px;
+  margin: 0 0 0 40px;
+  width: 91px;
+  background: url(../images/search_filtres.png) no-repeat scroll 0 -6px transparent;
+  text-shadow: 1px 1px 1px #999999;
+  font-size: 1em;
+}
+
+#filters .submit:hover {
+  background-position: 0 -37px;
 }
