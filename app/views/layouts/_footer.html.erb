@@ -1,40 +1,43 @@
 <!--   ==============   FOOTER   ==============   -->
-   <div id="footer" >
-   	<div class="wrap">
-     	<ul>
-         	<li><h4>Explore</h4></li>
-             <li><a href="">Film</a></li>
-             <li><a href="#">Serie TV</a></li>
-             <li><a href="#">Reportage</a></li>
-             <li><a href="#">Sitemap</a></li>
-             <li><a href="#">Contact</a></li>
-         </ul>
-         <ul>
-         	<li><h4>Follow Us</h4></li>
-             <li><a href="#">Facebook</a></li>
-             <li><a href="#">Twitter</a></li>
-             <li><a href="#">Netlog</a></li>
-         </ul>
-         <ul>
-         	<li><h4>HOW IT WORKS</h4></li>
-             <li><a href="#">Lorem </a></li>
-             <li><a href="#">ipsum </a></li>
-             <li><a href="#">dolor </a></li>
-             <li><a href="#">sit amet</a></li>
-             <li><a href="#">consetetur </a></li>
-             <li><a href="#">sadipscing</a></li>
-         </ul>
-         <ul>
-         	<li><h4>About DVD Post</h4></li>
-             <li><a href="#">Lorem </a></li>
-             <li><a href="#">ipsum </a></li>
-             <li><a href="#">dolor </a></li>
-             <li><a href="#">sit amet</a></li>
-             <li><a href="#">consetetur </a></li>
-             <li><a href="#">sadipscing</a></li>
-         </ul>
-     </div>
-   </div>
+<div id="footer" >
+  <div class="wrap">
+    <ul>
+      <li><h4><%= t '.explore' %></h4></li>
+      <li><%= link_to t('layouts.header.home'), root_path %></li>
+      <li><%= link_to t('layouts.header.explore'), products_path %></li>
+      <% if ENV['HOST_OK'] == "0" %>
+        <li><%= link_to t('layouts.header.wishlist'), vod_wishlists_path %></li>
+        <li><%= link_to t('layouts.menu.contact'), messages_path %></li>
+        <% unless params[:kind] == :adult %>
+        <li><%= link_to t('layouts.header.adult').downcase, root_path(:kind => :adult) %></li>
+        <% end %>
+      <% else %>
+        <li><%= link_to t('layouts.header.price'), info_path(:page_name => 'price') %></li>
+        <li><%= link_to t('layouts.menu.contact'), new_phone_request_path() %></li>
+        <% unless params[:kind] == :adult %>
+          <li><%= link_to t('layouts.header.adult').downcase, root_path(:kind => :adult) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul>
+      <li><h4><%= t '.follow' %></h4></li>
+      <li><%= link_to "Facebook", fb_url %></li>
+      <li><%= link_to "Twitter", twitter_url %></li>
+    </ul>
+    <ul>
+      <li><h4><%= t '.how' %></h4></li>
+      <li><%= link_to t('.contact'), new_phone_request_path %></li>
+      <li><%= link_to t('.faq'), faq_path %></li>
+      <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
+    </ul>
+    <ul>
+      <li><h4><%= t '.about' %></h4></li>
+      <li><%= link_to t('.who'), info_path(:page_name => 'whoweare') %></li>
+      <li><%= link_to t('.privacy'), info_path(:page_name => 'privacy') %></li>
+      <li><%= link_to t('.conditions'), info_path(:page_name => 'conditions') %></li>
+    </ul>
+  </div>
+</div>
    <!--   ==============   END FOOTER   ==============   -->
  <% if current_customer %>
 <!-- Google Code for Clients &lt;30 days Remarketing List -->
