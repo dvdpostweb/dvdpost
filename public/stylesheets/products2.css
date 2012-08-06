@@ -418,3 +418,73 @@ float: right;
 cursor: pointer;
 margin: 4px 0 0;
 }
+
+
+
+#filter_title {
+  margin-bottom: 4px;
+  color:#FFF;
+  font-size:16px;
+  border-bottom:#FFF solid 3px;
+  width:650px;
+  background-color:#4abfcc;
+  height:28px;
+  text-align:left;
+  padding-left:10px;
+  padding-top:2px;
+}
+
+#filter_title img
+{
+  vertical-align: middle;
+}
+#filtered_content {
+  border: 1px solid black;
+  margin-bottom: 12px;
+  position: relative;
+  width: 660px;
+  background-color:#d1eaf1;
+  margin:5px 15px;
+}
+
+#filtered li {
+  color: #5c6377;
+  display: block;
+  float: left;
+  font-size: 0.92em;
+  padding: 7px 0 4px 10px;
+  width: 151px;
+}
+
+#filtered li.clear-left {
+  clear: left;
+}
+
+#filtered li strong {
+  display: block;
+  text-transform: uppercase;
+}
+
+#filtered li#close-f {
+  bottom: 0;
+  padding: 0;
+  position: absolute;
+  right: 14px;
+  width: 60px;
+}
+
+#filtered li#close-f a {
+  background:url("../images/close-icon.png") no-repeat scroll 100% 2px #303030;
+  color:#FFFFFF;
+  display:block;
+  height:15px;
+  padding:4px 10px 0 4px;
+  text-transform:uppercase;
+  width:60px;
+}
+
+#filtered li#close-f a:hover {
+  background: url(../images/close-icon.png) 100% 2px no-repeat #fff;
+  text-decoration: none;
+  color:#303030;
+}

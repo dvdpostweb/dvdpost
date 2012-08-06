@@ -1,6 +1,7 @@
 <%= javascript 'products','reviews' %>
 <% if params[:action] == 'index' %>
-  <%= stylesheet 'products2','etabs', :media => :all %>
+  <%= stylesheet 'products2','etabs','smoothness/jquery-ui-1.8.custom','jquery_custom', :media => :all %>
+  <%= javascript 'jquery-ui-1.8.1.custom.min' %>
   <% content_for :body_id do %>cl<% end %>
 <% else %>
   <%= stylesheet 'film','etabs-film','jcarousel-film', :media => :all %>
