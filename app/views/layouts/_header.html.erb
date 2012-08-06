@@ -1,7 +1,7 @@
 <div id="top">
   <div class="wrap">
     <% if current_customer %>
-      <%= link_to 'Mon compte', customer_path(:id => current_customer) %>
+      <%= link_to t('.compte'), customer_path(:id => current_customer) %>
       <%= "#{link_to t('.logout'), sign_out_path, :id => :logout} <span>(#{current_customer.email})</span>" %>
     <% else %>
       <%= "#{link_to t('.login'), login_path, :id => :login}" %>
@@ -17,7 +17,7 @@
   <!--   ==============   HEADER   ==============   -->
   <div id="header" >
     <h1>
-      <%= link_to t('.tagline'), root_path, :class => 'f-btn' %>
+      <%= link_to t('.tagline'), root_path(:logo => 1), :class => 'f-btn' %>
     </h1>
     <%= render :partial => 'layouts/menu2' unless @hide_menu %>
   </div>
