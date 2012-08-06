@@ -46,3 +46,8 @@ font-weight: lighter;
     margin-left: 100px;
     padding-left: 25px;
 }
+.gallery a.regarder {
+background-position: -352px -32px;
+width:69px;
+padding-left:26px;
+}
