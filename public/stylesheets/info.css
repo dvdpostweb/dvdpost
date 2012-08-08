@@ -70,9 +70,6 @@ text-decoration:none;
 .quality {
 padding-left: 112px;
 }
-#wrap {
-background:url("../images/content-bg.png") repeat-y scroll 0 0 transparent;
-}
 #top_box {
 background:url("../images/vod_connect.jpg") no-repeat scroll 0 0 #FFFFFF;
 border:1px solid #ADADAD;
@@ -660,4 +657,70 @@ body#ipad {
 }
 .facebookbox ul {
 	padding-top:10px;
+}
+@charset "UTF-8";
+/* CSS Document */
+
+#dvd-intro #col1 p {
+    background: url("../images/orange_little_cross.png") no-repeat scroll 0 0 transparent;
+    padding-left: 30px;
+}
+
+
+#faqdvd-intro-wrap h2 {
+    color: #ff5a00;
+    font-size: 27px;
+    padding-top: 14px;
+    text-transform: uppercase;
+}
+
+
+#faqdvd-intro-wrap h2 span {
+    color: #191E23;
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+
+#faqdvd-intro-wrap h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+
+#dvd-info-wrap h3 {
+    height: 16px;
+    text-transform: uppercase;
+}
+
+
+#dvd-plus p {
+    background: url("../images/orange_big_cross.png") no-repeat scroll 0 0 transparent;
+    height: 28px;
+    line-height: 30px;
+    padding-left: 36px;
+}
+
+#faq-content-wrap {
+    padding: 30px 20px 30px 30px;
+}
+#faq-content-wrap {
+    color: #191E24;
+    text-shadow: none;
+}
+
+
+#faq-content-wrap #faqdvd_intro .cols {
+    float: left;
+    font-size: 14px;
+    margin-right: 63px;
+    padding-bottom: 30px;
+    width: 240px;
+}
+
+#faqdvd_intro h4 {
+    border-bottom: 1px solid #000000;
+    color: #36404E;
+    font-size: 15px;
+    text-transform: uppercase;
 }

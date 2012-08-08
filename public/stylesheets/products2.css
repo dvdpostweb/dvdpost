@@ -414,7 +414,7 @@ display: none !important;
 background: url(/images/plus.png);
 width: 16px;
 height: 16px;
-float: right;
+float: left;
 cursor: pointer;
 margin: 4px 0 0;
 }

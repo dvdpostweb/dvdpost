@@ -19,7 +19,7 @@ module ProductsHelper
     unless preferred_audio.count == 0
       audio = preferred_audio.collect{|language| 
         audio_count +=1
-        content_tag(content, language.short.upcase, :class => "right red osc", :alt => language.name, :title => language.name)
+        content_tag(content, language.short.upcase, :class => "left red osc", :alt => language.name, :title => language.name)
       }
     end
   
@@ -29,7 +29,7 @@ module ProductsHelper
         audio_count +=1
         display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
-          content_tag(content, language.short.upcase, :class => "right red osc #{display}", :alt => language.name, :title => language.name)
+          content_tag(content, language.short.upcase, :class => "left red osc #{display}", :alt => language.name, :title => language.name)
         else
           content_tag(content, language.name,:class => "#{language.class.name.underscore}_text #{display}")
         end
@@ -53,7 +53,7 @@ module ProductsHelper
     unless preferred_subtitle.count == 0
       sub = preferred_subtitle.preferred.collect{|subtitle| 
         subtitle_count += 1
-        content_tag(content, subtitle.short.upcase, :class => "right gray osc", :alt => subtitle.name, :title => subtitle.name)
+        content_tag(content, subtitle.short.upcase, :class => "left gray osc", :alt => subtitle.name, :title => subtitle.name)
       }
     end
     if subtitle_count < total_bubble
@@ -69,7 +69,7 @@ module ProductsHelper
             else
               class_undertitle = class_bubble(subtitle.short, :classic)
             end
-            content_tag(content, subtitle.short.upcase, :class => "right gray osc #{display}", :alt => subtitle.name, :title => subtitle.name)
+            content_tag(content, subtitle.short.upcase, :class => "left gray osc #{display} #{class_undertitle}", :alt => subtitle.name, :title => subtitle.name)
           else
             content_tag(content, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
           end
@@ -385,7 +385,7 @@ module ProductsHelper
         name = lang.name
         if !country.include?(short)
           country << short
-          content_tag(:li, short.upcase, :class => "right red osc", :alt => name, :title => name) 
+          content_tag(:li, short.upcase, :class => "left red osc", :alt => name, :title => name) 
         end
       end
     }
@@ -410,7 +410,7 @@ module ProductsHelper
           else
             class_undertitle = class_bubble(short, :classic)
           end
-          content_tag(:li, short.upcase, :class => "right gray osc", :alt => name, :title => name)
+          content_tag(:li, short.upcase, :class => "left gray osc #{class_undertitle}", :alt => name, :title => name)
         end
       end
     }
@@ -424,7 +424,7 @@ module ProductsHelper
       audio_bubble = audio_bubbles(product, 0)
       subtitle_bubble = subtitle_bubbles(product, 0)
       separator = '' #(audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
-      "#{subtitle_bubble[:sub]} #{separator} #{audio_bubble[:audio]}"
+      "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
     end
   end
 

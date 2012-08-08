@@ -877,3 +877,9 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
 .lang li.right {
   margin-right: 2px;
 }
+.gray.special {
+background: url(/images/icon_deaf.png) no-repeat !important;
+width: 28px !important;
+padding: 1px 0 0 17px !important;
+height: 21px !important;
+}
