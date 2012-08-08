@@ -39,12 +39,7 @@ class ProductsController < ApplicationController
     
     if params[:category_id]
       filter = get_current_filter
-      if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
-        @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
-      else
         @popular = nil
-      end
-      
       if params[:category_id].to_i == 76 && current_customer
         current_customer.customer_attribute.update_attribute(:sexuality, 1)
         session[:sexuality] = 1

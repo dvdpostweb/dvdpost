@@ -1,14 +1,13 @@
-if flash[:notice] || flash[:error]
-  page["body"].trigger('close.facebox')
+flash.discard
+page["body"].trigger('close.facebox')
+if flash[:notice]
   page << "if ($('.notice').length == 0){"
-    page[".container"].prepend("<p class='notice'>#{flash[:notice]}</p>")
+    page["#wrap"].prepend("<div class='flash_message'><div class='notice'>#{flash[:notice]}</div></div>")
     page[".notice"].css('height','1px')
     page[".notice"].css('padding','0')
     page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
     
   page << "}else{"
-    page[".container .notice"].html(flash[:notice])
+    page["#wrap .notice"].html(flash[:notice])
   page << "}"
-  page["body"].trigger('close.facebox')
 end
-flash.discard
