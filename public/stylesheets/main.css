@@ -851,3 +851,29 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
 #filters .submit:hover {
   background-position: 0 -37px;
 }
+.lang li {
+  display: block;
+  width: 22px;
+  height: 22px;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  padding:0;
+}
+.lang li.dark {
+  background: url(../images/sprite.png) -512px -128px no-repeat;
+}
+.lang li.red {
+  background: url(../images/sprite.png) -544px -128px no-repeat;
+}
+.lang li.gray {
+  background: url(../images/sprite.png) -576px -128px no-repeat;
+}
+.lang li.left {
+  margin-left: 2px;
+}
+.lang li.right {
+  margin-right: 2px;
+}

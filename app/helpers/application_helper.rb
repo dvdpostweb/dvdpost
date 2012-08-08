@@ -20,6 +20,7 @@ module ApplicationHelper
     end
   end
 
+
   def list_indicator_class(value)
     case value
       when 0..9 then 'low'

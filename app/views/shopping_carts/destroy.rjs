@@ -1,18 +1,18 @@
+flash.discard
+page["body"].trigger('close.facebox')
 if flash[:error]
   page['.popup .content'].html("<p align='center' id='notice_popup'>#{flash[:error]}</p>")
 end
 if flash[:notice]
-  page["body"].trigger('close.facebox')
   page << "if ($('.notice').length == 0){"
-    page[".container"].prepend("<p class='notice'>#{flash[:notice]}</p>")
+    page["#wrap"].prepend("<div class='flash_message'><div class='notice'>#{flash[:notice]}</div></div>")
     page[".notice"].css('height','1px')
     page[".notice"].css('padding','0')
     page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
     
   page << "}else{"
-    page[".container .notice"].html(flash[:notice])
+    page["#wrap .notice"].html(flash[:notice])
   page << "}"
-  page["body"].trigger('close.facebox')
 end
 page["##{@submit_id}"].replaceWith render :partial => 'products/shop', :locals => {:shop => @product}
 page["#cart"].replaceWith render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @price}

@@ -27,6 +27,7 @@ class Product < ActiveRecord::Base
   belongs_to :studio, :foreign_key => :products_studio
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
+  belongs_to :serie, :foreign_key => :products_series_id
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
   has_many :ratings, :foreign_key => :products_id
@@ -57,7 +58,10 @@ class Product < ActiveRecord::Base
   named_scope :by_imdb_ids, lambda {|imdb| {:conditions => ["imdb_id in (#{imdb})"]}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'products_id desc'
+  named_scope :ordered_media, :order => 'products_media desc'
   named_scope :group_by_imdb, :group => 'imdb_id'
+  named_scope :group_by_serie, :group => 'products_series_id'
+  
   define_index do
     indexes products_media
     indexes products_type

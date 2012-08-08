@@ -59,6 +59,7 @@ FB.init({
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
       <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
     </div>
+    <div id="film-descr">
     <h3>
       <%= t '.synopsis' %>
     </h3>
@@ -139,6 +140,8 @@ FB.init({
       </div>
       <% end %>
     </div>
+    </div>
+    
     <div id="thumbs-wrap">
       <h3><%= t '.photo' %></h3>
       <div>

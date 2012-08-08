@@ -608,8 +608,8 @@ margin: -6px 0 0 0;
   border:none;
 }
 .tooltip h4 {
-border-bottom: 1px dotted #A3A4A7;
-color: #FA3C16;
+border-bottom: 1px solid #212A31;
+color: #212A31;
 margin-bottom: 12px;
 padding: 0 15px 8px 0;
 }

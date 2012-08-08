@@ -30,7 +30,7 @@ role :db, domain, :primary => true
 #############################################################
 
 set :scm, :git
-set :branch, "new_design"
+set :branch, "master"
 set :scm_user, 'dvdpost'
 set :scm_passphrase, "[y'|\E7U158]9*"
 set :repository, "git@github.com:dvdpost/dvdpost.git"

@@ -247,47 +247,48 @@ $(function() {
     $('#tab2_li a').toggleClass('active');
     return false;
   });
+  if($('#filters').html())
+  {
+    audience_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
+    $("#audience-slider-range").slider({
+      range: true,
+      min: 0,
+      max: 4,
+      values: [audience_slider_values[$("#search_filter_audience_min").val()], audience_slider_values[$("#search_filter_audience_max").val()]],
+      step: 1,
+      slide: function(event, ui) {
+        actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
+        $("#search_filter_audience_min").val(actual_audience_values[ui.values[0]]);
+        $("#search_filter_audience_max").val(actual_audience_values[ui.values[1]]);
+      }
+    });
 
-  audience_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
-  $("#audience-slider-range").slider({
-    range: true,
-    min: 0,
-    max: 4,
-    values: [audience_slider_values[$("#search_filter_audience_min").val()], audience_slider_values[$("#search_filter_audience_max").val()]],
-    step: 1,
-    slide: function(event, ui) {
-      actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
-      $("#search_filter_audience_min").val(actual_audience_values[ui.values[0]]);
-      $("#search_filter_audience_max").val(actual_audience_values[ui.values[1]]);
-    }
-  });
+    year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2020': 8};
+    $("#year-slider-range").slider({
+      range: true,
+      min: 0,
+      max: 8,
+      values: [year_slider_values[$("#search_filter_year_min").val()], year_slider_values[$("#search_filter_year_max").val()]],
+      step: 1,
+      slide: function(event, ui) {
+        actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
+        $("#search_filter_year_min").val(actual_year_values[ui.values[0]]);
+        $("#search_filter_year_max").val(actual_year_values[ui.values[1]]);
+      }
+    });
 
-  year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2020': 8};
-  $("#year-slider-range").slider({
-    range: true,
-    min: 0,
-    max: 8,
-    values: [year_slider_values[$("#search_filter_year_min").val()], year_slider_values[$("#search_filter_year_max").val()]],
-    step: 1,
-    slide: function(event, ui) {
-      actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
-      $("#search_filter_year_min").val(actual_year_values[ui.values[0]]);
-      $("#search_filter_year_max").val(actual_year_values[ui.values[1]]);
-    }
-  });
-
-  $("#ratings-slider-range").slider({
-    range: true,
-    min: 0,
-    max: 5,
-    values: [$("#search_filter_rating_min").val(),$("#search_filter_rating_max").val()],
-    step: 1,
-    slide: function(event, ui) {
-      $("#search_filter_rating_min").val(ui.values[0]);
-      $("#search_filter_rating_max").val(ui.values[1]);
-    }
-  });
-
+    $("#ratings-slider-range").slider({
+      range: true,
+      min: 0,
+      max: 5,
+      values: [$("#search_filter_rating_min").val(),$("#search_filter_rating_max").val()],
+      step: 1,
+      slide: function(event, ui) {
+        $("#search_filter_rating_min").val(ui.values[0]);
+        $("#search_filter_rating_max").val(ui.values[1]);
+      }
+    });
+  }
   $('#carousel-wrap #next,#carousel-wrap .next_page').live('click',function(){
     url = this.href;
     html_item = $('#carousel-wrap');
@@ -416,10 +417,16 @@ $(function() {
   });
   
   var options = {};
-  $('#wishlist_item_submit.item').live("click", function(){
+  $('.new_wishlist_item .item, .new_wishlist_item .serie').live("click", function(){
+    
     loader = 'ajax-loader.gif';
-    $('#add_to_wishlist').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
-    $('form.#new_wishlist_item').ajaxSubmit(options);
+    /*$(this).parent().parent().parent().ajaxSubmit(options);*/
+    if($(this).hasClass('serie'))
+    {
+      $(this).parents('.new_wishlist_item ').children('#all_movies').val(1)
+    }
+    $(this).parents('.new_wishlist_item').ajaxSubmit(options);
+    $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
     return false; // prevent default behaviour
   });
   var options = {};
@@ -428,7 +435,7 @@ $(function() {
     if ($(this).parent().parent().children('#load_color').attr('value') == 'black'){
       loader = 'black-'+loader;
     }
-    $(this).parent().parent().ajaxSubmit(options);
+    $(this).parents('.remvove_from_wishlist_form').ajaxSubmit(options);
     
     $(this).parent().html("<div class='load'><img src='/images/"+loader+"' /></div>")
     return false; // prevent default behaviour
