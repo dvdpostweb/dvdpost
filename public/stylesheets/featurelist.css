@@ -42,7 +42,7 @@ ul.tabs li a {
   border-top: 1px solid #dfdfdf;
   text-decoration: none;
   display: block;
-  padding: 10px 95px 0 18px;
+  padding: 5px 95px 5px 18px;
   height: 46px;
 }
 
@@ -61,7 +61,7 @@ ul.tabs span.arrow {
 }
 
 ul.tabs a .ttl {
-  font-size: 24px;
+  font-size: 19px;
   color: #8a8a8a;
   line-height: 1;
   font-weight: bold;

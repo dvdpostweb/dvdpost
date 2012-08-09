@@ -7,7 +7,7 @@
       <%= render :partial => 'products/index/image', :locals => {:actor => @director} if @director %>
       <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
       <% unless @popular.nil? %>
-        <%= render :partial => 'products/index/streaming', :locals => {:products => @popular} %>
+        <%= render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page} %>
       <% end %>
       <!--   ==============   MOVIES   ==============   -->
       <% if params[:search] && !params[:search].empty? %>

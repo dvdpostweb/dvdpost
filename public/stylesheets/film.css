@@ -24,14 +24,15 @@
 }
 
 #film-details div.ttl h2 {
-  font-size: 45px;
+  font-size: 30px;
   line-height: 1;
 }
 
 #film-details div.ttl h3,#film-details div.ttl h3 a {
   font-size: 14px;
-  color: #a3c41c;
+  color: #212A31;
   font-weight: bold;
+  text-transform:uppercase;
 }
 
 #votes-wrap{
@@ -124,7 +125,7 @@
   font-size: 16px;
   text-transform: uppercase;
 }
-#film-descr {float:right; width:399px;}
+#film-descr {float:right; width:459px;}
 #film-img-wrap {
   float: left;
   margin: 4px 15px 0 0;
@@ -262,7 +263,7 @@ padding: 0 0 3px 29px;
 
 #formats table {
   margin: 0 20px;
-  width: 600px;
+  width: 685px;
 }
 
 #formats th {
@@ -297,7 +298,6 @@ padding: 0 0 3px 29px;
   font-weight: bold;
   margin-bottom: 2px;
   padding-left: 1px;
-  float: none;
   padding-top: 0;
 }
 

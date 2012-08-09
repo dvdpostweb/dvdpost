@@ -417,8 +417,8 @@ module ProductsHelper
     content
   end
 
-  def bubbles(product)
-    if params[:view_mode] == 'streaming' || params[:vod] == 'vod' || params[:filter] == 'vod'
+  def bubbles(product, view_mode = nil)
+    if params[:view_mode] == 'streaming' || params[:vod] == 'vod' || params[:filter] == 'vod' || view_mode == 'streaming'
       "#{streaming_subtitle_bublles(product)} #{streaming_audio_bublles(product)}"
     else
       audio_bubble = audio_bubbles(product, 0)

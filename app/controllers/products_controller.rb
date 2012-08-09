@@ -39,7 +39,17 @@ class ProductsController < ApplicationController
     
     if params[:category_id]
       filter = get_current_filter
+      if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
+        if current_customer
+          @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
+          @papular_page = params[:popular_streaming_page] || 1
+          @papular_nb_page = @popular.total_pages
+        else
+          @popular = nil
+        end
+      else
         @popular = nil
+      end      
       if params[:category_id].to_i == 76 && current_customer
         current_customer.customer_attribute.update_attribute(:sexuality, 1)
         session[:sexuality] = 1
@@ -103,7 +113,7 @@ class ProductsController < ApplicationController
       
       format.js {
         if params[:category_id]
-          render :partial => 'products/index/streaming', :locals => {:products => @popular}
+          render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page}
         elsif params[:recommendation_page]
           render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page], {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})}  
         end
