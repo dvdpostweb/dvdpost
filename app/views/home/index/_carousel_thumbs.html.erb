@@ -4,7 +4,7 @@
 <% link = t("home.index.carousel_item.link_#{carousel_thumbs.id}") %>
 <% title = t("home.index.carousel_item_title.title_#{carousel_thumbs.id}") %>
 <% img = image_tag(carousel_thumbs.image, :alt => title, :size => '89x56') %>
-<% link = "<span class='ttl'>#{title}</span> <span class='g'>to do Muet | France | 2012</span> #{img} <span class='arrow'></span>" %>
+<% link = "<span class='ttl'>#{title}</span> #{img} <span class='arrow'></span>" %>
 
 <li class="<%= class_name %>">
  <%= link_to link, path %>

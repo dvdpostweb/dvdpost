@@ -883,3 +883,198 @@ width: 28px !important;
 padding: 1px 0 0 17px !important;
 height: 21px !important;
 }
+
+
+#facebox .body_vod {
+  background: none repeat scroll 0 0 white;
+  padding: 10px;
+  width: 680px;
+  margin: -8px;
+}
+#addwishlist_explain {
+	color: #191e24;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	text-align: center;
+	text-decoration: none;
+}
+#facebox .footer {
+	margin-top: 0px !important;
+}
+#movie_title h3 {
+	color: #212A31;
+	font-size: 30px;
+	line-height: 1;
+	margin-bottom: 17px;
+	text-align: center;
+}
+#addwishlist_area {
+  background: url("../images/formats-bg.gif") repeat-x scroll 0 0 #C3D1DB;
+  min-height: 275px;
+  padding: 15px 15px 59px 15px;
+  border-bottom: 1px solid #B7BDC1;
+  border-top: 1px solid #9EABB5;
+  margin: -12px -12px -29px -12px;
+}
+fieldset {
+	border:none;
+}
+
+
+.table {
+	display:inline;
+	float:left;
+  margin-top: -26px;
+	margin-left: 25px;
+}
+
+.table span {
+	display:inline;
+	float:left;
+	
+}
+.table div {
+	clear:left;
+	
+	
+	
+}
+
+.table #vod {
+border-bottom: 1px solid #B7BDC1;
+    border-top: 1px solid #9EABB5;
+
+background: url(../images/vod-cont-bg.gif) repeat-x scroll 0 100% transparent;
+    
+
+	height:100%;
+}
+
+.table #bluray {
+border-bottom: 1px solid #B7BDC1;
+    border-top: 1px solid #9EABB5;
+
+background: url(../images/bluray-cont-bg.gif) repeat-x scroll 0 100% transparent;
+    
+
+	height:100%;
+}
+.table #dvd {
+border-bottom: 1px solid #B7BDC1;
+    border-top: 1px solid #9EABB5;
+ background: url("../images/film-ttl-bg.gif") repeat-x scroll 0 0 #d9e0e4;    
+
+	height:100%;
+}
+
+
+.table div.legende {
+	color: #1B2228;
+	font: 16px 'Open Sans Condensed', sans-serif;
+  margin-top: -20px;
+	text-align: left;
+	text-transform: uppercase;
+}
+.table span.col1 {
+	width:70px;
+	border-right: 1px solid #9AA8B1;
+	padding: 15px 8px 10px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #212A31;
+		height: 70px;
+}
+
+.table  div.legende span.col1 {
+	color: #1B2228;
+	font: 16px 'Open Sans Condensed', sans-serif;
+  height: 20px;
+  margin-top: 50px;	text-align: left;
+	text-transform: uppercase;
+}
+
+.table  div.legende span.col2 {
+	color: #1B2228;
+	font: 16px 'Open Sans Condensed', sans-serif;
+  height: 20px;
+  margin-top: 50px;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+.table  div.legende span.col3 {
+	color: #1B2228;
+	font: 16px 'Open Sans Condensed', sans-serif;
+height: 20px;
+    margin-top: 50px;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+.table  div.legende span.col4{
+	color: #1B2228;
+	font: 16px 'Open Sans Condensed', sans-serif;
+height: 20px;
+  margin-top: 50px;
+	text-align: left;
+	text-transform: uppercase;
+}
+.table span.col2 {
+	width:120px;
+	border-right: 1px solid #9AA8B1;
+	padding: 15px 8px 10px;
+	height: 70px;
+}
+.table span.col3 {
+	width:120px;
+	border-right: 1px solid #9AA8B1;
+	padding: 15px 8px 10px;
+	height: 70px;
+}
+.table span.col4 {
+	width:74px;
+	border-right: 1px solid #9AA8B1;
+	padding: 15px 8px 10px;
+	height: 70px;
+}
+.table span.col5 {
+  height: 70px;
+  padding: 15px 17px 10px;
+  width: 139px;
+}
+
+ #wishlist_item_submit,  #wishlistserie_item_submit {
+  background-image: url("../images/sprite.png");
+	background-color: transparent;
+  background-repeat: no-repeat; background-position: -192px -160px;
+  color: #FFFFFF;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 23px;
+  line-height: 21px;
+  padding-left: 33px;
+	border:0px;
+  width: 134px;
+}
+
+ #wishlistserie_item_submit{
+  font-size: 10px;
+}
+
+#wishlistseriedelete_item_submit {
+  background-image: url("../images/sprite.png");
+	background-color: transparent;
+  background-repeat: no-repeat; background-position: -192px -192px;
+  color: #FFFFFF;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 23px;
+  line-height: 21px;
+  padding-left: 33px;
+	border:0px;
+	width: 134px;
+}

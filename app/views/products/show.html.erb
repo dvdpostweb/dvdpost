@@ -55,7 +55,7 @@ FB.init({
   </div><!-- .ttl-wrap -->
   <div id="film-info">
     <div id="film-img-wrap" class="<%= @product.vod? ? 'vod' : product_media_id(@product.media) %>">
-      <%= product_image_tag @product_image, :width => 241, :height => 330, :alt => "#{@product_title} (#{@product.year})" %>
+      <%= product_image_tag @product_image, :width => 180, :alt => "#{@product_title} (#{@product.year})" %>
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
       <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
     </div>
@@ -159,7 +159,7 @@ FB.init({
     <table border="0">
       <tr>
         <th width="145"><%= t '.format_available' %></th>
-        <th width="45"><%= t'.audio' %></th>
+        <th width="90"><%= t'.audio' %></th>
         <th width="90"><%= t '.subtitles' %></th>
         <th width="47"><%= t '.audience' %></th>
         <th width="52"><%= t '.duration' %></th>
