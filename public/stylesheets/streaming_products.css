@@ -163,7 +163,7 @@
 .choice_language {
     background-color: #212830;
     color: #FFFFFF;
-    margin-left: 105px;
+    margin: 0 auto;
     text-align: center;
     width: 696px;
 	 padding-bottom: 12px;

@@ -294,14 +294,15 @@ module ProductsHelper
     return t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
     return t('.most_rent_vod') if params[:sort] == 'token_month' && params[:filter] == 'vod'
     return t(".index_rating#{params[:filter]}") if params[:sort] == 'rating'
-    return "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    return "#{t ".categorie#{params[:filter]}"}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
     return "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
     return "#{t '.search'}: #{params[:search]}" if params[:search]
-    return t(".hearts_vod}") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale]))
+    return t(".hearts_vod") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale]))
     return t(".hearts") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale]))
     return t(".vod_recent") if params[:view_mode] == 'vod_recent'
     return t(".recent") if params[:view_mode] == 'recent'
     return t(".soon") if params[:view_mode] == 'soon'
+    return t(".vod_soon") if params[:view_mode] == 'vod_soon'
     return t(".most_viewed") if params[:sort] == 'most_viewed'
     
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
@@ -395,7 +396,7 @@ module ProductsHelper
   def streaming_subtitle_bublles(product)
     content=[]
     country=[]
-    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect{
+    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect {
     |product|
       if product.subtitle.by_language(I18n.locale).first && product.subtitle.by_language(I18n.locale).first.short
         lang = product.subtitle.by_language(I18n.locale).first
@@ -417,9 +418,9 @@ module ProductsHelper
     content
   end
 
-  def bubbles(product, view_mode = nil)
-    if params[:view_mode] == 'streaming' || params[:vod] == 'vod' || params[:filter] == 'vod' || view_mode == 'streaming'
-      "#{streaming_subtitle_bublles(product)} #{streaming_audio_bublles(product)}"
+  def bubbles(product)
+    if params[:view_mode] == 'streaming' || params[:vod] == 'vod' || params[:filter] == 'vod'
+      "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
     else
       audio_bubble = audio_bubbles(product, 0)
       subtitle_bubble = subtitle_bubbles(product, 0)

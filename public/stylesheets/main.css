@@ -923,12 +923,6 @@ fieldset {
 }
 
 
-.table {
-	display:inline;
-	float:left;
-  margin-top: -26px;
-	margin-left: 25px;
-}
 
 .table span {
 	display:inline;
@@ -943,30 +937,23 @@ fieldset {
 }
 
 .table #vod {
-border-bottom: 1px solid #B7BDC1;
-    border-top: 1px solid #9EABB5;
-
-background: url(../images/vod-cont-bg.gif) repeat-x scroll 0 100% transparent;
-    
-
+  border-bottom: 1px solid #B7BDC1;
+  border-top: 1px solid #9EABB5;
+  background: url(../images/vod-cont-bg.gif) repeat-x scroll 0 100% transparent;
 	height:100%;
 }
 
-.table #bluray {
-border-bottom: 1px solid #B7BDC1;
-    border-top: 1px solid #9EABB5;
-
-background: url(../images/bluray-cont-bg.gif) repeat-x scroll 0 100% transparent;
-    
-
+.table #bluray,.table #bluray3d,.table #bluray3d2d {
+  border-bottom: 1px solid #B7BDC1;
+  border-top: 1px solid #9EABB5;
+  background: url(../images/bluray-cont-bg.gif) repeat-x scroll 0 100% transparent;
 	height:100%;
 }
 .table #dvd {
-border-bottom: 1px solid #B7BDC1;
-    border-top: 1px solid #9EABB5;
- background: url("../images/film-ttl-bg.gif") repeat-x scroll 0 0 #d9e0e4;    
-
-	height:100%;
+  border-bottom: 1px solid #B7BDC1;
+  border-top: 1px solid #9EABB5;
+  background: url("../images/film-ttl-bg.gif") repeat-x scroll 0 0 #d9e0e4;    
+  height:100%;
 }
 
 
@@ -984,7 +971,7 @@ border-bottom: 1px solid #B7BDC1;
 	font-size: 14px;
 	font-weight: bold;
 	color: #212A31;
-		height: 70px;
+	height: 70px;
 }
 
 .table  div.legende span.col1 {
@@ -1044,11 +1031,15 @@ height: 20px;
   padding: 15px 17px 10px;
   width: 139px;
 }
-
- #wishlist_item_submit,  #wishlistserie_item_submit {
+.content .streaming_action
+{
+  margin-bottom:2px;
+}
+.content #wishlist_item_submit, .content  #wishlistserie_item_submit, .content .streaming_add_list {
   background-image: url("../images/sprite.png");
 	background-color: transparent;
-  background-repeat: no-repeat; background-position: -192px -160px;
+  background-repeat: no-repeat; 
+  background-position: -192px -160px;
   color: #FFFFFF;
   display: block;
   font-size: 14px;
@@ -1058,13 +1049,29 @@ height: 20px;
   padding-left: 33px;
 	border:0px;
   width: 134px;
+  margin-bottom:2px;
+}
+.content .reserve
+{
+  background-position: -352px -192px;
 }
 
- #wishlistserie_item_submit{
-  font-size: 10px;
+.content  .serie, .content .streaming_remove_list{
+  font-size: 10px !important;
+  padding-left: 29px !important;
 }
+ .content .streaming_add_list{
+   font-size: 9px !important;
+   padding-left: 29px !important;
 
-#wishlistseriedelete_item_submit {
+ }
+ .content .reserve
+ {
+   background-position: -352px -192px;
+   font-size: 12px !important;
+   color: #323A40;
+ }
+.content .remvove_from_wishlist, .content .btn_remove_form{
   background-image: url("../images/sprite.png");
 	background-color: transparent;
   background-repeat: no-repeat; background-position: -192px -192px;
@@ -1077,4 +1084,5 @@ height: 20px;
   padding-left: 33px;
 	border:0px;
 	width: 134px;
+	
 }
