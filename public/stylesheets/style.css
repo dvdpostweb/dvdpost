@@ -3978,6 +3978,7 @@ position:relative !important;
 #promo_area2
 {
   text-align:center;
+  margin: 15px 0;
 }
 .txt_left {
     float: left;
