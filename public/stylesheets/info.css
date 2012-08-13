@@ -658,8 +658,6 @@ body#ipad {
 .facebookbox ul {
 	padding-top:10px;
 }
-@charset "UTF-8";
-/* CSS Document */
 
 #dvd-intro #col1 p {
     background: url("../images/orange_little_cross.png") no-repeat scroll 0 0 transparent;
@@ -723,4 +721,64 @@ body#ipad {
     color: #36404E;
     font-size: 15px;
     text-transform: uppercase;
+}
+
+#prices .title_pricing{
+    color: #212A31;
+    font-size: 20px;
+    line-height: 1;
+   
+	font-family:'Open Sans Condensed',sans-serif;
+	
+}
+
+#prices .month{
+    color: #212A31;
+    font-size: 16px;
+   
+	font-family:'Open Sans Condensed',sans-serif;
+	  font-weight: normal;
+}
+
+.abo {
+    color: #212A31;
+    font-size: 16px;
+    line-height: 1;
+
+	  font-weight: normal;
+	
+	height: 46px;
+	
+	 background: url(../images/bg_prices.png) repeat-x scroll 0 0 transparent; 
+}
+
+
+#prices h2 {
+ background: none repeat scroll 0 0 #FFFFFF;
+ font-size: 45px;
+ padding: 0 20px;
+ text-align: left;
+ font-family:'Open Sans Condensed',sans-serif;
+ font-weight: normal;
+}
+
+
+.prices-container {
+  background: url("../images/formats-bg.gif") repeat-x scroll 0 0 #C3D1DB;
+	padding-top: 30px;
+	padding-bottom:30px;
+	border-bottom: 1px solid #B7BDC1;
+	border-top: 1px solid #9EABB5;
+}
+
+
+.description {
+padding-left:20px;
+padding-right:20px;
+
+}
+
+.films {
+text-align:center;
+padding-left:20px;
 }
