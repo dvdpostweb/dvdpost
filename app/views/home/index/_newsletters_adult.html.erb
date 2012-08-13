@@ -1,0 +1,37 @@
+<% if news %>
+  <% first = news.contents.by_language(I18n.locale).first  %>
+  <% path = newsletter_path(:id => news.to_param) %>
+<div id="newsletters-wrap">
+  <div class="ttl maven"><%= t '.title' %></div>
+  <div id="newsletters-tabcontent-wrap">
+    <div class="tab-content-selection clearfix" id="selection-tab1">
+      <div class="carousel-wrap">
+        <ul class="slides">
+          <li class="newsletters">
+            <h4><%= t '.last_news' %> :</h4>
+            <div class="description">
+              <%= link_to image_tag(first.thumbs.url(:small), :class => :left), path %>
+              <h2>
+                <%= link_to first.title,  path %>
+                <%= image_rating(news.rating) if news.rating > 0 %>
+              </h2>
+              <h3><%= first.subtitle %></h3>
+              <p><%= first.description %></p>
+              <p> <%= link_to t('.more'), path %></p>
+            </div>
+          </li>
+          <li class="theme">
+            <h4><%= t '.last_themes' %> :</h4>
+          <% themes.each do |theme| %> 
+            <a href="<%= get_path(theme) %>">
+              <%= image_tag theme.image_thumbs, :alt =>  theme.name, :title => theme.name %>
+            </a>
+          <% end%>
+          </li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

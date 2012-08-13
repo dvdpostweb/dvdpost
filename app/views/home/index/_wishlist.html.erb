@@ -1,68 +1,63 @@
-<!-- user info -->
-<div id="user-info-wrap" class="clearfix">
-  <div id="user-container" class="clearfix">
-    <div id="user-info">
-      <!-- Bonjour Maud -->
-      <div id="user">
-        <h3><%= t '.welcome' %> <%= current_customer.customers_firstname %></h3>
-        <ul>
-          <li><%= customer_awards(current_customer, current_customer.customer_attribute.points) %></li>
-          <li><a href="<%= customer_reviews_path(:customer_id => current_customer.to_param) %>"><%= review_count %> <%= review_title(review_count) %></a></li>
-          <li><%= rating_count %> <%= rating_title(rating_count) %></li>
-        </ul>
-        <%= image_tag get_avatar(current_customer), :width => 64, :class=> "thumb" %>
-       </div>
-      <!-- Titres chez vous ou en transit  -->
-      <ul id="user-titles">
-        <% unless current_customer.svod? %>
-          <li><%= t '.lent' %> <a href="<%= wishlist_path() %>"><%= transit_items.count %></a></li>
-        <% end %>
-        <li><%= subscription_description(current_customer) %></li>
-        <% unless current_customer.svod? %>
-        <li><%= t '.wishlist_size' %> : <a href="<%= wishlist_path() %>"><%= wishlist_count %></a> 
-        <% if WishlistItem.good_size?(current_customer, wishlist_count) %>
-          <%= link_to t('.fill_in'), products_path(), :class => 'alert' %>
-        <% end %>
-        </li>
-        <li>
-          <%= t '.credits_left' %> :
-          <div style="float:right; width:140px">
-            <%= current_credits(current_customer, false) %>
-            <%= link_to "(#{t('.details')})", "?tool_tips=2", :class => "info tooltips", :id => "film_info" if current_customer.new_price? %>
+<!-- Logged user -->
+<div id="user-info-wrap">
+	<div id="user-info">
+		<div class="left">
+			<h3><%= image_tag get_avatar(current_customer), :width => 51, :class=> "thumb", :alt => current_customer.customers_firstname  %><%= t '.welcome' %> <%= current_customer.customers_firstname %></h3>
+			<ul>
+				<!--<li><%= customer_awards(current_customer, current_customer.customer_attribute.points) %></li>-->
+        <li><a href="<%= customer_reviews_path(:customer_id => current_customer.to_param) %>"><%= review_count %> <%= review_title(review_count) %></a></li>
+        <li><%= rating_count %> <%= rating_title(rating_count) %></li>
+			</ul>
+			<dl>
+				<dt><%= t '.lent' %></dt>
+				<dd><a href="<%= wishlist_path() %>"><%= transit_items.count %></a></dd>
+				<dt><%= t '.current_formula' %> :</dt>
+				<dd><%= subscription_description(current_customer, 2) %></dd>
+				<% unless current_customer.svod? %>
+  				<dt><%= t '.wishlist_size' %> :</dt>
+  				<dd><%= wishlist_count %></dd>
+  		</dl>
+  				<% if WishlistItem.good_size?(current_customer, wishlist_count) %>
+  				<div>
+  				  
+              <%= link_to t('.fill_in'), products_path(), :class => 'alert' %>
           </div>
-          <div style="clear:both"></div>
-          <!-- Tooltip -->
-          <% if current_customer.new_price? %>
-          <div class="tooltip" id="film_info_popup" style ='display:none'>
-            <h4>
-              <%= subscription_description(current_customer) %><br />
-              <span><%= abo_type(current_customer, true, true) %></span>
-            </h4>
-            
-            <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
-            <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
-          </div>
+      <dl>
           <% end %>
-          <% if current_customer.credit_empty? %>
-            <%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %>
-          <% end %>
-          <% if current_customer.beta_test && current_customer.abo_active == 0 %>
-            <%= link_to t('.promo_beta_test', :link => info_path(:page_name => :promotion)), info_path(:page_name => :promotion), :class => 'alert' %></a>
-          <% end %>
-           
-        </li>
-        <% end %>
-        <li><%= t '.date_end_abo' %> <%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></li>
-        <% if offline_request.count > 0 %>
-        <li>
-          <%= t '.offline', :link => messages_urgent_path, :class => :alert %> 
-        </li>
-        <% end %>
-      </ul>
-    </div>
-    <%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} if recommendations %>
-  </div>
-  <!-- Thème de la semaine -->
-  <%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
+        
+  				<dt><%= t '.credits_left' %> :</dt>
+  				<dd>
+  				  <span><%= current_credits(current_customer, false) %></span>
+            <span><%= link_to "(#{t('.details')})", "?tool_tips=2", :class => "info tooltips", :id => "film_info" if current_customer.new_price? %></span>
+            <% if current_customer.new_price? %>
+            <div class="tooltip" id="film_info_popup" style ='display:none'>
+              <h4>
+                <%= subscription_description(current_customer) %><br />
+                <span><%= abo_type(current_customer, true, true) %></span>
+              </h4>
 
+              <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
+              <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
+            </div>
+            <% end %>
+          </dd>
+          <% if current_customer.credit_empty? %>
+          </dl>
+            <div><%= link_to t('.credit_empty'), edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param), :class => 'alert'  %></div>
+          <dl>
+          <% end %>
+        <% end %>
+         
+				<dt><%= t '.date_end_abo' %></dt>
+				<dd><%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></dd>
+				<% if offline_request.count > 0 %>
+        <dt>
+          <%= t '.offline', :link => messages_urgent_path, :class => :alert %> 
+        </dt>
+        <% end %>
+			</dl>
+			<% link_to "DETAIL DE MON COMPTE", customer_path(:id => current_customer), :class => :osc %>
+		</div>
+		<%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} if recommendations %>
+		<%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
 </div>

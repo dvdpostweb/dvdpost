@@ -10,43 +10,48 @@
   <% end %>
   <% product_title = product.title %>
   <li>
-    <h2> <%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h2>
-    <div class="content">
-      <div class="critic"> 
-        <%= link_to image_tag(get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
-        <div class="name">
-          <strong><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
-          <%= customer_awards(customer, customer.customer_attribute.points) %>
-          (<%= reviews_count %> <%= review_title(reviews_count) %>) 
-          <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
+    <h3><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h3>
+    <div class="contents">
+      <div class="content">
+        <div class="critic"> 
+          <%= link_to image_tag(get_avatar(customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52), customer_reviews_path(:customer_id => review.customers_id) %>
+          <div class="name">
+            <strong><%= link_to customer.customer_attribute.nickname, customer_reviews_path(:customer_id => review.customers_id) %></strong> 
+            <%= customer_awards(customer, customer.customer_attribute.points) %>
+            (<%= reviews_count %> <%= review_title(reviews_count) %>)<br />
+            <%= link_to t('home.reviews.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %> 
+          </div>
+          <strong style='clear:both'><%= t '.rating' %> :</strong> 
+          <span class="stars-wrap">
+            <%= review_image_links(review.rating*2) %>
+          </span> 
         </div>
-        <strong style='clear:both'><%= t '.rating' %> :</strong> 
-        <span class="stars-wrap">
-          <%= review_image_links(review.rating*2) %>
-        </span> 
-      </div>
-      <p class="short_review">
-        <strong><%= t '.critic' %> :</strong> 
-        <%= truncate_html(review.text, :length => 240) %>
-        
-      </p>
-      <% if review.text.length > 240 %>
+        <p class="short_review">
+          <strong><%= t '.critic' %> :</strong> 
+          <%= truncate_html(review.text, :length => 350) %>
+
+        </p>
+        <% if review.text.length > 240 %>
         <div><a href="<%= review_path(:id => review.to_param)%>" class='review_more'><u><%= t '.read_more' %></u></a></div>
         <p class='full_review' style='display:none;'>
           <strong><%= t '.critic' %> :</strong> 
           <%= review.text %>
         </p>
-      <% end %>
-      <div class="relevant">
-        <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
+        <% end %>
+        <div class="relevant">
+          <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="write">
+          <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
+        </div>
       </div>
-      <div class="write">
-        <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
+      <div class="thumb">
+        <%= link_to product_image_tag(product.image, :width => 97, :height => 148, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
+        <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
       </div>
+      <div class="clearfix"></div>
     </div>
-    <div class="thumb">
-      <%= link_to product_image_tag(product.image, :width => 97, :height => 148, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
-      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
-    </div>
+
   </li>
 <% end %>

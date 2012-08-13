@@ -1,15 +1,27 @@
 <% first = first_item.contents.by_language(I18n.locale).first %>
 <% if first %>
-
 <% path = chronicle_path(:id => first_item) %>
-  <div id="article"> 
-    <%= link_to image_tag(first.cover.url(:small), :width => 237, :class => "left"), path %>
-    <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
-    <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= link_to first.title, path %></h2>
-    <h3><%= first.subtitle %></h3>
-    <div class="description"><%= first.description %></div>
-    <div align="right">
-      <%= link_to "<strong>#{t('.more')}</strong>", path %>
+  <% if container == :product %>
+    <div id="c-nina">
+      <span class="thumb">
+        <%= link_to image_tag(first.cover.url(:small), :width => 141), path %>
+      </span>
+      <div class="vote">
+        <%= green_stars(first_item.rating) %>
+      </div>
+      <%= first.description %>
+      <p><%= link_to t('.more'), path, :class => :more %></p>
     </div>
-  </div>
+  <% else %>
+    <div id="article"> 
+      <%= link_to image_tag(first.cover.url(:small), :width => 237, :class => "left"), path %>
+      <%= image_rating(@chronicle.rating) if @chronicle.rating > 0 %>
+      <h2><%= t("chronicles.menu.cat_#{@chronicle.category.to_param}") %> : <%= link_to first.title, path %></h2>
+      <h3><%= first.subtitle %></h3>
+      <div class="description"><%= first.description %></div>
+      <div align="right">
+        <%= link_to "<strong>#{t('.more')}</strong>", path %>
+      </div>
+    </div>
+  <% end %>
 <% end %>

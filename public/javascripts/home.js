@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
   $('#user-movies li').live('mouseover',function(){
     $(this).children('.overlay').show()
   });
@@ -42,20 +42,21 @@ $(function() {
     });
     return false;
   });
-  $('#selection-tabcontent-wrap.home .content-tabs a').live('click',function(){
+  /* selection */
+  $('#weekly-selection-wrap .content-tabs a').live('click',function(){
     url = this.href;
     set_page(url)
-    html_item = $('#selection-week-wrap');
-    html_content = $('#selection-tabcontent-wrap .carousel-wrap');
+    html_item = $('#weekly-selection-wrap');
+    html_content = $('#weekly-selection-wrap .panel-container');
     content = html_content.html()
-    $('#selection-tabcontent-wrap .content-tabs a').removeClass('active') 
+    $('#weekly-selection-wrap .content-tabs a').removeClass('active') 
     $(this).addClass('active')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
     $.ajax({
       url: url,
       type: 'GET',
       success: function(data) {
-        html_item.html(data);
+        html_item.replaceWith(data);
       },
       error: function() {
         html_content.html(content);
@@ -63,6 +64,7 @@ $(function() {
     });
     return false;
   });
+  /* *** */
   $('#selection-tabcontent-wrap.home .pagination a,#selection-tabcontent-wrap .pagination2 a').live('click',function(){
     url = this.href;
     set_page(url)
@@ -89,8 +91,8 @@ $(function() {
     html_item = $('#review_content');
     html_content = $('.tab-content');
     content = html_content.html()
-    $('#tabs-review li a.active').removeClass('pie') 
-    $('#tabs-review li a.active').removeClass('active')
+    $('#tab-container li a.active').removeClass('pie') 
+    $('#tab-container li a.active').removeClass('active')
     $(this).addClass('active pie')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
     $.ajax({
@@ -130,7 +132,7 @@ $(function() {
   });
   
   //carousel
-  var current;
+  /*var current;
   setCurrent(5);
   $container = $('.slider_normal').cycle({ 
       fx: 'turnLeft', 
@@ -143,7 +145,7 @@ $(function() {
       before: change_carousel_adult,
       next:   '#next', 
       prev:   '#back',
-  });
+  });*/
   
   function getCurrent()
   {
@@ -176,26 +178,7 @@ $(function() {
   }
   
 
-  function change_carousel_adult()
-  {
-    image = $(this).attr('id')
-    reg= new RegExp(/[^\d]/g)
-    id = parseInt(image.replace(reg,''),10)+1
-    setCurrent(id)
-    $('.pagination a.active').removeClass('active');
-    $('#btn_'+id).addClass('active');
-  }
-  function change_carousel()
-  {
-    image = $(this).attr('id')
-    reg= new RegExp(/[^\d]/g)
-    id = parseInt(image.replace(reg,''),10)+1
-    setCurrent(id)
-    $('.pagination a.active').removeClass('active');
-    $('#btn_'+id).addClass('active');
-    
-  }
-
+  
   $('.top_actors').live('mouseover',function(){
     var reg = new RegExp('[actor_id]', 'gi');
     id =$(this).attr('id').replace(reg,'');

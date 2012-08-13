@@ -7,7 +7,7 @@
     width: 800px;
 }
 .table_abo_upgrade {
-	background: url("/images/bg_upgrade.gif") no-repeat scroll 0 0 transparent;
+	/*background: url("/images/bg_upgrade.gif") no-repeat scroll 0 0 transparent;*/
 	padding: 10px 20px;
 	width:540px;
 	height:463px;
@@ -173,7 +173,8 @@ tr.new_abo_actuel {
 }
 
 tr.new_abo {
-border-bottom: 1px dotted #201F20; }
+border-bottom: 1px dotted #201F20; 
+}
 
 table.new_table_abo {
     border-collapse: collapse;

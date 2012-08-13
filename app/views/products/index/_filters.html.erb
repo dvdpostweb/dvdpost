@@ -3,7 +3,7 @@
     <%= t '.refine' %>
   </h3>
   <fieldset>
-    <ul>
+    <ul id="main">
       <li class="technology<%= ' open' if filter.media? %>">
         <%= link_to t('.tech'), products_path(:technology => 1) %>
         <div <%= "style='display:none'" unless filter.media? %>>
@@ -37,15 +37,13 @@
       </li>
       <li class="year<%= ' open' if filter.year? %>">
         <%= link_to t('.year'), products_path(:year => 1) %>
-        <div id="year-slider" <%= "style='display:none'" unless filter.year? %>>
-          <%= f.hidden_field :year_min, :value => filter.year_min || 0 %>
-          <%= f.hidden_field :year_max, :value => filter.year_max || 2020 %>
-          <ul id="year_labels">
-            <% ['-', '40', '50', '60', '70', '80', '90', '00', '+'].collect do |year| %>
-              <li><%= year %></li>
-            <% end %>
-          </ul>
-          <div id="year-slider-range" <%= "style='display:none'" unless filter.year? %>></div>
+        <% max = Time.now.year + 1 %>
+        <% max_year = filter.year_max && filter.year_max <= max ? filter.year_max : max %>
+        <div <%= "style='display:none'" unless filter.year? %>>
+          <%= t '.from' %>
+          <%= select_year (filter.year_min || 1910) , :field_name => 'year_min', :start_year => 1910, :end_year => max %>
+          <%= t '.to' %>
+          <%= select_year max_year , :field_name => 'year_max', :start_year => 1910, :end_year => max %>
         </div>
       </li>
       <li class="ratings<%= ' open' if filter.rating? %>">

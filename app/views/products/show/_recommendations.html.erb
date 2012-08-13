@@ -1,12 +1,26 @@
 <div id="carousel-wrap">
-  <h2>
-    <%= t '.title' %>
-  </h2>
-  <div id="carousel">
-    <ul id="carousel-content">
-      <%= render :partial => 'products/show/recommendation', :collection => recommendations, :locals => { :rating_color => rating_color} %>
-    </ul>
-    <%= will_paginate recommendations, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :recommendation_page, :id => 'prev', :class => 'like-btn', :container => false %>
-    <%= will_paginate recommendations, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :recommendation_page, :id => 'next', :class => 'like-btn', :container => false %>
+<h3><%= t '.title' %></h3>
+<% if products && products.size > 0 %>
+<div class="jcarousel-skin-tango">
+  <div class="jcarousel-container jcarousel-container-horizontal" style="position: relative; display: block; ">
+    <div class="jcarousel-clip jcarousel-clip-horizontal" style="position: relative; ">
+      <ul class="jc osc jcarousel-list jcarousel-list-horizontal" id='home_recommendations'>
+        <%= render :partial => 'products/show/recommendation_product', :collection => products %>
+      </ul>
+    </div>
   </div>
+</div>
+<div class="pagination arrow_left">
+  <%= will_paginate products, :previous_label => '', :next_label => '', :page_links => false, :container => false,  :param_name => :recommendation_page %>
+</div>
+<span class="jc-items"><%= "#{recommendation_page} of #{recommendation_nb_page}" %></span>
+<div class="pagination arrow_right">
+  <%= will_paginate products, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :recommendation_page %>
+</div>
+
+<% else %>
+  <p class='error'>
+    <%= products == false ? t('.recommendations_unavailable') : t('.recommendations_empty') %>
+  <p>
+<% end %>
 </div>

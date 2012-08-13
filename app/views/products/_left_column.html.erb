@@ -1,42 +1,42 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
-<div id="left_column" class="site_<%= ENV['HOST_OK'] %>">
-  <!-- test -->
-  <% form_for :search_filter, filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id], :filter => params[:filter])} do |f| %>
-  <% if ENV['HOST_OK'] == "1" %>
-    <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
-    <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
+<div id="leftcolumn">
+  <% form_for :search_filter, filter, {:url => search_filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id], :filter => params[:filter], :studio_id => params[:studio_id])} do |f| %>
+    <% if 1 == 0 && ENV['HOST_OK'] == "1" %>
+        <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
+        <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
+    <% end %>
+    <% if params[:kind] == :normal %>
+      <ul class="btns osc">
+        <li><%= link_to t('.collection'), themes_path() %></li>
+        <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended) %></li>
+      </ul>
+    <% end %>
+    <% if streaming_access? %>
+    <h3 class="ttl"><%= t('.streaming') %></h3>
+    <ul class="nav osc">
+      <%= left_column_vod(params) %>
+    </ul>
+    <% end %>
+    <h3 class="ttl"><%= t('products.left_column.all_medias') %></h3>
+    <ul class="nav osc">
+    <%= left_column(params) %>
+    </ul>
+    <% if params[:kind] == :normal %>
+    <h3 id="vod-adulte"><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming) if streaming_access? %></h3>
+    <% if current_customer %>
+      <%= link_to image_tag("#{I18n.locale}/vente-flash-banner.png"), shop_path %>
+    <% end %>
+      <div id="nina-wrap">
+        <h3>
+          <%= t '.chronicle_title' %>
+        </h3>
+        <%= link_to image_tag("banner_nina#{I18n.locale == :nl ? '_nl' : ''}.png"), chronicles_path %>      
+        <p><%= t '.details' %></p>        
+        <%= link_to t('.all'), chronicles_path, :class => 'more osc' %>
+      </div>
+    <% end %>
+    <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if (params[:action] == 'index' && params[:controller] != 'studios') %>
   <% end %>
   
-    <ul id="left-nav">
-      <li class="collections"><%= link_to 'collection cinéma', themes_path() %></li>
-      <li class="recommandations"><%= link_to t('.recommendations'), products_path(:view_mode => :recommended) %></li>
-      <% if streaming_access? %>
-      <li id="catalogue_vod">
-        <div id="catalogue_title_vod"><%= t('.streaming') %></div>
-          <ul id="vod_list">
-            <%= left_column_vod(params) %>
-          </ul>
-      </li>
-      <% end %>
-      <li id="catalogue_dvd">
-        <div id="catalogue_title_dvd"><%= t('.all_medias') %></div>
-        <ul id="dvd_list">
-          <%= left_column(params) %>
-        </ul>
-      </li>
-      <li class='adultvod'><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming) if streaming_access? %></li>
-      <% if current_customer %>
-        <li>
-          <%= link_to image_tag(File.join(I18n.locale.to_s, 'bannerflashvente.png')), shop_path %>
-        </li>
-      <% end %>
-      <% if I18n.locale != :en %>
-      <li>
-        <%= link_to image_tag("banner_nina#{I18n.locale == :nl ? '_nl' : ''}.png"), chronicles_path %>
-      </li>
-      <% end %>
-    </ul>
-    <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if params[:action] == 'index' %>
-  <% end %>
 </div>
 <!--   ==============   END LEFT COLUMN   ==============   -->

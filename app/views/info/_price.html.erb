@@ -1,0 +1,8 @@
+<div id="prices">
+  <h2><%= t '.title' %></h2>
+  <div class="prices-container" align="center">
+    <table>
+      <%= render :partial => 'reconductions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => nil, :selected_abo => nil} %>
+    </table>
+  </div>
+</div>

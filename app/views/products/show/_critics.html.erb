@@ -1,0 +1,21 @@
+<% active = 'active' %>
+<div id="critics-wrap">
+  <div class="tab-container">
+    <ul class="etabs osc tabs">
+      <% if chronicle %>
+      <% active = '' %>
+      <li class="tab" id='tab2_li'>
+        <%= link_to t('.chronicle'), '#tab2', :id => 'tab2_menu', :class => :active %>
+      </li>
+      <% end %>
+      <li class="tab" id='tab1_li'>
+        <%= link_to t('products.show.members_critic'), '#tab1', :id => 'tab1_menu', :class => active %>
+      </li>                
+    </ul>
+    <div class="panel-container">
+      <%= render :partial => "chronicles/first", :locals => {:first_item => @chronicle, :container => :product} if chronicle %>
+      <%= render :partial => "products/show/review_tab", :locals => {:chronicle => @chronicle, :product => product, :reviews_count => reviews_count, :reviews => reviews, :review_sort => review_sort, :product_title => product_title}%>
+      </div>                
+    </div>
+  </div>
+</div><!-- #critics-wrap -->

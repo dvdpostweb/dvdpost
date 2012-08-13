@@ -112,6 +112,7 @@
 	padding:14px 0 0 62px;
   width:250px;
   margin: 0 auto 5px;
+  border-collapse: separate;
 }
 .abo_actu_sub 
 {
@@ -127,7 +128,7 @@
 	padding-left:13px;
 }
 .button_confirm {
-	background:url("../images/button-anticipation.png") no-repeat scroll 0 0 transparent;
+	background:url("../images/button-anticipation.png") no-repeat scroll 0 0 transparent !important;
 	border:medium none;
 	color:white;
 	font-weight:bold;
@@ -138,7 +139,7 @@
 	cursor: pointer;
 }
 .button_confirm:hover {
-	background:url("../images/button-anticipation.png") no-repeat scroll 0 -55px transparent;
+	background:url("../images/button-anticipation.png") no-repeat scroll 0 -55px transparent !important;
 	border:medium none;
 	color:white;
 	font-weight:bold;
@@ -190,7 +191,7 @@ tr.new_abo_actuel {
 }
 
 tr.abo {
-    border-bottom: 1px dotted #201F20;
+  
 }
 
 .abo {
@@ -200,5 +201,9 @@ tr.abo {
 
 .free_upgrade {
     background: none repeat scroll 0 0 #95DEEC;
+}
+.upgrade table
+{
+  font-size:13px;
 }
 /****/

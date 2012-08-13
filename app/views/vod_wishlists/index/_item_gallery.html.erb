@@ -26,8 +26,7 @@
 		
 		  <% if type != :soon && type != :history%>
 		  <p class="status">
-		    <% @token = current_customer.get_token(item.imdb_id) %>
-		    <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token, :text => :short} %>
+		    <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} %>
 		  </p>
 		  <% end %>
 		<div class="title">

@@ -41,8 +41,13 @@ text-transform: uppercase;
 font-weight: lighter;
 }
 #faq-intro-wrap p a {
-    background: url("../images/play.png") no-repeat scroll 0 -3px transparent;
-    line-height: 7px;
-    margin-left: 100px;
-    padding-left: 25px;
+  background: url("../images/play.png") no-repeat scroll 0 -3px transparent;
+  line-height: 7px;
+  margin-left: 100px;
+  padding-left: 25px;
+}
+.gallery a.regarder {
+background-position: -352px -32px;
+width:69px;
+padding-left:26px;
 }

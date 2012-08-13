@@ -1,35 +1,17 @@
 <% path = chronicle_path(:id => chronicle.to_param) %>
 <% content = chronicle.contents.by_language(I18n.locale).first %>
 <div id="nina-wrap">
-  <div class="ttl maven"><%= t '.main_title' %></div>
-  <div id="nina-tabcontent-wrap">
-    <div id="selection-tab1" class="tab-content-selection clearfix">
-      <div class="carousel-wrap">
-        <ul class="slides">
-          <li class=intro_nina><h3><%= t '.details_title' %></h3>
-            <p><%= t '.details' %></p>
-              <p><%= link_to t('.more'), chronicles_path(), :class => :btn_savoirplus %></a></p>
-            
-          </li>
-          <li class="nina">
-            <h4><%= t '.title' %> :</h4>
-            <h3>
-              <% text = "<strong>#{t("chronicles.menu.cat_#{@chronicle.category.to_param}")} : #{content.title}</strong><br />
-              </a>" %>
-            
-              <%= link_to text, path %>
-            </h3>
-            <div class="wrap">
-              <p><%= truncate_html(content.description.gsub(/<\/?.*?>/, ""), :length => 450) %></p>    
-              <p>
-                <%= link_to t('.read_more'), path, :class => :lirelasuite, :target => "_blank" %>
-              </p>
-              <%= link_to image_tag(content.cover.url(:small), :width => 107), path, :class => :thumb %> </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+ 	<h3><%= t('.main_title').upcase %></h3>
+ 	<%= link_to image_tag('nina.jpg', :size => '269x135', :alt => 'CHRONIQUE DE NINA'), chronicles_path %>
+  <h4><%= t '.details_title' %></h4>
+  <p><%= t '.details' %></p>
+  <div id="focus-wrap"><h4><strong><%= t '.title' %></strong></h4>
+    <p>
+      <%= link_to image_tag(content.cover.url(:small), :width => "49x75"), path %>
+      <span class="osc"><%= "#{t("chronicles.menu.cat_#{@chronicle.category.to_param}")} : #{content.title}" %></span> 
+      <%= truncate_html(content.description.gsub(/<\/?.*?>/, ""), :length => 120) %>
+    </p>
+    <%= link_to t('.read_more'), path, :class => :osc %>
   </div>
+  <%= link_to t('.all'), chronicles_path, :class => "more osc" %>
 </div>
-
-

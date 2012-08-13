@@ -8,45 +8,47 @@ body {
 
 
 #collection {
-    background-color: #191E24;
+    background: #c3d1db;
     padding-bottom: 20px;
-    width: 970px;
+    width: 960px;
+    color: #212A31;
+    line-height: 1;
+    font-family: 'Open Sans Condensed', sans-serif !important;
 }
 
+
 #collection h2{
-color: #FFFFFF;
-    padding-left: 8px;
-    padding-top: 16px;
+  padding-left: 8px;
+  padding-top: 16px;
 }
 
 #collection h4 {
 text-align: right;
 padding-right: 105px;
-    padding-top: 16px;
- 
+padding-top: 16px;
+margin: 0 0 12px 0; 
 }
 #collection h4 a{
-color: #FFFFFF;
+color: #212A31;
 text-decoration:underline;
 font-weight: normal;
-font-size:12px;
+font-size:14px;
+font-family: Arial,Helvetica,sans-serif;
 
  
 }
-
-
-
 .collection h3 {
-color:#FFFFFF;
+color: #212A31;
 text-transform:uppercase;
 font-size:12px;
 font-weight:normal;
+margin: 6px 0 0 0;
 
 
 }
 
 .collection h3 a {
-color:#FFFFFF;
+color: #212A31;
 }
 
 
@@ -82,10 +84,10 @@ padding-bottom: 20px;
 
 
 .collection {
-    background-color: #191E24;
+    background: #c3d1db;
     margin: 0 0 20px;
     padding: 0 0 20px 17px;
-    width: 953px;
+    width: 943px;
 }
 
 #collection #menu li {
@@ -112,8 +114,8 @@ padding-bottom: 20px;
     color: #85BA17;
 }
  #article h3 {
-    font: italic 1em Arial,Helvetica,sans-serif;
-    margin-bottom: 20px;
+  font: italic 1em Arial,Helvetica,sans-serif;
+  margin-bottom: 20px;
 	color:#4b545f;
 }
 
@@ -136,7 +138,4 @@ position: relative;
 vertical-align: top;
 padding-top: 12px;
 width: 182px;
-}
-#collection h3 a {
-color: white;
 }

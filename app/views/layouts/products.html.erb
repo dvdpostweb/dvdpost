@@ -1,8 +1,13 @@
 <%= javascript 'products','reviews' %>
-<%= javascript 'home' if ENV['HOST_OK'] == "1" %>
-<%= stylesheet 'products', :media => :all %>
+<% if params[:action] == 'index' %>
+  <%= stylesheet 'products2','etabs','smoothness/jquery-ui-1.8.custom','jquery_custom', :media => :all %>
+  <%= javascript 'jquery-ui-1.8.1.custom.min' %>
+  <% content_for :body_id do %>cl<% end %>
+<% else %>
+  <%= stylesheet 'film','etabs-film','jcarousel-film', :media => :all %>
+  <% content_for :body_id do %>film-details<% end %>
+<% end %>
 
-<% content_for :body_id do %>product_body<% end %>
 <% if @product && !@product.adult? %>
   <% content_for :facebook do %>
     <meta property="og:image" content="<%= @product_image %>"/> 
@@ -18,6 +23,5 @@
   <% end%>
 <% end %>
 <% filter = get_current_filter({})%>
-<%= render :partial => 'layouts/product_content_public' if ENV['HOST_OK'] == "1" && !filter.used? && no_param %>
 <%= yield %>
 <% parent_layout 'application' %>

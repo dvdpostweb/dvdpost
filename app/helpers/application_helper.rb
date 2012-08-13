@@ -3,9 +3,9 @@ module ApplicationHelper
   protected
   def switch_locale_link(locale, options=nil)
     if params['controller'] == "home" && params['action'] == "index"
-      link_to t(".#{locale}"), root_path(params.merge(:locale => locale)), options
+      link_to locale.to_s.upcase, root_path(params.merge(:locale => locale)), options
     else
-      link_to t(".#{locale}"), params.merge(:locale => locale), options
+      link_to locale.to_s.upcase, params.merge(:locale => locale), options
     end
   end
 
@@ -19,6 +19,7 @@ module ApplicationHelper
       else ''
     end
   end
+
 
   def list_indicator_class(value)
     case value
@@ -450,5 +451,9 @@ module ApplicationHelper
       end
     end
   end
-	
+
+  def login_path
+    "http://private.dvdpost.com/#{request.fullpath}"
+  end
+
 end

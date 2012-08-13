@@ -1,16 +1,34 @@
-<!-- DVDPost c’est aussi ... -->
-<div id="apps-wrap" class="clearfix">
-  <h3 class="maven"><%= t('.title') %></h3>
-  <ul>
-    <li><%= image_tag('http://www.dvdpost.be/images/quick_link/2.jpg') %> <%= link_to t('.quick_link_2'), themes_path %></li>
-    <li><%= image_tag('http://www.dvdpost.be/images/quick_link/3.jpg') %> <%= link_to t('.quick_link_3'), fb_url %></li>
-    <li>
-      <% if current_customer %>
-        <%= image_tag("http://www.dvdpost.be/images/quick_link/5_#{I18n.locale}.jpg") %> <%= link_to t('.quick_link_5'), shop_path %>
-      <% else %>
-        <%= image_tag('http://www.dvdpost.be/images/quick_link/4.jpg') %> <%= link_to t('.quick_link_4'), sponsorships_path %>
-      <% end %>
-    </li>
-    <li><%= image_tag('http://www.dvdpost.be/images/quick_link/1.jpg') %> <%= link_to t('.quick_link_1'), root_path(:kind => :adult) %></li>
-  </ul>
-</div>
+
+<div id="sub-footer" class="osc">
+  	<h2><%= t('.title') %></h2>
+      <ul>
+      	<li>
+      	  <a href="<%= themes_path %>">
+      	    <%= image_tag "http://www.dvdpost.be/images/quick_link/2.jpg", :size => "223x114", :alt => t('.quick_link_2') %> <%= t('.quick_link_2') %>
+      	  </a>
+      	</li>
+        <li>
+          <a href="<%= fb_url %>">
+            <%= image_tag "http://www.dvdpost.be/images/quick_link/3.jpg", :size => "223x114", :alt => t('.quick_link_3') %> <%= t('.quick_link_3') %>
+          </a>
+        </li>
+        <% if current_customer %>
+        <li>
+          <a href="<%= shop_path %>">
+            <%= image_tag "http://www.dvdpost.be/images/quick_link/5_#{I18n.locale}.jpg", :size => "223x114", :alt => t('.quick_link_5') %> <%= t('.quick_link_5') %>
+          </a>
+        </li>
+        <% else %>
+        <li>
+          <a href="<%= sponsorships_path %>">
+            <%= image_tag "http://www.dvdpost.be/images/quick_link/4.jpg", :size => "223x114", :alt => t('.quick_link_4') %> <%= t('.quick_link_4') %>
+          </a>
+        </li>
+        <% end %>
+        <li>
+          <a href="<%= root_path(:kind => :adult) %>">
+            <%= image_tag "http://www.dvdpost.be/images/quick_link/1.jpg", :size => "223x114", :alt => t('.quick_link_1') %> <%= t('.quick_link_1') %>
+          </a>
+        </li>
+      </ul>
+  </div><!-- #sub-footer -->

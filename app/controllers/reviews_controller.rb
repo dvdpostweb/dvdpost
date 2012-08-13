@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
 
   def index
+    @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
     if params[:sort]
       sort = Review.sort[params[:sort].to_sym]
     else
@@ -24,6 +25,7 @@ class ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @tokens = current_customer.get_all_tokens_id(params[:kind], @review.product.imdb_id) if current_customer
     respond_to do |format|
       format.html
       format.js {render :layout => false}

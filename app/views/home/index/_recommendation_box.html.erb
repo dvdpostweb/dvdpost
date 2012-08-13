@@ -1,8 +1,6 @@
-<div id="user-movies-wrap">
-      <!-- Cinéma pour Maud -->
-      <div id="user-movies">
-        <h3><%= link_to t('.recommendation', :firstname => current_customer.customers_firstname), products_path(:view_mode => :recommended) %></h3>
-        <ul>
+<div class="right">
+  <h3><%= link_to t('.recommendation', :firstname => current_customer.customers_firstname), products_path(:view_mode => :recommended) %></h3>
+  <ul>
           <% recommendations.collect do |item| %>
             <% data = item.description_data(true) %>
             <% product_title = data[:title] %>
@@ -36,11 +34,13 @@
             </li>
             <% end %>
         </ul>
+        <!-- #to do
         <a href="?tool_tips=1" class="info tooltips" id='recommendation_info'>
           <%= image_tag 'icon_info_home.png', :alt => "Info" %>
         </a>
+        -->
         <p align="center">
-          <%= link_to t('home.index.recommendations.see_all'), products_path(:view_mode => :recommended) %>
+          <%= link_to t('home.index.recommendations.see_all'), products_path(:view_mode => :recommended), :class => :osc %>
         </p>
         <!-- Tooltip -->
         <div class="tooltip" id="recommendation_info_popup" style ='display:none'>
@@ -49,4 +49,6 @@
         </div>
       </div>
       <%= render :partial => '/home/index/wishlist_rating', :locals => {:product => not_rated_product} if 1==0 && !not_rated_product.nil? %>
-    </div>
+</div>
+
+  

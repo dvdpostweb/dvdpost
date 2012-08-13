@@ -1,5 +1,6 @@
 <% review = @review %>
 <% product = review.product %>
+<% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
 <% if product %>
   <% customer = review.customer %>
   <% if params[:kind] == :adult %>
@@ -9,8 +10,9 @@
   <% end %>
   <% product_title = product.title %>
 <div class="tab-content-show">
-<div class="review_rate">
+<div class="review_rate ">
 <div id="tab-content-2">
+  <ul class="comm-reaction">
   <li class="show">
     <h2> <%= link_to product_title, product_path(:id => product.to_param) %></h2>
     <div class="content">
@@ -38,15 +40,17 @@
       <div class="relevant">
         <%= render :partial => 'reviews/index/critics_new', :locals => {:review => review} %>
       </div>
+      <div class="clearfix"></div>
       <div class="write">
         <%=  link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :class => :add_reviews %>
       </div>
     </div>
     <div class="thumb"> 
       <%= link_to product_image_tag(product.image, :width => 97, :height => 148, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param) %>
-      <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews]} %>
+      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
     </div>
   </li>
+  </ul>
   <div class="clear"></div>
 <% end %>
 </div></div></div>

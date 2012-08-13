@@ -1,6 +1,6 @@
 <div id="maincontent" >
   <div id="hp-article">
-    <%= render :partial => "first", :locals => {:first_item => @chronicle} if @chronicle %>
+    <%= render :partial => "first", :locals => {:first_item => @chronicle, :container => :chronicle} if @chronicle %>
     <!-- Sidebar nav -->
     <%= render :partial => "menu", :locals => {:categories => @categories} %>
   </div><!-- #hp-article --> 

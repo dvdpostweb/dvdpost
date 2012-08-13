@@ -1,0 +1,71 @@
+.etabs {
+  margin: 0 !important;
+  padding: 0;
+  height: 39px;
+}
+
+.tab {
+  float: left;
+  background: #eee;
+  margin-right: 3px;
+}
+
+.tab a {
+  display: block;
+  line-height: 39px;
+  padding: 0 20px;
+  font-size: 24px;
+  color: #afb7bf;
+  background: url(../images/tabs-nav-film-bg.png) 0 0 repeat-x;
+}
+
+.tab a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.tab a.active {
+  color: #fff;
+  background-position: 0 100%;
+  cursor: default;
+}
+
+.tab-container .panel-container {
+  background: #6c7b89 url(../images/tabs-film-bg.png) 0 0 repeat-x;
+  min-height: 202px;
+  padding: 20px 20px 12px;
+  position: relative;
+  overflow: hidden;
+  color: #1b2228;
+}
+
+.tab-container {
+  margin: 0 -20px;
+}
+
+.panel-container .thumb {
+  display: block;
+  float: left;
+  margin-right: 12px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel-container .vote {
+  margin-bottom: 10px;
+}
+
+.panel-container .vote img {
+  margin-right: 6px;
+}
+
+.panel-container a.more {
+  font-weight: bold;
+  color: #a3c41b;
+}
+#c-nina p
+{
+  font-size: 14px;
+}
