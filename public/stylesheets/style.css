@@ -400,10 +400,6 @@ h1, h2, h3, h4, h5 {
 .content a.streaming_btn_replay {
   margin: 0 0 0 3px;
 }
-.content .streaming_soon_btn
-{
-  margin: 0 0 0 3px !important;
-}
 #titles-wrap .action a.streaming_btn_replay:hover, .content a.streaming_btn_replay:hover {
   background:url("../images/vodbtn_replay.png") no-repeat scroll 0 -35px transparent;
 }
@@ -428,12 +424,6 @@ h1, h2, h3, h4, h5 {
 .adult #titles-wrap .action a.streaming_btn_replay:hover, .adult .content a.streaming_btn_replay:hover {
   background:url("../images/vodxbtn_replay.png") no-repeat scroll 0 -35px transparent;
 }
-#titles-wrap .action .streaming_soon_btn, .content .streaming_soon_btn
-{
-  background:url("../images/btn_vod_soon.png") no-repeat scroll 0 -3px transparent;
-  padding:1px 6px 0 1px;
-  width:158px;
-}
 #titles-wrap .action a.btn_remove {
   background: url(../images/drop-btn.png) 0 0 no-repeat;
   display: block;
@@ -452,43 +442,6 @@ h1, h2, h3, h4, h5 {
   background: url(../images/drop-btn.png) 0 -39px no-repeat;
 }
 
-#titles-wrap .action .btn_remove_form, .content .btn_remove_form {
-    background: url("../images/drop-btn.png") no-repeat scroll 0 2px transparent;
-    color: white;
-    display: block;
-    float: left;
-    height: 28px;
-    line-height: 28px;
-    margin: 0 0 0 3px;
-    padding: 1px 5px 0 24px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #999999;
-    width: 166px;
-    border: 0;
-}
-
-#titles-wrap .action .btn_remove_form:hover, .content .btn_remove_form:hover {
-    background: url("../images/drop-btn.png") no-repeat scroll 0 -31px transparent;
-}
-#titles-wrap .action .reserver_btn, .content .reserver_btn {
-    background: url("../images/reserver-btn.png") no-repeat scroll 0 2px transparent;
-    color: #2f2e33;
-    display: block;
-    float: left;
-    height: 28px;
-    line-height: 29px;
-    margin: 0 0 0 3px;
-    padding: 1px 5px 0 0;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #999999;
-    width: 166px;
-}
-
-#titles-wrap .action .reserver_btn:hover, .content .reserver_btn:hover {
-    background: url("../images/reserver-btn.png") no-repeat scroll 0 -31px transparent;
-}
 #titles-wrap .action a.whishlist_btn, #titles-wrap .action .streaming_soon_btn {
     background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transparent;
     color: white;
@@ -1654,40 +1607,7 @@ padding-left: 29px;
   background: url(../images/vodxbtn_replay.png) 0 -35px no-repeat;
 }
 
-#details .cover a.streaming_btn_replay {
-  background: url("../images/vodbtn_replay.png") no-repeat scroll 0 -2px transparent;
-  color: white;
-  display: block;
-  font-size: 1em;
-  height: 26px;
-  line-height: 24px;
-  padding-left: 36px;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #555555;
-  width: 130px;
-}
-.adult #details .cover a.streaming_btn_replay {
-  background: url("../images/vodxbtn_replay.png") no-repeat scroll 0 -2px transparent;
-  color: white;
-  display: block;
-  font-size: 1em;
-  height: 26px;
-  line-height: 24px;
-  padding-left: 36px;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #555555;
-  width: 130px;
-}
-#details .cover a.streaming_btn_replay.en
-{
-  padding-left: 29px !important;
-  width: 136px;
-}
-#details .cover a.streaming_btn_replay.nl
-{
-  padding-left: 31px !important;
-  width: 144px;
-}
+
 #details .cover a.btn:hover {
   background: url(../images/ajouter-btn.png) 0 -35px no-repeat;
   text-decoration: none;
@@ -1725,27 +1645,7 @@ padding-left: 29px;
   text-shadow: 1px 1px 1px #555555;
   width: 165px;
 }
-.content .streaming_remove_list
-{
-  background: url("../images/drop-btn.png") no-repeat scroll 0 -1px transparent !important;
-  border: 0 none !important;
-  color: white !important;
-  cursor: pointer !important;
-  display: block !important;
-  font-size: 0.9em !important;
-  height: 26px !important;
-  line-height: 26px !important;
-  padding-bottom: 2px !important;
-  padding-left: 19px !important;
-  text-shadow: 1px 1px 1px #555555 !important;
-  width: 165px !important;
-  position:inherit !important;
-  margin: 3px 0 0 0 !important;
-}
-#details .cover .btn_remove_form:hover, .content .streaming_remove_list:hover {
-  background: url(../images/drop-btn.png) 0 -34px no-repeat;
-  text-decoration: none;
-}
+
 #details .cover .load,#details .cover .load2 {
   display: block;
   height: 26px;
@@ -2077,91 +1977,7 @@ html ul.tabs li.active a:hover {
   text-decoration: none;
 }
 
-#carousel li a.streaming_btn {
-  background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
-  color:white;
-  display:block;
-  font-size:1.09em;
-  height:27px;
-  line-height:24px;
-  padding:0 9px 0 18px;
-  text-align:center;
-  text-shadow:1px 1px 1px #999999;
-  width:62px;
-  margin: 0 0 4px 1px;
-}
 
-#carousel li a.streaming_btn:hover {
-  background: url(../images/add-btn-mid_vod.png) 0 -30px no-repeat;
-  text-decoration: none;
-}
-#carousel li a.streaming_btn_replay {
-  background: url(../images/add-btn-mid_vod_replay.png) 0 -1px no-repeat;
-  color:white;
-  display:block;
-  font-size:1.09em;
-  height:27px;
-  line-height:24px;
-  padding:0 9px 0 18px;
-  text-align:center;
-  text-shadow:1px 1px 1px #999999;
-  width:62px;
-  margin: 0 0 4px 1px;
-}
-
-#carousel li a.streaming_btn_replay:hover {
-  background: url(../images/add-btn-mid_vod_replay.png) 0 -30px no-repeat;
-  text-decoration: none;
-}
-
-
-#carousel li a.btn_remove {
-  background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;
-  display: block;
-  height: 27px;
-  line-height: 24px;
-  padding-left: 24px;
-  width: 62px;
-  padding: 0 9px 0 20px;
-  color: white;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: center;
-  font-size: 1.09em;
-  margin: 0 0 4px 1px;
-}
-
-#carousel li a.btn_remove:hover {
-  background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
-  text-decoration: none;
-}
-
-#carousel li .btn_remove_form, .content .btn_remove_form {
-  background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;
-  display: block;
-  height: 27px;
-  line-height: 24px;
-  padding-left: 24px;
-  width: 92px;
-  padding: 0 9px 4px 20px;
-  color: white;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: center;
-  font-size: 1.09em;
-  margin: 0 0 4px 1px;
-  border:0px;
-  cursor: pointer;
-}
-
-#carousel li .btn_remove_form:hover, .content .btn_remove_form:hover {
-  background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
-  text-decoration: none;
-}
-.content .btn_remove_form
-{ 
-  bottom:8px;
-  left:6px;
-  position:absolute;
-}
 #carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
   background: url(../images/carousel-arrows.png) 0 0 no-repeat;
   display: block;
@@ -4522,11 +4338,6 @@ margin: 0;
 	
 }
 
-#facebox .body_vod {
-    background: none repeat scroll 0 0 #EEEEEE;
-    margin: 10px;
-    width: 397px;
-}
 #addwishlist_explain {
 	color: #191e24;
 	font-family: Arial, Helvetica, sans-serif;

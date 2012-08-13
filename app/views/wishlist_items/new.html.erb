@@ -14,7 +14,7 @@
         <span class="col3"><%= t '.subtitle' %></span>
         <span class="col4"><%= t '.priority' %></span>
         <span class="col5"></span>
-        <div class="clearfix"></div>
+        <div class="clear"></div>
       </div>
       <% if product.in_streaming_or_soon? && streaming_access? %>
       <div id="vod"> 
@@ -26,7 +26,7 @@
           <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} %>
           <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
         </span>
-        <div class="clearfix"></div>
+        <div class="clear"></div>
       </div>
       <% end %>
 
@@ -60,7 +60,7 @@
         <span class="col5">
           <%= submit_tag title, :class => 'remvove_from_wishlist btn_remove_form' %>
         </span>
-        <div class="clearfix"></div>
+        <div class="clear"></div>
       </div>
       <% end %>
       <% else %>
@@ -97,14 +97,14 @@
           <%= f.submit title_add_to_wishlist(:short, type_button, media), :class => 'item', :title => title_add_to_wishlist(:long, type_button, media) %>
           <%= f.submit title_add_all_to_wishlist(type_button), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if product.series? %>
         </span>
-        <div class="clearfix"></div>
+        <div class="clear"></div>
       </div>
       <% end %>
       <% end %>
       <% end %>
       <% end %>
     </div>
-    <div class="clear_fix"></div>
+    <div class="clear"></div>
   </div>
 </div>
 
