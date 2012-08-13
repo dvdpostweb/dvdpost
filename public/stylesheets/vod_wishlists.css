@@ -15,6 +15,9 @@ font-size: 24px;
 text-transform: uppercase;
 padding-top: 14px;
 }
+.adult #faq-intro-wrap h2 {
+  color: #BD1F83;
+}
 #faq-intro-wrap h2 span {
 color: #191E23;
 font-size: 24px;
@@ -27,6 +30,8 @@ font-weight: lighter;
   text-align: center;
   text-transform: uppercase;
   padding-top: 53px;
+  font-family: Arial,Helvetica,sans-serif !important;
+  font-weight: bold;
 }
 #faq-intro-wrap h3 a {
 color: #85B91A;
@@ -34,11 +39,18 @@ font-size: 14px;
 text-decoration: underline;
 text-transform: none;
 }
+.adult #faq-intro-wrap h3 a {
+  color: #BD1F83;
+}
 #faq-intro-wrap h3 span {
 color: #191E23;
 font-size: 20px;
 text-transform: uppercase;
 font-weight: lighter;
+}
+#faq-intro-wrap p
+{
+  margin-top: 10px;
 }
 #faq-intro-wrap p a {
   background: url("../images/play.png") no-repeat scroll 0 -3px transparent;

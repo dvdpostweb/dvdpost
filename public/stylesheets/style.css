@@ -722,6 +722,9 @@ color: #1f9ee0;
 color: #85ba17;
 border: 0 none;
 }
+.adult #mywhishlist-nav li .vod{
+color: #BD1F83;
+}
 #mywhishlist-nav li small{
 font-weight: normal;
 }
@@ -744,11 +747,12 @@ color: #191e23;
 
 
 #mywhishlist h2 {
-padding: 28px 0 4px;
-text-indent: 24px;
+  padding: 28px 0 4px;
+  text-indent: 24px;
   color: #ff3200;
   font-size: 1.33em;
   border-bottom: 1px solid #9E9FA2;
+  font-family: Arial,Helvetica,sans-serif !important;
 }
 
 #mywhishlist .box {
