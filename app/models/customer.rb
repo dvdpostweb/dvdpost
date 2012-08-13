@@ -90,6 +90,7 @@ class Customer < ActiveRecord::Base
   has_many :gifts_history, :foreign_key => :customers_id
   has_many :additional_card, :foreign_key => :customers_id
   has_many :tokens
+  
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
   has_many :credit_histories, :foreign_key => :customers_id
   has_many :highlight_customers
@@ -552,7 +553,15 @@ class Customer < ActiveRecord::Base
   def get_token(imdb_id)
     tokens.recent(2.week.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).last
   end
-  
+
+  def get_all_tokens_id(kind = nil, imdb_id = 0)
+    if imdb_id > 0
+      tokens.available(DVDPost.hours[kind].hours.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).collect(&:imdb_id)
+    else
+      tokens.available(DVDPost.hours[kind].hours.ago.localtime, Time.now).collect(&:imdb_id)
+    end  
+  end
+
   def get_all_tokens(kind = nil, type = nil, page = 1)
     if type == :old
       if kind == :adult
@@ -762,6 +771,10 @@ class Customer < ActiveRecord::Base
     elsif type == 'D'
       discount.duration
     end
+  end
+
+  def token_available?(product)
+    tokens_products.exists?(product.imdb_id)
   end
 
   private

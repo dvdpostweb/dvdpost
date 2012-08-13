@@ -1,31 +1,45 @@
-<% if current_customer %>
+<!--   ==============   FOOTER   ==============   -->
 <div id="footer" >
-  <div id="subfooter">
-    <div id="footer-nav">
-      <h3>
-        <%= t '.quick_links' %>
-      </h3>
-      <ul>
-        <li><%= link_to t('.who'), info_path(:page_name => 'whoweare') %></li>
-        <li><%= link_to t('.privacy'), info_path(:page_name => 'privacy') %></li>
-        <li><%= link_to t('.conditions'), info_path(:page_name => 'conditions') %></li>
-      </ul>
-      <ul id="contacts">
-        <li>
-          <h4><%= link_to t('.contact'), current_customer ? new_phone_request_path : php_path('contact_public.php') %></h4>
-        </li>
-        <li><%= link_to t('.faq'), current_customer ? faq_path : php_path('faq_public.php') %></li>
-        <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
-        <li><%= link_to t('.contest'), current_customer ? contests_path : php_path('quizz_public.php')%></li>
-        <li><%= link_to t('.quizz'), current_customer ? quizzes_path : php_path('contest_public.php') %></li>
-      </ul>
-    </div>
-    <%= render :partial => 'layouts/partners', :locals => {:partners => partners} %>
-    <div class="clear"></div>
-    <p id="copyr"><%= t '.copyright' %> </p>
+  <div class="wrap">
+    <ul>
+      <li><h4><%= t '.explore' %></h4></li>
+      <li><%= link_to t('layouts.header.home'), root_path %></li>
+      <li><%= link_to t('layouts.header.explore'), products_path %></li>
+      <% if ENV['HOST_OK'] == "0" %>
+        <li><%= link_to t('layouts.header.wishlist'), vod_wishlists_path %></li>
+        <li><%= link_to t('layouts.menu.contact'), messages_path %></li>
+        <% unless params[:kind] == :adult %>
+        <li><%= link_to t('layouts.header.adult'), root_path(:kind => :adult) %></li>
+        <% end %>
+      <% else %>
+        <li><%= link_to t('layouts.header.price'), info_path(:page_name => 'price') %></li>
+        <li><%= link_to t('layouts.menu.contact'), new_phone_request_path() %></li>
+        <% unless params[:kind] == :adult %>
+          <li><%= link_to t('layouts.header.adult').downcase, root_path(:kind => :adult) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul>
+      <li><h4><%= t '.follow' %></h4></li>
+      <li><%= link_to "Facebook", fb_url %></li>
+      <li><%= link_to "Twitter", twitter_url %></li>
+    </ul>
+    <ul>
+      <li><h4><%= t '.how' %></h4></li>
+      <li><%= link_to t('.contact'), new_phone_request_path %></li>
+      <li><%= link_to t('.faq'), faq_path %></li>
+      <li><%= link_to t('.sponsor_a_friend'), sponsorships_path if current_customer %></li>
+    </ul>
+    <ul>
+      <li><h4><%= t '.about' %></h4></li>
+      <li><%= link_to t('.who'), info_path(:page_name => 'whoweare') %></li>
+      <li><%= link_to t('.privacy'), info_path(:page_name => 'privacy') %></li>
+      <li><%= link_to t('.conditions'), info_path(:page_name => 'conditions') %></li>
+    </ul>
   </div>
 </div>
-
+   <!--   ==============   END FOOTER   ==============   -->
+ <% if current_customer %>
 <!-- Google Code for Clients &lt;30 days Remarketing List -->
 <script type="text/javascript">
 /* <![CDATA[ */

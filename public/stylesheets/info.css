@@ -1,7 +1,5 @@
 @charset "UTF-8";
 /* CSS Document */
-@charset "UTF-8";
-/* CSS Document */
 
 #header #logout {
 display:block;
@@ -71,13 +69,6 @@ text-decoration:none;
 }
 .quality {
 padding-left: 112px;
-}
-#wrap {
-background:url("../images/content-bg.png") repeat-y scroll 0 0 transparent;
-margin:0 auto;
-padding:0 8px 10px;
-text-align:left;
-width:970px;
 }
 #top_box {
 background:url("../images/vod_connect.jpg") no-repeat scroll 0 0 #FFFFFF;
@@ -611,7 +602,7 @@ body#ipad {
 	display: block;
 	height: 168px;
 	left: 100%;
-	margin: 3px 0 0 -159px;
+	margin: -1px 0 0 -170px;
 	position: absolute;
 	top: 0;
 	width: 170px;
@@ -666,4 +657,128 @@ body#ipad {
 }
 .facebookbox ul {
 	padding-top:10px;
+}
+
+#dvd-intro #col1 p {
+    background: url("../images/orange_little_cross.png") no-repeat scroll 0 0 transparent;
+    padding-left: 30px;
+}
+
+
+#faqdvd-intro-wrap h2 {
+    color: #ff5a00;
+    font-size: 27px;
+    padding-top: 14px;
+    text-transform: uppercase;
+}
+
+
+#faqdvd-intro-wrap h2 span {
+    color: #191E23;
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+
+#faqdvd-intro-wrap h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+
+#dvd-info-wrap h3 {
+    height: 16px;
+    text-transform: uppercase;
+}
+
+
+#dvd-plus p {
+    background: url("../images/orange_big_cross.png") no-repeat scroll 0 0 transparent;
+    height: 28px;
+    line-height: 30px;
+    padding-left: 36px;
+}
+
+#faq-content-wrap {
+    padding: 30px 20px 30px 30px;
+}
+#faq-content-wrap {
+    color: #191E24;
+    text-shadow: none;
+}
+
+
+#faq-content-wrap #faqdvd_intro .cols {
+    float: left;
+    font-size: 14px;
+    margin-right: 63px;
+    padding-bottom: 30px;
+    width: 240px;
+}
+
+#faqdvd_intro h4 {
+    border-bottom: 1px solid #000000;
+    color: #36404E;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+#prices .title_pricing{
+    color: #212A31;
+    font-size: 20px;
+    line-height: 1;
+   
+	font-family:'Open Sans Condensed',sans-serif;
+	
+}
+
+#prices .month{
+    color: #212A31;
+    font-size: 16px;
+   
+	font-family:'Open Sans Condensed',sans-serif;
+	  font-weight: normal;
+}
+
+.abo {
+    color: #212A31;
+    font-size: 16px;
+    line-height: 1;
+
+	  font-weight: normal;
+	
+	height: 46px;
+	
+	 background: url(../images/bg_prices.png) repeat-x scroll 0 0 transparent; 
+}
+
+
+#prices h2 {
+ background: none repeat scroll 0 0 #FFFFFF;
+ font-size: 45px;
+ padding: 0 20px;
+ text-align: left;
+ font-family:'Open Sans Condensed',sans-serif;
+ font-weight: normal;
+}
+
+
+.prices-container {
+  background: url("../images/formats-bg.gif") repeat-x scroll 0 0 #C3D1DB;
+	padding-top: 30px;
+	padding-bottom:30px;
+	border-bottom: 1px solid #B7BDC1;
+	border-top: 1px solid #9EABB5;
+}
+
+
+.description {
+padding-left:20px;
+padding-right:20px;
+
+}
+
+.films {
+text-align:center;
+padding-left:20px;
 }

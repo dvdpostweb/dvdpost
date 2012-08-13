@@ -61,7 +61,7 @@ module HomeHelper
       when 'SHOP'
         shop_path()
       when 'URL'
-        eval(t(".url_#{carousel.id}"))
+        eval(t("home.index.carousel_item.url_#{carousel.id}"))
       end
   end
 

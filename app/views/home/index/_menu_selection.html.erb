@@ -1,7 +1,13 @@
-<ul class="content-tabs">
+<ul class="etabs osc content-tabs">
   <% if streaming_access? %>
-    <li><a href="<%= root_path(:selection_kind => :vod) %>" class="vod <%= params[:selection_kind].nil? || params[:selection_kind] == 'vod' ? 'active' : '' %>"><%= t '.vod'%></a></li>
+  <li class="tab">
+    <%= link_to t('.vod'), root_path(:selection_kind => :vod), :class => params[:selection_kind].nil? || params[:selection_kind] == 'vod' ? 'active' : '' %>
+  </li>
   <% end %>
-  <li><a href="<%= root_path(:selection_kind => :dvd) %>" class="<%= params[:selection_kind] == 'dvd' ? 'active' : '' %>"><%= t '.dvd' %></a></li>
-  <li><a href="<%= root_path(:selection_kind => :bluray) %>" class="br <%= params[:selection_kind] == 'bluray' ? 'active' : '' %>"><%= t '.bluray' %></a></li>
+  <li class="tab">
+    <%= link_to t('.dvd'), root_path(:selection_kind => :dvd), :class =>  params[:selection_kind] == 'dvd' ? 'active' : '' %>
+  </li>
+  <li class="tab">
+    <%= link_to t('.bluray'), root_path(:selection_kind => :bluray), :class =>  params[:selection_kind] == 'bluray' ? 'active' : '' %>
+  </li>
 </ul>

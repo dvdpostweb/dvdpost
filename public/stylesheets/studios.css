@@ -1,0 +1,102 @@
+#maincontent h2.ttl {
+  padding: 0 20px;
+  background: white;
+  font-size: 45px;
+}
+
+#maincontent {
+  float: right;
+}
+.container
+{
+  background: #C3D1DB url(../images/lc-bg.gif) 0 0 repeat-y;  
+}
+.osc, h1, h2, h3, h4, h5 {
+font-family: 'Open Sans Condensed', sans-serif !important;
+}
+.center .studios
+{
+  float: left;
+  background: white;
+  width: 190px;
+  height: 158px;
+  margin: 10px 10px 0 0;
+  padding: 13px 0px 13px 26px;
+}
+.center
+{
+  margin:0 0 10px 10px;
+}
+.distributors{
+  display:block;
+  width: 162px;
+  height:100px;
+  overflow:hidden;
+  margin: 10px 0 ;
+  border: 1px solid #9EABB5;
+}
+.distributors img:hover{
+  position: relative;
+  top: -100px;
+}
+.name
+{
+  font-size:18px;
+}
+.center .more
+{
+  text-align:right;
+  width:164px;
+  display:block;
+}
+p#letters {
+  text-align: center;
+  font-size: 1.2em;
+  color: #999999;
+  font-weight: bold;
+}
+ul#search-studio{
+  list-style: none;
+  padding-top: 15px;
+  margin:0 -5px 0 0;
+}
+ul#search-studio li {
+width: 150px;
+padding-left: 50px;
+position: relative;
+margin: 0 5px 5px 0;
+display: inline-block;
+vertical-align: top;
+min-height: 260px;
+zoom: 1;
+}
+ul#search-studio li .letter {
+width: 45px;
+position: absolute;
+top: 0;
+left: 0;
+font-weight: bold;
+font-size: 2.50em;
+text-align: right;
+color: black;
+line-height: 19px;
+}
+ul#search-studio li li, ul#search-performers li li {
+margin: 0 0 5px 0;
+min-height: 0 !important;
+padding: 0;
+line-height: normal;
+}
+#options a:hover, #options a.active, p#letters a:hover, ul#search-studio li li a:hover, ul#search-performers li li a:hover, p#filter a:hover, p#filter a.active {
+color: #E2007C;
+}
+
+#options a, p#letters a, ul#search-studio li li a, ul#search-performers li li a, p#filter a {
+text-decoration: none;
+}
+ul#search-studio li a.more, ul#search-performers a.more {
+padding-left: 16px;
+background: url(../images/link-arrow.gif) 0 0 no-repeat;
+display: block;
+clear: both;
+}

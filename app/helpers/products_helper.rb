@@ -11,32 +11,32 @@ module ProductsHelper
     end
   end
 
-  def audio_bubbles(product, additional_bubble = 0)
+  def audio_bubbles(product, additional_bubble = 0, content = :li)
     audio_count=0
-    total_bubble = 5 + additional_bubble 
+    total_bubble = 3 + additional_bubble 
     preferred_audio = product.languages.preferred
     audio = Array.new
     unless preferred_audio.count == 0
       audio = preferred_audio.collect{|language| 
         audio_count +=1
-        content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+        content_tag(content, language.short.upcase, :class => "left red osc", :alt => language.name, :title => language.name)
       }
     end
-    
+  
     not_preferred_audio = product.languages.not_preferred
     unless not_preferred_audio.count == 0
       audio << not_preferred_audio.collect{|language| 
         audio_count +=1
         display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
-          content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)} #{display}", :alt => language.name, :title => language.name)
+          content_tag(content, language.short.upcase, :class => "left red osc #{display}", :alt => language.name, :title => language.name)
         else
-          content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text #{display}")
+          content_tag(content, language.name,:class => "#{language.class.name.underscore}_text #{display}")
         end
       }
     end
     if audio_count > total_bubble
-      audio << content_tag(:div, '', :class => "audio_more")
+      audio << content_tag(content, '', :class => "audio_more")
       hide = true
     else
       hide = false
@@ -45,15 +45,15 @@ module ProductsHelper
   end
   
 
-  def subtitle_bubbles(product, additional_bubble)
+  def subtitle_bubbles(product, additional_bubble, content = :li)
     subtitle_count=0
-    total_bubble = 5 + additional_bubble 
+    total_bubble = 3 + additional_bubble 
     preferred_subtitle = product.subtitles.preferred
     sub = Array.new
     unless preferred_subtitle.count == 0
       sub = preferred_subtitle.preferred.collect{|subtitle| 
         subtitle_count += 1
-        content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
+        content_tag(content, subtitle.short.upcase, :class => "left gray osc", :alt => subtitle.name, :title => subtitle.name)
       }
     end
     if subtitle_count < total_bubble
@@ -69,14 +69,14 @@ module ProductsHelper
             else
               class_undertitle = class_bubble(subtitle.short, :classic)
             end
-            content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_undertitle} #{display}", :alt => subtitle.name, :title => subtitle.name)
+            content_tag(content, subtitle.short.upcase, :class => "left gray osc #{display} #{class_undertitle}", :alt => subtitle.name, :title => subtitle.name)
           else
-            content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
+            content_tag(content, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
           end
         }
       end
       if subtitle_count > total_bubble
-        sub << content_tag(:div, '', :class => "subtitle_more")
+        sub << content_tag(content, '', :class => "subtitle_more")
         hide = true
       else
         hide = false
@@ -122,13 +122,13 @@ module ProductsHelper
     5.times do |i|
       i += 1
       image_name = if rating >= 2
-        "star-on-review.png"
+        "star-on.png"
       elsif rating == 1
-        "star-half-review.png"
+        "star-half.png"
       else
-        "star-off-review.png"
+        "star-off.png"
       end
-      links << image_tag(image_name, :name => image_name)
+      links << image_tag(image_name, :name => image_name, :size => '12x12')
       rating -= 2
     end
     links
@@ -148,42 +148,43 @@ module ProductsHelper
        name = 'star'
        class_name = ''
     end
-    if size == 'small' || size == :small
-      name = "small-#{name}"
+
+    image_name = if rating >= 2
+      "#{name}-on.png"
+    elsif rating == 1
+      "#{name}-half.png"
     else
-      if background == :black
-        name = "black-#{name}" 
-      end
+      "#{name}-off.png"
     end
-    if background == :pink
-      name = "pink-#{name}" 
-    end
-    if size == 'small' || size == :small || background == :pink
-      image_name = if rating >= 2
-        "#{name}-on.png"
-      elsif rating == 1
-        "#{name}-half.png"
-      else
-        "#{name}-off.png"
-      end
-    else
-      image_name = if rating >= 2
-        "#{name}-on.jpg"
-      elsif rating == 1
-        "#{name}-half.jpg"
-      else
-        "#{name}-off.jpg"
-      end
-    end
+    s = size == :long || size == 'long' ? '19x19' : '12x12'
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => s)
+    
     if current_customer && class_name == 'star'
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name)
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
     else
-      image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name)
-      
+      image
     end
   end
-
+  def available_on_other_media_title(product)
+    bluray = product.media_alternative_all(:blueray)
+    bluray3d = product.media_alternative_all(:bluray3d)
+    dvd = product.media_alternative_all(:dvd)
+    vod = product.streaming?
+    content = ''
+    if bluray
+      content << "#{t('products.index.filters.bluray')}<br />"
+    end
+    if bluray3d
+      content << "#{t('products.index.filters.bluray3d')}<br />"
+    end
+    if dvd
+      content << "#{t('products.index.filters.dvd')}<br />"
+    end
+    if vod
+      content << "VOD<br />"
+    end
+    content
+  end
   def available_on_other_media(product, recommendation)
     content = ''
     unless product.series?
@@ -283,19 +284,30 @@ module ProductsHelper
   end
 
   def products_index_title
-    title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
-    title = "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
-    title = "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
-    title = t('.recommendation') if params[:view_mode] == 'recommended'
-    title = t('.streaming_title') if params[:view_mode] == 'streaming'
-    title = t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
-    title = t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
-    title = "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
-    title = "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
+    return "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
+    return "#{t '.studio'}: #{Studio.find(params[:studio_id]).name}" if params[:studio_id] && !params[:studio_id].blank?
+    return "#{t ".actor_#{params[:kind]}"}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
+    return t('.cinema') if params[:view_mode] == 'cinema'
+    return t('.recommendation') if params[:view_mode] == 'recommended'
+    return t('.streaming_title') if params[:view_mode] == 'streaming'
+    return t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
+    return t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
+    return t('.most_rent_vod') if params[:sort] == 'token_month' && params[:filter] == 'vod'
+    return t(".index_rating#{params[:filter]}") if params[:sort] == 'rating'
+    return "#{t ".categorie#{params[:filter]}"}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    return "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
+    return "#{t '.search'}: #{params[:search]}" if params[:search]
+    return t(".hearts_vod") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale]))
+    return t(".hearts") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale]))
+    return t(".vod_recent") if params[:view_mode] == 'vod_recent'
+    return t(".recent") if params[:view_mode] == 'recent'
+    return t(".soon") if params[:view_mode] == 'soon'
+    return t(".vod_soon") if params[:view_mode] == 'vod_soon'
+    return t(".most_viewed") if params[:sort] == 'most_viewed'
+    
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
-    title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
-    title = "#{t '.search'}: #{params[:search]}" if params[:search]
-    title
+    return (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
+    return t('products.left_column.all')
   end
 
   def title_add_to_wishlist(type_text, type_button, media = nil)
@@ -374,7 +386,7 @@ module ProductsHelper
         name = lang.name
         if !country.include?(short)
           country << short
-          content_tag(:div, short.upcase, :class => "language  #{class_bubble(name)}", :alt => name, :title => name) 
+          content_tag(:li, short.upcase, :class => "left red osc", :alt => name, :title => name) 
         end
       end
     }
@@ -384,7 +396,7 @@ module ProductsHelper
   def streaming_subtitle_bublles(product)
     content=[]
     country=[]
-    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect{
+    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect {
     |product|
       if product.subtitle.by_language(I18n.locale).first && product.subtitle.by_language(I18n.locale).first.short
         lang = product.subtitle.by_language(I18n.locale).first
@@ -399,7 +411,7 @@ module ProductsHelper
           else
             class_undertitle = class_bubble(short, :classic)
           end
-          content_tag(:div, short.upcase, :class => "subtitle #{class_undertitle}", :alt => name, :title => name)
+          content_tag(:li, short.upcase, :class => "left gray osc #{class_undertitle}", :alt => name, :title => name)
         end
       end
     }
@@ -412,7 +424,7 @@ module ProductsHelper
     else
       audio_bubble = audio_bubbles(product, 0)
       subtitle_bubble = subtitle_bubbles(product, 0)
-      separator = (audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
+      separator = '' #(audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
       "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
     end
   end
@@ -420,10 +432,21 @@ module ProductsHelper
   def product_review_stars(review, kind)
     images = ""
     review.rating.times do
-      images += image_tag "star-on-review.png"
+      images += image_tag "star-on.png", :size => '13x13'
     end
       (5-review.rating).times do
-      images += image_tag "star-off-review.png"
+      images += image_tag "star-off.png", :size => '13x13'
+    end
+    images
+  end
+
+  def green_stars(rating)
+    images = ""
+    rating.times do
+      images += image_tag "green-star-on.png", :size => '21x20'
+    end
+      (5-rating).times do
+      images += image_tag "green-star-off.png", :size => '21x20'
     end
     images
   end
@@ -549,5 +572,16 @@ module ProductsHelper
     end
     str
   end
-  
+
+  def category(product, cat)
+    if cat
+      cat.name
+    else
+      if product.adult?  
+        product.categories.first.name unless product.categories.empty?
+      else
+        product.categories.active.first.name unless product.categories.active.empty?
+      end
+    end
+  end
 end

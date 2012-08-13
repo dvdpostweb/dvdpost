@@ -2,34 +2,34 @@ case DVDPost.home_review_types[@review_kind]
   when DVDPost.home_review_types[:best_customer]
     if @precision == 'all'
       page["#period-position a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
-      content ="<ul class='clearfix content_item_all' style='display:none'>#{render :partial => '/home/index/best_customer_item_all', :collection => @data}</ul></ul>"
-      page[".tab-content .content_item_all:last"].after(content)
-      page[".tab-content .content_item_all:last"].slideDown(1000)
+      content ="<ul class='clearfix content_item_all comm-reaction' style='display:none'>#{render :partial => '/home/index/best_customer_item_all', :collection => @data}</ul></ul>"
+      page["#review_tab .content_item_all:last"].after(content)
+      page["#review_tab .content_item_all:last"].slideDown(1000)
     else
       page["#weekly-position a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
       
-      content ="<ul class='clearfix content_item_month' style='display:none'>#{render :partial => '/home/index/best_customer_item_month', :collection => @data}</ul></ul>"
-      page[".tab-content .content_item_month:last"].after(content)
-      page[".tab-content .content_item_month:last"].slideDown(1000)
+      content ="<ul class='clearfix content_item_month comm-reaction' style='display:none'>#{render :partial => '/home/index/best_customer_item_month', :collection => @data}</ul></ul>"
+      page["#review_tab .content_item_month:last"].after(content)
+      page["#review_tab .content_item_month:last"].slideDown(1000)
     end
     
   when DVDPost.home_review_types[:best_review]
-    page[".tab-content a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
-    content ="<ul class='clearfix content_item'    style='display:none'>#{render :partial => '/home/index/coeur_item', :collection => @data}</ul></ul>"
-    page[".tab-content .content_item:last"].after(content)
-    page[".tab-content .content_item:last"].slideDown(1000)
+    page["#review_tab  a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
+    content ="<ul id='coeur' class='comm-reaction' style='display:none'>#{render :partial => '/home/index/coeur_item', :collection => @data}</ul></ul>"
+    page["#review_tab .comm-reaction:last"].after(content)
+    page["#review_tab .comm-reaction:last"].slideDown(1000)
     
   when DVDPost.home_review_types[:controverse_rate]
-    page[".tab-content a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
+    page["#review_tab a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
     content ="<ul class='clearfix content_item'    style='display:none'>#{render :partial => '/home/index/controverse_item', :collection => @data}</ul></ul>"
-    page[".tab-content .content_item:last"].after(content)
-    page[".tab-content .content_item:last"].slideDown(1000)
+    page["#review_tab .content_item:last"].after(content)
+    page["#review_tab .content_item:last"].slideDown(1000)
     
   else
-    page[".tab-content a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
-    content ="<ul class='clearfix content_item'    style='display:none'>#{render :partial => '/home/index/best_item', :collection => @data}</ul></ul>"
-    page[".tab-content .content_item:last"].after(content)
-    page[".tab-content .content_item:last"].slideDown(1000)
+    page["#review_tab a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
+    content ="<ul id='films-preferes-content' class='comm-reaction' style='display:none'>#{render :partial => '/home/index/best_item', :collection => @data}</ul>"
+    page["#review_tab .comm-reaction:last"].after(content)
+    page["#review_tab .comm-reaction:last"].slideDown(1000)
     
 end
 

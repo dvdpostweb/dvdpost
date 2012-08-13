@@ -1203,3 +1203,8 @@ font-size: 12px;
     margin: 0 11px 80px 0;
 
 }
+.tooltip_items
+{
+top: -20px;
+right: -322px;
+}

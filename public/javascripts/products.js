@@ -12,6 +12,11 @@ $(function() {
      {
        $('#trailer_mask').show()
      }
+     else
+     {
+       $('#thumbs-wrap').hide()
+     }
+     
   }
   img.src = $('#image_5').attr('src');
   }
@@ -50,7 +55,7 @@ $(function() {
     html_item = $(this);
     content = html_item.html();
     html_item.html("Loading...");
-    root_item = html_item.parent().parent();
+    root_item = html_item.parent().parent().parent();
     $.ajax({
       url: html_item.attr('href'),
       type: 'GET',
@@ -73,7 +78,7 @@ $(function() {
     if ($(this).attr('src').match(/black-star-/i)){
       loader = 'black-'+loader;
     }
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<div style='height:19px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: url,
       type: 'POST',
@@ -108,21 +113,6 @@ $(function() {
     rating_value = data[1];
 
     image = 'star-voted-';
-    if ($(this).attr('src').match(/black-star-(on|half|off)/i)){
-      image = 'black-'+image;
-    }
-    if ($(this).attr('src').match(/small-star-(on|half|off)/i)){
-      image = 'small-'+image;
-      ext = 'png'
-    }
-    else
-    {
-      ext = 'jpg'
-    }
-    if ($(this).attr('src').match(/pink/i)){
-       image = 'pink-'+image;
-       ext = 'png'
-    }
     for(var i=1; i<=5; i++)
     {
       if(i <= rating_value){
@@ -130,7 +120,7 @@ $(function() {
       }else{
         full_image = image+'off';
       }
-      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.'+ext);
+      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.png?t=1');
     }
   });
 
@@ -175,10 +165,11 @@ $(function() {
     return false;
   });
   
-  $(".action .links a").live("click", function() {
+  $(".links a").live("click", function() {
     html_item = $(this).parent();
     content = html_item.html();
-    html_item.html("Saving...");
+    loader = 'ajax-loader.gif';
+    html_item.html("<div style='height:15px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: this.href,
       type: 'POST',
@@ -214,7 +205,25 @@ $(function() {
     });
     return false;
   });
-
+  $("#c-members #pagination a").live("click", function() {
+    html_item = $(this).parent();
+    content = html_item.html();
+    loader = 'ajax-loader.gif';
+    html_item.html("<div style='height:24px; margin:10px 0 0 0'><img src='/images/"+loader+"'/></div>");
+    $.ajax({
+      url: this.href,
+      dataType: 'script',
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        $('#c-members').html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
 
   $("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
@@ -232,54 +241,55 @@ $(function() {
   });
 
   $('.tabs li').live('click', function(){
-    $('#tab-content-movie').toggle();
-    $('#tab2').toggle();
-    $('#tab1_li').toggleClass('active');
-    $('#tab2_li').toggleClass('active');
+    $("#c-members").toggle();
+    $("#c-nina").toggle();
+    $('#tab1_li a').toggleClass('active');
+    $('#tab2_li a').toggleClass('active');
     return false;
   });
+  if($('#filters').html())
+  {
+    audience_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
+    $("#audience-slider-range").slider({
+      range: true,
+      min: 0,
+      max: 4,
+      values: [audience_slider_values[$("#search_filter_audience_min").val()], audience_slider_values[$("#search_filter_audience_max").val()]],
+      step: 1,
+      slide: function(event, ui) {
+        actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
+        $("#search_filter_audience_min").val(actual_audience_values[ui.values[0]]);
+        $("#search_filter_audience_max").val(actual_audience_values[ui.values[1]]);
+      }
+    });
 
-  audience_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
-  $("#audience-slider-range").slider({
-    range: true,
-    min: 0,
-    max: 4,
-    values: [audience_slider_values[$("#search_filter_audience_min").val()], audience_slider_values[$("#search_filter_audience_max").val()]],
-    step: 1,
-    slide: function(event, ui) {
-      actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
-      $("#search_filter_audience_min").val(actual_audience_values[ui.values[0]]);
-      $("#search_filter_audience_max").val(actual_audience_values[ui.values[1]]);
-    }
-  });
+    year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2020': 8};
+    $("#year-slider-range").slider({
+      range: true,
+      min: 0,
+      max: 8,
+      values: [year_slider_values[$("#search_filter_year_min").val()], year_slider_values[$("#search_filter_year_max").val()]],
+      step: 1,
+      slide: function(event, ui) {
+        actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
+        $("#search_filter_year_min").val(actual_year_values[ui.values[0]]);
+        $("#search_filter_year_max").val(actual_year_values[ui.values[1]]);
+      }
+    });
 
-  year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2020': 8};
-  $("#year-slider-range").slider({
-    range: true,
-    min: 0,
-    max: 8,
-    values: [year_slider_values[$("#search_filter_year_min").val()], year_slider_values[$("#search_filter_year_max").val()]],
-    step: 1,
-    slide: function(event, ui) {
-      actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
-      $("#search_filter_year_min").val(actual_year_values[ui.values[0]]);
-      $("#search_filter_year_max").val(actual_year_values[ui.values[1]]);
-    }
-  });
-
-  $("#ratings-slider-range").slider({
-    range: true,
-    min: 0,
-    max: 5,
-    values: [$("#search_filter_rating_min").val(),$("#search_filter_rating_max").val()],
-    step: 1,
-    slide: function(event, ui) {
-      $("#search_filter_rating_min").val(ui.values[0]);
-      $("#search_filter_rating_max").val(ui.values[1]);
-    }
-  });
-
-  $('#carousel-wrap #carousel #next,#carousel-wrap #carousel .next_page').live('click',function(){
+    $("#ratings-slider-range").slider({
+      range: true,
+      min: 0,
+      max: 5,
+      values: [$("#search_filter_rating_min").val(),$("#search_filter_rating_max").val()],
+      step: 1,
+      slide: function(event, ui) {
+        $("#search_filter_rating_min").val(ui.values[0]);
+        $("#search_filter_rating_max").val(ui.values[1]);
+      }
+    });
+  }
+  $('#carousel-wrap #next,#carousel-wrap .next_page').live('click',function(){
     url = this.href;
     html_item = $('#carousel-wrap');
     content = html_item.html();
@@ -296,7 +306,7 @@ $(function() {
     return false;
   });
   
-  $('#carousel-wrap #carousel #prev,#carousel-wrap #carousel .prev_page').live('click',function(){
+  $('#carousel-wrap #prev,#carousel-wrap .prev_page').live('click',function(){
     url = this.href;
     html_item = $('#carousel-wrap');
     content = html_item.html();
@@ -313,18 +323,6 @@ $(function() {
     return false;
   });
 
-  search_text = $('#search-field').attr('value');
-  $('#search-field').live('focus', function(){
-    if($('#search-field').attr('value') == search_text){
-      $('#search-field').val('');
-    }
-  });
-
-  $('#search-field').live('blur', function(){
-    if($('#search-field').attr('value') == ''){
-      $('#search-field').val(search_text);
-    }
-  });
 
   $('.title-vod a.next_page').live('click',function(){
     url = this.href;
@@ -408,21 +406,27 @@ $(function() {
     return false;
   });
   $(".audio_more").live('click',function(){
-    $(this).parent('.movie-descr').children('.audio_hide').removeClass('audio_hide');
+    $(this).parent('.lang').children('.audio_hide').removeClass('audio_hide');
     $(this).parent('#movie-info').children('.audio_hide').removeClass('audio_hide');
     $(this).hide();
   });
   $(".subtitle_more").live('click',function(){
-    $(this).parent('.movie-descr').children('.subtitle_hide').removeClass('subtitle_hide');
+    $(this).parent('.lang').children('.subtitle_hide').removeClass('subtitle_hide');
     $(this).parent('#movie-info').children('.subtitle_hide').removeClass('subtitle_hide');
     $(this).hide();
   });
   
   var options = {};
-  $('#wishlist_item_submit.item').live("click", function(){
+  $('.new_wishlist_item .item, .new_wishlist_item .serie').live("click", function(){
+    
     loader = 'ajax-loader.gif';
-    $('#add_to_wishlist').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
-    $('form.#new_wishlist_item').ajaxSubmit(options);
+    /*$(this).parent().parent().parent().ajaxSubmit(options);*/
+    if($(this).hasClass('serie'))
+    {
+      $(this).parents('.new_wishlist_item ').children('#all_movies').val(1)
+    }
+    $(this).parents('.new_wishlist_item').ajaxSubmit(options);
+    $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
     return false; // prevent default behaviour
   });
   var options = {};
@@ -431,7 +435,7 @@ $(function() {
     if ($(this).parent().parent().children('#load_color').attr('value') == 'black'){
       loader = 'black-'+loader;
     }
-    $(this).parent().parent().ajaxSubmit(options);
+    $(this).parents('.remvove_from_wishlist_form').ajaxSubmit(options);
     
     $(this).parent().html("<div class='load'><img src='/images/"+loader+"' /></div>")
     return false; // prevent default behaviour
@@ -450,18 +454,11 @@ $(function() {
     $('#attention_bluray').hide();
     return false;
   });
-  if ($('#add').html()!=undefined)
+  if ($('.action_face').html()!=undefined)
   {
     jQuery.facebox(function() {
-      $.getScript($('#add').html(), function(data) {
-        jQuery.facebox(data);
-      });
-    });
-  }
-  if ($('#review').html()!=undefined)
-  {
-    jQuery.facebox(function() {
-      $.getScript($('#review').html(), function(data) {
+      
+      $.getScript($('.action_face').html(), function(data) {
         jQuery.facebox(data);
       });
     });

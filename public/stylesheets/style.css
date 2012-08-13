@@ -4,62 +4,12 @@ developed by Vel
 at http://www.vhg-design.com
 ===============
 */
-a {
-  color: #ac5347;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-html, body {
-  background: url(../images/bg.gif) 0 0 repeat-x;
-  font-size: 62.5%;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-body.halloween
+body
 {
-  background:url("../images/overlay.jpg") no-repeat fixed center 0 #18162e;
-}
-body.xmas
-{
-  background:url("../images/special/magorium.jpg") no-repeat fixed center 0 #e8373d;
-}
-body.darco
-{
-  background:url("../images/special/darko.jpg") no-repeat center 0 #000000;
-}
-body.valentine
-{
-  background:url("../images/special/stvalentin.jpg") no-repeat fixed center 0 #c51e15;
-}
-body.oscar
-{
-  background:url("../images/special/oscar.jpg") no-repeat fixed center 0 #211f20;
-}
-
-img {
-  border: 0px;
-}
-
-body {
-  color: #454545;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2em;
-  text-shadow: 0 0 0 #000;
+  text-shadow: 0 0 0 black;
 }
-
-h1, h2, h3, h4, h5, h6, form, fieldset {
-  margin: 0;
-  padding: 0;
-}
-
-fieldset {
-  border: none;
-}
-
 .left {
   float: left;
   padding-top: 8px;
@@ -80,16 +30,15 @@ fieldset {
   height: 0;
   line-height: 0;
 }
-
+h1, h2, h3, h4, h5 {
+  font-family: Arial,Helvetica,sans-serif;
+}
 #wrap {
-  background: url(../images/content-bg.png) 0 0 repeat-y;
-  margin: 0 auto;
-  padding: 0 8px;
-  text-align: left;
-  width: 970px;
+  background: white;
 }
 
-.container {
+#maincontent {
+  display:block !important;
 }
 
 #twocols-container {
@@ -107,19 +56,6 @@ fieldset {
 
 
 
-/* ============ MAIN CONTENT ============ */
-
-#maincontent {
-  float: right;
-  margin: 23px 26px 16px 0;
-  position: relative;
-  width: 708px;
-  z-index: 1;
-}
-
-* html #maincontent {
-  display: inline;
-}
 
 /* Theme Page */
 
@@ -372,7 +308,7 @@ fieldset {
   vertical-align: middle;
 }
 
-#titles-wrap .action a, #detail-wrap .action li.links a {
+/*#titles-wrap .action a, #detail-wrap .action li.links a {
   color: #352c2c;
   margin: 0 6px;
   text-decoration: underline;
@@ -411,7 +347,7 @@ fieldset {
 
 .adult #titles-wrap .action a.btn:hover {
   background: url(../images/ajouterxbtn.png) 0 -33px no-repeat !important;
-}
+}*/
 #titles-wrap .action a.streaming_btn, .content a.streaming_btn {
     background: url("../images/vodbtn.png") no-repeat scroll 0 2px transparent;
     color: white;
@@ -689,11 +625,14 @@ a#next10 {
   background: url(../images/content-bg-wishlist.gif) 0 0 repeat-y;
   float: none;
   margin: 24px 0 24px 24px !important;
-  padding: 25px 0 18px 15px;
+  padding: 25px 15px 18px 15px;
   position: relative;
-  width: 922px;
+  width: 907px;
 }
-
+#info #maincontent
+{
+  background: none;
+}
 * html #one-col #maincontent {
   display: block;
 }
@@ -728,6 +667,10 @@ a#next10 {
   left: 0;
   position: absolute;
   width: 922px;
+}
+#info #maincontent .top, #info #maincontent .end
+{
+  background-image:none;
 }
 
 * html #maincontent .top, * html #maincontent .end {
@@ -2968,87 +2911,6 @@ div.top10.first p a {
 
 
 
-/* Filters */
-
-.f-btn {
-  display: block;
-  text-indent: -999em;
-  outline: none;
-}
-#filters h3 {
-  background: url(../images/filters-ttl-bg.gif) 0 0 no-repeat;
-  color: white;
-  font-size: 1.08em;
-  height: 24px;
-  line-height: 24px;
-  padding: 0 1px;
-  text-align: center;
-}
-
-#filters ul {
-  background: url(../images/subnav-bg.png) bottom no-repeat;
-  padding: 4px 1px 5px;
-  width: 180px;
-}
-
-#filters li {
-  background: url(../images/filters-li-bg.jpg) 0 0 no-repeat;
-  margin-bottom: 4px;
-}
-
-#filters li a {
-  background: url(../images/filters-arrows.gif) 11px 6px no-repeat;
-  color: #5c6377;
-  display: block;
-  font-size: 1.17em;
-  font-weight: bold;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 30px;
-  text-decoration: none;
-}
-
-#filters li.open a {
-  background: url(../images/filters-arrows.gif) 11px -22px no-repeat;
-}
-
-#filters li label {
-  color: #5c6377;
-  cursor: pointer;
-  display: block;
-  padding: 0 0 0 12px;
-}
-
-#filters li label:hover {
-  background: #fafafa;
-}
-
-#filters li label input {
-  vertical-align: middle;
-}
-
-#filters li.li_submit {
-  background: #fff;
-}
-
-#filters .submit {
-  cursor: pointer;
-  border-style: hidden;
-  display: block;
-  color: white;
-  height: 25px;
-  margin: 0 0 0 40px;
-  width: 91px;
-  background: url(../images/search_filtres.png) no-repeat scroll 0 -6px transparent;
-  text-shadow: 1px 1px 1px #999999;
-  font-size: 1em;
-}
-
-#filters .submit:hover {
-  background-position: 0 -37px;
-}
-
-
 
 /* --------- Float containers fix --------- */
 
@@ -3993,7 +3855,7 @@ width:62px;
 }
 #titles-wrap.reviews
 {
-  margin :25px 0 0 25px ;
+  margin :18px 0 0 25px ;
 }
 
 #titles-wrap.reviews .movie-descr p {
@@ -4116,6 +3978,7 @@ position:relative !important;
 #promo_area2
 {
   text-align:center;
+  margin: 15px 0;
 }
 .txt_left {
     float: left;
@@ -4547,7 +4410,7 @@ overflow: hidden;
 width: 100%;
 text-align: center;
 line-height: normal;
-height: 15px;
+height: 20px;
 min-height: 15px;
 float: none;
 margin: 8px 0 4px;
@@ -4785,17 +4648,11 @@ background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transpare
   font-size: 1.3em;
   margin: 6px;
 }
-.distributors{
-  display:block;
-  width: 162px;
-  height:100px;
-  overflow:hidden;
-}
-.distributors img:hover{
-  position: relative;
-  top: -100px;
-}
 #search_content h2
 {
   padding: 0 0 0 16px;
+}
+
+#mywhishlist a.regarder {
+display:inline-block !important;
 }

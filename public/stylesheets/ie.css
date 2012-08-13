@@ -1,0 +1,37 @@
+#wrap, #fb-wrap .btn, .comm-reaction .status, #pagination a, #pagination a:hover, #pagination a.active, .jc .vod, .jc .dvd,
+.panel-container .thumb, #film-img-wrap, #film-img-wrap img, .jc .vod img, .jc .dvd img, #critics-wrap .panel-container .thumb img {
+  behavior: url(css/PIE.htc);
+  position: relative;
+}
+.rc-thumbs li {
+   width: 51px;
+}
+#sub-footer li {
+  width: 223px;
+}
+#film-img-wrap {
+  width: 241px;
+}
+#film-img-wrap img, .jc .vod img, .jc .dvd img {
+  border-radius: 6px 6px 0 0;
+}
+*+html .jc .vod img, *+html .jc .dvd img {
+border-radius: 0;
+}
+
+
+#critics-wrap .panel-container .thumb {
+  width: 141px;
+}
+#critics-wrap .panel-container .thumb img {
+  border-radius: 10px;
+}
+
+#votes div img {
+  margin-left: 5px;
+}
+
+*+html #leftcolumn .nav {
+  position: relative;
+}
+

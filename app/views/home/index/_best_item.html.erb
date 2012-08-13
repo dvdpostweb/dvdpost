@@ -2,21 +2,18 @@
 <% if product %>
   <% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
   <% product_title = product.title %>
+
   <li>
-    <h2><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h2>
-    <div class="content"> 
-      <%= review_image_links((best_item.average*2).round) %> 
-    <div class="average_review">(<%= best_item.average %> <%= t('.avg') %>)</div>
-    <div><span class="month_review"><%= best_item.count %> <%= rating_title(best_item.count) %></span> <br /><%= t('.avg_month') %>
-    </div>
-    <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
-    </div>
-    <div class="thumb"> 
-      <%= link_to product_image_tag(product.image, :width => 76, :height => 116, :alt => "#{product_title} (#{product.year})"), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
-      <div class="stat-wrap">
-        <h4><%= best_item.rank %></h4>
-        <%= new_position(best_item) %>
-      </div> 
+    <h3><%= link_to truncate(product_title, :length => 30), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %></h3>
+    <div class="status osc"><span><%= new_position(best_item) %></span> <%= best_item.rank %></div>
+  	<%= link_to product_image_tag(product.image, :width => 76, :height => 114, :alt => "#{product_title} (#{product.year})", :class => :thumb), product_path(:id => product.to_param, :source => @wishlist_source[:best_reviews]) %>
+    <div class="wrap">
+   	  <div class="vote">
+        <%= review_image_links((best_item.average*2).round) %>
+      </div>
+      <h4><%= best_item.count %> <%= rating_title(best_item.count) %></h4>
+      <%= t('.avg_month') %>
+      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
     </div>
   </li>
 <% end %>

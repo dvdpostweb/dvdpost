@@ -3,7 +3,7 @@
   <div class="title" >
     <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param) %>
   </div>
-  <% unless wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
+  <% unless params[:kind] == :adult || wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
     <div  class="tooltips_item warm" id="product_<%= wishlist_item.product.to_param %>">
       <%= image_tag "alert-icon.png" %>
     </div>
@@ -16,8 +16,7 @@
   <% end %>
   <% if wishlist_item.product.streaming? and streaming_access? %>  
     <div class="availability streaming">
-        <% @token = current_customer.get_token(wishlist_item.product.imdb_id) %>
-        <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product, :token => @token} %>
+        <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product} %>
     </div>
   <% else %>  
     <div class="availability">

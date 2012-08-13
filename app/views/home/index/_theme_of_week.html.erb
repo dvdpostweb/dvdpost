@@ -1,8 +1,6 @@
+<% path = get_path(theme) %>
 <div id="week-theme">
-  <div class="caption maven"> <%= t '.title' unless theme.url %>
-    <% path = get_path(theme) %>
-    <h3><%= link_to t(".event_name_#{theme.id}"), path, :style => "color: #{theme.color_hp}" %></h3>
-    <%= link_to t('.see'), path %>
-  </div>
-  <%= link_to image_tag(theme.image_home_page), path %>
+	<h3><%= t '.title'  unless theme.url %></h3>
+	<%= link_to image_tag(theme.image_home_page, :size => "267x121"), path, :alt => t('.title') %>
+	<%= link_to t('.see').upcase, path, :class => :osc %>
 </div>

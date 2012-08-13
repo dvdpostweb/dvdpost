@@ -27,6 +27,7 @@ class Product < ActiveRecord::Base
   belongs_to :studio, :foreign_key => :products_studio
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
+  belongs_to :serie, :foreign_key => :products_series_id
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
   has_many :ratings, :foreign_key => :products_id
@@ -57,7 +58,10 @@ class Product < ActiveRecord::Base
   named_scope :by_imdb_ids, lambda {|imdb| {:conditions => ["imdb_id in (#{imdb})"]}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'products_id desc'
+  named_scope :ordered_media, :order => 'products_media desc'
   named_scope :group_by_imdb, :group => 'imdb_id'
+  named_scope :group_by_serie, :group => 'products_series_id'
+  
   define_index do
     indexes products_media
     indexes products_type
@@ -213,6 +217,7 @@ class Product < ActiveRecord::Base
      sort.push(:most_viewed, 'most_viewed')
      sort.push(:most_viewed_last_year, 'most_viewed_last_year')
      sort.push(:new, 'new')
+     sort.push(:production_year, 'production_year')
      
      sort
   end
@@ -517,8 +522,8 @@ class Product < ActiveRecord::Base
 
   def rating(customer=nil)
     if customer && customer.has_rated?(self)
-      if imdb_id > 0 && rate = ratings_imdb.by_customer(customer).first
-        rate.value.to_i * 2
+      if imdb_id > 0 && rating = ratings_imdb.by_customer(customer).first
+        rating.value.to_i * 2
       else
         ratings.by_customer(customer).first.value.to_i * 2
       end
@@ -619,6 +624,12 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def media_alternative_all(media)
+    if imdb_id > 0
+      self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).limit(1).first
+    end
+  end
+
   def self.sort_by(default, options={})
     if options[:sort]
       type =
@@ -628,6 +639,8 @@ class Product < ActiveRecord::Base
         "descriptions_title_#{I18n.locale} desc"
       elsif options[:sort] == 'rating'
         "rating desc, in_stock DESC"
+      elsif options[:sort] == 'production_year'
+        "year desc, in_stock DESC"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'

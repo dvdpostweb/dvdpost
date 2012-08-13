@@ -12,7 +12,7 @@
       <% if filter.audience? && params[:kind] == :normal %>
         <li>
           <strong><%= t 'products.index.public' %></strong>
-          <%= "de #{filter.audience_min} à #{filter.audience_max}" %>
+          <%= "#{t '.from'} #{filter.audience_min} #{t '.to'} #{filter.audience_max}" %>
         </li>
       <% end %>
       <% if filter.country_id? %>
@@ -24,13 +24,13 @@
       <% if filter.year? %>
         <li>
           <strong><%= t 'products.index.year' %></strong>
-          <%= "de #{filter.year_min} à #{filter.year_max}" %>
+          <%= "#{t '.from'} #{filter.year_min} #{t '.to'} #{filter.year_max}" %>
         </li>
       <% end %>
       <% if filter.rating? %>
         <li>
           <strong><%= t 'products.index.ratings' %></strong>
-          <%= "de #{filter.rating_min} à #{filter.rating_max}" %>
+          <%= "#{t '.from'} #{filter.rating_min} #{t '.to'} #{filter.rating_max}" %>
         </li>
       <% end %>
       <% if filter.dvdpost_choice? %>

@@ -1,5 +1,6 @@
 class WishlistItemsController < ApplicationController
   def index
+    @tokens = current_customer.get_all_tokens_id(params[:kind])
     kind = params[:kind] || :normal
     @vod_count = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available = 1 and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]]}]).count
     @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
@@ -38,11 +39,18 @@ class WishlistItemsController < ApplicationController
   end
 
   def new
-    product = Product.both_available.find(params[:product_id])
+    @product = Product.both_available.find(params[:product_id])
+    if @product.imdb_id > 0 && (@product.products_series_id == 0 || @product.serie.saga?)
+      @products = Product.both_available.ordered_media.find_all_by_imdb_id(@product.imdb_id)
+    else
+      @products = Product.both_available.find_all_by_products_id(params[:product_id])
+    end
+    @tokens = current_customer.get_all_tokens_id(params[:kind], @product.imdb_id)
+    
     @submit_id = params[:submit_id]
     @text = params[:text]
     
-    @wishlist_item = product.wishlist_items.build
+    @wishlist_item = WishlistItem.new
     render :layout => false
   end
 
@@ -63,7 +71,7 @@ class WishlistItemsController < ApplicationController
     end
     
     begin
-      if params[:add_all_from_series]
+      if params[:add_all_from_series] || (params[:all_movies] && params[:all_movies].to_i == 1)
         product = Product.both_available.find(params[:wishlist_item][:product_id])
         good = product.good_language?(DVDPost.product_languages[I18n.locale])
         if good
@@ -163,6 +171,7 @@ class WishlistItemsController < ApplicationController
             @form_id = params[:form_id]
             
             @load_color = params[:load_color].to_sym if params[:load_color]
+            flash[:notice] = t('wishlist_items.index.product_remove', :title => @wishlist_item.product.title)
           elsif params[:list]  && params[:list].to_i == 2
             @type = 'wishlist'
             @div = params[:div]

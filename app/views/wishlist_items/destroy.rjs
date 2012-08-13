@@ -1,5 +1,21 @@
 if @type == 'list'
-  page["##{@form_id}"].replaceWith render :partial => 'products/wishlist', :locals => {:product => @product, :text => params[:text].to_sym, :source => @source, :load_color => @load_color}
+  page["body"].trigger('close.facebox')
+  flash.discard
+  if flash[:error]
+    page['.popup .content'].html("<p align='center' id='notice_popup'>#{flash[:error]}</p>")
+  end
+  if flash[:notice]
+    page << "if ($('.notice').length == 0){"
+      page["#wrap"].prepend("<div class='flash_message'><div class='notice'>#{flash[:notice]}</div></div>")
+      page[".notice"].css('height','1px')
+      page[".notice"].css('padding','0')
+      page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
+      
+    page << "}else{"
+      page["#wrap .notice"].html(flash[:notice])
+    page << "}"
+  end
+  
 elsif @type == 'wishlist'
     page["##{@div}"].remove();
 else  

@@ -1,11 +1,12 @@
 <% path = carousel_path(carousel_item) %>
-<% counter = carousel_item_counter %>
-<% link = "<strong>#{t("home.index.carousel_item.link_#{carousel_item.id}")}</strong>" %>
-<div id="slide<%= counter %>" class="slide">
-  <div class="caption">
-    <h2><%= t("home.index.carousel_item_title.title_#{carousel_item.id}") %></h2>
-    <p><%=  t("home.index.carousel_item.name_#{carousel_item.id}") %></p>
-    <%= link_to link, path, :class => "btn#{carousel_item.kind == 'TRAILER' ? ' trailer': ''}" %> 
+<% link = t("home.index.carousel_item.link_#{carousel_item.id}") %>
+<% title = t("home.index.carousel_item_title.title_#{carousel_item.id}") %>
+<% name = t("home.index.carousel_item.name_#{carousel_item.id}") %>
+<li>
+  <div class="caption osc">
+    <h2><%= title %></h2>
+    <p><%= name %></p>
   </div>
-  <%= link_to image_tag(carousel_item.image, :alt => carousel_item.name), path %>
-</div>
+  <%= link_to link, path, :class => "watch-now osc btn#{carousel_item.kind == 'TRAILER' ? ' trailer': ''}" %>
+  <%= image_tag(carousel_item.image, :alt => title, :size => '618x341') %>
+</li>

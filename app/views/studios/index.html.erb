@@ -1,5 +1,10 @@
 <div id="maincontent">
   <% if params[:filter].nil? %>
+    <h2 class="ttl"><%= t('products.left_column.studio') %></h2>
+    <% if params[:kind] == :adult %>
+      <%= render :partial => "/actors/menu_#{params[:kind]}" %>
+    <% end %>
+    
     <p id="letters">
       <% ('a'..'z').each do |l| %>
         <%= link_to l.upcase, studios_path(:letter => l) %> |
@@ -17,12 +22,16 @@
     <% end %>
     </ul>
   <% else %>
-    <%= render :partial => '/studios/index/studio_pict', :collection =>  @studios %>
+    <h2 class="ttl"><%= t('.studio_vod') %></h2>
+    <% if params[:kind] == :adult %>
+      <%= render :partial => "/actors/menu_#{params[:kind]}" %>
+    <% end %>
+    
+    <div class='center'>
+      <%= render :partial => '/studios/index/studio_pict', :collection =>  @studios %>
+      <div class="clearfix"></div>
+    </div>
   <% end %>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
-<% if params[:kind] == :normal %>
-  <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
-<% else %>
-  <%= render :partial => 'products/left_column_adult', :locals => {:filter => @filter} %>
-<% end %>
+<%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>

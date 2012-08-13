@@ -50,9 +50,9 @@ margin-left:20px;
 }
 
 .collection {
-background-color:#191e24;
+background: #c3d1db;
 padding:20px 0 20px 17px;
-width:953px;
+width: 943px;
 margin: 0 0 20px;
 
 
@@ -60,8 +60,9 @@ margin: 0 0 20px;
 
 #collection h2 {
 text-align:left;
-color:#191e24;
-margin:10px;
+padding:10px;
+background: #c3d1db;
+font-family: 'Open Sans Condensed', sans-serif !important;
 
 }
 

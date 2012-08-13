@@ -23,6 +23,11 @@ class InfoController < ApplicationController
       @product4 = Product.find(110312)
     end
 
+    if params[:page_name] == 'price'
+      @showing_abo = 25
+      @list_abo = ProductAbo.get_list(6)
+    end
+
     if params[:page_name] == 'free_movies' || params[:page_name] == 'promotion'
       @theme = ThemesEvent.find(20)
     end

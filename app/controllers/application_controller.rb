@@ -17,13 +17,13 @@ class ApplicationController < ActionController::Base
     before_filter :delegate_locale, :if => :is_it_html?
     before_filter :redirect_for_mobile
     #before_filter :adjust_format_for_mobile
-    before_filter :load_partners, :if => :is_it_html?
+    #before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
     before_filter :set_country, :unless => :is_it_xml?
     before_filter :get_wishlist_source, :unless => :is_it_xml?
     before_filter :last_login, :if => :is_it_html?
-    before_filter :theme_actif, :if => :is_it_html?
+    #before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
     
@@ -93,13 +93,11 @@ class ApplicationController < ActionController::Base
   end
  
   def theme_actif_production
-    @themes = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.limit(2)
-    @theme = ThemesEvent.selected.by_kind(params[:kind]).ordered.first
+    @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.last
   end
 
   def is_special_page?
-    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || request.parameters['controller'] == 'themes_events' || request.parameters['action'] == 'unsubscribe' || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles')
-    return test
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || (request.parameters['controller'] == 'phone_requests') ||  ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles')
   end
 
   def set_locale_from_params

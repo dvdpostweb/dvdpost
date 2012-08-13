@@ -37,7 +37,7 @@ ul#audience_labels li, ul#year_labels li, ul#ratings_labels li {
   background: none;
 }
 ul#audience_labels li {
-  width: 24px;
+  width: 23px;
 }
 ul#duration_labels li {
   width: 22px;
@@ -48,6 +48,6 @@ ul#year_labels li {
   padding: 0;
 }
 ul#ratings_labels li {
-  width: 30px;
+  width: 29px;
   padding: 0;
 }

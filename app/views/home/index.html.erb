@@ -1,49 +1,72 @@
-<!--   ==============   MAIN CONTENT   ==============   -->
-<div id='hp-content'>
-  <% if current_customer.payment_suspended? %>
-    <ul id='suspended'>
-      
-      <li><%= current_customer.suspended_notification %></li>
-    </ul>
-  <% end %>
+<% if ENV['HOST_OK'] == "0" && current_customer && current_customer.payment_suspended? %>
+<div id='p_suspended'>
+  <ul id='suspended'>
+    <li><%= current_customer.suspended_notification %></li>
+  </ul>
+</div>
+<div class="clearfix"></div>
+<% end %>
+  <!--   ==============   Slider   ==============   -->
   <% if params[:kind] == :adult %>
+  <div id='hp-content'>
       <!-- Slider -->
-      <%= render :partial => '/home/index/carousel', :locals => {:carousel => @carousel} %>
+      <%= render :partial => '/home/index/carousel_adult', :locals => {:carousel => @carousel} %>
       <br />
       <!-- BIENVENUE  -->
-      <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+      <% if ENV['HOST_OK'] == "1" %>
+        <%= render :partial => '/home/index/public_info' %>
+        <%= render :partial => 'layouts/call_to_action' %>
+      <% else %>
+        <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+      <% end %>
       <%= render :partial => '/home/index/trailers_week', :locals => {:trailers => @trailers_week}%>
       <!-- selection of the week-->
       <div style='clear:both'></div>
-      <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} if streaming_access? %>
+      <%= render :partial => '/home/index/selection_week_adult', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} if streaming_access? %>
       <!-- Nouveautés  -->
-      <%= render :partial => '/home/index/newsletters', :locals => {:news => @news, :themes => @themes} %>
+      <%= render :partial => '/home/index/newsletters_adult', :locals => {:news => @news, :themes => @themes} %>
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
       <%= render :partial => "/home/index/trailers", :locals => { :products => @trailers } %>
       
       <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>    
       <%= render :partial => '/home/index/banners', :locals => {:banners => @banners} %>
-      <% if @newsletter_x.nil? %>
+      <% if ENV['HOST_OK'] == "0" && @newsletter_x.nil? %>
       <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
     <% end %>
+    </div>
   <% else %>
+  <div id="slider-wrap">
+  <h2><%= t '.home' %></h2>
+  <%= link_to t('.all_products'), products_path(:hp => 1), :id => :browse, :class => :osc %>
     <!-- Tabs rotattor -->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
-    <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme_hp} %>
-    <%= render :partial => '/home/index/newsletters', :locals => {:news => @news, :themes => @themes} %>
-    <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
-    <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection} %>
-    <div id="review_content">
+    </div>
+    <!-- #slider-wrap -->
+    <% if ENV['HOST_OK'] == "1" %>
+      <%= render :partial => '/home/index/public_info' %>
+      <%= render :partial => 'layouts/call_to_action' %>
+    <% else %>
+      <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
+    <% end %>
+    <!--   ==============   MAIN CONTENT   ==============   -->
+    <div id="maincontent" >
+      <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} %>
       <% if DVDPost.home_review_types[@review_kind] == DVDPost.home_review_types[:best_customer] %>
         <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data_all => @data_all, :data_month => @data_month} %>
       <% else %>
         <%= render :partial => 'home/index/reviews', :locals => {:review_kind => @review_kind, :data => @data} %>
       <% end %>
+      <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items, :news_page => @news_page, :news_nb_page => @news_nb_page} %>  
     </div>
+    <% render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
+    <div id="rightcolumn" >
+      <%= render :partial => '/home/index/newsletters', :locals => {:news => @news} %>
+   	  <%= link_to image_tag("#{I18n.locale.to_s}/vod-banner.jpg", :size => "320x254"), streaming_products_faq_path() %>
+   	  <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
+    <!--   ==============   END RIGHT COLUMN   ==============   -->
     
-    <div class="end"></div>
-    <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
-    <%= render :partial => '/home/index/quick_link' %>
+  </div>
+  <%= render :partial => '/home/index/quick_link' %>
     <% end %>
-</div>
+
 <!--   ==============   END MAIN CONTENT   ==============   -->

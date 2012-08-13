@@ -4,7 +4,7 @@
     <% form_for(:vod_wishlist, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete}) do |f| %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
-      <%= submit_tag t('.drop'), :class => 'btn_remove_form streaming_remove_list', :style => 'border:0px;cursor:pointer' %>
+      <%= submit_tag t('.drop'), :class => 'btn_remove_form streaming_remove_list', :id => "add-to-vod", :style => 'border:0px;cursor:pointer' %>
     <% end %>
   <% else %>
     <% form_for :vod_wishlist, :url => vod_wishlists_path() do |f| %>
@@ -12,13 +12,13 @@
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
       <% text = product.vod_next ? t('.reserve') : t('.add')  %>
-      <% class_name = product.vod_next ? 'reserver_btn' : 'streaming_soon_btn'  %>
+      <% class_name = product.vod_next ? 'reserver_btn reserve' : 'streaming_soon_btn'  %>
       
-      <%= submit_tag text, :class => "#{class_name} streaming_add_list", :style => 'border:0px;cursor:pointer' %>
+      <%= submit_tag text, :class => "#{class_name} streaming_add_list", :id => "add-to-vod", :style => 'border:0px;cursor:pointer' %>
     <% end %>
   <% end %>
 </div>
 <% else %>
   <% text = text || :long %>
-  <%= link_to streaming_btn_title(:add, text), php_path('step1.php'), :class => "streaming_btn" %>
+  <%= link_to streaming_btn_title(:add, text), php_path('step1.php'), :class => "streaming_btn", :id => "add-to-vod" %>
 <% end %>

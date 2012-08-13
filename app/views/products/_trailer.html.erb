@@ -43,5 +43,7 @@
 <% else %>
   <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
 <% end %>
-<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => 'trailer_page', :id => 'trailer_pagination' if trailers %>
+<div id='pagination'>
+<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '«', :next_label => '»', :param_name => 'trailer_page', :id => 'trailer_pagination' if trailers %>
+</div>
 </p>

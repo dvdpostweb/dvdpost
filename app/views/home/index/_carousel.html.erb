@@ -1,12 +1,8 @@
-<div id="slider-wrap" class="slider-wrap_<%= params[:kind] %>" <%= ENV['HOST_OK'] == "1" ? 'style="margin:0"': ''%>>
-  <div class="slider slider_<%= params[:kind] %>">
-    <%= render :partial => '/home/index/carousel_item', :collection => carousel %>
-  </div>
-  <ul class="pagination">
-    <li><a href="?link=1" id ="btn_1">1</a></li>
-    <li><a href="?link=2" id ="btn_2">2</a></li>
-    <li><a href="?link=3" id ="btn_3">3</a></li>
-    <li><a href="?link=4" id ="btn_4">4</a></li>
-    <li><a href="?link=5" id ="btn_5">5</a></li>
+<div id="featurelist-slider">
+  <ul class="tabs osc">
+    <%= render :partial => '/home/index/carousel_thumbs', :collection => carousel %> 
   </ul>
-</div>
+  <ul id="output">
+    <%= render :partial => '/home/index/carousel_item', :collection => carousel %>
+  </ul>
+  </div>
