@@ -1,4 +1,3 @@
-<div style="width:800px">
 <p <%= trailers ? 'align="center' : '' %>"><% if trailer.youtube? %>
 <object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
 <% elsif trailer.dailymotion? %>
@@ -48,4 +47,3 @@
 <%= will_paginate trailers, :class => 'products-pagination', :previous_label => '«', :next_label => '»', :param_name => 'trailer_page', :id => 'trailer_pagination' if trailers %>
 </div>
 </p>
-</div>
