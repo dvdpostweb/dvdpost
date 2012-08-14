@@ -41,6 +41,10 @@
   background: #000;
 }
 
+.jcarousel-item .bluray, .jcarousel-item .bluray3d {
+  background: #2390c9;
+}
+
 .jcarousel-skin-tango .jcarousel-item-horizontal {
   margin-left: 0;
   margin-right: 23px;
