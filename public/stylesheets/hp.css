@@ -458,6 +458,11 @@ margin-top: -2px;
 #tab-content-4 .thumb_img {
   float:left
 }
+#tab-content-4 .content_item_month .thumb_img
+{
+  height:46px;
+  overflow:hidden;
+}
 
 #tab-content-4 #period-position li {
 display: block;
