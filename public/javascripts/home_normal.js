@@ -36,7 +36,6 @@ $(document).ready(function() {
       url: url,
       type: 'GET',
       success: function(data) {
-        selection_cycle++
         html_item.replaceWith(data);
       },
       error: function() {
