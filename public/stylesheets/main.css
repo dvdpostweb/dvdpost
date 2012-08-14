@@ -1068,8 +1068,10 @@ height: 20px;
  .content .streaming_add_list, .streaming_soon_btn{
    font-size: 9px !important;
    padding-left: 29px !important;
-
  }
+ .streaming_soon_btn{
+   width: 106px;
+  }
  .content .reserve
  {
    background-position: -352px -192px;
