@@ -39,7 +39,7 @@
     </div>  
     <div class="oters">
       <div class="links" id="seen-uninterested-<%= product.to_param %>">
-        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
+        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} if current_customer %>
       </div>
       <ul class="btns osc">
         <li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => source} %></li>
