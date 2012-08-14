@@ -546,7 +546,9 @@ float: left;
     color: #85BA17;
 	font-size:16px;
 }
-
+.adult #newsletters-wrap .newsletters  a {
+  color: #BD1F83;
+}
 #newsletters-wrap .newsletters .description p {
 text-align: justify;
 font-size: 12px;

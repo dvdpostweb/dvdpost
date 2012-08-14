@@ -748,6 +748,10 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   padding-left: 22px;
   background: url(../images/sprite.png) -608px 0 no-repeat;
 }
+.adult #services-wrap li a {
+  background: url(../images/sprite_adult.png) -608px 0 no-repeat;
+  color: #BD1F83;
+}
 #p_suspended
 {
   padding: 9px 0 1px 38px;
