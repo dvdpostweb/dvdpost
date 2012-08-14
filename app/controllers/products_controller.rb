@@ -263,19 +263,19 @@ class ProductsController < ApplicationController
   end
 
   def drop_cached
-    expire_fragment ("/fr/products/product_1_1_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_1_1_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_1_1_#{params[:product_id]}")
-    expire_fragment ("/fr/products/product_1_0_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_1_0_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_1_0_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product2_1_1_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product2_1_1_#{params[:product_id]}")
+    expire_fragment ("/en/products/product2_1_1_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product2_1_0_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product2_1_0_#{params[:product_id]}")
+    expire_fragment ("/en/products/product2_1_0_#{params[:product_id]}")
 
-    expire_fragment ("/fr/products/product_0_1_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_0_1_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_0_1_#{params[:product_id]}")
-    expire_fragment ("/fr/products/product_0_0_#{params[:product_id]}")
-    expire_fragment ("/nl/products/product_0_0_#{params[:product_id]}")
-    expire_fragment ("/en/products/product_0_0_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product2_0_1_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product2_0_1_#{params[:product_id]}")
+    expire_fragment ("/en/products/product2_0_1_#{params[:product_id]}")
+    expire_fragment ("/fr/products/product2_0_0_#{params[:product_id]}")
+    expire_fragment ("/nl/products/product2_0_0_#{params[:product_id]}")
+    expire_fragment ("/en/products/product2_0_0_#{params[:product_id]}")
     render :nothing => true
   end
 private
