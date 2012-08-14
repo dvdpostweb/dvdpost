@@ -3,7 +3,7 @@
 <% path = product_path(:id => product.to_param, :recommendation => @source) %>
 <% product_streaming = product.streaming? %>
 <% view = params[:view_mode] == 'streaming' || params[:filter] == 'vod' ? 0 : 1 %>
-<% name = "#{I18n.locale}/products/product_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
+<% name = "#{I18n.locale}/products/product2_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
 <% name_path = "views/#{name}" %>
 <% if product.cached_at && product.products_last_modified && product.cached_at < product.products_last_modified %>
   <% expire_fragment(product) %>
