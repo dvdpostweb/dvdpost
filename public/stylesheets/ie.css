@@ -12,6 +12,9 @@
 #film-img-wrap {
   width: 241px;
 }
+#rent-wrap #film-img-wrap {
+  width: 196px;
+}
 #film-img-wrap img, .jc .vod img, .jc .dvd img {
   border-radius: 6px 6px 0 0;
 }

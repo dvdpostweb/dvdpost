@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show]
+  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show, :step]
   def index
     if ENV['HOST_OK'] == "1"
       if params[:kind] == :adult
@@ -277,6 +277,13 @@ class ProductsController < ApplicationController
     expire_fragment ("/nl/products/product2_0_0_#{params[:product_id]}")
     expire_fragment ("/en/products/product2_0_0_#{params[:product_id]}")
     render :nothing => true
+  end
+
+  def step
+    data = @product.description_data(true)
+    @product_title = data[:title]
+    @product_image = data[:image]
+    @product_description =  data[:description]
   end
 private
   def find_product

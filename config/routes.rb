@@ -41,6 +41,8 @@ ActionController::Routing::Routes.draw do |map|
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :tokens, :only => [:new, :create]
       product.drop_cached 'drop_cached',  :controller => :products, :action => :drop_cached, :conditions => {:method => :get} 
+      product.step 'step',  :controller => :products, :action => :step, :conditions => {:method => :get} 
+      
       
       product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.awards 'awards', :controller => :products, :action => :awards
