@@ -1,0 +1,41 @@
+<%= stylesheet 'step' %>
+<div id="rent-wrap">
+  <div class="right">
+    <h2>
+      <%= t('.title', :media => (product_media_id(@product.media)), :title => @product_title) if @product.media != 'VOD' %>
+    </h2>
+    <ul class="osc">
+      <%= t('.desc') %>
+    </ul>
+    <a href="<%= php_path('step1.php') %>" class="btn osc"><strong><%= t '.go' %></strong></a>
+  </div>
+  <div class="<%= product_media_id(@product.media) %>" id="film-img-wrap">
+    <%= product_image_tag @product_image, :width => 196, :alt => "#{@product_title} (#{@product.year})" %>
+    <span class="osc"><%= product_media_id(@product.media) %></span>
+  </div>
+
+</div><!-- #rent-wrap -->
+<div id="info-wrap">
+  <div class="left">
+    <h3>VOD</h3>
+    <p>
+      <%= t '.vod_text' %>
+      <%= image_tag "apps.png", :size => '212x63' %>
+    </p>
+    <%= link_to t('.more'), streaming_products_faq_path, :class => 'btn osc' %></a>
+  </div>
+  <div class="left" id="dvd-br">
+    <h3><%= t '.dvd' %></h3>
+    <p>
+      <%= t '.dvd_text' %>
+      <%= image_tag "dvd-br-pic.jpg", :size => '357x91' %>
+    </p>
+    <%= link_to t('.more'), info_path(:page_name => :dvd), :class => 'btn osc' %></a>
+  </div>
+</div> <!-- #info-wrap -->
+<ul id="page-nav" class="osc">
+  <li><%= link_to t('.catalogue'), products_path %></li>
+  <li><%= link_to t('.formula'), info_path(:page_name => :price) %></li>
+  <li><%= link_to t('.how'), info_path(:page_name => :whoweare) %></li>
+</ul><!-- #page-nav -->
+<!--   ==============   END MAIN CONTENT   ==============   --> 

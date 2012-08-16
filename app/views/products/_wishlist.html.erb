@@ -9,5 +9,5 @@
   <%= link_to title, new_product_wishlist_item_path(:product_id => product.to_param, :source => source, :submit_id => submit_id, :text => text, :load_color => load_color), :class => "#{class_name} ajouter add_to_wishlist_button", :id => submit_id, :title => long_title%>
 <% else %>
   <% title = title_add_to_wishlist(text, :normal, media) %>
-  <%= link_to title, php_path('step1.php'), :class => 'ajouter', :id => 'normal'%>
+  <%= link_to title, product_step_path(:product_id => product), :class => 'ajouter', :id => 'normal' %>
 <% end %>
