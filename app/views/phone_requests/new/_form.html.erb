@@ -33,12 +33,12 @@
       <% end %>
       <% if ENV['HOST_OK'] == "1" %>
       <p id="name">
-        <%= f.label :name, t('.name') %><br />
+        <%= f.label :name, "<b>#{t('.name')}</b>" %></b><br />
         <%= f.text_field :name, :class => "fld" %>
       </p>
       <% end %>
       <p id="phone">
-        <%= f.label :phone, t('.phone') %><br />
+        <%= f.label :phone, "<b>#{t('.phone')}</b>" %><br />
         <%= f.text_field :phone, :value => phone_init, :class => "fld" %>
       </p>
       <div class="form_dates">
