@@ -1,7 +1,7 @@
 <div id="prices">
   <h2><%= t '.title' %></h2>
   <div class="all-container">
-    <div class="prices-container left" align="left">
+    <div class="prices-container" align="left">
       <table>
         <tr>
           <td colspan="5">
@@ -11,9 +11,12 @@
         <%= render :partial => 'reconductions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => nil, :selected_abo => nil} %>
       </table>
     </div>
-    <div id="promo_area2" class="right">
+    <div class="sep">
+      <%= t '.or' %>
+    </div>
+    <div id="promo_area2">
       <h4><%= t '.title_code' %></h4>
-      <form name="form1" method="post" action="<%= php_path 'activation_code_confirm.php' %>" align="center">
+      <form name="form1" method="post" action="<%= php_path 'activation_code_confirm.php' %>" align="left">
         <input name="code" id="code" class="inputs_codes" value="<%= params[:code] %>" size="20" type="text">
         <input class="no_border_button go" type='submit' align="absmiddle" border="0" value="GO" />
       </form>
