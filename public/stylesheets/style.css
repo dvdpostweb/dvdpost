@@ -3787,19 +3787,7 @@ position:relative;
 .selection_theme#carousel ul {
 position:relative !important;
 }
-.text_promo
-{
-  font-size:18px;
-  font-weight:bold;
-  margin:0;
-  text-align:center;
-  text-transform:uppercase
-}
-#promo_area2
-{
-  text-align:center;
-  margin: 15px 0;
-}
+
 .txt_left {
     float: left;
     font-size: 17px;

@@ -762,24 +762,79 @@ body#ipad {
  font-weight: normal;
 }
 
-
-.prices-container {
+.all-container
+{
   background: url("../images/formats-bg.gif") repeat-x scroll 0 0 #C3D1DB;
+}
+.prices-container {
 	padding-top: 30px;
 	padding-bottom:30px;
 	border-bottom: 1px solid #B7BDC1;
 	border-top: 1px solid #9EABB5;
+	padding-left:10px;
+	width: 580px;
 }
-
+.prices-container table{
+  width: 580px;
+}
+.prices-container h4{
+  width:580px;
+  margin: 11px 5px;
+}
 
 .description {
 text-align:left;
-padding-left:20px;
-padding-right:20px;
+padding-left:10px;
+padding-right:10px;
 
 }
-
+#promo_area2
+{
+width: 344px;
+}
+#promo_area2 h4
+{
+  margin: 20px 5px 16px;
+  text-transform:uppercase;
+}
+#promo_area2 input
+{
+  font-size: 16px;
+}
 .films {
 text-align:center;
-padding-left:20px;
+padding-left:6px;
+}
+a.btn_price
+{
+  background: url("../images/button-bw.png");
+  width: 109px;
+  height: 23px;
+  padding: 10px 0 0 15px;
+  margin: 8px 5px 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #212A31;
+  display: block;
+}
+a.btn_price.nl {
+width: 115px;
+padding: 10px 0 0 6px;
+font-size: 12px;
+}
+a.btn_price:hover
+{
+  background: url("../images/button-bw.png") 0 36px;
+}
+.go
+{
+  background: url("../images/button-bw.png");
+  width: 122px;
+  height: 33px;
+  padding: 4px 0 0 0px;
+  border: none;
+}
+.go:hover
+{
+  background: url("../images/button-bw.png") 0 36px;
 }

@@ -378,7 +378,7 @@ module ProductsHelper
   def streaming_audio_bublles(product)
     content=[]
     country=[]
-    content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
+    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect{
     |product|
       if product.language.by_language(I18n.locale).first && product.language.by_language(I18n.locale).first.short
         lang = product.language.by_language(I18n.locale).first

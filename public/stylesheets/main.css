@@ -1093,3 +1093,16 @@ height: 20px;
 	width: 134px;
 	
 }
+#promo_area2
+{
+  text-align:center;
+  margin: 15px 0;
+}
+.text_promo
+{
+  font-size:18px;
+  font-weight:bold;
+  margin:0;
+  text-align:center;
+  text-transform:uppercase
+}
