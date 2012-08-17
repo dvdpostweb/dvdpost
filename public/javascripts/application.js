@@ -97,6 +97,15 @@ $(function() {
     $('#search_filter_detail').hide()
     $('#search_filter').html($(this).parent().children().children().html())
   });
+  $('#codePromo').live('click', function(){
+    url = $(this).attr('href');
+    jQuery.facebox(function() {
+      $.getScript(url, function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
   
 
 });

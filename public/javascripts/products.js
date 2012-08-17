@@ -374,15 +374,6 @@ $(function() {
     });
     return false;
   });
-  $('#codePromo').live('click', function(){
-    url = $(this).attr('href');
-    jQuery.facebox(function() {
-      $.getScript(url, function(data) {
-        jQuery.facebox(data);
-      });
-    });
-    return false;
-  });
   var options = {};
   $("#review_submit").live('click',function(){
     value = parseInt($('#review_rating').attr('value'),10);
