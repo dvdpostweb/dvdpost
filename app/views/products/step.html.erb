@@ -1,17 +1,27 @@
 <%= stylesheet 'step' %>
+<% if @product.media == 'VOD' || params[:media] == 'vod' %>
+  <% media = 'VOD'%>
+<% else %>
+  <% media = product_media_id(@product.media) %>
+<% end %>
 <div id="rent-wrap">
   <div class="right">
     <h2>
-      <%= t('.title', :media => (product_media_id(@product.media)), :title => @product_title) if @product.media != 'VOD' %>
+      <% if media == 'VOD' %>
+        <%= t('.title_vod', :title => @product_title) %>
+      <% else %>
+        <%= t('.title', :media => (product_media_id(@product.media)), :title => @product_title) %>
+      <% end %>
+        
     </h2>
     <ul class="osc">
       <%= t('.desc') %>
     </ul>
     <a href="<%= php_path('step1.php') %>" class="btn osc"><strong><%= t '.go' %></strong></a>
   </div>
-  <div class="<%= product_media_id(@product.media) %>" id="film-img-wrap">
+  <div class="<%= media.downcase %>" id="film-img-wrap">
     <%= product_image_tag @product_image, :width => 196, :alt => "#{@product_title} (#{@product.year})" %>
-    <span class="osc"><%= product_media_id(@product.media) %></span>
+    <span class="osc"><%= media %></span>
   </div>
 
 </div><!-- #rent-wrap -->

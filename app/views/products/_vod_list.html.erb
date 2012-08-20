@@ -20,5 +20,5 @@
 </div>
 <% else %>
   <% text = text || :long %>
-  <%= link_to streaming_btn_title(:add, text), product_step_path(:product_id => product), :class => "streaming_btn streaming_soon_btn", :id => "add-to-vod" %>
+  <%= link_to streaming_btn_title(:add, text), product_step_path(:product_id => product, :media => 'vod'), :class => "streaming_btn streaming_soon_btn", :id => "add-to-vod" %>
 <% end %>

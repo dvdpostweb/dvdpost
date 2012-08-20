@@ -6,5 +6,5 @@
     <%= link_to streaming_btn_title(:buy, text), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id), :class => "streaming_action fr regarder", :id => :watch, :title => t('.buy') %>
   <% end %>
 <% else %>
-  <%= link_to streaming_btn_title(:buy, text), product_step_path(:product_id => product), :class => "regarder", :id => :watch %>
+  <%= link_to streaming_btn_title(:buy, text), product_step_path(:product_id => product, :media => 'vod'), :class => "regarder", :id => :watch %>
 <% end %>

@@ -138,7 +138,7 @@ class HomeController < ApplicationController
       @filter = get_current_filter({})
       @banners = ProductList.theme.by_kind(kind.to_s).by_style(:vod).find_by_home_page(2).products.paginate(:per_page => 3, :page => 1)
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
-      @themes = ThemesEvent.old.by_kind(params[:kind]).ordered.limit(2)
+      @themes = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.limit(2)
       @theme = @themes.first
     else
       if I18n.locale != :en
