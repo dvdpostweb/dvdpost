@@ -25,7 +25,7 @@ class InfoController < ApplicationController
 
     if params[:page_name] == 'price'
       @showing_abo = 25
-      @list_abo = ProductAbo.get_list(6)
+      @list_abo = ProductAbo.find([127761,127762,127764,127766,127768,127769])
     end
 
     if params[:page_name] == 'free_movies' || params[:page_name] == 'promotion'

@@ -14,8 +14,5 @@
     <td align="right">
       <%= image_tag "pricing#{abo.credits}.png" %>
     </td>
-    <td>
-      <%= link_to t(".register"), php_path("step1.php?activation_code=free_test#{abo.credits}"), :class => "btn_price #{I18n.locale}" %>
-    </td>
   </tr>  
 <% end %>
