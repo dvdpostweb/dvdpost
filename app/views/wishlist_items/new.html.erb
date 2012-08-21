@@ -23,7 +23,7 @@
         <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product) %></ul></span>
         <span class="col4"></span> 
         <span class="col5">
-          <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} %>
+          <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} if product.streaming? %>
           <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
         </span>
         <div class="clear"></div>
