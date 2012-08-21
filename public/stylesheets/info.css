@@ -749,11 +749,11 @@ body#ipad {
 
 #prices h2 {
  background: none repeat scroll 0 0 #FFFFFF;
- font-size: 30pt;
+ font-size: 45px;
  padding: 0 20px;
  text-align: left;
  font-family:'Open Sans Condensed',sans-serif;
- font-weight: bold;
+ font-weight: normal;
 }
 
 .all-container
@@ -837,8 +837,9 @@ a.btn_price:hover
 }
 .prices-container h3
 {
-font-size: 15pt;
-font-weight: normal;
+font-size: 30pt;
+font-weight: bold;
+font-family:'Open Sans Condensed',sans-serif;
 }
 .prices-container ul
 {
@@ -847,7 +848,7 @@ font-weight: normal;
 .prices-container li
 {
 list-style: square;
-font-size: 17px;
+font-size: 15px;
 color: #212A31;
 margin: 0 7px;
 }
