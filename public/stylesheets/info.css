@@ -709,11 +709,11 @@ body#ipad {
 
 
 #faq-content-wrap #faqdvd_intro .cols {
-    float: left;
-    font-size: 14px;
-    margin-right: 63px;
-    padding-bottom: 30px;
-    width: 240px;
+  float: left;
+  font-size: 14px;
+  margin-right: 63px;
+  padding-bottom: 30px;
+  width: 240px;
 }
 
 #faqdvd_intro h4 {
@@ -724,42 +724,36 @@ body#ipad {
 }
 
 #prices .title_pricing{
-    color: #212A31;
-    font-size: 20px;
-    line-height: 1;
-   
-	font-family:'Open Sans Condensed',sans-serif;
-	
+  color: #212A31;
+  font-size: 20px;
+  line-height: 1;
+  font-family:'Open Sans Condensed',sans-serif;
 }
 
 #prices .month{
-    color: #212A31;
-    font-size: 16px;
-   
+  color: #212A31;
+  font-size: 16px;
 	font-family:'Open Sans Condensed',sans-serif;
-	  font-weight: normal;
+  font-weight: normal;
 }
 
 .abo {
-    color: #212A31;
-    font-size: 16px;
-    line-height: 1;
-
-	  font-weight: normal;
-	
+  color: #212A31;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: normal;
 	height: 46px;
-	
-	 background: url(../images/bg_prices.png) repeat-x scroll 0 0 transparent; 
+  background: url(../images/bg_prices.png) repeat-x scroll 0 0 transparent; 
 }
 
 
 #prices h2 {
  background: none repeat scroll 0 0 #FFFFFF;
- font-size: 45px;
+ font-size: 30pt;
  padding: 0 20px;
  text-align: left;
  font-family:'Open Sans Condensed',sans-serif;
- font-weight: normal;
+ font-weight: bold;
 }
 
 .all-container
@@ -843,8 +837,8 @@ a.btn_price:hover
 }
 .prices-container h3
 {
-font-size: 25px;
-font-weight: bold;
+font-size: 15pt;
+font-weight: normal;
 }
 .prices-container ul
 {
