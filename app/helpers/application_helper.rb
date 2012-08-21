@@ -328,7 +328,6 @@ module ApplicationHelper
     else
       ENV['HOST_OK'] = "0"
     end
-    
     #ENV['HOST_OK'] = "1"
   end
 
@@ -454,7 +453,7 @@ module ApplicationHelper
   end
 
   def login_path
-    "http://private.dvdpost.com/#{request.fullpath}"
+    "http://private.dvdpost.com#{request.fullpath}"
   end
 
 end
