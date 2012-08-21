@@ -798,7 +798,6 @@ padding-right:10px;
 #promo_area2 h4
 {
   margin: 20px 5px 16px;
-  text-transform:uppercase;
   text-align:left;
 }
 #promo_area2 input
@@ -841,4 +840,42 @@ a.btn_price:hover
 .go:hover
 {
   background: url("../images/button-bw.png") 0 36px;
+}
+.prices-container h3
+{
+font-size: 25px;
+font-weight: bold;
+}
+.prices-container ul
+{
+  margin: 5px 19px;
+}
+.prices-container li
+{
+list-style: square;
+font-size: 17px;
+color: #212A31;
+margin: 0 7px;
+}
+.prices-container table
+{
+  margin: 25px auto 0;
+}
+.prices-container a.btn {
+  width: 289px;
+  height: 46px;
+  line-height: 44px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  background: url(../images/btn_price.jpg) no-repeat;
+  margin: 35px auto 15px;
+  display: block;
+  padding: 0;
+}
+#promo_area2 a
+{
+  color: #212A31;
+  font-weight: bold;
 }

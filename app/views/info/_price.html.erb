@@ -2,24 +2,18 @@
   <h2><%= t '.title' %></h2>
   <div class="all-container">
     <div class="prices-container" align="left">
-      <table>
-        <tr>
-          <td colspan="5">
-            <h4><%= t '.desc' %></h4>
-          </td>
-        </tr>
+      <h3><%= t '.subtitle' %></h3>
+      <ul>
+        <%= t '.li' %>
+      </ul>
+      <table align="center">
         <%= render :partial => 'reconductions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => nil, :selected_abo => nil} %>
       </table>
-    </div>
-    <div class="sep">
-      <%= t '.or' %>
+      <%= link_to t('.register'), php_path('step1.php'), :class => "btn #{I18n.locale}" %>
     </div>
     <div id="promo_area2">
-      <h4><%= t '.title_code' %></h4>
-      <form name="form1" method="post" action="<%= php_path 'activation_code_confirm.php' %>" align="left">
-        <input name="code" id="code" class="inputs_codes" value="<%= params[:code] %>" size="20" type="text">
-        <input class="no_border_button go" type='submit' align="absmiddle" border="0" value="GO" />
-      </form>
+      <h4><%= t '.title_code' %> <a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t('.here') %></a></h4>
+      
     </div>
     <div class="clearfix"></div>
   </div>
