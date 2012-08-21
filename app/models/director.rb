@@ -39,7 +39,7 @@ class Director < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$]/, '')
       end
     end
     query_string = qs.join(' ')

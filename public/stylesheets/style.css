@@ -886,7 +886,7 @@ background: #ff3200;
 text-transform: uppercase;
 color: #fff;
 }
-.box .availability a.streaming_btn_replay, .box .availability a.streaming_btn  {
+.box .availability a.regarder, .box .availability a.streaming_btn  {
   background: url("../images/mini_play.gif") no-repeat scroll 0 0 transparent !important;
   color: #8BB417 !important;
   display: block;

@@ -669,7 +669,7 @@ class Product < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$]/, '')
       end
     end
     query_string = qs.join(' ')
@@ -684,11 +684,12 @@ class Product < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        replace_specials(word).gsub(/[-_]/, ' ')
+        replace_specials(word).gsub(/[-_]/, ' ').gsub(/[$]/, '')
       end
     end
     query_string = qs.join(' ')
     query_string = "@descriptions_title ^#{query_string}$"
+    Rails.logger.debug { "@@@#{query_string}" }
     page = 1
     limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = 20
