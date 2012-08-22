@@ -3,7 +3,7 @@ class ProductDescription < ActiveRecord::Base
 
   set_table_name :products_description
 
-  set_primary_key [:prodcuts_id, :language_id]
+  set_primary_key :products_id
   alias_attribute :text,    :products_description
   alias_attribute :title,   :products_name
   alias_attribute :url,     :products_url

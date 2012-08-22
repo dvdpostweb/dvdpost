@@ -156,18 +156,18 @@ class ProductsController < ApplicationController
       end
       if @product.imdb_id == 0
         if sort != Review.sort2[:interesting]
-          @reviews = @product.reviews.approved.ordered(sort).by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+          @reviews = @product.reviews.approved.ordered(sort).by_language(I18n.locale).find(:all, :include => [:product, :customer, :customer_attribute]).paginate(:page => params[:reviews_page], :per_page => 3)
         else
-          @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+          @reviews = @product.reviews.approved.by_language(I18n.locale).find(:all, :include => [:product, :customer, :customer_attribute]).paginate(:page => params[:reviews_page], :per_page => 3)
         end
-      else  
+      else
         if sort != Review.sort2[:interesting]
-          @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+          @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :include => [:product, :customer, :customer_attribute]).paginate(:page => params[:reviews_page], :per_page => 3)
         else
-          @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+          @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :include => [:product, :customer, :customer_attribute]).paginate(:page => params[:reviews_page], :per_page => 3)
         end
       end
-      @reviews_count = product_reviews_count(@product)
+      @reviews_count = @reviews.total_entries
     end
     if !request.format.js? || (request.format.js? && params[:recommendation_page])
       #product_recommendations = @product.recommendations(params[:kind])

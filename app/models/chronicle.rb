@@ -10,7 +10,7 @@ class Chronicle < ActiveRecord::Base
   named_scope :exclude, lambda {|id| {:conditions => ["chronicles.id != ?", id]}}
   named_scope :selected, :conditions => {:selected => true}
   named_scope :not_selected, :conditions => {:selected => false}
-  named_scope :ordered, :order => "id desc"
+  named_scope :ordered, :order => "chronicles.id desc"
   named_scope :new, :conditions => "id >14"
   
   named_scope :limit, lambda {|limit| {:limit => limit}}

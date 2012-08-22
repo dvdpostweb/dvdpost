@@ -1,7 +1,7 @@
 class ProductList < ActiveRecord::Base
   db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
-  has_and_belongs_to_many :products, :join_table => :listed_products, :order => 'listed_products.order asc'
+  has_and_belongs_to_many :products, :join_table => :listed_products, :order => '`order` asc'
 
   named_scope :top, :conditions => {:kind => 'TOP'}
   named_scope :theme, :conditions => {:kind => 'THEME'}

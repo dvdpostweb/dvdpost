@@ -1,4 +1,4 @@
-<div class="critique" id="critique<%= review.to_param%>">
+<div class="critique" id="critique<%= review.to_param %>">
   <p class="align">
     <%= review.like_count %>
     <%= image_tag 'smiley_yes.png', :class => 'smiley' %>
@@ -6,7 +6,7 @@
     <%= review.dislike_count %>
     <%= image_tag 'smiley_no.png', :class => 'smiley' %>
   </p>
-  <% if current_customer  && current_customer.to_param != review.customer.to_param %>
+  <% if current_customer  && current_customer.to_param != review.customers_id %>
     <p class="yn">
       <% customer_rating = review.rating_by_customer(current_customer) %>
       <% if customer_rating %>

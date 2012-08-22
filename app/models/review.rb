@@ -21,6 +21,8 @@ class Review < ActiveRecord::Base
   validates_inclusion_of :rating, :in => 0..5
 
   belongs_to :customer, :foreign_key => :customers_id
+  belongs_to :customer_attribute, :foreign_key => :customers_id, :primary_key => :customer_id
+  
   belongs_to :product, :foreign_key => :products_id
 
   has_many :review_ratings, :foreign_key => :reviews_id
