@@ -16,7 +16,8 @@ class MessagesController < ApplicationController
     if params[:sort] && params[:sort].to_sym == :ticket
       @messages = current_customer.tickets.by_kind(status).ordered.paginate(:page => params[:page] || 1)
     else
-      @messages = current_customer.tickets.by_kind(status).find(:all, :include => :message_tickets, :order => "message_tickets.id desc").paginate(:page => params[:page] || 1)
+      Rails.logger.debug { "@@@" }
+      @messages = current_customer.tickets.by_kind(status).find(:all, :include => [:message_tickets, :category_ticket], :order => "message_tickets.id desc").paginate(:page => params[:page] || 1)
     end
   end
 
