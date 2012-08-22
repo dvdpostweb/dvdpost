@@ -70,9 +70,9 @@ class HomeController < ApplicationController
       when DVDPost.home_review_types[:best_review]
         @data = HighlightReview.by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 3, :page => page)
       when DVDPost.home_review_types[:controverse_rate]
-        @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 8, :page => page)
+        @data = HighlightProduct.day(0).by_kind('controverse').by_language(DVDPost.product_languages[I18n.locale]).ordered.find(:all, :include => :product).paginate(:per_page => 8, :page => page)
       else
-        @data = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.paginate(:per_page => 9, :page => page)
+        @data = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.find(:all, :include => :product).paginate(:per_page => 9, :page => page)
     end
   end
 
@@ -132,7 +132,7 @@ class HomeController < ApplicationController
       end
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
       @trailers_week = Product.all(:joins => :trailers, :conditions => ["products_trailers.focus > 0 and products_trailers.language_id = ? ", DVDPost.product_languages[I18n.locale]], :limit => trailer_limit, :order => "products_trailers.focus desc")
-      @trailers = Product.all(:joins => :trailers, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
+      @trailers = Product.all(:joins => :trailers, :include => :actors, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})

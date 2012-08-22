@@ -1,4 +1,4 @@
-<% content = article.contents.by_language(I18n.locale).first %>
+<% content = article.contents.first %>
 <% if content %>
 <% path = chronicle_path(:id => article.to_param) %>
 <li> 

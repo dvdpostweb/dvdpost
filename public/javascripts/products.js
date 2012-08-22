@@ -225,6 +225,15 @@ $(function() {
     return false;
   });
 
+  $("#c-members #sort").live("change", function() {
+    loader = 'ajax-loader.gif';
+    $(this).parent().ajaxSubmit(options_review);
+    html_item = $("#c-members");
+    content = html_item.html();
+    $(this).parent().html("<div style='height:22px'><img src='/images/"+loader+"'/></div>");
+    return false; // prevent default behaviour
+  });
+
   $("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
     $(this).parent().find("div").toggle(1);

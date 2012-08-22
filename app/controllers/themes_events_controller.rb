@@ -10,7 +10,7 @@ class ThemesEventsController < ApplicationController
 
   def show
       @theme = ThemesEvent.find(params[:id])
-      @list = ProductList.theme.special_theme(@theme.id).by_language(DVDPost.product_languages[I18n.locale])
+      @list = ProductList.theme.special_theme(@theme.id).by_language(DVDPost.product_languages[I18n.locale]).all(:include => :products)
       @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
   end
   protected

@@ -11,7 +11,6 @@
         (<%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>)
       </span>
     </h3>
-      <div class="osc"><%= review.product.categories.first.name unless review.product.categories.empty? %></div>
       <div class="stars vote" id="rating-stars-<%= review.product.to_param %>" product_id="<%= review.product.to_param %>">
         <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white, :size => :long} %>
       </div>

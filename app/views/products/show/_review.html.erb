@@ -5,7 +5,7 @@
 <% end %>
 <div class="movie-ttl">
   	<h3>
-      <a href="<%= customer_reviews_path(:customer_id => review.customer.to_param) %>"><%= review.customer.customer_attribute.nickname %></a>
+      <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>"><%= review.customer_attribute.nickname %></a>
       <span class="publish">
         <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
       </span>
@@ -14,12 +14,12 @@
 <li>
   <div class="content">
     <div class="critic"> 
-      <a href="<%= customer_reviews_path(:customer_id => review.customer.to_param) %>">
-        <%= image_tag(get_avatar(review.customer), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) %>
+      <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>">
+        <%= image_tag(get_avatar_attr(review.customer, review.customer_attribute), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) %>
       </a>
       <div class="name">
-        <%= customer_awards(review.customer, review.customer.customer_attribute.points) %> (<%= reviews_count %> <%= review_title(reviews_count) %>) <br />
-        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customer.to_param), :class => :all_critics %>
+        <%= customer_awards(review.customer, review.customer_attribute.points) %> (<%= reviews_count %> <%= review_title(reviews_count) %>) <br />
+        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %>
       </div>
       <strong style="clear: both;"><%= t '.rating' %> :</strong> 
       <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
