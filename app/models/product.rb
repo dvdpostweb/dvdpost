@@ -56,11 +56,13 @@ class Product < ActiveRecord::Base
   named_scope :both_available, :conditions => ['products_status != :status', {:status => '-1'}]
   named_scope :available_in_dvd, :conditions => ['products_availability != :status', {:status => '2'}]
   named_scope :by_imdb_ids, lambda {|imdb| {:conditions => ["imdb_id in (#{imdb})"]}}
+  named_scope :by_products_ids, lambda {|product_id| {:conditions => ["products_id in (#{product_id})"]}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'products_id desc'
   named_scope :ordered_media, :order => 'products_media desc'
   named_scope :group_by_imdb, :group => 'imdb_id'
   named_scope :group_by_serie, :group => 'products_series_id'
+  named_scope :ordered_by_field, lambda {|products_id| {:order => "FIELD(products_id, #{products_id})"}}
   
   define_index do
     indexes products_media
@@ -375,7 +377,7 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
-  def recommendations(kind)
+  def recommendations_old(kind)
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
@@ -404,7 +406,9 @@ class Product < ActiveRecord::Base
     end
     if recommendation_ids && !recommendation_ids.empty?
       if kind == :normal
-        Product.search(:max_matches => 200, :per_page => 100).available.by_imdb_id(recommendation_ids).group('imdb_id', "default_order desc")
+        Product.both_available.ordered_by_field(recommendation_ids.join(',')).group_by_imdb.find_all_by_products_id(recommendation_ids)
+        
+        #Product.search(:max_matches => 200, :per_page => 100,:group_by => 'imdb_id', :group_function => :attr).available.by_products_id(recommendation_ids)
       else
         if categories.find_by_categories_id([76,72])
           Product.available.gay.by_products_id(recommendation_ids)
