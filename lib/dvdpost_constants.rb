@@ -288,8 +288,8 @@ module DVDPost
 
     def product_linked_recommendations_new(product, kind, customer_id, type)
       include_adult = kind == :adult ? 'true' : 'false'
-      url = "http://www.dvdpost.be:2348/recomm/GetMovieToProductsByRating?imdbID=#{product.imdb_id}&isAdult=#{include_adult}"
-      url += "&custId=#{customer_id}" if customer_id > 0
+      url = "http://www.dvdpost.be:2348/recomm/#{type == 1 ? 'GetSimilarMovieToProducts' : 'GetMovieToProductsByRating'}?imdbID=#{product.imdb_id}&isAdult=#{include_adult}"
+      #url += "&custId=#{customer_id}" if customer_id > 0
       ids = open(url).read.gsub('"','').split(',')
     end
 
