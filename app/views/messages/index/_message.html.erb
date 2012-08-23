@@ -1,7 +1,8 @@
-<tr class="<%= message.message_tickets.unread.count > 0 ? 'close' : 'open' %>">
+<% unread = !message.message_tickets.first.user_id.nil? && message.message_tickets.first.is_read == false %>
+<tr class="<%= unread ? 'close' : 'open' %>">
   <td><%= message.id %> </td>
   <td align="left">
-    <img src="/images/enveloppe_<%= message.message_tickets.unread.count > 0 ? 'close' : 'open' %>.gif" align="absmiddle" />
+    <img src="/images/enveloppe_<%= unread  ? 'close' : 'open' %>.gif" align="absmiddle" />
     <% link_to message_path(:id => message.to_param), :class => 'show' do %>
       <% if message.title %>
         <%= h message.title %>

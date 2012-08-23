@@ -6,7 +6,6 @@
 <li class="jcarousel-item jcarousel-item-horizontal">              	
   <a href="<%= path %>" class="<%= (streaming_product ? 'vod' : product_media_id(recommendation_product.media)) %>">
     <%= product_image_tag product_image, :width => 112, :height => 167, :alt => "#{product_title} (#{recommendation_product.year})" %>
-    <%= (streaming_product ? 'vod' : product_media_id(recommendation_product.media)) %>
   </a>
   <%= link_to product_title, path %>
 </li>
