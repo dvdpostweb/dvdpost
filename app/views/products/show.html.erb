@@ -87,9 +87,7 @@ FB.init({
     <div id="btns-wrap" class="osc">
 
       <% if @product.in_streaming_or_soon? and streaming_access? %>
-      <% Rails.logger.debug { "@@@#" }%>
         <% if @product.streaming? %>
-        <% Rails.logger.debug { "@@@#" }%>
           <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
           <% credits = @product.streaming_products.first.credits %>
         <% else %>
