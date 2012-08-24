@@ -375,10 +375,11 @@ module ProductsHelper
     html_content
   end
 
-  def streaming_audio_bublles(product)
+  def streaming_audio_bublles(product, vod_next = false)
     content=[]
     country=[]
-    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect{
+    bubble = vod_next ? StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id) : StreamingProduct.available.find_all_by_imdb_id(product.imdb_id)
+    content << bubble.collect{
     |product|
       if product.language.by_language(I18n.locale).first && product.language.by_language(I18n.locale).first.short
         lang = product.language.by_language(I18n.locale).first
@@ -393,10 +394,11 @@ module ProductsHelper
     content
   end
 
-  def streaming_subtitle_bublles(product)
+  def streaming_subtitle_bublles(product, vod_next = false)
     content=[]
     country=[]
-    content << StreamingProduct.available.find_all_by_imdb_id(product.imdb_id).collect {
+    bubble = vod_next ? StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id) : StreamingProduct.available.find_all_by_imdb_id(product.imdb_id)
+    content << bubble.collect {
     |product|
       if product.subtitle.by_language(I18n.locale).first && product.subtitle.by_language(I18n.locale).first.short
         lang = product.subtitle.by_language(I18n.locale).first
