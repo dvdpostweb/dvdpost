@@ -61,6 +61,6 @@ class StreamingProduct < ActiveRecord::Base
 
   def self.date_available(imdb_id)
     stream = StreamingProduct.not_yet_available.find_all_by_imdb_id(imdb_id).first
-    date = stream.available_from > Date.today ? stream.available_from.strftime('%d/%m/%Y') : stream.available_backcatalogue_from.strftime('%d/%m/%Y')
+    date = stream.available_from && stream.available_from > Date.today ? stream.available_from.strftime('%d/%m/%Y') : stream.available_backcatalogue_from.strftime('%d/%m/%Y')
   end
 end
