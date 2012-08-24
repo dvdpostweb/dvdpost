@@ -11,11 +11,17 @@
       <%= f.hidden_field :imdb_id, :value => product.imdb_id %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
-      <% text = product.vod_next ? t('.reserve') : t('.add')  %>
-      <% class_name = product.vod_next ? 'reserver_btn reserve' : 'streaming_soon_btn'  %>
+      
+      <% next_status = product.vod_next || (@force_reserve == true) ? true : false %>
+      <% text = next_status ? t('.reserve') : t('.add')  %>
+      
+      
+      <% class_name = next_status ? 'reserver_btn reserve' : 'streaming_soon_btn'  %>
       
       <%= submit_tag text, :class => "#{class_name} streaming_add_list", :id => "add-to-vod", :style => 'border:0px;cursor:pointer' %>
     <% end %>
+    <%= "#{t 'wishlist_items.new.available'} #{StreamingProduct.date_available(product.imdb_id)}" if @force_reserve %>
+    
   <% end %>
 </div>
 <% else %>

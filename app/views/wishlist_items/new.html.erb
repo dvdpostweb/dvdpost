@@ -16,7 +16,7 @@
         <span class="col5"></span>
         <div class="clear"></div>
       </div>
-      <% if product.in_streaming_or_soon? && streaming_access? %>
+      <% if streaming_access? %>
       <div id="vod"> 
         <span class="col1">VOD</span>
         <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product) %></ul></span>
@@ -28,80 +28,117 @@
         </span>
         <div class="clear"></div>
       </div>
+      <% if StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id).count > 0 %>
+        <div id="vod"> 
+          <span class="col1">VOD</span>
+          <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, true) %></ul></span>
+          <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, true) %></ul></span>
+          <span class="col4"></span> 
+          <span class="col5">
+            <% @force_reserve = true %>
+            <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+          </span>
+          <div class="clear"></div>
+        </div>
+      <% end %>
+      <% elsif product.in_streaming_or_soon? %>
+        <div id="vod"> 
+          <span class="col1">VOD</span>
+          <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, true) %></ul></span>
+          <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, true) %></ul></span>
+          <span class="col4"></span> 
+          <span class="col5">
+            <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+          </span>
+          <div class="clear"></div>
+        </div>
       <% end %>
 
-      <% unless product.vod?  %>
       <% @products.collect do |product| %>
-      <% media = DVDPost.product_types.invert[product.media] %>
-      <% if current_customer.wishlist_products.include?(product) %>
-      <% title = title_remove_from_wishlist(:short, media) %>
-      <% long_title = title_remove_from_wishlist(:long, media) %>
+        <% media = DVDPost.product_types.invert[product.media] %>
+        <% if media.upcase == 'VOD' %>
+          <% next_status = (product.vod_next) ? true : false %>
+          <div id="vod"> 
+            <span class="col1">VOD</span>
+            <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, next_status) %></ul></span>
+            <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, next_status) %></ul></span>
+            <span class="col4"></span> 
+            <span class="col5">
+              <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} if product.streaming? && !next_status %>
+              <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+            </span>
+            <div class="clear"></div>
+          </div>
+        <% else %>
+          <% if current_customer.wishlist_products.include?(product) %>
+          <% title = title_remove_from_wishlist(:short, media) %>
+          <% long_title = title_remove_from_wishlist(:long, media) %>
 
-      <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.id) %>
-      <% submit_id = "p_#{product.to_param}_#{rand(10)}"%>
-      <% form_id = "form_#{product.to_param}_#{rand(10)}"%>
-      <% form_for(:wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => {:method => :delete, :id => form_id, :class => 'remvove_from_wishlist_form'}) do |f|%>
-      <%= hidden_field_tag :source,  params[:source] %>
-      <%= hidden_field_tag :text,   :short %>
-      <%= hidden_field_tag :list,   1 %>
-      <%= hidden_field_tag :load_color,  :normal %>
-      <%= hidden_field_tag :submit_id,  submit_id %>
-      <%= hidden_field_tag :form_id,  form_id %>
-      <%= hidden_field_tag :product_id,  product.id %>
-      <div id="<%= media %>"> 
-        <span class="col1"><%= t("products.index.filters.#{media}") %></span>
-        <span class="col2">
-          <ul class="lang"><% audio_bubble = audio_bubbles(product, 20, :li)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></ul>
-        </span>
-        <span class="col3">
-          <ul class="lang"><% subtitles = subtitle_bubbles(product, 20, :li) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></ul>
-        </span>
-        <span class="col4"></span>
-        <span class="col5">
-          <%= submit_tag title, :class => 'remvove_from_wishlist btn_remove_form' %>
-        </span>
-        <div class="clear"></div>
-      </div>
-      <% end %>
-      <% else %>
-      <% form_for @wishlist_item do |f| %>
-      <%= f.hidden_field :product_id, :value => product.id %>
-      <%= f.hidden_field :wishlist_source_id, :value => params[:source] %>
-      <%= hidden_field_tag :submit_id, @submit_id %>
-      <%= hidden_field_tag :text, @text %>
-      <%= hidden_field_tag :type, :classic %>
-      <%= hidden_field_tag :load_color, :normal %>
-      <%= hidden_field_tag :all_movies, 0 %>
+          <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.id) %>
+          <% submit_id = "p_#{product.to_param}_#{rand(10)}"%>
+          <% form_id = "form_#{product.to_param}_#{rand(10)}"%>
+          <% form_for(:wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => {:method => :delete, :id => form_id, :class => 'remvove_from_wishlist_form'}) do |f|%>
+            <%= hidden_field_tag :source,  params[:source] %>
+            <%= hidden_field_tag :text,   :short %>
+            <%= hidden_field_tag :list,   1 %>
+            <%= hidden_field_tag :load_color,  :normal %>
+            <%= hidden_field_tag :submit_id,  submit_id %>
+            <%= hidden_field_tag :form_id,  form_id %>
+            <%= hidden_field_tag :product_id,  product.id %>
+            <div id="<%= media %>"> 
+              <span class="col1"><%= t("products.index.filters.#{media}") %></span>
+              <span class="col2">
+                <ul class="lang"><% audio_bubble = audio_bubbles(product, 20, :li)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></ul>
+              </span>
+              <span class="col3">
+                <ul class="lang"><% subtitles = subtitle_bubbles(product, 20, :li) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></ul>
+              </span>
+              <span class="col4"></span>
+              <span class="col5">
+                <%= submit_tag title, :class => 'remvove_from_wishlist btn_remove_form' %>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <% end %>
+          <% else %>
+            <% form_for @wishlist_item do |f| %>
+              <%= f.hidden_field :product_id, :value => product.id %>
+              <%= f.hidden_field :wishlist_source_id, :value => params[:source] %>
+              <%= hidden_field_tag :submit_id, @submit_id %>
+              <%= hidden_field_tag :text, @text %>
+              <%= hidden_field_tag :type, :classic %>
+              <%= hidden_field_tag :load_color, :normal %>
+              <%= hidden_field_tag :all_movies, 0 %>
 
-      <% if @serie_id.to_i > 0 %>
-      <%= hidden_field_tag :serie_id, @serie_id %>
-      <% end %>
-      <div id="<%= media %>"> 
-        <span class="col1"><%= t("products.index.filters.#{media}") %></span>
-        <span class="col2">
-          <ul class="lang"><% audio_bubble = audio_bubbles(product, 20, :li)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></ul>
-        </span>
-        <span class="col3">
-          <ul class="lang"><% subtitles = subtitle_bubbles(product, 20, :li) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></ul>
-        </span>
-        <span class="col4">
-          <%= f.radio_button :priority, '1', :checked => DVDPostConfig[:default_wishlist_priority] == :high, :title => 'priority high' %>
-          <%= f.label :priority_1, "HIGH", :title => 'priority high' %><br />
-          <%= f.radio_button :priority, '2', :checked => DVDPostConfig[:default_wishlist_priority] == :medium, :title => 'priority medium' %>
-          <%= f.label :priority_1, "MEDIUM", :title => 'priority medium' %><br />
-          <%= f.radio_button :priority, '3', :checked => DVDPostConfig[:default_wishlist_priority] == :low, :title => 'priority low' %>
-          <%= f.label :priority_1, "LOW", :title => 'priority low' %>
-        </span>
-        <span class="col5">
-          <% type_button = product.next.to_i == 1 ? :reserve : :normal %>
-          <%= f.submit title_add_to_wishlist(:short, type_button, media), :class => 'item', :title => title_add_to_wishlist(:long, type_button, media) %>
-          <%= f.submit title_add_all_to_wishlist(type_button), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if product.series? %>
-        </span>
-        <div class="clear"></div>
-      </div>
-      <% end %>
-      <% end %>
-      <% end %>
+              <% if @serie_id.to_i > 0 %>
+                <%= hidden_field_tag :serie_id, @serie_id %>
+              <% end %>
+              <div id="<%= media %>"> 
+                <span class="col1"><%= t("products.index.filters.#{media}") %></span>
+                <span class="col2">
+                  <ul class="lang"><% audio_bubble = audio_bubbles(product, 20, :li)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></ul>
+                </span>
+                <span class="col3">
+                  <ul class="lang"><% subtitles = subtitle_bubbles(product, 20, :li) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></ul>
+                </span>
+                <span class="col4">
+                  <%= f.radio_button :priority, '1', :checked => DVDPostConfig[:default_wishlist_priority] == :high, :title => 'priority high' %>
+                  <%= f.label :priority_1, "HIGH", :title => 'priority high' %><br />
+                  <%= f.radio_button :priority, '2', :checked => DVDPostConfig[:default_wishlist_priority] == :medium, :title => 'priority medium' %>
+                  <%= f.label :priority_1, "MEDIUM", :title => 'priority medium' %><br />
+                  <%= f.radio_button :priority, '3', :checked => DVDPostConfig[:default_wishlist_priority] == :low, :title => 'priority low' %>
+                  <%= f.label :priority_1, "LOW", :title => 'priority low' %>
+                </span>
+                <span class="col5">
+                  <% type_button = product.next.to_i == 1 ? :reserve : :normal %>
+                  <%= f.submit title_add_to_wishlist(:short, type_button, media), :class => 'item', :title => title_add_to_wishlist(:long, type_button, media) %>
+                  <%= f.submit title_add_all_to_wishlist(type_button), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if product.series? %>
+                </span>
+                <div class="clear"></div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
     <div class="clear"></div>

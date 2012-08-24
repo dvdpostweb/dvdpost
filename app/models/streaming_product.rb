@@ -13,6 +13,7 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :by_language, lambda {|language_id| {:conditions => {:language_id => language_id}}}
   
   named_scope :available, lambda {{:conditions => ['available = ? and ((available_from <= ? and streaming_products.expire_at >= ?) or (available_backcatalogue_from <= ? and streaming_products.expire_backcatalogue_at >= ?)) and status = "online_test_ok"', 1, Date.today.to_s(:db), Date.today.to_s(:db), Date.today.to_s(:db), Date.today.to_s(:db)]}}
+  named_scope :not_yet_available, lambda {{:conditions => ['available = ? and ((available_from > ? ) or ((expire_at < ? or expire_at is null) and available_backcatalogue_from > ?)) and status = "online_test_ok"', 1, Date.today.to_s(:db), Date.today.to_s(:db), Date.today.to_s(:db)]}}
   named_scope :available_beta, lambda {{:conditions => ['available = ? and status != "deleted"', 1]}}
   named_scope :prefered_audio, lambda {|language_id| {:conditions => {:language_id => language_id }}}
   named_scope :prefered_subtitle, lambda {|subtitle_id| {:conditions => ['subtitle_id = ? and language_id <> ?', subtitle_id, subtitle_id ]}}
@@ -56,5 +57,10 @@ class StreamingProduct < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def self.date_available(imdb_id)
+    stream = StreamingProduct.not_yet_available.find_all_by_imdb_id(imdb_id).first
+    date = stream.available_from > Date.today ? stream.available_from.strftime('%d/%m/%Y') : stream.available_backcatalogue_from.strftime('%d/%m/%Y')
   end
 end
