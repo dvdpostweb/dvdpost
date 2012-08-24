@@ -57,18 +57,6 @@
       <% @products.collect do |product| %>
         <% media = DVDPost.product_types.invert[product.media] %>
         <% if media.upcase == 'VOD' %>
-          <% next_status = (product.vod_next) ? true : false %>
-          <div id="vod"> 
-            <span class="col1">VOD</span>
-            <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, next_status) %></ul></span>
-            <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, next_status) %></ul></span>
-            <span class="col4"></span> 
-            <span class="col5">
-              <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} if product.streaming? && !next_status %>
-              <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
-            </span>
-            <div class="clear"></div>
-          </div>
         <% else %>
           <% if current_customer.wishlist_products.include?(product) %>
           <% title = title_remove_from_wishlist(:short, media) %>
