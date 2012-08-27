@@ -69,6 +69,7 @@
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
     <!--   ==============   HEADER   ==============   -->
 		<% if @code.nil? || (@code && !@code.white_label) %>
+			<%= render(:partial => 'layouts/banner_promo') if ENV['HOST_OK'] == "1" && cookies['url_promo'] %>
     	<%= render(:partial => 'layouts/header') %>
 		<% end %>
     <!--   ==============   END HEADER   ==============   -->

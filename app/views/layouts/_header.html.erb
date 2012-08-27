@@ -1,4 +1,4 @@
-<div id="top">
+<div id="top" class="<%= "promo" if ENV['HOST_OK'] == "1" && cookies['url_promo'] %>">
   <div class="wrap">
     <% if current_customer %>
       <%= link_to t('.compte'), customer_path(:id => current_customer) %>
