@@ -3,7 +3,7 @@ $(function() {
   var options_review = {
     success: show_review
   }  
-  if(($('#image_5').attr('src')!=undefined))
+  /*if(($('#image_5').attr('src')!=undefined))
   {
   var img = new Image();
   img.onload = function() {
@@ -19,7 +19,7 @@ $(function() {
      
   }
   img.src = $('#image_5').attr('src');
-  }
+  }*/
   
   function show_review(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){

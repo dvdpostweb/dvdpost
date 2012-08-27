@@ -1106,3 +1106,32 @@ height: 20px;
   text-align:center;
   text-transform:uppercase
 }
+#promo_fixe
+{
+  position: fixed;
+  height: 33px;
+  color: #212a31;
+  width: 100%;
+  background: #a2c31b;
+  top: 0;
+  left: 0;
+  font-size: 18px;
+  padding-top:15px;
+  font-weight:bold;
+  z-index:1000;
+}
+#promo_fixe a
+{
+  color: #212a31;
+  text-decoration:underline;
+}
+#promo_fixe a:hover
+{
+  color: #212a31;
+  text-decoration:none;
+}
+#top.promo
+{
+  margin-top:48px;
+}
+

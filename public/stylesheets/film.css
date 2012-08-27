@@ -722,3 +722,17 @@ visibility: hidden;
 {
   display:none;
 }
+#preview
+{
+  margin: 0 auto;
+  width: 635px;
+}
+.preview_item
+{
+  max-width: 205px;
+}
+.preview_box
+{
+  float:left; 
+  margin:3px
+}
