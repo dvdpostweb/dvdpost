@@ -315,7 +315,9 @@ color: #212A31;
 #contact-wrap #contact li a {
   color:#A3C41B;
 }
-
+.adult #contact-wrap #contact li a {
+  color: #BD1F83;
+}
 
 
 #contact-wrap #contact li h4 {

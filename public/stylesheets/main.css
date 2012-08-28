@@ -654,12 +654,18 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   overflow: hidden;
   height: 95px;
 }
+.adult #subscribe-wrap {
+  background: #BD1F83 url(../images/purple-bg-rc.gif) 100% 0 repeat-y;
+}
 #subscribe-wrap .wrap {
   float: left;
   width: 610px;
   padding: 12px 0 14px 30px;
   background: url(../images/green-shadow.gif) 0 0 repeat-x;
   overflow: hidden;
+}
+.adult #subscribe-wrap .wrap {
+  background: url(../images/purple-shadow.gif) 0 0 repeat-x;
 }
 #subscribe-wrap h3 {
   float: left;
@@ -684,6 +690,10 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   padding: 10px 10px 10px 30px;
   background: url(../images/green-shadow-rc.png) 0 0 no-repeat;
 }
+.adult #subscribe-wrap #subscribe {
+  background: url(../images/purple-shadow-rc.png) 0 0 no-repeat;
+}
+
 #subscribe-wrap #subscribe a.btn {
   display: inline-block;
   width: 254px;

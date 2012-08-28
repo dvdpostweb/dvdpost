@@ -1,9 +1,13 @@
 <% if only_vod %>
+<input type="checkbox" name='only_vod'>
 <%= t '.active_status' %>
-<span><%= image_tag 'delimiter.gif' %></span>
+<br />
+<input type="checkbox" name='only_vod' checked="checked">
 <%= link_to t('.deactive_status'), customer_only_vod_path(:customer_id => current_customer, :value => 0), :class => "only_vod modif" %>
 <% else %>
+<input type="checkbox" name='only_vod'>
 <%= link_to t('.active_status'), customer_only_vod_path(:customer_id => current_customer, :value => 1), :class => "only_vod modif" %>
-<span><%= image_tag 'delimiter.gif' %></span>
+<br />
+<input type="checkbox" name='only_vod' checked="checked">
 <%= t '.deactive_status' %>
 <% end %>
