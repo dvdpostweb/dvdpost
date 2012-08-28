@@ -1,11 +1,11 @@
 <% if only_vod %>
-<input type="checkbox" name='only_vod'>
+<input type="checkbox" name='only_vod' checked="checked">
 <%= t '.active_status' %>
 <br />
-<input type="checkbox" name='only_vod' checked="checked">
+<input type="checkbox" name='only_vod' class="check_only_vod">
 <%= link_to t('.deactive_status'), customer_only_vod_path(:customer_id => current_customer, :value => 0), :class => "only_vod modif" %>
 <% else %>
-<input type="checkbox" name='only_vod'>
+<input type="checkbox" name='only_vod' class="check_only_vod">
 <%= link_to t('.active_status'), customer_only_vod_path(:customer_id => current_customer, :value => 1), :class => "only_vod modif" %>
 <br />
 <input type="checkbox" name='only_vod' checked="checked">

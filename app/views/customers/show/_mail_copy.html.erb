@@ -1,9 +1,9 @@
 <% if mail_copy %>
 <%= t '.active_status_actif' %>
 <span><%= image_tag 'delimiter.gif' %></span>
-<%= link_to t('.deactive_status'), customer_mail_copy_path(:customer_id => current_customer, :value => 0), :class => "mail_copy modif" %>
+<%= link_to t('.deactive_status'), customer_mail_copy_path(:customer_id => current_customer, :value => 0), :class => "mail_copy customer_button" %>
 <% else %>
 <%= t '.deactive_status_actif' %>
 <span><%= image_tag 'delimiter.gif' %></span>
-<%= link_to t('.active_status'), customer_mail_copy_path(:customer_id => current_customer, :value => 1), :class => "mail_copy modif" %>
+<%= link_to t('.active_status'), customer_mail_copy_path(:customer_id => current_customer, :value => 1), :class => "mail_copy customer_button" %>
 <% end %>

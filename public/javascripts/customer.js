@@ -5,7 +5,7 @@ $(function() {
     html_item = $(this).parent();
     content = html_item.html();
     loader = 'ajax-loader.gif';
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: url,
       type: 'POST',
@@ -21,7 +21,19 @@ $(function() {
   });
 
   $(".only_vod").live("click", function() {
-    url = $(this).attr('href');
+    
+    only_vod($(this))
+    return false;
+  });
+  $(".check_only_vod").live("click", function() {
+    only_vod($(this).next('..only_vod'))
+    return false;
+  });
+  
+  
+  function only_vod(item)
+  {
+    url = item.attr('href');
     var reg=new RegExp("value=0","g");
     if(url.match(reg))
     {
@@ -31,7 +43,7 @@ $(function() {
     {
       confirm_text = $('#only_vod_confirm').html()
     }
-    html_item = $(this).parent();
+    html_item = item.parent();
     content = html_item.html();
     if(confirm(confirm_text))
     {
@@ -50,14 +62,13 @@ $(function() {
       });
     }
     return false;
-  });
-
+  }
   $(".news_x").live("click", function() {
     url = $(this).attr('href');
     html_item = $(this).parent();
     content = html_item.html();
     loader = 'ajax-loader.gif';
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: url,
       type: 'POST',
@@ -76,7 +87,7 @@ $(function() {
     html_item = $(this).parent();
     content = html_item.html();
     loader = 'ajax-loader.gif';
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: url,
       type: 'POST',
@@ -96,7 +107,7 @@ $(function() {
     html_item = $(this).parent();
     content = html_item.html();
     loader = 'ajax-loader.gif';
-    html_item.html("<img src='/images/"+loader+"'/>");
+    html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
     $.ajax({
       url: url,
       type: 'POST',
