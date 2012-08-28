@@ -377,7 +377,7 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
-  def recommendations_old(kind)
+  def recommendations(kind)
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
