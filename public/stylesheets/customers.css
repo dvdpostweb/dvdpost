@@ -270,3 +270,7 @@ a.renew{
   border-radius: 2px;
   font-size: 0.8em;
 }
+.only_vod
+{
+  color: #505050 !important;
+}

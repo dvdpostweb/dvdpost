@@ -527,12 +527,13 @@ class Product < ActiveRecord::Base
   def rating(customer=nil)
     if customer && customer.has_rated?(self)
       if imdb_id > 0 && rating = ratings_imdb.by_customer(customer).first
-        rating.value.to_i * 2
+        {:rating => rating.value.to_i * 2, :customer => true}
       else
-        ratings.by_customer(customer).first.value.to_i * 2
+        {:rating => ratings.by_customer(customer).first.value.to_i * 2, :customer => true}
       end
     else
       rating_count == 0 ? 0 : ((rating_users.to_f / rating_count) * 2).round
+      {:rating => rating_count, :customer => false}
     end
   end
 
