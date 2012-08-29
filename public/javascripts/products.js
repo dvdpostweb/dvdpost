@@ -3,23 +3,18 @@ $(function() {
   var options_review = {
     success: show_review
   }  
-  /*if(($('#image_5').attr('src')!=undefined))
+  if(($('#image_5').attr('src')!=undefined))
   {
   var img = new Image();
   img.onload = function() {
      height_im = this.height
-     if(height_im > 3)
-     {
-       $('#trailer_mask').show()
-     }
-     else
+     if(height_im <= 3)
      {
        $('#thumbs-wrap').hide()
      }
-     
   }
-  img.src = $('#image_5').attr('src');
-  }*/
+  img.src = $('#image_1').attr('src');
+  }
   
   function show_review(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){
@@ -30,7 +25,49 @@ $(function() {
       html_item.html(content);
     }
   };
-  
+  $('.preview_box img').click(function() {
+    url = $(this).attr('src')
+    url = url.replace('screenshots/', 'screenshots/big/')
+    open_image(url)
+  });
+  $('.next_button, .prev_button').live("click", function() {
+    url = $('#big_image').attr('src')
+    end = url.substr(-5,5)
+    n = url.substr(-5,1)
+    if($(this).hasClass('next_button'))
+    {
+      n = parseInt(n)+1
+    }
+    else
+    {
+      n = parseInt(n)-1
+    }
+    if( n>6 )
+    {
+      n=1
+    }
+    if(n<1)
+    {
+      n=6
+    }
+    url = url.replace(end,n+'.jpg')
+    open_image(url)
+  });
+  function open_image(url)
+  {
+    var img = new Image();
+    img.onload = function() {
+       height_im = this.height
+       width_im = this.width
+       if(height_im > 3)
+       {
+         img = "<div style='width:"+width_im+"px; height:"+height_im+"px; text-align:center;position:relative;margin: 0 0 15px;'><div class='prev_button' style='height:"+height_im+"px'><div class='image_prev'></div></div><div class='next_button' style='height:"+height_im+"px'><div class='image_next'></div>     </div>    <img src='"+url+"' id='big_image'/></div>"
+         jQuery.facebox(img);
+         
+       }
+    }
+    img.src = url;
+  }
   $("#tab-content-movie #sort").live("change", function() {
     loader = 'ajax-loader.gif';
     $(this).parent().ajaxSubmit(options_review);
