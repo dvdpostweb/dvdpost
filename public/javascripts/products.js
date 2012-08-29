@@ -25,9 +25,9 @@ $(function() {
       html_item.html(content);
     }
   };
-  $('.preview_box img').click(function() {
+  $('.normal .preview_box img').click(function() {
     url = $(this).attr('src')
-    url = url.replace('screenshots/', 'screenshots/big/')
+    url = url.replace('screenshots/small/', 'screenshots/big/')
     open_image(url)
   });
   $('.next_button, .prev_button').live("click", function() {

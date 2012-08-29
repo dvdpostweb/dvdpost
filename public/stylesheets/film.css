@@ -736,7 +736,7 @@ visibility: hidden;
   float:left; 
   margin:3px
 }
-.preview_box img
+.normal .preview_box img
 {
   cursor:pointer;
   position:relative;
