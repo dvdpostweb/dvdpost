@@ -736,3 +736,34 @@ visibility: hidden;
   float:left; 
   margin:3px
 }
+.preview_box img
+{
+  cursor:pointer;
+  position:relative;
+}
+.prev_button, .next_button{
+  position:absolute;
+  width:33%;
+  cursor:pointer;
+}
+.next_button
+{
+  right:0;
+}
+.image_prev, .image_next
+{
+  background:url(../images/prev.gif);
+  height:32px;
+  width:63px;
+  top:100px;
+  position:absolute;
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+.image_next
+{
+  background: url(../images/next.gif);
+  right:-1px;
+}
