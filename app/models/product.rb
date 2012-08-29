@@ -504,7 +504,7 @@ class Product < ActiveRecord::Base
     if kind == :adult
       File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
     else
-      File.join(DVDPost.images_preview_path, "#{imdb_id}_#{id}.jpg")
+      File.join(DVDPost.images_preview_path,'small', "#{imdb_id}_#{id}.jpg")
     end
   end
 
