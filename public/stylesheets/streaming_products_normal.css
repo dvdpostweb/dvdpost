@@ -8,6 +8,9 @@
 	text-transform:uppercase;
 	padding-top: 14px;
 }
+.adult #faq-intro-wrap h2 {
+	color: #BD1F83;
+}
 #faq-intro-wrap h2 span {
 	color: #191e23;
 	font-size: 24px;
@@ -32,6 +35,9 @@
 	font-size: 14px;
 	text-decoration:underline;
 	text-transform:none;
+}
+.adult #faq-intro-wrap h3 a {
+  color: #BD1F83;
 }
 #faq .cols {
 	width: 205px !important;
@@ -62,21 +68,30 @@
 	font-weight:bold;
 	text-decoration:underline;
 }
+.adult #vod-info-wrap a {
+	color: #BD1F83;
+}
+
 #vod-info {
 	border: 0px !important;
 }
 
 #vod-plus p {
-    background: url("../images/big_cross.png") no-repeat scroll 0 0 transparent;
-    height: 28px;
-    line-height: 30px;
-    padding-left: 36px;
+  background: url("../images/big_cross.png") no-repeat scroll 0 0 transparent;
+  height: 28px;
+  line-height: 30px;
+  padding-left: 36px;
+}
+.adult #vod-plus p {
+    background: url("../images/big_cross_purple.png") no-repeat scroll 0 0 transparent;
 }
 #vod-button p {
-    background: url("../images/green_box.gif") no-repeat scroll 0 7px transparent;
- 
-    line-height: 22px;
-    padding-left: 20px;
+  background: url("../images/green_box.gif") no-repeat scroll 0 7px transparent;
+  line-height: 22px;
+  padding-left: 20px;
+}
+.adult #vod-button p {
+    background: url("../images/purple_box.gif") no-repeat scroll 0 7px transparent;
 }
 #vod-plus, #vod-button {
 	font-size: 13px;
@@ -130,7 +145,7 @@ padding-top:8px;
 	z-index: 100;
 }
 #vod-ecran .content-tabs li a {
-	background: url("http://private.dvdpost.com/images/tabs-delimiter.gif") no-repeat scroll 0 0 transparent;
+	background: url("../images/tabs-delimiter.gif") no-repeat scroll 0 0 transparent;
 	color: #FFFFFF;
 	display: block;
 	font-size: 1.33em;
@@ -184,23 +199,31 @@ padding-top:8px;
     width: 378px;
 }
 #vod-ecran li#systeme {
-    background: url("http://private.dvdpost.com/images/systeme-icon.jpg") no-repeat scroll -8px 0px transparent;
+    background: url("../images/systeme-icon.jpg") no-repeat scroll -8px 0px transparent;
 }
-
+.adult #vod-ecran li#systeme {
+    background: url("../images/systeme-icon_adult.jpg") no-repeat scroll -8px 0px transparent;
+}
 #vod-ecran li#audio {
-    background: url("http://private.dvdpost.com/images/audio-icon.jpg") no-repeat scroll 2px 15px transparent;
+    background: url("../images/audio-icon.jpg") no-repeat scroll 2px 15px transparent;
 }
-
-
+.adult #vod-ecran li#audio {
+    background: url("../images/audio-icon_adult.jpg") no-repeat scroll 2px 15px transparent;
+}
 #vod-ecran li#extrait_vod {
-    background: url("http://private.dvdpost.com/images/extrait-icon.jpg") no-repeat scroll -6px 0 transparent;
+    background: url("../images/extrait-icon.jpg") no-repeat scroll -6px 0 transparent;
 }
-
+.adult #vod-ecran li#extrait_vod {
+    background: url("../images/extrait-icon_adult.jpg") no-repeat scroll -6px 0 transparent;
+}
 #vod-ecran li#cable {
     background: url("../images/cable-icon.jpg") no-repeat scroll -6px 2px transparent;
     height: 60px;
 }
-
+.adult #vod-ecran li#cable {
+    background: url("../images/cable-icon_adult.jpg") no-repeat scroll -6px 2px transparent;
+    height: 60px;
+}
 #vod-ecran li#appletv{
     background:  url(../images/appletv-icon.jpg) no-repeat scroll -6px 0 transparent;
 }
@@ -231,7 +254,9 @@ padding-top:8px;
     text-align: left;
     text-transform: uppercase;
 }
-
+.adult #vod-ecran .left h3 {
+  color: #BD1F83;
+}
 #vod-ecran .left h3 span {
     color: #36404E;
 	font-weight:lighter;
@@ -246,7 +271,9 @@ color: #85B91A;
 	text-transform:none;
 	
 }
-
+.adult #vod-ecran .left h3 a {
+color: #BD1F83;
+}
 #faq-content-wrap #faq_intro .cols {
     float: left;
     font-size: 14px;
@@ -269,16 +296,20 @@ color: #85B91A;
 background: url(../images/little_cross.png) no-repeat scroll 0 0 transparent;
 padding-left: 30px;
 }
-
+.adult #vod-intro #col1 p {
+  background: url(../images/little_cross_purple.png) no-repeat scroll 0 0 transparent;
+}
 
 #vod-intro a {
-color: #85B91A;
+  color: #85B91A;
 	font-weight:bold;
 	text-decoration:underline;
 	font-size:14px;
-	
-	
 }
+.adult #vod-intro a {
+  color: #BD1F83;
+}
+
 
 
 #vod-intro li#mac {

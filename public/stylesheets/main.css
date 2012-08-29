@@ -162,6 +162,10 @@ width:101px;
 
 /*   ============   HEADER   ============   */
 
+
+
+
+
 #top {
   line-height: 34px;
   background: url(../images/top-bg.gif) 0 0 repeat-x;
@@ -171,8 +175,13 @@ width:101px;
   margin: 0 auto;
   text-align: right;
 }
+#login {
+    background: url("../images/login_button.png") no-repeat scroll 0 0 transparent;
+    margin: -8px;
+    padding: 3px 27px 4px 12px;
+}
 #top a {
-  color: #8b9daa;
+    color: #FFFFFF;
 }
 #top a#logout {
   text-decoration: underline;
