@@ -44,7 +44,7 @@ $(function() {
   	}
   });
   $('.next_button, .prev_button').live("click", function() {
-    if(item.hasClass('next_button'))
+    if($(this).hasClass('next_button'))
     {
       next_prev('plus')
     }
