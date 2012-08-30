@@ -117,7 +117,9 @@ class ProductsController < ApplicationController
         elsif params[:recommendation_page]
           render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page], {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})}  
         end
+      
       }
+      
     end  
   end
 
@@ -207,6 +209,9 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :products => @recommendations}
         end
       }
+      format.mobile do
+        Rails.logger.debug { "@@@" }
+      end
     end
   end
 

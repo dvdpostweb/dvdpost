@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
     before_filter :redirect_for_mobile
-    #before_filter :adjust_format_for_mobile
+    before_filter :adjust_format_for_mobile
     #before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   def adjust_format_for_mobile
     if mobile_request?
       cookies[:format] = { :value => 'mobile', :expires => 10.year.from_now, :domain => request.domain }
-      request.format = :mobile 
+      request.format = :mobile
     else
       cookies[:format] = { :value => 'website', :expires => 10.year.from_now, :domain => request.domain }
     end
