@@ -538,3 +538,15 @@ right: 29px;
 top: -12px;
 background-position: 100% 0;
 }
+.bysort_title { 
+  float:left; 
+  font-size:12px;
+  padding: 3px 10px 0 0;
+}
+.bysort_choice { float:left;}
+
+.bysort { 
+  margin: 6px 0 0 458px;
+  padding:0 0 5px;
+  width:233px;
+}

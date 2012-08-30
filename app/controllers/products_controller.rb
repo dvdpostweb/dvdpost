@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show, :step]
   def index
+    Rails.logger.debug { "@@@#{request.inspect}" }
     if ENV['HOST_OK'] == "1"
       if params[:kind] == :adult
         if Rails.env == "pre_production"
