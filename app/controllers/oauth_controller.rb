@@ -9,10 +9,23 @@ class OauthController < ApplicationController
     # This means that we have to parse it out of the uri, so that we do not send a locale if it's has no locale param
     # If there is a locale here, this will be the locale when we get redirected back (The one from SSO will get lost)
     # If there is no locale, the one that SSO sets for us will be used in this client app
-    locale = $1 if request.path.match /\/(#{available_locales.join('|')})(\/.*|)/
-    options = {:redirect_uri => oauth_callback_url(:locale => locale)}
-    options.merge!(:locale => locale) if locale
-    redirect_to oauth_client.web_server.authorize_url(options)
+    url = "http://#{request.host+request.fullpath}"
+    if !url.include?('public')
+      if params[:login] != "1" 
+        url = "http://#{request.host+request.fullpath}"
+        url = url.gsub(/private/, 'public')
+      else
+        locale = $1 if request.path.match /\/(#{available_locales.join('|')})(\/.*|)/
+        url = oauth_callback_url(:locale => locale)
+        options = {:redirect_uri => url }
+        options.merge!(:locale => locale) if locale
+        url = oauth_client.web_server.authorize_url(options)
+      end
+    else
+      
+      url = info_path(:page_name => 'error')
+    end
+    redirect_to url
   end
 
   def callback
