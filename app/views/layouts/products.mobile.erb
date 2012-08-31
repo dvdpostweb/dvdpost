@@ -1,0 +1,8 @@
+<% if params[:action] == 'index' %>
+  <% content_for :body_id do %>cl<% end %>
+<% else %>
+  <% content_for :body_id do %>film-details<% end %>
+<% end %>
+
+<%= yield %>
+<% parent_layout 'application' %>
