@@ -113,7 +113,14 @@ module ApplicationHelper
   end
 
   def redirect_url_after_sign_out
-    php_path
+    case Rails.env
+      when "production"
+        "http://public.dvdpost.com"
+      when "staging"
+        "http://staging.public.dvdpost.com"
+      when "development"
+        "http://public.dvdpost.dev"
+    end
   end
 
   def blog_url
@@ -323,7 +330,7 @@ module ApplicationHelper
 
   def check_host
     @jacob = 1
-    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com') 
+    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  || (request.host == 'public.dvdpost.dev')
       ENV['HOST_OK'] = "1"
     else
       ENV['HOST_OK'] = "0"
@@ -453,7 +460,15 @@ module ApplicationHelper
   end
 
   def login_path
-    "http://private.dvdpost.com#{request.fullpath}"
+    case Rails.env
+      when "production"
+        "http://private.dvdpost.com#{request.fullpath}"
+      when "staging"
+        "http://staging.private.dvdpost.com#{request.fullpath}"
+      when "development"
+        path = request.fullpath
+        path = path.include?('?') ? "#{path}&login=1" : "#{path}?login=1"
+        "http://private.dvdpost.dev#{path}"
+    end
   end
-
 end

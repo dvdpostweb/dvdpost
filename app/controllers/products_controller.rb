@@ -210,7 +210,6 @@ class ProductsController < ApplicationController
         end
       }
       format.mobile do
-        Rails.logger.debug { "@@@" }
       end
     end
   end
