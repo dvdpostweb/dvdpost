@@ -460,14 +460,14 @@ module ApplicationHelper
   end
 
   def login_path
+    path = request.fullpath
+    path = path.include?('?') ? "#{path}&login=1" : "#{path}?login=1"
     case Rails.env
       when "production"
-        "http://private.dvdpost.com#{request.fullpath}"
+        "http://private.dvdpost.com#{path}"
       when "staging"
-        "http://staging.private.dvdpost.com#{request.fullpath}"
+        "http://staging.private.dvdpost.com#{path}"
       when "development"
-        path = request.fullpath
-        path = path.include?('?') ? "#{path}&login=1" : "#{path}?login=1"
         "http://private.dvdpost.dev#{path}"
     end
   end
