@@ -113,13 +113,14 @@ module ApplicationHelper
   end
 
   def redirect_url_after_sign_out
+    prefix = mobile_request? ? "http://m." : "http://"
     case Rails.env
       when "production"
-        "http://public.dvdpost.com"
+        "#{prefix}public.dvdpost.com"
       when "staging"
-        "http://staging.public.dvdpost.com"
+        "#{prefix}http://staging.public.dvdpost.com"
       when "development"
-        "http://public.dvdpost.dev"
+        "#{prefix}http://public.dvdpost.dev"
     end
   end
 
