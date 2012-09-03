@@ -330,7 +330,7 @@ module ApplicationHelper
 
   def check_host
     @jacob = 1
-    if (request.host == 'public.dvdpost.com') || (request.host == 'staging.public.dvdpost.com')  || (request.host == 'public.dvdpost.dev')
+    if request.host.include? 'public'
       ENV['HOST_OK'] = "1"
     else
       ENV['HOST_OK'] = "0"

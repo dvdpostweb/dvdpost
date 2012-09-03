@@ -16,13 +16,25 @@ class NewslettersController < ApplicationController
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
     respond_to do |format|
       format.html do
-        @news = Rails.env == 'production' ? News.private.find(params[:id]) : News.beta.find(params[:id])
-        if @news
-          @content = @news.contents.by_language(I18n.locale).first 
-          @cat = @news.category.to_param
+        begin
+          @news = Rails.env == 'production' ? News.private.find(params[:id]) : News.beta.find(params[:id])
+          if @news
+            @content = @news.contents.by_language(I18n.locale).first 
+            @cat = @news.category.to_param
+            if @content.nil?
+              msg = "no tranlation for this news"
+              logger.error(msg)
+              flash[:notice] = msg
+              redirect_to newsletters_path()
+            end
+          end
+        rescue ActiveRecord::RecordNotFound
+          msg = "news not found"
+          logger.error(msg)
+          flash[:notice] = msg
+          redirect_to newsletters_path()
         end
       end
     end
   end
-
 end
