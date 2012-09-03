@@ -91,7 +91,7 @@
               <td class="tl"/><td class="b"/><td class="tr"/> \
             </tr> \
             <tr> \
-              <td class="b"/> \
+              <td class="b"><div class="ten"></div></td> \
               <td class="body"> \
                 <div class="content"> \
                 </div> \
@@ -101,7 +101,7 @@
                   </a> \
                 </div> \
               </td> \
-              <td class="b"/> \
+              <td class="b"><div class="ten"></div></td> \
             </tr> \
             <tr> \
               <td class="bl"/><td class="b"/><td class="br"/> \
