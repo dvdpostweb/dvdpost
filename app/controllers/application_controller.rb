@@ -15,8 +15,10 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
-    before_filter :redirect_for_mobile
+    before_filter :set_mobile_preferences
+    before_filter :redirect_to_mobile_if_applicable
     before_filter :prepend_view_path_if_mobile
+    
     #before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
@@ -35,13 +37,6 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
-  def redirect_for_mobile
-    @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-    #@browser.iphone? && @browser.mobile? &&
-    #if current_subdomain != "m" && !cookies[:format]
-    #  redirect_to url_for(:controller => request.parameters['controller'], :action => request.parameters['action'], :subdomain => "m", :params => params, :only_path => false)
-    #end
-  end
   
   # Force all mobile users to login
   def mobile_request?
@@ -226,17 +221,31 @@ class ApplicationController < ActionController::Base
   end
 
   private
+    def set_mobile_preferences
+      if params[:mobile_site]
+        cookies.delete(:prefer_full_site)
+      elsif params[:full_site]
+        cookies.permanent[:prefer_full_site] = 1
+        redirect_to_full_site if mobile_request?
+      end
+    end
+    
+    def redirect_to_full_site
+      redirect_to request.protocol + request.host_with_port.gsub(/^m\./, '') +
+                  request.request_uri and return
+    end
+
+    def redirect_to_mobile_if_applicable
+      @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
+      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile?
+        redirect_to request.protocol + "m." + request.host_with_port.gsub(/^www\./, '') +
+                    request.request_uri and return
+      end
+    end
   def prepend_view_path_if_mobile
     if mobile_request?
       mobile_path = Rails.root.join("app", "views_mobile").to_s
-      web_path = Rails.root.join("app", "views")
-      
-      p = Pathname.new(mobile_path)
-      controller_path.split('/').each do |a|
-        p = p + a
-      end
-      p = p.join(action_name + ".html.erb")
-      prepend_view_path(mobile_path) if File.exists?(p)
+      prepend_view_path(mobile_path) 
     end
   end
 
