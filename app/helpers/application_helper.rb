@@ -472,4 +472,10 @@ module ApplicationHelper
         "http://private.dvdpost.dev#{path}"
     end
   end
+
+  def body_classes(subdomains =  nil)
+    name = [controller.controller_name].join(' ')
+    name = name + '_' + subdomains if subdomains
+    name
+  end
 end

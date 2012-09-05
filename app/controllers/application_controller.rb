@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
     before_filter :redirect_for_mobile
-    before_filter :adjust_format_for_mobile
+    before_filter :prepend_view_path_if_mobile
     #before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
@@ -43,18 +43,11 @@ class ApplicationController < ActionController::Base
     #end
   end
   
-  def adjust_format_for_mobile
-    if mobile_request?
-      cookies[:format] = { :value => 'mobile', :expires => 10.year.from_now, :domain => request.domain }
-      request.format = :mobile
-    else
-      cookies[:format] = { :value => 'website', :expires => 10.year.from_now, :domain => request.domain }
-    end
-  end
   # Force all mobile users to login
   def mobile_request?
-    return (request.subdomains.first == "m" || params[:format] == "mobile")
+    return request.subdomains.first == "m"
   end
+  helper_method :mobile_request?
 
   def is_it_js?
     request.format.js?
@@ -233,6 +226,20 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def prepend_view_path_if_mobile
+    if mobile_request?
+      mobile_path = Rails.root.join("app", "views_mobile").to_s
+      web_path = Rails.root.join("app", "views")
+      
+      p = Pathname.new(mobile_path)
+      controller_path.split('/').each do |a|
+        p = p + a
+      end
+      p = p.join(action_name + ".html.erb")
+      prepend_view_path(mobile_path) if File.exists?(p)
+    end
+  end
+
   def http_authenticate
     authenticate_or_request_with_http_basic do |id, password|
       id == 'dvdpostadmin' && password == 'Chase-GiorgioMoroder@dvdpost'

@@ -56,8 +56,9 @@ $(function() {
   function next_prev(operation)
   {
     url = $('#big_image').attr('src')
-    end = url.substr(-5,5)
-    n = url.substr(-5,1)
+    l = url.length
+    ext = url.substr((l-5),5)
+    n = url.substr((l-5),1)
     if(operation == 'plus')
     {
       n = parseInt(n)+1
@@ -74,7 +75,7 @@ $(function() {
     {
       n=6
     }
-    url = url.replace(end,n+'.jpg')
+    url = url.replace(ext,n+'.jpg')
     open_image(url)
   }
   function open_image(url)
