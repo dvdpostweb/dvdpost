@@ -232,14 +232,13 @@ class ApplicationController < ActionController::Base
     
     def redirect_to_full_site
       redirect_to request.protocol + request.host_with_port.gsub(/^m\./, '') +
-                  request.request_uri and return
+                  request.request_uri.gsub(/\?full_site=1/, '')  and return
     end
 
     def redirect_to_mobile_if_applicable
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile?
-        redirect_to request.protocol + "m." + request.host_with_port.gsub(/^www\./, '') +
-                    request.request_uri and return
+      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ipad?
+        redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
       end
     end
   def prepend_view_path_if_mobile
