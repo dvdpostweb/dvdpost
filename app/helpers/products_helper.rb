@@ -160,7 +160,7 @@ module ProductsHelper
     s = size == :long || size == 'long' ? '19x19' : '12x12'
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => s)
     
-    if current_customer && class_name == 'star'
+    if current_customer && class_name == 'star' && !mobile_request?
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
     else
       image

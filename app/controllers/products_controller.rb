@@ -61,56 +61,58 @@ class ProductsController < ApplicationController
     @rating_color = params[:kind] == :adult ? :pink : :white
     @countries = ProductCountry.visible.order
     @collections = Category.by_size.random
-    respond_to do |format|
-      format.html do
-        
-        if params[:search] && !params[:search].empty?
-          @exact_products = Product.filter(@filter, params.merge(:exact => 1))
-          @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
-          @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
-        end
-        if session[:sexuality] == 0
-          new_params = params.merge(:hetero => 1) 
-        else
-          new_params = params
-        end
-        @products = 
-        if params[:view_mode] == 'recommended'
-          if(session[:sort] != params[:sort])
-            expiration_recommendation_cache()
-          end
-          session[:sort]=params[:sort] 
-
-          retrieve_recommendations(params[:page], params.merge(:per_page => 20, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]))
-        else
-          
-          if @exact_products && @exact_products.size > 0
-            Product.filter(@filter, new_params, @exact_products)
-          else
-            Product.filter(@filter, new_params)
-          end
-        end
-        @products_count = @products.count
-        
-        if params[:search] && !params[:search].empty?
-          if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
-            if @actors_count > 0
-              params[:type] = 'actors'
-            elsif @directors_count > 0
-               params[:type] = 'directors'
-            end 
-          end
-          if params[:type] == 'actors'
-            @actors = Actor.search_clean(params[:search], params[:kind], params[:actors_page], false)
-          elsif params[:type] == 'directors'
-            @directors = Director.search_clean(params[:search], params[:directors_page], false)
-          end
-        end
-        
-        @source = WishlistItem.wishlist_source(params, @wishlist_source)
-        @jacket_mode = Product.get_jacket_mode(params)
+    
+    unless request.format.js?
+      item_per_page = request.format.html? == true ? 20 : 5
+      if params[:search] && !params[:search].empty?
+        @exact_products = Product.filter(@filter, params.merge(:exact => 1))
+        @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
+        @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
       end
       
+      if session[:sexuality] == 0
+        new_params = params.merge(:hetero => 1) 
+      else
+        new_params = params
+      end
+      new_params = new_params.merge(:per_page => item_per_page)
+      @products = 
+      if params[:view_mode] == 'recommended'
+        if(session[:sort] != params[:sort])
+          expiration_recommendation_cache()
+        end
+        session[:sort]=params[:sort] 
+        retrieve_recommendations(params[:page], params.merge(:per_page => item_per_page, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]))
+      else
+        
+        if @exact_products && @exact_products.size > 0
+          Product.filter(@filter, new_params, @exact_products)
+        else
+          Product.filter(@filter, new_params)
+        end
+      end
+      @products_count = @products.count
+      
+      if params[:search] && !params[:search].empty?
+        if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
+          if @actors_count > 0
+            params[:type] = 'actors'
+          elsif @directors_count > 0
+             params[:type] = 'directors'
+          end 
+        end
+        if params[:type] == 'actors'
+          @actors = Actor.search_clean(params[:search], params[:kind], params[:actors_page], false)
+        elsif params[:type] == 'directors'
+          @directors = Director.search_clean(params[:search], params[:directors_page], false)
+        end
+      end
+      
+      @source = WishlistItem.wishlist_source(params, @wishlist_source)
+      @jacket_mode = Product.get_jacket_mode(params)
+    end
+    respond_to do |format|
+      format.html
       format.js {
         if params[:category_id]
           render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page}
@@ -119,7 +121,6 @@ class ProductsController < ApplicationController
         end
       
       }
-      
     end  
   end
 
@@ -209,8 +210,6 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :products => @recommendations}
         end
       }
-      format.mobile do
-      end
     end
   end
 
@@ -275,7 +274,6 @@ class ProductsController < ApplicationController
     expire_fragment ("/fr/products/product2_1_0_#{params[:product_id]}")
     expire_fragment ("/nl/products/product2_1_0_#{params[:product_id]}")
     expire_fragment ("/en/products/product2_1_0_#{params[:product_id]}")
-
     expire_fragment ("/fr/products/product2_0_1_#{params[:product_id]}")
     expire_fragment ("/nl/products/product2_0_1_#{params[:product_id]}")
     expire_fragment ("/en/products/product2_0_1_#{params[:product_id]}")
