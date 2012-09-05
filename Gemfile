@@ -30,5 +30,5 @@ gem "db-charmer"
 gem 'routing-filter'
 gem 'geoip'
 gem 'useragent'
-gem 'browser'
+gem 'browser', "~> 0.1.4"
 gem 'memcache-client'

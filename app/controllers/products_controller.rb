@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
     @collections = Category.by_size.random
     
     unless request.format.js?
-      item_per_page = request.format.html? == true ? 20 : 5
+      item_per_page = mobile_request? ? 5 : 20
       if params[:search] && !params[:search].empty?
         @exact_products = Product.filter(@filter, params.merge(:exact => 1))
         @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
