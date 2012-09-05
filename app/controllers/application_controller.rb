@@ -8,7 +8,6 @@ require 'db_charmer'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   include ApplicationHelper
-  has_mobile_fu
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
     helper_method :current_customer, :unless => :is_it_xml?
