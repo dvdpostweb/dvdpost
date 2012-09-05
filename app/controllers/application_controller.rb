@@ -8,6 +8,7 @@ require 'db_charmer'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   include ApplicationHelper
+  has_mobile_fu
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
     helper_method :current_customer, :unless => :is_it_xml?
@@ -237,7 +238,7 @@ class ApplicationController < ActionController::Base
 
     def redirect_to_mobile_if_applicable
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ipad?
+      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ipad? || browsertablet?
         redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
       end
     end
