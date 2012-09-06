@@ -17,7 +17,7 @@ class NewslettersController < ApplicationController
     respond_to do |format|
       format.html do
         begin
-          @news = Rails.env == 'production' ? News.private.find(params[:id]) : News.beta.find(params[:id])
+          @news = Rails.env == 'production' ? News.private.by_kind(params[:kind]).find(params[:id]) : News.beta.by_kind(params[:kind]).find(params[:id])
           if @news
             @content = @news.contents.by_language(I18n.locale).first 
             @cat = @news.category.to_param

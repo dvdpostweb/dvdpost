@@ -14,7 +14,7 @@
  	<%= stylesheet_link_tag 'facebox', :media => :all %>
 	<%= stylesheet_link_tag 'style', 'all', :media => :all if ((params[:controller] != 'home' && params[:controller] != 'products') && params[:kind] == :normal) || (params[:kind] == :adult && params[:controller] != 'products')  %>
 	
-	<%= stylesheet_link_tag 'stylex', :media => :all if params[:kind] == :adult %>
+	<%= stylesheet_link_tag 'stylex', :media => :all if params[:kind] == :adult && params[:controller] != 'newsletters' && !(params[:controller] == 'streaming_products' && params[:action] =='faq') %>
 
 
 	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>

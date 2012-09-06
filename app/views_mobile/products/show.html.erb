@@ -31,7 +31,8 @@ FB.init({
 <div id="maincontent">
   <div class="ttl-wrap">
     <div class="ttl osc">
-      mobile : <%= browser.mobile? %>
+      <% user_agent = UserAgent.parse(request.env["HTTP_USER_AGENT"])	%>
+      <%= user_agent.mobile? %>
       <h2><%= "#{@product_title} (#{@product.year})" %> <%= image_tag "3d_icon.png" if @product.bluray3d? %> <%= image_tag "3d2d_icon.png" if @product.bluray3d2d? %></h2>
       <h3><% if params[:kind] == :adult %>
         <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
