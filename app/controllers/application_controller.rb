@@ -237,7 +237,7 @@ class ApplicationController < ActionController::Base
 
     def redirect_to_mobile_if_applicable
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ipad? || browsertablet?
+      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browsertablet?
         redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
       end
     end
