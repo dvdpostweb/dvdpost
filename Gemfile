@@ -32,4 +32,3 @@ gem 'geoip'
 gem 'useragent'
 gem 'browser', "~> 0.1.4"
 gem 'memcache-client'
-gem 'useragent'
