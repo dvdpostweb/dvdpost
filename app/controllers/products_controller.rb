@@ -68,6 +68,8 @@ class ProductsController < ApplicationController
         @exact_products = Product.filter(@filter, params.merge(:exact => 1))
         @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
         @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
+        kind = params[:kind]
+        Search.create(:name => params[:search], :kind => DVDPost.search_kinds[kind])
       end
       
       if session[:sexuality] == 0
