@@ -135,7 +135,9 @@
   overflow: hidden;
   position:relative;
 }
-
+#film-img-wrap img{
+max-width:180px;
+}
 #film-img-wrap.dvd {
   background: #000014;
 }
