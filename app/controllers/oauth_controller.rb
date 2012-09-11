@@ -11,10 +11,13 @@ class OauthController < ApplicationController
     # If there is no locale, the one that SSO sets for us will be used in this client app
     url = "http://#{request.host+request.fullpath}"
     if !url.include?('public')
-      if params[:login] != "1" 
+      if params[:login] != "1"
         url = "http://#{request.host+request.fullpath}"
+        Rails.logger.debug { "@@@#{url} full #{request.fullpath}" }
         url = url.gsub(/private./, 'public.')
+        Rails.logger.debug { "@@@#{url}" }
         url = url.gsub(/beta./, 'beta.public.')
+        Rails.logger.debug { "@@@#{url}" }
         
       else
         locale = $1 if request.path.match /\/(#{available_locales.join('|')})(\/.*|)/
@@ -27,6 +30,7 @@ class OauthController < ApplicationController
       
       url = info_path(:page_name => 'error')
     end
+    Rails.logger.debug { "@@@#{url}" }
     redirect_to url
   end
 

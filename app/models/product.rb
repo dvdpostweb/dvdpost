@@ -226,7 +226,6 @@ class Product < ActiveRecord::Base
   
   
   def self.filter(filter, options={}, exact=nil)
-    Rails.logger.debug { "@@@#{options.inspect}" }
     if options[:exact]
       products = search_clean_exact(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
     else
@@ -671,7 +670,6 @@ class Product < ActiveRecord::Base
   end
 
   def self.search_clean(query_string, options={})
-    Rails.logger.debug { "@@@#{options.inspect}" }
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
