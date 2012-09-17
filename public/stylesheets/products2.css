@@ -141,7 +141,7 @@
 }
 .movie-content {
   overflow: hidden;
-  padding: 12px 0 20px 20px;
+  padding: 12px 0 20px 10px;
   background: #c3d1db url(../images/film-cont-bg.gif) 0 0 repeat-x;
   min-height: 120px;
 
@@ -149,7 +149,7 @@
 .movie-descr {
   float: left;
   position: relative;
-  width: 238px;
+  width: 248px;
   padding: 0 8px 0 82px;
   min-height: 106px;
   color: #5f6f7b;
@@ -166,7 +166,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 62px;
+  width: 72px;
 }
 .movie-descr .thumb-wrap .vod, .movie-descr .thumb-wrap .bluray, .movie-descr .thumb-wrap .dvd, .movie-descr .thumb-wrap .bluray3d {
   display: block;
