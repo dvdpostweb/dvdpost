@@ -25,7 +25,7 @@ class StreamingProductsController < ApplicationController
       format.html do
         if @product
           if ENV['HOST_OK'] == "1"
-            @token = Token.recent(2.week.ago.localtime, Time.now).by_imdb_id(@product.imdb_id).find_by_code(params[:code])
+            @token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(@product.imdb_id).find_by_code(params[:code]) if !params[:code].nil?
           else
             @token = current_customer.get_token(@product.imdb_id)
           end
@@ -60,7 +60,7 @@ class StreamingProductsController < ApplicationController
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
           if ENV['HOST_OK'] == "1"
-            @token = Token.recent(2.week.ago.localtime, Time.now).by_imdb_id(@product.imdb_id).find_by_code(params[:code])
+            @token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(@product.imdb_id).find_by_code(params[:code]) if !params[:code].nil?
           else
             @token = current_customer.get_token(@product.imdb_id)
           end
