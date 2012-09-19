@@ -13,6 +13,7 @@ class Token < ActiveRecord::Base
 
   named_scope :available, lambda {|from, to| {:conditions => {:updated_at => from..to}}}
   named_scope :expired, lambda {|to| {:conditions => ["updated_at < ?", to]}}
+  named_scope :is_public, :conditions => {:customer_id => nil}
 
   named_scope :recent, lambda {|from, to| {:conditions => {:updated_at=> from..to}}}
   named_scope :by_imdb_id, lambda {|imdb_id| {:conditions => {:imdb_id=> imdb_id}}}
