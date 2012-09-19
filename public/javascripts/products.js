@@ -516,15 +516,7 @@ $(function() {
     $('#attention_bluray').hide();
     return false;
   });
-  if ($('.action_face').html()!=undefined)
-  {
-    jQuery.facebox(function() {
-      
-      $.getScript($('.action_face').html(), function(data) {
-        jQuery.facebox(data);
-      });
-    });
-  }
+  
   $("#sort").change(function() {
           $(this).parents().filter("form").trigger("submit");
       });  

@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
     #before_filter :theme_actif, :if => :is_it_html?
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
+    before_filter :public_behaviour, :if => :public_page?
     
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -85,7 +86,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_special_page?
-    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles')
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles' || request.parameters['controller'] == 'public_newsletters')
   end
 
   def set_locale_from_params
@@ -114,7 +115,7 @@ class ApplicationController < ActionController::Base
 
   def validation_adult
     if params[:kind] == :adult && !session[:adult] && params[:code].nil? && params['action'] != 'validation' && params['action'] != 'authenticate'
-      session['current_uri'] = request.env['PATH_INFO']
+      session['current_uri'] = 'http://' + request.host_with_port + request.request_uri
       redirect_to validation_path
     end
   end
@@ -221,6 +222,44 @@ class ApplicationController < ActionController::Base
   end
 
   private
+    def public_page?
+      ENV['HOST_OK'] == "1"
+    end
+
+    def public_behaviour
+      if !params[:later].nil?
+        session[:later] = "later"
+        cookies[:nb_pages_views] =  { :value => 0, :expires => 3.months.from_now }
+      end
+      if session[:later] != "later"
+        if cookies[:nb_pages_views].nil?
+          cookies[:nb_pages_views] = { :value => 1, :expires => 3.months.from_now }
+        else
+          cookies[:nb_pages_views] = { :value => cookies[:nb_pages_views].to_i + 1, :expires => 3.months.from_now }
+        end
+      end
+      if params[:controller] == 'products' && params[:action] == 'show'
+        id = params[:id].gsub(/-.*/,'')
+        if cookies[:products_seen].nil?
+          cookies[:products_seen] = { :value => id, :expires => 10.year.from_now }
+        else
+          unless products_seen_read.include?(id)
+            cookies[:products_seen] = { :value => cookies[:products_seen] << ",#{id}", :expires => 3.months.from_now }
+          end
+        end
+        unless cookies[:public_newsletter_id].nil?
+          news = PublicNewsletter.find(cookies[:public_newsletter_id])
+          news.update_attributes(:products_id => cookies[:products_seen])
+        end
+      end
+      
+      return nil
+    end
+
+    def products_seen_read
+      return cookies[:products_seen] ? cookies[:products_seen].split(",") : []
+    end
+
     def set_mobile_preferences
       if params[:mobile_site]
         cookies.delete(:prefer_full_site)

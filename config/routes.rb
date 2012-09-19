@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     localized.resources :steps, :only => [:show, :update]
     localized.resource :ogone, :only => [:show]
-    
+    localized.resources :public_newsletters, :only => [:new, :create]
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :reviews, :only => [:new, :create]
