@@ -456,18 +456,18 @@ module ProductsHelper
 
   def expire_fragment(product)
     id = product.to_param
-    Rails.cache.delete "views/fr/products/product_1_1_#{id}"
-    Rails.cache.delete "views/nl/products/product_1_1_#{id}"
-    Rails.cache.delete "views/en/products/product_1_1_#{id}"
-    Rails.cache.delete "views/fr/products/product_1_0_#{id}"
-    Rails.cache.delete "views/nl/products/product_1_0_#{id}"
-    Rails.cache.delete "views/en/products/product_1_0_#{id}"
-    Rails.cache.delete "views/fr/products/product_0_1_#{id}"
-    Rails.cache.delete "views/nl/products/product_0_1_#{id}"
-    Rails.cache.delete "views/en/products/product_0_1_#{id}"
-    Rails.cache.delete "views/fr/products/product_0_0_#{id}"
-    Rails.cache.delete "views/nl/products/product_0_0_#{id}"
-    Rails.cache.delete "views/en/products/product_0_0_#{id}"
+    Rails.cache.delete "views/fr/products/product2_1_1_#{id}"
+    Rails.cache.delete "views/nl/products/product2_1_1_#{id}"
+    Rails.cache.delete "views/en/products/product2_1_1_#{id}"
+    Rails.cache.delete "views/fr/products/product2_1_0_#{id}"
+    Rails.cache.delete "views/nl/products/product2_1_0_#{id}"
+    Rails.cache.delete "views/en/products/product2_1_0_#{id}"
+    Rails.cache.delete "views/fr/products/product2_0_1_#{id}"
+    Rails.cache.delete "views/nl/products/product2_0_1_#{id}"
+    Rails.cache.delete "views/en/products/product2_0_1_#{id}"
+    Rails.cache.delete "views/fr/products/product2_0_0_#{id}"
+    Rails.cache.delete "views/nl/products/product2_0_0_#{id}"
+    Rails.cache.delete "views/en/products/product2_0_0_#{id}"
   end
 
   def abo_details(abo, free_upgrade=0)

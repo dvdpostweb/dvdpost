@@ -1,0 +1,12 @@
+<div class="newsletter_public">
+  <div class="title"><%= t '.title' %></div>
+  <% form_for @newsletter do |f| %>
+    <%= f.error_messages :header_message => "",
+          :message => "",
+          :header_tag => :h3 %>
+    <%= f.hidden_field :products_id, :value => cookies[:products_seen] if !cookies[:products_seen].nil? %>
+    <%= t '.email' %> : <%= f.text_field :email %>
+    <%= submit_tag t('.confirm'), :id => 'public_newsletter' %>
+  <% end %>
+  <%= link_to 'later', root_path(:later => 1), :id => :later %>
+</div>

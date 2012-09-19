@@ -1157,3 +1157,24 @@ height: 20px;
 {
   width:10px;
 }
+.newsletter_public
+{
+  margin:10px auto;
+  width:400px;
+}
+.newsletter_public .title
+{
+  font-size:15px;
+  margin:10px 0;
+}
+.newsletter_public #errorExplanation
+{
+  border: red 2px solid;
+  padding: 5px;
+  margin: 16px 0;
+  width: 120px;
+}
+.newsletter_public .fieldWithErrors
+{
+  display:inline;
+}

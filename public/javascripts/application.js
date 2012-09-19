@@ -106,8 +106,21 @@ $(function() {
     });
     return false;
   });
-  
-
+  if ($('.action_face').html()!=undefined)
+  {
+    jQuery.facebox(function() {
+      
+      $.getScript($('.action_face').html(), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+  }
+  $('#later').live('click',function(){
+    h = document.URL
+    h = h + (h.indexOf('?') != -1 ? "&later=1" : "?later=1");
+    window.location = h
+    return false
+  });
 });
 // Always send the authenticity_token with ajax
 $(document).ajaxSend(function(event, request, settings) {

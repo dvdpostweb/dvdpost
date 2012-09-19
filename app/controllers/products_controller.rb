@@ -61,7 +61,6 @@ class ProductsController < ApplicationController
     @rating_color = params[:kind] == :adult ? :pink : :white
     @countries = ProductCountry.visible.order
     @collections = Category.by_size.random
-    
     unless request.format.js?
       item_per_page = mobile_request? ? 5 : 20
       if params[:search] && !params[:search].empty?
