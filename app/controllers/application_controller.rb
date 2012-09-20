@@ -15,9 +15,9 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
-    before_filter :set_mobile_preferences
+    #before_filter :set_mobile_preferences
     before_filter :redirect_to_mobile_if_applicable
-    before_filter :prepend_view_path_if_mobile
+    #before_filter :prepend_view_path_if_mobile
     
     #before_filter :load_partners, :if => :is_it_html?
     before_filter :redirect_after_registration, :unless => :is_it_xml?
@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_special_page?
-    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && request.parameters['action'] == 'index') || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles' || request.parameters['controller'] == 'public_newsletters')
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && (request.parameters['action'] == 'index' || request.parameters['action'] == 'show')) || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles' || request.parameters['controller'] == 'public_newsletters')
   end
 
   def set_locale_from_params
@@ -249,7 +249,10 @@ class ApplicationController < ActionController::Base
         end
         unless cookies[:public_newsletter_id].nil?
           news = PublicNewsletter.find(cookies[:public_newsletter_id])
-          news.update_attributes(:products_id => cookies[:products_seen])
+          news.public_newsletter_products.destroy_all
+          products_seen_read.each do |product|
+            news.public_newsletter_products.create(:product_id =>product)
+          end
         end
       end
       
@@ -276,9 +279,9 @@ class ApplicationController < ActionController::Base
 
     def redirect_to_mobile_if_applicable
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-      unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browsertablet?
-        redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
-      end
+      #unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browsertablet?
+      #  redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
+      #end
     end
   def prepend_view_path_if_mobile
     if mobile_request?

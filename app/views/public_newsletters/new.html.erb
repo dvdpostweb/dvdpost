@@ -4,7 +4,7 @@
     <%= f.error_messages :header_message => "",
           :message => "",
           :header_tag => :h3 %>
-    <%= f.hidden_field :products_id, :value => cookies[:products_seen] if !cookies[:products_seen].nil? %>
+    <%= f.hidden_field :language_id, :value => DVDPost.customer_languages[I18n.locale] %>
     <%= t '.email' %> : <%= f.text_field :email %>
     <%= submit_tag t('.confirm'), :id => 'public_newsletter' %>
   <% end %>

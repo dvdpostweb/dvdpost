@@ -62,6 +62,12 @@ module HomeHelper
         contest_path(:id => carousel.reference_id)
       when 'SHOP'
         shop_path()
+      when 'STUDIO'
+         studio_products_path(:studio_id => carousel.reference_id)
+     when 'STUDIO_VOD'
+        studio_products_path(:studio_id => carousel.reference_id, :filter => :vod)
+      when 'SEARCH'
+        products_path(:search => carousel.reference_id)
       when 'URL'
         eval(t("home.index.carousel_item.url_#{carousel.id}"))
       end
