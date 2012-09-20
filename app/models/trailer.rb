@@ -26,6 +26,10 @@ class Trailer < ActiveRecord::Base
     broadcast_service == 'YOUTUBE'
   end
 
+  def vimeo?
+    broadcast_service == 'VIMEO'
+  end
+
   def dailymotion?
     broadcast_service == 'DAYLYMOTION'
   end

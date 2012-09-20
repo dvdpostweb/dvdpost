@@ -10,6 +10,10 @@ class PublicNewslettersController < ApplicationController
   def create
     @newsletter = PublicNewsletter.new(params[:public_newsletter])
     if @newsletter.save
+      products_seen_read.each do |product|
+        @newsletter.public_newsletter_products.create(:product_id =>product)
+      end
+      
       cookies[:public_newsletter_id] = { :value => @newsletter.to_param, :expires => 2.months.from_now }
       flash[:notice] = t('.public_newsletters.create.email_save')
       respond_to do |format|
