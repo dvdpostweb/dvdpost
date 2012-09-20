@@ -16,8 +16,8 @@
   <param name="bgcolor" value="#000000"/>
   <param name="flashvars" value="<%= trailer.remote_id %>"/>
   </object>
-<% elsif trailer.cinemovies? %>
-  	<embed height="458" width="610" allowscriptaccess="always" allowfullscreen="true" flashvars="<%= trailer.remote_id %>" src="http://www.cinemovies.fr/player/export/CineMovies2.swf"></embed>
+<% elsif trailer.cinemovies? || trailer.vimeo? %>
+  	<%= trailer.remote_id %>
 <% elsif trailer.aamreviews? %>
   <object type="application/x-shockwave-flash" width="450" height="300"wmode="transparent" data="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/<%= trailer.remote_id %>&autostart=true&showfsbutton=true">
                   <param name="movie" value="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/3372.flv&autostart=true&showfsbutton=true" />
