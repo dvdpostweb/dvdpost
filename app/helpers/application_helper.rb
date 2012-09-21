@@ -474,6 +474,8 @@ module ApplicationHelper
     case Rails.env
       when "production"
         "http://private.dvdpost.com#{path}"
+      when "pre_production"
+        "http://beta.dvdpost.com#{path}"
       when "staging"
         "http://staging.private.dvdpost.com#{path}"
       when "development"
