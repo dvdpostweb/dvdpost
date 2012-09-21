@@ -294,7 +294,7 @@ module ProductsHelper
     return t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
     return t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
     return t('.most_rent_vod') if params[:sort] == 'token_month' && params[:filter] == 'vod'
-    return t(".index_rating#{params[:filter]}") if params[:sort] == 'rating'
+    return t(".index_rating#{params[:filter]}") if params[:sort] == 'rating' && params[:limit].to_i == 50
     return "#{t ".categorie#{params[:filter]}"}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
     return "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
     return "#{t '.search'}: #{params[:search]}" if params[:search]
