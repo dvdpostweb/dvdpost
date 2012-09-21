@@ -101,6 +101,9 @@ class Product < ActiveRecord::Base
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
+    has streaming_products(:is_ppv), :as => :is_ppv
+    has streaming_products(:ppv_price), :as => :ppv_price, :type => :float
+    
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has "concat(GROUP_CONCAT(DISTINCT IFNULL(`products_languages`.`languages_id`, '0') SEPARATOR ','),',', GROUP_CONCAT(DISTINCT IFNULL(`products_undertitles`.`undertitles_id`, '0') SEPARATOR ','))", :type => :multi, :as => :speaker
     has "(select 
@@ -204,6 +207,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   sphinx_scope(:not_recent)         {{:with =>          {:next => 0}}}
   sphinx_scope(:by_serie)           {|serie_id|         {:with => {:series_id => serie_id}}}
+  sphinx_scope(:ppv)             {{:with =>          {:is_ppv => 1}}}
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
@@ -239,6 +243,8 @@ class Product < ActiveRecord::Base
     products = products.hetero if options[:hetero] && ((options[:category_id].to_i != 76 && options[:category_id].to_i != 72))
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
+    products = products.ppv if options[:ppv]
+    
     if options[:studio_id]
       if options[:filter] == "vod" && options[:kind] == :normal
         products = products.by_streaming_studio(options[:studio_id]) 

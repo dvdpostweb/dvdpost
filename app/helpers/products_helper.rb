@@ -484,6 +484,11 @@ module ProductsHelper
 
   def left_column_vod(params)
     html_content = []
+    if params[:kind] == :normal
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.ppv'), products_path(:filter => :vod, :ppv => 1), :class => params[:filter] == "vod" && params[:ppv] == "1" ? :actived : ''
+      end
+    end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rent'), products_path(:filter => :vod, :sort => :token_month, :limit => 20), :class => params[:filter] == "vod" && params[:sort] == "token_month" ? :actived : ''
     end
