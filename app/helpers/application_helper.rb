@@ -123,10 +123,12 @@ module ApplicationHelper
     case Rails.env
       when "production"
         "#{prefix}public.dvdpost.com"
+      when "pre_production"
+        "#{prefix}beta.public.dvdpost.com"
       when "staging"
-        "#{prefix}http://staging.public.dvdpost.com"
+        "#{prefix}staging.public.dvdpost.com"
       when "development"
-        "#{prefix}http://public.dvdpost.dev"
+        "#{prefix}public.dvdpost.dev"
     end
   end
 
