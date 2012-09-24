@@ -16,10 +16,10 @@
     <meta property="og:url" content="<%= @public_url %>">
     <meta property="og:site_name" content="DVDPost"/>
     <meta property="fb:admins" content="542538810,586983921"/>
-    <meta property="og:description" content="<%= @product_description.text.gsub(/<br>/,'') %>">
+    <meta property="og:description" content="<%= @product_description.text.gsub(/<br>/,'') if @product_description && @product_description.text %>">
   <% end %>
   <% content_for :description do %>
-    <% @product_description.text.gsub(/<br>/,'')  %>
+    <% @product_description.text.gsub(/<br>/,'') if @product_description && @product_description.text %>
   <% end%>
 <% end %>
 <% filter = get_current_filter({})%>

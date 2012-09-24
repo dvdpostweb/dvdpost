@@ -1178,3 +1178,49 @@ height: 20px;
 {
   display:inline;
 }
+.newsletter_public {
+  margin: 10px auto;
+  padding: 13px;
+  width: 470px;
+}
+.newsletter_public .title
+{
+  font-size:16px;
+  margin:10px 0;
+}
+.newsletter_public #errorExplanation
+{
+  border: red 2px solid;
+  padding: 5px;
+  margin: 16px 0;
+  width: 120px;
+}
+.newsletter_public .fieldWithErrors
+{
+  display:inline;
+}
+#public_newsletter {
+  background: url(../images/newsletters_button.jpg) no-repeat scroll 0 0 transparent;
+  border: 0 none;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 25px;
+  margin-bottom: 4px;
+  padding: 0;
+  text-align: center;
+
+  text-transform: uppercase;
+  width: 137px;
+}
+.newsletter_public a{
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration:underline;
+  padding:10px;
+}
+#new_public_newsletter {
+  font-size:14px;
+  padding: 18px 0;
+}
