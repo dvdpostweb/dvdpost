@@ -255,7 +255,7 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-      
+      Rails.logger.debug { "@@@#{cookies[:nb_pages_views]}" }
       return nil
     end
 
