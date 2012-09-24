@@ -1,12 +1,17 @@
-<div class="newsletter_public">
-  <div class="title"><%= t '.title' %></div>
-  <% form_for @newsletter do |f| %>
-    <%= f.error_messages :header_message => "",
-          :message => "",
-          :header_tag => :h3 %>
-    <%= f.hidden_field :language_id, :value => DVDPost.customer_languages[I18n.locale] %>
-    <%= t '.email' %> : <%= f.text_field :email %>
-    <%= submit_tag t('.confirm'), :id => 'public_newsletter' %>
-  <% end %>
-  <%= link_to 'later', root_path(:later => 1), :id => :later %>
+<p align="center">
+  <%= image_tag File.join(DVDPost.images_path, "public_newsletter", "newsletters.jpg") %>
+</p>
+<div class="content">
+  <div class="newsletter_public">
+    <div class="title"><%= t '.title' %></div>
+   <% form_for @newsletter do |f| %>
+      <%= f.error_messages :header_message => "",
+            :message => "",
+            :header_tag => :h3 %>
+      <%= f.hidden_field :language_id, :value => DVDPost.customer_languages[I18n.locale] %>
+      <%= t '.email' %> : <%= f.text_field :email, :size => 30 %>
+       <%= submit_tag t('.confirm'), :id => 'public_newsletter' %>
+    <% end %>
+    <p align="center"><%= link_to t('.later'), root_path(:later => 1), :id => :later %>  | <%= link_to t('.no_tx'), root_path(), :id => :no_tx %></p>
+  </div>
 </div>
