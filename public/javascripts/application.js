@@ -106,8 +106,17 @@ $(function() {
     });
     return false;
   });
+  $('#no_tx').live('click', function(){
+    jQuery(document).trigger('close.facebox')
+    return false;
+  })
   if ($('.action_face').html()!=undefined)
   {
+    if($('.action_face').attr('id') == 'newsletters')
+    {
+      $.facebox.settings.opacity = 0.4; 
+      $.facebox.settings.modal = true;
+    }
     jQuery.facebox(function() {
       
       $.getScript($('.action_face').html(), function(data) {
