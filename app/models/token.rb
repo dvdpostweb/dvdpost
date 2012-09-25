@@ -75,8 +75,6 @@ class Token < ActiveRecord::Base
   def self.status
     status = OrderedHash.new
     status.push(:ok, 1)
-    status.push(:ip_valid, 2)
-    status.push(:ip_invalid, 3)
     status.push(:expired, 4)
 
     status
@@ -94,11 +92,7 @@ class Token < ActiveRecord::Base
   def current_status(current_ip)
     
     return Token.status[:expired] if expired?
-    
-    current_ips = token_ips
-    return Token.status[:ok] if !current_ips.find_by_ip(current_ip).nil? || streaming_products.alpha.count > 0
-    return Token.status[:ip_valid] if current_ips.count < count_ip 
-    return Token.status[:ip_invalid]
+    return Token.status[:ok]
   end
   
   def validate?(current_ip)
