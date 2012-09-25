@@ -104,21 +104,6 @@ class StreamingProductsController < ApplicationController
                   send_message(mail_id, options)
                 
               end
-               
-            else
-              #token is valid but new ip to generate
-              if status == Token.status[:ip_valid]
-                result_token_ip = current_customer.create_token_ip(@token,request.remote_ip)
-                if result_token_ip != true
-                  @token = nil
-                  error = result_token_ip
-                end
-              # token is valid - new ip - ip available 0 => created 2 new ip
-              elsif status == Token.status[:ip_invalid]
-                creation = current_customer.create_more_ip(@token, request.remote_ip)
-                @token = creation[:token]
-                error = creation[:error]
-              end
             end
           else
             error = Token.error[:user_suspended]
