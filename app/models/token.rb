@@ -2,7 +2,6 @@ class Token < ActiveRecord::Base
   belongs_to :customer, :primary_key => :customers_id
   has_many :streaming_products, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :streaming_products_free, :primary_key => :imdb_id, :foreign_key => :imdb_id
-  has_many :token_ips
   has_many :products, :foreign_key => :imdb_id, :primary_key => :imdb_id
   belongs_to :product, :foreign_key => :imdb_id, :primary_key => :imdb_id
   
@@ -37,10 +36,8 @@ class Token < ActiveRecord::Base
     if token
       filename = "mp4:#{filename}"
       filename_select = StreamingProduct.by_filename(filename).all(:include => :tokens, :conditions => ['tokens.id = ?', token.id])
-      token_ips = token.token_ips
-      select = token_ips.find_by_ip(ip)
     end
-    if token && select && !filename_select.blank?
+    if token && !filename_select.blank?
       1
     else
       0
