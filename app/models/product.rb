@@ -58,6 +58,8 @@ class Product < ActiveRecord::Base
   named_scope :by_imdb_ids, lambda {|imdb| {:conditions => ["imdb_id in (#{imdb})"]}}
   named_scope :by_products_ids, lambda {|product_id| {:conditions => ["products_id in (#{product_id})"]}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
+  named_scope :rating_count, :conditions => 'rating_count = 0'
+
   named_scope :ordered, :order => 'products_id desc'
   named_scope :ordered_media, :order => 'products_media desc'
   named_scope :group_by_imdb, :group => 'imdb_id'
@@ -802,5 +804,9 @@ class Product < ActiveRecord::Base
       end
     end
     return ''
+  end
+
+  def self.rating_first
+    Product.both_available.rating_count.update_all("rating_count=1 , `rating_users`= products_rating")
   end
 end
