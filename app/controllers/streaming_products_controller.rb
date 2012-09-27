@@ -4,14 +4,29 @@ class StreamingProductsController < ApplicationController
     @vod_disable = General.find_by_CodeType('VOD_ONLINE').value
     if Rails.env == 'production' 
       @product = Product.both_available.find_by_imdb_id(params[:id])
+    else
+      @product = Product.find_by_imdb_id(params[:id])
+    end
+    if @product
+      if ENV['HOST_OK'] == "1"
+        @token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(@product.imdb_id).find_by_code(params[:code]) if !params[:code].nil?
+      else
+        @token = current_customer.get_token(@product.imdb_id)
+      end
+    end
+    @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
+    if Rails.env == 'production' && @token_valid == false
       @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
       @streaming_prefered = StreamingProduct.group_by_language.available.find_all_by_imdb_id(params[:id], I18n.locale)
+      @streaming_not_prefered = nil
+    elsif Rails.env == 'production' && @token_valid == true
+      @streaming = StreamingProduct.available_token.find_by_imdb_id(params[:id])
+      @streaming_prefered = StreamingProduct.group_by_language.available_beta.find_all_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = nil
     else
       @streaming = StreamingProduct.available_beta.alpha.find_by_imdb_id(params[:id])
       @streaming_prefered = StreamingProduct.alpha.group_by_language.find_all_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = nil
-      @product = Product.find_by_imdb_id(params[:id])
     end
     if params[:code]
       @code = StreamingCode.find_by_name(params[:code]) 
@@ -20,16 +35,9 @@ class StreamingProductsController < ApplicationController
       end
     end
     @streaming_free = streaming_free(@product)
-   
     respond_to do |format|
       format.html do
         if @product
-          if ENV['HOST_OK'] == "1"
-            @token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(@product.imdb_id).find_by_code(params[:code]) if !params[:code].nil?
-          else
-            @token = current_customer.get_token(@product.imdb_id)
-          end
-          @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
           if @vod_disable == "1" || Rails.env == "pre_production"
             if streaming_access?
               if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
@@ -59,14 +67,8 @@ class StreamingProductsController < ApplicationController
       format.js do
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
-          if ENV['HOST_OK'] == "1"
-            @token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(@product.imdb_id).find_by_code(params[:code]) if !params[:code].nil?
-          else
-            @token = current_customer.get_token(@product.imdb_id)
-          end
           if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip) && !current_customer.super_user?)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
-            
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token || status == Token.status[:expired]
               if ENV['HOST_OK'] == "0"
@@ -131,8 +133,16 @@ class StreamingProductsController < ApplicationController
   end
 
   def language
-    if Rails.env == 'production' 
+    if ENV['HOST_OK'] == "1"
+      token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(params[:streaming_product_id]).find_by_code(params[:code]) if !params[:code].nil?
+    else
+      token = current_customer.get_token(params[:streaming_product_id])
+    end
+    token_valid = token.nil? ? false : token.validate?(request.remote_ip)
+    if Rails.env == 'production' && token_valid == false
       @streaming_subtitle = StreamingProduct.available.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
+    elsif Rails.env == 'production' && token_valid == true
+      @streaming_subtitle = StreamingProduct.available_token.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
     else
       @streaming_subtitle = StreamingProduct.available_beta.alpha.by_language(params[:language_id]).find_all_by_imdb_id(params[:streaming_product_id])
     end
@@ -140,8 +150,16 @@ class StreamingProductsController < ApplicationController
   end
 
   def subtitle
-    if Rails.env == 'production' 
+    if ENV['HOST_OK'] == "1"
+      token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(params[:streaming_product_id]).find_by_code(params[:code]) if !params[:code].nil?
+    else
+      token = current_customer.get_token(params[:streaming_product_id])
+    end
+    token_valid = token.nil? ? false : token.validate?(request.remote_ip)
+    if Rails.env == 'production' && token_valid == false
       @streaming = StreamingProduct.available.find(params[:id])
+    elsif Rails.env == 'production' && token_valid == true
+      @streaming = StreamingProduct.available_token.find(params[:id])
     else
       @streaming = StreamingProduct.available_beta.alpha.find(params[:id])
     end
@@ -149,8 +167,16 @@ class StreamingProductsController < ApplicationController
   end
 
   def versions
-    if Rails.env == 'production' 
+    if ENV['HOST_OK'] == "1"
+      token = Token.recent(2.week.ago.localtime, Time.now).is_public.by_imdb_id(params[:streaming_product_id]).find_by_code(params[:code]) if !params[:code].nil?
+    else
+      token = current_customer.get_token(params[:streaming_product_id])
+    end
+    token_valid = token.nil? ? false : token.validate?(request.remote_ip)
+    if Rails.env == 'production' && token_valid == false
       @streaming_prefered = StreamingProduct.available.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+    elsif Rails.env == 'production' && token_valid == true
+      @streaming_prefered = StreamingProduct.available_token.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
     else
       @streaming_prefered = StreamingProduct.available_beta.alpha.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
     end
