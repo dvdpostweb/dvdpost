@@ -1,4 +1,4 @@
-<% if @product.adult? && current_customer.svod? %>
+<% if @product.adult? && current_customer && current_customer.svod? %>
   <%= t('tokens.new.svod_adult') %>
 <% else %>
   <div  <%= @code && @code.white_label ? 'id="maincontent_no_border"' : 'id="maincontent"' %> >
