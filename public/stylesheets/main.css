@@ -1162,10 +1162,13 @@ height: 20px;
   margin:10px auto;
   width:400px;
 }
-.newsletter_public .title
-{
-  font-size:15px;
-  margin:10px 0;
+.newsletter_public .title {
+    font-size: 15px;
+    margin: 10px 0;
+    text-shadow: none;
+}
+.newsletter_public .title .info_little {
+    font-size: 13px;
 }
 .newsletter_public #errorExplanation
 {
