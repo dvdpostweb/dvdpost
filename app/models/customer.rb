@@ -438,7 +438,7 @@ class Customer < ActiveRecord::Base
 
   def create_token(imdb_id, product, current_ip, streaming_product_id, kind)
     file = StreamingProduct.find(streaming_product_id)
-    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0
+    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || file.is_ppv
         begin
           token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
         rescue => e
@@ -446,11 +446,7 @@ class Customer < ActiveRecord::Base
         end
         
         if token_string
-          token = Token.create(          
-            :customer_id => id,          
-            :imdb_id     => imdb_id,          
-            :token       => token_string        
-          )
+          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price) : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string)
           if token.id.blank?
             return {:token => nil, :error => Token.error[:query_rollback]}
           else
@@ -496,6 +492,57 @@ class Customer < ActiveRecord::Base
       end
     else
       return {:token => nil, :error => Token.error[:not_enough_credit]}
+    end
+  end
+
+  def create_token_ip(token, current_ip)
+    token_ip = TokenIp.create(
+      :token_id => token.id,
+      :ip => current_ip
+    )
+    if token_ip.id.blank?
+      error = Token.error[:query_rollback]
+    else
+      true
+    end 
+  end
+
+  def create_more_ip(token, current_ip)
+    if StreamingProductsFree.by_imdb_id(token.imdb_id).available.count > 0
+      Token.transaction do
+        more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
+        token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
+        if more_ip == false || token_ip.id.blank? 
+          raise ActiveRecord::Rollback
+          return {:token => nil, :error => Token.error[:query_rollback]}
+        else
+          return {:token => token, :error => nil}
+        end
+      end
+    else
+      if credits >= token.streaming_products.first.credits
+        abo_process = AboProcess.today.last
+        if abo_process 
+          customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
+        end
+        if !abo_process || (customer_abo_process || abo_process.finished?)
+          Token.transaction do
+            more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
+            result_history = remove_credit(token.streaming_products.first.credits,13)
+            token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
+            if more_ip == false || token_ip.id.blank? || result_history == false
+              raise ActiveRecord::Rollback
+              return {:token => nil, :error => Token.error[:query_rollback]}
+            else
+              return {:token => token, :error => nil}
+            end
+          end
+        else
+          return {:token => nil, :error => Token.error[:abo_process_error]}
+        end
+      else
+        return {:token => nil, :error => Token.error[:not_enough_credit]}
+      end
     end
   end
 

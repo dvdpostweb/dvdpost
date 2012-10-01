@@ -1,4 +1,6 @@
 class StreamingProductsController < ApplicationController
+  before_filter :ppv_ready?
+
   def show
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
     @vod_disable = General.find_by_CodeType('VOD_ONLINE').value
@@ -215,6 +217,13 @@ class StreamingProductsController < ApplicationController
       redirect_to root_path
     else
       render :partial => '/streaming_products/show/error', :layout => true, :locals => {:error => error}
+    end
+  end
+
+  private
+  def ppv_ready?
+    if current_customer and !current_customer.ppv_ready == 1
+      redirect_to root_path
     end
   end
 end

@@ -1,11 +1,11 @@
 form, fieldset {
-border-style:none;
-margin:0;
-padding:0;
+  border-style:none;
+  margin:0;
+  padding:0;
 }
 input {
-font-size:15px;
-vertical-align:middle;
+  font-size:15px;
+  vertical-align:middle;
 }
 
 .clear {
@@ -48,7 +48,7 @@ vertical-align:middle;
   margin: 0;
 }
 #tool-wrap #points h3 span {
-   display: -moz-inline-stack;
+  display: -moz-inline-stack;
   display: inline-block;
   padding: 5px;
   color: #e14337;
@@ -184,8 +184,8 @@ vertical-align:middle;
   text-align: left;
 }
 #tool-wrap .tab-content h3 {
-   font-size: 18px;
-   color: #e14337;
+  font-size: 18px;
+  color: #e14337;
 }
 #tool-wrap #tab1 h4 {
   font-size: 18px;
@@ -195,9 +195,9 @@ vertical-align:middle;
   font-size: 12px;
 }
 #tool-wrap .tab-content a {
-color: #e14337;
-font-size:16px;
-font-weight: bold;
+  color: #e14337;
+  font-size:16px;
+  font-weight: bold;
 }
 #tool-wrap #tab1 .content {
   float: left;
@@ -329,7 +329,7 @@ font-weight: bold;
 }
 
 #tool-wrap .tab-content #gifts li img {
-   margin-top: 5px;
+  margin-top: 5px;
 }
 #tool-wrap .tab-content #gifts li h3 {
   margin: 0;
@@ -351,7 +351,7 @@ font-weight: bold;
   height: 29px;
   background: url(../images/echanger-btn.png) 0 0 no-repeat;
   margin: 6px 0 0 62px;
- float: left;
+  float: left;
 }
 #tool-wrap .tab-content #gifts li a.parrainner {
   background:url("../images/parrainner-plus-damis-btn.png") no-repeat scroll 0 0 transparent;
@@ -522,10 +522,130 @@ font-weight: bold;
   text-align: center;
 }
 .history tr, .history td {
-padding: 8px 0 0 6px !important;
-height: 23px;
+  padding: 8px 0 0 6px !important;
+  height: 23px;
 }
 .history th {
-height: 23px;
-padding: 0px 0 6px 4px;
+  height: 23px;
+  padding: 0px 0 6px 4px;
+}
+
+#tool-wrap .tab-content #gifts li h3 {
+  height: auto !important;
+  margin: 0;
+  min-height: 47px!important;
+  text-align: center;
+  width: 280px;
+}
+#tool-wrap .tab-content h3 {
+  color: #212A31!important;
+  font-size: 13px !important;
+  font-weight: bold;
+  text-transform:uppercase;
+  padding-top: 17px;
+  text-shadow:none;
+}
+
+
+#tool-wrap .tab-content h3 span {
+
+  text-transform: none;
+
+}
+#one-col #maincontent, #info #maincontent, #sponsorships #maincontent {
+  background: #FFFFFF;
+  width: 906px;
+}
+
+#tool-wrap .tab-content #gifts li a.parrainner {
+  background: url(../images/gift_button.png) no-repeat scroll 0 0 transparent !important;
+  color: white;
+  display: block;
+  float: left;
+  font-size: 14px;
+  height: 19px;
+  margin: 0 0 0 50px;
+  padding: 4px 0 0  !important;
+  width: 172px  !important;
+}
+
+
+#maincontent h2 {
+  color: #353535 !important;
+  font-size: 27px!important;
+  padding-top: 14px;
+  text-transform: uppercase;
+  margin: 0 27px 17px 24px!important;
+  padding: 0;
+  text-align: left!important;
+}
+
+#maincontent h2 span{
+  color: #A3C41B !important;
+  text-shadow:none;
+
+}
+
+
+#tool-wrap #points h3 span {
+  border: 2px solid #A3C41B !important;
+  clear: both;
+  color: #A3C41B !important;
+  display: inline-block;
+  font-size: 24px;
+  margin: 14px 0;
+  padding: 5px;
+  text-shadow:none;
+}
+
+#tool-wrap #points a.btn {
+  background: url("../images/echangez-vos-points-btn.png") no-repeat scroll 0 0 transparent!important;
+  color: white;
+  display: block;
+  font-size: 18px;
+  height: 35px!important;
+  margin-left: 3px;
+  padding: 10px 0 0;
+  width: 215px!important;
+}
+
+#tool-wrap #points {
+  border: 1px solid #A9A9A9;
+  float: left;
+  margin-right: 25px;
+  padding: 10px 13px 18px!important;
+  text-align: center;
+  width: 223px!important;
+}
+
+#tool-wrap #points-wrap .content p {
+  color:#212A31!important;
+  font-size:16px!important;
+  margin: 0 0 9px!important;
+  padding: 0;
+}
+
+#tool-wrap #points-wrap .content {
+  float: left;
+  padding: 5px 25px 10px !important;
+  text-align: justify !important;
+  text-shadow: none;
+  width: 510px !important;
+}
+
+
+#points-wrap {
+  padding-bottom:20px;
+
+
+}
+
+#tool-wrap #points-wrap .content p .offre {
+  color:#212A31!important;
+  text-transform:uppercase;
+
+  color: #A3C41B !important;
+  text-shadow: none;
+
+
 }
