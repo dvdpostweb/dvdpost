@@ -62,7 +62,7 @@ namespace :deploy do
         database: dvdpost_be_prod
         username: webuser
         password: 3gallfir-
-        host: 192.168.100.204
+        host: 192.168.100.14
         port: 3306
       slave02:
         adapter: mysql
