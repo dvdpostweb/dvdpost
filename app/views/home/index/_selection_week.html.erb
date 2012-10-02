@@ -1,20 +1,21 @@
 <div id="weekly-selection-wrap">
   <h2><%= params[:kind] == :normal ? t('.title') : t('.title_adult') %></h2>
   <div class="tab-container">
-    <%= render :partial => '/home/index/menu_selection', :locals => {:selection_week => selection_week} if params[:kind] != :adult %>
+    <%= render :partial => '/home/index/menu_selection', :locals => {:selection_week => selection_week} if params[:kind] != :adult && !mobile_request? %>
     <div class="panel-container">
       <div id="on-vod">
         <div class="contents">
       	  <%= render :partial => '/home/index/products_selection', :locals => {:selection_week => selection_week, :selection_page => selection_page} %>
         </div>
-        
-        <div class="pagination arrow_left">
-          <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
-        </div>
-        <span class="jc-items"><%= "#{selection_page} of #{selection_nb_page}" %></span>
-        <div class="pagination arrow_right">
-          <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
-        </div>
+        <% unless mobile_request? %>
+          <div class="pagination arrow_left">
+            <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
+          </div>
+          <span class="jc-items"><%= "#{selection_page} of #{selection_nb_page}" %></span>
+          <div class="pagination arrow_right">
+            <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
+          </div>
+        <% end %>
       </div>
     </div>
  </div>
