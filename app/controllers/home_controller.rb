@@ -3,7 +3,11 @@ class HomeController < ApplicationController
     @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
     respond_to do |format|
       format.html {
-        get_data(params[:kind])
+        if mobile_request?
+          get_data_mobile(params[:kind])
+        else
+          get_data(params[:kind])
+        end
       }
       format.js {
         if params[:news_page]
@@ -91,6 +95,11 @@ class HomeController < ApplicationController
     Product.class
     @selection = Marshal.load(selection)
     @selection_nb_page = @selection.total_pages
+  end
+
+  def get_data_mobile(kind)
+    get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
+    @top_searches = Search.count(:group => 'name', :order => 'count_all desc', :limit => 20, :conditions => ["kind = ? and created_at >= ? ", DVDPost.search_kinds[kind], 1.week.ago.localtime])
   end
 
   def get_data(kind)
