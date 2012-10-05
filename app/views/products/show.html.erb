@@ -89,7 +89,7 @@ FB.init({
       <% if @product.in_streaming_or_soon? and streaming_access? %>
         <% if @product.streaming? %>
           <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
-          <% credits = @product.streaming_products.available.first.credits %>
+          <% credits = @product.streaming_products.available && @product.streaming_products.available.first ? @product.streaming_products.available.first.credits : 1 %>
         <% else %>
           <div id="stream_fake">&nbsp;</div>
         <% end %>
