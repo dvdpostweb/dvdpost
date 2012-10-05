@@ -19,6 +19,10 @@ class PaymentMethodsController < ApplicationController
     if params['type'] == 'credit_card_modification'
       @com= t '.payment_methods.update.payment_update'
       internal_com = 'ogone_change'
+      @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card_for_ppv', :only_path => false, :protocol => 'http')
+    elsif params['type'] == 'credit_card_for_ppv'
+      @com= t '.payment_methods.update.payment_ppv'
+      internal_com = 'ogone_for_ppv'
       @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card_modification', :only_path => false, :protocol => 'http')
     else
       @com= t '.payment_methods.update.payment_change'

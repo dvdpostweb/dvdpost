@@ -7,7 +7,8 @@
         <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
         <div id="addwishlist_explain">
           <% if current_customer.ppv_ready != 1 %>
-            met ta carte a jour si tu veux voir ce film :) <%= link_to 'ici', edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_modification) %>
+            <%= t '.update_cc_for_ppv' %><br /><br /><%= t '.price', :price => @streaming.ppv_price %><br /><br />
+            <%= link_to 'Clique ici', edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %>
           <% else %>
             <% nb_credit = "#{@streaming.credits} #{ @streaming.credits == 1 ? t('customer.credit') : t('customer.credits')}" %>
             <% if @streaming.is_ppv %>

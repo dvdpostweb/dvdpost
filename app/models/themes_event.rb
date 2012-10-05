@@ -8,6 +8,7 @@ class ThemesEvent < ActiveRecord::Base
   named_scope :hp, :conditions => {:banner_hp => true}
   named_scope :ordered, :order => "themes_events_selection_id asc, id desc"
   named_scope :limit, lambda {|limit| {:limit => limit}}
+  named_scope :ordered_rand, :order => "rand()"
 
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true
 

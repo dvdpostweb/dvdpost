@@ -460,17 +460,19 @@ module ApplicationHelper
   end
 
   def login_path
-    path = request.fullpath
+    
+    prefix = mobile_request? ? "http://m." : "http://"
+    path = params[:page_name] == 'error' ? session[:error_path] ? session[:error_path] : root_path : request.fullpath 
     path = path.include?('?') ? "#{path}&login=1" : "#{path}?login=1"
     case Rails.env
       when "production"
-        "http://private.dvdpost.com#{path}"
+        "#{prefix}private.dvdpost.com#{path}"
       when "pre_production"
-        "http://beta.dvdpost.com#{path}"
+        "#{prefix}beta.dvdpost.com#{path}"
       when "staging"
-        "http://staging.private.dvdpost.com#{path}"
+        "#{prefix}staging.private.dvdpost.com#{path}"
       when "development"
-        "http://private.dvdpost.dev#{path}"
+        "#{prefix}private.dvdpost.dev#{path}"
     end
   end
 

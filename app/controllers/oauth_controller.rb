@@ -24,7 +24,7 @@ class OauthController < ApplicationController
         url = oauth_client.web_server.authorize_url(options)
       end
     else
-      
+      session[:error_path] = request.fullpath
       url = info_path(:page_name => 'error')
     end
     redirect_to url

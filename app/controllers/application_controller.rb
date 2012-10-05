@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
-    #before_filter :set_mobile_preferences
+    before_filter :set_mobile_preferences
     before_filter :redirect_to_mobile_if_applicable
     before_filter :prepend_view_path_if_mobile
     
@@ -114,7 +114,8 @@ class ApplicationController < ActionController::Base
 
   def validation_adult
     if params[:kind] == :adult && !session[:adult] && params[:code].nil? && params['action'] != 'validation' && params['action'] != 'authenticate'
-      session['current_uri'] = 'http://' + request.host_with_port + request.request_uri
+      prefix = mobile_request? ? "http://m." : "http://"
+      session['current_uri'] = prefix + request.host_with_port + request.request_uri
       redirect_to validation_path
     end
   end
@@ -272,12 +273,13 @@ class ApplicationController < ActionController::Base
     
     def redirect_to_full_site
       redirect_to request.protocol + request.host_with_port.gsub(/^m\./, '') +
-                  request.request_uri.gsub(/\?full_site=1/, '')  and return
+                  request.request_uri  and return
     end
 
     def redirect_to_mobile_if_applicable
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-      #unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browsertablet?
+      #to do
+      #unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browser.tablet?
       #  redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
       #end
     end

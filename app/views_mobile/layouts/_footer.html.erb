@@ -1,0 +1,11 @@
+<div id="footer">
+  <a href="#top" class="top">top</a>
+  <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
+    <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field'} %>
+    <%= submit_tag 'search', :id => 'search-btn' %>
+    <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
+  <% end %>
+  <div id="change_site">
+    view DVDPost in mobile | <%= link_to "desktop", url_for(:full_site => 1) %>
+  </div>
+</div>
