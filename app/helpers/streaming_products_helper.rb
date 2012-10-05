@@ -34,8 +34,6 @@ module StreamingProductsHelper
           end
         elsif (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
           "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
-        elsif token_status == Token.status[:ip_invalid]
-          "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
         elsif token_status == Token.status[:expired]
           "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
         end
