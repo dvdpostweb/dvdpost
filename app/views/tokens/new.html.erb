@@ -6,7 +6,7 @@
       <div style="display: block;width:450px" class="content">
         <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
         <div id="addwishlist_explain">
-          <% if current_customer.ppv_ready != 1 %>
+          <% if 1 == 0 && current_customer.ppv_ready != 1 # check if movie is in ppv %>
             <%= t '.update_cc_for_ppv' %><br /><br /><%= t '.price', :price => @streaming.ppv_price %><br /><br />
             <%= link_to 'Clique ici', edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %>
           <% else %>
