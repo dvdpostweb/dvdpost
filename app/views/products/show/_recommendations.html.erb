@@ -10,14 +10,15 @@
     </div>
   </div>
 </div>
-<div class="pagination arrow_left">
-  <%= will_paginate products, :previous_label => '', :next_label => '', :page_links => false, :container => false,  :param_name => :recommendation_page %>
-</div>
-<span class="jc-items"><%= "#{recommendation_page} of #{recommendation_nb_page}" %></span>
-<div class="pagination arrow_right">
-  <%= will_paginate products, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :recommendation_page %>
-</div>
-
+<% unless mobile_request? %>
+  <div class="pagination arrow_left">
+    <%= will_paginate products, :previous_label => '', :next_label => '', :page_links => false, :container => false,  :param_name => :recommendation_page %>
+  </div>
+  <span class="jc-items"><%= "#{recommendation_page} of #{recommendation_nb_page}" %></span>
+  <div class="pagination arrow_right">
+    <%= will_paginate products, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :recommendation_page %>
+  </div>
+<% end %>
 <% else %>
   <p class='error'>
     <%= products == false ? t('.recommendations_unavailable') : t('.recommendations_empty') %>

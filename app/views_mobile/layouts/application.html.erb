@@ -11,6 +11,9 @@
 	
 </head>
 <body id="<%= body_classes %>" class="<%= params[:kind] %>" <%= yield :option %>>
-      <%= yield %>
+  <%= render(:partial => 'layouts/header') %>
+  <%= yield %>
+  <%= render :partial => 'layouts/footer' %>
+  
 </body>
 </html>

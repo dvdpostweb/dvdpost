@@ -180,6 +180,9 @@ class HomeController < ApplicationController
         @offline_request = current_customer.payment.recovery
         @transit_items = current_customer.orders.in_transit.all
         @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.first
+        #if 1 == 1
+        # @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered_rand.first
+        #end
         expiration_recommendation_cache()
         @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
       end
