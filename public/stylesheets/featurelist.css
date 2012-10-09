@@ -149,12 +149,12 @@ ul#output li a.watch-now {
   position: absolute;
   display: block;
   width: 243px;
-  line-height: 62px;
+  line-height: 41px;
   background: url(../images/sprite.png) no-repeat scroll -349px -287px transparent!important;
-  color: #fff;
+  color: white;
   font-size: 18px;
   font-weight: bold;
-  padding-left: 71px;
-  right: 20px;
-  bottom: 20px;
+  padding-left: 46px;
+  right: -9px;
+  bottom: 18px;
 }
