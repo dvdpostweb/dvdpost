@@ -2,8 +2,8 @@
 width: 640px;
 }
 #slider-wrap {
+  background: none repeat-y scroll 100% 0 #FFFFFF!important;
   padding: 22px 0 21px 20px;
-  background: #fff url(../images/slider-bg.gif) 100% 0 repeat-y;
 }
 #slider-wrap h2 {
   font-size: 40px;
@@ -688,9 +688,9 @@ overflow: hidden;
   width: 610px;
 }
 
-.no_bold
-{
-  font-weight: normal !important;
+.no_bold {
+ font-size: 16px;
+ font-weight: normal !important;
 }
 #suspended {
 width: 894px;

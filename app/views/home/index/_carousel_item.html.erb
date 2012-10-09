@@ -7,6 +7,7 @@
     <h2><%= title %></h2>
     <p><%= name %></p>
   </div>
+  
   <%= link_to link, path, :class => "watch-now osc btn#{carousel_item.kind == 'TRAILER' ? ' trailer': ''}" %>
   <%= image_tag(carousel_item.image, :alt => title, :size => '618x341') %>
 </li>
