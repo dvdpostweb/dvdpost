@@ -12,8 +12,8 @@ div#featurelist-slider ul {
 
 ul.tabs {
   right: 20px;
+  width: 214px !important;
   z-index: 2;
-  width: 299px;
 }
 
 ul.tabs li {
@@ -38,12 +38,12 @@ ul.tabs li img {
 }
 
 ul.tabs li a {
-  background: #e6e6e6;
-  border-top: 1px solid #dfdfdf;
-  text-decoration: none;
+  background: none repeat scroll 0 0 #E6E6E6;
+  border-top: 1px solid #DFDFDF;
   display: block;
-  padding: 5px 95px 5px 18px;
-  height: 46px;
+  height: 45px;
+  padding: 5px 5px 5px 10px!important;
+  text-decoration: none;
 }
 
 ul.tabs span {
@@ -59,12 +59,15 @@ ul.tabs span.arrow {
   left: -10px;
   top: 17px;
 }
-
+.not p {
+  font-size: 14px;
+  padding-top: 4px;
+}
 ul.tabs a .ttl {
-  font-size: 19px;
-  color: #8a8a8a;
-  line-height: 1;
+  color: #8A8A8A;
+  font-size: 17px!important;
   font-weight: bold;
+  line-height: 1;
 }
 
 ul.tabs a .g {
@@ -110,34 +113,36 @@ ul#output {
 }
 
 ul#output li {
-  position: absolute;
-  width: 620px;
   height: 343px;
+  position: absolute;
+  width: 707px ;
+	
 }
 
 ul#output li img {
-  border: 1px solid #1b2228;
+  border: none ;
 }
 
 ul#output li .caption {
-  position: absolute;
-  bottom: 30px;
+  bottom: 13px ;
+  color: #FFFFFF;
+  font-size: 15px ;
   left: 20px;
-  width: 260px;
-  font-size: 18px;
-  color: #FFF;
+  position: absolute;
+  width: 400px ;
 }
 
 ul#output li .caption p {
   margin-bottom: 0;
+   line-height: 18px;
 }
 
 ul#output li .caption h2 {
-  font-size: 36px;
-  line-height: 1;
+  color: #FFFFFF;
   float: none;
-  color: #fff;
+  font-size: 26px!important;
   font-weight: bold;
+  line-height: 1;
 }
 
 ul#output li a.watch-now {
@@ -145,7 +150,7 @@ ul#output li a.watch-now {
   display: block;
   width: 243px;
   line-height: 62px;
-  background: url(../images/sprite.png) 0 -64px no-repeat;
+  background: url(../images/sprite.png) no-repeat scroll -349px -287px transparent!important;
   color: #fff;
   font-size: 18px;
   font-weight: bold;

@@ -1,17 +1,22 @@
-<% path = chronicle_path(:id => chronicle.to_param) %>
-<% content = chronicle.contents.by_language(I18n.locale).first %>
+
+
 <div id="nina-wrap">
  	<h3><%= t('.main_title').upcase %></h3>
- 	<%= link_to image_tag('nina.jpg', :size => '269x135', :alt => 'CHRONIQUE DE NINA'), chronicles_path %>
-  <h4><%= t '.details_title' %></h4>
   <p><%= t '.details' %></p>
-  <div id="focus-wrap"><h4><strong><%= t '.title' %></strong></h4>
-    <p>
-      <%= link_to image_tag(content.cover.url(:small), :width => "49x75"), path %>
-      <span class="osc"><%= "#{t("chronicles.menu.cat_#{@chronicle.category.to_param}")} : #{content.title}" %></span> 
-      <%= truncate_html(content.description.gsub(/<\/?.*?>/, ""), :length => 120) %>
-    </p>
-    <%= link_to t('.read_more'), path, :class => :osc %>
-  </div>
+  <h4><strong><%= t '.title' %></strong></h4>
+    <% chronicles.each do |chronicle| %>
+      <% path = chronicle_path(:id => chronicle.to_param) %>
+      <% content = chronicle.contents.by_language(I18n.locale).first %>
+      <div id="focus-wrap">
+        <p>
+          <%= link_to image_tag(content.cover.url(:small), :width => "79x105"), path %>
+          <span class="osc"><%= "#{t("chronicles.menu.cat_#{chronicle.category.to_param}")} :<br /> #{content.title}" %></span> 
+          <%= truncate_html(content.description.gsub(/<\/?.*?>/, ""), :length => 120) %>
+        </p>
+        <%= link_to t('.read_more'), path, :class => :osc %>
+      </div>
+    <% end %>
+  
+  
   <%= link_to t('.all'), chronicles_path, :class => "more osc" %>
 </div>

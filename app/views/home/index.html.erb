@@ -58,11 +58,10 @@
       <% end %>
       <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items, :news_page => @news_page, :news_nb_page => @news_nb_page} %>  
     </div>
-    <% render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
     <div id="rightcolumn" >
       <%= render :partial => '/home/index/newsletters', :locals => {:news => @news} %>
    	  <%= link_to image_tag("#{I18n.locale.to_s}/vod-banner.jpg", :size => "320x254"), streaming_products_faq_path() %>
-   	  <%= render :partial => '/home/index/chronicle', :locals => {:chronicle => @chronicle} if I18n.locale != :en %>
+   	  <%= render :partial => '/home/index/chronicle', :locals => {:chronicles => @chronicles} if I18n.locale != :en %>
     <!--   ==============   END RIGHT COLUMN   ==============   -->
     
   </div>

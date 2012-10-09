@@ -162,11 +162,11 @@ class HomeController < ApplicationController
       @theme = @themes.first
     else
       if I18n.locale != :en
-        chronicle_serial = when_fragment_expired "#{Rails.env}_chronicle_hp_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
-          Marshal.dump(Chronicle.private.last(:joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
+        chronicle_serial = when_fragment_expired "#{Rails.env}_chronicle_hp2_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+          Marshal.dump(Chronicle.private.ordered.all(:joins =>:contents, :limit => 2, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
         end
         Chronicle.class
-        @chronicle = Marshal.load(chronicle_serial)
+        @chronicles = Marshal.load(chronicle_serial)
       end
       get_news
       #@streaming_available = current_customer.get_all_tokens

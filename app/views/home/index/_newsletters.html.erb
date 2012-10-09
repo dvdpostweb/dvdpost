@@ -1,16 +1,19 @@
 <div id="newsletter-wrap" class="osc">
  	<h3><%= t '.title' %></h3>
   <ul>
-    <% news.each do |n| %>
+    <% news.each_with_index do |n, index| %>
       <% first = n.contents.by_language(I18n.locale).first  %>
       <% path = newsletter_path(:id => n.to_param) %>
-   	  <li>
-   	    <%= link_to image_tag(first.thumbs.url(:small), :size => "62x41"), path %>
+
+   	  <li class= "<%= index == 0 ? 'new' : 'old' %>">
+   	    <%= link_to image_tag(first.thumbs.url(:small), :size => index == 0 ? "118x83" : "62x41"), path %>
    	    <span>
-   	      <%= link_to first.title,  path, :class => :no_bold %> 
+   	      <%= link_to first.title,  path, :class => :no_bold %>
+ 	        <%= truncate_html(first.description.gsub(/<\/?.*?>/, ""), :length => 120) if index == 0 %>
    	      <%= link_to t('.link'),  path %>
    	    </span>
    	  </li>
     <% end %>
   </ul>
+  <%= link_to t('.all'), newsletters_path(), :class => "more osc" %>
 </div><!-- #newsletter-wrap -->

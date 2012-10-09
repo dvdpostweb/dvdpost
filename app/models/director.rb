@@ -51,7 +51,7 @@ class Director < ActiveRecord::Base
   end
   
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str.removeaccents
   end
 
   def human_birth

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Product < ActiveRecord::Base
   db_magic :slaves => [ :slave01, :slave02 ] if ENV['APP'] == "1"
 
@@ -681,7 +682,7 @@ class Product < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$]/, '')
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$!]/, '')
       end
     end
     query_string = qs.join(' ')
@@ -696,7 +697,7 @@ class Product < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        replace_specials(word).gsub(/[-_]/, ' ').gsub(/[$]/, '')
+        replace_specials(word).gsub(/[-_]/, ' ').gsub(/[$!]/, '')
       end
     end
     query_string = qs.join(' ')
@@ -708,7 +709,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+    str.removeaccents
   end
 
   def self.notify_hoptoad(ghost)

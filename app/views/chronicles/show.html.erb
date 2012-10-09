@@ -1,3 +1,4 @@
+<% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
 <% content = Rails.env == 'production' ? @chronicle.contents.by_language(I18n.locale).private.first : @chronicle.contents.by_language(I18n.locale).beta.first %>
 <% if content %>
 <!--   ==============   MAIN CONTENT   ==============   -->
@@ -10,12 +11,13 @@
       <p>
         <%= content.full_description %>
       </p>
+      <div class="fb-comments" data-href="<%= url %>" data-num-posts="10" data-width="595" style='background:#FFF'></div>
+      
     </div><!-- #content -->
     <div id="left-sidebar">
       <% img = image_tag content.cover.url(:small), :width => 237 %>
     	<%=  @chronicle.imdb_id ? link_to(img, products_path(:imdb_id => @chronicle.imdb_id)) : img %>
       <div id="social-wrap">
-        <% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
     		<div class="fb-like" data-href="<%= url %>" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" style='height:62px'></div>
     		<%= link_to "add to wish", products_path(:imdb_id => @chronicle.imdb_id), :class => "add #{I18n.locale}", :target => "_blank" if @chronicle.imdb_id %>
     		<% if @chronicle.imdb_id %>
@@ -23,9 +25,10 @@
     		  <%= link_to "regarder en vod", path, :class => "streaming #{I18n.locale}", :target => "_blank" if streaming_access? && @chronicle.streaming_products.available.count > 0 %>
     		<% end %>
       </div>
+      
     </div><!-- #left-sidebar -->
+    
   </div><!-- #articles-wrap --> 
-  
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   --> 
 </div>
@@ -36,7 +39,7 @@
     <meta property="og:title" content="<%= "#{t('layouts.chronicles.title')} : #{title}" %>">
     <meta property="og:url" content="<%= url %>">
     <meta property="og:site_name" content="DVDPost"/>
-    <meta property="fb:admins" content="542538810,586983921"/>
+    <meta property="fb:admins" content="542538810,100002847398876"/>
     <meta property="og:description" content="<%= content.description.gsub(/<\/?.*?>/, "") %>">
 <% end %>
 <div id="fb-root"></div>
