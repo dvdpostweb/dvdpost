@@ -416,16 +416,27 @@ font-size: 13px;
   color: #212A31;
   font-size: 11px;
   height: 398px;
-  padding: 12px 20px 0 19px;
 }
+#nina-content
+{
+  padding: 0 20px 0 19px
+}
+#nina-content p
+{
+  margin-bottom: 5px;
+}
+
 #nina-wrap h3 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 7px;
 }
+#nina-wrap h3 img{
+    border:none;
+}
+
 #nina-wrap img {
   border: 1px solid #754803;
-  margin-bottom: 5px;
   max-width: 100%;
 }
 #nina-wrap h4 {
@@ -444,7 +455,7 @@ font-size: 13px;
 #focus-wrap {
   overflow: hidden;
   line-height: normal;
-  padding-bottom: 12px;
+  padding-bottom: 6px;
 }
 
 
