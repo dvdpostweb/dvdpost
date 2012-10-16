@@ -314,6 +314,9 @@ class Product < ActiveRecord::Base
     if options[:not_soon]
       products = products.not_soon 
     end
+    if options[:sort] == 'production_year_vod'
+      products = products.streaming
+    end
     if options[:view_mode]
       products = case options[:view_mode].to_sym
       when :recent
@@ -660,6 +663,8 @@ class Product < ActiveRecord::Base
         "rating desc, in_stock DESC"
       elsif options[:sort] == 'production_year'
         "year desc, in_stock DESC"
+      elsif options[:sort] == 'production_year_vod'
+        "year desc, , streaming_id desc"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'
