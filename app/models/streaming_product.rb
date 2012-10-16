@@ -25,6 +25,13 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :group_by_language, :group => 'language_id'
   named_scope :ordered, :order => 'quality asc'
   
+  def by_studio_lux(kind)
+    if kind == :normal
+      studio.vod_lux
+    else
+      products.first.studio.vod_lux
+    end
+  end
   def self.get_prefered_streaming_by_imdb_id(imdb_id, local)
     if Rails.env == "production"
       streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)

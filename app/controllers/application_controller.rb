@@ -148,13 +148,13 @@ class ApplicationController < ActionController::Base
 
   def set_country
     if session[:country_id].nil? || session[:country_id] == 0
-      c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
+      c = GeoIP.new('GeoIP.dat').country("81.92.237.115") #request.remote_ip
       if c.country_code == 0 && Rails.env == "production"
         notify_hoptoad("country code is empty ip : #{request.remote_ip}") 
       end
       session[:country_id] = c.country_code
     end
-    #session[:country_id] = 'BE'
+    #session[:country_id] = 0
   end
   
   def available_locales

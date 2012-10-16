@@ -98,6 +98,7 @@ class Product < ActiveRecord::Base
     has collections(:themes_id),    :as => :collection_id
     has director(:directors_id),    :as => :director_id
     has studio(:studio_id),         :as => :studio_id
+    has studio(:vod_lux),           :as => :vod_lux
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
@@ -117,6 +118,7 @@ class Product < ActiveRecord::Base
     has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id asc limit 1)", :type => :datetime, :as => :available_bc_from
     has "(select expire_backcatalogue_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_backcatalogue_from asc limit 1)", :type => :datetime, :as => :expire_bc_at
     has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at asc limit 1)", :type => :integer, :as => :streaming_studio_id
+    has "(select vod_lux from streaming_products join studio on streaming_products.studio_id = studio.studio_id where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at asc limit 1)", :type => :boolean, :as => :streaming_vod_lux
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
@@ -210,7 +212,9 @@ class Product < ActiveRecord::Base
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   sphinx_scope(:not_recent)         {{:with =>          {:next => 0}}}
   sphinx_scope(:by_serie)           {|serie_id|         {:with => {:series_id => serie_id}}}
-  sphinx_scope(:ppv)             {{:with =>          {:is_ppv => 1}}}
+  sphinx_scope(:ppv)                {{:with =>          {:is_ppv => 1}}}
+  sphinx_scope(:vod_lux)            {{:with =>          {:vod_lux => true}}}
+  sphinx_scope(:streaming_vod_lux)  {{:with =>          {:streaming_vod_lux => true}}}
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
@@ -247,6 +251,8 @@ class Product < ActiveRecord::Base
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
     products = products.ppv if options[:ppv]
+    #products = products.streaming_vod_lux
+    
     
     if options[:studio_id]
       if options[:filter] == "vod" && options[:kind] == :normal
@@ -591,20 +597,20 @@ class Product < ActiveRecord::Base
     quantity_to_sale > 0 && ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first && ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first.products.include?(self)
   end
 
-  def in_streaming_or_soon?
-    if Rails.env == "pre_production"
-      streaming_products.count > 0 || vod_next
-    else
-      streaming_products.available.count > 0 || vod_next
-    end
+  def in_streaming_or_soon?(kind =  :normal, country_id = 21)
+    streaming?(kind, country_id) || vod_next
   end
 
-  def streaming?
-    if Rails.env == "pre_production"
-      streaming_products.count > 0
-    else
-      streaming_products.available.count > 0
-    end  
+  def streaming?(kind =  :normal, country_id = 21)
+    sql = streaming_products
+    unless Rails.env == "pre_production"
+      sql = sql.available
+    end
+    sql = sql.first
+    if country_id == 131 && sql
+      sql = sql.by_studio_lux(kind)
+    end
+    sql
   end
 
   def good_language?(language)
