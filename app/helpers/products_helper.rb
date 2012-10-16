@@ -301,7 +301,8 @@ module ProductsHelper
     return "#{t '.search'}: #{params[:search]}" if params[:search]
     return t(".hearts_vod") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale]))
     return t(".hearts") if (params[:list_id] && (params[:list_id].to_i == DVDPost.favorite_dvd[I18n.locale]))
-    return t(".vod_recent") if params[:view_mode] == 'vod_recent'
+    return t(".fresh") if params[:view_mode] == 'vod_recent'
+    return t(".vod_recent") if params[:sort] == 'production_year_vod' && params[:filter] == 'vod'
     return t(".recent") if params[:view_mode] == 'recent'
     return t(".soon") if params[:view_mode] == 'soon'
     return t(".vod_soon") if params[:view_mode] == 'vod_soon'
@@ -506,9 +507,11 @@ module ProductsHelper
         link_to t('products.left_column.favorite'), list_products_path(:list_id => DVDPost.favorite_vod[I18n.locale]), :class => params[:list_id].to_i == DVDPost.favorite_vod[I18n.locale] ? :actived : ''
       end
     end
-    
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.new'), products_path(:view_mode => :vod_recent, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_recent" ? :actived : ''
+      link_to t('products.left_column.new'), products_path(:sort => :production_year_vod, :filter => :vod), :class => params[:filter] == "vod" && params[:sort] == 'production_year_vod' ? :actived : ''
+    end
+    html_content << content_tag(:li, :class => :list) do
+      link_to t('products.left_column.fresh'), products_path(:view_mode => :vod_recent, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_recent" ? :actived : ''
     end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.soon'), products_path(:view_mode => :vod_soon, :filter => :vod), :class => params[:filter] == "vod" && params[:view_mode] == "vod_soon" ? :actived : ''
