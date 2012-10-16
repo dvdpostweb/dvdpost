@@ -308,6 +308,9 @@ class Product < ActiveRecord::Base
     if options[:not_soon]
       products = products.not_soon 
     end
+    if options[:sort] == 'production_year_vod'
+      products = products.streaming
+    end
     if options[:view_mode]
       products = case options[:view_mode].to_sym
       when :recent
