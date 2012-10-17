@@ -222,7 +222,7 @@ class StreamingProductsController < ApplicationController
 
   private
   def ppv_ready?
-    if current_customer and !current_customer.ppv_ready == 1
+    if current_customer and current_customer.ppv_ready != 1
       redirect_to root_path
     end
   end
