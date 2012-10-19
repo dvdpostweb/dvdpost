@@ -5,6 +5,7 @@ class ThemesEvent < ActiveRecord::Base
   named_scope :selected_beta, :conditions => {:themes_events_selection_id => 2}
   named_scope :by_kind, lambda {|kind| {:conditions => {:kind => kind.to_s}}}
   named_scope :old, :conditions => {:themes_events_selection_id => [4]}
+  
   named_scope :hp, :conditions => {:banner_hp => true}
   named_scope :ordered, :order => "themes_events_selection_id asc, id desc"
   named_scope :limit, lambda {|limit| {:limit => limit}}
@@ -34,5 +35,9 @@ class ThemesEvent < ActiveRecord::Base
 
   def image_home_page
     "#{DVDPost.images_path}/themes/#{I18n.locale}/home_page/#{id}.jpg"
+  end
+
+  def too_old
+    created_at < 1.month.ago
   end
 end

@@ -14,7 +14,7 @@
   <% else %>
     <div class="tooltips_item">&nbsp;</div>
   <% end %>
-  <% if wishlist_item.product.streaming? and streaming_access? %>  
+  <% if wishlist_item.product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>  
     <div class="availability streaming">
         <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product} %>
     </div>

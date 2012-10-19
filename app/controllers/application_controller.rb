@@ -69,22 +69,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def theme_actif_hp
-    if Rails.env == "pre_production"
-  	  theme_hp = ThemesEvent.selected_beta.hp.by_kind(params[:kind]).last
-        unless theme_hp
-          theme_hp = ThemesEvent.selected.hp.by_kind(params[:kind]).last
-        end  
-      return theme_hp
-    else
-      return ThemesEvent.selected.hp.by_kind(params[:kind]).last
-    end
-  end
- 
-  def theme_actif_production
-    @theme = ThemesEvent.old.by_kind(params[:kind]).ordered.last
-  end
-
   def is_special_page?
     test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && (request.parameters['action'] == 'index' || request.parameters['action'] == 'show')) || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles' || request.parameters['controller'] == 'public_newsletters')
   end
@@ -147,12 +131,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_country
-    if session[:country_id].nil? || session[:country_id] == 0
-      c = GeoIP.new('GeoIP.dat').country(request.remote_ip) #("81.92.237.115")
-      if c.country_code == 0 && Rails.env == "production"
-        notify_hoptoad("country code is empty ip : #{request.remote_ip}") 
+    if params[:debug_country_id]
+      session[:country_id] = params[:debug_country_id].to_i
+    else
+      if session[:country_id].nil? || session[:country_id] == 0
+        c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
+        if c.country_code == 0 && Rails.env == "production"
+          notify_hoptoad("country code is empty ip : #{request.remote_ip}") 
+        end
+        session[:country_id] = c.country_code
       end
-      session[:country_id] = c.country_code
     end
     #session[:country_id] = 0
   end
@@ -189,7 +177,7 @@ class ApplicationController < ActionController::Base
     recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
       begin
         if current_customer
-          Marshal.dump(current_customer.recommendations(get_current_filter({}),options))
+          Marshal.dump(current_customer.recommendations(get_current_filter({}),options.merge(:country_id => session[:country_id])))
         else
           Marshal.dump(recommendation_public(options))
         end
@@ -203,7 +191,7 @@ class ApplicationController < ActionController::Base
       recommendation_items = Marshal.load(recommendation_items_serialize)
     else
       recommendation_items = if current_customer
-        current_customer.recommendations(get_current_filter(options),options)
+        current_customer.recommendations(get_current_filter(options),options.merge(:country_id => session[:country_id]))
       else
        recommendation_public(options)
       end
@@ -314,7 +302,7 @@ class ApplicationController < ActionController::Base
       filter.update_attributes(:recommended_ids => recommendation_ids)
       options.merge!(:subtitles => [2]) if I18n.locale == :nl
       options.merge!(:audio => [1]) if I18n.locale == :fr
-      Product.filter(filter, options.merge(:view_mode => :recommended))
+      Product.filter(filter, options.merge(:view_mode => :recommended, :country_id => session[:country_id]))
     else
       []
     end

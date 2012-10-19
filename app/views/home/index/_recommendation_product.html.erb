@@ -2,7 +2,7 @@
 <% data = recommendation_product.description_data() %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
-<% streaming_product = (recommendation_product.streaming? and streaming_access?) ? true : false %>
+<% streaming_product = (recommendation_product.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? true : false %>
 <li>
   <div class="stars" id="rating-stars-<%= recommendation_product.to_param %>" product_id ="<%= recommendation_product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => recommendation_product, :background => :white, :size => :small, :recommendation => 1} %>

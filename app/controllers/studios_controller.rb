@@ -4,6 +4,7 @@ class StudiosController < ApplicationController
       @countries = ProductCountry.visible.order
     if params[:filter] && params[:filter].to_sym == :vod
       @studios = Studio.by_kind(params[:kind]).vod.ordered
+      @studios = @studios.vod_lux if session[:country_id] == 131
     else
       query = Studio.by_kind(params[:kind])
       if !params[:letter]

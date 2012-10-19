@@ -103,11 +103,6 @@ class HomeController < ApplicationController
   end
 
   def get_data(kind)
-    if @theme && @theme.banner_hp == 1
-      @theme_hp = @theme
-    else
-      @theme_hp = theme_actif_hp
-    end
     status = Rails.env == 'production' ? 'ONLINE' : ['ONLINE','TEST']
     news_serial = when_fragment_expired "#{Rails.env}_news_hp_#{params[:kind]}_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
       if params[:kind] == :adult
@@ -153,13 +148,12 @@ class HomeController < ApplicationController
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
       @trailers_week = Product.all(:joins => :trailers, :conditions => ["products_trailers.focus > 0 and products_trailers.language_id = ? ", DVDPost.product_languages[I18n.locale]], :limit => trailer_limit, :order => "products_trailers.focus desc")
       @trailers = Product.all(:joins => :trailers, :include => :actors, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
-      @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality])
+      @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality], session[:country_id])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
       @banners = ProductList.theme.by_kind(kind.to_s).by_style(:vod).find_by_home_page(2).products.paginate(:per_page => 3, :page => 1)
       get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
-      @themes = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.limit(2)
-      @theme = @themes.first
+      @themes = ThemesEvent.hp.selected.by_kind(params[:kind]).ordered.limit(2)
     else
       if I18n.locale != :en
         chronicle_serial = when_fragment_expired "#{Rails.env}_chronicle_hp2_#{status}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
@@ -179,10 +173,10 @@ class HomeController < ApplicationController
         wishlist_size
         @offline_request = current_customer.payment.recovery
         @transit_items = current_customer.orders.in_transit.all
-        @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered.first
-        #if 1 == 1
-        # @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered_rand.first
-        #end
+        @theme = ThemesEvent.selected.hp.by_kind(params[:kind]).ordered.first
+        if @theme.too_old
+          @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered_rand.first
+        end
         expiration_recommendation_cache()
         @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
       end

@@ -25,8 +25,8 @@
       <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
     </div>
     <div id="btns-wrap" class="osc">
-      <% if @product.in_streaming_or_soon? and streaming_access? %>
-        <% if @product.streaming? %>
+      <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
+        <% if @product.streaming?(params[:kind], session[:country_id]) %>
           <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
           <% credits = @product.streaming_products.first.credits %>
         <% else %>

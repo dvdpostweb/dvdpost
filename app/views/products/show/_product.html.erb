@@ -3,8 +3,8 @@
     <%= product_image_tag @product_image, :width => 143, :height => 218, :alt => "#{@product_title} (#{product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
-  <% if product.in_streaming_or_soon? and streaming_access? %>
-    <% if product.streaming? %>
+  <% if product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
+    <% if product.streaming?(params[:kind], session[:country_id]) %>
       <%= render :partial => 'products/streaming',  :locals => {:product => product, :token => @token} %>
       <% credits = product.streaming_products.first.credits %>
     <% end %>
@@ -23,7 +23,7 @@
     <%= render :partial => 'shops/update_form', :locals => {:cart => cart, :product => product, :method => method, :text => text, :class_name => class_name, :ref => :product} %>
   <% end %>
 </div>
-<div id="movie-info" class="<%= @product.streaming? ? 'height-stream' : 'height-classic' %>">
+<div id="movie-info" class="<%= @product.streaming?(params[:kind], session[:country_id]) ? 'height-stream' : 'height-classic' %>">
 <% if product.availability == -1 %>
 <div id="not_available" class="<%= I18n.locale %>">
   <div id='not_available_title'><%= t '.not_available' %></div>

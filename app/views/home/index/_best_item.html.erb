@@ -1,6 +1,6 @@
 <% product = best_item.product %>
 <% if product %>
-  <% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
+  <% streaming_product = (product.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? true : false %>
   <% product_title = product.title %>
 
   <li>
