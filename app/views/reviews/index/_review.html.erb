@@ -1,7 +1,7 @@
 <% path = product_path(:id => review.product.to_param, :recommendation => source) %>
 <% product = review.product %>
 <% product_title = review.product.title %>
-<% product_streaming = product.streaming? %>
+<% product_streaming = product.streaming?(params[:kind], session[:country_id]) %>
 <% media = product.vod? ? 'vod' : product_media_id(product.media) %>
 <div class="movie-wrap">
 	<div class="movie-ttl">

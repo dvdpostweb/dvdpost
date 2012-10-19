@@ -3,7 +3,7 @@
   <div class="stars" id="rating-stars-<%= streaming_product.to_param %>" product_id ="<%= streaming_product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => streaming_product, :background => :white, :size => :small} %>
   </div>
-  <% link_to path, :class => ((streaming_product.streaming? and streaming_access?) ? 'vod' : product_media_id(streaming_product.media)) do %>
+  <% link_to path, :class => ((streaming_product.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? 'vod' : product_media_id(streaming_product.media)) do %>
     <%= product_image_tag streaming_product.image, :width => 76, :height => 118, :alt => "#{streaming_product.title} (#{streaming_product.year})" %>
   <% end %>
     <% token = current_customer.get_token(streaming_product.imdb_id) %>

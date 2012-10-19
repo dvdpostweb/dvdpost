@@ -1,7 +1,7 @@
 <% review = coeur_item.review %>
 <% product = review.product %>
 <% if product %>
-  <% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
+  <% streaming_product = (product.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? true : false %>
   <% customer = review.customer %>
   <% if params[:kind] == :adult %>
     <% reviews_count = customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count %>

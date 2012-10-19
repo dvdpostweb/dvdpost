@@ -84,6 +84,7 @@ class Product < ActiveRecord::Base
     has products_id,                :as => :id
     has products_next,              :as => :next
     has "CAST(vod_next AS SIGNED)", :type => :integer, :as => :vod_next
+    has "CAST(vod_next_lux AS SIGNED)", :type => :integer, :as => :vod_next_lux
     has "if(products_next = 1,1,if(vod_next=1,1,0))", :type => :integer, :as => :all_next
     
     has products_public,            :as => :audience
@@ -139,6 +140,19 @@ class Product < ActiveRecord::Base
         else 8 end from products p 
         left join streaming_products on streaming_products.imdb_id = p.imdb_id
         where  (( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
+    has "(select case 
+        when (products_media = 'DVD' and streaming_products.imdb_id is not null and vod_lux = 1) or (products_media = 'DVD' and vod_next_lux = 1) then 2
+        when (products_media = 'VOD' and streaming_products.imdb_id is not null and vod_lux = 1) or (products_media = 'VOD' and vod_next_lux = 1) then 5
+        when products_media = 'DVD' then 1 
+        when (products_media = 'blueray' and streaming_products.imdb_id is not null and vod_lux = 1) or (products_media = 'blueray' and vod_next_lux = 1) then 4 
+        when products_media = 'blueray' then 3
+        when products_media = 'bluray3d' then 6
+        when products_media = 'bluray3d2d' then 7
+        else 8 end 
+        from products p
+        left join streaming_products on streaming_products.imdb_id = p.imdb_id
+        left join studio on studio.studio_id = streaming_products.studio_id
+        where  (( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next_lux=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_lux
     has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1 limit 1)", :type => :integer, :as => :streaming_available
     has "case 
     when  (streaming_products.available_from < now() and streaming_products.expire_at > now()) or (streaming_products.available_backcatalogue_from < now() and streaming_products.expire_backcatalogue_at > now()) then 1
@@ -184,6 +198,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media}}}
   sphinx_scope(:by_special_media)   {|media|            {:with =>       {:special_media => media}}}
+  sphinx_scope(:by_special_media_lux)   {|media|            {:with =>       {:special_media_lux => media}}}
+  sphinx_scope(:by_not_special_media_lux)   {|media|            {:without =>       {:special_media_lux => media}}}
   sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
   sphinx_scope(:by_products_list)   {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:by_ratings)         {|min, max|         {:with =>       {:rating => min..max}}}
@@ -201,6 +217,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:dvd_soon)           {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
   sphinx_scope(:not_soon)           {{:with =>          {:vod_next => 0}}}
+  sphinx_scope(:vod_soon_lux)       {{:with =>          {:in_cinema_now => 0, :vod_next_lux => 1}}}
+  sphinx_scope(:not_soon_lux)       {{:with =>          {:vod_next_lux => 0}}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:streaming2)         {{:with =>          {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
@@ -251,7 +269,7 @@ class Product < ActiveRecord::Base
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
     products = products.ppv if options[:ppv]
-    #products = products.streaming_vod_lux
+    products = options[:kind] == :normal ? products.streaming_vod_lux : products.vod_lux if options[:country_id] == 131 && ( options[:view_mode] == "streaming" || options[:filter] == "vod")
     
     
     if options[:studio_id]
@@ -263,10 +281,18 @@ class Product < ActiveRecord::Base
     end
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
     products = products.by_country(filter.country_id) if filter.country_id?
-    products = products.by_special_media([2,4,5]) if options[:filter] && options[:filter] == "vod"
-    products = products.by_special_media([1,2]) if options[:filter] && options[:filter] == "dvd"
-    products = products.by_special_media([3,4,7]) if options[:filter] && options[:filter] == "bluray"
-    products = products.by_special_media([6,7]) if options[:filter] && options[:filter] == "bluray3d"
+    if options[:filter]
+      if options[:filter] && options[:filter] == "vod"
+        media_i = [2,4,5]
+      elsif options[:filter] && options[:filter] == "dvd"
+        media_i = [1,2]
+      elsif options[:filter] && options[:filter] == "bluray"
+        media_i = [3,4,7]
+      elsif options[:filter] && options[:filter] == "bluray3d"
+        media_i = [6,7]
+      end
+      products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i)
+    end
     
     if filter.media? && options[:kind] == :normal && options[:view_mode] != "streaming" && options[:filter] != "vod"
       
@@ -296,8 +322,9 @@ class Product < ActiveRecord::Base
       if medias.include?(:bluray3d)
         media_i.push([6,7])
       end
-      products = products.by_special_media(media_i)
+      products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i)
     end
+    products = products.by_not_special_media_lux(8) if options[:country_id] == 131
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year?
     if filter.audio?
@@ -312,7 +339,7 @@ class Product < ActiveRecord::Base
     end
     products = products.dvdpost_choice if filter.dvdpost_choice?
     if options[:not_soon]
-      products = products.not_soon 
+      products = options[:country_id] == 131 ? products.not_soon_lux : products.not_soon
     end
     if options[:sort] == 'production_year_vod'
       products = products.streaming
@@ -326,11 +353,11 @@ class Product < ActiveRecord::Base
       when :soon
         products.soon
       when :vod_soon
-        products.vod_soon
+        options[:country_id] == 131 ? products.vod_soon_lux : products.vod_soon
       when :cinema
         products.cinema
       when :streaming
-        products = products.by_special_media([2,4,5])
+        products = options[:country_id] == 131 ? products.by_special_media_lux(options, [2,4,5]) : products.by_special_media(options, [2,4,5])
       when :weekly_streaming
         products.weekly_streaming
       when :popular_streaming
@@ -518,27 +545,18 @@ class Product < ActiveRecord::Base
   end
   
   def preview_image(id, kind)
-    if kind == :adult
-      File.join(DVDPost.imagesx_preview_path, "#{products_model}#{id}.jpg")
-    else
-      File.join(DVDPost.images_preview_path,'small', "#{imdb_id}_#{id}.jpg")
-    end
+    path = kind == :adult ? DVDPost.imagesx_preview_path : DVDPost.images_preview_path
+    File.join(path,'small', "#{imdb_id}_#{id}.jpg")
   end
 
   def trailer_image(kind)
-    if kind == :adult
-      File.join(DVDPost.imagesx_trailer_path, "#{id}.jpg")
-    else
-      File.join(DVDPost.images_trailer_path, "#{id}.jpg")
-    end
+    path = kind == :adult ? DVDPost.imagesx_trailer_path : DVDPost.images_trailer_path
+    File.join(path, "#{id}.jpg")
   end
 
   def banner_image(kind)
-    if kind == :adult
-      File.join(DVDPost.imagesx_banner_path, "#{id}.jpg")
-    else
-      File.join(DVDPost.images_banner_path, "#{id}.jpg")
-    end
+    path = kind == :adult ? DVDPost.imagesx_banner_path : DVDPost.images_banner_path
+    File.join(path, "#{id}.jpg")
   end
 
   def rating(customer = nil)
@@ -778,12 +796,12 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def self.get_top_view(kind, limit, sexuality)
-    if sexuality == 1
-      Product.by_kind(kind).by_special_media([2,4,5]).available.limit(limit).order('count_tokens desc', :extended)
-    else
-      Product.by_kind(kind).by_special_media([2,4,5]).available.hetero.limit(limit).order('count_tokens desc', :extended)
-    end
+  def self.get_top_view(kind, limit, sexuality,country_id)
+    products = Product.by_kind(kind)
+    products = country_id == 131 ? by_special_media_lux([2,4,5]) : by_special_media([2,4,5])
+    products = products.available
+    products = products.hetero if sexuality != 1
+    products = products.limit(limit).order('count_tokens desc', :extended)
   end
 
   def adult?

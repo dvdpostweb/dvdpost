@@ -235,13 +235,13 @@ class Customer < ActiveRecord::Base
   def popular(filter, options={})
     options.merge!(:subtitles => [2]) if I18n.locale == :nl
     options.merge!(:audio => [1]) if I18n.locale == :fr
-    popular = Product.filter(filter, options.merge(:view_mode => :popular))
+    popular = Product.filter(filter, options.merge(:view_mode => :popular, :country_id => :session[:country_id]))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular - hidden_products
   end
 
   def streaming(filter, options={})
-    popular_vod = Product.filter(filter, options.merge(:view_mode => :streaming, :sort => 'token', :not_soon => 1))
+    popular_vod = Product.filter(filter, options.merge(:view_mode => :streaming, :sort => 'token', :not_soon => 1, :country_id => :session[:country_id]))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular_vod - hidden_products
   end

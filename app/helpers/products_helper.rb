@@ -170,7 +170,7 @@ module ProductsHelper
     bluray = product.media_alternative_all(:blueray)
     bluray3d = product.media_alternative_all(:bluray3d)
     dvd = product.media_alternative_all(:dvd)
-    vod = product.streaming?
+    vod = product.streaming?(params[:kind], session[:country_id])
     content = ''
     if bluray
       content << "#{t('products.index.filters.bluray')}<br />"

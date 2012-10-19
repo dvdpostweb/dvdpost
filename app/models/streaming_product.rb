@@ -27,9 +27,11 @@ class StreamingProduct < ActiveRecord::Base
   
   def by_studio_lux(kind)
     if kind == :normal
-      studio.vod_lux
+      studio.vod_lux if studio
     else
-      products.first.studio.vod_lux
+      if product_studio = products.first.studio
+        product_studio.vod_lux
+      end
     end
   end
   def self.get_prefered_streaming_by_imdb_id(imdb_id, local)

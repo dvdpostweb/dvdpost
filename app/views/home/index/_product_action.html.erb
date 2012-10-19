@@ -1,6 +1,6 @@
 <% path = item.imdb_id > 0 ? products_path(:imdb_id => item.imdb_id) : path %>
-<% if item.in_streaming_or_soon? && streaming_access? %>
-  <% if item.streaming? %>
+<% if item.in_streaming_or_soon?(params[:kind], session[:country_id]) && streaming_access? %>
+  <% if item.streaming?(params[:kind], session[:country_id]) %>
       <% token = current_customer ? current_customer.get_token(item.imdb_id) : nil %>
     <%= render :partial => 'products/streaming', :locals => {:product => item, :token => @token, :text => :short } %>
   <% end %>

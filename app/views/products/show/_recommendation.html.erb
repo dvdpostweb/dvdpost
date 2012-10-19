@@ -1,5 +1,5 @@
 <% path = product_path(:id => recommendation.to_param, :recommendation => @wishlist_source[:recommendation_product]) %>
-<% streaming_product = (recommendation.streaming? and streaming_access?) ? true : false %>
+<% streaming_product = (recommendation.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? true : false %>
 <li>
   <div class="stars" id="rating-stars-<%= recommendation.to_param %>" product_id ="<%= recommendation.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => recommendation, :background => rating_color, :size => :small} %>

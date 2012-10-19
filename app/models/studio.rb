@@ -11,6 +11,7 @@ class Studio < ActiveRecord::Base
   named_scope :by_kind, lambda {|kind| {:conditions => {:studio_type => DVDPost.actor_kinds[kind]}}}
   named_scope :by_number,  {:conditions => ["studio_name REGEXP '^[0-9]'"]}
   named_scope :vod,  {:conditions => {:vod => true}}
+  named_scope :vod_lux,  {:conditions => {:vod_lux => true}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'studio_name'
   

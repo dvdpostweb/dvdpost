@@ -1,6 +1,6 @@
 <% review = @review %>
 <% product = review.product %>
-<% streaming_product = (product.streaming? and streaming_access?) ? true : false %>
+<% streaming_product = (product.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? true : false %>
 <% if product %>
   <% customer = review.customer %>
   <% if params[:kind] == :adult %>

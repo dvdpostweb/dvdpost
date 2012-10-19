@@ -2,7 +2,7 @@
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
 <% path = product_path(:id => product.to_param, :recommendation => @wishlist_source[:theme]) %>
-<% streaming_product = (streaming_access? && product.streaming?) ? true : false %>
+<% streaming_product = (streaming_access? && product.streaming?(params[:kind], session[:country_id])) ? true : false %>
 <% color = params[:kind] == :adult ? :pink : :white %>
 <li>
   <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">

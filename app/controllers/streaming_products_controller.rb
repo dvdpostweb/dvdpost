@@ -1,5 +1,6 @@
 class StreamingProductsController < ApplicationController
   before_filter :ppv_ready?
+  before_filter :vod_lux?
 
   def show
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
@@ -226,4 +227,11 @@ class StreamingProductsController < ApplicationController
       redirect_to root_path
     end
   end
+  
+  def vod_lux?
+    if !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
+      redirect_to root_path
+    end
+  end
+  
 end
