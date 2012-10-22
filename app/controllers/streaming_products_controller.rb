@@ -24,7 +24,7 @@ class StreamingProductsController < ApplicationController
       @streaming_not_prefered = nil
     elsif Rails.env == 'production' && @token_valid == true
       @streaming = StreamingProduct.available_token.find_by_imdb_id(params[:id])
-      @streaming_prefered = StreamingProduct.group_by_language.available_beta.find_all_by_imdb_id(params[:id], I18n.locale)
+      @streaming_prefered = StreamingProduct.group_by_language.available_token.find_all_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = nil
     else
       @streaming = StreamingProduct.available_beta.alpha.find_by_imdb_id(params[:id])
