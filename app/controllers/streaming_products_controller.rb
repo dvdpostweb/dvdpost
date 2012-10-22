@@ -1,6 +1,6 @@
 class StreamingProductsController < ApplicationController
   #before_filter :ppv_ready?
-  before_filter :vod_lux?
+  before_filter :vod_lux?, :only => [:show]
 
   def show
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
