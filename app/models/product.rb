@@ -357,7 +357,7 @@ class Product < ActiveRecord::Base
       when :cinema
         products.cinema
       when :streaming
-        products = options[:country_id] == 131 ? products.by_special_media_lux(options, [2,4,5]) : products.by_special_media(options, [2,4,5])
+        products = options[:country_id] == 131 ? products.by_special_media_lux([2,4,5]) : products.by_special_media([2,4,5])
       when :weekly_streaming
         products.weekly_streaming
       when :popular_streaming
