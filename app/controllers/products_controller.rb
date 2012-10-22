@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
       filter = get_current_filter
       if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
         if current_customer
-          @popular = current_customer.streaming(filter, {:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
+          @popular = current_customer.streaming(filter, {:category_id => params[:category_id], :country_id => session[:country_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
           @papular_page = params[:popular_streaming_page] || 1
           @papular_nb_page = @popular.total_pages
         else

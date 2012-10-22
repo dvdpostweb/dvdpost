@@ -229,7 +229,7 @@ class StreamingProductsController < ApplicationController
   end
   
   def vod_lux?
-    if !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
+    if params[:id] && !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
       redirect_to root_path
     end
   end
