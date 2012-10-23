@@ -1,6 +1,6 @@
 class StreamingProductsController < ApplicationController
-  before_filter :ppv_ready?
-  before_filter :vod_lux?
+  #before_filter :ppv_ready?
+  before_filter :vod_lux?, :only => [:show]
 
   def show
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
@@ -24,7 +24,7 @@ class StreamingProductsController < ApplicationController
       @streaming_not_prefered = nil
     elsif Rails.env == 'production' && @token_valid == true
       @streaming = StreamingProduct.available_token.find_by_imdb_id(params[:id])
-      @streaming_prefered = StreamingProduct.group_by_language.available_beta.find_all_by_imdb_id(params[:id], I18n.locale)
+      @streaming_prefered = StreamingProduct.group_by_language.available_token.find_all_by_imdb_id(params[:id], I18n.locale)
       @streaming_not_prefered = nil
     else
       @streaming = StreamingProduct.available_beta.alpha.find_by_imdb_id(params[:id])
@@ -229,7 +229,8 @@ class StreamingProductsController < ApplicationController
   end
   
   def vod_lux?
-    if !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
+    Rails.logger.debug { "@@@#{params.inspect}" }
+    if params[:id] && !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
       redirect_to root_path
     end
   end

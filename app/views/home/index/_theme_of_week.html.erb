@@ -1,6 +1,6 @@
 <% path = get_path(theme) %>
 <div id="week-theme">
-	<h3><%= t '.title'  unless theme.url %></h3>
+	<h3><%= @theme_month ? t('.title') : t('.title_rand') %></h3>
 	<%= link_to image_tag(theme.image_home_page, :size => "267x121"), path, :alt => t('.title') %>
 	<%= link_to t('.see').upcase, path, :class => :osc %>
 </div>
