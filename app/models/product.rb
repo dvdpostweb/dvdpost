@@ -342,7 +342,11 @@ class Product < ActiveRecord::Base
       products = options[:country_id] == 131 ? products.not_soon_lux : products.not_soon
     end
     if options[:sort] == 'production_year_vod'
-      products = products.streaming
+      products = products.streaming.by_period(2.years.ago.year, Date.today.year)
+    elsif options[:sort] == 'production_year_all'
+      products = products.not_recent.by_period(2.years.ago.year, Date.today.year)
+    else
+      products = products.by_period(filter.year_min, filter.year_max) if filter.year?
     end
     if options[:view_mode]
       products = case options[:view_mode].to_sym
@@ -683,6 +687,8 @@ class Product < ActiveRecord::Base
         "year desc, in_stock DESC"
       elsif options[:sort] == 'production_year_vod'
         "year desc, , streaming_id desc"
+      elsif options[:sort] == 'production_year_all'
+        "year desc, in_stock DESC"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'

@@ -9,8 +9,8 @@
         <div style="display: block;width:450px" class="content">
           <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
           <div id="addwishlist_explain">
-            <% if @streaming.is_ppv && current_customer.ppv_ready != 1 %>
-              <% if current_customer.ppv_ready == 0 %>
+            <% if @streaming.is_ppv && current_customer.ppv_status_id != 1 %>
+              <% if current_customer.ppv_status_id == 0 %>
                 <%= t '.update_cc_for_ppv' %><br /><br /><%= t '.price', :price => @streaming.ppv_price %><br /><br />
                 <%= link_to 'Clique ici', edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %>
               <% else %>
