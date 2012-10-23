@@ -1,5 +1,5 @@
 class StreamingProductsController < ApplicationController
-  #before_filter :ppv_ready?
+  #before_filter :ppv_ready?, :only => [:show]
   before_filter :vod_lux?, :only => [:show]
 
   def show
@@ -223,13 +223,13 @@ class StreamingProductsController < ApplicationController
 
   private
   def ppv_ready?
-    if current_customer and current_customer.ppv_status_id != 1
+    @streaming = StreamingProduct.available.find_by_imdb_id(params[:id])
+    if current_customer and streaming.is_ppv && current_customer.ppv_status_id != 1
       redirect_to root_path
     end
   end
   
   def vod_lux?
-    Rails.logger.debug { "@@@#{params.inspect}" }
     if params[:id] && !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
       redirect_to root_path
     end
