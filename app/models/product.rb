@@ -112,8 +112,8 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has "concat(GROUP_CONCAT(DISTINCT IFNULL(`products_languages`.`languages_id`, '0') SEPARATOR ','),',', GROUP_CONCAT(DISTINCT IFNULL(`products_undertitles`.`undertitles_id`, '0') SEPARATOR ','))", :type => :multi, :as => :speaker
     has "(select 
-    if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month)))) limit 1)", :type => :integer, :as => :new_vod
-    has "(select (if(available_from is null, available_backcatalogue_from,available_from)) date_order from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 2 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 2 month)))) limit 1)", :type => :datetime, :as => :available_order
+    if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month)))) limit 1)", :type => :integer, :as => :new_vod
+    has "(select (if(available_from is null, available_backcatalogue_from,available_from)) date_order from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month)))) limit 1)", :type => :datetime, :as => :available_order
     has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
     has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
     has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id asc limit 1)", :type => :datetime, :as => :available_bc_from
@@ -160,7 +160,7 @@ class Product < ActiveRecord::Base
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 31))", :type => :integer, :as => :count_tokens_month
     has "case
-    when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
+    when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 3 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
     has 'concat(if(products_quantity>0 or products_media = "vod" or (  select count(*) > 0 from products p
@@ -211,7 +211,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
   sphinx_scope(:new_vod)            {{:with =>          {:new_vod => 1}}}
-  sphinx_scope(:vod_fresh)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_bc_from => 2.months.ago..Time.now, :streaming_available => 1 }}}
+  sphinx_scope(:vod_fresh)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_bc_from => xf, :streaming_available => 1 }}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:dvd_soon)           {{:with =>          {:in_cinema_now => 0, :next => 1}}}
@@ -233,10 +233,10 @@ class Product < ActiveRecord::Base
   sphinx_scope(:ppv)                {{:with =>          {:is_ppv => 1}}}
   sphinx_scope(:vod_lux)            {{:with =>          {:vod_lux => true}}}
   sphinx_scope(:streaming_vod_lux)  {{:with =>          {:streaming_vod_lux => true}}}
-  
+  sphinx_scope(:by_new)             {{:with =>          {:year => 2.years.ago.year..Date.today.year, :next => 0, :available_at => 3.months.ago..Time.now.end_of_day}}}
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
-  
+
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
   def self.list_sort
@@ -342,9 +342,9 @@ class Product < ActiveRecord::Base
       products = options[:country_id] == 131 ? products.not_soon_lux : products.not_soon
     end
     if options[:sort] == 'production_year_vod'
-      products = products.streaming.by_period(2.years.ago.year, Date.today.year)
+      products = products.streaming.by_period(2.years.ago.year, Date.today.year).new_vod
     elsif options[:sort] == 'production_year_all'
-      products = products.not_recent.by_period(2.years.ago.year, Date.today.year)
+      products = products.by_new
     else
       products = products.by_period(filter.year_min, filter.year_max) if filter.year?
     end
@@ -587,7 +587,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_new?
-    availability > 0 && created_at < Time.now && available_at && available_at > 3.months.ago && products_next == 0
+    created_at < Time.now && available_at && available_at > 3.months.ago && products_next == 0 && year >= 2.year.ago.strftime('%Y').to_i
   end
 
   def dvdposts_choice?

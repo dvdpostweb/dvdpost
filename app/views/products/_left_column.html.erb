@@ -26,6 +26,7 @@
     <% if current_customer %>
       <%= link_to image_tag("#{I18n.locale}/vente-flash-banner.png"), shop_path %>
     <% end %>
+    <% if I18n.locale != :en %>
       <div id="nina-wrap">
         <h3>
           <%= t '.chronicle_title' %>
@@ -34,6 +35,7 @@
         <p><%= t '.details' %></p>        
         <%= link_to t('.all'), chronicles_path, :class => 'more osc' %>
       </div>
+    <% end %>
     <% end %>
     <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if (params[:action] == 'index' && params[:controller] != 'studios') %>
   <% end %>
