@@ -17,42 +17,13 @@
         <%= "<li class='tab'>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
       </ul>
       <% end %>
-      <% if @actors && @actors.size > 0 %>
-        <%= render :partial => 'products/index/peoples', :locals => {:people => @actors} %>
-      <% end %>
-      <% if @directors && @directors.size > 0 %>
-        <%= render :partial => 'products/index/peoples', :locals => {:people => @directors} %>
-      <% end %>
-      <% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) && params[:type].nil? %>
-        <h2><%= t '.exact' %></h2>
-        <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
-      <% end %>
-      <%= render :partial => 'products/index/sorting' %>
-      <% if params[:type].nil? %>
-        <% unless !@products || (@products.size == 0 && @exact_products && @exact_products.size > 0)   %>
-          <% if @products %>
-            <% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) %>
-              <h2><%= t '.other'  %></h2>
-            <% end %>
-            <%= render :partial => 'products/index/movie_detail', :collection => @products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
-            <% if @products.size == 0 %>
-              <p>
-              <% if params[:view_mode] == 'recommended'%>
-                <%= t '.recommendations_empty' %>
-              <% else %>
-                <%= t '.products_empty' %>
-              <% end %>
-              </p>
-            <% end %>
-          <% else %>
-            <%= t '.recommendations_unavailable' %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <%= will_paginate @products, :class => 'products-pagination osc', :id => :pagination, :previous_label => '«', :next_label => '»' if @products && params[:type].nil? && params[:view_mode] != 'popular_streaming' %>
-      <%= will_paginate @actors, :class => 'products-pagination osc', :id => :pagination, :previous_label => '«', :next_label => '»', :param_name => :actors_page if @actors && params[:type] == 'actors' && params[:view_mode] != 'popular_streaming' %>
-      <%= will_paginate @directors, :class => 'products-pagination osc', :id => :pagination, :previous_label => '«', :next_label => '»', :param_name => :directors_page if @directors && params[:type] == 'directors' && params[:view_mode] != 'popular_streaming' %>
-      
+      <div id="products">
+        <%= render :partial => 'products/index/products' %>
+      </div>
+
+      <div id='pagination_content'>
+        <%= render :partial => '/products/index/pagination' %>
+      </div>
       
       <!--   ==============   END MOVIES   ==============   -->
     </div>

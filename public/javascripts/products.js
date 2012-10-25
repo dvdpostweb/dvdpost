@@ -519,5 +519,16 @@ $(function() {
   
   $("#sort").change(function() {
           $(this).parents().filter("form").trigger("submit");
-      });  
+  });
+  if ($('#cl #pagination').length) {
+      $(window).scroll(function() {
+        var url;
+        url = $('#cl #pagination .next_page').attr('href');
+        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 300) {
+          $('#pagination').html("<img src='/images/loading.gif' />");
+          return $.getScript(url);
+        }
+      });
+      return $(window).scroll();
+  }
 });
