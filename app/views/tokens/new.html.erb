@@ -1,5 +1,5 @@
 <% if !@product.streaming?(params[:kind], session[:country_id]) %>
-  voud n'avez pas acces a ce film
+  access denied
 <% else %>
   <% if @product.adult? && current_customer.svod? %>
     <%= t('.svod_adult') %>

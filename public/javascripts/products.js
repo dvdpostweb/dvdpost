@@ -524,7 +524,9 @@ $(function() {
       $(window).scroll(function() {
         var url;
         url = $('#cl #pagination .next_page').attr('href');
-        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 300) {
+        
+        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 380) {
+          alert(url)
           $('#pagination').html("<img src='/images/loading.gif' />");
           return $.getScript(url);
         }
