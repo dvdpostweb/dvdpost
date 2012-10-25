@@ -1,22 +1,6 @@
 class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show, :step]
   def index
-    if ENV['HOST_OK'] == "1"
-      if params[:kind] == :adult
-        if Rails.env == "pre_production"
-          @carousel = Landing.by_language_beta(I18n.locale).not_expirated.adult.order(:asc).limit(5)
-        else
-          @carousel = Landing.by_language(I18n.locale).not_expirated.adult.order(:asc).limit(5)
-        end
-      else
-        if Rails.env == "pre_production"
-          @carousel = Landing.by_language_beta(I18n.locale).not_expirated.public.order(:asc).limit(5)
-        else
-          @carousel = Landing.by_language(I18n.locale).not_expirated.public.order(:asc).limit(5)
-        end
-      end
-      @recommendations = retrieve_recommendations(params[:recommendation_page], {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]}) if params[:kind] == :normal
-    end
     @filter = get_current_filter({})
     if params[:search] == t('products.left_column.search')
       params.delete(:search)
@@ -61,7 +45,7 @@ class ProductsController < ApplicationController
     @rating_color = params[:kind] == :adult ? :pink : :white
     @countries = ProductCountry.visible.order
     @collections = Category.by_size.random
-    unless request.format.js?
+    #unless request.format.js?
       item_per_page = mobile_request? ? 5 : 20
       if params[:search] && !params[:search].empty?
         @exact_products = Product.filter(@filter, params.merge(:exact => 1, :countr_id => session[:country_id]))
@@ -112,11 +96,11 @@ class ProductsController < ApplicationController
       
       @source = WishlistItem.wishlist_source(params, @wishlist_source)
       @jacket_mode = Product.get_jacket_mode(params)
-    end
+    #end
     respond_to do |format|
       format.html
       format.js {
-        if params[:category_id]
+        if params[:popular_streaming_page]
           render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page}
         elsif params[:recommendation_page]
           render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page], {:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})}  

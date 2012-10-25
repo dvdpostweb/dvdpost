@@ -1,0 +1,32 @@
+<% if @actors && @actors.size > 0 %>
+  <%= render :partial => 'products/index/peoples', :locals => {:people => @actors} %>
+<% end %>
+<% if @directors && @directors.size > 0 %>
+  <%= render :partial => 'products/index/peoples', :locals => {:people => @directors} %>
+<% end %>
+<% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) && params[:type].nil? %>
+  <h2><%= t '.exact' %></h2>
+  <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
+<% end %>
+<%= render :partial => 'products/index/sorting' unless @actors || @directors || params[:page].to_i > 0 %>
+<% if params[:type].nil? %>
+  <% unless !@products || (@products.size == 0 && @exact_products && @exact_products.size > 0)   %>
+    <% if @products %>
+      <% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) %>
+        <h2><%= t '.other'  %></h2>
+      <% end %>
+      <%= render :partial => 'products/index/movie_detail', :collection => @products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
+      <% if @products.size == 0 %>
+        <p>
+        <% if params[:view_mode] == 'recommended'%>
+          <%= t '.recommendations_empty' %>
+        <% else %>
+          <%= t '.products_empty' %>
+        <% end %>
+        </p>
+      <% end %>
+    <% else %>
+      <%= t '.recommendations_unavailable' %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -383,14 +383,15 @@ ul.grid {
 margin-left: 3px;
 overflow: hidden;
 width: auto;
-padding-top: 25px;
-padding-bottom: 25px;
+/*padding-top: 25px;
+padding-bottom: 25px;*/
 }
 ul.grid li {
 display: inline;
 float: left;
-margin: 0 0 0 11px;
+margin: 0 0 0 21px;
 overflow: hidden;
+padding:20px 0 0 0;
 }
 .unit a.img {
 display: block;
@@ -398,7 +399,7 @@ height: 193px;
 overflow: hidden;
 }
 .unit h3 {
-margin: 4px 0 15px 0;
+margin: 4px 0 0 0;
 color: #191E23;
 font-weight: bold;
 }
