@@ -17,6 +17,11 @@
         <%= "<li class='tab'>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
       </ul>
       <% end %>
+      <% if cookies[:endless] == 'deactive' %>
+        <% link_to 'Activer la pagination automatique', params.merge(:endless => 'active'), :class => "endless" %>
+      <% else %>
+        <% link_to 'Déactiver la pagination automatique', params.merge(:endless => 'deactive'), :class => "endless" %>
+      <% end %>
       <div id="products">
         <%= render :partial => 'products/index/products' %>
       </div>
@@ -28,4 +33,5 @@
       <!--   ==============   END MOVIES   ==============   -->
     </div>
     <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
+    <div id="toTop">Back to top</div>
 <!--   ==============   END MAIN CONTENT   ==============   --> 

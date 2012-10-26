@@ -520,16 +520,40 @@ $(function() {
   $("#sort").change(function() {
           $(this).parents().filter("form").trigger("submit");
   });
-  if ($('#cl #pagination').length) {
+  $('#toTop').live('click', function(){
+    goToByScroll('top')
+  });
+  /*if ($('#cl #pagination.active').length) {
       $(window).scroll(function() {
         var url;
         url = $('#cl #pagination .next_page').attr('href');
-        
-        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 380) {
+        if ($(window).scrollTop() < 500)
+        {
+          $('#toTop').fadeOut('slow')
+        }
+        else
+        {
+          $('#toTop').fadeIn('slow')
+        }
+        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 450) {
+          set_page(url)
           $('#pagination').html("<img src='/images/loading.gif' />");
           return $.getScript(url);
         }
       });
       return $(window).scroll();
-  }
+  }*/
+  
 });
+function set_page(url)
+{
+  url = url.replace('http://dvdpost.dev','')
+  url = url.replace('http://staging.dvdpost.be','')
+  url = url.replace('http://beta.dvdpost.com','')
+  url = url.replace('http://private.dvdpost.com','')
+  url = url.replace('http://public.dvdpost.com','')
+  _gaq.push(['_trackPageview', url]); 
+}
+function goToByScroll(id){
+  $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
+}
