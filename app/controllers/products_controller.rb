@@ -2,6 +2,9 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show, :step]
   def index
     @filter = get_current_filter({})
+    if params[:endless]
+      cookies.permanent[:endless] = params[:endless]
+    end
     if params[:search] == t('products.left_column.search')
       params.delete(:search)
     else
