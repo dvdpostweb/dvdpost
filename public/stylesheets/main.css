@@ -1263,3 +1263,7 @@ height: 20px;
   font-size:14px;
   padding: 18px 0;
 }
+#content_trailer #pagination {
+  padding: 0;
+  background: none;
+}
