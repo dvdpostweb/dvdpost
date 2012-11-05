@@ -523,7 +523,7 @@ $(function() {
   $('#toTop').live('click', function(){
     goToByScroll('top')
   });
-  /*if ($('#cl #pagination.active').length) {
+  if ($('#cl #pagination.active').length) {
       $(window).scroll(function() {
         var url;
         url = $('#cl #pagination .next_page').attr('href');
@@ -542,7 +542,7 @@ $(function() {
         }
       });
       return $(window).scroll();
-  }*/
+  }
   
 });
 function set_page(url)

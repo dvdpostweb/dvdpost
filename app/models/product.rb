@@ -291,7 +291,7 @@ class Product < ActiveRecord::Base
       elsif options[:filter] && options[:filter] == "bluray3d"
         media_i = [6,7]
       end
-      products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i)
+      products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i) if media_i
     end
     
     if filter.media? && options[:kind] == :normal && options[:view_mode] != "streaming" && options[:filter] != "vod"

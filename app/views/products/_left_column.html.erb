@@ -28,10 +28,7 @@
     <% end %>
     <% if I18n.locale != :en %>
       <div id="nina-wrap">
-        <h3>
-          <%= t '.chronicle_title' %>
-        </h3>
-        <%= link_to image_tag("banner_nina#{I18n.locale == :nl ? '_nl' : ''}.png"), chronicles_path %>      
+        <%= link_to image_tag("banner_nina_#{I18n.locale}.png"), chronicles_path %>      
         <p><%= t '.details' %></p>        
         <%= link_to t('.all'), chronicles_path, :class => 'more osc' %>
       </div>
