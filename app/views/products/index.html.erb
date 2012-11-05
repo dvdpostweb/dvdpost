@@ -18,9 +18,9 @@
       </ul>
       <% end %>
       <% if cookies[:endless] == 'deactive' %>
-        <% link_to 'Activer la pagination automatique', params.merge(:endless => 'active'), :class => "endless" %>
+        <%= link_to t('.endless_active'), params.merge(:endless => 'active'), :class => "endless" %>
       <% else %>
-        <% link_to 'Déactiver la pagination automatique', params.merge(:endless => 'deactive'), :class => "endless" %>
+        <%= link_to t('.endless_deactive'), params.merge(:endless => 'deactive'), :class => "endless" %>
       <% end %>
       <div id="products">
         <%= render :partial => 'products/index/products' %>
