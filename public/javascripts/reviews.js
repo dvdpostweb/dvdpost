@@ -1,6 +1,7 @@
 $(function() {
   $("a#add_new_review, .add_reviews").live("click", function() {
     review = $(this);
+    set_page(review.attr('href'))
     jQuery.facebox(function() {
       $.getScript(review.attr('href'), function(data) {
         jQuery.facebox(data);
@@ -57,6 +58,7 @@ $(function() {
     review_id = $(this).attr('review_id');
     html_item = $('#critique'+review_id);
     content = html_item.html();
+    set_page(this.href)
     $.ajax({
       url: this.href,
       type: 'POST',
@@ -80,4 +82,14 @@ function querySt(hu ,ji) {
       return ft[1];
     }
   }
+}
+function set_page(url)
+{
+  url = url.replace('http://dvdpost.dev','')
+  url = url.replace('http://private.dvdpost.dev','')
+  url = url.replace('http://staging.dvdpost.be','')
+  url = url.replace('http://beta.dvdpost.com','')
+  url = url.replace('http://private.dvdpost.com','')
+  url = url.replace('http://public.dvdpost.com','')
+  _gaq.push(['_trackPageview', url]); 
 }

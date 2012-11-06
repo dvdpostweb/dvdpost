@@ -92,6 +92,7 @@ $(function() {
        }
     }
     img.src = url;
+    set_page(url)
   }
   $("#tab-content-movie #sort").live("change", function() {
     loader = 'ajax-loader.gif';
@@ -118,6 +119,7 @@ $(function() {
     content = html_item.html();
     html_item.html("Loading...");
     root_item = html_item.parent().parent().parent();
+    set_page(html_item.attr('href'))
     $.ajax({
       url: html_item.attr('href'),
       type: 'GET',
@@ -141,6 +143,8 @@ $(function() {
       loader = 'black-'+loader;
     }
     html_item.html("<div style='height:19px'><img src='/images/"+loader+"'/></div>");
+    set_page(url)
+    
     $.ajax({
       url: url,
       type: 'POST',
@@ -197,6 +201,8 @@ $(function() {
 
   $(".add_to_wishlist_button").live("click", function() {
     wishlist_item = $(this);
+    set_page(wishlist_item.attr('href'))
+    
     jQuery.facebox(function() {
       $.getScript(wishlist_item.attr('href'), function(data) {
         jQuery.facebox(data);
@@ -232,6 +238,7 @@ $(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:15px'><img src='/images/"+loader+"'/></div>");
+    set_page(this.href)
     $.ajax({
       url: this.href,
       type: 'POST',
@@ -251,6 +258,7 @@ $(function() {
   $("#oscars a").click(function() {
     html_item = $('#oscars_text');
     content = html_item.html();
+    set_page(this.href)
     $.ajax({
       url: this.href,
       dataType: 'script',
@@ -272,6 +280,7 @@ $(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:24px; margin:10px 0 0 0'><img src='/images/"+loader+"'/></div>");
+    set_page(this.href)
     $.ajax({
       url: this.href,
       dataType: 'script',
@@ -364,6 +373,7 @@ $(function() {
     url = this.href;
     html_item = $('#carousel-wrap');
     content = html_item.html();
+    set_page(url)
     $.ajax({
       url: url,
       type: 'GET',
@@ -381,6 +391,7 @@ $(function() {
     url = this.href;
     html_item = $('#carousel-wrap');
     content = html_item.html();
+    set_page(url)
     $.ajax({
       url: url,
       type: 'GET',
@@ -399,6 +410,7 @@ $(function() {
     url = this.href;
     html_item = $('.title-vod');
     content = html_item.html()
+    set_page(url)
     $.ajax({
       url: url,
       type: 'GET',
@@ -416,6 +428,7 @@ $(function() {
     url = this.href;
     html_item = $('.title-vod');
     content = html_item.html()
+    set_page(url)
     $.ajax({
       url: url,
       type: 'GET',
@@ -429,15 +442,10 @@ $(function() {
     return false;
   });
 
-  $('#all_categorie').live('click',function(){
-    $('.cat').show();
-    $('.subcat').hide();
-    $(this).hide();
-    return false;
-  });
-
+  
   $('.trailer').live('click', function(){
     url = $(this).attr('href');
+    set_page(url)
     jQuery.facebox(function() {
       $.getScript(url, function(data) {
         jQuery.facebox(data);
@@ -535,7 +543,7 @@ $(function() {
         {
           $('#toTop').fadeIn('slow')
         }
-        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 450) {
+        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 1200) {
           set_page(url)
           $('#pagination').html("<img src='/images/loading.gif' />");
           return $.getScript(url);
@@ -548,6 +556,7 @@ $(function() {
 function set_page(url)
 {
   url = url.replace('http://dvdpost.dev','')
+  url = url.replace('http://private.dvdpost.dev','')
   url = url.replace('http://staging.dvdpost.be','')
   url = url.replace('http://beta.dvdpost.com','')
   url = url.replace('http://private.dvdpost.com','')
