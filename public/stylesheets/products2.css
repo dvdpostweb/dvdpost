@@ -577,3 +577,7 @@ font-weight: bold;
   float: left;
   color: #4A5863;
 }
+#products
+{
+  clear:both;
+}
