@@ -27,8 +27,7 @@
       <%= link_to image_tag("#{I18n.locale}/vente-flash-banner.png"), shop_path %>
     <% end %>
     <% if I18n.locale != :en %>
-      <div id="nina-wrap">
-        <%= link_to image_tag("banner_nina_#{I18n.locale}.png"), chronicles_path %>      
+      <div id="nina-wrap" class="<%= I18n.locale %>">
         <p><%= t '.details' %></p>        
         <%= link_to t('.all'), chronicles_path, :class => 'more osc' %>
       </div>

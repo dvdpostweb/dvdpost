@@ -344,8 +344,12 @@ color: #bd1f83;
   color: #fff;
 }
 #leftcolumn #nina-wrap {
-  background: url(../images/nina-bg-lc.jpg) 0 0 no-repeat;
-  height: 248px;
+  background: url(../images/nina-bg-lc_fr.jpg) 0 0 no-repeat;
+  height: 80px;
+  padding:80px 10px 0 10px;
+}
+#leftcolumn #nina-wrap.nl {
+  background: url(../images/nina-bg-lc_nl.jpg) 0 0 no-repeat;
 }
 #leftcolumn #nina-wrap p {
   margin-bottom: 5px;
@@ -412,10 +416,14 @@ padding:2px;
 font-size: 13px;
 }
 #nina-wrap {
-  background: url("../images/nina-bg.jpg") repeat scroll 0 0 transparent;
+  background: url("../images/nina-bg_fr.jpg") repeat scroll 0 0 transparent;
   color: #212A31;
   font-size: 11px;
-  height: 398px;
+  height: 250px;
+  padding: 80px 0;
+}
+#nina-wrap.nl {
+  background: url("../images/nina-bg_nl.jpg") repeat scroll 0 0 transparent;
 }
 #nina-content
 {
