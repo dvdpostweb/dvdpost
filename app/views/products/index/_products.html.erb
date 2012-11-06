@@ -8,7 +8,7 @@
   <h2><%= t '.exact' %></h2>
   <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
 <% end %>
-<%= render :partial => 'products/index/sorting' unless @actors || @directors || params[:page].to_i > 0 %>
+<%= render :partial => 'products/index/sorting' unless @actors || @directors || params[:page].to_i > 0 || cookies[:endless] == 'deactive' %>
 <% if params[:type].nil? %>
   <% unless !@products || (@products.size == 0 && @exact_products && @exact_products.size > 0)   %>
     <% if @products %>
