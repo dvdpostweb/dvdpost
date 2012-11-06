@@ -23,8 +23,8 @@ set :user, "dvdpostapp"
 set :domain, "staging.dvdpost.be"
 set :domain2, '192.168.100.222'
 set :port, 22012
-role :web,  domain2
-role :app,  domain2
+role :web, domain, domain2
+role :app, domain, domain2
 role :db, domain, :primary => true
 
 #############################################################
