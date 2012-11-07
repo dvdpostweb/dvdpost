@@ -471,6 +471,7 @@ $(function() {
     {
       postToFeed(t, i, local, id, title, 'www.dvdpost.be' );
     }
+    set_page($("#new_review").attr('action'))
     $("#new_review").ajaxSubmit(options);
     $("#review_submit").parent().html("<div style='height:42px'><img src='/images/ajax-loader.gif'/></div>")
     return false;
@@ -495,6 +496,7 @@ $(function() {
     {
       $(this).parents('.new_wishlist_item ').children('#all_movies').val(1)
     }
+    set_page($(this).parents('.new_wishlist_item').attr('action')+ "/products/" + $(this).parents('.new_wishlist_item').children('#wishlist_item_product_id').val()+"?recommendation="+$(this).parents('.new_wishlist_item').children('#wishlist_item_wishlist_source_id').val())
     $(this).parents('.new_wishlist_item').ajaxSubmit(options);
     $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
     return false; // prevent default behaviour
@@ -553,16 +555,7 @@ $(function() {
   }
   
 });
-function set_page(url)
-{
-  url = url.replace('http://dvdpost.dev','')
-  url = url.replace('http://private.dvdpost.dev','')
-  url = url.replace('http://staging.dvdpost.be','')
-  url = url.replace('http://beta.dvdpost.com','')
-  url = url.replace('http://private.dvdpost.com','')
-  url = url.replace('http://public.dvdpost.com','')
-  _gaq.push(['_trackPageview', url]); 
-}
+
 function goToByScroll(id){
   $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
 }
