@@ -77,7 +77,7 @@
               <% end %>
               <% if product.trailer %>
               <li>
-                <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) %>
+                <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :recommendation => @source), :class => 'trailer', :target => :_blank) %>
               </li>
               <% end %>
           </ul>

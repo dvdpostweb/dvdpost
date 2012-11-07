@@ -139,7 +139,34 @@ $(document).ajaxSend(function(event, request, settings) {
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     }
 });
-
+function set_page(url)
+{
+  recommendation = getParameterByName('recommendation')
+  url = url.replace('http://private.dvdpost.dev','')
+  url = url.replace('http://public.dvdpost.dev','')
+  url = url.replace('http://staging.private.dvdpost.com','')
+  url = url.replace('http://staging.public.dvdpost.com','')
+  url = url.replace('http://beta.dvdpost.com','')
+  url = url.replace('http://beta.public.dvdpost.com','')
+  url = url.replace('http://private.dvdpost.com','')
+  url = url.replace('http://public.dvdpost.com','')
+  if (recommendation.length > 0)
+  {
+    url = url + (url.indexOf('?') != -1 ? "&recommendation="+recommendation : "?recommendation="+recommendation);
+  }
+  _gaq.push(['_trackPageview', url]); 
+}
+function getParameterByName(name)
+{
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var regexS = "[\\?&]" + name + "=([^&#]*)";
+  var regex = new RegExp(regexS);
+  var results = regex.exec(window.location.search);
+  if(results == null)
+    return "";
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
 // When I say html I really mean script for rails
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;

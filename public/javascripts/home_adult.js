@@ -50,13 +50,4 @@ $(document).ready(function() {
     });
     return false;
   });
-  function set_page(url)
-  {
-    url = url.replace('http://dvdpost.dev','')
-    url = url.replace('http://staging.dvdpost.be','')
-    url = url.replace('http://beta.dvdpost.com','')
-    url = url.replace('http://private.dvdpost.com','')
-    url = url.replace('http://public.dvdpost.com','')
-    _gaq.push(['_trackPageview', url]); 
-  }
 });
