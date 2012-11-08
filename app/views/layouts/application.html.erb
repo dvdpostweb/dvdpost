@@ -38,7 +38,7 @@
 
     var _gaq = _gaq || [];
     _gaq.push(
-      ['_setAccount', '<%= DVDPost.analytics_code[:private] %>'],
+      ['_setAccount', '<%= DVDPost.analytics_code[:all] %>'],
       ['_trackPageview'],
       <% if ENV['HOST_OK'] == "1" %>
       ['b._setAccount', '<%= DVDPost.analytics_code[:public] %>'],
