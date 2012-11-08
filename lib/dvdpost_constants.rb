@@ -397,6 +397,15 @@ module DVDPost
       })
     end
 
+    def analytics_code
+      HashWithIndifferentAccess.new.merge({
+        :public   => 'UA-7320293-1',
+        :adult    => 'UA-8475379-1',
+        :private  => 'UA-7319107-1',
+        :all      => "UA-1121531-1"
+      })
+    end
+
     def message_categories
       HashWithIndifferentAccess.new.merge({
         :vod => 21,
