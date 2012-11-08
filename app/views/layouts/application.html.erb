@@ -34,40 +34,34 @@
   <![endif]-->
 	<%= yield :facebook %>
   <%= yield :head %>
-  
-	<script type="text/javascript">
-  var gaJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "stats.g.doubleclick.net/dc.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<% if ENV['HOST_OK'] == "1" %>
-  	<script type="text/javascript">
-      try {
-      	var pageTracker = _gat._getTracker("UA-7320293-1"); //public
-      	pageTracker._trackPageview();
-      } catch(err) {}
-    </script>
-	<% else %>
-	  <% if params[:kind] == :normal %>
-  	  <script type="text/javascript">
-    	  try {
-    	    var pageTracker = _gat._getTracker("UA-7319107-1"); //private
-    	    pageTracker._trackPageview();
-    	    } catch(err) {}
-    	</script>
-  	<% else %>
-		  <script type="text/javascript">
-  		try {
-  		var pageTracker = _gat._getTracker("UA-8475379-1"); //adult
-  		pageTracker._trackPageview();
-  		} catch(err) {}</script>
-	  <% end %>
-	<% end %>
-	<script type="text/javascript">
-	  try {
-  	var pageTracker = _gat._getTracker("UA-1121531-1"); //all
-  	pageTracker._trackPageview();
-  	} catch(err) {}
-	</script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(
+      ['_setAccount', 'UA-1121531-1'],
+      ['_trackPageview'],
+      <% if ENV['HOST_OK'] == "1" %>
+      ['b._setAccount', 'UA-7320293-1'],
+      ['b._trackPageview']
+      <% else %>
+        <% if params[:kind] == :normal %>
+          ['b._setAccount', 'UA-7319107-1'],
+          ['b._trackPageview']
+        <% else %>
+          ['b._setAccount', 'UA-8475379-1'],
+          ['b._trackPageview']
+        <% end %>
+      <% end %>
+      
+    );
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
     <!--   ==============   HEADER   ==============   -->
