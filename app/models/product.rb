@@ -418,7 +418,7 @@ class Product < ActiveRecord::Base
          products = products.group('imdb_id', "streaming_id desc")
       end
     end
-    Rails.logger.debug { "@@@#{sort}" }
+    #Rails.logger.debug { "@@@#{sort}" }
     #if options[:limit]
   #    products = products.limit(options[:limit])
     #end
@@ -689,7 +689,7 @@ class Product < ActiveRecord::Base
       elsif options[:sort] == 'production_year_vod'
         "year desc, , streaming_id desc"
       elsif options[:sort] == 'production_year_all'
-        "year desc, in_stock DESC"
+        "available_order desc"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'
