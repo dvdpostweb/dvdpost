@@ -118,7 +118,7 @@ $(function() {
       $.facebox.settings.modal = true;
     }
     jQuery.facebox(function() {
-      
+      set_page($('.action_face').html())
       $.getScript($('.action_face').html(), function(data) {
         jQuery.facebox(data);
       });

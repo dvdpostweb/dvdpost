@@ -119,6 +119,7 @@ $(function() {
     content = html_item.html();
     html_item.html("Loading...");
     root_item = html_item.parent().parent().parent();
+    
     set_page(html_item.attr('href'))
     $.ajax({
       url: html_item.attr('href'),
@@ -445,9 +446,9 @@ $(function() {
   
   $('.trailer').live('click', function(){
     url = $(this).attr('href');
-    set_page(url)
     jQuery.facebox(function() {
       $.getScript(url, function(data) {
+        set_page(url)
         jQuery.facebox(data);
       });
     });
