@@ -77,6 +77,10 @@ class ApplicationController < ActionController::Base
     if ENV['HOST_OK'] == "1" && params[:url_promo]
       cookies[:url_promo] = { :value => params[:url_promo], :expires => 1.week.from_now, :domain => request.domain }
     end
+    if ENV['HOST_OK'] == "1" && params[:all]
+      cookies[:adult_hide] = { :value => 1, :expires => 1.year.from_now, :domain => request.domain }
+    end
+    
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
     set_locale(locale || :fr)
