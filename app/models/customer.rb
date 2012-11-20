@@ -205,8 +205,10 @@ class Customer < ActiveRecord::Base
     begin
       # external service call can't be allowed to crash the app
       #recommendation_ids = DVDPost.home_page_recommendations_new(self.to_param, options[:kind])
-      recommendation_ids = DVDPost.home_page_recommendations(self.to_param, I18n.locale)
-      
+      data = DVDPost.home_page_recommendations(self.to_param, I18n.locale)
+      recommendation_ids = data[:dvd_id]
+      response_id = data[:response_id]
+      url = data[:url]
       results = if recommendation_ids
         hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
         result_ids = recommendation_ids - hidden_ids
@@ -214,19 +216,19 @@ class Customer < ActiveRecord::Base
         filter.update_attributes(:recommended_ids => result_ids)
         options.merge!(:subtitles => [2]) if I18n.locale == :nl
         options.merge!(:audio => [1]) if I18n.locale == :fr
-        Product.filter(filter, options.merge(:view_mode => :recommended))
+        {:recommendation => Product.filter(filter, options.merge(:view_mode => :recommended)), :response_id => response_id}
       else
         []
       end
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
-      false
+      {:recommendation => false, :response_id => false}
     end
   end
 
   def self.send_evidence(type, product_id, customer, ip, args=nil)
     begin
-      DVDPost.send_evidence_recommendations(type, product_id, customer, ip, args) 
+      url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, args)
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
     end

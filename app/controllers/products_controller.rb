@@ -170,7 +170,9 @@ class ProductsController < ApplicationController
       if Rails.env == "staging"
         product_recommendations = @product.recommendations_new(params[:kind], customer_id, r_type)
       else
-        product_recommendations = @product.recommendations(params[:kind])
+        data = @product.recommendations(params[:kind])
+        product_recommendations = data[:products]
+        @recommendation_response_id = data[:response_id]
       end
       if product_recommendations
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5) 
@@ -187,8 +189,8 @@ class ProductsController < ApplicationController
     respond_to do |format|
       
       format.html do
-        if  @source.to_i == @wishlist_source[:recommendation] ||  @source.to_i == @wishlist_source[:recommendation_product]
-          Customer.send_evidence('UserRecClick', @product.to_param, current_customer, request.remote_ip)
+        if  params[:response_id]
+          Customer.send_evidence('RecClick', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id]})
         end
         Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
