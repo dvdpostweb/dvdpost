@@ -16,7 +16,7 @@
     <% unless mobile_request? %>
       <li><%= link_to t('layouts.menu.contact'), new_phone_request_path(), {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
     <% end %>
-    <% if params[:kind] == :normal && cookies[:adult_hide] == 1 %>
+    <% unless params[:kind] == :adult && cookies[:adult_hide] != 1 %>
       <li><%= link_to t('layouts.header.adult'), root_path(:kind => :adult), {:id => 'nav7'} %></li>
     <% end %>
   <% end %>
