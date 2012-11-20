@@ -276,8 +276,8 @@ module DVDPost
 
     def product_linked_recommendations(product, kind, language)
       include_adult = kind == :adult ? 'DVD_ADULT' : 'DVD_NORM' 
-      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30&includeAdult=#{include_adult}"
-      #url = "http://api182.thefilter.com/dvdpost/sandbox/video(#{product.id})/recommendation/video?$take=30&$filter=availability%20gt%200.1%20AND%20genre%20eq%20#{include_adult}"
+      #url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30&includeAdult=#{include_adult}"
+      url = "http://api182.thefilter.com/dvdpost/sandbox/video(#{product.id})/recommendation/video?$take=30&$filter=availability%20gt%200.1%20AND%20genre%20eq%20#{include_adult}"
       unless kind == :adult
         case language
         when :fr
@@ -288,9 +288,11 @@ module DVDPost
           url += "%20AND%20subTitleLanguage%20eq%20Dutch"
         end
       end
-      open url do |data|
-        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
-      end
+      data = open url
+      hp = Hpricot(data)
+      dvd_id = hp.search('//item').collect{|dvd| dvd.attributes['id'].to_i}
+      response_id = hp.search("response").first.attributes['responseid']
+      {:dvd_id => dvd_id, :response_id => response_id, :url => url}
     end
 
     def product_linked_recommendations_new(product, kind, customer_id, type)
@@ -307,8 +309,8 @@ module DVDPost
     end
 
     def home_page_recommendations(customer_id, language)
-      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer_id}&number=100&includeAdult=false&verbose=false"
-      #url ="http://api182.thefilter.com/dvdpost/sandbox/video/recommendation/video?$take=100&extUserId=#{customer_id}&$filter="
+      #url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer_id}&number=100&includeAdult=false&verbose=false"
+      url ="http://api182.thefilter.com/dvdpost/sandbox/video/recommendation/video?$take=100&extUserId=#{customer_id}&$filter="
       case language
       when :fr
         url += "language%20eq%20French"
@@ -317,14 +319,18 @@ module DVDPost
       when :nl
         url += "subTitleLanguage%20eq%20Dutch"
       end
-      open url do |data|
-        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
-      end
+      data = open url
+      hp = Hpricot(data)
+      dvd_id = hp.search('//item').collect{|dvd| dvd.attributes['id'].to_i}
+      response_id = hp.search("response").first.attributes['responseid']
+      {:dvd_id => dvd_id, :response_id => response_id, :url => url}
     end
 
     def send_evidence_recommendations(type, product_id, customer, ip, args=nil)
-      url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
-      url = "#{url}&#{args.collect{|key,value| "#{key}=#{value}"}.join('&')}" if args
+      #url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
+      url = "http://api182.thefilter.com/dvdpost/sandbox/video(#{product_id})/Event/#{type}"
+      url = "#{url}#{args.collect{|key,value| "/#{value}"}}" if args
+      url = "#{url}?extUserId=#{customer.to_param}" if customer
       Rails.env == "production" ? open(url) : url
     end
 

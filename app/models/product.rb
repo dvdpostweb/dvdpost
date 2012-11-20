@@ -418,7 +418,6 @@ class Product < ActiveRecord::Base
          products = products.group('imdb_id', "streaming_id desc")
       end
     end
-    Rails.logger.debug { "@@@#{sort}" }
     #if options[:limit]
   #    products = products.limit(options[:limit])
     #end
@@ -429,18 +428,21 @@ class Product < ActiveRecord::Base
   def recommendations(kind)
     begin
       # external service call can't be allowed to crash the app
-      recommendation_ids = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
+      data  = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
+      recommendation_ids = data[:dvd_id]
+      response_id = data[:response_id]
+      url = data[:url]
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
     if recommendation_ids && !recommendation_ids.empty?
       if kind == :normal
-        Product.available.by_products_id(recommendation_ids)
+        {:products => Product.available.by_products_id(recommendation_ids), :response_id => response_id}
       else
         if categories.find_by_categories_id([76,72])
-          Product.available.gay.by_products_id(recommendation_ids)
+          {:products => Product.available.gay.by_products_id(recommendation_ids), :response_id => response_id}
         else
-          Product.available.hetero.by_products_id(recommendation_ids)
+          {:products => Product.available.hetero.by_products_id(recommendation_ids), :response_id => response_id}
         end
       end
     end

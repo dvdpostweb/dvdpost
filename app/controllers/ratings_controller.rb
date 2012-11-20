@@ -3,7 +3,7 @@ class RatingsController < ApplicationController
     @product = Product.both_available.find(params[:product_id])
     @product.ratings.create(:customer => current_customer, :value => params[:value])
     current_customer.seen_products << @product
-    Customer.send_evidence('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
+    Customer.send_evidence('ItemRated', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
     if params[:recommendation].to_i == 1
       expiration_recommendation_cache
     end

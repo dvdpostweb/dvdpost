@@ -165,9 +165,9 @@ class ApplicationController < ActionController::Base
 
   def fragment_name_by_customer()
     if current_customer
-      "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
+      "#{I18n.locale.to_s}/home/recommendations/customers_v2/#{current_customer.to_param}"
     else
-      "#{I18n.locale.to_s}/home/recommendations/public"
+      "#{I18n.locale.to_s}/home/recommendations/public_v10"
     end
   end
 
@@ -197,8 +197,9 @@ class ApplicationController < ActionController::Base
       end
       expire_fragment(fragment_name_by_customer)
     end
-    if recommendation_items
-      data = recommendation_items.paginate(:per_page => options[:per_page], :page => page)
+    if recommendation_items[:recommendation]
+      @response_id = recommendation_items[:response_id]
+      data = recommendation_items[:recommendation].paginate(:per_page => options[:per_page], :page => page)
       page = params[:recommendation_page].to_i
       while data.size == 0 && page > 1
         page = page - 1
@@ -297,14 +298,18 @@ class ApplicationController < ActionController::Base
   
   def recommendation_public(options)
     filter = get_current_filter({})
-    recommendation_ids = DVDPost.home_page_recommendations(999999999, I18n.locale)
-    results = if recommendation_ids
+    data = DVDPost.home_page_recommendations(999999999, I18n.locale)
+    recommendation_ids  = data[:dvd_id]
+    response_id = data[:response_id]
+    result = if recommendation_ids
       filter.update_attributes(:recommended_ids => recommendation_ids)
       options.merge!(:subtitles => [2]) if I18n.locale == :nl
       options.merge!(:audio => [1]) if I18n.locale == :fr
-      Product.filter(filter, options.merge(:view_mode => :recommended, :country_id => session[:country_id]))
+      {:recommendation => Product.filter(filter, options.merge(:view_mode => :recommended, :country_id => session[:country_id])), :response_id => response_id}
+      
     else
-      []
+      {:recommendation => false, :response_id => false}
     end
+    return result
   end
 end

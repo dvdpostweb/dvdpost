@@ -5,7 +5,7 @@
   <div class="jcarousel-container jcarousel-container-horizontal" style="position: relative; display: block; ">
     <div class="jcarousel-clip jcarousel-clip-horizontal" style="position: relative; ">
       <ul class="jc osc jcarousel-list jcarousel-list-horizontal" id='home_recommendations'>
-        <%= render :partial => 'products/show/recommendation_product', :collection => products %>
+        <%= render :partial => 'products/show/recommendation_product', :collection => products, :locals => {:recommendation_response_id => recommendation_response_id} %>
       </ul>
     </div>
   </div>

@@ -154,7 +154,9 @@ function set_page(url)
   {
     url = url + (url.indexOf('?') != -1 ? "&recommendation="+recommendation : "?recommendation="+recommendation);
   }
-  _gaq.push(['_trackPageview', url]); 
+  console.log(url)
+  _gaq.push(['._trackPageview', url]); 
+  _gaq.push(['b._trackPageview', url]);
 }
 function getParameterByName(name)
 {
