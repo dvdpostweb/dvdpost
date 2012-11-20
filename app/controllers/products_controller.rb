@@ -167,13 +167,9 @@ class ProductsController < ApplicationController
       r_type = params[:r_type].to_i || 1
       @recommendation_page = params[:recommendation_page].to_i
       @recommendation_page = 1 if @recommendation_page == 0
-      if Rails.env == "staging"
-        product_recommendations = @product.recommendations_new(params[:kind], customer_id, r_type)
-      else
-        data = @product.recommendations(params[:kind])
-        product_recommendations = data[:products]
-        @recommendation_response_id = data[:response_id]
-      end
+      data = @product.recommendations(params[:kind])
+      product_recommendations = data[:products]
+      @recommendation_response_id = data[:response_id]
       if product_recommendations
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5) 
       @recommendation_nb_page = @recommendations.total_pages
