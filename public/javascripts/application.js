@@ -118,7 +118,7 @@ $(function() {
       $.facebox.settings.modal = true;
     }
     jQuery.facebox(function() {
-      
+      set_page($('.action_face').html())
       $.getScript($('.action_face').html(), function(data) {
         jQuery.facebox(data);
       });
@@ -154,9 +154,8 @@ function set_page(url)
   {
     url = url + (url.indexOf('?') != -1 ? "&recommendation="+recommendation : "?recommendation="+recommendation);
   }
-  console.log(url)
   _gaq.push(['._trackPageview', url]); 
-  _gaq.push(['b._trackPageview', url]);
+  _gaq.push(['b._trackPageview', url]); 
 }
 function getParameterByName(name)
 {
