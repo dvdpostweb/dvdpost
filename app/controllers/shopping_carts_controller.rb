@@ -92,7 +92,7 @@ class ShoppingCartsController < ApplicationController
       		@ogone_language = 'en_US';
       		@template_ogone = 'Template_freetrial2EN.htm'
       end
-      @com= t '.payment_methods.update.payment_update'
+      @com= t '.shopping_carts.paiement'
       internal_com = 'dvdsale'
       @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card_modification', :only_path => false, :protocol => 'http')
       OgoneCheck.create(:orderid => @order_id, :amount => @price, :customers_id => current_customer.to_param, :context => internal_com, :site => 1)

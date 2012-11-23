@@ -1,3 +1,7 @@
+body {
+    color: #212A31 !important;
+}
+
 form, fieldset {
   border-style:none;
   margin:0;
@@ -158,19 +162,25 @@ input {
   float: left;
   padding: 0 15px;
   color: white;
-  font-size: 13px;
+  font-size: 18px;
   text-transform: uppercase;
-  border: 1px solid #000000;
+   color: #909498;
+   font-family: 'Open Sans Condensed',sans-serif;
   border-bottom: none;
-  background: url(../images/tab-nav-bg.png) 0 0 repeat-x;
+  background: url(http://private.dvdpost.com/images/tabs-bg.png) 0 0 repeat-x;
   text-decoration: none;
+  text-shadow: none;
 }
 #tool-wrap #tabs li a.current {
-  color: #353535;
-  background-image: url(../images/tab-nav-current-bg.png);
-  cursor: default;
+    background: url("http://private.dvdpost.com/images/tabs-bg.png") 0 -65px transparent !important;
+    color: #212A31;
+	 font-size: 18px;
+	 font-family: 'Open Sans Condensed',sans-serif;
+	 line-height: 32px;
+    padding: 0 30px;
+	display: block;
+    cursor: default;
 }
-
 #tool-wrap .tab-content {
   border: 1px solid #000000;
   padding: 20px 15px;
@@ -195,9 +205,10 @@ input {
   font-size: 12px;
 }
 #tool-wrap .tab-content a {
-  color: #e14337;
-  font-size:16px;
-  font-weight: bold;
+    color: #A3C41B;
+    font-size: 16px;
+    font-weight: bold;
+	text-shadow: none;
 }
 #tool-wrap #tab1 .content {
   float: left;
@@ -214,9 +225,9 @@ input {
   margin-top: 10px;
 }
 #tool-wrap #tab1 #inv-form {
+  background: none repeat scroll 0 0 #C3D1DB;
   display: block;
-  padding: 8px 2px;
-  background: #b7b7b7;
+  padding: 20px 6px 20px 6px;
 }
 #tool-wrap #tab1 #inv-form a, #tool-wrap #tab1 #inv-form input, #tool-wrap #tab1 #inv-form img {
   vertical-align: middle;
@@ -226,13 +237,13 @@ input {
   display: inline;
 }
 #tool-wrap #tab1 #inv-form input {
-  width: 200px;
-  padding: 2px;
-  margin-left: 3px;
-  border: 1px solid #a8acad;
-  background: url(../images/inv-field-bg.gif) 0 0 repeat-x;
-  color: #b7b7b7;
-  font: normal 14px Arial, Helvetica, sans-serif;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #212A31;
+    color: #212A31;
+    font: 14px Arial,Helvetica,sans-serif;
+    margin-left: 3px;
+    padding: 2px;
+    width: 200px;
 }
 #tool-wrap #tab1 #inv-form input.i-btn {
   width: auto;
@@ -250,8 +261,7 @@ input {
   margin: 0 0 10px;
 }
 #tool-wrap .history table {
-  width: 810px;
-  margin-left: 18px;
+  width: 828px;
   font-size:13px;
 }
 #tool-wrap .history table .col1 {
@@ -277,7 +287,7 @@ input {
   /*padding: 4px;*/
   color: #ffffff;
   font-weight: normal;
-  background: #454545;
+  background: #212A31;
   border-bottom: 8px solid white;
 }
 #tool-wrap .history td {
@@ -485,21 +495,17 @@ input {
   width:112px;
 }
 
-#mail_send
-{
-  background:url("../images/mail_send.png") no-repeat scroll 0 0 transparent !important;
-  border-style:none !important;
-  color:white !important;
-  cursor:pointer;
-  font-weight:bold;
-  height:27px;
-  text-align:center;
-  width:154px !important;
+#mail_send {
+    background: url("http://private.dvdpost.com/stylesheets/../images/gift_button.png") no-repeat scroll 0 0 transparent !important;
+    border-style: none !important;
+    color: white !important;
+    cursor: pointer;
+    font-weight: bold;
+    height: 24px;
+    text-align: center;
+    width: 170px !important;
 }
-#mail_send:hover
-{
-  background:url("../images/mail_send.png") no-repeat scroll 0 -37px transparent !important;
-}
+
 .loader
 {
   background:none repeat scroll 0 0 #EEEEEE;
@@ -649,3 +655,30 @@ input {
 
 
 }
+
+#maincontent .content h2 {
+    font-size: 24px !important;
+    margin: 0px !important;    
+}
+
+
+#maincontent #emailer h2 {
+     font-size: 24px !important;
+    margin: 0px !important;
+	padding-bottom: 10px;  
+}
+
+
+.more_less {
+    background: url("http://private.dvdpost.com/images/plus_moins.png") no-repeat scroll 0 0 transparent;
+    padding-left: 20px;
+}
+
+.more_less a{
+color:#212A31!important;
+font-size:14px!important;
+text-decoration:underline!important;
+
+
+}
+.parrainer {  background: none repeat scroll 0 0 #C3D1DB;}

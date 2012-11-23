@@ -475,7 +475,7 @@ module DVDPost
         time = 2880
       end
       
-      url = "http://vod.dvdpost.be:8081/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
+      url = "http://wesecure.alphanetworks.be/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
       data = open(url, :http_basic_authentication => ["dvdpost", "sup3rnov4$$"])
       node = Hpricot(data).search('//create')
       if node.at('status').innerHTML == 'success'
@@ -487,7 +487,7 @@ module DVDPost
 
     def generate_free_token_from_alpha(filename)
       time = 2880
-      url = "http://vod.dvdpost.be:8081/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
+      url = "http://wesecure.alphanetworks.be/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
       data = open(url, :http_basic_authentication => ["dvdpost", "sup3rnov4$$"])
       node = Hpricot(data).search('//create')
       if node.at('status').innerHTML == 'success'
@@ -545,7 +545,7 @@ module DVDPost
     end
     
     def streaming_url
-      "vod.dvdpost.be"
+      "flash.vod.dvdpost.be"
     end
   end
 end
