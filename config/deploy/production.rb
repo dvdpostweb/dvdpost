@@ -20,10 +20,14 @@ set :rails_env, "production"
 #############################################################
 
 set :user, "dvdpostapp"
-set :domain, "private.dvdpost.com"
+set :domain,  "217.112.190.177"
+set :domain2, "94.139.62.122"
 set :port, 22012
-server domain, :app, :web
-role :db, domain, :primary => true
+role :web, domain2
+role :app, domain2
+set :port, 22012
+server domain2, :app, :web
+role :db, domain2, :primary => true
 
 #############################################################
 #	Git
