@@ -4,7 +4,7 @@
       <%= link_to t('.compte'), customer_path(:id => current_customer) %>
       <%= "#{link_to t('.logout'), sign_out_path, :id => :logout} <span>(#{current_customer.email})</span>" %>
     <% else %>
-      <%= "#{link_to t('.login'), login_path, :id => :login}" %>
+    &nbsp;
     <% end %>
   </div>
 </div>
@@ -13,6 +13,11 @@
   <% Locale.all.collect(&:short).collect do |locale| %>
     <li><%= switch_locale_link locale, {:class => I18n.locale.to_s == locale.to_s ? 'active' : 'nothing'} %></li>
   <% end %>
+  <li class="wrap">
+    <% if !current_customer %>
+      <%= "#{link_to t('.login'), login_path, :id => :login}" %>
+    <% end %>
+  </li>
 </ul>
 <div id="wrap"> 
   <!--   ==============   HEADER   ==============   -->

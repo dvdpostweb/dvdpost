@@ -24,7 +24,7 @@ class Token < ActiveRecord::Base
     Token.recent(2.days.ago.localtime, Time.now).each do |token|
       filename = token.streaming_products.alpha.first.filename
       puts filename
-      token_string = DVDPost.generate_token_from_alpha(filename, :normal)
+      token_string = DVDPost.generate_token_from_alpha(filename, :normal, true)
       puts token_string
       token.update_attribute(:token, token_string)
     end
@@ -101,7 +101,7 @@ class Token < ActiveRecord::Base
     #to do valid code
     file = StreamingProduct.find(streaming_product_id)
     begin
-      token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+      token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
     rescue => e
       token_string = false
     end

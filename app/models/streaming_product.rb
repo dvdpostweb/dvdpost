@@ -24,6 +24,8 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :group_by_version, :group => 'language_id, subtitle_id'
   named_scope :group_by_language, :group => 'language_id'
   named_scope :ordered, :order => 'quality asc'
+
+  #default_scope :conditions => ["country = ?",'BE']
   
   def by_studio_lux(kind)
     if kind == :normal
