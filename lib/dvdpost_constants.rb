@@ -383,7 +383,7 @@ module DVDPost
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
         :external => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182','217.112.190.100','217.112.185.121','109.88.0.197','109.88.0.198','194.78.222.212','213.181.46.204','109.88.0.199','91.183.57.165','87.65.39.92','94.139.62.121','94.139.62.120'],
-        :internal => '127.0.0.2'
+        :internal => '127.0.0.1'
       })
     end
     
@@ -468,16 +468,16 @@ module DVDPost
       })
     end
     
-    def generate_token_from_alpha(filename, kind)
+    def generate_token_from_alpha(filename, kind, test)
       if kind == :adult
         time = 720
       else
         time = 2880
       end
       
-      url = "http://wesecure.alphanetworks.be/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
+      url = "http://wesecure.alphanetworks.be/Webservice?method=createToken&key=acac0d12ed9061049880bf68f20519e65aa8ecb7&filename=#{filename}&lifetime=#{time}&simultIp=1&test=#{test}"
       data = open(url, :http_basic_authentication => ["dvdpost", "sup3rnov4$$"])
-      node = Hpricot(data).search('//create')
+      node = Hpricot(data).search('//createtoken')
       if node.at('status').innerHTML == 'success'
         node.at('response').innerHTML
       else
@@ -487,9 +487,9 @@ module DVDPost
 
     def generate_free_token_from_alpha(filename)
       time = 2880
-      url = "http://wesecure.alphanetworks.be/webservice?method=create&filename=#{filename}&lifetime=#{time}&simultIp=1"
+      url = "http://wesecure.alphanetworks.be/Webservice?method=createToken&key=acac0d12ed9061049880bf68f20519e65aa8ecb7&filename=#{filename}&lifetime=#{time}&simultIp=1&test=true"
       data = open(url, :http_basic_authentication => ["dvdpost", "sup3rnov4$$"])
-      node = Hpricot(data).search('//create')
+      node = Hpricot(data).search('//createtoken')
       if node.at('status').innerHTML == 'success'
         node.at('response').innerHTML
       else
@@ -545,7 +545,7 @@ module DVDPost
     end
     
     def streaming_url
-      "flash.vod.dvdpost.be"
+      "vod.dvdpost.be"
     end
   end
 end

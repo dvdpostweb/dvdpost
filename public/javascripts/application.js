@@ -168,6 +168,11 @@ function getParameterByName(name)
   else
     return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-
+$('#nav3').live('mouseover',function(){
+  $('.dropdown').show()
+})
+$('.dropdown').live('mouseleave',function(){
+  $('.dropdown').hide()
+})
 // When I say html I really mean script for rails
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
