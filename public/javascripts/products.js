@@ -27,7 +27,7 @@ $(function() {
   }
   img.src = $('#image_1').attr('src');
   }
-  uninterested
+  
   $('#uninterested a').click(function() {
     url = $(this).attr('href')
      var regex = new RegExp('.*/products/([0-9]*)/([^?]*)');
