@@ -157,6 +157,19 @@ function set_page(url)
   _gaq.push(['._trackPageview', url]); 
   _gaq.push(['b._trackPageview', url]); 
 }
+function send_event(category, action,label,value)
+{
+  if(value == '')
+  {
+    _gaq.push(['._trackEvent', category, action, label])
+    _gaq.push(['b._trackEvent', category, action, label])
+  }
+  else
+  {
+    _gaq.push(['._trackEvent', category, action, label, value])
+    _gaq.push(['b._trackEvent', category, action, label,value])
+  }
+}
 function getParameterByName(name)
 {
   name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -171,3 +184,4 @@ function getParameterByName(name)
 
 // When I say html I really mean script for rails
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
+

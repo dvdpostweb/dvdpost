@@ -399,7 +399,7 @@ class Product < ActiveRecord::Base
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular
       sort = sort_by("available_at DESC, rating desc", options)
     elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :weekly_streaming || options[:view_mode].to_sym == :soon)
-      sort = sort_by("available_at desc", options)
+      sort = sort_by("available_at desc, imdb_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :cinema
       sort = sort_by("created_at desc", options)
     elsif options[:filter] && options[:filter].to_sym == :vod
@@ -418,6 +418,7 @@ class Product < ActiveRecord::Base
          products = products.group('imdb_id', "streaming_id desc")
       end
     end
+    Rails.logger.debug { "@@@#{sort}" }
     #if options[:limit]
   #    products = products.limit(options[:limit])
     #end
@@ -689,9 +690,9 @@ class Product < ActiveRecord::Base
       elsif options[:sort] == 'production_year'
         "year desc, in_stock DESC"
       elsif options[:sort] == 'production_year_vod'
-        "year desc, , streaming_id desc"
+        "year desc, available_order desc"
       elsif options[:sort] == 'production_year_all'
-        "available_order desc"
+        "default_order desc"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'
