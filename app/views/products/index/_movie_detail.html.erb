@@ -17,10 +17,10 @@
 <% product_image = data[:image] %>
 <% product_description = data[:description] %>
 <% media = jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %>
-
+<% target = cookies[:endless] == 'active' ? '_blank' : '_self' %>
 <div class="movie-wrap">
 	<div class="movie-ttl">
-  	<h3><%= link_to product_title, path %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %></h3>
+  	<h3><%= link_to product_title, path, :target => target %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %></h3>
     <div class="osc"><%= category(product, @category) %></div>
     <div class="stars vote" id="rating-stars-<%= product.id %>" product_id="<%= product.id %>">
       <%= render :partial => 'products/rating', :locals => {:product => product, :background => rating_color, :size => :long} %>
@@ -29,9 +29,9 @@
   <div class="movie-content">
   	<div class="movie-descr">
       	<p><%= truncate_html(product_description.text, :length => 300) %></p>
-          <%= link_to(t('.more'), path, :class => 'osc') %>
+          <%= link_to(t('.more'), path, :target => target, :class => 'osc') %>
           <div class="thumb-wrap">
-            <% link_to path, :class => :cover, :alt => product_title do %>
+            <% link_to path, :target => target, :class => :cover, :alt => product_title do %>
               <%= product_image_tag product_image, :width => 72 %>
             <% end %>
             <span class="<%= media %> osc"><%= media %></span>
