@@ -2,20 +2,30 @@ $(function() {
   var options_change_priority = {
 	};
   $(".wishlist_item_priority").live("click", function() {
-     loader = 'ajax-loader.gif';
-      $(this).parent().parent().ajaxSubmit(options_change_priority);
-      html_item = $(this).parent().parent()
-      parent = $(this).parent().parent()
-      content = html_item.html();
-      $(this).parent().parent().html("<div style='height:17px; text-align:center' class='load'><img src='/images/"+loader+"'/></div>")
-      return false; // prevent default behaviour
+    url = $(this).parent().parent().attr('action')
+    value = $(this).val()
+    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
+    res = regex.exec(url)
+    send_event('Movie', 'UpdateWishlistItem', res[1],value)
     
+    loader = 'ajax-loader.gif';
+    $(this).parent().parent().ajaxSubmit(options_change_priority);
+    html_item = $(this).parent().parent()
+    parent = $(this).parent().parent()
+    content = html_item.html();
+    $(this).parent().parent().html("<div style='height:17px; text-align:center' class='load'><img src='/images/"+loader+"'/></div>")
+    return false; // prevent default behaviour
   });
   
 	
   
   var options = {};
   $('.remvove_from_wishlist').live("click", function(){
+    url = $(this).parent().parent().attr('action')
+    value = $(this).val()
+    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
+    res = regex.exec(url)
+    send_event('Movie', 'RemoveFromWishlist', res[1],'')
     loader = 'ajax-loader.gif';
     title = $(this).parent().parent().parent().parent().children('.title').children().html();
     i=1

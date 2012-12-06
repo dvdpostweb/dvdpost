@@ -168,8 +168,12 @@ class ProductsController < ApplicationController
       @recommendation_page = params[:recommendation_page].to_i
       @recommendation_page = 1 if @recommendation_page == 0
       data = @product.recommendations(params[:kind])
-      product_recommendations = data[:products]
-      @recommendation_response_id = data[:response_id]
+      if data
+        product_recommendations = data[:products]
+        @recommendation_response_id = data[:response_id]
+      else
+        product_recommendations = nil
+      end
       if product_recommendations
       @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5) 
       @recommendation_nb_page = @recommendations.total_pages
@@ -236,6 +240,7 @@ class ProductsController < ApplicationController
 
   def trailer
     trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+    Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip)
     respond_to do |format|
       format.js   {
         if trailer.first
