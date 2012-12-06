@@ -20,10 +20,12 @@ set :rails_env, "production"
 #############################################################
 
 set :user, "dvdpostapp"
-set :domain, "private.dvdpost.com"
+set :domain,  "217.112.190.177"
+set :domain2, "94.139.62.122"
 set :port, 22012
-server domain, :app, :web
-role :db, domain, :primary => true
+role :web, domain, domain2
+role :app, domain, domain2
+role :db, domain2, :primary => true
 
 #############################################################
 #	Git
@@ -42,6 +44,7 @@ set :deploy_via, :remote_cache
 set :whenever_environment, defer { stage }
 set :whenever_identifier, defer { "#{application}_#{stage}" }
 set :whenever_command, "bundle exec whenever"
+
 require "whenever/capistrano"
 namespace :deploy do
   desc "Create the database yaml file"
@@ -61,7 +64,7 @@ namespace :deploy do
         database: dvdpost_be_prod
         username: webuser
         password: 3gallfir-
-        host: 192.168.100.14
+        host: 192.168.100.204
         port: 3306
       slave02:
         adapter: mysql

@@ -443,7 +443,7 @@ class Customer < ActiveRecord::Base
     file = StreamingProduct.find(streaming_product_id)
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || file.is_ppv
         begin
-          token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+          token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
         rescue => e
           token_string = false
         end
@@ -468,7 +468,7 @@ class Customer < ActiveRecord::Base
       
       if !abo_process || (customer_abo_process || abo_process.finished?)
         begin
-          token_string = DVDPost.generate_token_from_alpha(file.filename, kind)
+          token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
         rescue => e
           token_string = false
         end

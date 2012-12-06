@@ -20,7 +20,7 @@
             <% else %>
               <% nb_credit = "#{@streaming.credits} #{ @streaming.credits == 1 ? t('customer.credit') : t('customer.credits')}" %>
               <% if @streaming.is_ppv %>
-                <%= "Ce film vous coutera #{@streaming.ppv_price} &euro;<br /><br />" %>
+                <%= t '.ppv', :price => @streaming.ppv_price %>
               <% else %>
                 <%= "#{t '.intro', :credits => nb_credit}<br /><br />" unless @streaming_free[:status] == true || current_customer.svod? %>
               <% end %>
