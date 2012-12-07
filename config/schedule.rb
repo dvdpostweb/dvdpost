@@ -44,6 +44,9 @@ end
 every 1.day, :at => '1:00 pm' do 
   runner "Product.rating_first"
 end
+every 1.day, :at => '1:10 pm' do 
+  runner "ProductDescription.seo"
+end
 
 every 1.day, :at => '01:00 am' do  
   command  "cd /home/webapps/dvdpostapp/pre_production/current && RAILS_ENV=pre_production bundle exec rake thinking_sphinx:reindex --silent :output"
