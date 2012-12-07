@@ -295,7 +295,7 @@ module ProductsHelper
     return t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
     return t('.most_rent_vod') if params[:sort] == 'token_month' && params[:filter] == 'vod'
     return t('.ppv') if params[:ppv] == '1'
-    return t(".index_rating#{params[:filter]}") if params[:highlight_best_vod] == '1' || params[:highlight_best] == '1'
+    return t(".index_rating#{params[:filter]}") if params[:highlight_best_vod] == '1' || params[:highlight_best] == '1' || (params[:limit] == "50")
     return "#{t ".categorie#{params[:filter]}"}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
     return "#{t '.collection'}: #{Collection.find(params[:collection_id]).descriptions.by_language(I18n.locale).first.name}" if params[:collection_id] && !params[:collection_id].blank?
     return "#{t '.search'}: #{params[:search]}" if params[:search]
@@ -495,8 +495,14 @@ module ProductsHelper
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rent'), products_path(:filter => :vod, :sort => :token_month, :limit => 20), :class => params[:filter] == "vod" && params[:sort] == "token_month" ? :actived : ''
     end
-    html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.rating'), products_path(:highlight_best_vod => 1, :filter => :vod, :limit => 50), :class => params[:highlight_best_vod] == "1" ? :actived : ''
+    if params[:kind] == :adult
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.rating'), products_path(:sort => :rating, :limit => 50, :filter => :vod), :class => params[:highlight_best_vod] == "1" ? :actived : ''
+      end
+    else
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.rating'), products_path(:highlight_best_vod => 1, :filter => :vod), :class => params[:highlight_best_vod] == "1" ? :actived : ''
+      end
     end
     if params[:kind] == :adult
       list = ProductList.theme.by_kind(params[:kind].to_s).by_style(:vod).find_by_home_page(true)
@@ -539,8 +545,14 @@ module ProductsHelper
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rent'), products_path(:sort => :most_viewed, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "most_viewed" ? :actived : ''
     end
-    html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.rating'), products_path(:highlight_best => 1, :limit => 50), :class => params[:highlight_best] == "1" ? :actived : ''
+    if params[:kind] == :adult
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.rating'), products_path(:sort => :rating, :limit => 50), :class => params[:highlight_best] == "1" ? :actived : ''
+      end
+    else
+      html_content << content_tag(:li, :class => :list) do
+        link_to t('products.left_column.rating'), products_path(:highlight_best => 1), :class => params[:highlight_best] == "1" ? :actived : ''
+      end
     end
     unless params[:kind] == :adult
       html_content << content_tag(:li, :class => :list) do
