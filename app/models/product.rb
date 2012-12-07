@@ -41,8 +41,8 @@ class Product < ActiveRecord::Base
   has_many :product_views
   has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
-  #has_many :recommendations
   has_many :recommendations_products, :through => :recommendations, :source => :product
+  has_many :highlight_products
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :collections, :join_table => :products_to_themes, :foreign_key => :products_id, :association_foreign_key => :themes_id
@@ -102,6 +102,15 @@ class Product < ActiveRecord::Base
     has studio(:vod_lux),           :as => :vod_lux
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST" and language_id = 1 and product_id = products.products_id limit 1)', :as => :highlight_best_fr, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST" and language_id = 2 and product_id = products.products_id limit 1)', :as => :highlight_best_nl, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST" and language_id = 3 and product_id = products.products_id limit 1)', :as => :highlight_best_en, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_BE" and language_id = 1 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_be_fr, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_BE" and language_id = 2 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_be_nl, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_BE" and language_id = 3 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_be_en, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_LU" and language_id = 1 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_lu_fr, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_LU" and language_id = 2 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_lu_nl, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_LU" and language_id = 3 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_lu_en, :type => :integer
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
@@ -224,6 +233,15 @@ class Product < ActiveRecord::Base
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:popular_new)        {{:with =>          {:popular => 1}}}
+  sphinx_scope(:highlight_best_fr)          {{:with =>           {:highlight_best_fr => 1..100}}}
+  sphinx_scope(:highlight_best_nl)          {{:with =>           {:highlight_best_nl => 1..100}}}
+  sphinx_scope(:highlight_vod_best_en)      {{:with =>           {:highlight_best_en => 1..100}}}
+  sphinx_scope(:highlight_best_vod_be_fr)   {{:with =>           {:highlight_best_vod_be_fr => 1..100}}}
+  sphinx_scope(:highlight_best_vod_be_nl)   {{:with =>           {:highlight_best_vod_be_nl => 1..100}}}
+  sphinx_scope(:highlight_best_vod_be_en)   {{:with =>           {:highlight_best_vod_be_en => 1..100}}}
+  sphinx_scope(:highlight_best_vod_lu_fr)   {{:with =>           {:highlight_best_vod_lu_fr => 1..100}}}
+  sphinx_scope(:highlight_best_vod_lu_nl)   {{:with =>           {:highlight_best_vod_lu_nl => 1..100}}}
+  sphinx_scope(:highlight_best_vod_lu_en)   {{:with =>           {:highlight_best_vod_lu_en => 1..100}}}
   sphinx_scope(:weekly_streaming)   {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 7.days.ago..Time.now.end_of_day, :streaming_available => 1 }}}
   
   sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
@@ -270,8 +288,26 @@ class Product < ActiveRecord::Base
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
     products = products.ppv if options[:ppv]
     products = options[:kind] == :normal ? products.streaming_vod_lux : products.vod_lux if options[:country_id] == 131 && ( options[:view_mode] == "streaming" || options[:filter] == "vod")
-    
-    
+    if options[:highlight_best]
+      case options[:locale]
+        when 'fr'
+          products = products.highlight_best_fr
+        when 'nl'
+          products = products.highlight_best_nl
+        when 'en'
+          products = products.highlight_best_en
+      end
+    end
+    if options[:highlight_best_vod]
+      case options[:locale]
+        when 'fr'
+          products = options[:country_id] == 131 ? products.highlight_best_vod_lu_fr : products.highlight_best_vod_be_fr
+        when 'nl'
+          products = options[:country_id] == 131 ? products.highlight_best_vod_lu_nl : products.highlight_best_vod_be_nl
+        when 'en'
+          products = options[:country_id] == 131 ? products.highlight_best_vod_lu_en : products.highlight_best_vod_be_en
+      end
+    end
     if options[:studio_id]
       if options[:filter] == "vod" && options[:kind] == :normal
         products = products.by_streaming_studio(options[:studio_id]) 
@@ -386,6 +422,10 @@ class Product < ActiveRecord::Base
 
     if options[:list_id] && !options[:list_id].blank?
       sort = sort_by("special_order asc", options)
+    elsif options[:highlight_best] && !options[:highlight_best].blank?
+      sort = sort_by("highlight_best_#{options[:locale]} asc", options)
+    elsif options[:highlight_best_vod]
+      sort = sort_by("highlight_best_vod_#{options[:country_id] == 131 ? 'lu' : 'be'}_#{options[:locale]} asc", options)
     elsif options[:search] && !options[:search].blank?
       sort = sort_by("default_order desc, in_stock DESC", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
