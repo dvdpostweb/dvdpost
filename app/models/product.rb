@@ -531,6 +531,7 @@ class Product < ActiveRecord::Base
   end
 
   def to_param
+    Rails.logger.debug { "@@@#{public_name}" }
       public_name
   end
 

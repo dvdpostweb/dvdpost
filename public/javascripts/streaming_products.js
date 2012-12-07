@@ -57,8 +57,8 @@ $(function() {
     url = $(this).attr('href')
     var regex = new RegExp(".*/products/([0-9]*).*");
     res = regex.exec(url)
-    product_id = $('#product_id').html()
-    send_event('Movie', 'PlayStart', product_id,'')
+    product_vod_id = $('#product_id').html()
+    send_event('Movie', 'PlayStart', product_vod_id,'')
     response_id = getParameterByName('response_id')
     content = $('#presentation').html()
     loader = 'loading.gif';
