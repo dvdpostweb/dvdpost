@@ -235,7 +235,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:popular_new)        {{:with =>          {:popular => 1}}}
   sphinx_scope(:highlight_best_fr)          {{:with =>           {:highlight_best_fr => 1..100}}}
   sphinx_scope(:highlight_best_nl)          {{:with =>           {:highlight_best_nl => 1..100}}}
-  sphinx_scope(:highlight_vod_best_en)      {{:with =>           {:highlight_best_en => 1..100}}}
+  sphinx_scope(:highlight_best_en)      {{:with =>           {:highlight_best_en => 1..100}}}
   sphinx_scope(:highlight_best_vod_be_fr)   {{:with =>           {:highlight_best_vod_be_fr => 1..100}}}
   sphinx_scope(:highlight_best_vod_be_nl)   {{:with =>           {:highlight_best_vod_be_nl => 1..100}}}
   sphinx_scope(:highlight_best_vod_be_en)   {{:with =>           {:highlight_best_vod_be_en => 1..100}}}
