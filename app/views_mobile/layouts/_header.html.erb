@@ -1,0 +1,24 @@
+<div id="wrap" class="mobile"> 
+  <div id="top" class="">
+    <div class="wrap" align="right"> 
+      <% if !current_customer %>
+      <%= "#{link_to t('.login'), login_path, :id => :login}" %>
+      <% end %>
+    </div>
+    <ul id="lang">
+      <% Locale.all.collect(&:short).collect do |locale| %>
+      <li><%= switch_locale_link locale, {:class => I18n.locale.to_s == locale.to_s ? 'active' : 'nothing'} %></li>
+      <% end %>
+    </ul>
+    <div id="wrap">
+      <!--   ==============   HEADER   ==============   -->
+      <div id="header">
+        <h1>
+          <%= link_to t('.tagline'), root_path(:logo => 1), :class => 'f-btn' %>
+        </h1>
+        <span><%= link_to "site normal", url_for(:full_site => 1) if mobile_request? %></span>
+      </div>
+    </div>
+    <%= render :partial => 'layouts/menu2' unless @hide_menu %>
+  </div>
+</div>

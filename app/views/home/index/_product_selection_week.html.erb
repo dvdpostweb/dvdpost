@@ -1,7 +1,8 @@
 <% class_name = params[:selection_kind] || @default %>
 <% product = product_selection_week %>
-<% name = "#{I18n.locale}/products/selection_new10_#{ENV['HOST_OK']}_#{class_name}_#{product.id}" %>
+<% name = "#{I18n.locale}/products/selection_new12_#{ENV['HOST_OK']}_#{class_name}_#{product.id}_#{mobile_request?.to_s}" %>
 <% name_path = "views/#{name}" %>
+<% size = !mobile_request? ? '178x100' : '99x54' %>
 <% cache name do %>
   <% data = product.description_data(true) %>
   <% product_title = data[:title] %>
@@ -9,7 +10,7 @@
   <% description = data[:description] %>
   <li class="jcarousel-item jcarousel-item-horizontal">
   	<h3><%= link_to truncate(product_title, :length => 30), product_path(:id => product.to_param) %></h3>
-  	<%= link_to image_tag(product.image_detail, :size => '178x100', :alt => product_title), product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]) %>
+  	<%= link_to image_tag(product.image_detail, :size => size, :alt => product_title), product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]), :class => :image %>
     <h4><%= product.categories.active.first.name unless product.categories.active.empty? %></h4>
     <p><%= truncate(description.text, :length => 120) %></p>
     <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'osc trailer', :target => :_blank) if product.trailer %>

@@ -129,16 +129,16 @@ after "deploy:restart" do
 end
 
    
-namespace :deploy do  
-  desc "Update the crontab file"  
-  task :update_crontab, :roles => :db do  
-    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"  
-  end  
-end
+#namespace :deploy do  
+#  desc "Update the crontab file"  
+#  task :update_crontab, :roles => :db do  
+#    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"  
+#  end  
+#end
 
 before 'deploy:create_symlink', 'deploy:stop_ts'
 after 'deploy:create_symlink', 'deploy:update_ts'
-after 'deploy:create_symlink', 'deploy:update_crontab'
+#after 'deploy:create_symlink', 'deploy:update_crontab'
 
 =begin
     production:

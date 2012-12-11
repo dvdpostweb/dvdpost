@@ -1,0 +1,20 @@
+<div id="weekly-selection-wrap">
+    <h2>Nouveautés de la semaine</h2>
+    <div class="scroller">
+      <% new_movies.each do |product| %>
+      <% data = product.description_data(true) %>
+      <% product_title = data[:title] %>
+      <% product_image = data[:image] %>
+      <% description = data[:description] %>
+        <div class="carousel-item">
+          <div class="carousel-poster">
+            <%= link_to image_tag(product_image, :size => '72x106', :alt => product_title), product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]), :class => :image %>
+          </div>
+          <span>
+            <%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]) %>
+          </span>
+        </div>
+
+      <% end %>
+    </div>
+  </div>

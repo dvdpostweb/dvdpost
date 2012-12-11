@@ -80,7 +80,7 @@ class ProductsController < ApplicationController
           Product.filter(@filter, new_params)
         end
       end
-      @products_count = @products.count
+      @products_count = @products ? @products.count : 0
       
       if params[:search] && !params[:search].empty?
         if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
