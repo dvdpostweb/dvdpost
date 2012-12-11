@@ -458,7 +458,7 @@ class Product < ActiveRecord::Base
          products = products.group('imdb_id', "streaming_id desc")
       end
     end
-    Rails.logger.debug { "@@@#{sort} #{options.inspect}" }
+    #Rails.logger.debug { "@@@#{sort} #{options.inspect}" }
     #if options[:limit]
   #    products = products.limit(options[:limit])
     #end
@@ -531,7 +531,6 @@ class Product < ActiveRecord::Base
   end
 
   def to_param
-    Rails.logger.debug { "@@@#{public_name}" }
       public_name
   end
 
