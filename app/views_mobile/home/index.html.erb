@@ -35,8 +35,9 @@
     <% end %>
     </div>
   <% else %>
-      <%= render :partial => '/home/index/top_search', :locals => {:top_searches => @top_searches } %>
-      <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} %>
+    <%= render :partial => '/home/index/new_movies', :locals => {:new_movies => @new_movies } %>
+    <%= render :partial => '/home/index/top_search', :locals => {:top_searches => @top_searches } %>
+    <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} %>
   <% end %>
 
 <!--   ==============   END MAIN CONTENT   ==============   -->

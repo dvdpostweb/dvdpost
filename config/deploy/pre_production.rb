@@ -41,11 +41,7 @@ set :deploy_via, :remote_cache
 #############################################################
 #	Passenger
 #############################################################
-set :whenever_environment, defer { stage }
-set :whenever_identifier, defer { "#{application}_#{stage}" }
-set :whenever_command, "bundle exec whenever"
 
-require "whenever/capistrano"
 namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
