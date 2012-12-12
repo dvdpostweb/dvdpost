@@ -59,5 +59,6 @@
 			<%= link_to t(".account"), customer_path(:id => current_customer), :class => :osc %>
 		</div>
 		<%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} if recommendations %>
-		<%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
+	</div>
+	<%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
 </div>
