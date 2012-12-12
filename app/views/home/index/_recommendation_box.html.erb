@@ -20,14 +20,14 @@
                 <p>
                   <%= image_tag product_image, :class => :tool_float, :width => 120 %>
                   <div class="tool_right">
-                  <p class="synopsis"><%= t 'products.show.synopsis' %></p>
-                  <%= truncate_html description.text, :length => 300 %>
-                  <span class="infos">
-                    <%= link_to t('.more'), path %>
-                  </span>
-                  
-                  <div class="action">
-                    <img src='/images/ajax-loader.gif' class="img_load" />
+                    <p class="synopsis"><%= t 'products.show.synopsis' %></p>
+                      <%= truncate_html description.text, :length => 300 %>
+                      <span class="infos">
+                      <%= link_to t('.more'), path %>
+                    </span>
+                    <div class="action">
+                      <img src='/images/ajax-loader.gif' class="img_load" />
+                    </div>
                   </div>
                 </p>
               </div>
@@ -47,8 +47,4 @@
           <h4><%= t('.tooltip_title') %></h4>
           <p><%= t('.tooltip_description') %></p>
         </div>
-      </div>
-      <%= render :partial => '/home/index/wishlist_rating', :locals => {:product => not_rated_product} if 1==0 && !not_rated_product.nil? %>
 </div>
-
-  
