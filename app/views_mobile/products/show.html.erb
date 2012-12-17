@@ -12,10 +12,6 @@
       </div>
       <span class="osc"><%= "(#{@product.rating_count} #{t('.count')})" %> | <a href="">(2 critiques)</a></span>
       <!-- #votes-wrap -->
-   
-
-
-
 
    <div class="action">
      <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
@@ -24,8 +20,9 @@
          <% credits = @product.streaming_products.first.credits %>
        <% end %>
          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-         <% if trailer = @product.trailer %>
-            <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+         <% if @product.trailers.mobile %>
+            <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+            la
          <% end %>
          <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
          <% if params[:kind] == :adult %>
@@ -35,8 +32,8 @@
          <% end %>
      <% else %>
        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-       <% if trailer = @product.trailer %>
-          <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+       <% if @product.trailers.mobile %>
+          <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
        <% end %>
      <% end %>
    </div>
