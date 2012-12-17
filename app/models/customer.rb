@@ -228,7 +228,7 @@ class Customer < ActiveRecord::Base
 
   def self.send_evidence(type, product_id, customer, ip, args=nil)
     begin
-      product_id = product_id.gsub(/-.*/,'')
+      product_id = product_id.to_s.gsub(/-.*/,'')
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, args)
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")

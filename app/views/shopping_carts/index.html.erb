@@ -5,7 +5,7 @@
     <%= image_tag 'loading.gif', :title => 'loading' %>
   </div>
 </div>
-<form name="checkout_confirmation" id="checkout_confirmation" method="post" action="https://secure.ogone.com/ncol/prod/orderstandard.asp">                                                                         
+<form name="checkout_confirmation" id="checkout_confirmation" method="post" action="https://secure.ogone.com/ncol/prod/orderstandard.asp">
   <input type="hidden" name="prod" value="">
   <input type="hidden" name="orderID" value="<%= @order_id %>">
   <input type="hidden" name="pspid" value="dvdpost">
@@ -26,7 +26,7 @@
   <input type="hidden" name="SHASign" value="<%= @hash %>">
 </form>
 <% else %>
-<div id="hp-content"> 
+<div id="hp-content">
   <!-- Vente Flash -->
   <%= link_to "flash", shop_path, :id => "vente-flash", :class => "#{I18n.locale}" %>
   <!-- Cart -->
@@ -37,7 +37,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" id="cart-tbl">
       <%= render :partial => 'cart_header' %>
       <%= render :partial => "shopping_carts/item", :collection => @items%>
-      <%= render :partial => 'shopping_carts/result', :locals => {:total => @hs, :shipping => @shipping} %>
+      <%= render :partial => 'shopping_carts/result', :locals => {:total => @hs, :shipping => @shipping, :reduce => @reduce, :price_reduced => @price_reduced} %>
       <%= render :partial => 'shopping_carts/cart_action', :locals => {:total => @total, :shipping => @shipping} %>
     </table>
   </div>

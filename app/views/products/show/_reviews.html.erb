@@ -1,3 +1,4 @@
+<% unless mobile_request?%>
 <div class="numbers">
   <%= link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :id => 'add_new_review' if current_customer %>
   <%= "#{reviews_count} #{reviews_count == 1 ? t('.review') : t('.reviews')}" %>
@@ -14,7 +15,7 @@
 </div>
 <div style="clear:both"></div>
 <ul class="clearfix content_item">
-
+<% end %>
 <%= render :partial => 'products/show/review', :collection => reviews %>
 </ul>
 <%= will_paginate reviews, :param_name => 'reviews_page',
@@ -22,4 +23,4 @@
                            :next_label => "#{t('.next')} &raquo;",
                            :page_links => false,
                            :class => 'movie-ttl',
-                           :id => 'pagination' %>
+                           :id => 'pagination' unless mobile_request? %>

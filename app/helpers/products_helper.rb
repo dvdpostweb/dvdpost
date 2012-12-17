@@ -166,25 +166,25 @@ module ProductsHelper
       image
     end
   end
-  def available_on_other_media_title(product)
+  def available_on_other_media_title(product, limiter = "<br />")
     bluray = product.media_alternative_all(:blueray)
     bluray3d = product.media_alternative_all(:bluray3d)
     dvd = product.media_alternative_all(:dvd)
     vod = product.streaming?(params[:kind], session[:country_id])
     content = ''
     if bluray
-      content << "#{t('products.index.filters.bluray')}<br />"
+      content << "#{t('products.index.filters.bluray')}#{limiter}"
     end
     if bluray3d
-      content << "#{t('products.index.filters.bluray3d')}<br />"
+      content << "#{t('products.index.filters.bluray3d')}#{limiter}"
     end
     if dvd
-      content << "#{t('products.index.filters.dvd')}<br />"
+      content << "#{t('products.index.filters.dvd')}#{limiter}"
     end
     if vod
-      content << "VOD<br />"
+      content << "VOD#{limiter}"
     end
-    content
+    content[0..-3]
   end
   def available_on_other_media(product, recommendation)
     content = ''

@@ -328,7 +328,7 @@ module DVDPost
 
     def send_evidence_recommendations(type, product_id, customer, ip, args=nil)
       #url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
-      url = Rails.env == "production" ? "http://api181.thefilter.com/dvdpost/live/video(#{product_id})/Event/#{type}" : "http://api1812.thefilter.com/dvdpost/sandbox/video(#{product_id})/Event/#{type}"
+      url = Rails.env == "production" ? "http://api181.thefilter.com/dvdpost/live/video(#{product_id})/Event/#{type}" : "http://api182.thefilter.com/dvdpost/sandbox/video(#{product_id})/Event/#{type}"
       url = "#{url}#{args.collect{|key,value| "/#{value}"}}" if args
       url = "#{url}?extUserId=#{customer.to_param}" if customer
       open(url)

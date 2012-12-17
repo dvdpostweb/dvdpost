@@ -10,8 +10,11 @@ class ShoppingOrder < ActiveRecord::Base
     current_customer.shopping_orders.order_id(id).each do |c|
       price += c.quantity * c.product.price_sale
     end
+    reduce = ((price * 0.2) * 100).round().to_f / 100
+    price_reduced = price - reduce
     shipping = ShoppingCart.shipping(count)
-    price_ttc = price + shipping
-    {:hs => price, :total => price_ttc, :shipping => shipping}
+    price_ttc = price_reduced + shipping
+    {:hs => price, :total => price_ttc, :shipping => shipping, :reduce => reduce, :price_reduced => price_reduced}
   end
+
 end
