@@ -239,7 +239,11 @@ class ProductsController < ApplicationController
   end
 
   def trailer
-    trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+    unless mobile_request?
+      trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+    else
+      trailer = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+    end
     Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip)
     respond_to do |format|
       format.js   {

@@ -12,6 +12,7 @@ class Trailer < ActiveRecord::Base
 
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => DVDPost.product_languages[language]}}}
   named_scope :focus, :conditions => {:focus => true}
+  named_scope :mobile, :conditions => ["broadcast = ? or broadcast = ? ", "YOUTUBE", "DAYLYMOTION"]
 
   def is_new?
     created_at > 3.months.ago if created_at
