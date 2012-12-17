@@ -21,7 +21,7 @@
       <tbody>
         <%= render :partial => 'shopping_carts/cart_header' %>
         <%= render :partial => "shopping_carts/item", :collection => @items, :locals => {:type => @type}%>
-        <%= render :partial => 'shopping_carts/result', :locals => {:total => @hs, :shipping => @shipping} %>      
+        <%= render :partial => 'shopping_carts/result', :locals => {:total => @hs, :shipping => @shipping, :reduce => @reduce, :price_reduced => @price_reduced} %>      
         <%= render :partial => 'shopping_carts/cart_action', :locals => {:total => @total, :shipping => @shipping, :type => @type} %>
       </tbody>
     </table>

@@ -129,7 +129,7 @@ class ProductsController < ApplicationController
       @already_seen = current_customer.assigned_products.include?(@product) if current_customer
       @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
       @collections = Collection.by_size.random if params[:kind] == :adult
-      @chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}})
+      @chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}}) unless mobile_request?
       @cinopsis = nil
     end
     if !request.format.js? || (request.format.js? && (params[:reviews_page] || params[:sort]))
@@ -175,7 +175,7 @@ class ProductsController < ApplicationController
         product_recommendations = nil
       end
       if product_recommendations
-      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5) 
+      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5)
       @recommendation_nb_page = @recommendations.total_pages
       end
       if !params[:recommendation].nil?

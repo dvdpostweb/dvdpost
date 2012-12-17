@@ -4,13 +4,17 @@
   <td colspan="3" align="right" valign="top" class="taxes"><strong><%= t '.total' %></strong><br />
     <strong><%= t '.taxes' %></strong><br />
     <strong><%= t '.ttc' %></strong><br />
+    <strong><%= t '.reduce' %></strong><br />
+    <strong><%= t '.price_reduced' %></strong><br />
     <%= t '.without_ship' %><br />
     <strong><%= t '.shipping' %></strong>
   </td>
   <td align="right" valign="top" class="taxes"><strong><%= ht %> &euro;</strong><br />
     <strong><%= taxe %> &euro;</strong><br />
     <strong><%= total %> &euro;</strong><br />
-    <%= total %> &euro;<br />
+    <strong><%= reduce %> &euro;</strong><br />
+    <strong><%= price_reduced %> &euro;</strong><br />
+    <%= price_reduced %> &euro;<br />
     <strong><%= shipping %> &euro;</strong>
   </td>
 </tr>

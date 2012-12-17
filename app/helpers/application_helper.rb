@@ -478,6 +478,8 @@ module ApplicationHelper
 
   def body_classes(subdomains =  nil)
     name = [controller.controller_name].join(' ')
+    
+    name = name + '_show' if controller.controller_name.to_s == 'products' && controller.action_name.to_s == 'show'
     name = name + '_' + subdomains if subdomains
     name
   end

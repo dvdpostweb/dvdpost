@@ -7,6 +7,8 @@ class ShoppingOrdersController < ApplicationController
     @total = price_data[:total]
     @hs = price_data[:hs]
     @shipping = price_data[:shipping]
+    @reduce = price_data[:reduce]
+    @price_reduced = price_data[:price_reduced]
     @type = :orders
   end
 end

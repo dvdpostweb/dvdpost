@@ -1,0 +1,129 @@
+/* product show */
+
+#maincontent h3 {
+	margin-bottom: 10px;
+	
+	font-size:18px;
+}
+#maincontent,#film-descr,#rented-wrap,#formats   {
+padding-left:12px;
+padding-right:12px;
+	
+}
+#maincontent { float: left;
+}
+
+
+#film-descr h2 {
+font-size:11px;
+	padding: 5px 0;
+
+	text-transform:uppercase;
+	  }
+	  
+	 #film-descr h2 span{
+font-weight:normal;
+}
+ #film-descr h2 a{
+ color: #212A31;
+ text-transform:none;
+}
+
+#film-descr p {
+
+	font-size:12px;
+	  }
+
+
+#rented-wrap li a {
+ color: #212A31;
+    font-size: 12px;
+
+}
+
+#rented-wrap h3 {
+    color: #212A31;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+	margin-top:25px;
+	text-transform:uppercase;
+}
+#formats h3 {
+    color: #212A31;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+	margin-top:25px;
+	text-transform:uppercase;
+}
+
+#formats  {
+     font-size: 11px;
+}
+
+#formats h2 {
+     font-size: 11px;
+	 text-transform:uppercase;
+}
+#formats h2 span{
+font-weight:normal;
+}
+
+#formats a{
+ color: #212A31;
+}
+#critics-wrap h3 {
+    color: #212A31;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+	margin-top:25px;
+	text-transform:uppercase;
+}
+
+#c-members {
+ font-size: 11px;
+
+}
+
+#c-members a{
+ font-size: 11px;
+ color: #212A31;
+ text-transform:uppercase;
+
+}
+
+.action a{
+ color: #212A31;
+    font-size: 12px;
+	font-weight:bold;
+
+}
+
+.osc a {
+ color: #212A31;
+    font-size: 12px;
+	font-weight:bold;
+
+}
+
+.osc {
+ color: #212A31;
+    font-size: 12px;
+	font-weight:bold;
+
+}
+
+.movie {
+width:100%;
+}
+#img_detail
+{
+  float:left; 
+  margin-left:12px;
+}
+#c-members li
+{
+  list-style: none;
+}

@@ -9,11 +9,11 @@ if flash[:notice]
     page[".notice"].css('height','1px')
     page[".notice"].css('padding','0')
     page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
-    
+
   page << "}else{"
     page["#wrap .notice"].html(flash[:notice])
   page << "}"
 end
 page["##{@submit_id}"].replaceWith render :partial => 'products/shop', :locals => {:shop => @product}
-page["#cart"].replaceWith render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @price}
+page["#cart"].replaceWith render :partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @price, :reduce => @reduce, :price_reduced => @price_reduced}
 flash.discard

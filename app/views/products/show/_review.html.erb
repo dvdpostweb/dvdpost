@@ -5,7 +5,11 @@
 <% end %>
 <div class="movie-ttl">
   	<h3>
-      <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>"><%= review.customer_attribute.nickname %></a>
+  	  <% if !mobile_request? %>
+        <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>"><%= review.customer_attribute.nickname %></a>
+      <% else %>
+        <%= review.customer_attribute.nickname %>
+      <% end %>
       <span class="publish">
         <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
       </span>
@@ -15,12 +19,14 @@
   <div class="content">
     <div class="critic"> 
       <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>">
-        <%= image_tag(get_avatar_attr(review.customer, review.customer_attribute), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) %>
+        <%= image_tag(get_avatar_attr(review.customer, review.customer_attribute), :alt => 'user-thumb', :title => 'user-thumb', :width => 52) unless mobile_request? %>
       </a>
+      <% unless mobile_request? %>
       <div class="name">
         <%= customer_awards(review.customer, review.customer_attribute.points) %> (<%= reviews_count %> <%= review_title(reviews_count) %>) <br />
-        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics %>
+        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics  %>
       </div>
+      <% end %>
       <strong style="clear: both;"><%= t '.rating' %> :</strong> 
       <span class="stars"><%= product_review_stars(review, params[:kind]) %></span>
     </div>

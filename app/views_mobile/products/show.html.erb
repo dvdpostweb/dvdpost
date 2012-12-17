@@ -1,122 +1,114 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div id="maincontent">
-  <div class="ttl-wrap">
-    <div class="ttl osc">
-      <h2><%= "#{@product_title} (#{@product.year})" %> <%= image_tag "3d_icon.png" if @product.bluray3d? %> <%= image_tag "3d2d_icon.png" if @product.bluray3d2d? %></h2>
-    </div>
-    <div id="votes-wrap">
-       <% if @product.dvdposts_choice? %>
-          <div id="fav">
-            <%= image_tag 'badge_mobile.png', :size => '33x44', :alt => t('.dvdpost_choice') %><strong><%= t '.dvdpost_choice' %></strong>
-          </div>
-        <% end %>
-      <div id="votes">
-        <span class="osc"><%= "(#{@product.rating_count} #{t('.count')})" %></span>
-        <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
-          <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long} %>
-        </div>
+<div class="movie">
+  <%= product_image_tag @product_image, :width => 100, :id => :img_detail, :alt => "#{@product_title} (#{@product.year})" %>  
+  <div id="maincontent" >
+  
+    <h3><%= "#{@product_title} (#{@product.year})" %> <%= @product.bluray3d2d? || @product.bluray3d? ? '3D' : '' %></h3>
+    <%= image_tag 'mobile/new.jpg' if @product.is_new? %>
+    <%= image_tag 'mobile/coup_coeur.jpg' if @product.dvdposts_choice? %>
+    <div id="votes">
+      <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
+        <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long} %>
       </div>
-    </div><!-- #votes-wrap -->
-  </div><!-- .ttl-wrap -->
-  <div id="film-info">
-    <div id="film-img-wrap" class="<%= @product.vod? ? 'vod' : product_media_id(@product.media) %>">
-      <%= product_image_tag @product_image, :width => 180, :alt => "#{@product_title} (#{@product.year})" %>
-      <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
-      <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
-    </div>
-    <div id="btns-wrap" class="osc">
-      <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
-        <% if @product.streaming?(params[:kind], session[:country_id]) %>
-          <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
-          <% credits = @product.streaming_products.first.credits %>
-        <% else %>
-          <div id="stream_fake">&nbsp;</div>
-        <% end %>
-          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-          <%= render :partial => 'products/vod_list',  :locals => {:product => @product} %>
-          <% if trailer = @product.trailer %>
-             <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
-          <% end %>
-          <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
-          <% if params[:kind] == :adult %>
-            <div class="ico">
-              <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
-            </div>
-          <% end %>
-      <% else %>
-        <div id="stream_fake">&nbsp;</div>
-        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-        <% if trailer = @product.trailer %>
-           <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
-        <% end %>
-      <% end %>
-    
-      
-      <% if @product.next == 1 and @product.available_at%>
-      <div class="clearfix"></div>
-      <div>
-        <strong>
-          <%= t '.available' %>
-        </strong>
-        <%= @product.available_at.strftime("%d/%m/%Y") if @product.available_at %>
-      </div>
-      <% end %>
-      <% if @product.availability == -1 %>
-      <div class="clearfix"></div>
-      <div id="not_available" class="<%= I18n.locale %>">
-        <div id='not_available_title'><%= t '.not_available' %></div>
-        <div id='not_available_description'><%= t '.not_available_description' %></div>
-      </div>
-      <% end %>
-    </div>
-    </div>
-    <div id="film-descr">
-    <h3>
-      <%= t '.synopsis' %>
-    </h3>
-    <p><%= @product_description.text %></p>
+      <span class="osc"><%= "(#{@product.rating_count} #{t('.count')})" %> | <a href="">(2 critiques)</a></span>
+      <!-- #votes-wrap -->
+   
 
-    <% actors = @product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %>
+
+
+
+   <div class="action">
+     <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
+       <% if @product.streaming?(params[:kind], session[:country_id]) %>
+         <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
+         <% credits = @product.streaming_products.first.credits %>
+       <% end %>
+         <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
+         <% if trailer = @product.trailer %>
+            <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+         <% end %>
+         <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
+         <% if params[:kind] == :adult %>
+           <div class="ico">
+             <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
+           </div>
+         <% end %>
+     <% else %>
+       <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
+       <% if trailer = @product.trailer %>
+          <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+       <% end %>
+     <% end %>
+   </div>
+
+</div>
+</div>
+</div>
+
+<div style="clear: both;"></div>
+<div id="film-descr">
+  <h2>
+    <%= t '.synopsis' %>
+  </h2>
+  <p><%= @product_description.text %></p>
+   <% actors = @product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(' | ') %>
     <% if actors.size > 0 %>
-    <div id="actors">
-      <h3><%= t '.actors' %></h3>
-      <%= actors %>
-    </div>
+      <h2>
+        <%= t '.actors' %>
+        <%= actors %>  
+      </h2>
     <% end %>
     <% if @product.studio && @product.adult? %>
-    <div id="studio">
-      <h3><%= t('.studio') %></h3>
-      <%= link_to @product.studio.name, studio_products_path(:studio_id => @product.studio.to_param)%>
-    </div>
+      <h2>
+        <%= t('.studio') %>
+        <%= link_to @product.studio.name, studio_products_path(:studio_id => @product.studio.to_param)%>
+      </h2>
     <% end %>
     <% if @product.director && !@product.adult? %>
-    <div id="directors" class="<%= I18n.locale.to_s %>">
-      <h3><%= t('.directed_by') %></h3>
+    <h2>
+      <%= t('.directed_by') %>
       <%= link_to @product.director.name, director_products_path(:director_id => @product.director.to_param) %>
-    </div>
+    </h2>
     <% end %>
-    <div class="categories"><% if params[:kind] == :adult %>
-      <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
-    <% else %>
-      <%= @product.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
-    <% end %>
+    <h2>
+      <%= t('.categories') %> : 
+      <% if params[:kind] == :adult %>
+        <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(' | ') %>
+      <% else %>
+        <%= @product.categories.active.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(' | ') %>
+      <% end %>
+    </h2>
+        <h2><%= t '.country' %> : <%= @product.country.name %></h2>
+        <h2><%= t '.audience' %> : <%=  @product.public.name %></h2>
     </div>
-  </div><!-- #film-info -->
-  <div id="formats">
-    <ul>
-      <li><%= t '.format_available' %> :  <%= available_on_other_media_title(@product) %></li>
-      <li><%= t'.audio' %> : <% audio_bubble = audio_bubbles(@product, 2, :span)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></li>
-      <li><%= t '.subtitles' %> : <% subtitles = subtitle_bubbles(@product, 2, :span) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></li>
-      <li><%= t '.audience' %> : <%=  @product.public.name %></li>
-      <li><%= t '.duration' %> : <%= "#{@product.runtime} #{t '.minutes'}" %></li>
-      <li><%= t '.picture' %> : <%= @product.picture_format.name if @product.picture_format %></li>
-      <li><%= t '.sound' %> : <%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %></li>
-      <li><%= t '.country' %> : <%= @product.country.name %></li>
-      </tr>
-    </table>
-  </div><!-- #formats -->
-   <div id="rented-wrap">
-    <%= render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :products => @recommendations, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page } if @recommendations && @recommendations.size > 0 %>
+    
+    <div id="formats">
+  <h3><%= t('.detail') %></h3>
+  <h2><%= t '.format_available' %> :  <span><%= available_on_other_media_title(@product, ' | ') %></span></h2>
+  <h2><%= t'.audio' %> : <% audio_bubble = audio_bubbles(@product, 2, :span)%><%= audio_bubble[:audio] unless audio_bubble[:audio].blank?%></h2>
+  <h2><%= t '.subtitles' %> : <% subtitles = subtitle_bubbles(@product, 2, :span) %><%= subtitles[:sub] unless subtitles[:sub].blank?%></h2>
+  <h2><%= t '.duration' %> : <%= "#{@product.runtime} #{t '.minutes'}" %></h2>
+  <h2><%= t '.picture' %> : <span><%= @product.picture_format.name if @product.picture_format %></span></h2>
+  <h2><%= t '.sound' %> : <span><%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %></span></h2>
+  
+  <% if @product.next == 1 and @product.available_at%>
+  <div class="clearfix"></div>
+  <div>
+    <strong>
+      <%= t '.available' %>
+    </strong>
+    <%= @product.available_at.strftime("%d/%m/%Y") if @product.available_at %>
+  </div>
+  <% end %>
+</div>
+<!-- #formats -->
+<div id="rented-wrap">
+  <%= render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :products => @recommendations, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :recommendation_response_id => @recommendation_response_id } if @recommendations && @recommendations.size > 0 %>
+</div>
+    <div id="critics-wrap">
+      <h3>Critiques des membres DVDPost</h3>
+      
+    
     <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle} %>
   </div><!-- #rented-wrap-->
 </div>

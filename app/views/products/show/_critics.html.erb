@@ -9,7 +9,7 @@
       </li>
       <% end %>
       <li class="tab" id='tab1_li'>
-        <%= link_to t('products.show.members_critic'), '#tab1', :id => 'tab1_menu', :class => active %>
+        <%= link_to t('products.show.members_critic'), '#tab1', :id => 'tab1_menu', :class => active unless mobile_request? %>
       </li>                
     </ul>
     <div class="panel-container">
