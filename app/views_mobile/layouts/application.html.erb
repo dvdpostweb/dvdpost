@@ -9,7 +9,10 @@
   <%= stylesheet_link_tag 'reset', :media => :all %>
   <%= stylesheet_link_tag 'home_mobile', :media => :all %>
 	<%= stylesheet_link_tag body_classes('mobile'), :media => :all %>
-	
+  <meta content="385" name="MobileOptimized" />	
+  <meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width;" />
+	<meta content="width=device-width" name="viewport" />
 </head>
 <body id="<%= body_classes %>" class="<%= params[:kind] %>" <%= yield :option %>>
   <%= render(:partial => 'layouts/header') %>
