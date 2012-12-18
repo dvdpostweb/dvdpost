@@ -219,16 +219,12 @@ margin-right: 12px;
 }
 
 #search-btn {
-    background: url("../images/mobile/search.png") no-repeat scroll 0 0 transparent;
-    border: 0 none;
-    cursor: pointer;
-    height: 23px;
-    margin-left: -34px;
-
-
-    text-indent: -999em;
-
-    width: 23px;
+  background: url("../images/mobile/search.png") no-repeat scroll 0 0 transparent;
+  border: 0 none;
+  cursor: pointer;
+  height: 23px;
+  text-indent: -999em;
+  width: 23px;
 }
 
 .wrap a#login{
