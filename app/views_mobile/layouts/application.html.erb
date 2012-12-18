@@ -6,6 +6,9 @@
   </title>
   <link rel="SHORTCUT ICON" href="/images/favicon_<%= params[:kind] %>.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  <%= javascript_include_tag 'application_mobile' %>
+  
   <%= stylesheet_link_tag 'reset', :media => :all %>
   <%= stylesheet_link_tag 'home_mobile', :media => :all %>
   <% if params[:controller] != 'home' %>
