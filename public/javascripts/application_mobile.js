@@ -1,6 +1,5 @@
 $(function() {
   search_init = $('#search_text').html();
-  alert(search_init)
   $('#search-field').live('focus', function(){
     if($('#search-field').attr('value') == search_init){
       $('#search-field').val('');

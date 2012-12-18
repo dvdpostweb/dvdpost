@@ -1,5 +1,6 @@
 class SearchFiltersController < ApplicationController
   def create
+    Rails.logger.debug { "@@@##{params[:search]}" }
     if params[:search_filter]
       expiration_recommendation_cache()
       get_current_filter(params[:search_filter].merge(:year_min => params[:date][:year_min], :year_max => params[:date][:year_max]))
