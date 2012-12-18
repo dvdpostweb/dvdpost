@@ -2,190 +2,153 @@
 /* CSS Document */
 
 #cl .etabs {
-    margin: 15px 0 0 !important;
+  margin: 15px 0 0 !important;
 }
-
-
 .etabs {
-    
-    height: 39px;
-    margin: 0 !important;
-    padding: 0;
+  height: 39px;
+  margin: 0 !important;
+  padding: 0;
 }
 .tab {
-    background: none repeat scroll 0 0 #EEEEEE;
-    float: left;
-    margin-right: 3px;
-    text-transform: uppercase;
+  background: none repeat scroll 0 0 #EEEEEE;
+  float: left;
+  margin-right: 3px;
+  text-transform: uppercase;
 }
 .tab a {
-    background: url("http://public.dvdpost.com/images/tabs-bg.png") repeat-x scroll 0 0 transparent;
-    color: #909498;
-    display: block;
-    font-size: 14px;
+  background: url("http://public.dvdpost.com/images/tabs-bg.png") repeat-x scroll 0 0 transparent;
+  color: #909498;
+  display: block;
+  font-size: 14px;
   line-height: 26px;
-    padding: 0 10px;
+  padding: 0 10px;
 }
 #community-wrap .tab a {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 #community-wrap ul .tab:first-child a {
-    padding-left: 30px;
+  padding-left: 30px;
 }
 .tab a:hover {
-    color: #212A31;
-    text-decoration: none;
+  color: #212A31;
+  text-decoration: none;
 }
 .tab .active {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-color: #666666;
-    position: relative;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-color: #666666;
+  position: relative;
 }
 .tab a.active {
-    background: url("http://public.dvdpost.com/images/tabs-bg.png") repeat-x scroll 0 100% transparent;
-    color: #212A31;
-    cursor: default;
+  background: url("http://public.dvdpost.com/images/tabs-bg.png") repeat-x scroll 0 100% transparent;
+  color: #212A31;
+  cursor: default;
 }
 .tab-container .panel-container {
-    background: url("http://public.dvdpost.com/images/tab-content-bg.png") repeat-x scroll 0 0 transparent;
-    min-height: 275px;
-    padding: 15px 0 20px 30px;
-    position: relative;
+  background: url("http://public.dvdpost.com/images/tab-content-bg.png") repeat-x scroll 0 0 transparent;
+  min-height: 275px;
+  padding: 15px 0 20px 30px;
+  position: relative;
 }
 .panel-container {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .tab-container {
-    background: url("http://public.dvdpost.com/images/tab-content-div.gif") repeat-x scroll 0 100% transparent;
+  background: url("http://public.dvdpost.com/images/tab-content-div.gif") repeat-x scroll 0 100% transparent;
 }
-
-
-
 #maincontent h2 {
-    background: none repeat scroll 0 0 white;
-    padding: 5px 0;
-    text-align: center;
+  background: none repeat scroll 0 0 white;
+  padding: 5px 0;
+  text-align: center;
 	border-bottom:#909498 solid 1px;
 	text-transform:uppercase;
-	  margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-
-
 #maincontent h2.ttl{
-
 	border-bottom:none;
 	padding-bottom:20px;
-	
 }
-
-
-
 .movie-ttl h3 {
-
-    font-size: 18px;
+  font-size: 18px;
   padding-left: 12px;
-   
 }
-
 .movie-descr .thumb-wrap .dvd {
-    background: none repeat scroll 0 0 #000014;
+  background: none repeat scroll 0 0 #000014;
 }
-
 .movie-descr .thumb-wrap .bluray3d, .movie-descr .thumb-wrap .bluray {
-    background: none repeat scroll 0 0 #0497D0;
+  background: none repeat scroll 0 0 #0497D0;
 }
-
 .movie-descr .thumb-wrap {
-  
-    width: 72px;
+  width: 72px;
 }
-
 .movie-descr .thumb-wrap .vod, .movie-descr .thumb-wrap .bluray, .movie-descr .thumb-wrap .dvd, .movie-descr .thumb-wrap .bluray3d {
-    color: #FFFFFF;
-    display: block;
-    font-size: 10px;
-    font-weight: bold;
-    height: 11px;
-    line-height: 10px;
-    text-align: center;
-    text-transform: uppercase;
+  color: #FFFFFF;
+  display: block;
+  font-size: 10px;
+  font-weight: bold;
+  height: 11px;
+  line-height: 10px;
+  text-align: center;
+  text-transform: uppercase;
 }
-
 .movie-descr a.osc {
-    font-size: 14px;
-    font-weight: bold;
+  font-size: 14px;
+  font-weight: bold;
 }
-
 .movie-content {
-    min-height: 120px;
-    overflow: hidden;
-    padding: 12px 0 20px 10px;
+  min-height: 120px;
+  overflow: hidden;
+  padding: 12px 0 20px 10px;
 }
-
 a {
-    color: #212A31;
-    text-decoration: none;
+  color: #212A31;
+  text-decoration: none;
 }
-
 .oters {
-    float: left;
-    min-height: 120px;
-	 position: relative;
-	   font-size: 11px;
-   
+  float: left;
+  min-height: 120px;
+ position: relative;
+ font-size: 11px;
 }
-
 .movie-descr {
-    color: #5F6F7B;
-    float: left;
-    min-height: 106px;
-    padding: 0 10px 0 4px;
-    position: relative;
-   
+  color: #5F6F7B;
+  float: left;
+  min-height: 106px;
+  padding: 0 10px 0 4px;
+  position: relative;
 }
-
 .oters .lang li {
   color: #212A31;
-
-    font-size: 11px;
-    font-weight: bold;
-  
-    line-height: 19px;
-
-
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 19px;
 }
 
-ul.lang {   font-size: 11px;}
+ul.lang {font-size: 11px;}
 
 .btns li a{
-text-decoration:underline;
-font-size:11px;
- font-weight: bold;
-
+  text-decoration:underline;
+  font-size:11px;
+  font-weight: bold;
 }
 .oters a {
-   font-size: 11px;
-   text-decoration:underline;
-   font-weight:bold;
-   text-transform:uppercase;
-
+ font-size: 11px;
+ text-decoration:underline;
+ font-weight:bold;
+ text-transform:uppercase;
 }
 .oters li a {
- 
    text-transform:none;
-
 }
-
 .lang .left {
-float:left;
-
-
+  float:left;
 }
-
 .lang span{
 font-weight:normal;
-
-
 }
-
-
+ul.grid li {
+display: inline;
+float: left;
+margin: 0 0 0 5px;
+width:100px;
+padding: 5px 0 0 0;
+}

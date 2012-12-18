@@ -23,6 +23,7 @@
       <% if @directors && @directors.size > 0 %>
         <%= render :partial => 'products/index/peoples', :locals => {:people => @directors} %>
       <% end %>
+      <div style='clear:left'></div>
       <% if (@exact_products && @exact_products.size > 0) && (params[:page].nil? || params[:page].to_i == 1) && params[:type].nil? %>
         <h2><%= t '.exact' %></h2>
         <%= render :partial => 'products/index/movie_detail', :collection => @exact_products, :locals => {:jacket_mode => @jacket_mode, :rating_color => @rating_color} %>
