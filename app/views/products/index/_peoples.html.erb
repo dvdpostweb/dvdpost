@@ -1,3 +1,4 @@
 <ul class="grid">
-  <%= render :partial => 'products/index/people', :collection => people %>
+  <% size = mobile_request? ? "100x147" : "145x213" %>
+  <%= render :partial => 'products/index/people', :collection => people, :locals => {:size => size} %>
 </ul>

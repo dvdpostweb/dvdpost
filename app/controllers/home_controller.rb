@@ -101,7 +101,7 @@ class HomeController < ApplicationController
     get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
     @top_searches = Search.count(:group => 'name', :order => 'count_all desc', :limit => 20, :conditions => ["kind = ? and created_at >= ? ", DVDPost.search_kinds[kind], 1.week.ago.localtime])
     filter = get_current_filter
-    @new_movies = Product.filter(filter, params.merge(:sort => 'production_year_all', :country_id => 0, :limit => 8))
+    @new_movies = Product.filter(filter, params.merge(:sort => 'production_year_all', :country_id => 0, :limit => 6))
   end
 
   def get_data(kind)
