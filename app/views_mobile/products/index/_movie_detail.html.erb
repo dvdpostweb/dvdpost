@@ -40,12 +40,12 @@
         <ul class="lang">
            <li> AUDIO :
              <% product.languages.each do |l| %>
-              <%= "<span>#{l.short.upcase}</span>" %>
+              <%= "<span>#{l.short.to_s.upcase}</span>" %>
              <% end %>
             </li>
           <li>SOUS-TITRES :
             <% product.subtitles.each do |l| %>
-              <%= "<span>#{l.short.upcase}</span>" %>
+              <%= "<span>#{l.short.to_s.upcase}</span>" %>
             <% end %>
           </li>
         </ul>
