@@ -63,7 +63,7 @@
                   </li>
                 <% end %>
               <% end %>
-              <% product.trailers.mobile %>
+              <% if product.trailers.mobile %>
               <li>
                 <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :recommendation => @source), :class => 'trailer', :target => :_blank) %>
               </li>
