@@ -7,37 +7,8 @@
 <div class="clearfix"></div>
 <% end %>
   <!--   ==============   Slider   ==============   -->
-  <% if params[:kind] == :adult %>
-  <div id='hp-content'>
-      <!-- Slider -->
-      <%= render :partial => '/home/index/carousel_adult', :locals => {:carousel => @carousel} %>
-      <br />
-      <!-- BIENVENUE  -->
-      <% if ENV['HOST_OK'] == "1" %>
-        <%= render :partial => '/home/index/public_info' %>
-        <%= render :partial => 'layouts/call_to_action' %>
-      <% else %>
-        <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
-      <% end %>
-      <%= render :partial => '/home/index/trailers_week', :locals => {:trailers => @trailers_week}%>
-      <!-- selection of the week-->
-      <div style='clear:both'></div>
-      <%= render :partial => '/home/index/selection_week_adult', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} if streaming_access? %>
-      <!-- Nouveautés  -->
-      <%= render :partial => '/home/index/newsletters_adult', :locals => {:news => @news, :themes => @themes} %>
-      <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
-      <%= render :partial => "/home/index/trailers", :locals => { :products => @trailers } %>
-      
-      <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>    
-      <%= render :partial => '/home/index/banners', :locals => {:banners => @banners} %>
-      <% if ENV['HOST_OK'] == "0" && @newsletter_x.nil? %>
-      <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
-    <% end %>
-    </div>
-  <% else %>
     <%= render :partial => '/home/index/new_movies', :locals => {:new_movies => @new_movies } %>
     <%= render :partial => '/home/index/top_search', :locals => {:top_searches => @top_searches } %>
     <%= render :partial => '/home/index/selection_week', :locals => {:selection_week => @selection, :selection_page => @selection_page, :selection_nb_page => @selection_nb_page} %>
-  <% end %>
 
 <!--   ==============   END MAIN CONTENT   ==============   -->
