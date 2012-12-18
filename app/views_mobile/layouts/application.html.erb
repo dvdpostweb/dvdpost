@@ -11,9 +11,9 @@
   <% if params[:controller] != 'home' %>
 	  <%= stylesheet_link_tag body_classes('mobile'), :media => :all %>
 	<% end %>
-  <meta content="320" name="MobileOptimized" />	
+  <meta content="340" name="MobileOptimized" />	
   <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 </head>
 <body id="<%= body_classes %>" class="<%= params[:kind] %>" <%= yield :option %>>
   <%= render(:partial => 'layouts/header') %>
