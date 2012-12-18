@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
 
   def validation_adult
     if params[:kind] == :adult && !session[:adult] && params[:code].nil? && params['action'] != 'validation' && params['action'] != 'authenticate'
-      prefix = mobile_request? ? "http://m." : "http://"
+      prefix = "http://"
       session['current_uri'] = prefix + request.host_with_port + request.request_uri
       redirect_to validation_path
     end
