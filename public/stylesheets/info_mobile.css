@@ -59,13 +59,14 @@ text-align: center;
 
 
 #prices .description {
-padding-right:12px;
+padding-right:5px;
 padding-top:8px;
 
 }
 
 #prices .films {
-padding-right:12px;
+padding-right:5px;
+width:64px;
 
 }
 
