@@ -1,5 +1,5 @@
 <div id="prices">
-  <h2><%= t '.title' %></h2>
+  <% unless mobile_request? %><h2><%= t '.title' %></h2><% end %>
   <div class="all-container">
     <div class="prices-container" align="left">
       <h3><%= t '.subtitle' %></h3>
@@ -9,13 +9,14 @@
       <table align="center">
         <%= render :partial => 'reconductions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => nil, :selected_abo => nil} %>
       </table>
-      <%= link_to t('.register'), php_path('step1.php'), :class => "btn #{I18n.locale}" %>
+      <%= link_to t('.register'), php_path('step1.php'), :class => "btn #{I18n.locale}" if !mobile_request?  %>
     </div>
-    <div id="promo_area2">
-      <h4><%= t '.title_code' %> <a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t('.here') %></a></h4>
-      
-    </div>
-    <div class="clearfix"></div>
+    <% if !mobile_request? %>
+      <div id="promo_area2">
+        <h4><%= t '.title_code' %> <a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t('.here') %></a></h4>
+      </div>
+      <div class="clearfix"></div>
+    <% end %>
   </div>
   <div style="margin:20px 45px; font-size:10px">* <%= t('.send') %></div>  
 </div>

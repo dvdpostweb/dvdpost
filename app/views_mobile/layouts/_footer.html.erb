@@ -1,12 +1,14 @@
 <div id="footer">
-  <p align="right"> <a href="#top" class="top">Top</a> <span class="arrow_up"></span></p>
-  <div align='center' class="search">
-  <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
-    <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field'} %>
-    <%= submit_tag 'search', :id => 'search-btn' %>
-    <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
+  <% if params[:controller] != "info" %>
+    <p align="right"> <a href="#top" class="top">Top</a> <span class="arrow_up"></span></p>
+    <div align='center' class="search">
+    <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
+      <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field', :class => 'search-field'} %>
+      <%= submit_tag 'search', :id => 'search-btn' %>
+      <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
+    <% end %>
+    </div>
   <% end %>
-  </div>
   <div id="change_site">
     view DVDPost in mobile | <%= link_to "desktop", url_for(:full_site => 1) %>
   </div>

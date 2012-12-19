@@ -87,7 +87,7 @@ color:#212a31;}
     margin: -27px 0 0 20px;
     width: 150px;
 }
-#header_adult h1 a {
+.adult #header h1 a {
     background: url("../images/mobile/logo_adult.png") repeat scroll 0 0 transparent;
     float: left;
     float: left;
@@ -96,7 +96,7 @@ color:#212a31;}
     width: 150px;
 }
 
-#header span a, #header_adult span a {
+#header span a {
 color: #FFFFFF;
     font-size: 12px;
 	margin-left: -148px;

@@ -29,18 +29,21 @@
     <% unless params[:kind] == :adult || cookies[:adult_hide] == 1 %>
       <li><%= link_to (mobile_request? ? t('layouts.header.adult_short') : t('layouts.header.adult')), root_path(:kind => :adult), {:id => 'nav7'} %></li>
     <% end %>
+    <% if params[:kind] == :adult && mobile_request? %>
+      <li><%= link_to t('layouts.header.normal_short', :default => 'cine'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
+    <% end %>
   <% end %>
 </ul>
-
-<% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
-  <%= "<div align='center' class='search'>" if mobile_request? %>
-    <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field'} %>
-    <%= submit_tag 'search', :id => 'search-btn' %>
-    <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
-  <%= "</div>" if mobile_request? %>
+<% if !mobile_request? or params[:controller] != 'info' %>
+  <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
+    <%= "<div align='center' class='search'>" if mobile_request? %>
+      <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field', :class => "search-field"} %>
+      <%= submit_tag 'search', :id => 'search-btn' %>
+      <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
+    <%= "</div>" if mobile_request? %>
   
+  <% end %>
 <% end %>
-
-<% if params[:kind] == :adult %>
+<% if params[:kind] == :adult && !mobile_request? %>
   <div id="back_classic"><%= link_to t('layouts.header.normal'), root_path(:kind => :normal), {:id => 'nav8'} %></div>
 <% end %>
