@@ -84,7 +84,7 @@ color:#212a31;}
     background: url("../images/mobile/logo_mobile.png") repeat scroll 0 0 transparent;
     float: left;
     height: 30px;
-    margin: -27px 0 0 20px;
+    margin: -27px 0 0 3px;
     width: 150px;
 }
 .adult #header h1 a {
@@ -227,13 +227,11 @@ margin-right: 12px;
   width: 23px;
 }
 
-.wrap a#login{
-color:#FFFFFF;
-font-size:12px;
-text-transform:uppercase;
+.wrap a#login, .wrap a#logout {
+  color:#FFFFFF;
+  font-size:12px;
+  text-transform:uppercase;
   margin-right: 12px;
-
-
 }
 
 #lang a{
