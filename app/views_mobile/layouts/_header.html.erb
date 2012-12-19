@@ -2,7 +2,9 @@
   <div id="top" class="">
     <div class="wrap" align="right"> 
       <% if !current_customer %>
-      <%= "#{link_to t('.login'), login_path, :id => :login}" %>
+        <%= "#{link_to t('.login'), login_path, :id => :login}" %>
+      <% else %>
+        <%= link_to t('.logout'), sign_out_path, :id => :logout %>
       <% end %>
     </div>
     <ul id="lang">
