@@ -6,7 +6,7 @@
   <tr class="abo" style="display:<%= style %>">
     <%= "<td width='33'><div class='check' id ='#{abo.id}'></div></td>" if ENV['HOST_OK'] == "0" %>
     <td class="films"><b><span class="title_pricing"><%= abo.credits %> <%= t 'reconductions.edit.films' %></span></b> <br />
-    <span class="month"><%= t 'reconductions.edit.per_month' %></span> *</td>
+    <span class="month"><%= t 'reconductions.edit.per_month' %></span>*</td>
     <td width="<%= ENV['HOST_OK'] == "1" && !mobile_request? ? 360 : 180 %>" class="description">
       <%= abo_details(abo,0)%>
     </td>
