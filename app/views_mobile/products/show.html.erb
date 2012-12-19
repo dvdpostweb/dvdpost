@@ -20,7 +20,7 @@
          <% credits = @product.streaming_products.first.credits %>
        <% end %>
          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-         <% if @product.trailers.mobile %>
+         <% if @product.trailers.by_language(I18n.locale).mobile.count > 0 %>
             <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
             la
          <% end %>
@@ -32,7 +32,7 @@
          <% end %>
      <% else %>
        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-       <% if @product.trailers.mobile %>
+       <% if @product.trailers.by_language(I18n.locale).mobile.count > 0 %>
           <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
        <% end %>
      <% end %>

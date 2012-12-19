@@ -1,0 +1,86 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#wrap.mobile {
+height: 60px;
+}
+#prices .btn {
+background-color:#A3C41B;
+padding:10px;
+margin: 15px 0 0 0 ;
+display:inline-block;
+
+}
+
+#prices a {
+color:#FFFFFF;
+
+}
+
+#promo_area2 h4 {
+font-size:12px;
+text-align:center;
+padding-top:22px;
+padding-bottom:12px;
+
+}
+
+#promo_area2 h4 a {
+color:#212A31;
+
+}
+
+.prices-container li {
+    color: #212A31;
+    font-size: 12px;
+    list-style: square outside none;
+    margin: 0 7px;
+}
+
+#prices .abo {
+border-bottom:#212A31 solid 1px;
+font-size:12px;}
+
+#prices .table_prices {
+padding-bottom:20px;
+padding-top:20px;
+}
+
+
+
+.prices-container h3 {
+text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+	padding-bottom:12px;
+}
+
+
+
+
+#prices .description {
+padding-right:12px;
+padding-top:8px;
+
+}
+
+#prices .films {
+padding-right:12px;
+
+}
+
+#prices .films .title_pricing {
+font-size:15px;
+}
+
+
+#prices .abo .prices {
+padding-top:6px;
+font-size:15px;
+}
+
+.prices-container {
+margin:12px;
+padding:5px;
+
+}
