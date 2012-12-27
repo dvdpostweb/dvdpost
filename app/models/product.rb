@@ -761,7 +761,7 @@ class Product < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$!]/, '')
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$!^]/, '')
       end
     end
     query_string = qs.join(' ')
@@ -776,7 +776,7 @@ class Product < ActiveRecord::Base
     qs = []
     if query_string
       qs = query_string.split.collect do |word|
-        replace_specials(word).gsub(/[-_]/, ' ').gsub(/[$!]/, '')
+        replace_specials(word).gsub(/[-_]/, ' ').gsub(/[$!^]/, '')
       end
     end
     query_string = qs.join(' ')

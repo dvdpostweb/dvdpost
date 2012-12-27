@@ -11,5 +11,6 @@
     <% end %>
   <% end %>
 <% else %>
-  <%= link_to streaming_btn_title(:buy, text), product_step_path(:product_id => product, :media => 'vod'), :class => "regarder", :id => :watch %>
+<% path = mobile_request? ? login_path : product_step_path(:product_id => product, :media => 'vod') %>
+  <%= link_to streaming_btn_title(:buy, text), path, :class => "regarder", :id => :watch %>
 <% end %>
