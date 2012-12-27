@@ -22,7 +22,7 @@ class InfoController < ApplicationController
       @product3 = Product.find(126690)
       @product4 = Product.find(110312)
     end
-
+    params[:page_name] = "price" if params[:page_name] == 'pricel'
     if params[:page_name] == 'price'
       @showing_abo = 25
       @list_abo = ProductAbo.find([127761,127762,127764,127766,127768,127769])
