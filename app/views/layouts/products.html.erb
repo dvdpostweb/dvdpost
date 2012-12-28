@@ -7,7 +7,12 @@
   <%= stylesheet 'film','etabs-film','jcarousel-film', :media => :all %>
   <% content_for :body_id do %>film-details<% end %>
 <% end %>
-
+<% if mobile_request? && params[:action] == 'trailer' %>
+  <%= stylesheet 'video-js.min', :media => :all %>
+  <%= javascript 'video.min' %>
+  
+<% end %>
+<% end %>
 <% if @product && !@product.adult? %>
   <% content_for :facebook do %>
     <meta property="og:image" content="<%= @product_image %>"/> 
