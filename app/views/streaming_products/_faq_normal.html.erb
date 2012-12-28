@@ -3,7 +3,7 @@
 <% link_adult = link_to t('.catalogue_adult'), products_path(:kind => :adult, :view_mode => :streaming) %>
 <% link2 = link_to t('.vod_wishlist'), vod_wishlists_path %>
 <% sample = link_to t('.sample'), streaming_products_sample_path %>
-<% link_app = link_to t('.app'), DVDPost.itunes_url %>
+<% link_app = link_to t('.app'), DVDPost.itunes_url(I18n.locale) %>
 <% img_app1 = link_to image_tag("ipad_3_little.jpg"), image_path("ipad_3_big.jpg"), :class => :face_img %>
 <% img_app2 = link_to image_tag("ipad_4_little.jpg"), image_path("ipad_4_big.jpg"), :class => :face_img %>
 <% link_connected = link_to t('.get_connected'), info_path(:page_name => :get_connected) %>
