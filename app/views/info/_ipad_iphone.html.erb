@@ -7,7 +7,7 @@
     <div class="col_left">
       <ul>
         <li class="market">
-          <a target="_blank" href="<%= DVDPost.itunes_url %>">
+          <a target="_blank" href="<%= DVDPost.itunes_url(I18n.locale) %>">
             <%= image_tag "#{I18n.locale}/button_applestore.gif" %>
           </a>
         </li>
@@ -18,12 +18,12 @@
           </ul>
         </li>
         <li class="itunesbox"><%= t '.itunes' %>
-          <a target="_blank" title="Notez l'application sur iTunes" href="http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8">
+          <a target="_blank" title="Notez l'application sur iTunes" href="<%= DVDPost.itunes_url(I18n.locale) %>">
             <%= image_tag "stars.png" %>
           </a>
         </li>
         <li class="uservoice"><%= t '.about' %><br>
-          <a title="Donner mon avis sur l'application DVDPost" target="_blank" href="http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8"><%= t '.advise' %></a> </li>
+          <a title="Donner mon avis sur l'application DVDPost" target="_blank" href="<%= DVDPost.itunes_url(I18n.locale) %>"><%= t '.advise' %></a> </li>
       </ul>
     </div>
     <div class="col_content">

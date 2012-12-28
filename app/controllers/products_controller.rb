@@ -256,6 +256,10 @@ class ProductsController < ApplicationController
       format.html do
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url
+        elsif trailer.first
+          if mobile_request?
+              render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}
+          end
         else
           redirect_to product_path(:id => @product.to_param, :source => params[:source])
         end

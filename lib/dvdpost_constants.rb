@@ -40,8 +40,8 @@ module DVDPost
       "#{imagesx_path}/landings"
     end
 
-    def itunes_url
-      "http://itunes.apple.com/be/app/dvdpost/id504412426?l=fr&mt=8"
+    def itunes_url(lang)
+      "http://itunes.apple.com/be/app/dvdpost/id504412426?l=#{lang}&mt=8"
     end
 
     def airplay_url
