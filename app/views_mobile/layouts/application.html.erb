@@ -14,6 +14,11 @@
   <% if params[:controller] != 'home' %>
 	  <%= stylesheet_link_tag body_classes('mobile'), :media => :all %>
 	<% end %>
+	<% if params[:action] == "trailer" %>
+	  <%= javascript_include_tag "video.min" %>
+    <%= stylesheet_link_tag "video-js.min", :media => :all %>
+    
+	<% end %>
   <meta content="340" name="MobileOptimized" />	
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
