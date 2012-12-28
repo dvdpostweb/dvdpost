@@ -1,0 +1,9 @@
+<div id='content_trailer'>
+<p>
+  <video src="<%= trailer.remote_id %>" />
+</p>
+<div id='pagination'>
+<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '«', :next_label => '»', :param_name => 'trailer_page', :id => 'trailer_pagination' if trailers %>
+</div>
+</p>
+</div>
