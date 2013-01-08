@@ -1,0 +1,12 @@
+<div id="error">
+  <%= t '.title', :default => "Il y a une erreur, cette page n'existe pas." %>
+  <br />
+  <br />
+  <%= t '.question', :default => "Sur quel lien avez-vous cliquer?" %>
+  <br />
+  <br />
+  <% form_tag "/home/error_email" do %>
+    <%= text_field_tag "page" %>
+    <%= submit_tag t '.send', :default => 'Envoyer' %>
+  <% end %>
+</div>
