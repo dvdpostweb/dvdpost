@@ -8,8 +8,8 @@ class SubscriptionsController < ApplicationController
     @showing_abo = 10
     @all_style=true
     abo_max_order = ProductAbo.maximum(:ordered)
-    abo_order = current_customer.subscription_type.ordered
-    @selected_abo = ProductAbo.find(current_customer.abo_type_id)
+    abo_order = current_customer.subscription_type ? current_customer.subscription_type.ordered : 1
+    @selected_abo = current_customer.abo_type_id > 0 ? ProductAbo.find(current_customer.abo_type_id) : 0
     @free_upgrade = 0
     if current_customer.free_upgrade == 0 && abo_max_order != abo_order
       @free_upgrade = abo_order + 1
