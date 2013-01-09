@@ -167,7 +167,7 @@ function send_event(category, action,label,value)
   else
   {
     _gaq.push(['._trackEvent', category, action, label+value])
-    _gaq.push(['b._trackEvent', category, action, label+value]])
+    _gaq.push(['b._trackEvent', category, action, label+value])
   }
 }
 function getParameterByName(name)
