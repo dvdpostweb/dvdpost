@@ -62,7 +62,7 @@ class HomeController < ApplicationController
     message = params[:page]
     message += " #{current_customer.id}" if current_customer  
     Emailer.deliver_send(recipient, subject, message)
-    flash[:notice] = "Merci de votre contribution"
+    flash[:notice] = t '.tx', :default => 'Merci de votre contribution'
     redirect_to root_path()
   end
 
