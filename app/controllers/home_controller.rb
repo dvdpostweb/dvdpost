@@ -56,6 +56,16 @@ class HomeController < ApplicationController
     end
   end
 
+  def error_email
+    recipient = 'gs@dvdpost.be'
+    subject = 'error page'
+    message = params[:page]
+    message += " #{current_customer.id}" if current_customer  
+    Emailer.deliver_send(recipient, subject, message)
+    flash[:notice] = t '.tx', :default => 'Merci de votre contribution'
+    redirect_to root_path()
+  end
+
   private
   def get_reviews_data(review_kind, page, precision)
     @review_kind = review_kind

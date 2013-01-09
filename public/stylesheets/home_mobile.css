@@ -232,3 +232,17 @@ a.trailer
 {
   height:123px;
 }
+#yes, #no
+{
+  color: #BD1F83;
+  margin:4px;
+  display: block;
+}
+#facebox
+{
+  width:320px
+}
+.footer .close
+{
+ display:none; 
+}

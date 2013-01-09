@@ -211,6 +211,7 @@ h2#formula {
 #header_pricing {
     background: url(/images/user-info-bg.gif) repeat-x scroll 0 100% #F2F2F2;
     padding: 0 0 18px;
+    overflow: hidden;
 }
 .free_upgrade {
     background: none repeat scroll 0 0 #95DEEC;
