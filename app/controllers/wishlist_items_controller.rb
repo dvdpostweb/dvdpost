@@ -51,7 +51,12 @@ class WishlistItemsController < ApplicationController
     @text = params[:text]
     
     @wishlist_item = WishlistItem.new
-    render :layout => false
+    respond_to do |format|
+      format.html
+      format.js do
+        render :layout => false
+      end
+    end
   end
 
   def create

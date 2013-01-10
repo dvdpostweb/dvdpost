@@ -1,0 +1,160 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+#addwishlist_explain {
+    color: #191E24;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#movie_title h3 {
+    color: #212A31;
+    font-size: 20px;
+	padding-top:10px;
+    margin-bottom: 17px;
+    text-align: center;
+}
+
+
+.table div.legende span.col2 {
+    color: #1B2228;    font-size: 11px;
+    height: 20px;
+    margin-top: 50px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.table div.legende span.col1 {
+    color: #1B2228;    font-size: 11px;
+    height: 20px;
+    margin-top: 50px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.table div.legende span.col3 {
+    color: #1B2228;    font-size: 11px;
+    height: 20px;
+    margin-top: 50px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.table div.legende span.col4 {
+    color: #1B2228;
+    font: 16px;
+    height: 20px;
+    margin-top: 50px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.table span.col1 {
+    border-right: 1px solid #9AA8B1;
+    color: #212A31;    font-size: 11px;
+ 
+    height: 70px;
+    padding: 15px 8px 10px;
+    width: 80px;
+}
+
+
+.table span.col2 {
+    border-right: 1px solid #9AA8B1;
+    height: 70px;
+    padding: 15px 8px 10px;
+    width: 80px;
+	  font-size: 11px;
+}
+
+.table span.col3 {
+    height: 70px;
+    padding: 15px 8px 10px;
+    width: 80px;
+}
+
+.table span.col4 {
+
+    height: 70px;    font-size: 11px;
+    padding: 15px 8px 10px;
+    width: 150px;
+}
+
+.table span.col5 {
+    height: 70px;
+    padding: 15px 17px 10px;
+    width: 139px;  
+}
+
+.table span {
+    display: inline;
+    float: left;
+}
+
+.table div {
+    clear: left;
+}
+
+.table #vod {
+    border-bottom: 1px solid #B7BDC1;
+    border-top: 1px solid #9EABB5;
+    height: 100%;
+    margin-bottom: 20px;
+}
+.table #dvd {
+    border-bottom: 1px solid #B7BDC1;
+    border-top: 1px solid #9EABB5;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+
+.lang li.left {
+    margin-left: 2px;
+}
+
+.lang li {
+    color: #1B2228;
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    height: 22px;
+    line-height: 19px;
+    padding: 0;
+    text-align: center;
+    width: 22px;
+}
+
+input, select, textarea, button {
+    font: 1em Arial,Helvetica,sans-serif;
+	border:#ffffff 1px solid;
+	background:#FFFFFF;
+	height: 17px;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:underline;
+	
+}
+
+.content a {
+text-decoration:underline;
+padding-left: 10px;
+    font-size: 12px;
+	font-weight:bold;
+  
+}
+
+ul.lang {
+    font-size: 11px;
+	font-weight:bold;
+}
+
+.gray.special {
+    background: url("../images/muet.gif") no-repeat scroll 0 0 transparent;
+    width: 51px !important;
+}
