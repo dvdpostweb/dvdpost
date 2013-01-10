@@ -246,3 +246,7 @@ a.trailer
 {
  display:none; 
 }
+#nav .dropdown
+{
+  display:none;
+}
