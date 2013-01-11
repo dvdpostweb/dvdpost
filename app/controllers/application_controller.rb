@@ -293,7 +293,7 @@ class ApplicationController < ActionController::Base
   
   def notify_hoptoad(message)
     begin
-      Airbrake.notify(:error_message => "GeoIP error : #{message}")
+      Airbrake.notify(:error_message => "GeoIP error : #{message}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
     rescue => e
       logger.error("GeoIP error: #{message}")
       logger.error(e.backtrace)

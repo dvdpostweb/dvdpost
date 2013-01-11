@@ -14,6 +14,9 @@
   <% if params[:controller] != 'home' %>
 	  <%= stylesheet_link_tag body_classes('mobile'), :media => :all %>
 	<% end %>
+	<% if params[:controller] != 'vod_wishlists' %>
+    <%= stylesheet_link_tag 'catalogue_mobile', :media => :all %>
+  <% end %>
 	<% if params[:action] == "trailer" %>
 	  <%= javascript_include_tag "video.min" %>
     <%= stylesheet_link_tag "video-js.min", :media => :all %>

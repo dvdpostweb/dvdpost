@@ -15,7 +15,7 @@
 <% if params[:transit_or_history] == 'history' %>
 <h2><%= t '.history_list' %></h2>    	
 <div class="box<%= class_name %>" id="in-progress">
-  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} unless mobile_request? %>
   <%= render :partial => path, :collection => @history_list, :locals => {:display_vod => @display_vod, :type => :history} %>
 </div>
 <%= will_paginate @history_list, :class => 'products-pagination2', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
@@ -31,19 +31,19 @@
 <% end %>
 <h2><%= t '.token_list' %> (<%= @token_list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="in-progress">
-  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} unless mobile_request? %>
   <%= render :partial => path, :collection => @token_list, :locals => {:display_vod => @display_vod, :type => :token} %>
 </div>
 <% end %>
 <h2><%= t '.list' %> (<%= @list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="ready">
-  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} unless mobile_request?  %>
   <%= render :partial => path, :collection => @list, :locals => {:display_vod => @display_vod, :type => :list} %>
 </div>
 <% if @soon_list.count > 0 %>
 <h2><%= t '.soon_list' %> (<%= @soon_list.count %>)</h2>    	
 <div class="box<%= class_name %>" id="coming">
-  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} %>
+  <%= render :partial => 'vod_wishlists/index/display', :locals => {:display_vod => @display_vod} unless mobile_request?  %>
   <%= render :partial => path, :collection => @soon_list, :locals => {:display_vod => @display_vod, :type => :soon} %>
 </div>
 <% end %>
