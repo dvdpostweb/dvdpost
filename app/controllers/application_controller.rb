@@ -139,9 +139,11 @@ class ApplicationController < ActionController::Base
       session[:country_id] = params[:debug_country_id].to_i
     else
       if session[:country_id].nil? || session[:country_id] == 0
-        c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
-        if c.country_code == 0 && Rails.env == "production" && ! /^192\.168(.*)/.match(request.remote_ip)
-          notify_hoptoad("country code is empty ip : #{request.remote_ip}") 
+        my_ip = request.env["HTTP_X_FORWARDED_FOR"]
+        my_ip = request.remote_ip if my_ip.empty? 
+        c = GeoIP.new('GeoIP.dat').country(my_ip)
+        if c.country_code == 0 && Rails.env == "production" && ! /^192\.168(.*)/.match(my_ip)
+          notify_hoptoad("country code is empty ip : #{my_ip}") 
         end
         session[:country_id] = c.country_code
       end
