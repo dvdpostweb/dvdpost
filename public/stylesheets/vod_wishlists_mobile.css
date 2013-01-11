@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#mywhishlist .gallery .vod img {
+    border: 1px solid #000000;
+}
+
+.wishlist_remove {
+    background: url("http://private.dvdpost.com/images/trash-icon.png") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 15px;
+    text-indent: -999em;
+    width: 11px;
+}
+
+#mywhishlist .gallery .vod .status .trash {
+    background: none repeat scroll 0 0 white;
+    bottom: -24px;
+    display: block;
+    float: none;
+    margin: 0;
+    padding: 2px 4px 2px 2px;
+    position: absolute;
+    right: 5px;
+    vertical-align: middle;
+}
+
+.box .vod {
+  background-position: right center;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    line-height: 13px;
+    margin: 0 10px 0 0;
+    vertical-align: top;
+}
+h2
+{
+  margin:5px 0;
+}
+.box .vod .title
+{
+  display: inline-block;
+}
+.box .vod .title a {
+   color: #212A31;
+}
+.box .vod .title a {
+    color: #212A31;
+}
+.box .vod .status
+{
+  display:inline-block;
+}
+.status a { color: #212A31;
+	text-transform:uppercase;
+	font-weight:bold;
+}
+.box .vod .status .trash {
+  background: none repeat scroll 0 0 white;
+  display: inline-block;
+  float: none;
+  margin: 0;
+  padding: 0px 4px 2px 2px;
+  vertical-align: middle;
+}
+
+.etabs {
+  height: 39px;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.alert {
+font-size:11px;
+
+}
+#mywhishlist-nav li {
+  float: left;
+  margin-right: 3px;
+  text-transform: uppercase;
+}
+
+
+#mywhishlist-nav li a {
+background: url("/images/tabs-bg.png") repeat-x scroll 0 100% transparent;
+color: #909498;
+display: block;
+font-size: 14px;
+line-height: 26px;
+padding: 0 10px;
+
+}
+#mywhishlist-nav li a:hover {
+color: #212A31;
+text-decoration: none;
+}
+#mywhishlist-nav li.current a {
+background: url("/images/tabs-bg.png") repeat-x scroll 0 100% transparent;
+color: #212A31;
+}
+h2
+{
+  clear:both;
+}
+#on-way-nav
+{
+  display:none;
+}

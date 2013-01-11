@@ -10,9 +10,8 @@
     </div>
     <div class="table">
       <% if streaming_access? %>
-      <span>VOD</span>
         <% if product.streaming?(params[:kind], session[:country_id]) %>
-        
+          <span>VOD</span>
           <div id="vod"> 
             <span class="col1">
               <%= t '.audio' %><br />

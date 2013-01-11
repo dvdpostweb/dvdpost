@@ -793,7 +793,7 @@ class Product < ActiveRecord::Base
 
   def self.notify_hoptoad(ghost)
     begin
-      Airbrake.notify(:error_message => "Ghost record found: #{ghost.inspect}")
+      Airbrake.notify(:error_message => "Ghost record found: #{ghost.inspect}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
     rescue => e
       logger.error("Exception raised wihile notifying ghost record found: #{ghost.inspect}")
       logger.error(e.backtrace)

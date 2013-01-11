@@ -39,6 +39,7 @@ class WishlistItemsController < ApplicationController
   end
 
   def new
+    session[:back_url] = request.env['HTTP_REFERER']
     @product = Product.both_available.find(params[:product_id])
     if @product.imdb_id > 0 && (@product.products_series_id == 0 || @product.serie.saga?)
       @products = Product.both_available.ordered_media.find_all_by_imdb_id(@product.imdb_id)
@@ -207,9 +208,16 @@ class WishlistItemsController < ApplicationController
   end
 
   def redirect_back_or(path)
-    redirect_to :back
-  rescue ::ActionController::RedirectBackError
-    redirect_to path
+    if !session[:back_url].empty?
+      url = session[:back_url]
+      session[:back_url] = nil
+      redirect_to url
+    else
+      begin
+        redirect_to :back
+      rescue Exception => e
+        redirect_to path
+      end
+    end
   end
-  
 end

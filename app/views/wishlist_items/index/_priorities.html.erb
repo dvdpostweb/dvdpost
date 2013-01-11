@@ -2,6 +2,7 @@
   <% [1,2,3].collect do |priority| %>
   <li>
     <%= f.radio_button :priority, priority, :checked => (wishlist_item.priority == priority), :class => 'wishlist_item_priority' %>
+    <%= t "wishlist_items.index.wishlist.#{DVDPost.wishlist_priorities.invert[priority]}" %>
   </li>
   <% end %>
 <% end %>
