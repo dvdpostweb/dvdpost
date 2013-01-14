@@ -11,12 +11,14 @@
   
   <%= stylesheet_link_tag 'reset', :media => :all %>
   <%= stylesheet_link_tag 'home_mobile', :media => :all %>
+  <% if params[:controller] == 'wishlist_items' %>
+    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+    <%= javascript_include_tag 'jquery.form' %>
+    <%= javascript_include_tag "wishlist_mobile" %>
+  <% end %>
   <% if params[:controller] != 'home' %>
 	  <%= stylesheet_link_tag body_classes('mobile'), :media => :all %>
 	<% end %>
-	<% if params[:controller] != 'vod_wishlists' %>
-    <%= stylesheet_link_tag 'catalogue_mobile', :media => :all %>
-  <% end %>
 	<% if params[:action] == "trailer" %>
 	  <%= javascript_include_tag "video.min" %>
     <%= stylesheet_link_tag "video-js.min", :media => :all %>
