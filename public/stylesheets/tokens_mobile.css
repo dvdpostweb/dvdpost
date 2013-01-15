@@ -1,0 +1,11 @@
+.content
+{
+  font-size:12px;
+}
+#addwishlist_title
+{
+  font-size:15px;
+  font-weight:bold;
+  margin: 0 0 10px 0;
+  text-decoration: underline;
+}
