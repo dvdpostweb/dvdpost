@@ -2,78 +2,60 @@
 /* CSS Document */
 
 #vod-wrap h2 {
-    color: #21282F;
-    font-size: 14px;
-    text-align: center;
+  color: #21282F;
+  font-size: 14px;
+  text-align: center;
 }
-
 #image_vod img {
-    height: 150px;
-    padding: 15px 11px 16px 14px;
-    width: 100px;
+  height: 150px;
+  padding: 15px 11px 16px 14px;
+  width: 100px;
 }
-
 .linkpc a {
-      color: #21282F;
-    text-decoration: underline;
-	font-size:12px;
-	font-weight:bold;
-	
+  color: #21282F;
+  text-decoration: underline;
+  font-size:12px;
+  font-weight:bold;
 }
-
 .linkpc {
-    padding-top: 20px;
-    text-align: center;
+  padding-top: 20px;
+  text-align: center;
 }
 .intro_vod {
-    color: #21282F;
-    font-size: 12px;
-	text-align:center;
-
-
+  color: #21282F;
+  font-size: 12px;
+  text-align:center;
 }
-
-
 .choice_language {
-    margin: 0 auto;
-    padding-bottom: 12px;
-	    font-size: 12px;
-   
+  margin: 0 auto;
+  padding-bottom: 12px;
+  font-size: 12px;
 }
-
 .information_vod h3 {
-    font-size: 14px;
-    font-weight: bold;
-    padding-top: 12px;
-	 padding-bottom: 10px;
-    text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
 }
-
-
 .choice_question {
-    font-size: 13px;
-	
-	padding-top:30px;
+  font-size: 13px;
+  padding-top:30px;
 }
-
 #content {
-padding: 12px 0 0 12px;
-
+  padding: 12px 0 0 12px;
 }
-
 .linkallversions a {
-    color: #21282F;
-    font-weight: bold;
-    padding-left: 25px;
+  color: #21282F;
+  font-weight: bold;
+  padding-left: 25px;
 }
-
 .select_version {
-padding-top:10px;
-padding-bottom:10px;
+  padding-top:10px;
+  padding-bottom:10px;
 }
-
 td, td img {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 #presentation
 {
