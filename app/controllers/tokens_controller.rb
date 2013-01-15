@@ -7,6 +7,9 @@ class TokensController < ApplicationController
     @streaming = StreamingProduct.available.find_by_imdb_id(@product.imdb_id)
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
     @vod_disable = General.find_by_CodeType('VOD_ONLINE').value
-    render :layout => false
+    respond_to do |format|
+      format.html
+      format.js   { render :layout => false }
+    end
   end
 end

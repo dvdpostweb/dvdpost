@@ -1,0 +1,49 @@
+<div class="content">
+<% if @product.adult? && current_customer && current_customer.svod? %>
+  <%= t('tokens.new.svod_adult') %>
+<% else %>
+  <div  <%= @code && @code.white_label ? 'id="maincontent_no_border"' : 'id="maincontent"' %> >
+    <div id="vod-wrap">
+        <h2>
+          <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)<span>
+        </h2>
+        <% if @token and @token_valid %>
+          <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token, params[:kind]) %></strong></div></div>
+        <% end %>
+        <div class="clear"></div>
+        <div id="presentation">
+          <%= "<div class='prices'>#{t '.ppv', :price => @streaming.ppv_price}</div>" if @streaming.is_ppv %>
+          <div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div>
+        </div>
+        <div id='flow'>
+        </div>
+        <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv) %>
+
+        <% if @streaming_free == true %>
+          <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
+        <% end %>
+        <% if ENV['HOST_OK'] == "1" || !current_customer.payment_suspended? %>
+        <% code_public = StreamingCode.find_by_name(params[:code]) %>
+          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) %>
+            <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
+            <p class="intro_vod">
+            Attention la vod ne fonctionne pas sur tous les devices. assurez-vous bien que celle ci fonctionne bien sur le votre en feasant un test gratuit de la vod.
+            </p>
+            <p class="choice_question">
+              <%= t '.title' %>
+            </p>
+            
+            <%= render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered} %>
+            <p class="intro_vod">
+              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] %>
+            </p>
+            <% end %>
+          <% end %>
+        
+        <% end %>
+        <p class="intro_vod">
+        Si vous avez des questions, vous pouvez évidemment nous contacter via email (<a href="mailto:info@dvdpost.be">info@dvdpost.be</a>) ou par téléphone au 0800/95 990.
+        </p>
+  </div>
+<% end %>
+</div>

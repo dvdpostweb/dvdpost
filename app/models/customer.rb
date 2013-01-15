@@ -227,9 +227,11 @@ class Customer < ActiveRecord::Base
   end
 
   def self.send_evidence(type, product_id, customer, ip, args=nil)
+    Rails.logger.debug { "@@@#{type} #{product_id} #{customer.id} #{ip}" }
     begin
       product_id = product_id.to_s.gsub(/-.*/,'')
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, args)
+      Rails.logger.debug { "url#{url}" }
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
     end
@@ -327,7 +329,8 @@ class Customer < ActiveRecord::Base
     dvd_remain = subscription.qty_dvd_max
     Customer.transaction do
       begin
-        credit = self.update_attributes(:credits => credit_paid, :customers_abo_dvd_remain => dvd_remain)
+        self.update_attribute(:credits, credit_paid)
+        self.update_attribute(:customers_abo_dvd_remain, dvd_remain)
         date_added = 2.hours.from_now.localtime.to_s(:db)
         history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => 0, :credit_free => 0, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_paid => credit_paid, :abo_type => subscription.to_param)
        rescue ActiveRecord::StatementInvalid 
@@ -354,9 +357,10 @@ class Customer < ActiveRecord::Base
     Customer.transaction do
       begin
         if new_price?
-          credit = self.update_attributes(:credits => (self.credits + quantity), :customers_abo_dvd_remain => (self.customers_abo_dvd_remain + quantity))
+          self.update_attribute(:credits, (self.credits + quantity))
+          self.update_attribute(:customers_abo_dvd_remain, (self.customers_abo_dvd_remain + quantity))
         else
-          credit = self.update_attributes(:credits => (self.credits + quantity))
+          self.update_attribute(:credits, (self.credits + quantity))
         end
         date_added = 2.hours.from_now.localtime.to_s(:db)
         history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_free => quantity, :abo_type => abo_type_id)
@@ -383,9 +387,10 @@ class Customer < ActiveRecord::Base
     Customer.transaction do
       begin
         if new_price?
-          credit = self.update_attributes(:credits => credits, :customers_abo_dvd_remain => dvd_remain)
+          self.update_attribute(:credits => credits)
+          self.update_attribute(:customers_abo_dvd_remain => dvd_remain)
         else
-          credit = self.update_attributes(:credits => (self.credits + credits))
+          credit = self.update_attribute(:credits, (self.credits + credits))
         end
         date_added = 2.hours.from_now.localtime.to_s(:db)
         history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => date_added, :quantity_free => credits, :abo_type => abo_type_id)
@@ -426,7 +431,7 @@ class Customer < ActiveRecord::Base
       Customer.transaction do
         begin
           new_qty = (self.credits - quantity)
-          credit = self.update_attributes(:credits => new_qty)
+          credit = self.update_attribute(:credits, new_qty)
           history = CreditHistory.create( :customers_id => to_param.to_i, :credit_paid => credit_paid, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().localtime.to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
         rescue ActiveRecord::StatementInvalid
           notify_credit_hoptoad('remove',action,quantity)
@@ -596,7 +601,8 @@ class Customer < ActiveRecord::Base
   end
 
   def reconduction_now
-    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().localtime.to_s(:db))
+    update_attribute(:auto_stop, 0)
+    update_attribute(:subscription_expiration_date, Time.now().localtime.to_s(:db))
     customer_attribute.update_attribute(:credits_already_recieved, 1)
     abo_history(Subscription.action[:reconduction_ealier])
     
