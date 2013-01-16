@@ -5,5 +5,4 @@
       <% token_code = DVDPost.generate_token_from_alpha(filename, params[:kind], true) %>
   <% end %>
 <% end %>
-
 <%= flowplayer(filename, source, streaming, token_code, browser) %>
