@@ -1,0 +1,26 @@
+<% if @streaming %>
+<div>
+  <%= flowplayer(@streaming.filename, @streaming.source, @streaming, @token_name, @browser) %>
+</div>
+<% else %>
+<div id="maincontent">
+  <div id='vod-wrap'>
+    <h2>
+      <span id="vod_title"><%= t('.title') %> - <%= link_to @product.title, product_path(:id => @product.to_param), :id => :vod_title_id %><span>
+    </h2>
+    <div class="error"></div>
+    <div id="presentation">
+      <%= image_tag "extrait-vod#{params[:kind] == :adult ? '_adult' : ''}.jpg",:width => '300px', :height => '155px' %>
+    </div>
+    <div id="flow"></div>
+    <div id="player"></div>
+    <div class="choice_language">
+      <h3><%= t('.version_title') %></h3>
+      <div id="choice_new">
+          <%= render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered} %>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<% end %>
