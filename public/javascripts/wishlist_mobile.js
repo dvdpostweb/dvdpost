@@ -3,7 +3,6 @@ $(function() {
 	};
   $(".wishlist_item_priority").live("click", function() {
     url = $(this).parent().parent().attr('action')
-    console.log(url)
     value = $(this).val()
     var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
     res = regex.exec(url)

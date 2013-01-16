@@ -39,36 +39,9 @@ class StreamingProductsController < ApplicationController
     end
     @streaming_free = streaming_free(@product)
     respond_to do |format|
-      format.html do
-        if @product
-          if @vod_disable == "1" || Rails.env == "pre_production"
-            if streaming_access?
-              if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
-                if @token_valid == false && @vod_create_token == "0" && Rails.env != "pre_production"
-                  error = t('streaming_products.not_available.offline')
-                  show_error(error, @code)
-                else
-                  render :action => :show
-                end
-              else
-                error = t('streaming_products.not_available.not_available')
-                show_error(error, @code)
-              end
-            else
-               error = t('streaming_products.no_access.no_access')
-               show_error(error, @code)
-            end  
-          else
-            error = t('streaming_products.not_available.offline')
-            show_error(error, @code)
-          end
-        else
-          error = t('streaming_products.not_available.not_available')
-          show_error(error, @code)
-        end
-      end
+      
       format.js do
-        if streaming_access? 
+        if streaming_access?
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
           if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip) && !current_customer.super_user?)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
@@ -130,6 +103,34 @@ class StreamingProductsController < ApplicationController
           end
         else
           render :partial => 'streaming_products/no_access', :layout => false
+        end
+      end
+      format.html do
+        if @product
+          if @vod_disable == "1" || Rails.env == "pre_production"
+            if streaming_access?
+              if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
+                if @token_valid == false && @vod_create_token == "0" && Rails.env != "pre_production"
+                  error = t('streaming_products.not_available.offline')
+                  show_error(error, @code)
+                else
+                  render :action => :show
+                end
+              else
+                error = t('streaming_products.not_available.not_available')
+                show_error(error, @code)
+              end
+            else
+               error = t('streaming_products.no_access.no_access')
+               show_error(error, @code)
+            end  
+          else
+            error = t('streaming_products.not_available.offline')
+            show_error(error, @code)
+          end
+        else
+          error = t('streaming_products.not_available.not_available')
+          show_error(error, @code)
         end
       end
     end
