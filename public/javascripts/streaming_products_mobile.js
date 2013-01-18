@@ -8,7 +8,7 @@ $(function() {
     content = $('#presentation').html()
     loader = 'loading.gif';
     $('.error').html('');
-    $('#presentation').html("loading")
+    $('#presentation').html("<div id='loading'>loading...</div>")
     $(this).hide()
     $.ajax({
       url: $(this).attr('href'),
