@@ -1,3 +1,4 @@
+<% path = ENV['HOST_OK'] == "0" ? url_for(:full_site => 1, :login => 1 ) : url_for(:full_site => 1 ) %>
 <div id="wrap" class="mobile"> 
   <div id="top" class="">
     <div class="wrap" align="right"> 
@@ -18,7 +19,7 @@
         <h1>
           <%= link_to t('.tagline'), root_path(:logo => 1), :class => 'f-btn' %>
         </h1>
-        <span><%= link_to "site normal", url_for(:full_site => 1) if mobile_request? %></span>
+        <span><%= link_to t('.site_normal'), path if mobile_request? %></span>
       </div>
     </div>
     <%= render :partial => 'layouts/menu2' unless @hide_menu %>
