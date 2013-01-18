@@ -1,3 +1,4 @@
+<% path = ENV['HOST_OK'] == "0" ? url_for(:full_site => 1, :login => 1 ) : url_for(:full_site => 1 ) %>
 <div id="footer">
   <% if params[:controller] != "info" %>
     <p align="right"> <a href="#top" class="top">Top</a> <span class="arrow_up"></span></p>
@@ -10,6 +11,6 @@
     </div>
   <% end %>
   <div id="change_site">
-    view DVDPost in mobile | <%= link_to "desktop", url_for(:full_site => 1) %>
+    view DVDPost in mobile | <%= link_to "desktop", path %>
   </div>
 </div>
