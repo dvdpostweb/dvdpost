@@ -26,6 +26,16 @@
   font-size: 12px;
   text-align:center;
 }
+.attention {
+  color: #990000;
+  font-size: 12px;
+  text-align:center;
+}
+.attention a{
+  color: #990000;
+  font-size: 12px;
+  
+}
 .choice_language {
   margin: 0 auto;
   padding-bottom: 12px;
@@ -40,7 +50,7 @@
 }
 .choice_question {
   font-size: 13px;
-  padding-top:30px;
+  padding-top:5px;
 }
 #content {
   padding: 12px 0 0 12px;
@@ -72,9 +82,29 @@ td, td img {
 }
 .intro_vod
 {
-  margin:20px 0 0 0;
+  margin:0;
 }
 .intro_vod a
 {
   font-size:12px;
+}
+#vodtime
+{
+  text-align:center;
+}
+.select_version img
+{
+  display:none;
+}
+#loading
+{
+  height:181px;
+}
+#vod_title, #vod_title a
+{
+  color: #21282F;
+}
+a
+{
+  padding-left:0 !important;
 }

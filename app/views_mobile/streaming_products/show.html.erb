@@ -26,8 +26,8 @@
         <% code_public = StreamingCode.find_by_name(params[:code]) %>
           <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) %>
             <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
-            <p class="intro_vod">
-            Attention la vod ne fonctionne pas sur tous les devices. assurez-vous bien que celle ci fonctionne bien sur le votre en feasant un test gratuit de la vod.
+            <p class="attention">
+              <%= t('.attention', :url => streaming_products_sample_path) %>
             </p>
             <p class="choice_question">
               <%= t '.title' %>
@@ -42,12 +42,8 @@
         
         <% end %>
         <p class="intro_vod">
-        Si vous avez des questions, vous pouvez évidemment nous contacter via email (<a href="mailto:info@dvdpost.be">info@dvdpost.be</a>) ou par téléphone au 0800/95 990.
+          <%= t('.info') %>
         </p>
   </div>
 <% end %>
 </div>
-<video poster="http://content.bitsontherun.com/thumbs/nfSyO85Q-320.jpg" height="270" width="480" controls="">
-    <source src="http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8" type="application/vnd.apple.mpegurl">
-    <p class="warning">Your browser does not support HTML5 video.</p>
-</video>
