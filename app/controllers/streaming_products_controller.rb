@@ -54,35 +54,37 @@ class StreamingProductsController < ApplicationController
               else
                 creation = nil
               end
-              @token = creation[:token]
-              error = creation[:error]
+              if creation
+                @token = creation[:token]
+                error = creation[:error]
               
-              if current_customer && @token
-                if @streaming_free[:status] == true
-                  mail_id = DVDPost.email[:streaming_product_free]
-                else
-                  mail_id = DVDPost.email[:streaming_product]
-                end
-                product_id = @product.id
-                if current_customer.gender == 'm' 
-                  gender = t('mails.gender_male')
-                else
-                  gender = t('mails.gender_female')
-                end
-                  movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
-                  vod_selection = DVDPost.mail_vod_selection(current_customer.to_param, params[:kind])
-                  recommendation_dvd_to_dvd = DVDPost.mail_recommendation_dvd_to_dvd(current_customer.to_param, @product.id)
-                  options = 
-                  {
-                    "\\$\\$\\$customers_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
-                    "\\$\\$\\$gender_simple\\$\\$\\$" => gender ,
-                    "\\$\\$\\$movie_details\\$\\$\\$" => movie_detail,
-                    "\\$\\$\\$selection_vod\\$\\$\\$" => vod_selection,
-                    "\\$\\$\\$date\\$\\$\\$" => Time.now.strftime('%d/%m/%Y'),
-                    "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
-                  }
-                  send_message(mail_id, options)
+                if current_customer && @token
+                  if @streaming_free[:status] == true
+                    mail_id = DVDPost.email[:streaming_product_free]
+                  else
+                    mail_id = DVDPost.email[:streaming_product]
+                  end
+                  product_id = @product.id
+                  if current_customer.gender == 'm' 
+                    gender = t('mails.gender_male')
+                  else
+                    gender = t('mails.gender_female')
+                  end
+                    movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
+                    vod_selection = DVDPost.mail_vod_selection(current_customer.to_param, params[:kind])
+                    recommendation_dvd_to_dvd = DVDPost.mail_recommendation_dvd_to_dvd(current_customer.to_param, @product.id)
+                    options = 
+                    {
+                      "\\$\\$\\$customers_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
+                      "\\$\\$\\$gender_simple\\$\\$\\$" => gender ,
+                      "\\$\\$\\$movie_details\\$\\$\\$" => movie_detail,
+                      "\\$\\$\\$selection_vod\\$\\$\\$" => vod_selection,
+                      "\\$\\$\\$date\\$\\$\\$" => Time.now.strftime('%d/%m/%Y'),
+                      "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
+                    }
+                    send_message(mail_id, options)
                 
+                end
               end
             end
           else
