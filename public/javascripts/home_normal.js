@@ -2,7 +2,7 @@ $(document).ready(function() {
   $('#featurelist-slider .tabs li a').featureList({
 		output			        :	'#output li',
 		start_item		      :	0,
-		transition_interval : 7000
+		transition_interval : 12000
 	});
   /* selection */
   $('#weekly-selection-wrap .content-tabs a').live('click',function(){
