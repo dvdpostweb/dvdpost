@@ -2,6 +2,6 @@
 <div class="studios">
   <div class="name"><%= link_to studio_pict.name, path %></div>
   <%= link_to image_tag(studio_pict.image), path, :alt => studio_pict.name , :class => "distributors" %>
-  <%= link_to 'Voir tous leurs films', path, :alt => studio_pict.name , :class => "more" %>
+  <%= link_to t('.all'), path, :alt => studio_pict.name , :class => "more" %>
   
 </div>
