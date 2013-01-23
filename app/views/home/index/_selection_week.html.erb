@@ -11,7 +11,7 @@
           <div class="pagination arrow_left">
             <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
           </div>
-          <span class="jc-items"><%= "#{selection_page} of #{selection_nb_page}" %></span>
+          <span class="jc-items"><%= "#{selection_page}/#{selection_nb_page}" %></span>
           <div class="pagination arrow_right">
             <%= will_paginate selection_week, :previous_label => '', :next_label => '', :page_links => false, :renderer => "RemoteLinkRenderer", :container => false, :remote => { :url => root_path(:kind => params[:kind], :selection_kind => params[:selection_kind]), :param_name => :selection_page} %>
           </div>
