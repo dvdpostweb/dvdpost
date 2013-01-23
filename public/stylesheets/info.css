@@ -883,3 +883,23 @@ margin: 0 7px;
   margin:20px;
   font-size:15px;
 }
+#login
+{
+  margin:0;
+  padding: 2px 25px 5px 13px;
+}
+#info .wrap
+{
+  display:inline;
+}
+#info .wrap a {
+color: #212A31;
+font-size: 13px;
+font-weight: bold;
+margin-left: 20px;
+padding-left: 27px;
+padding-top: 5px;
+text-align: center;
+text-transform: uppercase;
+
+}

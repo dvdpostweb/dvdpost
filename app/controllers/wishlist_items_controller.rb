@@ -211,13 +211,11 @@ class WishlistItemsController < ApplicationController
     if !session[:back_url].nil?
       url = session[:back_url]
       session[:back_url] = nil
-      Rails.logger.debug { "url session#{url}" }
       redirect_to url
     else
       begin
         redirect_to :back
       rescue Exception => e
-        Rails.logger.debug { "path rescue #{path}" }
         redirect_to path
       end
     end
