@@ -139,10 +139,11 @@ class ApplicationController < ActionController::Base
       session[:country_id] = params[:debug_country_id].to_i
     else
       if session[:country_id].nil? || session[:country_id] == 0
-        my_ip = request.env["HTTP_X_FORWARDED_FOR"]
-        my_ip = request.remote_ip if my_ip.nil? 
+        ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
+        my_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
+        my_ip = request.remote_ip if my_ip.nil?
         c = GeoIP.new('GeoIP.dat').country(my_ip)
-        if c.country_code == 0 && Rails.env == "production" && ! /^192\.168(.*)/.match(my_ip)
+        if c.country_code == 0 && Rails.env == "production" && ! /^192(.*)/.match(my_ip) && ! /^172(.*)/.match(my_ip) && ! /^10(.*)/.match(my_ip)
           notify_hoptoad("country code is empty ip : #{my_ip}") 
         end
         session[:country_id] = c.country_code
