@@ -535,7 +535,7 @@ module ProductsHelper
       end
     end
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.all'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
+      link_to t('products.left_column.all_catalogue'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
     end
     
   end
@@ -581,7 +581,7 @@ module ProductsHelper
       end
     end
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.all'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? && params[:controller] == 'products' ? :actived : ''
+      link_to t('products.left_column.all_catalogue'), products_path(), :class => params[:view_mode].nil? && params[:filter].nil? && params[:limit].nil? && params[:controller] == 'products' ? :actived : ''
     end
   end
 
