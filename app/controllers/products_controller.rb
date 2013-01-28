@@ -254,6 +254,7 @@ class ProductsController < ApplicationController
         end
       }
       format.html do
+        @trailer = trailer
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url
         elsif trailer.first
