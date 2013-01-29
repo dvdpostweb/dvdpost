@@ -734,21 +734,34 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
   background: url(../images/purple-shadow.gif) 0 0 repeat-x;
 }
 #subscribe-wrap h3 {
-  float: left;
-  width: 405px;
-  color: white;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 36px;
-  font-family: 'Open Sans Condensed', sans-serif;
+    color: #3A450A!important; 
+    float: left;
+    font-family: 'Open Sans Condensed',sans-serif;
+    font-size: 28px!important; 
+    font-weight: normal!important; 
+    line-height: 36px;
+    width: 444px;
+}
+ #subscribe-wrap.nl h3 {
+  font-size: 27px!important; 
+}
+#subscribe-wrap span {
+  color: #ffffff !important; 
+  font-weight: bold!important; 
 }
 #subscribe-wrap #promo {
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  width: 153px;
+  color: #3A450A !important;
   float: left;
+  font-size: 17px;
+  font-weight: normal !important;
+  line-height: 21px;
   padding-top: 4px;
+  width: 165px;
+}
+
+#subscribe-wrap #subscribe p a span
+{
+  text-decoration: none;
 }
 #subscribe-wrap #subscribe {
   float: right;
