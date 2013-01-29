@@ -65,9 +65,9 @@ module ApplicationHelper
           redirect_to shop_path(:locale => params[:locale], :kind => :normal) and return
         end
       elsif current_customer.customers_registration_step.to_i == 90
-        redirect_to php_path('step_member_choice.php')
+        redirect_to php_path("step_member_choice.php")
       elsif current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
-        redirect_to php_path
+        redirect_to php_path("step1.php")
       end
     end
   end
@@ -115,13 +115,13 @@ module ApplicationHelper
     prefix = mobile_request? ? "http://m." : "http://"
     case Rails.env
       when "production"
-        "#{prefix}public.dvdpost.com"
+        "#{prefix}public.dvdpost.com/#{i18n.locale}"
       when "pre_production"
-        "#{prefix}beta.public.dvdpost.com"
+        "#{prefix}beta.public.dvdpost.com/#{i18n.locale}"
       when "staging"
-        "#{prefix}staging.public.dvdpost.com"
+        "#{prefix}staging.public.dvdpost.com/#{i18n.locale}"
       when "development"
-        "#{prefix}public.dvdpost.dev"
+        "#{prefix}public.dvdpost.dev/#{i18n.locale}"
     end
   end
 
