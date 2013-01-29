@@ -1,9 +1,10 @@
-<div id="subscribe-wrap" class="osc">
-  <div class="wrap"><h3><%= t '.huge_catalog' %></h3>
-    <div id="promo"><%= t '.promo' %></div>
+
+<div class="osc <%= I18n.locale %>" id="subscribe-wrap">
+  <div class="wrap"><h3><%= t '.promo' %></h3>
+    <div id="promo"><%= t '.huge_catalog' %></span></div>
   </div>
   <div id="subscribe">
-    <a href="<%= php_path 'step1.php' %>" class="btn"><%= t '.signup_short' %></a>
-    <p><a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t '.code_promo' %></a></p>
+    <a class="btn" href="<%= php_path 'step1.php' %>"><%= t '.signup_short' %></a>
+    <p><a id="codePromo" href="<%= info_path(:page_name => 'promo') %>"><%= t '.code_promo' %></a></p>
   </div>
 </div>
