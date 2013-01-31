@@ -1,3 +1,34 @@
+<% if params[:promo] == "2" && ENV['HOST_OK'] == "1" %>
+<% carousel_item = carousel[rand(carousel.count)] %>
+
+<% path = ENV['HOST_OK'] == "1" ? php_path('step1.php') : carousel_path(carousel_item) %>
+<% link = ENV['HOST_OK'] == "1" ? t('home.index.carousel_item.public') : t("home.index.carousel_item.link_#{carousel_item.id}") %>
+<% title = t("home.index.carousel_item_title.title_#{carousel_item.id}") %>
+<% name = t("home.index.carousel_item.name_#{carousel_item.id}") %>
+<% image = image_tag(carousel_item.image, :alt => title, :size => '932x328') %>
+
+
+
+<div id="image_promo">
+  <ul id="output">
+    <li>
+      <div class="intro">
+        <h1><%= t '.intro1' %></h1>
+        <h2><%= t '.intro2' %></h2>
+      </div>
+      <div class="caption osc">
+        <h2><%= name %></h2>
+        <h4>
+          <%= title %>
+        </h4>
+      </div>
+      <a href="<%= php_path('step1.php') %>" class="essaigratuit osc btn"><%= t '.try' %></a>
+      <p><%= t '.promo', :url => info_path(:page_name => :promo) %></p>
+      <a href="<%= php_path('step1.php') %>"><%= image %></a>
+    </li>
+  </ul>
+</div>
+<% else %>
 <div id="featurelist-slider">
   <ul class="tabs osc">
     <%= render :partial => '/home/index/carousel_thumbs', :collection => carousel %> 
@@ -5,4 +36,5 @@
   <ul id="output">
     <%= render :partial => '/home/index/carousel_item', :collection => carousel %>
   </ul>
-  </div>
+</div>
+<% end %>

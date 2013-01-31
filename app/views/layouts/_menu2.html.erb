@@ -1,7 +1,7 @@
 <% id = yield :body_id %>
 <ul id="nav" class="osc">
   
-  <li><%= link_to t('layouts.header.home'), root_path, {:id => 'nav1', :class => (( id == 'hp') ? 'active': '')} %></li>
+  <li><%= link_to t('layouts.header.home'), root_path(:promo => session[:promo]), {:id => 'nav1', :class => (( id == 'hp') ? 'active': '')} %></li>
   <li><%= link_to t('layouts.header.explore'), products_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
   <% if ENV['HOST_OK'] == "0" %>
     <li>

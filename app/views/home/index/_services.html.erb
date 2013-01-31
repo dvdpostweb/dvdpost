@@ -1,0 +1,73 @@
+<!-- Services -->
+<div id="services-wrap">
+  <div id="vod-ppv" class="wrap">
+    <h3><%= t '.title1' %></h3>
+    <h4><%= t '.desc1' %></h4>
+    <center>
+      <br />
+      <a href="<%= info_path(:page_name => :price) %>">
+        <%= image_tag 'icon_abo.gif', :size => '226x38', :alt => 'info abo' %>
+      </a>
+    </center>
+    <ul class="osc">
+      <li> <a href="<%= info_path(:page_name => :price) %>"><%= t '.discover' %></a> </li>
+    </ul>
+  </div>
+  <div id="bluray-dvd" class="wrap">
+    <h3><%= t '.title2' %></h3>
+    <h4><%= t '.desc2' %></h4>
+    <center>
+      <a href="<%= info_path(:page_name => :dvd) %>">
+        <%= image_tag 'icon_catalogue.gif', :size => '114x53', :alt => 'info dvd' %>
+      </a>
+    </center>
+    <ul class="osc">
+      <li> <a href="<%= info_path(:page_name => :dvd) %>"><%= t '.discover' %></a> </li>
+    </ul>
+  </div>
+  <div id="apps"  class="wrap">
+    <h3><%= t '.title3' %></h3>
+    <h4><%= t '.desc3' %></h4>
+    <center>
+      <a href="<%= streaming_products_faq_path() %>">
+        <%= image_tag 'icon_plateforme.gif', :size => '191x54', :alt => 'info vod' %>
+      </a>
+    </center>
+    <ul class="osc">
+      <li> <a href="<%= streaming_products_faq_path() %>"><%= t '.discover' %></a> </li>
+    </ul>
+  </div>
+  <div id="news"  class="wrap">
+    <h3><%= t '.title4' %></h3>
+    <h4><%= t '.desc4' %></h4>
+    <% form_for @newsletter do |f| %>
+    
+    <center>
+      <br />
+        <%= f.error_messages :header_message => "", :message => "", :header_tag => :h3 %>
+        <%= f.hidden_field :language_id, :value => DVDPost.customer_languages[I18n.locale] %>
+        <%= hidden_field_tag :promo, params[:promo] %>
+        <%= f.text_field :email, :size => 30, :value => t('.email') %>
+    </center>
+    <ul class="osc">
+      <li>
+        <%= submit_tag t('.valid', :default => 'JE valide'), :id => 'newsletter_input' %>
+      </li>
+    </ul>
+    <% end %>
+    
+  </div>
+</div>
+<!-- #services-wrap -->
+<div id="subscribe-wrap" class="osc">
+  <div class="wrap">
+    <h3><%= t '.too' %></h3>
+    <ul>
+      <li><%= t '.too1' %></li>
+      <li><%= t '.too2' %></li>
+    </ul>
+  </div>
+  <div id="subscribe"> <a href="<%= php_path("step1.php") %>" class="btn"><%= t '.try' %></a>
+    <p><a href="<%= info_path(:page_name => :promo) %>" id="codePromo"><%= t '.promo' %></a></p>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 <% link = ENV['HOST_OK'] == "1" ? t('home.index.carousel_item.public') : t("home.index.carousel_item.link_#{carousel_item.id}") %>
 <% title = t("home.index.carousel_item_title.title_#{carousel_item.id}") %>
 <% name = t("home.index.carousel_item.name_#{carousel_item.id}") %>
-<% image = image_tag(carousel_item.image, :alt => title, :size => '707x342') %>
+<% image = image_tag(carousel_item.image_public, :alt => title, :size => '707x342') %>
 <li>
   <div class="caption osc">
     <h2><%= title %></h2>

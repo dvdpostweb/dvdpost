@@ -18,6 +18,10 @@ class Landing < ActiveRecord::Base
     File.join(DVDPost.images_carousel_path, id.to_s+'.jpg')
   end
 
+  def image_public
+    File.join(DVDPost.images_carousel_path, id.to_s+'.jpg')
+  end
+
   def image_adult
     File.join(DVDPost.images_carousel_adult_path, id.to_s+'.jpg')
   end

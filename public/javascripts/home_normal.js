@@ -1,9 +1,23 @@
 $(document).ready(function() {
   $('#featurelist-slider .tabs li a').featureList({
-		output			        :	'#output li',
+		output			        :	'#featurelist-slider #output li',
 		start_item		      :	0,
 		transition_interval : 12000
 	});
+	/* newsletter  */
+	search_init = $('#public_newsletter_email').val();
+  $('#public_newsletter_email').live('focus', function(){
+    if($('#public_newsletter_email').attr('value') == search_init){
+      $('#public_newsletter_email').val('');
+    }
+  });
+
+  $('#public_newsletter_email').live('blur', function(){
+    if($('#public_newsletter_email').attr('value') == ''){
+      $('#public_newsletter_email').val(search_init);
+    }
+  });
+	/* *********** */
   /* selection */
   $('#weekly-selection-wrap .content-tabs a').live('click',function(){
     url = this.href;
