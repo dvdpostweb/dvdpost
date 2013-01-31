@@ -40,9 +40,6 @@ ul#output li a.essaigratuit {
   font-weight: bold;
   height: 53px;
   line-height: 54px;
-  position: absolute;
-  left: 20px;
-  top: 240px;
   width: 243px;
   text-transform: uppercase;
   text-align: center;
@@ -98,6 +95,11 @@ ul#output li .intro h2 {
 }
 #subscribe-wrap #subscribe p {
 color: #222B33;
+margin: 0;
+font-weight: bold;
+font-size: 14px;
+padding:0 !important;
+text-align:center;
 }
 
 #subscribe-wrap {
@@ -109,28 +111,27 @@ color: #222B33;
   background: none !important;
   float: right;
   padding: 22px 0 0 0 !important;
-  width: 280px;
+  width: 242px;
+  margin:0 36px;
 }
-
 #subscribe-wrap h3 {
   color: #3a450a;
   float: none !important;
   font-family: 'Open Sans Condensed',sans-serif;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
-ul#output li  p {
+ul#output #try_it #code{
   color: #fff;
   float: none !important;
   font-size: 12px;
   font-weight: bold;
-  position: absolute;
-  top: 305px;
-  margin-left:30px;
+  text-align:center;
+  margin: 10px 0 0 0;
 }
 
-ul#output li  p a {
+ul#output #try_it #code a {
   color: #fff;
   text-decoration:underline;
 }
@@ -214,7 +215,8 @@ ul#output li  p a {
 }
 
 ul#output li .caption {
-  left: 600px!important;
+  top: 269px !important;
+  left: 660px!important;
 }
 ul#output li .caption {
   bottom: 13px;
@@ -247,4 +249,10 @@ ul#output li .caption h4 {
 #slider-wrap {
 background: none repeat-y scroll 100% 0 white!important;
 padding: 14px 0 1px 14px;
+}
+#try_it
+{
+position: absolute;
+left: 20px;
+top: 240px;
 }
