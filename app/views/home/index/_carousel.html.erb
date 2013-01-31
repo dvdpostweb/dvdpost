@@ -5,7 +5,7 @@
 <% link = ENV['HOST_OK'] == "1" ? t('home.index.carousel_item.public') : t("home.index.carousel_item.link_#{carousel_item.id}") %>
 <% description = t("home.index.carousel_item_title.title_#{carousel_item.id}") %>
 <% name = t("home.index.carousel_item.name_#{carousel_item.id}") %>
-<% image = image_tag(carousel_item.image, :alt => title, :size => '932x328') %>
+<% image = image_tag(carousel_item.image, :alt => name, :size => '932x328') %>
 
 
 
