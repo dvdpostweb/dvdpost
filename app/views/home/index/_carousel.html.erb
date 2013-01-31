@@ -22,8 +22,10 @@
           <%= description %>
         </h4>
       </div>
-      <a href="<%= php_path('step1.php') %>" class="essaigratuit osc btn"><%= t '.try' %></a>
-      <p><%= t '.promo', :url => info_path(:page_name => :promo) %></p>
+      <div id="try_it">
+        <a href="<%= php_path('step1.php') %>" class="essaigratuit osc btn"><%= t '.try' %></a>
+        <div id="code"><%= t '.promo', :url => info_path(:page_name => :promo) %></div>
+      </div>
       <a href="<%= php_path('step1.php') %>"><%= image %></a>
     </li>
   </ul>
