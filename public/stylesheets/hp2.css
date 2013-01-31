@@ -241,3 +241,7 @@ ul#output li .caption h4 {
   padding-left: 30px;
 }
 
+#slider-wrap {
+background: none repeat-y scroll 100% 0 white!important;
+padding: 14px 0 1px 14px;
+}
