@@ -96,6 +96,9 @@ ul#output li .intro h2 {
 
   text-shadow: none !important;
 }
+#subscribe-wrap #subscribe p {
+color: #222B33;
+}
 
 #subscribe-wrap {
   background: url("../images/green-shadow2.gif") repeat-x scroll 0 0 transparent !important;
