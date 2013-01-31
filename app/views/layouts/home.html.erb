@@ -11,7 +11,10 @@
   <%= javascript 'jquery.featureList-1.0.0' %>
   <%= javascript 'json2' %>
   <%= javascript  "home_normal", :media => :all %>
-  
+<% end %>
+<% if params[:promo] == "2" && ENV['HOST_OK'] == "1" %>
+  <%= stylesheet  'hp2', :media => :all %>
+
 <% end %>
 <%= javascript 'products', 'reviews' %>
 

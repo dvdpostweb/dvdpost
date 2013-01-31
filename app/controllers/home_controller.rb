@@ -123,6 +123,7 @@ class HomeController < ApplicationController
         Marshal.dump(News.ordered.by_kind(params[:kind]).private.all(:limit => 4, :joins =>:contents, :conditions => { :news_contents => {:language_id => DVDPost.product_languages[I18n.locale], :status => status}}))
       end
     end
+    @newsletter = PublicNewsletter.new(params[:public_newsletter])
     News.class
     @news = Marshal.load(news_serial)
     landing_serial = when_fragment_expired "#{Rails.env}_landings_hp2_#{I18n.locale}_#{params[:kind]}_#{ENV['HOST_OK']}", 30.minutes.from_now.localtime do

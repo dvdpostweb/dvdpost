@@ -224,6 +224,9 @@ class ApplicationController < ActionController::Base
     end
 
     def public_behaviour
+      if !params[:promo].nil?
+        session[:promo] = params[:promo]
+      end  
       if !params[:later].nil?
         session[:later] = "later"
         cookies[:nb_pages_views] =  { :value => 0, :expires => 3.months.from_now }

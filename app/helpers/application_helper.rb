@@ -115,13 +115,13 @@ module ApplicationHelper
     prefix = mobile_request? ? "http://m." : "http://"
     case Rails.env
       when "production"
-        "#{prefix}public.dvdpost.com/#{i18n.locale}"
+        "#{prefix}public.dvdpost.com/#{I18n.locale}"
       when "pre_production"
-        "#{prefix}beta.public.dvdpost.com/#{i18n.locale}"
+        "#{prefix}beta.public.dvdpost.com/#{I18n.locale}"
       when "staging"
-        "#{prefix}staging.public.dvdpost.com/#{i18n.locale}"
+        "#{prefix}staging.public.dvdpost.com/#{I18n.locale}"
       when "development"
-        "#{prefix}public.dvdpost.dev/#{i18n.locale}"
+        "#{prefix}public.dvdpost.dev/#{I18n.locale}"
     end
   end
 

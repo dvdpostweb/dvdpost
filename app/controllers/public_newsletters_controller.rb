@@ -17,7 +17,7 @@ class PublicNewslettersController < ApplicationController
       cookies[:public_newsletter_id] = { :value => @newsletter.to_param, :expires => 2.months.from_now }
       flash[:notice] = t('.public_newsletters.create.email_save')
       respond_to do |format|
-        format.html {redirect_to root_path}
+        format.html {redirect_to root_path(:promo => params[:promo])}
         format.js {render :layout => false}
       end
     else
