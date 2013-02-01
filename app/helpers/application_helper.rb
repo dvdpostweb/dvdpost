@@ -129,10 +129,6 @@ module ApplicationHelper
     "http://insidedvdpost.blogspot.com/"
   end
 
-  def fb_url
-    "http://www.facebook.com/dvdpost"
-  end
-
   def twitter_url
     "http://twitter.com/dvdpost"
   end

@@ -583,11 +583,15 @@ font-size: 12px;
 }
 #subscribe-wrap
 {
-  margin:0 0 5px 0;
+  margin:0 -8px 5px -8px;
 }
 #subscribe-wrap .wrap {
-width: 593px;
+width: 601px;
 
+}
+#subscribe-wrap #subscribe
+{
+  width: 289px;
 }
 #subscribe-wrap h3 {
   font-size:23px;
