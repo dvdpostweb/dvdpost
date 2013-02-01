@@ -15,7 +15,7 @@ module HomeHelper
         when 'oscar'
           link_to image_tag("#{I18n.locale}/oscar.gif", :alt => 'Theme oscar'), themes_path(:page_name => 'oscars_cesar')
         when 'facebook'
-          link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), fb_url
+          link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), DVDPost.fb_url[I18n.locale]
         when 'community'
           link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsorships_path
         else

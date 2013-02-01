@@ -733,6 +733,9 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
 .adult #subscribe-wrap .wrap {
   background: url(../images/purple-shadow.gif) 0 0 repeat-x;
 }
+.adult #subscribe-wrap #promo {
+  color: #222B33 !important;
+}
 #subscribe-wrap h3 {
     color: #3A450A!important; 
     float: left;
@@ -741,6 +744,10 @@ background: url(/images/vodbtn.png) no-repeat scroll 0 -35px transparent;
     font-weight: normal!important; 
     line-height: 36px;
     width: 444px;
+}
+.adult #subscribe-wrap h3 {
+color: #222B33 !important;
+width: 435px;
 }
  #subscribe-wrap.nl h3 {
   font-size: 27px!important; 

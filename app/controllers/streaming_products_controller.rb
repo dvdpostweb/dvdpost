@@ -211,7 +211,7 @@ class StreamingProductsController < ApplicationController
   def faq
     @product = Product.find_by_imdb_id(params[:streaming_product_id])
     unless current_customer
-      @hide_menu = true
+      @hide_menu = false
       @customer_id = 0
     else
       @customer_id = current_customer.to_param

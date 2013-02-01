@@ -402,6 +402,14 @@ module DVDPost
         :en => 'http://www.surveymonkey.com/s/L87SHPF'
       })
     end
+    
+    def fb_url
+      HashWithIndifferentAccess.new.merge({
+        :fr => "http://www.facebook.com/dvdpost",
+        :nl => "http://www.facebook.com/pages/DVDPost-NL/534236409942040",
+        :en => "http://www.facebook.com/dvdpost"
+      })
+    end
 
     def analytics_code
       HashWithIndifferentAccess.new.merge({
