@@ -892,6 +892,24 @@ margin: 0 7px;
 {
   display:inline;
 }
+#info #footer .wrap
+{
+  display:block;
+}
+#footer .osc, h1, h2, h3, h4, h5 {
+font-family: 'Open Sans Condensed', sans-serif;
+}
+ #info #footer .wrap a {
+color: #566068;
+font-size: 14px;
+font-weight: bold;
+margin-left: 0;
+padding-left: 0;
+padding-top: 0;
+text-align: left;
+text-transform: none;
+font-weight:normal;
+}
 #info .wrap a {
 color: #212A31;
 font-size: 13px;
