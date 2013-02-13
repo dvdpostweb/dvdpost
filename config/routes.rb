@@ -145,7 +145,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :tickets do |ticket|
       ticket.resources :message_tickets, :only => [:create]
     end
-
+    localized.resource 'public_promotion', :only => [:edit, :update]
     localized.info '/info/:page_name' , :controller => :info
     #localized.themes '/themes/:page_name' , :controller => :themes
     localized.resources 'themes', :controller => :themes_events, :only => [:index, :show]

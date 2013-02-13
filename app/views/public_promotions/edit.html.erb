@@ -1,0 +1,8 @@
+<div id="promo_area2">
+  <p class="text_promo" ><%= t '.title' %></p>
+	<% form_tag public_promotion_path(), {:method => :put, :id => :public_promo} do %>
+    <%= text_field_tag "promotion" %>
+    	<input class="no_border_button public_promo_btn" name="imageField" src="http://www.dvdpost.be/images/jb/button_go.gif" type="image" align="absmiddle" border="0" >
+    	<div id="status"></div>
+  <% end %>
+</div>

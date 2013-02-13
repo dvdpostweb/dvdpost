@@ -13,8 +13,8 @@ class Activation < ActiveRecord::Base
   alias_attribute :auto_stop, :abo_auto_stop_next_reconduction
   alias_attribute :created_at, :activation_date
   
-  scope :by_name, lambda {|name| {:conditions => {:activation_code => name}}}
-  scope :available, lambda {{:conditions => ['activation_code_validto_date > ? or activation_code_validto_date is null', Time.now.to_s(:db)]}}
+  named_scope :by_name, lambda {|name| {:conditions => {:activation_code => name}}}
+  named_scope :available, lambda {{:conditions => ['(activation_code_validto_date > ? or activation_code_validto_date is null) and customers_id = 0', Time.now.to_s(:db)]}}
   
   def duration
     case duration_type

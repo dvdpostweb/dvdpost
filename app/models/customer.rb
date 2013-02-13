@@ -501,57 +501,6 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def create_token_ip(token, current_ip)
-    token_ip = TokenIp.create(
-      :token_id => token.id,
-      :ip => current_ip
-    )
-    if token_ip.id.blank?
-      error = Token.error[:query_rollback]
-    else
-      true
-    end 
-  end
-
-  def create_more_ip(token, current_ip)
-    if StreamingProductsFree.by_imdb_id(token.imdb_id).available.count > 0
-      Token.transaction do
-        more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
-        token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
-        if more_ip == false || token_ip.id.blank? 
-          raise ActiveRecord::Rollback
-          return {:token => nil, :error => Token.error[:query_rollback]}
-        else
-          return {:token => token, :error => nil}
-        end
-      end
-    else
-      if credits >= token.streaming_products.first.credits
-        abo_process = AboProcess.today.last
-        if abo_process 
-          customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
-        end
-        if !abo_process || (customer_abo_process || abo_process.finished?)
-          Token.transaction do
-            more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
-            result_history = remove_credit(token.streaming_products.first.credits,13)
-            token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
-            if more_ip == false || token_ip.id.blank? || result_history == false
-              raise ActiveRecord::Rollback
-              return {:token => nil, :error => Token.error[:query_rollback]}
-            else
-              return {:token => token, :error => nil}
-            end
-          end
-        else
-          return {:token => nil, :error => Token.error[:abo_process_error]}
-        end
-      else
-        return {:token => nil, :error => Token.error[:not_enough_credit]}
-      end
-    end
-  end
-
   def get_token(imdb_id)
     tokens.recent(2.week.ago.localtime, Time.now).find_all_by_imdb_id(imdb_id).last
   end
