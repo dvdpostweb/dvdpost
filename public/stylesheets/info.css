@@ -921,3 +921,24 @@ text-align: center;
 text-transform: uppercase;
 
 }
+ #info #top .wrap a {
+color: white;
+font-size: 12px;
+font-weight: normal;
+margin-left: 0;
+padding-left: 0;
+padding-top: 0;
+text-align: center;
+text-transform: none;
+}
+#info #top .wrap {
+display: block;
+}
+#info #top .wrap
+{
+  color: #4A5863;
+}
+#info #footer .wrap a:hover
+{
+  text-decoration:underline !important;
+}

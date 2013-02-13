@@ -198,8 +198,8 @@ width:101px;
 }
 #top a#logout {
   text-decoration: underline;
-  margin-left: 25px;
-  font-weight: bold;
+  margin-left: 25px !important;
+  font-weight: bold !important;
 }
 #lang {
   display: block;

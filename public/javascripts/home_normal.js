@@ -5,9 +5,9 @@ $(document).ready(function() {
 		transition_interval : 12000
 	});
 	/* newsletter  */
-	search_init = $('#public_newsletter_email').val();
+	search_init2 = $('#public_newsletter_email').val();
   $('#public_newsletter_email').live('focus', function(){
-    if($('#public_newsletter_email').attr('value') == search_init){
+    if($('#public_newsletter_email').attr('value') == search_init2){
       $('#public_newsletter_email').val('');
     }
   });

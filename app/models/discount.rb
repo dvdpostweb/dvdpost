@@ -16,8 +16,8 @@ class Discount < ActiveRecord::Base
   alias_attribute :next_abo_type_id, :next_abo_type
   alias_attribute :auto_stop, :abo_auto_stop_next_reconduction
   
-  scope :by_name, lambda {|name| {:conditions => {:discount_code => name}}}
-  scope :available, lambda {{:conditions => ['discount_validityto > ? or discount_validityto is null', Time.now.to_s(:db)]}}
+  named_scope :by_name, lambda {|name| {:conditions => {:discount_code => name}}}
+  named_scope :available, lambda {{:conditions => ['(discount_validityto > ? or discount_validityto is null) and discount_status = 1', Time.now.to_s(:db)]}}
   
   def duration
     case duration_type
