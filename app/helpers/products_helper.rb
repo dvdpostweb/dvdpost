@@ -458,7 +458,7 @@ module ProductsHelper
   end
 
   def expire_fragment(product)
-    id = product.to_param
+    id = product.id
     Rails.cache.delete "views/fr/products/product2_1_1_#{id}"
     Rails.cache.delete "views/nl/products/product2_1_1_#{id}"
     Rails.cache.delete "views/en/products/product2_1_1_#{id}"
