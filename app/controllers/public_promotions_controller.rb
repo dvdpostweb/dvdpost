@@ -15,7 +15,7 @@ class PublicPromotionsController < ApplicationController
       render :text => php_path("step1.php?test2&activation_code=#{params[:promotion]}");
     else
       respond_to do |format|
-        format.html
+        format.html {render :text => t('.public_promotion.update.error')}
         format.js {render :text => t('.public_promotion.update.error')}
       end
     end
