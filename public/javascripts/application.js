@@ -151,13 +151,20 @@ $(function() {
   };
   
   $(".public_promo_btn").live("click", function() {
-    loader = 'ajax-loader.gif';
-    $("#public_promo").ajaxSubmit(options_norm);
-    html_item =  $("#public_promo #status")
-    content = html_item.html();
-    loader = 'ajax-loader.gif';
-    html_item.html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
-    return false; // prevent default behaviour
+    if ($("#promotion").val()!=""){
+      loader = 'ajax-loader.gif';
+      $("#public_promo").ajaxSubmit(options_norm);
+      html_item =  $("#public_promo #status")
+      content = html_item.html();
+      loader = 'ajax-loader.gif';
+      html_item.html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
+    }
+    else
+    {
+      html_item =  $("#public_promo #status").html('')
+    }
+      return false; // prevent default behaviour
+    
   });
 });
 // Always send the authenticity_token with ajax
