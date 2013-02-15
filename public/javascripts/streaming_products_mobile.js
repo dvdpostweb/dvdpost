@@ -10,7 +10,9 @@ $(function() {
     $('.error').html('');
     $('#presentation').html("<div id='loading'>loading...</div>")
     $(this).hide()
-    $.ajax({dataType: 'html',
+    $.ajax(
+    {
+      dataType: 'html',
       url: $(this).attr('href'),
       type: 'GET',
       data: {},
@@ -22,7 +24,6 @@ $(function() {
         $('#presentation').html(content);
         $('.qualityvod').show();
       }
-      
     });
     return false;
   });

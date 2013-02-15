@@ -38,10 +38,12 @@ class StreamingProductsController < ApplicationController
       end
     end
     @streaming_free = streaming_free(@product)
+    Rails.logger.debug { "@@@#{request.format.inspect}" }
     respond_to do |format|
       
       
       format.html do
+        Rails.logger.debug { "@@@ici" }
         if @product
           if @vod_disable == "1" || Rails.env == "pre_production"
             if streaming_access?
@@ -70,6 +72,8 @@ class StreamingProductsController < ApplicationController
         end
       end
       format.js do
+        Rails.logger.debug { "@@@la" }
+        
         if streaming_access?
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
           if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip) && !current_customer.super_user? && !(/^192(.*)/.match(request.remote_ip)))
