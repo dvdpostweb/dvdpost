@@ -12,7 +12,7 @@ $(document).ready(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<img src='/images/"+loader+"'/>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       data: {},
@@ -30,7 +30,7 @@ $(document).ready(function() {
     set_page(url)
     html_item = $('#news-wrap');
     content = html_item.html()
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -52,7 +52,7 @@ $(document).ready(function() {
     $('#weekly-selection-wrap .content-tabs a').removeClass('active') 
     $(this).addClass('active')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -72,7 +72,7 @@ $(document).ready(function() {
     html_content = $('#selection-tabcontent-wrap .slides');
     content = html_content.html()
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -95,7 +95,7 @@ $(document).ready(function() {
     $('#tab-container li a.active').removeClass('active')
     $(this).addClass('active pie')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -117,7 +117,7 @@ $(document).ready(function() {
     link = $(this);
     link_content = link.html()
     $(this).html("<div style='height:24px; margin:9px 0 0 0'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -205,17 +205,25 @@ $(document).ready(function() {
   });
   if ($('#popup').html()!=undefined)
   {
+    url = $('#popup').html();
     jQuery.facebox(function() {
-      $.getScript($('#popup').html(), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
   }
   $(".review_more").live("click", function() {
     wishlist_item = $(this);
+    url = wishlist_item.attr('href')
     jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -228,7 +236,7 @@ $(document).ready(function() {
     if($("#"+name+" .action .img_load").attr('src') == '/images/ajax-loader.gif')
     {
       url = '/?action_popup=1&product_id='+product_id;
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: url,
         type: 'GET',
         success: function(data) {

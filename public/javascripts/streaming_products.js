@@ -66,7 +66,7 @@ $(function() {
     $('#player').html('')
     $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
     $(this).hide()
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: $(this).attr('href'),
       type: 'GET',
       data: {},
@@ -127,11 +127,16 @@ $(function() {
   }
  else if ($('#warning').html()!=undefined)
   {
+    url = $('#warning').html();
     jQuery.facebox(function() {
-      $.getScript($('#warning').html(), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
+    
   }
   $(".stars .star, #cotez .star").live("click", function() {
     url = $(this).parent().attr('href');
@@ -142,7 +147,7 @@ $(function() {
       loader = 'black-'+loader;
     }
     html_item.html("<img src='/images/"+loader+"'/>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},
@@ -199,19 +204,17 @@ $(function() {
     }
   });
   $("#report").live("click", function() {
-    url = $(this);
+    url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
+    
     return false;
-  });
-  var options = {};
-  $('.content #submit_report').live("click", function(){
-    $('#submit_align').html('<div align="right" style="margin:0 10px 0 0"><img src=\'/images/ajax-loader.gif\'/></div>')
-    $('form.#new_ticket').ajaxSubmit(options);
-    return false; // prevent default behaviour
   });
   
   $("#cancel").live("click", function(){
@@ -250,7 +253,7 @@ $(function() {
       cycle = 2
     }
     root_item = html_item.parent();
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: $(this).attr('href'),
       type: 'GET',
       data: {},
@@ -268,7 +271,7 @@ $(function() {
     html_item = $('#all_versions_data');
     content = html_item.html();
     html_item.html("<div ><div style='margin: 0 auto; width:32px'><img src='/images/loading.gif'/></div></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: $(this).attr('href'),
       type: 'GET',
       data: {},

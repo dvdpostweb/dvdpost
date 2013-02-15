@@ -44,8 +44,11 @@ $(function() {
     url = $(this).attr('href');
     url += '?in='+in_name+'&out='+out_name+'&cable='+cable_type+'&image_in='+in_image+'&image_out='+out_image
     jQuery.facebox(function() {
-      $.getScript(url, function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -56,7 +59,7 @@ $(function() {
     content =  html_item.html()
     loader = 'ajax-loader.gif';
     html_item.html("<img src='/images/"+loader+"' />");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url+"?cable="+cable_type,
       type: 'POST',
       data: {},
@@ -213,9 +216,13 @@ $(function() {
   } 
   $("#billi_modal").live("click", function() {
     wishlist_item = $(this);
+    url = wishlist_item.attr('href')
     jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;

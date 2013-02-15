@@ -1,5 +1,6 @@
 $(function() {
   var options_change_priority = {
+    dataType: 'script'
 	};
   $(".wishlist_item_priority").live("click", function() {
     url = $(this).parent().parent().attr('action')
@@ -19,7 +20,7 @@ $(function() {
   
 	
   
-  var options = {};
+  var options = {dataType: 'script'};
   $('.remvove_from_wishlist').live("click", function(){
     url = $(this).parent().parent().attr('action')
     value = $(this).val()
@@ -70,7 +71,7 @@ $(function() {
       parent_div = $(this).parent();
       content = parent_div.html();
       parent_div.html("<img src='/images/ajax-loader.gif' />");
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: $(this).attr('href'),
         type: 'delete',
         data: {},
@@ -108,7 +109,7 @@ $(function() {
     html_item = $(this);
     content = html_item.html();
     html_item.html("Loading ...");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: html_item.attr('href'),
       type: 'GET',
       success: function(data) {
@@ -125,10 +126,14 @@ $(function() {
   $('.report_transit_item, .report_history_item').live('click', function(){
     url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url, function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
+    
     return false;
   });
   
@@ -140,7 +145,7 @@ $(function() {
     root_item = $(this).parent().parent().parent();
     content = html_item.parent().html();
     html_item.parent().html("Loading...");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: html_item.attr('href'),
       type: 'GET',
       success: function(data) {
@@ -152,9 +157,6 @@ $(function() {
     });
     return false;
   });
-  var options = {
-    	
-	};
 	
   $('.add_to_wishlist_button').live("click", function(){
     loader = 'ajax-loader.gif';
@@ -167,7 +169,7 @@ $(function() {
       content = $(this).html();
       $(this).removeClass('btn');
       $(this).html("<div style='height:31px'><img src='/images/ajax-loader.gif' /></div>");
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: $(this).attr('href'),
         type: 'POST',
         data: {},
@@ -186,7 +188,7 @@ $(function() {
       html_item=$(this)
       $(this).removeClass('btn_remove');
       $(this).html("<div style='height:31px'><img src='/images/ajax-loader.gif' /></div>");
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: $(this).attr('href'),
         type: 'DELETE',
         data: {},
@@ -204,7 +206,7 @@ $(function() {
     url = this.href;
     html_item = $('#popular_tab');
     content = html_item.html()
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -221,7 +223,7 @@ $(function() {
     url = this.href;
     html_item = $('#popular_tab');
     content = html_item.html()
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -243,7 +245,7 @@ $(function() {
       loader = 'black-'+loader;
     }
     html_item.html("<img src='/images/"+loader+"'/>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},

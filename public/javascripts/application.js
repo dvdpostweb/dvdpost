@@ -51,11 +51,16 @@ $(function() {
 
   $(".streaming_action").live("click", function() {
     wishlist_item = $(this);
+    url = wishlist_item.attr('href')
     jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
+    
     return false;
   });
 
@@ -70,12 +75,15 @@ $(function() {
 
   $("#condition_promo").live("click", function() {
     a = $(this);
+    url = a.attr('href')
     jQuery.facebox(function() {
-      $.getScript(a.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
-    });
-    return false;
+    });    return false;
   });
   $('#search_filter').live('click',function(){
     $('#search_filter_detail').toggle()
@@ -100,8 +108,11 @@ $(function() {
   $('#codePromo, #codePromo2').live('click', function(){
     url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url, function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -117,10 +128,14 @@ $(function() {
       $.facebox.settings.opacity = 0.4; 
       $.facebox.settings.modal = true;
     }
+    url = $('.action_face').html()
+    set_page(url)
     jQuery.facebox(function() {
-      set_page($('.action_face').html())
-      $.getScript($('.action_face').html(), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
   }
@@ -132,6 +147,8 @@ $(function() {
   });
   var options_norm = {
     success: show_add_norm,
+    dataType: 'html'
+    
   }
   function show_add_norm(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){

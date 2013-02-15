@@ -1,5 +1,6 @@
 class ReviewRatingsController < ApplicationController
   def create
+    Rails.logger.debug { "@@@#{request.format.js?} #{request.format.html?} #{request.format.inspect}" }
     rate = params[:rate].to_i
 
     @review = Review.find(params[:review_id])
@@ -14,6 +15,7 @@ class ReviewRatingsController < ApplicationController
                            :value => rate)
     respond_to do |format|
        format.js do
+         Rails.logger.debug { "@@@ici" }
          if params[:all]
            render :partial => 'reviews/index/critics_new', :locals => {:review => @review}
          else

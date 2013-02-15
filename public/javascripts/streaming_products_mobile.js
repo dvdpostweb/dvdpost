@@ -10,7 +10,7 @@ $(function() {
     $('.error').html('');
     $('#presentation').html("<div id='loading'>loading...</div>")
     $(this).hide()
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: $(this).attr('href'),
       type: 'GET',
       data: {},

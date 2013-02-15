@@ -6,7 +6,7 @@ $(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},
@@ -49,7 +49,7 @@ $(function() {
     {
       loader = 'ajax-loader.gif';
       html_item.html("<img src='/images/"+loader+"'/>");
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: url,
         type: 'POST',
         data: {},
@@ -69,7 +69,7 @@ $(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},
@@ -88,7 +88,7 @@ $(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},
@@ -108,7 +108,7 @@ $(function() {
     content = html_item.html();
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:20px'><img src='/images/"+loader+"'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},
@@ -122,7 +122,8 @@ $(function() {
     return false;
   });
   var options_norm = {
-    success: show_add_norm
+    success: show_add_norm,
+    dataType: 'html'
   }
   function show_add_norm(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){
@@ -182,27 +183,35 @@ $(function() {
     
   }
   $(".modification_account").live("click", function() {
-    url = $(this);
+    url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
   });
   $(".modification_address").live("click", function() {
-    url = $(this);
+    url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
   });
   var options = {
-    success: showResponse  // post-submit callback
+    success: showResponse,
+    dataType: 'html'  // post-submit callback
   };
   var options2 = {
+    dataType: 'script'  // post-submit callback
   };
   $('#submit_account').live("click", function(){
     loader = 'ajax-loader.gif';
@@ -235,10 +244,13 @@ $(function() {
   });
 
   $(".suppendre").live("click", function() {
-    url = $(this);
+    url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -254,7 +266,7 @@ $(function() {
   $('#edit_nickname #bt_valid').live("click", function(){
     loader = 'ajax-loader.gif';
     $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
-    $('.content form').ajaxSubmit(options);
+    $('.content form').ajaxSubmit(options2);
     return false; // prevent default behaviour
   });
   /*$('#new_avatar #bt_valid').live("click", function(){

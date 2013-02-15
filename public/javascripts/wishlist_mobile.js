@@ -1,5 +1,6 @@
 $(function() {
   var options_change_priority = {
+    dataType: 'script'
 	};
   $(".wishlist_item_priority").live("click", function() {
     url = $(this).parent().parent().attr('action')
