@@ -66,7 +66,8 @@ $(function() {
     $('#player').html('')
     $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
     $(this).hide()
-    $.ajax({dataType: 'html',
+    $.ajax({
+      dataType: 'html',
       url: $(this).attr('href'),
       type: 'GET',
       data: {},

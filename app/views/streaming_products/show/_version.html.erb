@@ -18,7 +18,7 @@
 	</td>
 	<td width="<%= mobile_request? ? 150 : 211 %>">
 	  <p>
-	    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path(:id => version.imdb_id, :streaming_product_id => version.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+	    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path({:id => version.imdb_id, :streaming_product_id => version.to_param, :code => params[:code], :format => :js}), :class => 'btn_play  qualityvod' %>
 	  </p>
 	</td>
 </tr>

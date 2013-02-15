@@ -6,7 +6,9 @@
   </title>
   <link rel="SHORTCUT ICON" href="/images/favicon_<%= params[:kind] %>.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  <%= javascript_include_tag 'http://code.jquery.com/jquery-1.9.1.min.js' %>
+	<script src="http://code.jquery.com/jquery-migrate-1.1.0.min.js"></script>
+	
   <%= javascript_include_tag 'application_mobile' %>
   
   <%= stylesheet_link_tag 'reset', :media => :all %>
