@@ -13,7 +13,8 @@ $(function() {
     }
   }
   var options_review = {
-    success: show_review
+    success: show_review,
+    dataType: 'html'
   }  
   if(($('#image_5').attr('src')!=undefined))
   {
@@ -134,12 +135,6 @@ $(function() {
   $("#tab1 #pagination a").live("click", function() {
     $.setFragment({ reviews_page: $.queryString(this.href).reviews_page })
   });
-  $(document).bind("fragmentChange.reviews_page", function() {
-    $.getScript($.queryString(document.location.href, { 'reviews_page': $.fragment().reviews_page }));
-  });
-  if ($.fragment().reviews_page) {
-    $(document).trigger("fragmentChange.reviews_page");
-  }
 
   $("#tab-content-movie #pagination a, #trailer_pagination a").live("click", function() {
     html_item = $(this);
@@ -148,7 +143,7 @@ $(function() {
     root_item = html_item.parent().parent().parent();
     
     set_page(html_item.attr('href'))
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: html_item.attr('href'),
       type: 'GET',
       data: {},
@@ -176,7 +171,7 @@ $(function() {
     res = regex.exec(url)
     send_event('Movie', 'ItemRated', res[1], res[2])
     
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'POST',
       data: {},
@@ -232,11 +227,14 @@ $(function() {
 
   $(".add_to_wishlist_button").live("click", function() {
     wishlist_item = $(this);
-    set_page(wishlist_item.attr('href'))
-    
+    url = wishlist_item.attr('href')
+    set_page(url)
     jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -250,7 +248,7 @@ $(function() {
       loader = 'black-'+loader;
     }
     html_item.html("<div class='load'><img src='/images/"+loader+"' /></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: this.href,
       type: 'DELETE',
       data: {},
@@ -270,7 +268,7 @@ $(function() {
     loader = 'ajax-loader.gif';
     html_item.html("<div style='height:15px'><img src='/images/"+loader+"'/></div>");
     set_page(this.href)
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: this.href,
       type: 'POST',
       data: {},
@@ -292,7 +290,7 @@ $(function() {
     set_page(this.href)
     $.ajax({
       url: this.href,
-      dataType: 'script',
+      dataType: 'html',
       type: 'GET',
       data: {},
       success: function(data) {
@@ -314,7 +312,7 @@ $(function() {
     set_page(this.href)
     $.ajax({
       url: this.href,
-      dataType: 'script',
+      dataType: 'html',
       type: 'GET',
       data: {},
       success: function(data) {
@@ -405,7 +403,7 @@ $(function() {
     html_item = $('#carousel-wrap');
     content = html_item.html();
     set_page(url)
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -423,7 +421,7 @@ $(function() {
     html_item = $('#carousel-wrap');
     content = html_item.html();
     set_page(url)
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -442,7 +440,7 @@ $(function() {
     html_item = $('.title-vod');
     content = html_item.html()
     set_page(url)
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -460,7 +458,7 @@ $(function() {
     html_item = $('.title-vod');
     content = html_item.html()
     set_page(url)
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {
@@ -477,18 +475,24 @@ $(function() {
   $('.trailer').live('click', function(){
     url = $(this).attr('href');
     jQuery.facebox(function() {
-      $.getScript(url, function(data) {
-        set_page(url)
-        var regex = new RegExp(".*/products/([0-9]*).*");
-        res = regex.exec(url)
-        send_event('Movie', 'ViewTrailer', res[1],'')
-        
-        jQuery.facebox(data);
-      });
+      $.ajax({
+          url: url,
+          dataType: 'html',
+          type: 'GET',
+          success: function(data) 
+          { 
+            set_page(url)
+            var regex = new RegExp(".*/products/([0-9]*).*");
+            res = regex.exec(url)
+            send_event('Movie', 'ViewTrailer', res[1],'')
+
+            jQuery.facebox(data); 
+          }
+        });
     });
     return false;
   });
-  var options = {};
+  var options = {dataType: 'html'};
   $("#review_submit").live('click',function(){
     value = parseInt($('#review_rating').attr('value'),10);
     if( value == 0 || value > 5 )
@@ -507,7 +511,7 @@ $(function() {
       postToFeed(t, i, local, id, title, 'www.dvdpost.be' );
     }
     set_page($("#new_review").attr('action'))
-    $("#new_review").ajaxSubmit(options);
+    $("#new_review").ajaxSubmit({dataType: 'script'});
     $("#review_submit").parent().html("<div style='height:42px'><img src='/images/ajax-loader.gif'/></div>")
     return false;
   });
@@ -522,7 +526,7 @@ $(function() {
     $(this).hide();
   });
   
-  var options = {};
+  var options = {dataType: 'script'};
   $('.new_wishlist_item .item, .new_wishlist_item .serie').live("click", function(){
     
     loader = 'ajax-loader.gif';
@@ -533,14 +537,13 @@ $(function() {
     }
     product_id = $(this).parents('.new_wishlist_item').children('#wishlist_item_product_id').val()
     set_page($(this).parents('.new_wishlist_item').attr('action')+ "/products/" + product_id +"?recommendation="+$(this).parents('.new_wishlist_item').children('#wishlist_item_wishlist_source_id').val())
-    radio_value = $('input[name=wishlist_item[priority]]:checked', '#new_wishlist_item').val()
-    
+    radio_value = $(this).parent().parent().children('.col4').children('input:checked').val()
     send_event('Movie', 'AddToWishlist', res[1], radio_value)
     $(this).parents('.new_wishlist_item').ajaxSubmit(options);
     $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
     return false; // prevent default behaviour
   });
-  var options = {};
+  var options = {dataType: 'script'};
   $('.remvove_from_wishlist').live("click", function(){
     
     url = $(this).parents('.remvove_from_wishlist_form').attr('action')

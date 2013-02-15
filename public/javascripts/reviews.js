@@ -1,10 +1,14 @@
 $(function() {
   $("a#add_new_review, .add_reviews").live("click", function() {
     review = $(this);
+    url = review.attr('href')
     set_page(review.attr('href'))
     jQuery.facebox(function() {
-      $.getScript(review.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -58,9 +62,9 @@ $(function() {
     review_id = $(this).attr('review_id');
     html_item = $('#critique'+review_id);
     content = html_item.html();
-    set_page(this.href)
-    $.ajax({
-      url: this.href,
+    set_page($(this).attr('href'))
+    $.ajax({dataType: 'html',
+      url: $(this).attr('href'),
       type: 'POST',
       data: {},
       success: function(data) {

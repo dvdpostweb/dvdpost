@@ -28,8 +28,9 @@ $(document).ready(function() {
     $('#weekly-selection-wrap .content-tabs a').removeClass('active') 
     $(this).addClass('active')
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+        $.ajax({
       url: url,
+      dataType: 'html',
       type: 'GET',
       success: function(data) {
         html_item.replaceWith(data);
@@ -47,13 +48,14 @@ $(document).ready(function() {
     html_content = $('#weekly-selection-wrap .jc');
     content = html_content.html()
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+        $.ajax({
       url: url,
+      dataType: 'html',
       type: 'GET',
       success: function(data) {
         html_item.replaceWith(data);
       },
-      error: function() {
+      error: function(data) {
         html_content.html(content);
       }
     });
@@ -71,8 +73,9 @@ $(document).ready(function() {
    $('#community-wrap li a.active').removeClass('active')
    $(this).addClass('active pie')
    html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-   $.ajax({
+       $.ajax({
      url: url,
+     dataType: 'html',
      type: 'GET',
      success: function(data) {
        html_item.html(data);
@@ -85,9 +88,13 @@ $(document).ready(function() {
  });
  $(".review_more").live("click", function() {
    wishlist_item = $(this);
+   url = wishlist_item.attr('href');
    jQuery.facebox(function() {
-     $.getScript(wishlist_item.attr('href'), function(data) {
-       jQuery.facebox(data);
+     $.ajax({
+       url: url,
+       dataType: 'html',
+       type: 'GET',
+       success: function(data) { jQuery.facebox(data); }
      });
    });
    return false;
@@ -101,8 +108,9 @@ $(document).ready(function() {
    link = $(this);
    link_content = link.html()
    $(this).html("<div style='height:24px; margin:9px 0 0 0'><img src='/images/ajax-loader.gif'/></div>");
-   $.ajax({
+       $.ajax({
      url: url,
+     dataType: 'html',
      type: 'GET',
      success: function(data) {
        /*content += data
@@ -125,8 +133,9 @@ $('#actualites-wrap .pagination a').live('click',function(){
   html_content = $('#actualites-wrap .jc')
   $(html_content).html("<div style='height:24px; margin:9px 0 0 0'><img src='/images/ajax-loader.gif'/></div>");
   content = html_content.html()
-  $.ajax({
+      $.ajax({
     url: url,
+    dataType: 'html',
     type: 'GET',
     success: function(data) {
       html_item.replaceWith(data);
@@ -148,8 +157,9 @@ $('#actualites-wrap .pagination a').live('click',function(){
     if($("#"+name+" .action .img_load").attr('src') == '/images/ajax-loader.gif')
     {
       url = '/?action_popup=1&product_id='+product_id;
-      $.ajax({
+          $.ajax({
         url: url,
+        dataType: 'html',
         type: 'GET',
         success: function(data) {
           $("#"+name+" .action").html(data);

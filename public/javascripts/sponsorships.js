@@ -45,18 +45,26 @@ $(function() {
 
   $("#modal_invatation, #modal_invatation2").live("click", function() {
     wishlist_item = $(this);
+    url = wishlist_item.attr('href')
     jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
   });
   $(".content #summer .btn").live("click", function() {
     wishlist_item = $(this);
+    url = wishlist_item.attr('html')
     jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -87,7 +95,8 @@ $(function() {
     return false;
   })
   var options = {
-    	success: showResponse  // post-submit callback
+    	success: showResponse,
+    	dataType: 'html'
 	};
 	function showResponse(responseText, statusText)  {
     	$('#additional_div').html(responseText);
@@ -99,7 +108,8 @@ $(function() {
     return false; // prevent default behaviour
   });
   var options_email = {
-    	success: showResponseEmail  // post-submit callback
+    	success: showResponseEmail,
+    	dataType: 'html'
 	};
 	function showResponseEmail(responseText, statusText)  {
     	$('#emailer').html(responseText);

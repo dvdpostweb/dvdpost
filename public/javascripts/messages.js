@@ -25,9 +25,13 @@ $(function() {
 
   $('#new_message').live('click', function() {
     messages_item = $(this);
+    messages_item.attr('href')
     jQuery.facebox(function() {
-      $.getScript(messages_item.attr('href'), function(data) {
-        jQuery.facebox(data);
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data); }
       });
     });
     return false;
@@ -38,7 +42,7 @@ $(function() {
       parent_trash = $(this).parent()
       content = parent_trash.html();
       parent_trash.html("<img src='/images/ajax-loader.gif' />");
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: $(this).attr('value'),
         type: 'DELETE',
         data: {},

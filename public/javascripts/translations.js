@@ -17,7 +17,7 @@ $(function() {
       } else {
         method = 'POST';
       }
-      $.ajax({
+      $.ajax({dataType: 'html',
         url: url,
         type: method,
         data: ({'translation[text]': value}),

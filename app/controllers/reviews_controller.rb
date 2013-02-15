@@ -42,6 +42,7 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    Rails.logger.debug { "@@@#{request.format.js?} #{request.format.html?} #{request.format.inspect}" }
     begin
       @product = Product.both_available.find(params[:product_id])
       params[:review][:text] = params[:review][:text].gsub(/\n/, '').gsub(/\r/, '').gsub(//, "'").gsub(//,'"').gsub(//,'"').gsub(//,'...').gsub(//,'&oelig;').gsub(/«/,'"').gsub(/»/,'"')

@@ -38,7 +38,7 @@ $(document).ready(function() {
     html_content = $('#weekly-selection-wrap .carousel-wrap');
     content = html_content.html()
     html_content.html("<div style='height:42px;'><img src='/images/ajax-loader.gif'/></div>");
-    $.ajax({
+    $.ajax({dataType: 'html',
       url: url,
       type: 'GET',
       success: function(data) {

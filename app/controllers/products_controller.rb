@@ -117,6 +117,7 @@ class ProductsController < ApplicationController
     user_agent = UserAgent.parse(request.user_agent)
     @tokens = current_customer.get_all_tokens_id(params[:kind], @product.imdb_id) if current_customer
     @filter = get_current_filter({})
+    Rails.logger.debug { "@@@#{request.format.js?} #{request.format.html?} #{request.format.inspect}" }
     unless request.format.js?
       @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
       data = @product.description_data(true)
@@ -239,6 +240,7 @@ class ProductsController < ApplicationController
   end
 
   def trailer
+    Rails.logger.debug { "@@@#{request.format.js?} #{request.format.html?} #{request.format.inspect}" }
     unless mobile_request?
       trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     else
@@ -247,6 +249,8 @@ class ProductsController < ApplicationController
     Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip)
     respond_to do |format|
       format.js   {
+        Rails.logger.debug { "@@@ici" }
+        
         if trailer.first
           render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}
         else
@@ -254,6 +258,7 @@ class ProductsController < ApplicationController
         end
       }
       format.html do
+        Rails.logger.debug { "@@@la" }
         @trailer = trailer
         if trailer.first && trailer.first.url
           redirect_to trailer.first.url

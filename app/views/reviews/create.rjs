@@ -1,13 +1,17 @@
-flash.discard
-page["body"].trigger('close.facebox')
+logger.debug("ok#{flash[:notice]}")
 if flash[:notice]
+  Rails.logger.debug { "@@@ici" }
   page << "if ($('.notice').length == 0){"
+    Rails.logger.debug { "@@@k" }
     page["#wrap"].prepend("<div class='flash_message'><div class='notice'>#{flash[:notice]}</div></div>")
     page[".notice"].css('height','1px')
     page[".notice"].css('padding','0')
     page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
     
   page << "}else{"
+   Rails.logger.debug { "@@@new" }
     page["#wrap .notice"].html(flash[:notice])
   page << "}"
 end
+flash.discard
+page["body"].trigger('close.facebox')

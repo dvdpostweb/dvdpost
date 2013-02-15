@@ -2,7 +2,7 @@
 $(function() {
   // Ajax history, only works on the product.reviews for now
   $('.shop_action').live('click',function(){
-    $(this).parent().parent().ajaxSubmit();
+    $(this).parent().parent().ajaxSubmit({dataType: 'script'});
     $(this).parent().html("<div style='height:31px'><img src='/images/ajax-loader.gif' /></div>")
     return false;
   });
