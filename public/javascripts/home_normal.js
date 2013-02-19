@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   $('#public_newsletter_email').live('blur', function(){
     if($('#public_newsletter_email').attr('value') == ''){
-      $('#public_newsletter_email').val(search_init);
+      $('#public_newsletter_email').val(search_init2);
     }
   });
 	/* *********** */
