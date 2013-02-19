@@ -25,7 +25,7 @@ $(function() {
 
   $('#new_message').live('click', function() {
     messages_item = $(this);
-    messages_item.attr('href')
+    url = messages_item.attr('href')
     jQuery.facebox(function() {
       $.ajax({
         url: url,
