@@ -110,7 +110,7 @@ $(document).ready(function() {
    $(this).html("<div style='height:24px; margin:9px 0 0 0'><img src='/images/ajax-loader.gif'/></div>");
        $.ajax({
      url: url,
-     dataType: 'html',
+     dataType: 'script',
      type: 'GET',
      success: function(data) {
        /*content += data
