@@ -1,4 +1,4 @@
-<% path = ENV['HOST_OK'] == "1" ? php_path('step1.php') : carousel_path(carousel_item) %>
+<% path = ENV['HOST_OK'] == "1" ? php_path('step1.php?emplacement=home1') : carousel_path(carousel_item) %>
 <% link = ENV['HOST_OK'] == "1" ? t('home.index.carousel_item.public') : t("home.index.carousel_item.link_#{carousel_item.id}") %>
 <% title = t("home.index.carousel_item_title.title_#{carousel_item.id}") %>
 <% name = t("home.index.carousel_item.name_#{carousel_item.id}") %>

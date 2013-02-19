@@ -1,7 +1,7 @@
 <% if params[:promo] == "2" && ENV['HOST_OK'] == "1" %>
 <% carousel_item = carousel[rand(carousel.count)] %>
 
-<% path = ENV['HOST_OK'] == "1" ? php_path('step1.php') : carousel_path(carousel_item) %>
+<% path = ENV['HOST_OK'] == "1" ? php_path('step1.php?emplacement=home2') : carousel_path(carousel_item) %>
 <% link = ENV['HOST_OK'] == "1" ? t('home.index.carousel_item.public') : t("home.index.carousel_item.link_#{carousel_item.id}") %>
 <% name = t("home.index.carousel_item_title.title_#{carousel_item.id}") %>
 <% description = t("home.index.carousel_item.name_#{carousel_item.id}") %>
@@ -23,10 +23,10 @@
         </h4>
       </div>
       <div id="try_it">
-        <a href="<%= php_path('step1.php') %>" class="essaigratuit osc btn"><%= t '.try' %></a>
+        <a href="<%= path %>" class="essaigratuit osc btn"><%= t '.try' %></a>
         <div id="code"><%= t '.promo', :url => info_path(:page_name => :promo) %></div>
       </div>
-      <a href="<%= php_path('step1.php') %>"><%= image %></a>
+      <a href="<%= path %>"><%= image %></a>
     </li>
   </ul>
 </div>

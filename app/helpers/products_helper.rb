@@ -493,7 +493,7 @@ module ProductsHelper
     #  end
     #end
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.rent'), products_path(:filter => :vod, :sort => :token_month, :limit => 20), :class => params[:filter] == "vod" && params[:sort] == "token_month" ? :actived : ''
+      link_to t('products.left_column.rent'), products_path(:filter => :vod, :sort => :token_month, :limit => 40), :class => params[:filter] == "vod" && params[:sort] == "token_month" ? :actived : ''
     end
     if params[:kind] == :adult
       html_content << content_tag(:li, :class => :list) do
@@ -543,7 +543,7 @@ module ProductsHelper
   def left_column(params)
     html_content = []
     html_content << content_tag(:li, :class => :list) do
-      link_to t('products.left_column.rent'), products_path(:sort => :most_viewed, :limit => 20), :class => params[:filter] != "vod" && params[:sort] == "most_viewed" ? :actived : ''
+      link_to t('products.left_column.rent'), products_path(:sort => :most_viewed, :limit => 40), :class => params[:filter] != "vod" && params[:sort] == "most_viewed" ? :actived : ''
     end
     if params[:kind] == :adult
       html_content << content_tag(:li, :class => :list) do
