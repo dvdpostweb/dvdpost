@@ -1,6 +1,8 @@
 <div id="tab-content-3" class="tab-content pie">
   <p class="intro"><%= t '.title' %></p>
   <ul id="coeur-content" class="comm-reaction">
+    <% Rails.logger.debug { "@@@#{@data.inspect}" }%>
+    <% Rails.logger.debug { "@@@#{@data.size}" }%>
     <%= render :partial => "/home/index/controverse_item", :collection => @data %>
   </ul>
   <%= render :partial => "home/index/pagination", :locals => {:data => data, :kind => DVDPost.home_review_types.invert["CONTROVERSE_RATE"], :precision => nil} %>

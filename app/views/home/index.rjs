@@ -21,9 +21,9 @@ case DVDPost.home_review_types[@review_kind]
     
   when DVDPost.home_review_types[:controverse_rate]
     page["#review_tab a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
-    content ="<ul class='clearfix content_item'    style='display:none'>#{render :partial => '/home/index/controverse_item', :collection => @data}</ul></ul>"
-    page["#review_tab .content_item:last"].after(content)
-    page["#review_tab .content_item:last"].slideDown(1000)
+    content ="<ul id='coeur-content' class='comm-reaction' style='display:none'>#{render :partial => '/home/index/controverse_item', :collection => @data}</ul></ul>"
+    page["#review_tab .comm-reaction:last"].after(content)
+    page["#review_tab .comm-reaction:last"].slideDown(1000)
     
   else
     page["#review_tab a.next_page"].replaceWith render :partial => '/home/index/pagination', :locals => {:data => @data, :kind => @review_kind, :precision => @precision}
