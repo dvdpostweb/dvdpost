@@ -11,8 +11,6 @@ class Suspension < ActiveRecord::Base
     duration.push(14, :two_weeks  )
     duration.push(21, :tree_weeks )
     duration.push(30, :one_months )
-    duration.push(60, :two_months )
-    duration.push(90, :tree_months)
     duration
   end
 end
