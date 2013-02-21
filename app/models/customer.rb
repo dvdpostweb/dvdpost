@@ -90,6 +90,7 @@ class Customer < ActiveRecord::Base
   has_many :gifts_history, :foreign_key => :customers_id
   has_many :additional_card, :foreign_key => :customers_id
   has_many :tokens
+  has_many :suspensions
   
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
   has_many :credit_histories, :foreign_key => :customers_id
@@ -171,14 +172,22 @@ class Customer < ActiveRecord::Base
     suspension_status == 2
   end
 
+  def holidays_suspended?
+    suspension_status == 1
+  end
+
   def suspended_notification
-    case subscription_payment_method.to_param.to_i
-    when DVDPost.payment_methods[:credit_card]
-      I18n.t('customer.cc_paymet_alert')
-    when DVDPost.payment_methods[:domicilation]
-      I18n.t('customer.domiciliation_paymet_alert')
+    if payment_suspended?
+      case subscription_payment_method.to_param.to_i
+      when DVDPost.payment_methods[:credit_card]
+        I18n.t('customer.cc_paymet_alert')
+      when DVDPost.payment_methods[:domicilation]
+        I18n.t('customer.domiciliation_paymet_alert')
+      else
+        I18n.t('customer.other_paymet_alert')
+      end
     else
-      I18n.t('customer.other_paymet_alert')
+      I18n.t('customer.holidays_suspended', :date => suspensions.holidays.last.date_end.strftime('%d/%m/%Y'))
     end
   end
 

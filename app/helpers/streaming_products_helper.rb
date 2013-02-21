@@ -27,7 +27,7 @@ module StreamingProductsHelper
 
   def message_streaming(token, free, streaming)
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
-    if !current_customer.payment_suspended?
+    if !current_customer.suspended?
       if free[:status] == false
         if current_customer.abo_active == 0
           if current_customer.beta_test
@@ -36,7 +36,8 @@ module StreamingProductsHelper
             "<div class ='attention_vod' id ='customer_not_activated'>#{t '.customer_not_activated'}</div>"
           end
         elsif (current_customer.credits < streaming.credits) && (token.nil? || !token.validate?(request.remote_ip))
-          "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
+          nb_credit = "#{streaming.credits} #{ streaming.credits == 1 ? t('customer.credit') : t('customer.credits')}"
+          "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :credits => nb_credit, :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
         elsif token_status == Token.status[:expired]
           "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
         end
@@ -44,7 +45,11 @@ module StreamingProductsHelper
         "<div class ='attention_vod' id ='old_token'>#{t '.already_used'}</div>"
       end
     else
-      "<div class='attention_vod' id=''>#{t '.customer_suspended'}</div>"
+      if current_customer.payment_suspended?
+        "<div class='attention_vod' id=''>#{t '.customer_payment_suspended'}</div>"
+      else
+        "<div class='attention_vod'>#{t('.customer_holidays_suspended', :date => current_customer.suspensions.holidays.last.date_end.strftime('%d/%m/%Y')) }</div>"
+      end
     end
   end
       
@@ -63,9 +68,11 @@ module StreamingProductsHelper
       when Token.error[:abo_process_error] then
         t('.abo_process')
       when Token.error[:not_enough_credit] then
-        t('.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param))
+        t('.credit_empty', :credits => "1 #{t('customer.credit')}", :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param))
       when Token.error[:user_suspended] then
         t('.customer_suspended')
+      when Token.error[:user_holidays_suspended] then
+        t('.user_holidays_suspended')
       when Token.error[:generation_token_failed] then
         t('.rollback')
     end

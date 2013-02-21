@@ -1432,3 +1432,20 @@ ul.dropdown a:hover{
 	color:#7D8891!important;
 	text-decoration:none;
 }
+#suspended {
+width: 894px;
+height: 126px;
+background: url(../images/news-flash-bg.png) 0 0 no-repeat;
+margin-bottom: 20px;
+}
+#suspended li {
+height: 105px;
+margin: 17px 0 0 10px;
+padding-left: 80px;
+padding-right: 10px;
+background: url(../images/attention.png) 0 12px no-repeat;
+float: left;
+display: block;
+overflow: hidden;
+font-size: 1em;
+}

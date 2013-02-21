@@ -1,5 +1,5 @@
 <div id="weekly-selection-wrap">
-    <h2>Nouveautés de la semaine</h2>
+    <h2><%= t('.title') %></h2>
     <div class="scroller">
       <% new_movies.each do |product| %>
       <% data = product.description_data(true) %>

@@ -1,5 +1,4 @@
 <% product = controverse_item.product %>
-<% Rails.logger.debug { "@@@ data #{product.inspect}" }%>
 <% if product %>  
   <% streaming_product = (product.streaming?(params[:kind], session[:country_id]) and streaming_access?) ? true : false %>
   <% product_title = product.title%>
