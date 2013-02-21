@@ -1,6 +1,18 @@
 <% if !@product.streaming?(params[:kind], session[:country_id]) %>
   access denied
 <% else %>
+  <% if current_customer.suspended? %>
+  <div style="display: block;width:<%= mobile_request? ? 300 : 450 %>px" class="content">
+    <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
+    <div id="addwishlist_explain_justify">
+    <% if current_customer.payment_suspended? %>
+      <%= t('.suspended_for_payment') %>
+    <% else %>
+      <%= t('.suspended_for_holidays', :date => current_customer.suspensions.holidays.last.date_end.strftime('%d/%m/%Y')) %>
+    <% end %>
+    </div>
+  </div>
+  <% else %>
   <% if @product.adult? && current_customer.svod? %>
     <%= t('.svod_adult') %>
   <% else %>
@@ -22,7 +34,7 @@
               <% if @streaming.is_ppv %>
                 <%= t '.ppv', :price => @streaming.ppv_price %>
               <% else %>
-                <%= "#{t '.intro', :credits => nb_credit}<br /><br />" unless @streaming_free[:status] == true || current_customer.svod? %>
+                <%= "#{t '.intro', :credits => nb_credit}<br /><br />" unless @streaming_free[:status] == true || current_customer.svod? || (current_customer.credits < @streaming.credits) %>
               <% end %>
             	<% if current_customer.abo_active == 0 && !@streaming_free[:status] %>
             	  <% if current_customer.beta_test %>
@@ -54,7 +66,7 @@
             	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
             	  <% end %>
               <% else %>
-                <%= t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
+                <%= t '.credit_empty', :credits => nb_credit, :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
               <% end %>
             <% end %>
           </div>
@@ -68,4 +80,5 @@
       <%= t('streaming_products.not_available.offline') %>
     <% end %>
   <% end %>
+<% end %>
 <% end %>

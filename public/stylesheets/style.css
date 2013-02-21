@@ -4326,7 +4326,7 @@ margin: 0;
 	
 }
 
-#addwishlist_explain {
+#addwishlist_explain, #addwishlist_explain_justify {
 	color: #191e24;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 13px;
@@ -4334,6 +4334,9 @@ margin: 0;
 	margin-top: 15px;
 	text-align: center;
 	text-decoration: none;
+}
+#addwishlist_explain_justify {
+  text-align:justify;
 }
 #addwishlist_dvd {
 	background-color: #EEEEEE;

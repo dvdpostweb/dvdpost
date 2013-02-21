@@ -1,11 +1,4 @@
-<% if ENV['HOST_OK'] == "0" && current_customer && current_customer.payment_suspended? %>
-<div id='p_suspended'>
-  <ul id='suspended'>
-    <li><%= current_customer.suspended_notification %></li>
-  </ul>
-</div>
 <div class="clearfix"></div>
-<% end %>
   <!--   ==============   Slider   ==============   -->
   <% if params[:kind] == :adult %>
   <div id='hp-content'>

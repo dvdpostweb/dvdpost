@@ -38,12 +38,10 @@ class StreamingProductsController < ApplicationController
       end
     end
     @streaming_free = streaming_free(@product)
-    Rails.logger.debug { "@@@#{request.format.inspect}" }
     respond_to do |format|
       
       
       format.html do
-        Rails.logger.debug { "@@@ici" }
         if @product
           if @vod_disable == "1" || Rails.env == "pre_production"
             if streaming_access?
@@ -72,11 +70,9 @@ class StreamingProductsController < ApplicationController
         end
       end
       format.js do
-        Rails.logger.debug { "@@@la" }
-        
         if streaming_access?
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
-          if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip) && !current_customer.super_user? && !(/^192(.*)/.match(request.remote_ip)))
+          if ENV['HOST_OK'] == "1" || (!current_customer.suspended? )
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token || status == Token.status[:expired]
@@ -121,7 +117,11 @@ class StreamingProductsController < ApplicationController
               end
             end
           else
-            error = Token.error[:user_suspended]
+            if current_customer.payment_suspended?
+              error = Token.error[:user_suspended]
+            else
+              error = Token.error[:user_holidays_suspended]
+            end
           end
           if params[:subtitle_id]
             @sub = Subtitle.find(params[:subtitle_id])
@@ -133,8 +133,8 @@ class StreamingProductsController < ApplicationController
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param, :ip => request.remote_ip)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip) if current_customer
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
-          elsif Token.dvdpost_ip?(request.remote_ip) || current_customer.super_user? || (/^192(.*)/.match(request.remote_ip))
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
+          #elsif Token.dvdpost_ip?(request.remote_ip) || current_customer.super_user? || (/^192(.*)/.match(request.remote_ip))
+          #  render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end

@@ -85,7 +85,13 @@
       </div>
 		</div>
     <% end %>
-
+    <% if ENV['HOST_OK'] == "0" && current_customer && current_customer.suspended? %>
+    <div id='p_suspended'>
+      <ul id='suspended'>
+        <li><%= current_customer.suspended_notification %></li>
+      </ul>
+    </div>
+    <% end %>
     <div class="container clearfix">
 			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:action] != 'unsubscribe' && params[:controller] != 'home' && params[:page_name] != 'promo' && params[:page_name] != 'price' %>
       <%= yield %>
