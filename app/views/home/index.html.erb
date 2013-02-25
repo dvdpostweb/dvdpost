@@ -29,22 +29,12 @@
     </div>
   <% else %>
   <div id="slider-wrap">
-  <% if params[:promo] == "2" && ENV['HOST_OK'] == "1" %>
-  <% else %>
-    <h2><%= t '.home' %></h2>
-    <%= link_to t('.all_products'), products_path(:hp => 1), :id => :browse, :class => :osc %>
-  <% end %>
     <!-- Tabs rotattor -->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     </div>
     <!-- #slider-wrap -->
     <% if ENV['HOST_OK'] == "1" %>
-      <% if params[:promo] == "2" %>
-        <%= render :partial => '/home/index/services' %>
-      <% else %>
-        <%= render :partial => '/home/index/public_info' %>
-        <%= render :partial => 'layouts/call_to_action'  %>
-      <% end %>
+      <%= render :partial => '/home/index/services' %>
     <% else %>
       <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
     <% end %>

@@ -110,7 +110,7 @@
       </tr>
       <tr>
         <td align="right"><strong><%= t '.type_abo' %></strong></td>
-        <td align="left"><%= customer.subscription_payment_method.name.downcase if customer.subscription_payment_method %></td>
+        <td align="left"><%= t(".#{customer.subscription_payment_method.name.downcase}") if customer.subscription_payment_method %></td>
       </tr>
       <tr>
         <td colspan='2'>

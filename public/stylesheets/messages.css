@@ -2,26 +2,26 @@
 
 
 body {
-   
-    text-shadow: none;
+
+  text-shadow: none;
 }
 
 .osc, h1, h2, h3, h4, h5 {
-    font-family: 'Open Sans Condensed',sans-serif;
+  font-family: 'Open Sans Condensed',sans-serif;
 }
 
 
 #contact-wrap h3 {
-color: #212A31;
-    font-size: 30px;
-    line-height: 1;
-    margin-bottom: 15px;
-   
+  color: #212A31;
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 15px;
+
 
 }
 
 #contact-wrap {
-    padding: 30px;
+  padding: 30px;
 }
 #contact-wrap #tabs {
   display: block;
@@ -136,7 +136,7 @@ color: #212A31;
   top: 175px;
   left: 50%;
   background: url(../images/modal-window-bg.png) 0 0 no-repeat;
- margin-left: -290px;
+  margin-left: -290px;
 }
 .modal-window-content {
   width: 546px;
@@ -178,7 +178,7 @@ color: #212A31;
   background: url(../images/modal-fermer-btn.png) 0 0 no-repeat;
 }
 * html .modal-window-end a.like-btn {
-   line-height: 10px;
+  line-height: 10px;
 }
 
 
@@ -258,11 +258,11 @@ color: #212A31;
 
 #contact-wrap #contact form {
 /*  float: right;
-  width: 363px;
-  height: 463px;
-  background: url(../images/contact-form-bg.jpg) 0 0 no-repeat;
-  padding: 5px 25px 40px 25px;
-  font-size: 1.17em;*/
+width: 363px;
+height: 463px;
+background: url(../images/contact-form-bg.jpg) 0 0 no-repeat;
+padding: 5px 25px 40px 25px;
+font-size: 1.17em;*/
 }
 #contact-wrap #contact label {
   margin-bottom: 10px;
@@ -305,7 +305,7 @@ color: #212A31;
 
 #contact-wrap #contact ul {
   float: left;
- width: 330px;
+  width: 330px;
 }
 #contact-wrap #contact li {
   margin-bottom: 5px;
@@ -321,58 +321,62 @@ color: #212A31;
 
 
 #contact-wrap #contact li h4 {
-    font-size: 1.14em;
-    font-weight: bold;
+  font-size: 1.14em;
+  font-weight: bold;
 }
 #contact-wrap #contact li#phone {
 
-padding-left: 30px;
-min-height: 59px;
-height: auto !important;
-height: 59px;
+  padding-left: 30px;
+  min-height: 59px;
+  height: auto !important;
+  height: 59px;
+}
+#contact-wrap .private #contact li {
+
+  padding-left: 0px !important;
 }
 #contact-wrap #contact li#phone h4 {
   font-size: 1.14em;
 }
 #contact-wrap #contact li#mail {
-padding-left: 30px;
-min-height: 45px;
-height: auto !important;
-height: 59px;
-padding-top: 14px;
+  padding-left: 30px;
+  min-height: 45px;
+  height: auto !important;
+  height: 59px;
+  padding-top: 14px;
 }
 #contact-wrap #contact li#fax {
-padding-left: 30px;
-min-height: 45px;
-height: auto !important;
-height: 59px;
-padding-top: 14px;
+  padding-left: 30px;
+  min-height: 45px;
+  height: auto !important;
+  height: 59px;
+  padding-top: 14px;
 }
 #contact-wrap #contact li#courrier {
-padding-left: 30px;
-min-height: 45px;
-height: auto !important;
-height: 59px;
-padding-top: 14px;
+  padding-left: 30px;
+  min-height: 45px;
+  height: auto !important;
+  height: 59px;
+  padding-top: 14px;
 }
 #contact-wrap #contact li#social {
-   padding: 20px 0 0 30px;
+  padding: 20px 0 0 30px;
 }
 #contact-wrap #contact li#social a {
-    background-position: 10px 12px;
-    background-repeat: no-repeat;
-    color: #29333B;
-    display: block;
-    float: left;
-    font-size: 0.86em;
-    padding-top: 59px;
-    position: relative;
-    text-align: center;
-    width: 60px;
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  color: #29333B;
+  display: block;
+  float: left;
+  font-size: 0.86em;
+  padding-top: 59px;
+  position: relative;
+  text-align: center;
+  width: 60px;
 }
 #contact-wrap #contact li#social a:hover {
   text-decoration: underline;
- 
+
 }
 
 
@@ -392,8 +396,8 @@ padding-top: 14px;
   color: #ff4b00;
 }
 #contact-wrap #question label input {
-   margin: 0;
-   vertical-align: middle;
+  margin: 0;
+  vertical-align: middle;
 }
 #contact-wrap #question p {
   padding: 0;
@@ -408,33 +412,33 @@ padding-top: 14px;
 }
 
 #contact-wrap #question button:hover {
-text-decoration:underline;
+  text-decoration:underline;
 }
 #messages a {
   color:#000;
 }
 
 .form_dates.hours {
-padding:0px;
+  padding:0px;
 
 
 }
 
 .errorExplanation {
-color:#e78c15 !important;
-font-size:1.1em !important; 
-text-shadow:0 0 0 #000000;
-background:url(../images/attention_icon.png) no-repeat;
-min-height:33px;
-padding-left:50px;
+  color:#e78c15 !important;
+  font-size:1.1em !important; 
+  text-shadow:0 0 0 #000000;
+  background:url(../images/attention_icon.png) no-repeat;
+  min-height:33px;
+  padding-left:50px;
 }
 .errorExplanation p{
   margin:0;
 }
 .errorExplanation li{
-color:#e78c15 !important;
-font-size:0.9em !important; 
-margin:0 !important;
+  color:#e78c15 !important;
+  font-size:0.9em !important; 
+  margin:0 !important;
 }
 #contact-wrap.urgent {
   margin:18px auto;
@@ -445,13 +449,13 @@ margin:0 !important;
   min-height: 80px;
 }
 #titles-wrap.urgent {
-background:url("../images/content-bg-wishlist.gif") repeat-y scroll 0 0 transparent;
-padding:18px 24px 5px 20px;
-position:relative;
-font-size: 14px;
+  background:url("../images/content-bg-wishlist.gif") repeat-y scroll 0 0 transparent;
+  padding:18px 24px 5px 20px;
+  position:relative;
+  font-size: 14px;
 }
 #titles-wrap.urgent {
-margin:25px 25px 0;
+  margin:25px 25px 0;
 }
 .dialog_dvdpost
 {
@@ -459,7 +463,7 @@ margin:25px 25px 0;
   width:420px;
   /*margin: 20px 0 20px 40px;*/
   padding: 10px 10px;
-  
+
 }
 .dialog_customer
 {
@@ -467,13 +471,13 @@ margin:25px 25px 0;
   width:420px;
   margin: 20px 0;
   padding: 10px 20px;
-  
+
 }
 #back_message
 {
   float:right;
   margin: 12px 120px 0 0;
-    
+
 }
 a#back_message
 {
@@ -484,46 +488,46 @@ a#back_message
   color: #FF4B00;
 }
 .open {
-	color:#666666;
-	font-weight:lighter;
+  color:#666666;
+  font-weight:lighter;
 }
 
 
 .close {
-	color:#000000;
-	font-weight:bold;
+  color:#000000;
+  font-weight:bold;
 }
 #messages .open a {
-	color:#666666;
-	font-weight:lighter;
+  color:#666666;
+  font-weight:lighter;
 }
 
 #messages {
-	width:812px;
-	
-	
+  width:812px;
+
+
 }
 
 
 #header_messages {
-	background-color:#1f1e1e;
-	color:#FFFFFF;
-	padding-left:10px;
-	text-align:left;
-	padding-bottom:5px;
-	width:802px;
-	
+  background-color:#1f1e1e;
+  color:#FFFFFF;
+  padding-left:10px;
+  text-align:left;
+  padding-bottom:5px;
+  width:802px;
+
 }
 #header_messages a
 {
   color: #fff;
 }
 #header_messages h3 {
-	color:#FFFFFF;
-	font-size:21px;
-	padding-top:10px;
-	padding-bottom:5px;
-	
+  color:#FFFFFF;
+  font-size:21px;
+  padding-top:10px;
+  padding-bottom:5px;
+
 }
 
 #header_messages a.select_view {
@@ -534,40 +538,40 @@ a#back_message
 .bysort_message {
   float: left;
   font-size: 11px;
-	font-weight:lighter;
+  font-weight:lighter;
   padding: 3px 10px 0 0;
 }
 
 #messages #bysort {
-    padding: 0 0 5px;
+  padding: 0 0 5px;
 }
 .dvdpostmessage {
-background-color:#fff;
-margin-top: 20px;
-margin-bottom: 20px;
-border:#666666 1px solid;
+  background-color:#fff;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border:#666666 1px solid;
 
 }
 
 .customessage{
-background-color:#c7c3c3;
-margin-top: 20px;
-margin-bottom: 20px;
+  background-color:#c7c3c3;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
 }
 
 .dvdpostmessage .avatar{
 
-float:left;
-padding:6px;}
+  float:left;
+  padding:6px;}
 
-.avatar_message {
+  .avatar_message {
     float: left;
     padding: 10px;
     width: 60px;
-}
+  }
 
-#messages button {
+  #messages button {
     background: url("/images/message_button.png") no-repeat scroll 0 0 transparent;
     border: medium none;
     color: white;
@@ -578,33 +582,33 @@ padding:6px;}
     margin: 5px 0 0 701px;
     text-shadow: 1px 1px 1px #555555;
     width: 110px;
-}
+  }
 
-#messages button:hover {
+  #messages button:hover {
     background: url("/images/message_button.png") no-repeat scroll 0 -35px transparent;
-    
-}
-.who_message { font-size:14px;
-color:#000000;
-text-align:left;
 
-}
+  }
+  .who_message { font-size:14px;
+    color:#000000;
+    text-align:left;
 
-.who_message_big { font-size:16px;
-font-weight:bold;color:#000000;
-text-align:left;
+  }
 
-}
-.message_text {
+  .who_message_big { font-size:16px;
+    font-weight:bold;color:#000000;
+    text-align:left;
+
+  }
+  .message_text {
     float: right;
     margin-right: 24px;
     width: 706px;
     padding-bottom:10px;
-}
-.message_text_long {
+  }
+  .message_text_long {
     margin: 0 auto;
     min-width: 706px;
-}
+  }
 
 
 
@@ -612,95 +616,99 @@ text-align:left;
 
 
 #contact-wrap #tabs-content {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #0E0E0E;
-    height: auto !important;
-    min-height: 475px;
-    padding: 20px 25px;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #0E0E0E;
+  height: auto !important;
+  min-height: 475px;
+  padding: 20px 25px;
 }
 #contact-wrap #tabs-content.public {
   padding: 0;
   border: 0;
 }
 #contact-wrap #tabs-content.public #question {
-    float: left;
-    padding-left: 100px;
-    width: 450px;
+  float: left;
+  padding-left: 100px;
+  padding-top: 7px;
+  width: 450px;
+
 }
 #contact-wrap .private #tabs-content.public #question {
-  width: 600px;
+  width: 500px;
+  padding-left: 10px;
+
 }
 #contact-wrap #tabs-content .form {
-    background: url("../images/tab-content-bg.png") repeat-x scroll 0 0 #C3D1DB;
-    border: 0 none;
-    margin-top: 10px;
-    width: 380px;
+  background: url("../images/tab-content-bg.png") repeat-x scroll 0 0 #C3D1DB;
+  border: 0 none;
+  margin-top: 10px;
+  width: 380px;
 }
- #contact-wrap .private #tabs-content .form {
-  width: 580px;
+#contact-wrap .private #tabs-content .form {
+  width: 500px;
 }
 #contact-wrap #question {
-    color:#212429;
-    font-size: 1.08em;
+  color:#212429;
+  font-size: 1.08em;
 }
 
 #field_form {
-padding:10px;
+  padding:10px;
 
 }
 
 #question {
 
-text-align:left;
-width:611px;
+  text-align:left;
+  width:611px;
 }
 
 .date{
-float:left;
+  float:left;
 }
 
 .hours{
-float:right;
+  float:right;
 }
 
 .form{
-border: #535353 1px solid;
-width:611px;
-padding:10px;
+  border: #535353 1px solid;
+  width:611px;
+  padding:10px;
 
 }
 
 #contact-wrap #question h4 {
-   font-size: 1.30em;
-    font-weight: bold;
-	
+  font-size: 1.30em;
+  font-weight: bold;
+
 
 }
 .form_dates {
-    height: 42px;
-    margin: 0 !important;
-    padding-top: 10px;
-    width: 330px;
+  height: 42px;
+  margin: 0 !important;
+  padding-top: 10px;
+  width: 330px;
 }
 
 
 #question a.btn {
-    background: url("../images/button.png") no-repeat scroll 0 0 transparent;
-    color: white;
-    display: block;
-    font-size: 1.09em;
-    height: 34px;
-    line-height: 34px;
-    margin: 0 0 4px 1px;
-    text-align: center;
-    text-shadow: 1px 1px 1px #999999;
-    width: 122px;
+  background: url("../images/button.png") no-repeat scroll 0 0 transparent;
+  color: white;
+  display: block;
+  font-size: 1.09em;
+  height: 34px;
+  line-height: 34px;
+  margin: 0 0 4px 1px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #999999;
+  width: 122px;
 }
 
 #question a.btn:hover {
-    background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
-	text-decoration:none;
-  
+  background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
+  text-decoration:none;
+
 }
 #field_form .fieldWithErrors
 {
@@ -717,37 +725,37 @@ padding:10px;
 }
 
 a.btn_new_message {
-    background: url("../images/bt_message.png") no-repeat scroll 0 0 transparent;
-    color: #282828;
-	font-family:Arial, Helvetica, sans-serif;
-    display: block;
-    height: 28px;
-	font-size:12px;
-    line-height: 22px;
-    margin: 0 0 4px 1px;
-	text-decoration:none;
-    text-align: center;
-	font-weight:bold;
-    width: 137px;
+  background: url("../images/bt_message.png") no-repeat scroll 0 0 transparent;
+  color: #282828;
+  font-family:Arial, Helvetica, sans-serif;
+  display: block;
+  height: 28px;
+  font-size:12px;
+  line-height: 22px;
+  margin: 0 0 4px 1px;
+  text-decoration:none;
+  text-align: center;
+  font-weight:bold;
+  width: 137px;
 }	
 a.btn_new_message:hover {
-   background: url(../images/bt_message.png) no-repeat scroll 0 -30px transparent;
-    text-decoration: none;
+  background: url(../images/bt_message.png) no-repeat scroll 0 -30px transparent;
+  text-decoration: none;
 }
 #message_title {
-    color: #282828;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: left;
-	border-bottom:#000000 1px solid;
+  color: #282828;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  border-bottom:#000000 1px solid;
 
 }
 
 .message_title {
-font-size: 15px;
-font-weight: bold;
-    
+  font-size: 15px;
+  font-weight: bold;
+
 
 }
 .sujet {  font-size: 14px;}
@@ -757,41 +765,41 @@ font-weight: bold;
 
 
 .content_message a.btn {
-    background: url("../images/button.png") no-repeat scroll 0 0 transparent;
-    color: white;
-    display: block;
-    font-size: 1.09em;
-    height: 34px;
-    line-height: 34px;
-    margin: 0 0 4px 1px;
-    text-align: center;
-    text-shadow: 1px 1px 1px #999999;
-    width: 122px;
-	float:right;
+  background: url("../images/button.png") no-repeat scroll 0 0 transparent;
+  color: white;
+  display: block;
+  font-size: 1.09em;
+  height: 34px;
+  line-height: 34px;
+  margin: 0 0 4px 1px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #999999;
+  width: 122px;
+  float:right;
 }
 
 .content_message a.btn:hover {
-    background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
-    text-decoration: none;
+  background: url("../images/button.png") no-repeat scroll 0 -35px transparent;
+  text-decoration: none;
 }
 
 .content_message a.btn_cancel {
-    background: url("../images/button-bw.png") no-repeat scroll 0 0 transparent;
-    color: white;
-    display: block;
-    font-size: 1.09em;
-    height: 34px;
-    line-height: 34px;
-    margin: 0 0 4px 1px;
-    text-align: center;
-    text-shadow: 1px 1px 1px #999999;
-    width: 122px;
-	float:right;
+  background: url("../images/button-bw.png") no-repeat scroll 0 0 transparent;
+  color: white;
+  display: block;
+  font-size: 1.09em;
+  height: 34px;
+  line-height: 34px;
+  margin: 0 0 4px 1px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #999999;
+  width: 122px;
+  float:right;
 }
 
 .content_message a.btn_cancel:hover {
-    background: url("../images/button-bw.png") no-repeat scroll 0 -35px transparent;
-    text-decoration: none;
+  background: url("../images/button-bw.png") no-repeat scroll 0 -35px transparent;
+  text-decoration: none;
 }
 #message_textarea
 {
@@ -818,19 +826,19 @@ a.btn_all_message:hover {
   text-decoration: none;
 }
 .header_review{ 
-    height: 85px;
-    padding: 0px 5px 0 0px;
-	width: 922px;
- }
+  height: 85px;
+  padding: 0px 5px 0 0px;
+  width: 922px;
+}
 .critiqueur_area
 {
   margin: 0 0 0 40px;
 } 
 .critiqueur_area #title.reviews {
-    color: #fa3216;
-	text-align:left;
-	    margin: 20px 0 0 0px;
-    
+  color: #fa3216;
+  text-align:left;
+  margin: 20px 0 0 0px;
+
 }
 
 .header_review .pen 
@@ -838,8 +846,8 @@ a.btn_all_message:hover {
   margin-top: 16px;
 }
 .header_review .avatar {
-    float: left;
-    margin-right: 4px;
+  float: left;
+  margin-right: 4px;
 }
 .filter
 {

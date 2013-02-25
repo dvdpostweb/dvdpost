@@ -29,7 +29,7 @@
     <% if I18n.locale != :en %>
       <div id="nina-wrap" class="<%= I18n.locale %>">
         <p><%= t '.details' %></p>        
-        <%= link_to t('.all'), chronicles_path, :class => 'more osc' %>
+        <%= link_to t('home.index.chronicle.all'), chronicles_path, :class => 'more osc' %>
       </div>
     <% end %>
     <% end %>

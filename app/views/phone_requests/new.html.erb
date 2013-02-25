@@ -5,7 +5,7 @@
 
     <div id="tabs-content" class="public">
     	<div id="contact">
-    		<%= render :partial => 'phone_requests/new/info' if ENV['HOST_OK'] == "1" %>
+    		<%= render :partial => 'phone_requests/new/info' %>
     		<%= render :partial => 'phone_requests/new/form', :locals => {:phone_request => @phone_request} %>
     		<div class="clear"></div>
     	</div>

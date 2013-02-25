@@ -12,7 +12,7 @@
   <%= javascript 'json2' %>
   <%= javascript  "home_normal", :media => :all %>
 <% end %>
-<% if params[:promo] == "2" && ENV['HOST_OK'] == "1" && params[:kind] == :normal %>
+<% if ENV['HOST_OK'] == "1" && params[:kind] == :normal %>
   <%= stylesheet  'hp2', :media => :all %>
 
 <% end %>
