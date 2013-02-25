@@ -126,7 +126,7 @@ class HomeController < ApplicationController
     @newsletter = PublicNewsletter.new(params[:public_newsletter])
     News.class
     @news = Marshal.load(news_serial)
-    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp2_#{I18n.locale}_#{params[:promo]}_#{params[:kind]}_#{ENV['HOST_OK']}", 30.minutes.from_now.localtime do
+    landing_serial = when_fragment_expired "#{Rails.env}_landings_hp3_#{I18n.locale}_#{params[:promo]}_#{params[:kind]}_#{ENV['HOST_OK']}", 30.minutes.from_now.localtime do
       if Rails.env == "pre_production"
         pre_sql = Landing.by_language_beta(I18n.locale).not_expirated
       else
