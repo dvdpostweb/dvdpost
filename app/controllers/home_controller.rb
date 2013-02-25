@@ -139,10 +139,8 @@ class HomeController < ApplicationController
         when :normal
           if ENV['HOST_OK'] == "0"
             sql = pre_sql.private.order(:asc).limit(6)
-          elsif params[:promo] == "2"
-            sql = pre_sql.public_test.order(:asc).limit(6)
           else
-            sql = pre_sql.public.order(:asc).limit(6)
+            sql = pre_sql.public_test.order(:asc).limit(6)
           end
       end
       Marshal.dump(sql)

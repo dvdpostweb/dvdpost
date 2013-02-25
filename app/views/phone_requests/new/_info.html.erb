@@ -1,14 +1,18 @@
 <ul>
+	<li id="mail">
+		<h4><%= t '.email.title' %></h4>
+		<% if ENV['HOST_OK'] == "1" %>
+		  <%= t '.email.text' %>
+		  <%= mail_to "info@dvdpost.be" %>
+		<% else %>
+		  <%= link_to t('.private_message'), new_message_path(), :id => 'new_message' %>
+		<% end %>
+	</li>
 	<li id="phone">
 		<h4>
 			<%= t '.phone.title' %>
 		</h4>
 		<%= t '.phone.text' %>
-	</li>
-	<li id="mail">
-		<h4><%= t '.email.title' %></h4>
-		<%= t '.email.text' %>
-		<%= mail_to "info@dvdpost.be" %>
 	</li>
 	<li id="fax">
 		<h4>
