@@ -26,7 +26,7 @@ $(function() {
     return false;
   });
   $(".check_only_vod").live("click", function() {
-    only_vod($(this).next('..only_vod'))
+    only_vod($(this).next('.only_vod'))
     return false;
   });
   
