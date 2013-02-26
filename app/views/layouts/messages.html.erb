@@ -1,6 +1,6 @@
 <%= javascript 'messages' %>
 <%= stylesheet 'messages', :media => :all %>
-
+<%= render :partial => '/layouts/chat' %>
 <% content_for :body_id do %>message_body<% end %>
 <%= yield %>
 <% parent_layout 'application' %>
