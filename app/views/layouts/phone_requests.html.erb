@@ -1,5 +1,6 @@
 <%= javascript 'messages', "jquery-ui-1.8.1.custom.min", "jquery.ui.datepicker-#{I18n.locale}" %>
 <%= stylesheet 'messages', 'smoothness/jquery-ui-1.8.custom', :media => :all %>
+<%= render :partial => '/layouts/chat' %>
 <% content_for :body_id do %>message_body<% end %>
 <%= yield %>
 <% parent_layout 'application' %>
