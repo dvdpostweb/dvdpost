@@ -316,6 +316,7 @@
       $('#facebox .content').removeClass().addClass('content')
       hideOverlay()
       $('#facebox .loading').remove()
+      $('#facebox .content').empty()
     })
   })
 
