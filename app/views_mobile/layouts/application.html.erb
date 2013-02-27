@@ -19,8 +19,6 @@
   <% end %>
   <% if params[:controller] == 'streaming_products' %>
     <%= javascript_include_tag "streaming_products_mobile" %>
-    <%= javascript_include_tag "video.min" %>
-    <%= stylesheet_link_tag "video-js.min", :media => :all %>
   <% end %>
   <% if params[:controller] != 'home' %>
 	  <%= stylesheet_link_tag body_classes('mobile'), :media => :all %>

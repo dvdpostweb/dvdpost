@@ -226,7 +226,7 @@ a.trailer
 .jcarousel-item-horizontal p {
   color:#212a31;
   font-size:11px;
-  margin:5px 0 0 0;
+  margin:5px 0 0 115px;
 }
 #wrap.mobile
 {
@@ -263,4 +263,8 @@ color: #212A31;
 #addwishlist_title
 {
   margin:5px 0;
+}
+#desktop
+{
+  text-decoration: underline;
 }

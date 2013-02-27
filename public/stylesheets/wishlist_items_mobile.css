@@ -194,15 +194,15 @@ width: 11px;
 }
 
 .lang li {
-    color: #1B2228;
-    display: block;
-    font-size: 11px;
-    font-weight: normal;
-    height: 22px;
-    line-height: 19px;
-    padding: 0;
-    text-align: center;
-    width: 22px;
+  color: #1B2228;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: normal;
+  height: 13px;
+  line-height: 19px;
+  padding: 0;
+  text-align: center;
+  width: 16px;
 }
 
 input, select, textarea, button {
@@ -230,6 +230,6 @@ ul.lang {
 }
 
 .gray.special {
-    background: url("../images/muet.gif") no-repeat scroll 0 0 transparent;
-    width: 51px !important;
+/*    background: url("../images/muet.gif") no-repeat scroll 0 0 transparent;
+    width: 51px !important;*/
 }

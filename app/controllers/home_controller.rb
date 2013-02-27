@@ -94,7 +94,7 @@ class HomeController < ApplicationController
     @default = streaming_access? ? :vod : :dvd
     @selection_kind = selection_kind || @default
     @selection_page = selection_page || 1
-    selection = when_fragment_expired "#{Rails.env}_selection_new2_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
+    selection = when_fragment_expired "#{Rails.env}_selection_new4_#{kind}_#{selection_page}_#{@selection_kind}_#{DVDPost.product_languages[I18n.locale]}", 1.hour.from_now.localtime do
       if kind == :adult
         sql = ProductList.theme.by_kind(kind.to_s).by_style(@selection_kind).find_by_home_page(true).products.paginate(:per_page => 2, :page => selection_page)
       else
@@ -108,10 +108,10 @@ class HomeController < ApplicationController
   end
 
   def get_data_mobile(kind)
-    get_selection_week(params[:kind], params[:selection_kind], params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
+    get_selection_week(params[:kind], :dvd, params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
     @top_searches = Search.count(:group => 'name', :order => 'count_all desc', :limit => 20, :conditions => ["kind = ? and created_at >= ? ", DVDPost.search_kinds[kind], 1.week.ago.localtime])
     filter = get_current_filter
-    @new_movies = Product.filter(filter, params.merge(:sort => 'production_year_all', :country_id => 0, :limit => 6))
+    @new_movies = Product.filter(filter, params.merge(:sort => 'production_year_all', :country_id => 0, :limit => 6, :group => 1))
   end
 
   def get_data(kind)
