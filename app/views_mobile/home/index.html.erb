@@ -1,11 +1,3 @@
-<% if ENV['HOST_OK'] == "0" && current_customer && current_customer.payment_suspended? %>
-<div id='p_suspended'>
-  <ul id='suspended'>
-    <li><%= current_customer.suspended_notification %></li>
-  </ul>
-</div>
-<div class="clearfix"></div>
-<% end %>
   <!--   ==============   Slider   ==============   -->
     <%= render :partial => '/home/index/new_movies', :locals => {:new_movies => @new_movies } %>
     <%= render :partial => '/home/index/top_search', :locals => {:top_searches => @top_searches } %>

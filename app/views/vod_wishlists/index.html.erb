@@ -20,7 +20,7 @@
 </div>
 <%= will_paginate @history_list, :class => 'products-pagination2', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
 <% else %>
-<% if @token_list.count == 0 && @list.count == 0 && @soon_list.count == 0 %>
+<% if !mobile_request? && @token_list.count == 0 && @list.count == 0 && @soon_list.count == 0 %>
   <% link = link_to t('.catalogue'), products_path(:view_mode => :streaming) %>
   <% link2 = link_to t('.about'), streaming_products_faq_path %>
     <div id="faq-content-wrap">
