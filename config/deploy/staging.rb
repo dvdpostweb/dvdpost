@@ -112,4 +112,3 @@ namespace :deploy do
 end
 before 'deploy:create_symlink', 'deploy:stop_ts'
 after 'deploy:create_symlink', 'deploy:update_ts'
-after "deploy:update", "deploy:cleanup" 
