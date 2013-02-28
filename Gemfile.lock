@@ -51,7 +51,7 @@ GEM
       builder
     babosa (0.3.4)
     blankslate (2.1.2.4)
-    browser (0.1.5)
+    browser (0.1.6)
     builder (3.0.0)
     bullet (2.0.1)
       uniform_notifier (~> 1.0.0)
@@ -130,7 +130,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake (~> 3.1.2)
-  browser (~> 0.1.5)
+  browser (~> 0.1.6)
   bullet
   capistrano (= 2.13.5)
   capistrano-ext
