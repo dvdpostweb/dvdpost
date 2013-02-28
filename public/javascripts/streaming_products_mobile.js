@@ -17,7 +17,7 @@ $(function() {
       type: 'GET',
       data: {},
       success: function(data) {
-        $('#flow').html(data);
+        $('#presentation').html(data);
         $('.qualityvod').show()
       },
       error: function() {
