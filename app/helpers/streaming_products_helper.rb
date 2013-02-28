@@ -6,9 +6,7 @@ module StreamingProductsHelper
         url = DVDPost.hls_url(token_name, audio, sub)
         if mobile_request?
           #$("#presentation").html("<video id='my_video_1' class='video-js vjs-default-skin' controls width='290' height='132' data-setup='{}'><source src='#{url}' type='application/vnd.apple.mpegurl'></video><a href='#{url}'>#{url}</a>")
-          script = <<-script
-            $("#presentation").html("<video id='my_video_1' class='video-js vjs-default-skin' controls width='290' height='132'  src='#{url}' controls="controls"></video><a href='#{url}'>#{url}</a>")          
-          script
+            script = "<video id='my_video_1' class='video-js vjs-default-skin' vjs-default-skin' width='290' height='132'  src='#{url}' controls='controls' data-setup='{}'></video>"
         elsif browser.iphone?
           script = <<-script
           $("#player").html("<video  width='696' height='389' src='#{url}'></video>")
@@ -23,7 +21,12 @@ module StreamingProductsHelper
         $("#player").html("<object width='696' height='389'><param name='movie' value='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf'></param><param name='flashvars' value='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></embed></object>")
         script
       end
-    javascript_tag script
+    if mobile_request?
+      script
+    else
+      javascript_tag script
+    end
+
   end
 
   def message_streaming(token, free, streaming)
