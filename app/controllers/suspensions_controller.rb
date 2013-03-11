@@ -18,7 +18,7 @@ class SuspensionsController < ApplicationController
 
   def create
     begin
-      path = php_path(DVDPost.url_suspension);
+      path = "http://www.dvdpost.com/#{DVDPost.url_suspension}?language=#{I18n.locale}";
       if !current_customer.suspended? && suspension_count_current_year < 3
        duration = params[:suspensions][:duration].to_i
 
