@@ -9,7 +9,7 @@
   </div>
 </div>
 <ul id="lang">
-  <%= "<li>#{link_to "View mobile site", url_for(:mobile_site => 1)}</li>" if @browser.mobile? %>
+  <%= "<li>#{link_to t('.view_mobile'), root_path(:mobile_site => 1)}</li>" if 1==1 || @browser.mobile? %>
   <li><%= link_to t('.conditions'), info_path(:page_name => :conditions, :anchor => :article3) if ENV['HOST_OK'] == "1" %></li>
   <% Locale.all.collect(&:short).collect do |locale| %>
     <li><%= switch_locale_link locale, {:class => I18n.locale.to_s == locale.to_s ? 'active' : 'nothing'} %></li>
