@@ -1,6 +1,6 @@
 <% class_name = params[:selection_kind] || @default %>
 <% product = product_selection_week %>
-<% name = "#{I18n.locale}/products/selection_new_2_#{ENV['HOST_OK']}_#{class_name}_#{product.id}_#{mobile_request?.to_s}" %>
+<% name = "#{I18n.locale}/products/selection_new_3_#{ENV['HOST_OK']}_#{class_name}_#{product.id}_#{mobile_request?.to_s}" %>
 <% name_path = "views/#{name}" %>
 <% size = !mobile_request? ? '178x100' : '99x54' %>
 <% cache name do %>
@@ -21,6 +21,6 @@
     <p><%= truncate(description.text, :length => 120) %>
     <%= mobile_request? ? '<br />' : '</p>' %>
     <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'osc trailer', :target => :_blank) if  mobile_request? ? product.trailers.mobile.by_language(I18n.locale).size > 0 : product.trailers.by_language(I18n.locale).size > 0 %>
-    <%= mobile_request? ? '</p>' : '' %>
+    <%= mobile_request? ? '<br /></p>' : '' %>
   </li>
 <% end %>
