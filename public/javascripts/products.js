@@ -538,7 +538,9 @@ $(function() {
     product_id = $(this).parents('.new_wishlist_item').children('#wishlist_item_product_id').val()
     set_page($(this).parents('.new_wishlist_item').attr('action')+ "/products/" + product_id +"?recommendation="+$(this).parents('.new_wishlist_item').children('#wishlist_item_wishlist_source_id').val())
     radio_value = $(this).parent().parent().children('.col4').children('input:checked').val()
-    send_event('Movie', 'AddToWishlist', res[1], radio_value)
+    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
+    res = regex.exec(url);
+    send_event('Movie', 'AddToWishlist', res[1], radio_value);
     $(this).parents('.new_wishlist_item').ajaxSubmit(options);
     $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
     return false; // prevent default behaviour
