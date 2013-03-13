@@ -33,7 +33,7 @@
       <li><%= link_to (mobile_request? ? t('layouts.header.adult_short') : t('layouts.header.adult')), root_path(:kind => :adult), {:id => 'nav7'} %></li>
     <% end %>
     <% if params[:kind] == :adult && mobile_request? %>
-      <li><%= link_to t('layouts.header.normal_short', :default => 'cine'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
+      <li><%= link_to t('layouts.header.normal_mobile', :default => 'cine'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
     <% end %>
   <% end %>
 </ul>

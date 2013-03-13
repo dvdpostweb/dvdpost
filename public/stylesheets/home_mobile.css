@@ -228,15 +228,15 @@ a.trailer
   font-size:11px;
   margin:5px 0 0 115px;
 }
-#wrap.mobile
-{
-  height:123px;
-}
 #yes, #no
 {
   color: #BD1F83;
   margin:4px;
   display: block;
+}
+form#search
+{
+  clear:both;
 }
 .footer .close
 {
