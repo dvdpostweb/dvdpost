@@ -221,6 +221,8 @@ a.trailer
 }
 .jcarousel-item
 {
+  margin: 6px 0 0 0;
+  min-height: 70px;
   clear:both;
 }
 .jcarousel-item-horizontal p {
