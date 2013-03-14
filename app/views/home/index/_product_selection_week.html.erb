@@ -21,6 +21,6 @@
     <p><%= truncate(description.text, :length => 120) %>
     <%= mobile_request? ? '<br />' : '</p>' %>
     <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'osc trailer', :target => :_blank) if  mobile_request? ? product.trailers.mobile.by_language(I18n.locale).size > 0 : product.trailers.by_language(I18n.locale).size > 0 %>
-    <%= mobile_request? ? '<br /></p>' : '' %>
+    <%= mobile_request? ? '<br /><br /></p>' : '' %>
   </li>
 <% end %>
