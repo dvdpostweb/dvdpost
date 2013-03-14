@@ -221,9 +221,12 @@ a.trailer
 }
 .jcarousel-item
 {
+  clear:both;
+}
+#on-vod .jcarousel-item
+{
   margin: 6px 0 0 0;
   min-height: 70px;
-  clear:both;
 }
 .jcarousel-item-horizontal p {
   color:#212a31;
