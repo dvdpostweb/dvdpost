@@ -68,7 +68,6 @@ font-weight:normal;
 }
 #formats h2 span{
 font-weight:normal;
-margin:0 2px 0 0;
 }
 
 #formats a{
@@ -127,4 +126,8 @@ width:100%;
 #c-members li
 {
   list-style: none;
+}
+.jcarousel-item {
+margin: 4px 0 0 0;
+min-height: 70px;
 }
