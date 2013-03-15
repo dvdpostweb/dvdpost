@@ -330,7 +330,7 @@ class Product < ActiveRecord::Base
       products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i) if media_i
     end
     
-    if filter.media? && options[:kind] == :normal && options[:view_mode] != "streaming" && options[:filter] != "vod"
+    if filter.media? && options[:view_mode] != "streaming" && options[:filter] != "vod"
       
       medias = filter.media.dup
       media_i = Array.new
