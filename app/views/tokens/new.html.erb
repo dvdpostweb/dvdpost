@@ -24,10 +24,10 @@
             <% if @streaming.is_ppv && current_customer.ppv_status_id != 1 %>
               <% if current_customer.ppv_status_id == 0 %>
                 <%= t '.update_cc_for_ppv' %><br /><br /><%= t '.price', :price => @streaming.ppv_price %><br /><br />
-                <%= link_to 'Clique ici', edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %>
+                <%= link_to t('.click_here'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %>
               <% else %>
                 <p><%= t '.ppv_blocked' %></p>
-                <p><%= link_to 'Clique ici', edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %></p>
+                <p><%= link_to t('.click_here'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %></p>
               <% end %>
             <% else %>
               <% nb_credit = "#{@streaming.credits} #{ @streaming.credits == 1 ? t('customer.credit') : t('customer.credits')}" %>
