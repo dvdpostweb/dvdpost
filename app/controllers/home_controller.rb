@@ -140,7 +140,7 @@ class HomeController < ApplicationController
           if ENV['HOST_OK'] == "0"
             sql = pre_sql.private.order(:asc).limit(6)
           else
-            sql = pre_sql.public_test.order(:asc).limit(6)
+            sql = pre_sql.public_test.order(:asc)
           end
       end
       Marshal.dump(sql)
