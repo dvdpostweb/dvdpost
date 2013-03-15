@@ -3,12 +3,10 @@
     <div id="filter_title"><%= image_tag 'icon_filtres.gif' %> <%= t '.active' %></div>
 
     <ul id="filtered" class="clearfix">
-      <% if filter.media? && params[:kind] == :normal %>
-        <li>
-          <strong><%= t 'products.index.technology' %></strong>
-          <%= filter.media.collect{|media| t("products.index.filters.#{media}")}.join(', ') %>
-        </li>
-      <% end %>
+      <li>
+        <strong><%= t 'products.index.technology' %></strong>
+        <%= filter.media.collect{|media| t("products.index.filters.#{media}")}.join(', ') %>
+      </li>
       <% if filter.audience? && params[:kind] == :normal %>
         <li>
           <strong><%= t 'products.index.public' %></strong>

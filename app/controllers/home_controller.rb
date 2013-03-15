@@ -108,10 +108,10 @@ class HomeController < ApplicationController
   end
 
   def get_data_mobile(kind)
-    get_selection_week(params[:kind], :dvd, params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
+    @new_movies = Product.filter(filter, params.merge(:sort => 'production_year_all', :country_id => 0, :limit => 6, :group => 1))
     @top_searches = Search.count(:group => 'name', :order => 'count_all desc', :limit => 20, :conditions => ["kind = ? and created_at >= ? ", DVDPost.search_kinds[kind], 1.week.ago.localtime])
     filter = get_current_filter
-    @new_movies = Product.filter(filter, params.merge(:sort => 'production_year_all', :country_id => 0, :limit => 6, :group => 1))
+    get_selection_week(params[:kind], :dvd, params[:selection_page]) if kind == :normal || (kind == :adult && streaming_access?)
   end
 
   def get_data(kind)
