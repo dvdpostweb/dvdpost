@@ -194,7 +194,7 @@ FB.init({
   <% submit_id = "p_#{@product.to_param}_#{rand(10)}"%>
   <div id='add_p' style='display:none' class='action_face'><%= new_product_wishlist_item_path(:product_id => @product.to_param, :source => @source, :submit_id => submit_id, :text => :long, :load_color => :normal) %></div>
 <% end %>
-<% if params[:review].to_i == 1%>
+<% if params[:review].to_i == 1 %>
   <div id='review' style='display:none' class='action_face'><%= new_product_review_path(:product_id => @product.to_param) %></div>
 <% end %>
 <% if params[:trailer].to_i == 1 && @product.trailer%>
