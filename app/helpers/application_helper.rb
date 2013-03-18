@@ -125,10 +125,6 @@ module ApplicationHelper
     end
   end
 
-  def blog_url
-    "http://insidedvdpost.blogspot.com/"
-  end
-
   def twitter_url
     "http://twitter.com/dvdpost"
   end
@@ -176,12 +172,16 @@ module ApplicationHelper
     if current_customer
       if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
         'http://www.dvdpost.be/'
+      elsif country_id.to_i == 131
+        'http://www.dvdpost.lu/'
       else
         'http://www.dvdpost.nl/'
       end
     else
       if session[:country_code] == 'NL'
         'http://www.dvdpost.nl/'
+      elsif session[:country_code] == 'LU'
+        'http://www.dvdpost.lu/'
       else
         'http://www.dvdpost.be/'
       end
