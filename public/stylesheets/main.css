@@ -1354,41 +1354,25 @@ height: 20px;
     padding-left: 29px;
     width: 69px;
 }
-a.louer {
-   background-image: url(../images/sprite.png)!important;
-    background-position: -352px -160px;
-    background-repeat: no-repeat;
-    color: white;
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    height: 23px;
-    line-height: 21px;
-    padding-left: 33px;
-    text-align: left;
-    width: 101px;
-}
-
 
 #mywhishlist a.louer {
     display: inline-block !important;
     overflow: hidden;
 }
 a.louer {
-    background-image: url(../images/sprite.png)!important;
-    background-position: -492px -256px;
-    background-repeat: no-repeat;
-    color: white;
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    height: 23px;
-    line-height: 21px;
-    padding-left: 33px;
-    text-align: left;
-    width: 101px;
+  background-image: url(../images/sprite.png)!important;
+  background-position: -492px -256px;
+  background-repeat: no-repeat;
+  color: white;
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  height: 23px;
+  line-height: 24px;
+  padding-left: 27px;
+  text-align: left;
+  width: 117px;
 }
-
 #presentation .prices {
     background-color: #FF6600;
     color: #FFFFFF;
