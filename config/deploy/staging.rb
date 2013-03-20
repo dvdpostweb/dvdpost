@@ -50,24 +50,24 @@ namespace :deploy do
       adapter: mysql
       encoding: utf8
       database: dvdpost_test
-      username: test_devuser
-      password: 1nterD3nt
+      username: webuser
+      password: 3gallfir-
       host: 192.168.100.204
       port: 3306
       slave01:
         adapter: mysql
         encoding: utf8
         database: dvdpost_test
-        username: test_devuser
-        password: 1nterD3nt
+        username: webuser
+        password: 3gallfir-
         host: 192.168.100.14
         port: 3306
       slave02:
         adapter: mysql
         encoding: utf8
         database: dvdpost_test
-        username: test_devuser
-        password: 1nterD3nt
+        username: webuser
+        password: 3gallfir-
         host: 192.168.100.204
         port: 3306
     EOF
