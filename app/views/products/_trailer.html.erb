@@ -4,7 +4,7 @@
 <% elsif trailer.dailymotion? %>
 <object width="855" height="505"><param name="movie" value="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation" width="855" height="505" allowfullscreen="true" allowscriptaccess="always"></embed></object>
 <% elsif trailer.film1? || trailer.commeaucinema? || trailer.cinenews? || trailer.imineo? || trailer.dorcel_mp4? %>
-<object width="855" height="505" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf" name="player_api" id="player_api">
+<object width="855" height="505" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf?rand=<%= (1..1000).to_a.sample %>" name="player_api" id="player_api">
   <param value="true" name="allowfullscreen">
   <param value="always" name="allowscriptaccess">
   <param value="high" name="quality">
@@ -12,9 +12,6 @@
   <param value="config={&quot;key&quot;:&quot;#$dcba96641dab5d22c24&quot;,&quot;plugins&quot;:{&quot;content&quot;:{&quot;url&quot;:&quot;flowplayer.content-3.2.0.swf&quot;,&quot;height&quot;:220,&quot;padding&quot;:30,&quot;backgroundColor&quot;:&quot;#112233&quot;,&quot;opacity&quot;:0.0,&quot;backgroundGradient&quot;:[0.1,0.1,1],&quot;html&quot;:&quot;
 	&lt;p&gt;&lt;/p&gt;
 &quot;,&quot;style&quot;:{&quot;p&quot;:{&quot;fontSize&quot;:40}}},&quot;controls&quot;:{&quot;url&quot;:&quot;flowplayer.controls-tube-3.2.5.swf&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;clip&quot;:{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;},&quot;playlist&quot;:[{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;}]}" name="flashvars">
-  <embed src="http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf" allowfullscreen="true" allowscriptaccess="allowscriptaccess" quality="high" bgcolor="#000000" width="855" height="505" type="application/x-shockwave-flash" flashvars="config={&quot;key&quot;:&quot;#$dcba96641dab5d22c24&quot;,&quot;plugins&quot;:{&quot;content&quot;:{&quot;url&quot;:&quot;flowplayer.content-3.2.0.swf&quot;,&quot;height&quot;:220,&quot;padding&quot;:30,&quot;backgroundColor&quot;:&quot;#112233&quot;,&quot;opacity&quot;:0.0,&quot;backgroundGradient&quot;:[0.1,0.1,1],&quot;html&quot;:&quot;
-	&lt;p&gt;&lt;/p&gt;
-&quot;,&quot;style&quot;:{&quot;p&quot;:{&quot;fontSize&quot;:40}}},&quot;controls&quot;:{&quot;url&quot;:&quot;flowplayer.controls-tube-3.2.5.swf&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;clip&quot;:{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;},&quot;playlist&quot;:[{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;}]}" /></embed>
 </object>
 <% elsif trailer.allocine? %>
   <object type="application/x-shockwave-flash" id="V6_player" data="http://images.allocine.fr/commons/player/AcV3/AcPlayer_v3.0.swf" width="855px" height="505px" style="visibility: visible; display: block; ">
