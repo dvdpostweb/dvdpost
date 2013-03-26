@@ -1,6 +1,6 @@
 if @div
   page["##{@div}"].remove();
 else
-  page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product} if @product
+  page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product, :source => params[:source], :response_id => params[:response_id]} if @product
 end
 page["body"].trigger('close.facebox')

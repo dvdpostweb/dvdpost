@@ -9,6 +9,6 @@ if flash[:notice]
     page["#wrap .notice"].html(flash[:notice])
   page << "}"
 end
-page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product} if @product
+page["##{@submit_id}"].replaceWith render :partial => 'products/vod_list', :locals => {:product => @product, :source => params[:source], :response_id => params[:response_id]} if @product
 flash.discard
 page["body"].trigger('close.facebox')

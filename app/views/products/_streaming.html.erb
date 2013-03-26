@@ -5,9 +5,10 @@
   <% else %>
     <% ppv = product.streaming_products.available.first %>
     <% if ppv && ppv.is_ppv %>
-      <%= link_to t('.ppv', :price => ppv.ppv_price), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id), :class => "streaming_action fr louer", :id => :louer, :title => t('.buy') %>
+      <%= link_to t('.ppv', :price => ppv.ppv_price), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id, :source => source, :response_id => response_id), :class => "streaming_action fr louer", :id => :louer, :title => t('.buy') %>
+    <%= link_to t('.ppv_about'), info_path(:page_name => :ppv), :id => 'about_ppv' %>
     <% else %>
-      <%= link_to streaming_btn_title(:buy, text), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id), :class => "streaming_action fr regarder", :id => :watch, :title => t('.buy') %>
+      <%= link_to streaming_btn_title(:buy, text), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id, :source => source, :response_id => response_id), :class => "streaming_action fr regarder", :id => :watch, :title => t('.buy') %>
     <% end %>
   <% end %>
 <% else %>

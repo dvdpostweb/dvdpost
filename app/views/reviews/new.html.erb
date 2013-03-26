@@ -7,6 +7,8 @@
 	  </p>
 	  <%= render :partial => 'products/rating_review', :locals => {:product => @product} %>
 	  <%= f.hidden_field :rating, :value => 0 %>
+	  <%= hidden_field_tag :source, params[:source] %>
+	  <%= hidden_field_tag :response_id, params[:response_id] %>
 	  
 		<p class="critical_explain">
 		    <%= f.label t('.review_title') %> :

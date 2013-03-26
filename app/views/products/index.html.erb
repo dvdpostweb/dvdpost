@@ -1,37 +1,41 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent" >
-      <% unless (@actor && !@actor.adult?) || @director %>
-        <h2 class="ttl"><%= products_index_title  %></h2>
-      <% end %>
-      <%= render :partial => 'products/index/image', :locals => {:actor => @actor} if @actor %>
-      <%= render :partial => 'products/index/image', :locals => {:actor => @director} if @director %>
-      <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
-      <% unless @popular.nil? %>
-        <%= render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page} %>
-      <% end %>
-      <!--   ==============   MOVIES   ==============   -->
-      <% if params[:search] && !params[:search].empty? %>
-      <ul class="etabs osc content-tabs">
-        <%= "<li class='tab'>#{link_to t('.films')  , url_for(params.merge(:type => nil, :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
-        <%= "<li class='tab'>#{link_to t('.directors'), url_for(params.merge(:type => 'directors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
-        <%= "<li class='tab'>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
-      </ul>
-      <% end %>
-      <% if cookies[:endless] == 'deactive' %>
-        <%= link_to t('.endless_active'), params.merge(:endless => 'active'), :class => "endless" %>
-      <% else %>
-        <%= link_to t('.endless_deactive'), params.merge(:endless => 'deactive'), :class => "endless" %>
-      <% end %>
-      <div id="products">
-        <%= render :partial => 'products/index/products' %>
-      </div>
-
-      <div id='pagination_content'>
-        <%= render :partial => '/products/index/pagination' %>
-      </div>
-      
-      <!--   ==============   END MOVIES   ==============   -->
-    </div>
-    <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
-    <div id="toTop"><%= t('.back') %></div>
+  <% unless (@actor && !@actor.adult?) || @director %>
+    <h2 class="ttl"><%= products_index_title  %></h2>
+  <% end %>
+  <%= render :partial => 'products/index/image', :locals => {:actor => @actor} if @actor %>
+  <%= render :partial => 'products/index/image', :locals => {:actor => @director} if @director %>
+  <%= render :partial => 'layouts/filters', :locals => {:filter => @filter }%>
+  <% unless @popular.nil? %>
+    <%= render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page} %>
+  <% end %>
+  <!--   ==============   MOVIES   ==============   -->
+  <% if params[:search] && !params[:search].empty? %>
+    <ul class="etabs osc content-tabs">
+      <%= "<li class='tab'>#{link_to t('.films')  , url_for(params.merge(:type => nil, :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
+      <%= "<li class='tab'>#{link_to t('.directors'), url_for(params.merge(:type => 'directors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
+      <%= "<li class='tab'>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
+    </ul>
+  <% end %>
+  <% if cookies[:endless] == 'deactive' %>
+    <%= link_to t('.endless_active'), params.merge(:endless => 'active'), :class => "endless" %>
+  <% else %>
+    <%= link_to t('.endless_deactive'), params.merge(:endless => 'deactive'), :class => "endless" %>
+  <% end %>
+  <% if params[:ppv] == "1" %>
+  <div id="about_ppv">
+    <%= t('.ppv_description') %>
+  </div>
+  <% end %>
+  
+  <div id="products">
+    <%= render :partial => 'products/index/products' %>
+  </div>
+  <div id='pagination_content'>
+    <%= render :partial => '/products/index/pagination' %>
+  </div>
+  <!--   ==============   END MOVIES   ==============   -->
+</div>
+<%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
+<div id="toTop"><%= t('.back') %></div>
 <!--   ==============   END MAIN CONTENT   ==============   --> 

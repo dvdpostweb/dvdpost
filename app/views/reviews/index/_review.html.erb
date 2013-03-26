@@ -1,4 +1,4 @@
-<% path = product_path(:id => review.product.to_param, :recommendation => source) %>
+<% path = product_path(:id => review.product.to_param, :source => source) %>
 <% product = review.product %>
 <% product_title = review.product.title %>
 <% product_streaming = product.streaming?(params[:kind], session[:country_id]) %>
@@ -12,7 +12,7 @@
       </span>
     </h3>
       <div class="stars vote" id="rating-stars-<%= review.product.to_param %>" product_id="<%= review.product.to_param %>">
-        <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white, :size => :long} %>
+        <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white, :size => :long, :source => source, :response_id => @response_id} %>
       </div>
   </div>    
   <div class="movie-content">
@@ -38,11 +38,11 @@
     </div>  
     <div class="oters">
       <div class="links" id="seen-uninterested-<%= product.to_param %>">
-        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} if current_customer %>
+        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product, :source => source, :response_id => @response_id} if current_customer %>
       </div>
       <ul class="btns osc">
-        <li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => source} %></li>
-        <li><%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short} if product_streaming %></li>
+        <li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => source, :response_id => nil} %></li>
+        <li><%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short, :source => source, :response_id => nil} if product_streaming %></li>
         <% if product.trailer %>
           <li>
             <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) %>

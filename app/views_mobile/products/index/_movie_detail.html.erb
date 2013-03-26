@@ -1,6 +1,6 @@
 <% if movie_detail %>
   <% product = movie_detail %>
-  <% path = product_path(:id => product.to_param, :recommendation => @source, :response_id => @response_id) %>
+  <% path = product_path(:id => product.to_param, :source => @source, :response_id => @response_id) %>
   <% product_streaming = product.streaming?(params[:kind], session[:country_id]) %>
   <% view = params[:view_mode] == 'streaming' || params[:filter] == 'vod' ? 0 : 1 %>
   <% name = "#{I18n.locale}/products/product2_#{ENV['HOST_OK']}_#{view}_#{product.id}" %>
@@ -51,21 +51,21 @@
         </ul>
         <%= link_to(t('.more'), path, :target => target, :class => 'osc') %>
         <ul class="btns osc">
-          <li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @source} %></li>
+          <li><%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @source, :response_id => params[:response_id]} %></li>
           <% if product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
           <% if product_streaming %>
           <li>
-            <%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short} %>
+            <%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short, :source => @source, :response_id => params[:response_id]} %>
           </li>
           <% else %>
           <li>
-            <%= render :partial => 'products/vod_list',  :locals => {:product => product} %>
+            <%= render :partial => 'products/vod_list', :locals => {:product => product, :source => params[:source], :response_id => params[:response_id]} %>
           </li>
           <% end %>
           <% end %>
           <% if product.trailers.by_language(I18n.locale).mobile.count > 0 %>
           <li>
-            <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :recommendation => @source), :class => 'trailer', :target => :_blank) %>
+            <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @source), :class => 'trailer', :target => :_blank) %>
           </li>
           <% end %>
         </ul>

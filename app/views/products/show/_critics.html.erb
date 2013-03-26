@@ -14,7 +14,7 @@
     </ul>
     <div class="panel-container">
       <%= render :partial => "chronicles/first", :locals => {:first_item => @chronicle, :container => :product} if chronicle %>
-      <%= render :partial => "products/show/review_tab", :locals => {:chronicle => @chronicle, :product => product, :reviews_count => reviews_count, :reviews => reviews, :review_sort => review_sort, :product_title => product_title}%>
+      <%= render :partial => "products/show/review_tab", :locals => {:chronicle => @chronicle, :product => product, :reviews_count => reviews_count, :reviews => reviews, :review_sort => review_sort, :product_title => product_title, :source => source, :response_id => response_id}%>
       </div>                
     </div>
   </div>

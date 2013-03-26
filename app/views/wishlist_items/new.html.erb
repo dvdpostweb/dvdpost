@@ -24,8 +24,8 @@
             <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product) %></ul></span>
             <span class="col4"></span> 
             <span class="col5">
-              <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} if product.streaming?(params[:kind], session[:country_id]) %>
-              <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+              <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short, :source => params[:source], :response_id => params[:response_id]} if product.streaming?(params[:kind], session[:country_id]) %>
+              <%= render :partial => 'products/vod_list', :locals => {:product => product, :source => params[:source], :response_id => params[:response_id]} %>
             </span>
             <div class="clear"></div>
           </div>
@@ -37,7 +37,7 @@
               <span class="col4"></span> 
               <span class="col5">
                 <% @force_reserve = true %>
-                <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+                <%= render :partial => 'products/vod_list', :locals => {:product => product, :source => params[:source], :response_id => params[:response_id]} %>
               </span>
               <div class="clear"></div>
             </div>
@@ -49,7 +49,7 @@
             <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, true) %></ul></span>
             <span class="col4"></span> 
             <span class="col5">
-              <%= render :partial => 'products/vod_list', :locals => {:product => product} %>
+              <%= render :partial => 'products/vod_list', :locals => {:product => product, :source => params[:source], :response_id => params[:response_id]} %>
             </span>
             <div class="clear"></div>
           </div>
@@ -67,13 +67,14 @@
           <% submit_id = "p_#{product.to_param}_#{rand(10)}"%>
           <% form_id = "form_#{product.to_param}_#{rand(10)}"%>
           <% form_for(:wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => {:method => :delete, :id => form_id, :class => 'remvove_from_wishlist_form'}) do |f|%>
-            <%= hidden_field_tag :source,  params[:source] %>
             <%= hidden_field_tag :text,   :short %>
             <%= hidden_field_tag :list,   1 %>
             <%= hidden_field_tag :load_color,  :normal %>
             <%= hidden_field_tag :submit_id,  submit_id %>
             <%= hidden_field_tag :form_id,  form_id %>
             <%= hidden_field_tag :product_id,  product.id %>
+            <%= hidden_field_tag :source,  params[:source] %>
+            <%= hidden_field_tag :response_id, params[:response_id] %>
             <div id="<%= media %>"> 
               <span class="col1"><%= t("products.index.filters.#{media}") %></span>
               <span class="col2">
@@ -98,7 +99,10 @@
               <%= hidden_field_tag :type, :classic %>
               <%= hidden_field_tag :load_color, :normal %>
               <%= hidden_field_tag :all_movies, 0 %>
-
+              <%= hidden_field_tag :source,  params[:source] %>
+              <%= hidden_field_tag :response_id, params[:response_id] %>
+              
+              <%= hidden_field_tag "[wishlist_item][response_id]", params[:response_id] %>
               <% if @serie_id.to_i > 0 %>
                 <%= hidden_field_tag :serie_id, @serie_id %>
               <% end %>

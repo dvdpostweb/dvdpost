@@ -8,14 +8,14 @@
         <h3><strong><%= link_to product.title, path %></strong></h3>
         <div class="right"> 
           <span class="rating" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
-            <%= render :partial => 'products/rating', :locals => {:product => product, :background => :pink, :size => :small} %>
+            <%= render :partial => 'products/rating', :locals => {:product => product, :background => :pink, :size => :small, :source => @wishlist_source[:new]} %>
           </span>
         </div>
         <div class="clear"></div>
         <div style='width:100%'> 
-          <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:new]} %>
+          <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short, :source => @wishlist_source[:new], :response_id => nil} %>
           <% token = current_customer ? current_customer.get_token(product.imdb_id) : nil %> 
-          <%= render :partial => 'products/streaming', :locals => {:product => product, :token => token, :text => :short} if product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
+          <%= render :partial => 'products/streaming', :locals => {:product => product, :token => token, :text => :short, :source => @wishlist_source[:new], :response_id => nil} if product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
         </div>
       <span class="new"></span> </li>
     <% end %>

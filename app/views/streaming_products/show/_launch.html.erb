@@ -10,6 +10,6 @@
   <% if params[:sample] %>
     <%= link_to "<strong>#{t('.launch')}</strong>", streaming_products_sample_path(:streaming_product_id => streaming.to_param), :class => 'btn_play  qualityvod' %>
   <% else %>
-    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path(:id => @streaming.imdb_id, :streaming_product_id => streaming.to_param, :code => params[:code]), :class => 'btn_play  qualityvod' %>
+    <%= link_to "<strong>#{t('.launch')}</strong>", streaming_product_path(:id => @streaming.imdb_id, :streaming_product_id => streaming.to_param, :code => params[:code], :source => params[:source], :response_id => params[:response_id]), :class => 'btn_play  qualityvod' %>
   <% end%>
 </p>

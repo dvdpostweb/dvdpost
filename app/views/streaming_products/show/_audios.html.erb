@@ -1,4 +1,4 @@
 <p class="choice_question"><%= t('.title') %></p>
 <p class="audios">
-  <%= render :partial => '/streaming_products/show/audio', :collection => streaming, :locals => {:sample => sample} %>
+  <%= render :partial => '/streaming_products/show/audio', :collection => streaming, :locals => {:sample => sample, :source => source, :response_id => response_id} %>
 </p>

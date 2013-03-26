@@ -31,7 +31,7 @@
                 <h3><%= t('.version_title') %></h3>
                 <div id="choice_new">
                   <div id="step1" class="step" style="width:696px;height:120px">
-                    <%= render :partial => '/streaming_products/show/audios', :locals => {:streaming => @streaming_prefered, :sample => false} %>
+                    <%= render :partial => '/streaming_products/show/audios', :locals => {:streaming => @streaming_prefered, :sample => false, :source => params[:source], :response_id => params[:response_id]} %>
                   </div>
                   <div id="step2" class="step">
                   </div>
@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <p  class="info_vod" >
-                  <%= link_to t('.all_versions'), streaming_product_versions_path(:streaming_product_id => params[:id], :code => params[:code]), :id => :all_versions %>
+                  <%= link_to t('.all_versions'), streaming_product_versions_path(:streaming_product_id => params[:id], :code => params[:code], :source => params[:source], :response_id => params[:response_id]), :id => :all_versions %>
                   <br /><br />
 
                 </p>

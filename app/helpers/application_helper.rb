@@ -481,4 +481,24 @@ module ApplicationHelper
     name = name + '_' + subdomains if subdomains
     name
   end
+
+  def format_text(browser)
+    if browser.windows?
+      "pc"
+    elsif browser.mac?
+      "mac"
+    elsif browser.iphone?
+      "iphone"
+    elsif browser.ipad?
+      "ipad"
+    elsif browser.itouch?
+      "itouch"
+    elsif browser.tablet?
+      "tablet"
+    elsif browser.mobile?
+      "mobile"
+    else
+      "other"
+    end
+  end
 end

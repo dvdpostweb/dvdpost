@@ -47,9 +47,9 @@ FB.init({
       <div id="votes">
         <span class="osc"><%= "(#{@product.rating_count} #{t('.count')})" %></span>
         <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
-          <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long} %>
+          <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long, :source => @source, :response_id => @response_id} %>
         </div>
-        <div id="uninterested"><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} if ENV['HOST_OK'] == "0" %></div>
+        <div id="uninterested"><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :source => @source, :response_id => @response_id} if ENV['HOST_OK'] == "0" %></div>
       </div>
     </div><!-- #votes-wrap -->
   </div><!-- .ttl-wrap -->
@@ -87,15 +87,15 @@ FB.init({
     <div id="btns-wrap" class="osc">
       <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
         <% if @product.streaming?(params[:kind], session[:country_id]) %>
-          <%= render :partial => 'products/streaming',  :locals => {:product => @product} %>
+          <%= render :partial => 'products/streaming',  :locals => {:product => @product, :source => @source, :response_id => @response_id} %>
           <% credits = @product.streaming_products.available && @product.streaming_products.available.first ? @product.streaming_products.available.first.credits : 1 %>
         <% else %>
           <div id="stream_fake">&nbsp;</div>
         <% end %>
-          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
-          <%= render :partial => 'products/vod_list',  :locals => {:product => @product} %>
+          <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => @response_id} %>
+          <%= render :partial => 'products/vod_list',  :locals => {:product => @product, :source => @source, :response_id => @response_id} %>
           <% if trailer = @product.trailer %>
-             <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+             <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
           <% end %>
           <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
           <% if params[:kind] == :adult %>
@@ -105,9 +105,9 @@ FB.init({
           <% end %>
       <% else %>
         <div id="stream_fake">&nbsp;</div>
-        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
+        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => @response_id} %>
         <% if trailer = @product.trailer %>
-           <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+           <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
         <% end %>
       <% end %>
       <% if @product.available_to_sale? && current_customer %>
@@ -144,7 +144,7 @@ FB.init({
     <div id="thumbs-wrap">
       <h3><%= t '.photo' %></h3>
       <div>
-        <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind]} %>
+        <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind], :source => @source, :response_id => @response_id} %>
       </div>
     </div>
     <div id="fb">
@@ -185,7 +185,7 @@ FB.init({
   </div><!-- #formats -->
    <div id="rented-wrap">
     <%= render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :products => @recommendations, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :recommendation_response_id => @recommendation_response_id } if @recommendations && @recommendations.size > 0 %>
-    <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle} %>
+    <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle, :source => @source, :response_id => @response_id} %>
   </div><!-- #rented-wrap-->
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
