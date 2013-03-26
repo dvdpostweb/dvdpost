@@ -336,8 +336,8 @@ module DVDPost
         url = "#{url}?"
       end
       url = "#{url}#{params.collect{|key,value| "&#{key}=#{value}" if !value.nil? && !value.empty?}}" if params
-      url
-      #open(url)
+      #url
+      open(url)
     end
 
     def product_dvd_statuses
