@@ -471,7 +471,22 @@ $(function() {
     return false;
   });
 
-  
+  $('#about_ppv').live('click', function(){
+    url = $(this).attr('href');
+    jQuery.facebox(function() {
+      $.ajax({
+          url: url,
+          dataType: 'html',
+          type: 'GET',
+          success: function(data) 
+          { 
+            set_page(url)
+            jQuery.facebox(data); 
+          }
+        });
+    });
+    return false;
+  });  
   $('.trailer').live('click', function(){
     url = $(this).attr('href');
     jQuery.facebox(function() {

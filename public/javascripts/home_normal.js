@@ -154,9 +154,10 @@ $('#actualites-wrap .pagination a').live('click',function(){
     $('.tooltip_items').hide()
     name =$(this).attr('id')+"_popup"
     product_id = $(this).attr('id').replace('product_','')
+    response_id = $(this).attr('response_id')
     if($("#"+name+" .action .img_load").attr('src') == '/images/ajax-loader.gif')
     {
-      url = '/?action_popup=1&product_id='+product_id;
+      url = '/?action_popup=1&product_id='+product_id+'&response_id='+response_id;
           $.ajax({
         url: url,
         dataType: 'html',

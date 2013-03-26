@@ -23,7 +23,6 @@ class ProductsController < ApplicationController
     end
     @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
     
-    
     if params[:category_id]
       filter = get_current_filter
       if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
@@ -64,7 +63,6 @@ class ProductsController < ApplicationController
         new_params = params
       end
       new_params = new_params.merge(:per_page => item_per_page, :country_id => session[:country_id])
-      
       @products = 
       if params[:view_mode] == 'recommended'
         if(session[:sort] != params[:sort])
@@ -81,7 +79,6 @@ class ProductsController < ApplicationController
         end
       end
       @products_count = @products ? @products.count : 0
-      
       if params[:search] && !params[:search].empty?
         if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
           if @actors_count > 0
@@ -132,6 +129,8 @@ class ProductsController < ApplicationController
       @chronicle = Chronicle.find_by_imdb_id(@product.imdb_id, :joins =>:contents, :conditions => { :chronicle_contents => {:language_id => DVDPost.product_languages[I18n.locale]}}) unless mobile_request?
       @cinopsis = nil
     end
+    @response_id = params[:response_id]
+    
     if !request.format.js? || (request.format.js? && (params[:reviews_page] || params[:sort]))
       if params[:sort]
         sort = Review.sort2[params[:sort].to_sym]
@@ -190,9 +189,9 @@ class ProductsController < ApplicationController
       
       format.html do
         if  params[:response_id]
-          Customer.send_evidence('RecClick', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id]})
+          Customer.send_evidence('RecClick', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
         end
-        Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
+        Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
       end
       format.js {
         if params[:reviews_page] || params[:sort]
@@ -209,12 +208,12 @@ class ProductsController < ApplicationController
       delimiter_present = params[:delimiter_present] || 0
       delimiter_present = delimiter_present.to_i
       @product.uninterested_customers << current_customer
-      Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
+      Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
       expiration_recommendation_cache()
     end
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
-      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :delimiter_present => delimiter_present}}
+      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :delimiter_present => delimiter_present, :source => params[:source], :response_id => params[:response_id]}}
     end
   end
 
@@ -222,11 +221,11 @@ class ProductsController < ApplicationController
     @product.seen_customers << current_customer
     delimiter_present = params[:delimiter_present] || 0
     delimiter_present = delimiter_present.to_i
-    Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
+    Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     expiration_recommendation_cache()
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => params[:source])}
-      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :delimiter_present => delimiter_present}}
+      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :delimiter_present => delimiter_present, :source => params[:source], :response_id => params[:response_id]}}
     end
   end
 
@@ -244,7 +243,7 @@ class ProductsController < ApplicationController
     else
       trailer = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     end
-    Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip)
+    Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     respond_to do |format|
       format.js   {
         if trailer.first

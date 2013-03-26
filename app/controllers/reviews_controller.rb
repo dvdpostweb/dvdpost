@@ -52,8 +52,11 @@ class ReviewsController < ApplicationController
       unless current_customer.has_rated?(@product)
         @product.ratings.create(:customer => current_customer, :value => params[:review][:rating])
         current_customer.seen_products << @product
-        Customer.send_evidence('ItemRated', params[:product_id], current_customer, request.remote_ip, {:rating => params[:review][:rating]})
+        
+        Customer.send_evidence('ItemRated', params[:product_id], current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]}, {:rating => params[:review][:rating]})
       end
+      Customer.send_evidence('UserReview', params[:product_id], current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
+      
       flash[:notice] = t('products.show.review.review_save')
     rescue Exception => e  
       flash[:error] = t('products.show.review.review_not_save')

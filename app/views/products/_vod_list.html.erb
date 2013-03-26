@@ -4,6 +4,9 @@
     <% form_for(:vod_wishlist, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete}) do |f| %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
+      <%= hidden_field_tag :source, source %>
+      <%= hidden_field_tag :response_id, response_id %>
+      
       <%= submit_tag t('.drop'), :class => 'btn_remove_form streaming_remove_list', :id => "add-to-vod", :style => 'border:0px;cursor:pointer' %>
     <% end %>
   <% else %>
@@ -11,7 +14,8 @@
       <%= f.hidden_field :imdb_id, :value => product.imdb_id %>
       <%= f.hidden_field :product_id, :value => product.to_param %>
       <%= f.hidden_field :submit_id, :value => "vod_list_#{product.to_param}" %>
-      
+      <%= hidden_field_tag :source, source %>
+      <%= hidden_field_tag :response_id, response_id %>
       <% next_status = product.vod_next || (@force_reserve == true) ? true : false %>
       <% text = next_status ? t('.reserve') : t('.add')  %>
       

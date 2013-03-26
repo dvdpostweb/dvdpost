@@ -326,12 +326,18 @@ module DVDPost
       {:dvd_id => dvd_id, :response_id => response_id, :url => url}
     end
 
-    def send_evidence_recommendations(type, product_id, customer, ip, args=nil)
+    def send_evidence_recommendations(type, product_id, customer, ip, params = nil, args = nil)
       #url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
       url = Rails.env == "production" ? "http://api181.thefilter.com/dvdpost/live/video(#{product_id})/Event/#{type}" : "http://api182.thefilter.com/dvdpost/sandbox/video(#{product_id})/Event/#{type}"
       url = "#{url}#{args.collect{|key,value| "/#{value}"}}" if args
-      url = "#{url}?extUserId=#{customer.to_param}" if customer
-      open(url)
+      if customer
+        url = "#{url}?extUserId=#{customer.to_param}" 
+      else 
+        url = "#{url}?"
+      end
+      url = "#{url}#{params.collect{|key,value| "&#{key}=#{value}" if !value.nil? && !value.empty?}}" if params
+      url
+      #open(url)
     end
 
     def product_dvd_statuses
@@ -382,7 +388,7 @@ module DVDPost
     
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
-        :external => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182','217.112.190.100','217.112.185.121','109.88.0.197','109.88.0.198','194.78.222.212','213.181.46.204','109.88.0.199','91.183.57.165','87.65.39.92','94.139.62.121','94.139.62.120'],
+        :external => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182','217.112.190.100','217.112.185.121','109.88.0.197','109.88.0.198','194.78.222.212','213.181.46.204','109.88.0.199','91.183.57.165','87.65.39.92','94.139.62.121','94.139.62.120','94.139.62.123','94.139.62.122'],
         :internal => '127.0.0.1'
       })
     end

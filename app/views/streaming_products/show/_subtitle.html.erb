@@ -3,4 +3,4 @@
 <% else %>
   <% title = "<strong>#{t('streaming_products.show.kind.without_subtitle')}</strong>" %>
 <% end %>
-<%= link_to title, streaming_product_subtitle_path(:streaming_product_id => params[:streaming_product_id], :id => subtitle.to_param, :code => params[:code], :sample => params[:sample]), :class => "btn language_btn" %>
+<%= link_to title, streaming_product_subtitle_path(:streaming_product_id => params[:streaming_product_id], :id => subtitle.to_param, :code => params[:code], :sample => params[:sample], :source => params[:source], :response_id => params[:response_id]), :class => "btn language_btn" %>

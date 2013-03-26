@@ -342,6 +342,20 @@ color: #bd1f83;
   font-weight: bold;
   font-size: 14px;
 }
+#leftcolumn .nav .new a {
+  display: inline-block;
+  width:100px;
+}
+
+#leftcolumn .nav .new span
+{
+  background: #FA6A00;
+  color: white;
+  padding: 3px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+}
 #vod-adulte {
   background: url(../images/vod-adult-ttl-bg.png) 0 0 no-repeat;
   height: 68px;
@@ -1432,4 +1446,13 @@ float: left;
 display: block;
 overflow: hidden;
 font-size: 1em;
+}
+#about_ppv p
+{
+  margin:5px 0;
+}
+#about_ppv p.title
+{
+  font-weight: bold;
+  font-size: 14px;
 }

@@ -6,15 +6,15 @@
             <% product_title = data[:title] %>
             <% product_image = data[:image] %>
             <% description = data[:description] %>
-            <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation], :response_id => @response_id) %> 
+            <% path = product_path(:id => item.to_param, :source => @wishlist_source[:recommendation_hp], :response_id => @response_id) %> 
             <li>
-              <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>' style="height:60px; display:block">
+              <a href="<%= path %>" class="tooltips_item" id='product_<%= item.to_param %>' response_id = "<%= @response_id %>" style="height:60px; display:block">
                 <%= image_tag product_image, :width => 60 %>
               </a>
-              <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" style ='display:none'>
+              <div class="tooltip tooltip_items" id="product_<%= item.to_param %>_popup" response_id = "<%= @response_id %>" style ='display:none'>
                 <h4><%= product_title %> (<%= item.year %>) 
                   <span class="stars" id="rating-stars-<%= item.id %>" product_id="<%= item.id %>">
-                    <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white, :size => :small} %>
+                    <%= render :partial => 'products/rating', :locals => {:product => item, :background => :white, :size => :small, :response_id => @response_id, :source => @wishlist_source[:recommendation_hp]} %>
                   </span>
                 </h4>
                 <p>

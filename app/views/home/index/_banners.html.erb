@@ -1,11 +1,10 @@
 <ul id="banners" class="clearfix">
-  
   <% banners.collect do |banner| %>
   <li>
     <a href="<%= product_path(:id => banner.to_param, :source => @wishlist_source[:new])%>">
       <%= image_tag banner.banner_image(params[:kind]), :width => 293, :height => 186 %>
     </a>
-    <%= render :partial => 'products/streaming',  :locals => {:product => banner, :token => nil, :text => :short} %>
+    <%= render :partial => 'products/streaming',  :locals => {:product => banner, :token => nil, :text => :short, :source => source, :response_id => nil} %>
   </li>
   <% end %>
 </ul>

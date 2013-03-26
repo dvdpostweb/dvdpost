@@ -22,14 +22,14 @@
         </span>
       <% end %>
 		</div>
-		<%= link_to image_tag(product.image, :alt => product_title, :size => "95x137"), product_path(:id => product.to_param)  %>
+		<%= link_to image_tag(product.image, :alt => product_title, :size => "95x137"), product_path(:id => product.to_param, :source => @wishlist_source[:wishlist_dvd])  %>
 		
 		  <% if type != :soon && type != :history%>
 		  <p class="status">
-		    <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short} %>
+		    <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short, :source => @wishlist_source[:wishlist_dvd], :response_id => nil} %>
 		  </p>
 		  <% end %>
 		<div class="title">
-		  <%= link_to product_title, product_path(:id => product.to_param) %>
+		  <%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:wishlist_dvd]) %>
 		</div>
 	</div>	

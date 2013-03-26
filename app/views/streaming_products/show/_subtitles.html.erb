@@ -7,5 +7,5 @@
 <p class="choice_question"><%= t('.title') %></p>
 
 <p class="subs">
-  <%= render :partial => '/streaming_products/show/subtitle', :collection => streaming %>
+  <%= render :partial => '/streaming_products/show/subtitle', :collection => streaming, :locals => {:source => params[:source], :response_id => params[:response_id]} %>
 </p>

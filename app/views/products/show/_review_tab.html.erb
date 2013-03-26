@@ -1,11 +1,11 @@
 <div id="c-members" <%= 'style="display:none"' if chronicle %>>
   <% if @reviews_count > 0 %>
-    <%= render :partial => 'products/show/reviews', :locals => {:product => product, :reviews_count => reviews_count, :reviews => reviews, :review_sort => review_sort} %>
+    <%= render :partial => 'products/show/reviews', :locals => {:product => product, :reviews_count => reviews_count, :reviews => reviews, :review_sort => review_sort, :source => source, :response_id => response_id} %>
   <% else %>
     <% if current_customer %>
       <p>
         <%= t 'products.show.no_review' %>
-        <%= link_to "#{t('products.show.be_the_first')} #{product_title}!", new_product_review_path(:product_id => product.to_param), :id => 'add_new_review' %>
+        <%= link_to "#{t('products.show.be_the_first')} #{product_title}!", new_product_review_path(:product_id => product.to_param, :source => source, :response_id => response_id), :id => 'add_new_review' %>
       </p>
       <% end %>
   <% end %>

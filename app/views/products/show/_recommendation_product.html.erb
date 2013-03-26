@@ -1,4 +1,4 @@
-<% path = product_path(:id => recommendation_product.to_param, :recommendation => @wishlist_source[:recommendation_product], :response_id => recommendation_response_id) %>
+<% path = product_path(:id => recommendation_product.to_param, :source => @wishlist_source[:recommendation_product], :response_id => recommendation_response_id) %>
 <% data = recommendation_product.description_data() %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>

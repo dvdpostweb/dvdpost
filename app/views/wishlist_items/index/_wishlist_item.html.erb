@@ -1,7 +1,7 @@
 <% product_title = wishlist_item.product.title %>
 <div class="<%= product_media_id(wishlist_item.product.media) %> clearfix" id = "<%= "div_#{wishlist_item.product.to_param}" %>">
   <div class="title" >
-    <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param) %>
+    <%= link_to truncate(product_title, :length => 65), product_path(:id => wishlist_item.product.to_param, :source => @wishlist_source[:wishlist_dvd]) %>
   </div>
   <% unless params[:kind] == :adult || wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
     <div  class="tooltips_item warm" id="product_<%= wishlist_item.product.to_param %>">
@@ -16,7 +16,7 @@
   <% end %>
   <% if wishlist_item.product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>  
     <div class="availability streaming">
-        <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product} %>
+        <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product, :source => @wishlist_source[:wishlist_dvd], :response_id => nil} %>
     </div>
   <% else %>  
     <div class="availability">

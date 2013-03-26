@@ -142,7 +142,7 @@ class WishlistItemsController < ApplicationController
     begin
       @wishlist_item = WishlistItem.find(params[:id])
       @wishlist_item.update_attributes(params[:wishlist_item])
-      Customer.send_evidence('UpdateWishlistItem', params[:id], current_customer, request.remote_ip, {:priority => params[:wishlist_item][:priority]}) if params[:wishlist_item]
+      Customer.send_evidence('UpdateWishlistItem', params[:id], current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]}, {:priority => params[:wishlist_item][:priority]}) if params[:wishlist_item]
       respond_to do |format|
         format.js {
           @form_id = "form_#{params[:id]}"
@@ -153,7 +153,7 @@ class WishlistItemsController < ApplicationController
 
   def destroy
       @wishlist_item = WishlistItem.destroy(params[:id])
-      Customer.send_evidence('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
+      Customer.send_evidence('RemoveFromWishlist', params[:id], current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
       respond_to do |format|
         format.html {redirect_back_or  wishlist_path}
         format.js   do
@@ -200,10 +200,11 @@ class WishlistItemsController < ApplicationController
 
   private
   def create_wishlist_item(params)
+    response_id = params.delete :response_id
     wishlist_item = WishlistItem.new(params)
     wishlist_item.customer = current_customer
     wishlist_item.save
-    Customer.send_evidence('AddToWishlist', params[:product_id], current_customer, request.remote_ip, {:priority => params[:priority]})
+    Customer.send_evidence('AddToWishlist', params[:product_id], current_customer, request.remote_ip, {:responseid => response_id, :segment1 => params[:wishlist_source_id], :formFactor => format_text(@browser) , :rule => params[:wishlist_source_id]}, {:priority => params[:priority]})
     wishlist_item
   end
 

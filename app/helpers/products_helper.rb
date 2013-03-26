@@ -103,7 +103,7 @@ module ProductsHelper
     link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
   end
 
-  def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
+  def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil, response_id = nil, source = nil)
    if product
      rating_data = product.rating(current_customer) 
      rating = rating_data[:rating]
@@ -111,7 +111,7 @@ module ProductsHelper
      links = []
      5.times do |i|
        i += 1
-       links << rating_image_link(product, rating, i, background, size, replace, recommendation, rated)
+       links << rating_image_link(product, rating, i, background, size, replace, recommendation, rated, response_id, source)
        rating -= 2
      end
      links
@@ -135,7 +135,7 @@ module ProductsHelper
     links
   end
 
-  def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil, rated = nil)
+  def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil, rated = nil, response_id = nil, source = nil)
     background = background.to_sym if background
     if current_customer
       if rated
@@ -161,7 +161,7 @@ module ProductsHelper
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => s)
     
     if current_customer && class_name == 'star' && !mobile_request?
-      link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
+      link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation, :response_id => response_id, :source => source))
     else
       image
     end
@@ -185,50 +185,6 @@ module ProductsHelper
       content << "VOD#{limiter}"
     end
     content[0..-3]
-  end
-  def available_on_other_media(product, recommendation)
-    content = ''
-    unless product.series?
-      if product.dvd?
-        bluray = product.media_alternative(:blueray)
-        bluray3d = product.media_alternative(:bluray3d)
-        if bluray
-          path = recommendation.to_i > 0 ? product_path(:id => bluray.to_param, :recommendation => recommendation) : product_path(:id => bluray.to_param)
-          content << link_to(t('.dispo_bluray'), path, :id => 'bluray-btn')
-        end
-        if bluray3d
-          path = recommendation.to_i > 0 ? product_path(:id => bluray3d.to_param, :recommendation => recommendation) : product_path(:id => bluray3d.to_param)
-          content << link_to(t('.dispo_bluray_3d'), path, :id => 'bluray-btn') 
-        end
-      elsif product.bluray? 
-        dvd = product.media_alternative(:dvd)
-        bluray3d = product.media_alternative(:bluray3d)
-        if dvd
-          path = recommendation.to_i > 0 ? product_path(:id => dvd.to_param, :recommendation => recommendation) : product_path(:id => dvd.to_param)
-          content << link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
-        end
-        if bluray3d
-          path = recommendation.to_i > 0 ? product_path(:id => bluray3d.to_param, :recommendation => recommendation) : product_path(:id => bluray3d.to_param)
-          content << link_to(t('.dispo_bluray_3d'), path, :id => 'bluray-btn')
-        end
-      elsif product.bluray3d? 
-        dvd = product.media_alternative(:dvd)
-        bluray = product.media_alternative(:blueray)
-        if dvd
-          path = recommendation.to_i > 0 ? product_path(:id => dvd.to_param, :recommendation => recommendation) : product_path(:id => dvd.to_param)
-          content << link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
-        end
-        if bluray
-          path = recommendation.to_i > 0 ? product_path(:id => bluray.to_param, :recommendation => recommendation) : product_path(:id => bluray.to_param)
-          content << link_to(t('.dispo_bluray'), path, :id => 'bluray-btn')
-        end
-      else
-        content << ''
-      end
-    else
-      content << ''
-    end
-    content
   end
 
   def available_on_other_language(product, recommendation)
@@ -487,11 +443,12 @@ module ProductsHelper
 
   def left_column_vod(params)
     html_content = []
-    #if params[:kind] == :normal
-    #  html_content << content_tag(:li, :class => :list) do
-    #    link_to t('products.left_column.ppv'), products_path(:filter => :vod, :ppv => 1), :class => params[:filter] == "vod" && params[:ppv] == "1" ? :actived : ''
-    #  end
-    #end
+    if params[:kind] == :normal
+      html_content << content_tag(:li, :class => 'list new') do
+        link = link_to t('products.left_column.ppv'), products_path(:filter => :vod, :ppv => 1), :class => params[:filter] == "vod" && params[:ppv] == "1" ? :actived : ''
+        "#{link}<span>#{t('.new')}</span>"
+      end
+    end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.rent'), products_path(:filter => :vod, :sort => :token_month, :limit => 40), :class => params[:filter] == "vod" && params[:sort] == "token_month" ? :actived : ''
     end

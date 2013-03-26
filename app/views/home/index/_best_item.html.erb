@@ -13,7 +13,7 @@
       </div>
       <h4><%= best_item.count %> <%= rating_title(best_item.count) %></h4>
       <%= t('.avg_month') %>
-      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product} %>
+      <%= render :partial => 'products/hybrid', :locals => {:product => product, :text => :short, :source => @wishlist_source[:best_reviews], :streaming_product => streaming_product, :response_id => nil} %>
     </div>
   </li>
 <% end %>

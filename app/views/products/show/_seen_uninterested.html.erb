@@ -6,11 +6,11 @@
 <% if seen %>
   <%= t '.already_seen' %>
 <% else %>
-  <%= link_to t('.already_link'), product_seen_path(:product_id => product, :delimiter_present => delimiter_present) %>
+  <%= link_to t('.already_link'), product_seen_path(:product_id => product, :delimiter_present => delimiter_present, :source => source, :response_id => response_id) %>
 <% end %>
 <%= delimiter %>
 <% if uninterrested %>
   <%= t '.not_interested' %>
 <% else %>
-    <%= link_to t('.not_interested_link'), product_uninterested_path(:product_id => product, :delimiter_present => delimiter_present) %>
+    <%= link_to t('.not_interested_link'), product_uninterested_path(:product_id => product, :delimiter_present => delimiter_present, :source => source, :response_id => response_id) %>
 <% end %>
