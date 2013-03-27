@@ -7,7 +7,7 @@
 #cl #maincontent h2.ttl {
    padding: 0 20px;
    background: #fff;
-   font-size: 45px;
+   font-size: 26px;
    text-align: left;
 }
 
@@ -282,7 +282,7 @@
   background-repeat: no-repeat;
 }
 .adult .oters .btns a,.adult .oters .btns input {
-  background-image: url(../images/sprite_adult.png);
+  background-image: url(../images/sprite_adult.png) !important;
 }
 .oters .btns input{
   font-family: 'Open Sans Condensed', sans-serif;
