@@ -47,7 +47,7 @@ module DVDPost
     def airplay_url
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://www.apple.com/befr/appletv/airplay/',
-        :nl => 'http://www.apple.com/benk/appletv/airplay/',
+        :nl => 'http://www.apple.com/benl/appletv/airplay/',
         :en => 'http://www.apple.com/uk/appletv/airplay/'
       })
     end
@@ -55,7 +55,7 @@ module DVDPost
     def appletv_url
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://www.apple.com/befr/appletv/',
-        :nl => 'http://www.apple.com/benk/appletv/',
+        :nl => 'http://www.apple.com/benl/appletv/',
         :en => 'http://www.apple.com/uk/appletv//'
       })
     end
@@ -63,7 +63,7 @@ module DVDPost
     def iphone_url
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://www.apple.com/befr/iphone/',
-        :nl => 'http://www.apple.com/benk/iphone/',
+        :nl => 'http://www.apple.com/benl/iphone/',
         :en => 'http://www.apple.com/uk/iphone/'
       })
     end
@@ -71,7 +71,7 @@ module DVDPost
     def ipad_url
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://www.apple.com/befr/ipad/',
-        :nl => 'http://www.apple.com/benk/ipad/',
+        :nl => 'http://www.apple.com/benl/ipad/',
         :en => 'http://www.apple.com/uk/ipad/'
       })
     end
