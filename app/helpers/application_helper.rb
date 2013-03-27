@@ -491,6 +491,8 @@ module ApplicationHelper
       "iphone"
     elsif browser.ipad?
       "ipad"
+    elsif browser.ipod?
+      "ipod"
     elsif browser.tablet?
       "tablet"
     elsif browser.mobile?

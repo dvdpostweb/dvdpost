@@ -3,7 +3,7 @@
   <a href="<%= product_path(:id => p.id) %>">
     <span><%= t '.trailer_week' %><strong><%= p.title %></strong></span> 
   </a>
-  <a href="<%= product_trailer_path(:product_id => p.id) %>" class="trailer">
+  <a href="<%= product_trailer_path(:product_id => p.id, :source => @wishlist_source[:trailer_adult]) %>" class="trailer">
     <%= image_tag p.trailer_image(params[:kind]), :width => 298, :height => 253 %>
   </a>
 </div>
