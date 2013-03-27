@@ -3,14 +3,14 @@
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
 <li> 
-  <a href="<%= product_trailer_path(:product_id => trailer.id) %>" class="thumb trailer">
+  <a href="<%= product_trailer_path(:product_id => trailer.id, :source => @wishlist_source[:trailer_adult]) %>" class="thumb trailer">
     <%= image_tag trailer.preview_image(7, params[:kind]), :width => 124, :height => 100 %> 
     <%= image_tag "bandes-annonces-play-icon.png", :width => 36, :height => 35, :class => "play-icon"  %> 
   </a> 
   <% if trailer.trailers.first.is_new? %>
     <span class="new">New</span>
   <% end %>
-  <h3><%= link_to product_title, product_path(:id => trailer.id)  %></h3>
+  <h3><%= link_to product_title, product_path(:id => trailer.id, :source => @wishlist_source[:trailer_adult])  %></h3>
   <p><%= actors = trailer.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %></p>
 </li>
 <% end %>

@@ -20,9 +20,8 @@
       <%= render :partial => '/home/index/newsletters_adult', :locals => {:news => @news, :themes => @themes} %>
       <%= render :partial => "/home/index/products_recent_adult", :locals => { :products => @recent } %>
       <%= render :partial => "/home/index/trailers", :locals => { :products => @trailers } %>
-      top
       <%= render :partial => '/home/index/top_view_adult', :locals => {:products => @top_views} %>
-      <%= render :partial => '/home/index/banners', :locals => {:banners => @banners, :source => @wishlist_source[:hp]} %>
+      <%= render :partial => '/home/index/banners', :locals => {:banners => @banners, :source => @wishlist_source[:hp_adult]} %>
       <% if ENV['HOST_OK'] == "0" && @newsletter_x.nil? %>
       <div id='popup' style='display:none'><%= customer_newsletter_x_path(:customer_id => current_customer.to_param) %></div>
     <% end %>
