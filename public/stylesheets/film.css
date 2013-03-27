@@ -174,7 +174,7 @@ max-width:180px;
 }
 
 .adult #btns-wrap a, .adult #btns-wrap input {
-  background-image: url(../images/sprite_adult.png);
+  background-image: url(../images/sprite_adult.png) !important;
 }
 #btns-wrap input:hover {
   text-decoration: underline;
