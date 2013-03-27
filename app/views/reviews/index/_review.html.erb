@@ -45,7 +45,7 @@
         <li><%= render :partial => 'products/streaming',  :locals => {:product => product, :text => :short, :source => source, :response_id => nil} if product_streaming %></li>
         <% if product.trailer %>
           <li>
-            <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) %>
+            <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => source), :class => 'trailer', :target => :_blank) %>
           </li>
         <% end %>
       </ul>

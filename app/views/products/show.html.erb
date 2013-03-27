@@ -198,5 +198,5 @@ FB.init({
   <div id='review' style='display:none' class='action_face'><%= new_product_review_path(:product_id => @product.to_param) %></div>
 <% end %>
 <% if params[:trailer].to_i == 1 && @product.trailer%>
-  <div id='rating' style='display:none' class='action_face'><%= product_trailer_path(:product_id => @product.to_param) %></div>
+  <div id='rating' style='display:none' class='action_face'><%= product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id) %></div>
 <% end %>

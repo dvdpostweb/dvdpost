@@ -21,7 +21,7 @@
        <% end %>
          <br /><%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => params[:reponse_id]} %>
          <% if @product.trailers.by_language(I18n.locale).mobile.count > 0 %>
-            <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+            <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
          <% end %>
          <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
          <% if params[:kind] == :adult %>
@@ -32,7 +32,7 @@
      <% else %>
        <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
        <% if @product.trailers.by_language(I18n.locale).mobile.count > 0 %>
-          <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
+          <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
        <% end %>
      <% end %>
    </div>
@@ -105,7 +105,7 @@
       <h3><%= t('.members_critic') %></h3>
       
     
-    <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle} %>
+    <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle, :source => @source, :response_id => @response_id} %>
   </div><!-- #rented-wrap-->
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->

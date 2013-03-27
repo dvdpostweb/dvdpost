@@ -1,6 +1,6 @@
 <% class_name = params[:selection_kind] || @default %>
 <% product = product_selection_week_adult %>
-<% name = "#{I18n.locale}/products/selection3_#{ENV['HOST_OK']}_#{class_name}_#{product.id}" %>
+<% name = "#{I18n.locale}/products/selection4_#{ENV['HOST_OK']}_#{class_name}_#{product.id}" %>
 <% name_path = "views/#{name}" %>
 
 <% cache name do %>
@@ -9,11 +9,11 @@
   <% product_image = data[:image] %>
   <% description = data[:description] %>
   <li class="<%= class_name %>">
-    <h3><%= link_to product_title, product_path(:id => product.to_param) %></h3>
+    <h3><%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]) %></h3>
     <div class="wrap">
       <h4><%= product.studio.name if product.studio.name %></h4>
       <p><%= truncate(description.text, :length => 120) %> </p>
-      <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'more trailer', :target => :_blank) if product.trailer %> 
+      <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @wishlist_source[:week_selection]), :class => 'more trailer', :target => :_blank) if product.trailer %> 
       <%= link_to image_tag(product.image_detail, :class=>"thumb", :width => 107), product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]) %> 
     </div>
   </li>
