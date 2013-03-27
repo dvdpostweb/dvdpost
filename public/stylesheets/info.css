@@ -845,6 +845,10 @@ font-family:'Open Sans Condensed',sans-serif;
 {
   margin: 5px 19px;
 }
+.prices-container ul#formule_tab
+{
+  margin:0;
+}
 .prices-container li
 {
 list-style: square;
@@ -942,3 +946,358 @@ display: block;
 {
   text-decoration:underline !important;
 }
+
+
+#prices {
+  background-color:#FFFFFF;
+  background: none repeat-y scroll 100% 0 white !important;
+  padding: 14px;
+}
+.prices-container h3 {
+  background: url("../images/square.gif") no-repeat scroll 0 25px transparent;
+  font-size: 24px;
+  padding-left: 20px;
+  padding-top: 15px;
+  text-transform: uppercase;
+  padding-bottom:15px;
+}
+#prices h2 {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+}
+#header {
+  height: 80px!important;
+}
+.prices-container p {
+  color:#212a31;
+  font-size:14px;
+}
+.prices-container {
+  float:left;
+  width:655px;
+}
+#formule_tab {
+  background-color:#eceaea;
+  height: 310px;
+  padding-top: 8px;
+  width: 659px;
+}
+.formule {
+  float: left;
+  margin-left: 11px;
+  margin-right: 11px;
+  width: 185px;
+  list-style:none !important;
+}
+.formule h4 {
+  font-size:20px;
+}
+.formule img {
+  opacity:0.5;
+}
+.formule.active {
+  background-color: #FFFFFF !important;
+  padding: 0 15px 30px;
+}
+
+
+
+.formule.active img {
+  opacity:1;
+
+}
+.formule p {
+  font-size: 13px;
+  padding-top: 10px;
+
+}
+
+
+.formule.active .button {
+  background-color: #9ECA3B;
+  background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
+  background-repeat: repeat-x;
+  border: 1px solid #7EA613;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #72942A;
+  padding: 5px;
+  font-size:15px;
+  border-radius: 4px 4px 4px 4px;
+
+}
+
+.formule .button {
+  background-color: #EE8419;
+  background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
+  background-repeat: repeat-x;
+  border: 1px solid #D55023;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #D83C14;
+  padding: 5px;
+  font-size:15px;
+  border-radius: 4px 4px 4px 4px;
+}
+
+.prices {
+  border: 1px solid #C4D1DA;
+  border-radius: 4px 4px 4px 4px;
+  float: left;
+  height: 310px;
+  margin-left: 15px;
+  margin-top: 20px;
+  padding: 10px;
+  width: 126px;
+}
+
+
+.prices.populaire {
+
+  background-color: #88BD32;
+  background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
+  border: 1px solid #C4D1DA;
+  border-radius: 4px 4px 4px 4px;
+  float: left;
+  height: 341px;
+  margin-left: 15px;
+  margin-top: 6px;
+  padding: 10px;
+  width: 126px;
+}
+
+
+
+
+.prices  .button {
+  background-color: #9ECA3B;
+  background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
+  background-repeat: repeat-x;
+  border: 1px solid #7EA613;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #72942A;
+  padding: 5px;
+  font-size:15px;
+  border-radius: 4px 4px 4px 4px;
+}
+
+
+.prices h2 {
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 30px;
+  text-transform: uppercase;
+  text-align:center;
+
+}
+
+.prices h2 span {
+  font-size: 19px;
+  font-weight: normal;
+  line-height: 12px;
+  text-transform: none;
+
+}
+
+.prices p {
+  background: url("../images/check_prices.png") no-repeat scroll 0 0 transparent;
+
+  padding-left: 27px;
+}
+
+
+.prices h4 {
+  font-size: 44px;
+  font-weight: bold;
+  padding-bottom: 30px;
+  text-transform: uppercase;
+  text-align:center;
+  width: 126px;
+  margin: 0;
+}
+.prices.populaire h2 {
+  color: #3A450A;
+
+}
+.desktop .prices-container li {
+font-size: 12px;
+color: #454545;
+margin: 20px 0 0 15px;
+}
+.desktop .prices-container ul
+{
+  margin:0;
+}
+.prices.populaire h4 {
+
+  color:#3a450a;
+
+}
+.desktop #prices h2 {
+padding:0 0 30px 0;
+text-align:center;
+}
+
+.prices.populaire p {
+
+  color:#3a450a;
+
+}	 
+
+.prices h4 span {
+  font-size: 19px;
+  font-weight: normal;
+  line-height: 12px;
+  text-transform: none;
+
+}
+
+
+
+.prices.populaire .button {
+  background-color: #EE8419;
+  background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
+  background-repeat: repeat-x;
+  border: 1px solid #D55023;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #D83C14;
+  padding: 5px;
+  font-size:18px;
+  border-radius: 4px 4px 4px 4px;
+}
+
+
+#faq-info-wrap h4 .close{
+    background: url("../images/plus_moins.png") no-repeat scroll 0 0 transparent;
+    padding-left: 20px;
+font-size:13px;
+font-family:Arial, Helvetica, sans-serif;
+
+} 
+
+#faq-info-wrap h4 .open{
+    background: url("../images/plus_moins.png") no-repeat scroll 0 -16px transparent;
+    padding-left: 20px;
+font-size:13px;
+font-family:Arial, Helvetica, sans-serif;
+
+}
+#faq-info-wrap p {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.faq-container {
+
+  background-color: #C4D1DA;
+  background-image: -moz-linear-gradient(center top , #D9E0E4, #C4D1DA);
+  padding: 10px;
+  position: fixed;
+  margin: 0 0 0 675px;
+  width: 245px;
+}
+
+.faq-container h3{
+  text-transform:uppercase;
+  font-size:24px;
+  padding-bottom:10px;
+
+}
+
+#aste {
+  color:#212A31;
+  font-size:12px;
+  padding-top:20px;
+  padding-bottom:20px;
+
+
+}
+
+
+
+
+
+.prices-container #subscribe-wrap h3 {
+  color: #3A450A !important;
+  float: left;
+  font-family: 'Open Sans Condensed',sans-serif;
+  font-size: 25px;
+  font-weight: normal !important;
+  line-height: 36px;
+  width: 405px;
+  background:none;
+  padding-bottom:0px;
+  padding-left:0px;
+  padding-top:0px;
+}
+
+.prices-container #subscribe-wrap .wrap {
+  background-color: #88BD32;
+  background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
+  float: left;
+  overflow: hidden;
+  padding: 12px;
+  width: 369px;
+}
+
+.prices-container #subscribe-wrap {
+
+  height: 91px!important;
+
+}
+
+
+.prices-container #subscribe-wrap #subscribe {
+  background-color: #88BD32;
+  background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
+  padding: 12px;
+  width: 238px;
+}
+
+
+
+
+.prices-container #subscribe-wrap #subscribe a.btn {
+  background-color: #EE8419;
+  background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
+  background-repeat: repeat-x;
+  border: 1px solid #D55023;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  font-size: 25px;
+  width: 220px;
+  height: 30px;
+  line-height: 30px;
+  padding: 5px;
+  text-shadow: 0 -1px 0 #D83C14;
+}
+
+
+#subscribe-wrap span {
+  color: #FFFFFF !important;
+  font-weight: bold !important;
+}
+
+.formula.active {
+  padding-top:10px;
+  padding-bottom: 20px;
+
+}
+
+.icon_populaire {
+  background: url("../images/fr/pluspopulaire.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 51px;
+  left: -25px;
+  margin-bottom: -40px;
+  position: relative;
+  top: -35px;
+}
+
+.desktop .prices-container li
+{ list-style:none !important}

@@ -1,3 +1,233 @@
+<% if !mobile_request? %>
+<div class="container desktop clearfix">
+  <div id="prices">
+    <h2>Formules d'abonnement</h2>
+    <div class="all-container">
+      <div class="prices-container" align="left">
+        <h3>Sélectionnez le profil qui vous identifie le mieux</h3>
+  
+        <ul id="formule_tab">
+          <li class="formule active">
+            <h4>Actif</h4>
+            <a  href="">
+              <%= image_tag 'actif.jpg', :size => '185x122', :alt => 'actif' %>
+            </a>
+            <p>Vous êtes une personne active qui aime bouger et qui est toujour fort occupée mais de temps en temps vous avez envie de vous détendre devant un bon film </p>
+            <a class="button" href="">Découvrez les formules</a> </li>
+          <li class="formule">
+            <h4>Cinéphile</h4>
+            <a  href=""><img width="185" height="122" src="images/cinephile.jpg" alt="" /></a>
+            <p>Vous adorez les films, aussi bien à votre aise dans le canapé qu'allongé dans votre lit avec votre pc portable ou “on the go” avec votre tablette ou mobile </p>
+            <a class="button " href="">Découvrez les formules</a> </li>
+          <li class="formule">
+            <h4>Membre de famille</h4>
+            <a  href=""><img width="185" height="122" src="images/membredefamille.jpg" alt="" /></a>
+            <p>Vous faites partie d'une famille avec des gouts variés en ce qui concerne le cinema et vous voulez donner à chacun l'opportunité de voir ce qu'il ou elle préfère </p>
+            <a class="button" href="">Découvrez les formules</a> </li>
+        </ul>
+    
+        <div class="clearfix"></div>
+        <!--  Formules Actifs-->
+        <div class="formula active">
+          <ul>
+            <li class="prices" >
+              <h2>2 FILMS*<br />
+                <span>par mois</span></h2>
+              <p style="padding-bottom:47px;">Uniquement
+                2 VOD </p>
+             
+              <h4>4.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices">
+              <h2>3 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                2 DVD/Blu-Ray </p>
+              <p>Minimum 1 VOD</p>
+              <h4>7.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices populaire">
+            <div class="icon_populaire"></div>
+              <h2>4 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                2 DVD/Blu-Ray </p>
+              <p>Minimum 2 VOD</p>
+              <h4>9.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Essai gratuit</a></div>
+            </li>
+            <li class="prices">
+              <h2>5 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                3 DVD/Blu-Ray </p>
+              <p>Minimum 2 VOD</p>
+              <h4>12.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <!--  Formules cinéphiles-->
+        <div class="formula">
+          <ul class="clearfix" style="display:none">
+            <li class="prices" >
+              <h2>6 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                4 DVD/Blu-Ray </p>
+              <p>Minimum 2 VOD</p>
+              <h4>14.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices">
+              <h2>8 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                6 DVD/Blu-Ray </p>
+              <p>Minimum 2 VOD</p>
+              <h4>19.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices populaire">
+              <h2>11 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                8 DVD/Blu-Ray </p>
+              <p>Minimum 3 VOD</p>
+              <h4>22.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices">
+              <h2>13 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                10 DVD/Blu-Ray </p>
+              <p>Minimum 3 VOD</p>
+              <h4>26.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <!--  Formules familles-->
+        <div class="formula">
+          <ul class="clearfix" style="display:none">
+            <li class="prices" >
+              <h2>15 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                12 DVD/Blu-Ray </p>
+              <p>Minimum 3 VOD</p>
+              <h4>30.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices">
+              <h2>18 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                14 DVD/Blu-Ray </p>
+              <p>Minimum 4 VOD</p>
+              <h4>33.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices populaire">
+              <h2>20 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                16 DVD/Blu-Ray </p>
+              <p>Minimum 4 VOD</p>
+              <h4>36.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+            <li class="prices">
+              <h2>22 FILMS*<br />
+                <span>par mois</span></h2>
+              <p>Maximum 
+                18 DVD/Blu-Ray </p>
+              <p>Minimum 4 VOD</p>
+              <h4>39.95 €<br />
+                <span>par mois</span></h4>
+              <div align="center"><a class="button" href="">Je m’inscris</a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <h3>Comment ca fonctionne ?</h3>
+        <p align="justify"><strong>Vous êtes déjà convaincu du service ?</strong> Laissez vous guider par nos profils et sélectionnez l'abonnement de votre choix.</p>
+        <p align="justify"><strong>Vous êtes nouveau à DVDPost?</strong> Choisissez la formule de 4 films (2 films dans tous les formats + 2 films uniquement en format vod) et profitez d'<strong>une periode d'essai gratuit</strong> pendant le premier mois. Votre compte n'est pas débité pendant la période d'essai. </p>
+        <p align="justify">Les abonnement sont <strong>sans engagement</strong>. Vous arrêtez quand vous voulez. Si vous arrêtez avant la fin de votre essai gratuit votre compte ne sera pas débité. </p>
+        <div id="subscribe-wrap" class="osc fr">
+          <div class="wrap">
+            <h3><span>PROFITEZ D'UN MOIS D'ESSAI GRATUIT</span><br />
+              AVEC LOCATION DE 4 FILMS AU CHOIX</h3>
+          </div>
+          <div id="subscribe"> <a href="http://www.dvdpost.be/step1.php?language=fr" class="btn">INSCRIVEZ-VOUS</a>
+            <p><a href="/fr/public_promotion/edit" id="codePromo">Vous avez un code promo? Cliquez ici</a></p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id='aste'>* Pour la formule de 3 films par mois, l'envoi des DVD se fait un par un. Pour les formules de 5 à 11 films par mois, l'envoi des DVD se fait 2 par 2. Pour les formules suivantes, l'envoi des DVD se fera 4 par 4</div>
+      </div>
+    </div>
+    <div class="faq-container">
+      <h3>Questions fréquentes</h3>
+      <div id="faq-info-wrap">
+        <h4 id="vod-plus-title" class=""><span class="close"></span>Pourquoi y a t'il un moyen de paiement pour un essai gratuit?</h4>
+        <div style="display: block;" class="clearfix" id="vod-plus">
+          <p align="justify">Le mode de paiement fonctionne comme garantie pour limiter les abus et comme moyen de paiement si vous décidez de prolonger l'abonnement. Votre compte est uniquement débité après la période d'essai. Si vous arrêtez votre abonnement avant la fin de votre essai gratuit votre compte ne sera pas débité.</p>
+        </div>
+        <div id="faq-info-wrap">
+          <h4 id="vod-button-title"><span class="close"></span>Que ce passe-t-il à la fin de la période d'essai?</h4>
+          <div style="display:none" class="clearfix" id="vod-button">
+            <p align="justify">- Si vous êtes content du service vous ne devez rien faire. Votre abonnement sera prolongé automatiquement avec la formule de 4 films par mois (dont minimum 2 en format VOD) à 9,95€ par mois.</p>
+            <p align="justify"> - Vous vous rendez compte que le service ne convient pas à vos besoins? Contactez notre service clientèle au numéro gratuit 0800/95 990 ou au numéro payant 0032/25036811 pour les appels effectués hors de la Belgique, au plus tard un jour ouvrable avant la fin de la période d'essai, et votre compte sera clôturé sans aucun frais. </p>
+          </div>
+        </div>
+        <div id="faq-info-wrap">
+          <h4 id="vod-button-title"><span class="close"></span>Est il difficile d'annuler?</h4>
+          <div style="display:none" class="clearfix" id="vod-button">
+            <p>Vous pouvez clôturer votre abonnement quand vous voulez sans aucun frais. Contactez notre service clientèle au numéro gratuit 0800/95 990 ou au numéro payant 0032/25036811 pour les appels effectués hors de la Belgique.</p>
+          </div>
+        </div>
+        <div id="faq-info-wrap">
+          <h4 id="vod-button-title"><span class="close"></span>Qu'est ce que la VOD?</h4>
+          <div style="display:none" class="clearfix" id="vod-button">
+            <p align="justify">Il s'agit de la vidéo sur demande. Regardez vos films immédiatement en ligne sans attendre. En plus vous pouvez visionner les films vod sur plusieurs plateformes. Pour plus d'informations, <a href="">cliquez ici</a></p>
+          </div>
+        </div>
+        <div id="faq-info-wrap">
+          <h4 id="vod-button-title"><span class="close"></span>Que dois-je faire pour recevoir des DVDs?</h4>
+          <div style="display:none" class="clearfix" id="vod-button">
+            <p align="justify">Il suffit d'ajouter au moins une quinzaine de films dans votre liste. On vous envoi les titres disponibles sous les 48h. Pour plus d'informations, <a href="">cliquez ici</a> vers page vod)</p>
+          </div>
+        </div>
+        <div id="faq-info-wrap">
+          <h4 id="vod-button-title"><span class="close"></span>Puis je changer de formule? </h4>
+          <div style="display:none" class="clearfix" id="vod-button">
+            <p align="justify">Pour changer de formule pendant l'essai gratuit il suffit de contacter notre service clientèle au numéro gratuit 0800/95 990 ou au numéro payant 0032/25036811 pour les appels effectués hors de la Belgique. Après la période d'essai vous pouvez modifier la formule dans votre compte.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<% else %>
+
 <div id="prices">
   <% unless mobile_request? %><h2><%= t '.title' %></h2><% end %>
   <div class="all-container">
@@ -20,3 +250,4 @@
   </div>
   <div id='aste'>* <%= t('.send') %></div>  
 </div>
+<% end %>
