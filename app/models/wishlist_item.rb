@@ -45,7 +45,7 @@ class WishlistItem < ActiveRecord::Base
       source = wishlist_source[:prefered]
     elsif params[:view_mode] == 'production_year_all'
       source = wishlist_source[:new]
-    elsif params[:view_mode] == 'production_year_vod'
+    elsif params[:sort] == 'production_year_vod'
       source = wishlist_source[:new]
     elsif params[:view_mode] == 'vod_recent'
       source = wishlist_source[:last_added_vod]
@@ -61,9 +61,9 @@ class WishlistItem < ActiveRecord::Base
       source = wishlist_source[:search]
     elsif params[:category_id]
       if params[:filter] == 'vod'
-        source = wishlist_source[:category]
-      else
         source = wishlist_source[:category_vod]
+      else
+        source = wishlist_source[:category]
       end
     elsif params[:actor_id]
       source = wishlist_source[:actor]
