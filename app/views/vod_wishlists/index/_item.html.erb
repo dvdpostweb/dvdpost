@@ -6,7 +6,7 @@
 <% expire if expire && 2.weeks.from_now.localtime > expire %>
 	<div class="vod clearfix" id = "<%= "div_#{item.to_param}" %>">
 		<div class="title">
-		  <%= link_to product_title, product_path(:id => product.to_param) %>
+		  <%= link_to product_title, product_path(:id => product.to_param, :source => @wishlist_source[:wishlist_vod]) %>
 		</div>
 		<!--<span class="pay-per-view">pay per view</span>
 		<a href="" class="rent">louer 4,99€</a>-->
