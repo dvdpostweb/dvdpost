@@ -731,7 +731,7 @@ class Product < ActiveRecord::Base
       elsif options[:sort] == 'production_year_vod'
         "year desc, available_order desc"
       elsif options[:sort] == 'production_year_all'
-        "default_order desc"
+        "year desc, available_at desc"
       elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
       elsif options[:sort] == 'token_month'
