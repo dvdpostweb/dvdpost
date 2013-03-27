@@ -43,7 +43,7 @@ class WishlistItem < ActiveRecord::Base
       source = wishlist_source[:prefered_vod]
     elsif params[:highlight_best] == '1'
       source = wishlist_source[:prefered]
-    elsif params[:view_mode] == 'production_year_all'
+    elsif params[:sort] == 'production_year_all'
       source = wishlist_source[:new]
     elsif params[:sort] == 'production_year_vod'
       source = wishlist_source[:new_vod]
