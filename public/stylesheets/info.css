@@ -948,12 +948,12 @@ display: block;
 }
 
 
-#prices {
+.a #prices {
   background-color:#FFFFFF;
   background: none repeat-y scroll 100% 0 white !important;
   padding: 14px;
 }
-.prices-container h3 {
+.a .prices-container h3 {
   background: url("../images/square.gif") no-repeat scroll 0 25px transparent;
   font-size: 24px;
   padding-left: 20px;
@@ -961,61 +961,61 @@ display: block;
   text-transform: uppercase;
   padding-bottom:15px;
 }
-#prices h2 {
+.a #prices h2 {
   font-size: 28px;
   font-weight: bold;
   text-transform: uppercase;
 
 }
-#header {
+.a #header {
   height: 80px!important;
 }
-.prices-container p {
+.a .prices-container p {
   color:#212a31;
   font-size:14px;
 }
-.prices-container {
+.a .prices-container {
   float:left;
   width:655px;
 }
-#formule_tab {
+.a #formule_tab {
   background-color:#eceaea;
   height: 310px;
   padding-top: 8px;
   width: 659px;
 }
-.formule {
+.a .formule {
   float: left;
   margin-left: 11px;
   margin-right: 11px;
   width: 185px;
   list-style:none !important;
 }
-.formule h4 {
+.a .formule h4 {
   font-size:20px;
 }
-.formule img {
+.a .formule img {
   opacity:0.5;
 }
-.formule.active {
+.a .formule.active {
   background-color: #FFFFFF !important;
   padding: 0 15px 30px;
 }
 
 
 
-.formule.active img {
+.a .formule.active img {
   opacity:1;
 
 }
-.formule p {
+.a .formule p {
   font-size: 13px;
   padding-top: 10px;
 
 }
 
 
-.formule.active .button {
+.a .formule.active .button {
   background-color: #9ECA3B;
   background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
   background-repeat: repeat-x;
@@ -1029,7 +1029,7 @@ display: block;
 
 }
 
-.formule .button {
+.a .formule .button {
   background-color: #EE8419;
   background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
   background-repeat: repeat-x;
@@ -1042,7 +1042,7 @@ display: block;
   border-radius: 4px 4px 4px 4px;
 }
 
-.prices {
+.a .prices {
   border: 1px solid #C4D1DA;
   border-radius: 4px 4px 4px 4px;
   float: left;
@@ -1054,7 +1054,7 @@ display: block;
 }
 
 
-.prices.populaire {
+.a .prices.populaire {
 
   background-color: #88BD32;
   background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
@@ -1071,7 +1071,7 @@ display: block;
 
 
 
-.prices  .button {
+.a .prices  .button {
   background-color: #9ECA3B;
   background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
   background-repeat: repeat-x;
@@ -1085,7 +1085,7 @@ display: block;
 }
 
 
-.prices h2 {
+.a .prices h2 {
   font-size: 28px;
   font-weight: bold;
   padding-bottom: 30px;
@@ -1094,7 +1094,7 @@ display: block;
 
 }
 
-.prices h2 span {
+.a .prices h2 span {
   font-size: 19px;
   font-weight: normal;
   line-height: 12px;
@@ -1102,14 +1102,14 @@ display: block;
 
 }
 
-.prices p {
+.a .prices p {
   background: url("../images/check_prices.png") no-repeat scroll 0 0 transparent;
 
   padding-left: 27px;
 }
 
 
-.prices h4 {
+.a .prices h4 {
   font-size: 44px;
   font-weight: bold;
   padding-bottom: 30px;
@@ -1118,36 +1118,36 @@ display: block;
   width: 126px;
   margin: 0;
 }
-.prices.populaire h2 {
+.a .prices.populaire h2 {
   color: #3A450A;
 
 }
-.desktop .prices-container li {
+.a .desktop .prices-container li {
 font-size: 12px;
 color: #454545;
 margin: 20px 0 0 15px;
 }
-.desktop .prices-container ul
+.a .desktop .prices-container ul
 {
   margin:0;
 }
-.prices.populaire h4 {
+.a .prices.populaire h4 {
 
   color:#3a450a;
 
 }
-.desktop #prices h2 {
+.a .desktop #prices h2 {
 padding:0 0 30px 0;
 text-align:center;
 }
 
-.prices.populaire p {
+.a .prices.populaire p {
 
   color:#3a450a;
 
 }	 
 
-.prices h4 span {
+.a .prices h4 span {
   font-size: 19px;
   font-weight: normal;
   line-height: 12px;
@@ -1157,7 +1157,7 @@ text-align:center;
 
 
 
-.prices.populaire .button {
+.a .prices.populaire .button {
   background-color: #EE8419;
   background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
   background-repeat: repeat-x;
@@ -1171,7 +1171,7 @@ text-align:center;
 }
 
 
-#faq-info-wrap h4 .close{
+.a #faq-info-wrap h4 .close{
     background: url("../images/plus_moins.png") no-repeat scroll 0 0 transparent;
     padding-left: 20px;
 font-size:13px;
@@ -1179,19 +1179,19 @@ font-family:Arial, Helvetica, sans-serif;
 
 } 
 
-#faq-info-wrap h4 .open{
+.a #faq-info-wrap h4 .open{
     background: url("../images/plus_moins.png") no-repeat scroll 0 -16px transparent;
     padding-left: 20px;
 font-size:13px;
 font-family:Arial, Helvetica, sans-serif;
 
 }
-#faq-info-wrap p {
+.a #faq-info-wrap p {
   padding-left: 20px;
   padding-top: 10px;
 }
 
-.faq-container {
+.a .faq-container {
 
   background-color: #C4D1DA;
   background-image: -moz-linear-gradient(center top , #D9E0E4, #C4D1DA);
@@ -1201,14 +1201,14 @@ font-family:Arial, Helvetica, sans-serif;
   width: 245px;
 }
 
-.faq-container h3{
+.a .faq-container h3{
   text-transform:uppercase;
   font-size:24px;
   padding-bottom:10px;
 
 }
 
-#aste {
+.a #aste {
   color:#212A31;
   font-size:12px;
   padding-top:20px;
@@ -1221,7 +1221,7 @@ font-family:Arial, Helvetica, sans-serif;
 
 
 
-.prices-container #subscribe-wrap h3 {
+.a .prices-container #subscribe-wrap h3 {
   color: #3A450A !important;
   float: left;
   font-family: 'Open Sans Condensed',sans-serif;
@@ -1235,7 +1235,7 @@ font-family:Arial, Helvetica, sans-serif;
   padding-top:0px;
 }
 
-.prices-container #subscribe-wrap .wrap {
+.a .prices-container #subscribe-wrap .wrap {
   background-color: #88BD32;
   background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
   float: left;
@@ -1244,14 +1244,14 @@ font-family:Arial, Helvetica, sans-serif;
   width: 369px;
 }
 
-.prices-container #subscribe-wrap {
+.a .prices-container #subscribe-wrap {
 
   height: 91px!important;
 
 }
 
 
-.prices-container #subscribe-wrap #subscribe {
+.a .prices-container #subscribe-wrap #subscribe {
   background-color: #88BD32;
   background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
   padding: 12px;
@@ -1261,7 +1261,7 @@ font-family:Arial, Helvetica, sans-serif;
 
 
 
-.prices-container #subscribe-wrap #subscribe a.btn {
+.a .prices-container #subscribe-wrap #subscribe a.btn {
   background-color: #EE8419;
   background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
   background-repeat: repeat-x;
@@ -1278,18 +1278,18 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 
-#subscribe-wrap span {
+.a #subscribe-wrap span {
   color: #FFFFFF !important;
   font-weight: bold !important;
 }
 
-.formula.active {
+.a .formula.active {
   padding-top:10px;
   padding-bottom: 20px;
 
 }
 
-.icon_populaire {
+.a .icon_populaire {
   background: url("../images/fr/pluspopulaire.png") no-repeat scroll 0 0 transparent;
   display: block;
   height: 51px;
@@ -1299,5 +1299,5 @@ font-family:Arial, Helvetica, sans-serif;
   top: -35px;
 }
 
-.desktop .prices-container li
+.a .desktop .prices-container li
 { list-style:none !important}

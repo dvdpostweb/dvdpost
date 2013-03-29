@@ -7,8 +7,10 @@
     <%= link_to t('.all'), shopping_carts_path %>
   </div>
   <dl id="totals" class="clearfix">
+    <% if reduce > 0 %>
     <dt><%= t'.reduce' %></dt>
     <dd><%= reduce %> &euro;</dd>
+    <% end %>
     <dt><%= t '.shipping' %></dt>
     <dd><%= shipping %> &euro;</dd>
     <dt>

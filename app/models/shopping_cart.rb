@@ -35,7 +35,7 @@ class ShoppingCart < ActiveRecord::Base
       current_customer.shopping_carts.each do |c|
         price += c.quantity * c.product.price_sale
       end
-      reduce = ((price * 0.2) * 100).round().to_f / 100
+      reduce = ((price * 0) * 100).round().to_f / 100
       price_reduced = price - reduce
       shipping = ShoppingCart.shipping(count)
       price_ttc = price_reduced + shipping
