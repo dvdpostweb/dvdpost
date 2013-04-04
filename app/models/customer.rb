@@ -236,13 +236,16 @@ class Customer < ActiveRecord::Base
   end
 
   def self.send_evidence(type, product_id, customer, ip, params = nil , args = nil)
-    #begin
+    begin
       product_id = product_id.to_s.gsub(/-.*/,'')
+      if params[:response_id]
+        params[:reponseid] = params[:response_id]
+        params.delete :response_id
+      end
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
-      Rails.logger.debug { "@@@#{url}" }
-    #rescue => e
-    #  logger.error("Failed to send evidence: #{e.message}")
-    #end
+    rescue => e
+      logger.error("Failed to send evidence: #{e.message}")
+    end
   end
 
   def popular(filter, options={})

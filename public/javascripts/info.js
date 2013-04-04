@@ -249,5 +249,24 @@ $(function() {
       }
       return vars;
   }
-  
+  /* price page */
+  $('li.formule a').click(function() {
+    $('li.formule').removeClass('active')
+    $(this).parent('.formule').addClass('active')
+    id = $(this).parent('.formule').attr('id')
+    $('.formula').hide()
+    $('.formula').removeClass('active')
+    $('#'+id+'_content').addClass('active')
+    $('#'+id+'_content').show()
+    
+    return false;
+  })
+  $('.faq-info-wrap h4').click(function(){
+    id = $(this).attr('id')
+    $('.q').hide()
+    $('#'+id+'_r').show()
+    $('.open').removeClass('open').addClass('close')
+    $(this).find('span.button').removeClass('close').addClass('open')
+  })
+  /****/
 });

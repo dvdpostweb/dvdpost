@@ -4,7 +4,7 @@
     
     <%= image_tag 'loading.gif', :title => 'loading' %>
   </div></div>
-<form name="checkout_confirmation" id="checkout_confirmation" method="post" action="https://secure.ogone.com/ncol/prod/orderstandard.asp">                                                                         
+<form name="checkout_confirmation" id="checkout_confirmation" method="post" action="https://secure.ogone.com/ncol/prod/orderstandard.asp">
 <input type="hidden" name="prod" value="">
 <input type="hidden" name="orderID" value="<%= @order_id %>">
 <input type="hidden" name="pspid" value="dvdpost">
@@ -22,5 +22,9 @@
 <input type="hidden" name="TP" value="<%= php_path @template_ogone %>">
 <input type="hidden" name="ALIAS" value="<%= current_customer.to_param %>">
 <input type="hidden" name="ALIASUSAGE" value="<%= @com %>">
-<input type="hidden" name="SHASign" value="<%= @hash %>">			
+<input type="hidden" name="SHASign" value="<%= @hash %>">
+<% if !@brand.nil? %>
+<input type="hidden" name="PM" value="CreditCard">
+<input type="hidden" name="BRAND" value="<%= @brand %>">
+<% end %>
 </form>

@@ -16,6 +16,7 @@ class PaymentMethodsController < ApplicationController
     		@ogone_language = 'en_US';
     		@template_ogone = 'Template_freetrial2EN.htm'
     end
+    @brand = params[:brand] if params[:brand]
     if params['type'] == 'credit_card_modification'
       @com= t '.payment_methods.update.payment_update'
       internal_com = 'ogone_change'

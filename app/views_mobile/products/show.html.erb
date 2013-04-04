@@ -16,10 +16,10 @@
    <div class="action">
      <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
        <% if @product.streaming?(params[:kind], session[:country_id]) %>
-         <%= render :partial => 'products/streaming',  :locals => {:product => @product, :source => @source, :response_id => params[:reponse_id]} %>
+         <%= render :partial => 'products/streaming',  :locals => {:product => @product, :source => @source, :response_id => params[:response_id]} %>
          <% credits = @product.streaming_products.first.credits %>
        <% end %>
-         <br /><%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => params[:reponse_id]} %>
+         <br /><%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => params[:response_id]} %>
          <% if @product.trailers.by_language(I18n.locale).mobile.count > 0 %>
             <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
          <% end %>
@@ -30,7 +30,7 @@
            </div>
          <% end %>
      <% else %>
-       <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source} %>
+       <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => params[:response_id]} %>
        <% if @product.trailers.by_language(I18n.locale).mobile.count > 0 %>
           <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
        <% end %>
