@@ -33,7 +33,7 @@
               <%= t '.title' %>
             </p>
             
-            <%= render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered} %>
+            <%= render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered, :source => params[:source], :response_id => params[:response_id]} %>
             <p class="intro_vod">
               <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] %>
             </p>

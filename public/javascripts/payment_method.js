@@ -17,4 +17,17 @@ $(function() {
   })
   $("#checkout_confirmation").submit();
   
+  $('#ppv .button_confirm_switch').click(function(){
+    
+    if($('#brand').size())
+    {
+      if($("#ppv input[type='radio']:checked").val() == undefined)
+      {
+      alert($('#error').html())
+      return false;
+      }
+    }
+    
+  })
+  
 })

@@ -195,7 +195,7 @@ class ProductsController < ApplicationController
       end
       format.js {
         if params[:reviews_page] || params[:sort]
-          render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort}
+          render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :source => params[:source], :response_id => params[:response_id]}
         elsif params[:recommendation_page]
           render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :products => @recommendations, :recommendation_response_id => @recommendation_response_id}
         end

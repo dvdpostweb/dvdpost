@@ -17,7 +17,7 @@
     <div class="choice_language">
       <h3><%= t('.version_title') %></h3>
       <div id="choice_new">
-          <%= render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered} %>
+        <%= render :partial => '/streaming_products/show/audios', :locals => {:streaming => @streaming_prefered, :sample => true, :source => nil, :response_id => nil} %>
       </div>
     </div>
   </div>

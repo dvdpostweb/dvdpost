@@ -1,7 +1,7 @@
 <div class="switch_dom" id="switch_dom">
   <div id="title"><%= t '.title' %></div>
   <div style="margin-left: 20px; width: 800px;">
-   <% form_for(:customer, :url => customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :put }) do |f| %>
+   <% form_for(:customer, :url => customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :put, :id => :ppv}) do |f| %>
      <%= hidden_field_tag(:type, 'credit_card_for_ppv')  %>
    
     <div style="width: 800px;" > <img src="/images/card.png" style="float: left; padding-right: 10px;">
@@ -10,6 +10,21 @@
       </p>
       <p><%= t '.credit_card_redirect' %></p>
     </div>
+    <table style='margin:0 auto' id="brand">
+			<tbody>
+			  <tr height="50">
+  				<td width="22"><input id="visa" name="brand" value="VISA" type="radio"></td>
+  				<td width="71"><img alt="visa" src="http://www.dvdpost.be/images/visa_mini.png"></td>
+  				<td width="71"><strong>Visa</strong></td>
+  				<td width="22"><input id="master" name="brand" value="Mastercard" type="radio"></td>
+  				<td width="71"><img src="http://www.dvdpost.be/images/master_card_mini.png"></td>
+  				<td width="71"><strong>Eurocard Mastercard</strong></td>
+  				<td width="22"><input id="amex" name="brand" value="American Express" type="radio"></td>
+  				<td width="71"><img src="http://www.dvdpost.be/images/americanexpress_mini.png"></td>
+  				<td width="71"><strong>American Express</strong></td>
+			  </tr>
+		  </tbody>
+		</table>
     <div align="right" style="padding-right: 8px;">
     <table cellspacing="0" cellpadding="0">
 
@@ -27,5 +42,7 @@
     </div>
     <% end %>
   </div>
-
+<div style="display:none" id="error">
+  <%= t '.error' %>
+</div>
 </div>
