@@ -41,7 +41,7 @@
              
               <h4>4.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=full') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO2') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices">
               <h2>3 <%= t('.films') %>*<br />
@@ -50,7 +50,7 @@
               <p><%= t '.minimum_vod', :number => 1 %></p>
               <h4>7.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO3') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices populaire">
             <div class="icon_populaire <%= I18n.locale %>"></div>
@@ -60,7 +60,7 @@
               <p><%= t '.minimum_vod', :number => 2 %></p>
               <h4>9.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t '.try' %></a></div>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=#{@promo_code}") %>"><%= t '.try' %></a></div>
             </li>
             <li class="prices">
               <h2>5 <%= t('.films') %>*<br />
@@ -69,7 +69,7 @@
               <p><%= t '.minimum_vod', :number => 2 %></p>
               <h4>12.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO5') %>"><%= t('.signup') %></a></div>
             </li>
           </ul>
           <div class="clearfix"></div>
@@ -84,7 +84,7 @@
               <p><%= t '.minimum_vod', :number => 2 %></p>
               <h4>14.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO6') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices">
               <h2>8 <%= t('.films') %>*<br />
@@ -93,7 +93,7 @@
               <p><%= t '.minimum_vod', :number => 2 %></p>
               <h4>19.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO8') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices populaire">
               <h2>11 <%= t('.films') %>*<br />
@@ -102,7 +102,7 @@
               <p><%= t '.minimum_vod', :number => 3 %></p>
               <h4>22.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO11') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices">
               <h2>13 <%= t('.films') %>*<br />
@@ -111,7 +111,7 @@
               <p><%= t '.minimum_vod', :number => 3 %></p>
               <h4>26.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO13') %>"><%= t('.signup') %></a></div>
             </li>
           </ul>
           <div class="clearfix"></div>
@@ -126,7 +126,7 @@
               <p><%= t '.minimum_vod', :number => 3 %></p>
               <h4>30.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO15') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices">
               <h2>18 <%= t('.films') %>*<br />
@@ -135,7 +135,7 @@
               <p><%= t '.minimum_vod', :number => 4 %></p>
               <h4>33.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO18') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices populaire">
               <h2>20 <%= t('.films') %>*<br />
@@ -144,7 +144,7 @@
               <p><%= t '.minimum_vod', :number => 4 %></p>
               <h4>36.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO20') %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices">
               <h2>22 <%= t('.films') %>*<br />
@@ -153,7 +153,7 @@
               <p><%= t '.minimum_vod', :number => 4 %></p>
               <h4>39.95 €<br />
                 <span><%= t('.per_month') %></span></h4>
-              <div align="center"><a class="button" href="<%= php_path('step1.php') %>"><%= t('.signup') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=ABO22') %>"><%= t('.signup') %></a></div>
             </li>
           </ul>
           <div class="clearfix"></div>
@@ -166,7 +166,7 @@
           <div class="wrap">
             <h3><%= t '.sub' %></h3>
           </div>
-          <div id="subscribe"> <a href="<%= php_path('step1.php') %>" class="btn"><%= t '.signup_short' %></a>
+          <div id="subscribe"> <a href="<%= php_path("step1.php?activation_code=#{@promo_code}") %>" class="btn"><%= t '.signup_short' %></a>
             <p><a href="<%= edit_public_promotion_path() %>" id="codePromo"><%= t('.code_promo')%></a></p>
           </div>
         </div>
