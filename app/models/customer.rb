@@ -96,6 +96,7 @@ class Customer < ActiveRecord::Base
   has_many :credit_histories, :foreign_key => :customers_id
   has_many :highlight_customers
   has_many :vod_wishlists
+  has_many :vod_wishlists_histories
   has_many :shopping_carts, :foreign_key => :customers_id
   has_many :shopping_products, :through => :shopping_carts, :source => :product, :order => 'shopping_cart_id desc'
   has_many :shopping_orders, :foreign_key => :customers_id
@@ -455,7 +456,7 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def create_token(imdb_id, product, current_ip, streaming_product_id, kind)
+  def create_token(imdb_id, product, current_ip, streaming_product_id, kind, source = 7)
     file = StreamingProduct.find(streaming_product_id)
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || file.is_ppv
         begin
@@ -465,7 +466,7 @@ class Customer < ActiveRecord::Base
         end
         
         if token_string
-          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price) : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string)
+          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price, :source_id => source, :country => file.country) : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :source_id => source, :country => file.country)
           if token.id.blank?
             return {:token => nil, :error => Token.error[:query_rollback]}
           else
@@ -493,7 +494,9 @@ class Customer < ActiveRecord::Base
             token = Token.create(          
               :customer_id => id,          
               :imdb_id     => imdb_id,          
-              :token       => token_string        
+              :token       => token_string,
+              :source_id   => source,
+              :country     => file.country
             )
             result_credit = remove_credit(file.credits, 12)
             if token.id.blank? || result_credit == false
@@ -553,7 +556,11 @@ class Customer < ActiveRecord::Base
         Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
       end
     end
-    vod_wishlists.find_by_imdb_id(imdb_id).destroy() if vod_wishlists && vod_wishlists.find_by_imdb_id(imdb_id)
+    if vod_wishlists && vod_wishlists.find_by_imdb_id(imdb_id)
+      vod = vod_wishlists.find_by_imdb_id(imdb_id)
+      vod_wishlists_histories.create(:imdb_id => vod.imdb_id, :source_id => vod.source_id, :added_at => vod.created_at)
+      vod.destroy() 
+    end
   end
   
   def recondutction_ealier?

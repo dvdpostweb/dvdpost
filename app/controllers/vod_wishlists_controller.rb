@@ -30,7 +30,8 @@ class VodWishlistsController < ApplicationController
     @submit_id = params[:vod_wishlist][:submit_id]
     @product = Product.find(params[:vod_wishlist][:product_id])
     unless item
-      current_customer.vod_wishlists.create(:imdb_id => params[:vod_wishlist][:imdb_id])
+      
+      current_customer.vod_wishlists.create(:imdb_id => params[:vod_wishlist][:imdb_id], :source_id => params[:source])
     end
     
     Customer.send_evidence('addToWishlistVOD', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
