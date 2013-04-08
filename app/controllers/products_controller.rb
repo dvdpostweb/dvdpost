@@ -238,10 +238,15 @@ class ProductsController < ApplicationController
   end
 
   def trailer
-    unless mobile_request?
-      trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+    if @product.streaming_trailers.count > 0
+      Rails.logger.debug { "message" }
+      trailer = @product.streaming_trailers.paginate(:per_page => 1, :page => params[:trailer_page])
     else
-      trailer = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+      unless mobile_request?
+        trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+      else
+        trailer = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+      end
     end
     Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     respond_to do |format|

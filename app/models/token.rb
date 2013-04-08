@@ -97,7 +97,7 @@ class Token < ActiveRecord::Base
     return token_status == Token.status[:ok] || token_status == Token.status[:ip_valid]
   end
 
-  def self.create_token(imdb_id, product, current_ip, streaming_product_id, kind, code)
+  def self.create_token(imdb_id, product, current_ip, streaming_product_id, kind, code, source = 7)
     #to do valid code
     file = StreamingProduct.find(streaming_product_id)
     begin
@@ -109,7 +109,9 @@ class Token < ActiveRecord::Base
       token = Token.create(          
         :code => code,          
         :imdb_id     => imdb_id,          
-        :token       => token_string        
+        :token       => token_string,
+        :source_id   => source,
+        :country => file.country
       )
       if token.id.blank?
         return {:token => nil, :error => Token.error[:query_rollback]}
