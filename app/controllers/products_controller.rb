@@ -238,32 +238,37 @@ class ProductsController < ApplicationController
   end
 
   def trailer
-    if @product.streaming_trailers.count > 0
-      Rails.logger.debug { "message" }
-      trailer = @product.streaming_trailers.paginate(:per_page => 1, :page => params[:trailer_page])
+    if params[:streamin_trailer_id]
+      trailer = StreamingTrailer.find(params[:streamin_trailer_id])
+      trailers = @product.streaming_trailers.available
+    elsif 1==0 && @product.streaming_trailers.available.count > 0 && @product.tokens_trailers.first
+      trailers = @product.streaming_trailers.available
+      trailer = StreamingTrailer.get_best_version(@product.imdb_id, I18n.locale)
     else
       unless mobile_request?
-        trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+        trailers = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
       else
-        trailer = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
+        trailers = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
       end
     end
     Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     respond_to do |format|
       format.js   {
-        if trailer.first
-          render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}
+        if trailer.class.name == 'StreamingTrailer'
+          render :partial => 'products/trailer', :locals => {:trailer => trailer, :trailers => trailers}
+        elsif trailers.first
+          render :partial => 'products/trailer', :locals => {:trailer => trailers.first, :trailers => trailers}
         else
           render :text => 'error'
         end
       }
       format.html do
-        @trailer = trailer
-        if trailer.first && trailer.first.url
-          redirect_to trailer.first.url
-        elsif trailer.first
+        @trailer = trailers
+        if trailers.first && trailers.first.url
+          redirect_to trailers.first.url
+        elsif trailers.first
           if mobile_request?
-              render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}, :layout => 'application'
+              render :partial => 'products/trailer', :locals => {:trailer => trailesr.first, :trailers => trailers}, :layout => 'application'
           end
         else
           redirect_to product_path(:id => @product.to_param, :source => params[:source])

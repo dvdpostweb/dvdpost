@@ -136,11 +136,31 @@ $(function() {
     $.setFragment({ reviews_page: $.queryString(this.href).reviews_page })
   });
 
-  $("#tab-content-movie #pagination a, #trailer_pagination a").live("click", function() {
+  $("#tab-content-movie #pagination a, #trailer_pagination a, .linkallversions a").live("click", function() {
     html_item = $(this);
     content = html_item.html();
     html_item.html("Loading...");
     root_item = html_item.parent().parent().parent();
+    
+    set_page(html_item.attr('href'))
+    $.ajax({dataType: 'html',
+      url: html_item.attr('href'),
+      type: 'GET',
+      data: {},
+      success: function(data) {
+        root_item.html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
+  $(".linkallversions a").live("click", function() {
+    html_item = $(this);
+    content = html_item.html();
+    html_item.html("Loading...");
+    root_item = $('#content_trailer');
     
     set_page(html_item.attr('href'))
     $.ajax({dataType: 'html',
@@ -619,7 +639,6 @@ $(function() {
       });
       return $(window).scroll();
   }
-  
 });
 
 function goToByScroll(id){

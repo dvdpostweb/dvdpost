@@ -834,7 +834,6 @@ a.btn_price:hover
   font-weight: bold;
 }
 #aste{
-  margin:20px 45px; 
   font-size:10px
 }
 #error
@@ -906,13 +905,13 @@ a.btn_price:hover
 #prices {
   background-color:#FFFFFF;
   background: none repeat-y scroll 100% 0 white !important;
-  padding: 14px;
+  padding: 5px 14px;
 }
 .prices-container h3 {
-  background: url("../images/square.gif") no-repeat scroll 0 25px transparent;
+  background: url("../images/square.gif") no-repeat scroll 0 15px transparent;
   font-size: 24px;
   padding-left: 20px;
-  padding-top: 15px;
+  padding-top: 5px;
   text-transform: uppercase;
   padding-bottom:15px;
 }
@@ -934,18 +933,16 @@ a.btn_price:hover
   width:655px;
 }
 #formule_tab {
-  background-color:#eceaea;
+  background-color:#fff;
   height: 310px;
   padding-top: 8px;
   width: 659px;
 }
 .formule {
   float: left;
-  margin-left: 11px;
-  margin-right: 11px;
   width: 185px;
   list-style:none !important;
-  padding: 0 5px 30px;
+  padding: 0 16px 30px;
 
 }
 .formule h4 {
@@ -955,7 +952,7 @@ a.btn_price:hover
   opacity:0.5;
 }
 .formule.active {
-  background-color: #FFFFFF !important;
+  background-color: #C9C4C4 !important;
 }
 
 
@@ -1003,11 +1000,12 @@ a.btn_price:hover
   border: 1px solid #C4D1DA;
   border-radius: 4px 4px 4px 4px;
   float: left;
-  height: 310px;
-  margin-left: 15px;
+  height: 275px;
+  margin-left: 13px;
   margin-top: 20px;
-  padding: 10px;
-  width: 126px;
+  padding: 10px 5px;
+  width: 136px;
+  background: white;
 }
 
 
@@ -1015,14 +1013,8 @@ a.btn_price:hover
 
   background-color: #88BD32;
   background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
-  border: 1px solid #C4D1DA;
-  border-radius: 4px 4px 4px 4px;
-  float: left;
-  height: 341px;
-  margin-left: 15px;
+  height: 306px;
   margin-top: 6px;
-  padding: 10px;
-  width: 126px;
 }
 
 
@@ -1085,10 +1077,13 @@ a.btn_price:hover
 
 }
 .desktop #prices h2 {
-  padding:0 0 30px 0;
+  padding:0;
   text-align:center;
 }
-
+.desktop #prices .populaire h2
+{
+  background-color: #88BD32;
+}
 .prices.populaire p {
 
   color:#3a450a;
@@ -1121,6 +1116,8 @@ a.btn_price:hover
 .faq-info-wrap h4
 {
   cursor:pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:13px;
 }
 .faq-info-wrap h4 .close{
   background: url("../images/plus_moins.png") no-repeat scroll 0 0 transparent;
@@ -1145,8 +1142,8 @@ a.btn_price:hover
   background-color: #C4D1DA;
   background-image: -moz-linear-gradient(center top , #D9E0E4, #C4D1DA);
   padding: 10px;
-  position: fixed;
-  margin: 0 0 0 675px;
+  position: absolute;
+  margin: 71px 0 0 675px;
   width: 245px;
 }
 
@@ -1162,13 +1159,7 @@ a.btn_price:hover
   font-size:12px;
   padding-top:20px;
   padding-bottom:20px;
-
-
 }
-
-
-
-
 
 .prices-container #subscribe-wrap h3 {
   color: #3A450A !important;
@@ -1234,9 +1225,9 @@ a.btn_price:hover
 }
 
 .formula.active {
-  padding-top:10px;
+  padding-top: 28px;
   padding-bottom: 20px;
-
+  background-color: #C9C4C4;
 }
 
 .icon_populaire {
@@ -1260,11 +1251,11 @@ a.btn_price:hover
   background: url("../images/en/pluspopulaire.png") no-repeat scroll 0 0 transparent;
 }
 
-#prices #f2_content .populaire  h2,#prices #f3_content .populaire  h2
-{
-  margin: 11px 0 0 0;
-}
 .content #promo_area2
 {
   width: 350px;
+}
+.q p
+{
+  color: #4A5863;
 }
