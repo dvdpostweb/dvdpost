@@ -1,0 +1,24 @@
+<% if sub = version.subtitles.by_language(I18n.locale).first %>
+  <% sub_title = sub.name %>
+<% else %>
+  <% sub_title = t('streaming_products.show.kind.without_subtitle').downcase %>
+<% end %>
+<% audio_title = version.languages.by_language(I18n.locale).first.name %>
+
+<tr>
+	<td width="<%= mobile_request? ? 200 : 465 %>">
+	  <p class="select_version">
+	     <%= t 'streaming_products.show.kinds_alpha.audio_title' %> 
+	    <img align="absmiddle" src="/images/sound_icon.gif" alt="icon sons">: 
+	    <strong><%= audio_title %></strong><%= mobile_request? ? "<br />" : "|" %> 
+	    <%= t 'streaming_products.show.kinds_alpha.sub_title' %>
+	    <img align="absmiddle" src="/images/subtitles_icon.gif" alt="icon sous-titres">: 
+	    <strong><%= sub_title.capitalize %></strong>
+	  </p>
+	</td>
+	<td width="<%= mobile_request? ? 150 : 211 %>">
+	  <p>
+	    <%= link_to "<strong>#{t('.launch')}</strong>", product_trailer_path(:streamin_trailer_id => version.id, :format => :js), :class => 'btn_play  qualityvod' %>
+	  </p>
+	</td>
+</tr>

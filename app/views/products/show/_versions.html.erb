@@ -1,0 +1,8 @@
+<div class="information_vod">
+	<h3><%= t('.title')%></h3>
+</div>
+<div class="linkallversions">
+	<table cellpadding="0" cellspacing="0">
+	  <%= render :partial => '/products/show/version', :collection => versions %>
+	</table>
+</div>
