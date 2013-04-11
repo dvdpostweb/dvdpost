@@ -588,3 +588,40 @@ font-weight: bold;
 }
 
 
+.linkallversions {
+background-color: white;
+border: 1px solid #333;
+margin: 5px auto 0;
+padding: 8px;
+text-align: left;
+width: 678px;
+}
+.linkallversions a.btn_play {
+  background: url("../images/vodslider-btn-bg-end-play-allversions.png") no-repeat scroll 0 0 transparent;
+  display: inline-block;
+  height: 27px;
+  padding-left: 21px;
+  text-decoration: none;
+  width: auto;
+  line-height: 30px;
+  font-size:11px;
+}
+
+.linkallversions a.btn_play strong {
+  background: url("../images/vod-slider-btn-bg-allversions.png ") no-repeat scroll 100% 0 transparent;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 1.17em;
+  
+  padding-right: 15px;
+  text-transform: uppercase;
+  height: 27px;
+  font-size:11px;
+}
+.select_version
+{
+  padding-top: 8px;
+}
+.information_vod {
+  padding: 10px 0 0 0;
+}

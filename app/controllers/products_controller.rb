@@ -115,6 +115,7 @@ class ProductsController < ApplicationController
     @tokens = current_customer.get_all_tokens_id(params[:kind], @product.imdb_id) if current_customer
     @filter = get_current_filter({})
     unless request.format.js?
+      @trailer =  @product.trailer?
       @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
       data = @product.description_data(true)
       @product_title = data[:title]
@@ -241,7 +242,7 @@ class ProductsController < ApplicationController
     if params[:streamin_trailer_id]
       trailer = StreamingTrailer.find(params[:streamin_trailer_id])
       trailers = @product.streaming_trailers.available
-    elsif 1==0 && @product.streaming_trailers.available.count > 0 && @product.tokens_trailers.first
+    elsif @product.trailer?
       trailers = @product.streaming_trailers.available
       trailer = StreamingTrailer.get_best_version(@product.imdb_id, I18n.locale)
     else

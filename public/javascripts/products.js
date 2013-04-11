@@ -138,8 +138,8 @@ $(function() {
 
   $("#tab-content-movie #pagination a, #trailer_pagination a, .linkallversions a").live("click", function() {
     html_item = $(this);
-    content = html_item.html();
-    html_item.html("Loading...");
+    content = html_item.parent().html();
+    html_item.parent().html("Loading...");
     root_item = html_item.parent().parent().parent();
     
     set_page(html_item.attr('href'))
@@ -151,7 +151,7 @@ $(function() {
         root_item.html(data);
       },
       error: function() {
-        html_item.html(content);
+        html_item.parent().html(content);
       }
     });
     return false;

@@ -74,7 +74,7 @@
                   </li>
                 <% end %>
               <% end %>
-              <% if product.trailer || (1==0 && product.streaming_trailers) %>
+              <% if product.trailer? %>
               <li>
                 <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @source, :response_id => @response_id), :class => 'trailer', :target => :_blank) %>
               </li>

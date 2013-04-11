@@ -94,7 +94,7 @@ FB.init({
         <% end %>
           <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => @response_id} %>
           <%= render :partial => 'products/vod_list',  :locals => {:product => @product, :source => @source, :response_id => @response_id} %>
-          <% if trailer = @product.trailer %>
+          <% if @trailer %>
              <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
           <% end %>
           <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
@@ -106,7 +106,7 @@ FB.init({
       <% else %>
         <div id="stream_fake">&nbsp;</div>
         <%= render :partial => 'products/wishlist', :locals => {:product => @product, :text => :short, :source => @source, :response_id => @response_id} %>
-        <% if trailer = @product.trailer %>
+        <% if @trailer %>
            <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
         <% end %>
       <% end %>
