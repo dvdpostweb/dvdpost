@@ -182,10 +182,10 @@
       <div class="faq-info-wrap">
         <h4 id='faq_<%= n %>'>
           <span class="button <%= n == 0 ? 'open' : 'close' %>"></span>
-          <%= t(".question_#{n}")%>
+          <div class='question'><%= t(".question_#{n}")%></div>
         </h4>
         <div style="display: <%= n == 0 ? 'block' : 'none' %>;" class="clearfix q" id="faq_<%= n %>_r">
-          <p align="justify"><%= t(".response_#{n}", :vod_link => streaming_products_faq_path, :dvd_link => info_path(:page_name => :dvd))%>
+          <p align="left"><%= t(".response_#{n}", :vod_link => streaming_products_faq_path, :dvd_link => info_path(:page_name => :dvd))%>
           </p>
         </div>
       </div>
