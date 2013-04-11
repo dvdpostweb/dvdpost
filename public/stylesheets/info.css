@@ -930,7 +930,7 @@ a.btn_price:hover
 }
 .prices-container {
   float:left;
-  width:655px;
+  width:654px;
 }
 #formule_tab {
   background-color:#fff;
@@ -940,7 +940,7 @@ a.btn_price:hover
 }
 .formule {
   float: left;
-  width: 185px;
+  width: 186px;
   list-style:none !important;
   padding: 0 16px 30px;
 
@@ -1086,7 +1086,7 @@ a.btn_price:hover
 }
 .desktop #prices .populaire h2
 {
-  background-color: #88BD32;
+  background-color: transparent;
 }
 .prices.populaire p {
 
