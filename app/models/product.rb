@@ -896,4 +896,8 @@ class Product < ActiveRecord::Base
   def self.rating_first
     Product.both_available.rating_count.update_all("rating_count=1 , `rating_users`= products_rating")
   end
+
+  def trailer?
+    trailer || (streaming_trailers.available.count > 0 && tokens_trailers.available.first)
+  end
 end
