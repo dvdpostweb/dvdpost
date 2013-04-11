@@ -750,7 +750,7 @@ body#ipad {
 }
 
 
-#prices h2 {
+#prices h2, #prices h1 {
   background: none repeat scroll 0 0 #FFFFFF;
   font-size: 45px;
   padding: 0 20px;
@@ -915,7 +915,7 @@ a.btn_price:hover
   text-transform: uppercase;
   padding-bottom:15px;
 }
-#prices h2 {
+#prices h2, #prices h1 {
   font-size: 28px;
   font-weight: bold;
   text-transform: uppercase;
@@ -1077,6 +1077,10 @@ a.btn_price:hover
 
 }
 .desktop #prices h2 {
+  padding:0;
+  text-align:center;
+}
+.desktop #prices h1 {
   padding:0;
   text-align:left;
 }
