@@ -1,3 +1,4 @@
+<% if message.message_tickets.first %>
 <% unread = !message.message_tickets.first.user_id.nil? && message.message_tickets.first.is_read == false %>
 <tr class="<%= unread ? 'close' : 'open' %>">
   <td><%= message.id %> </td>
@@ -20,3 +21,4 @@
   </td>
   <% end %>
 </tr>
+<% end %>
