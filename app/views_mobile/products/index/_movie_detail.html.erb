@@ -63,7 +63,7 @@
           </li>
           <% end %>
           <% end %>
-          <% if product.trailers.by_language(I18n.locale).mobile.count > 0 %>
+          <% if product.trailer? %>
           <li>
             <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @source), :class => 'trailer', :target => :_blank) %>
           </li>
