@@ -554,6 +554,7 @@ class Product < ActiveRecord::Base
 
   def trailer
     localized_trailers = trailers.by_language(I18n.locale.to_s)
+    localized_trailers.mobile if ENV['HOST_OK'] == "1"
     localized_trailers ? localized_trailers.first : nil
   end
 
@@ -898,6 +899,6 @@ class Product < ActiveRecord::Base
   end
 
   def trailer?
-    trailer || (streaming_trailers.available.count > 0 && tokens_trailers.available.first)
+    trailer || ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0) && tokens_trailers.available.first )
   end
 end

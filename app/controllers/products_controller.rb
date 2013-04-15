@@ -240,10 +240,10 @@ class ProductsController < ApplicationController
 
   def trailer
     if params[:streamin_trailer_id]
+      trailers = Rails.env == "production" ? @product.streaming_trailers.available : @product.streaming_trailers.available_beta
       trailer = StreamingTrailer.find(params[:streamin_trailer_id])
-      trailers = @product.streaming_trailers.available
     elsif @product.trailer?
-      trailers = @product.streaming_trailers.available
+      trailers = Rails.env == "production" ? @product.streaming_trailers.available : @product.streaming_trailers.available_beta
       trailer = StreamingTrailer.get_best_version(@product.imdb_id, I18n.locale)
     else
       unless mobile_request?

@@ -1,6 +1,6 @@
 <% item = item_gallery %>
 <% expire = item.streaming_products.available.first.expire_at if item.streaming_products.available.count > 0 %>
-<% product = item.products.first %>
+<% product = item.products.both_available.first %>
 <% product_title = product.title %> 
 <% expire if expire && 2.weeks.from_now.localtime > expire %>
   <div class="vod" id = "<%= "div_#{item.to_param}" %>">

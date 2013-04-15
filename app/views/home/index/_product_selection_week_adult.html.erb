@@ -13,7 +13,7 @@
     <div class="wrap">
       <h4><%= product.studio.name if product.studio.name %></h4>
       <p><%= truncate(description.text, :length => 120) %> </p>
-      <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @wishlist_source[:week_selection]), :class => 'more trailer', :target => :_blank) if product.trailer %> 
+      <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @wishlist_source[:week_selection]), :class => 'more trailer', :target => :_blank) if product.trailer? %> 
       <%= link_to image_tag(product.image_detail, :class=>"thumb", :width => 107), product_path(:id => product.to_param, :source => @wishlist_source[:week_selection]) %> 
     </div>
   </li>

@@ -6,7 +6,7 @@ module StreamingProductsHelper
         url = DVDPost.hls_url(token_name, audio, sub)
         if mobile_request?
           #$("#presentation").html("<video id='my_video_1' class='video-js vjs-default-skin' controls width='290' height='132' data-setup='{}'><source src='#{url}' type='application/vnd.apple.mpegurl'></video><a href='#{url}'>#{url}</a>")
-            script = "<video id='my_video_1' class='video-js vjs-default-skin' vjs-default-skin' width='290' height='132'  src='#{url}' controls='controls' data-setup='{}'></video>"
+            script = "<video id='my_video_1' class='video-js vjs-default-skin' width='290' height='132'  src='#{url}' controls='controls' data-setup='{}'></video>"
         elsif browser.iphone? || (browser.tablet? && !browser.ipad?)
           script = <<-script
           $("#player").html("<video  width='696' height='389' src='#{url}'></video>")

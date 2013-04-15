@@ -160,7 +160,9 @@ class HomeController < ApplicationController
       end
       @top_actors = Actor.by_kind(:adult).top.top_ordered.limit(10)
       @trailers_week = Product.all(:joins => :trailers, :conditions => ["products_trailers.focus > 0 and products_trailers.language_id = ? ", DVDPost.product_languages[I18n.locale]], :limit => trailer_limit, :order => "products_trailers.focus desc")
-      @trailers = Product.all(:joins => :trailers, :include => :actors, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
+      #trailers_classic   = Product.all(:joins => :trailers, :include => :actors, :conditions => {:products_status => 1, :products_type => DVDPost.product_kinds[:adult], "products_trailers.language_id" => DVDPost.product_languages[I18n.locale]}, :limit => 4, :order => "rand()")
+      streaming_trailers = Product.all(:joins => [:streaming_trailers, :tokens_trailers], :include => :actors, :conditions => ["streaming_trailers.status= 'online_test_ok' and streaming_trailers.available = 1 and products_status !=-1 and products_type = ? and tokens_trailers.active = 1 and tokens_trailers.expire_at > ?",DVDPost.product_kinds[:adult], Time.now], :limit => 4, :group => "products.imdb_id", :order => "rand()")
+      @trailers = streaming_trailers
       @top_views = Product.get_top_view(params[:kind], 10, session[:sexuality], session[:country_id])
       @recent = Product.get_recent(I18n.locale, params[:kind], 4, session[:sexuality])
       @filter = get_current_filter({})
