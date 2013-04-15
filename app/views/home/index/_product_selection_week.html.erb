@@ -20,7 +20,7 @@
     <h4><%= product.categories.active.first.name unless product.categories.active.empty? %></h4>
     <p><%= truncate(description.text, :length => 120) %>
     <%= mobile_request? ? '<br />' : '</p>' %>
-    <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @wishlist_source[:week_selection]), :class => 'osc trailer', :target => :_blank) if  mobile_request? ? product.trailers.mobile.by_language(I18n.locale).size > 0 : product.trailers.by_language(I18n.locale).size > 0 %>
+    <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param, :source => @wishlist_source[:week_selection]), :class => 'osc trailer', :target => :_blank) if  mobile_request? ? product.trailers.mobile.by_language(I18n.locale).size > 0 : product.trailer? %>
     <%= mobile_request? ? '</p>' : '' %>
   </li>
 <% end %>

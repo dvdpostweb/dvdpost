@@ -1,3 +1,10 @@
+<% if trailer.class.name == 'StreamingTrailer' %>
+<div id='content_trailer'>
+  <video id='my_video_1' class='video-js vjs-default-skin' width='290' height='132'  src='<%= DVDPost.hls_url(@product.tokens_trailers.first.token, trailer.languages.by_language(:fr).first.short_alpha, trailer.subtitles.count > 0 ? trailer.subtitles.by_language(:fr).first.short_alpha : 'non') %>' controls='controls' data-setup='{}'></video>
+</div>
+<% else %>
+
+
 <div id='content_trailer'>
 <p>
   <video id="my_video_1" class="video-js vjs-default-skin" controls
@@ -11,3 +18,4 @@
 </div>
 </p>
 </div>
+<% end %>
