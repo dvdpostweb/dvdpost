@@ -14,4 +14,8 @@ class ProductAbo < ActiveRecord::Base
   def self.get_list(group = 1)
     available(group).ordered
   end
+
+  def only_vod
+    qty_dvd_max == 0
+  end
 end

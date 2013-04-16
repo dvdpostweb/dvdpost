@@ -22,10 +22,10 @@ class StreamingTrailer < ActiveRecord::Base
         streaming = available.prefered_audio(DVDPost.customer_languages[:en]).find_by_imdb_id(imdb_id)
       end
       if streaming.nil?
-        streaming = available.first
+        streaming = available.find_by_imdb_id(imdb_id)
       end
     else
-      streaming = available_beta.first
+      streaming = available_beta.find_by_imdb_id(imdb_id)
     end
     streaming
   end

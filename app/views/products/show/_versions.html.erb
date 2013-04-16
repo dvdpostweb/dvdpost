@@ -3,6 +3,6 @@
 </div>
 <div class="linkallversions">
 	<table cellpadding="0" cellspacing="0">
-	  <%= render :partial => '/products/show/version', :collection => versions %>
+	  <%= render :partial => '/products/show/version', :collection => versions, :locals => {:current_trailer => current_trailer} %>
 	</table>
 </div>
