@@ -99,19 +99,23 @@ class WishlistItem < ActiveRecord::Base
   end
 
   def self.good_size?(current_customer, qty)
-    if current_customer.credit_per_month == 2 or current_customer.credit_per_month == 4
-      qty_min =  10
-    elsif current_customer.credit_per_month == 6 or current_customer.credit_per_month == 8
-      qty_min = 20 
-    elsif current_customer.credit_per_month == 0 
-      if current_customer.dvds_at_home_count == 2 || current_customer.dvds_at_home_count == 1
-        qty_min = 10
+    if current_customer.customer_attribute.only_vod || current_customer.subscription_type.qty_dvd_max == 0
+      return false
+    else
+      if current_customer.credit_per_month == 2 or current_customer.credit_per_month == 4
+        qty_min =  10
+      elsif current_customer.credit_per_month == 6 or current_customer.credit_per_month == 8
+        qty_min = 20 
+      elsif current_customer.credit_per_month == 0 
+        if current_customer.dvds_at_home_count == 2 || current_customer.dvds_at_home_count == 1
+          qty_min = 10
+        else
+          qty_min = 30
+        end
       else
         qty_min = 30
       end
-    else
-      qty_min = 30
+      return qty <= qty_min
     end
-    return qty <= qty_min
   end
 end

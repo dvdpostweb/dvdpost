@@ -14,11 +14,12 @@
 	    <%= t 'streaming_products.show.kinds_alpha.sub_title' %>
 	    <img align="absmiddle" src="/images/subtitles_icon.gif" alt="icon sous-titres">: 
 	    <strong><%= sub_title.capitalize %></strong>
+  	  <% "(en cours...)" if current_trailer == version %>
 	  </p>
 	</td>
 	<td width="<%= mobile_request? ? 150 : 261 %>">
 	  <p>
-	    <%= link_to "<strong>#{t('.launch')}</strong>", product_trailer_path(:streamin_trailer_id => version.id, :format => :js), :class => 'btn_play  qualityvod' %>
+	    <%= link_to "<strong>#{t('.launch')}</strong>", product_trailer_path(:streamin_trailer_id => version.id, :format => :js), :class => "btn_play  qualityvod #{current_trailer == version ? :current : :other}" %>
 	  </p>
 	</td>
 </tr>
