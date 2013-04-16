@@ -1,6 +1,7 @@
 class StreamingTrailer < ActiveRecord::Base
   has_many :subtitles, :foreign_key => :undertitles_id, :primary_key => :subtitle_id
   has_many :languages, :foreign_key => :languages_id, :primary_key => :language_id
+  has_one :tokens_trailer, :foreign_key => :filename, :primary_key => :filename
   named_scope :available, lambda {{:conditions => ['available = ? and status = "online_test_ok"', 1]}}
   named_scope :available_beta, lambda {{:conditions => ['status != "deleted"', 1]}}
   named_scope :prefered_audio, lambda {|language_id| {:conditions => {:language_id => language_id }}}
