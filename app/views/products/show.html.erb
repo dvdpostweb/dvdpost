@@ -110,6 +110,15 @@ FB.init({
            <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
         <% end %>
       <% end %>
+      <% if @product.next == 1 and @product.available_at%>
+      <div style="padding-top:4px;">
+        <strong>
+          <%= t '.available' %>
+        </strong>
+        <%= @product.available_at.strftime("%d/%m/%Y") if @product.available_at %>
+      </div>
+      <% end %>
+      
       <% if @product.available_to_sale? && current_customer %>
         <% media = DVDPost.product_types.invert[@product.media] %>
         <% test = current_customer.shopping_products.include?(@product) %>
@@ -122,15 +131,7 @@ FB.init({
       <% end %>
       
       
-      <% if @product.next == 1 and @product.available_at%>
       <div class="clearfix"></div>
-      <div>
-        <strong>
-          <%= t '.available' %>
-        </strong>
-        <%= @product.available_at.strftime("%d/%m/%Y") if @product.available_at %>
-      </div>
-      <% end %>
       <% if @product.availability == -1 %>
       <div class="clearfix"></div>
       <div id="not_available" class="<%= I18n.locale %>">

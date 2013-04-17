@@ -1,5 +1,5 @@
 <% expire = item.streaming_products.available.first.expire_at if item.streaming_products.available.count > 0 %>
-<% product = item.products.first %>
+<% product = item.products.both_available.first %>
 <% if product %>
 <% image_tag(product.image)+"<br />" if display_vod == 1 %>
 <% product_title = product.title %> 
