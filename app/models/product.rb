@@ -901,4 +901,9 @@ class Product < ActiveRecord::Base
   def trailer?
     trailer || ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0) && tokens_trailers.available.first )
   end
+  
+  def trailer_streaming?
+    ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0) && tokens_trailers.available.first )
+  end
+  
 end
