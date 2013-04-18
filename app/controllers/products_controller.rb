@@ -242,7 +242,7 @@ class ProductsController < ApplicationController
     if params[:streamin_trailer_id]
       trailers = Rails.env == "production" ? @product.streaming_trailers.available : @product.streaming_trailers.available_beta
       trailer = StreamingTrailer.find(params[:streamin_trailer_id])
-    elsif @product.trailer?
+    elsif @product.trailer_streaming?
       trailers = Rails.env == "production" ? @product.streaming_trailers.available : @product.streaming_trailers.available_beta
       trailer = StreamingTrailer.get_best_version(@product.imdb_id, I18n.locale)
     else
@@ -255,6 +255,7 @@ class ProductsController < ApplicationController
     Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     respond_to do |format|
       format.js   {
+        Rails.logger.debug { "@@@#{trailers.inspect}" }
         if trailer.class.name == 'StreamingTrailer'
           render :partial => 'products/trailer', :locals => {:trailer => trailer, :trailers => trailers}
         elsif trailers.first
