@@ -20,6 +20,7 @@
           </tbody>
         </table>
       </div>
+      <% unless current_user.address.luxemburg? %>
       <br>
       <div style="width: 800px;" id="payment_domiciliation" class="payment ">
         <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
@@ -38,6 +39,7 @@
           </tbody>
         </table>
       </div>
+      <% end %>
       <div align="right" style="padding-right: 8px;"><br>
         <button type="submit" class="button_confirm_switch"><%= t '.follow' %></button>
       </div>

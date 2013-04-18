@@ -28,6 +28,10 @@ class Address < ActiveRecord::Base
     country_id == 21
   end
 
+  def luxemburg?
+    country_id == 124
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
