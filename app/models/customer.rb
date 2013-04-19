@@ -240,7 +240,7 @@ class Customer < ActiveRecord::Base
     begin
       product_id = product_id.to_s.gsub(/-.*/,'')
       if params[:response_id]
-        params[:reponseid] = params[:response_id]
+        params[:responseid] = params[:response_id]
         params.delete :response_id
       end
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
