@@ -255,7 +255,6 @@ class ProductsController < ApplicationController
     Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     respond_to do |format|
       format.js   {
-        Rails.logger.debug { "@@@#{trailers.inspect}" }
         if trailer.class.name == 'StreamingTrailer'
           render :partial => 'products/trailer', :locals => {:trailer => trailer, :trailers => trailers}
         elsif trailers.first
