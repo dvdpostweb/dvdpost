@@ -130,6 +130,7 @@ ul#output li .caption {
   left: 20px;
   position: absolute;
   width: 400px ;
+  text-shadow: 0px 1px 10px #242424;
 }
 
 ul#output li .caption p {
