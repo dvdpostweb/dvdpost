@@ -1,6 +1,6 @@
 <div class="clearfix"></div>
 <div id="creditdorcel">
-<% streaming_studio = product.streaming_products.first.studio%>
+<% streaming_studio = product.streaming_products.first.studio %>
 <% if credits == product.streaming_products.available.first.studio.cost_for_new %>
 <div class="new"><%= t '.title', :name => streaming_studio.name.upcase %></div>
 <% end %>
