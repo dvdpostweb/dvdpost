@@ -1,1 +1,4 @@
-ok
+<%= svod_title(current_customer) %>
+<% form_for :svod, :url => customers_svod_path(), :html => {:method => :put} do |f| %>
+  <%= submit_tag t('.create'),:id => "submit_account", :class => "submit" %>
+<% end %>
