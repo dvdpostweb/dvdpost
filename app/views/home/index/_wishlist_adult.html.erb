@@ -17,7 +17,7 @@
    <span class="check-off"><span></span>
      Oui
    </span>
-   <span class="<check"><span></span>
+   <span class="check"><span></span>
     Non
    </span>
   <% else %>
@@ -27,7 +27,7 @@
     <span class="check-off"><span></span>
       Non
     </span>
-    <% if current_customer.svod_adult == 3 %>
+    <% if current_customer.svod_adult == 3 || current_customer.svod_adult == 4 %>
       <p>votre compte sera stopé le <%= current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %>. il est actif jusqu'à cette date</p>
     <% elsif current_customer.svod_adult == 1 %>
       <p>ton compte est actif, tu peux dés a présent regarder de la vod illimitée</p>
@@ -35,5 +35,10 @@
       <p>la prochaine date de reconduction est le <%= current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %></p>
     <% end %>
   <% end %>
-  <p style="padding-top:5px;"><%= link_to "Découvrez la VOD illimitée", customers_svod_path %></p>
+  <% if current_customer.svod_adult == 0 %>
+    <p style="padding-top:5px;"><%= link_to "Découvrez la VOD illimitée", customers_svod_path %></p>
+  <% else %>
+    <p style="padding-top:5px;"><%= link_to "modifier", customers_svod_path %></p>
+  
+  <% end %>
 </div>

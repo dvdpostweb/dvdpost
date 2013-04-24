@@ -19,6 +19,9 @@ class Subscription < ActiveRecord::Base
     action.push(:creation_with_activation, 8)
     action.push(:free_reconduction, 17)
     action.push(:reconduction, 7)
+    action.push(:svod_adult_on, 30)
+    action.push(:svod_adult_off, 31)
+    action.push(:svod_adult_break_off, 32)
 
     action
   end
