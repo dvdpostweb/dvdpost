@@ -1,6 +1,6 @@
 #faq-intro-wrap {
-	background:url(../images/bg_faq.jpg) no-repeat;
-	height:407px;
+  background: url("../images/bg_faq.jpg") no-repeat scroll -44px 74px transparent ;
+  height: 407px;
 }
 #faq-intro-wrap h2 {
 	color: #85B91A;
@@ -58,6 +58,10 @@
 	padding-left: 24px;
 	background: url(../images/plus_moins.png) no-repeat scroll 0 -16px transparent;
 	
+}
+#vod-intro #col1 span p {
+    background: none;
+  
 }
 #faq h3.close, #vod-info-wrap h3.close {
 	background: url(../images/plus_moins.png) no-repeat scroll 0 0 transparent;
@@ -160,8 +164,16 @@ padding-top:8px;
 #vod-ecran #selection-tab1 {
     border: 1px solid #36404E;
     height: 272px;
+    border: 0px!important;
 }
-
+#vod-ecran #selection-tab1 #tab1, #tab3 {
+border: 1px solid #36404E;
+padding: 10px 0px;
+}
+#vod-ecran #selection-tab1 #tab2 {
+    border: 1px solid #36404E;
+    height: 1300px ;
+}
 
 #vod-ecran .left {
     height: 185px;
@@ -174,9 +186,12 @@ padding-top:8px;
 }
 
 #vod-ecran .left.ipad {
-    background: url("../images/bg_ipad.jpg") no-repeat scroll 0px 28px transparent;
-	   height: 193px;
-
+  background: url(../images/bg_ipad.jpg)no-repeat scroll  30px 17px transparent;
+  height: 193px;
+}
+#vod-ecran .left.android {
+    background: url(../images/bg_android.jpg)no-repeat scroll 30px 0 transparent;
+    height: 193px;
 }
 
 
@@ -192,10 +207,10 @@ padding-top:8px;
 }
 
 #vod-ecran .right {
-    float: right;
-    padding-right: 39px;
-    padding-top: 8px;
-    width: 378px;
+  float: right;
+  padding-right: 15px;
+  padding-top: 0;
+  width: 445px;
 }
 #vod-ecran li#systeme {
     background: url("../images/systeme-icon.jpg") no-repeat scroll -8px 0px transparent;
@@ -282,15 +297,44 @@ color: #BD1F83;
 }
 
 #faq_intro h4 {
-    border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 	font-size:15px;
-		text-transform:uppercase;
-		    color: #36404E;
-
-	
-    
+	text-transform:uppercase;
+  color: #36404E;
+}
+#faq-content-wrap #subscribe-wrap {
+    background: url("../images/green-bg-rc.gif") repeat-y scroll 100% 0 #AECB3B;
+    height: 95px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+#vod-ecran #selection-tab1 #tab2 h3 {
+    background: none repeat scroll 0 0 transparent;
+    color: #85B91A;
+    font-size: 15px;
+    padding-top: 15px;
+    text-align: left;
+    text-transform: uppercase;
+	padding-left: 15px!important;
 }
 
+
+#vod-ecran #selection-tab1 h3 span {
+    color: #36404E;
+    font-weight: lighter;
+}
+#vod-ecran #selection-tab1 h4 {
+    background: url("../images/square.gif") no-repeat scroll 15px 8px transparent;
+    color: #36404E;
+    font-size: 16px;
+    padding-left: 36px;
+    padding-top: 5px;
+}
+#col1 a{
+padding-top:20px;
+
+
+}
 #vod-intro #col1 p{
 background: url(../images/little_cross.png) no-repeat scroll 0 0 transparent;
 padding-left: 30px;
@@ -350,4 +394,8 @@ font-size:16px;
     margin-right: 20px;
     width: 130px;
 	padding-left: 0px;
+}
+#subscribe-wrap #subscribe {
+width: 230px;
+padding: 10px 32px 10px 8px;
 }

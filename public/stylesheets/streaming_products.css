@@ -124,12 +124,6 @@
     padding: 60px 0 0;
     width: 696px;
 }
-.adult #image_vod {
-    background: url("../images/vod_adult.jpg") repeat scroll 0 0 transparent;
-    height: 334px;
-    padding: 60px 0 0;
-    width: 696px;
-}
 #image_vod img {
     background: none repeat scroll 0 0 #FFFFFF;
     height: 240px;
@@ -498,7 +492,7 @@ a#retour
 	color: #4ead1a;
 }
 #faq-content-wrap {
-	padding: 30px 20px 30px 30px;
+	padding: 5px 20px 30px 30px
 }
 #vod-info-wrap h3 {
 	font-size: 1.33em;
