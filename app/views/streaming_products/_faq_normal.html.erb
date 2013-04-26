@@ -20,11 +20,21 @@
     <div id="vod-intro">
       <div class="cols" id="col1">
         <%= t '.intro_col1' %>
-        <a class="more" id="vod-plus-title-more" href="#"><%= t '.more'%></a> 
+        <span>
+          <p>
+            <a href="<%= products_path(:view_mode => :streaming) %>"><%= t('.catalogue') %></a>
+          </p>
+        </span> 
+        <span>
+          <p>
+            <a class="more" id="vod-plus-title-more" href="#"><%= t '.more'%></a>
+          </p>
+        </span>
       </div>
       <!-- #col1 -->
       <div class="cols">
         <%= t '.intro_col2', :img1 => image_tag("#{I18n.locale}/button_streaming.jpg"), :img2 => image_tag("#{I18n.locale}/button_list.jpg") %>
+        <p><a href="<%= products_path(:view_mode => :streaming) %>"><%= t('.catalogue') %></a></p>
         <p><a class="more" id="vod-button-title-more" href="#"><%= t '.more'%></a></p>
       </div>
       <div class="cols">
@@ -36,7 +46,7 @@
             </li>
             <li id="ipad">
               <p>
-                <%= t '.ipad' %>
+                <%= t '.ipad_link' %>
                 <a class="more tab2" id="vod-ecran-title-more" href="#"><%= t '.more'%></a>
               </p>
             </li>
@@ -51,7 +61,7 @@
         <!-- #col3 -->
       </div>
     </div>
-    <%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" %>
+    <%= render :partial => 'layouts/call_to_action2' if ENV['HOST_OK'] == "1" %>
     <!-- #vod-plus -->
     <div id="vod-info-wrap">
       <%= t '.vod_detail', :link => link_adult %>
@@ -102,6 +112,7 @@
                 <div class="right">
                   <%= t '.tab2_right_android' %>
                 </div>
+                <div class="clear"></div>
               </div>
               <div class="carousel-wrap"  id="tab3" style='display:none'>
                 <div class="left tv" >

@@ -93,7 +93,7 @@
     </div>
     <% end %>
     <div class="container clearfix">
-			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:action] != 'unsubscribe' && params[:controller] != 'home' && params[:page_name] != 'promo' && params[:page_name] != 'price' %>
+			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:action] != 'unsubscribe' && params[:controller] != 'home' && params[:page_name] != 'promo' && params[:page_name] != 'price' && !(params[:controller] == 'streaming_products' && params[:action] == 'faq') %>
       <%= yield %>
     </div>
 </div>

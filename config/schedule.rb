@@ -27,7 +27,7 @@ end
 every 1.day, :at => '11:59 am' do 
   rake "thinking_sphinx:reindex"  
 end
-every 1.day, :at => '01:00 am' do  
+every 1.day, :at => '03:00 am' do  
   rake "thinking_sphinx:reindex"  
 end
 
