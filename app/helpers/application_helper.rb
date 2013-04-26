@@ -274,6 +274,10 @@ module ApplicationHelper
     end
   end
 
+  def streaming_ppv_btn_title(type, text, price)
+    text == :short ? t('.ppv_short', :price => price) : t('.ppv', :price => price)
+  end
+
   def sort_collection_for_select
     options = []
     codes_hash = Product.list_sort

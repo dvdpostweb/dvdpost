@@ -57,7 +57,10 @@ FB.init({
     <div id="film-img-wrap" class="<%= @product.vod? ? 'vod' : product_media_id(@product.media) %>">
       <%= product_image_tag @product_image, :width => 180, :alt => "#{@product_title} (#{@product.year})" %>
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
-      <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
+      <span class="osc">
+        <%= @product.vod? ? 'vod' : product_media_id(@product.media) %>
+        <%= link_to "Disponible dans l'abonnement SVOD", customers_svod_path if @product.adult? && current_customer.svod_adult > 0 && @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
+      </span>
     </div>
     <div id="film-descr">
     <h3>
@@ -99,10 +102,6 @@ FB.init({
           <% end %>
           <% if !current_customer || !@product.adult? || current_customer.svod_adult == 0 %>
             <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
-          <% end %>
-          <% if @product.adult? && current_customer.svod_adult > 0 %>
-          <div class="clearfix"></div>
-            ce film est en ilimité 
           <% end %>
           <% if params[:kind] == :adult && current_customer.svod_adult == 0 %>
             <div class="ico">

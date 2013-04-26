@@ -222,7 +222,7 @@ width:101px;
 
 
 #header{
-  height: 100px;
+  height: 85px;
   position: relative;
   width: 100%;
   background: #212a31;
@@ -1373,19 +1373,19 @@ height: 20px;
     display: inline-block !important;
     overflow: hidden;
 }
-a.louer {
-  background-image: url(../images/sprite.png)!important;
-  background-position: -492px -256px;
+
+a.louer{
+  height: 26px;
   background-repeat: no-repeat;
-  color: white;
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
-  height: 23px;
-  line-height: 24px;
-  padding-left: 27px;
   text-align: left;
-  width: 107px;
+  display: inline-block;
+  width: 68px;
+  line-height: 25px;
+  padding-left: 27px;
+  font-size: 13px;
+  color: white;
+  font-weight: bold;
+  background: url(../images/sprite.png) -352px 0 no-repeat;
 }
 #presentation .prices {
     background-color: #FF6600;
@@ -1455,4 +1455,11 @@ font-size: 1em;
 {
   font-weight: bold;
   font-size: 14px;
+}
+.adult  #login {
+    background: url(../images/login_button_adult.png)no-repeat scroll 0 0 transparent;
+    height: 25px;
+    margin: -27px;
+    padding: 2px 25px 4px 13px;
+    width: 82px;
 }
