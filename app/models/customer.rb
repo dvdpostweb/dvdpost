@@ -467,7 +467,7 @@ class Customer < ActiveRecord::Base
         end
         
         if token_string
-          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price, :source_id => source, :country => file.country) : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :source_id => source, :country => file.country)
+          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price, :source_id => source, :country => file.country, :credits => file.credits) : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :source_id => source, :country => file.country, :credits => file.credits)
           if token.id.blank?
             return {:token => nil, :error => Token.error[:query_rollback]}
           else
@@ -497,7 +497,8 @@ class Customer < ActiveRecord::Base
               :imdb_id     => imdb_id,          
               :token       => token_string,
               :source_id   => source,
-              :country     => file.country
+              :country     => file.country,
+              :credits     => file.credits
             )
             result_credit = (product.adult? && svod_adult > 0) ? true : remove_credit(file.credits, 12)
             if token.id.blank? || result_credit == false

@@ -111,7 +111,8 @@ class Token < ActiveRecord::Base
         :imdb_id     => imdb_id,          
         :token       => token_string,
         :source_id   => source,
-        :country => file.country
+        :country => file.country,
+        :credits => file.credits
       )
       if token.id.blank?
         return {:token => nil, :error => Token.error[:query_rollback]}

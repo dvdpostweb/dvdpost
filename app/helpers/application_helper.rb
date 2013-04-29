@@ -247,7 +247,10 @@ module ApplicationHelper
     else
       hours_left = DVDPost.hours[:normal]
     end
-    distance_of_time_in_hours((stream.updated_at + hours_left.hours), Time.now)
+    Rails.logger.debug { "@@@#{stream.updated_at}" }
+    Rails.logger.debug { "@@@#{(stream.updated_at + hours_left.hours)}" }
+    Rails.logger.debug { "@@@#{Time.now.localtime}" }
+    distance_of_time_in_hours((stream.updated_at + hours_left.hours), Time.now.localtime)
   end
 
   def streaming_access?

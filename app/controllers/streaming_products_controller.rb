@@ -79,7 +79,7 @@ class StreamingProductsController < ApplicationController
               if ENV['HOST_OK'] == "0"
                 creation = current_customer.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id], params[:kind], params[:source])
               elsif ENV['HOST_OK'] == "1" && !params[:code].nil?
-                creation = Token.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id], params[:kind], params[:code], params[:source], :country => streaming_version.country)
+                creation = Token.create_token(params[:id], @product, request.remote_ip, params[:streaming_product_id], params[:kind], params[:code], params[:source], :country => streaming_version.country, :credits => streaming_version.credits)
               else
                 creation = nil
               end
