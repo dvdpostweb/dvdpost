@@ -66,6 +66,7 @@ class Customer < ActiveRecord::Base
   has_one :beta_test
   has_one :cable_order
   has_one :customer_attribute
+  has_one :customers_svod
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -477,7 +478,7 @@ class Customer < ActiveRecord::Base
         end
     end
     
-    if credits >= file.credits
+    if credits >= file.credits || (product.adult? && svod_adult > 0)
       abo_process = AboProcess.today.last
       if abo_process 
         customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
@@ -498,7 +499,7 @@ class Customer < ActiveRecord::Base
               :source_id   => source,
               :country     => file.country
             )
-            result_credit = remove_credit(file.credits, 12)
+            result_credit = (product.adult? && svod_adult > 0) ? true : remove_credit(file.credits, 12)
             if token.id.blank? || result_credit == false
               error = Token.error[:query_rollback]
               raise ActiveRecord::Rollback

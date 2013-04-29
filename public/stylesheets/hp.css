@@ -696,3 +696,9 @@ overflow: hidden;
 {
   font-weight: bold;
 }
+.comm-reaction a.louer
+{
+  /*padding-left: 27px;
+  margin: 0 0 0 84px;*/
+  background-position: -456px -32px
+}

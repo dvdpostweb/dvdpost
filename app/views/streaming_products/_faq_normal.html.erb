@@ -11,32 +11,42 @@
 <% link_iphone = link_to "iPhone", DVDPost.iphone_url[I18n.locale] %>
 <% link_ipad = link_to "iPad", DVDPost.ipad_url[I18n.locale] %>
 <% link_airplay = link_to "AirPlay", DVDPost.airplay_url[I18n.locale] %>
-  <div id="faq-content-wrap">
-    <div id="faq-intro-wrap">
-      <%= t '.intro', :link => link %>
-    </div>
-    <!-- #vod-faq -->
-    <div id="faq_intro" class="clearfix">
-      <div id="vod-intro">
-        <div class="cols" id="col1">
-          <%= t '.intro_col1' %>
-          <a class="more" id="vod-plus-title-more" href="#"><%= t '.more'%></a> 
-          </div>
-        <!-- #col1 -->
-        <div class="cols">
-          <%= t '.intro_col2', :img1 => image_tag("#{I18n.locale}/button_streaming.jpg"), :img2 => image_tag("#{I18n.locale}/button_list.jpg") %>
-          <p><a class="more" id="vod-button-title-more" href="#"><%= t '.more'%></a></p>
-        </div>
-        <div class="cols">
-          <h4><%= t '.available_tv' %></h4>
-          <ul>
-            <li id="mac">
-              <p><strong><%= t '.pc' %><br />
-                <a class="more tab1" id="vod-ecran-title-more" href="#"><%= t '.more'%></a></strong></p>
+<div id="faq-content-wrap">
+  <div id="faq-intro-wrap">
+    <%= t '.intro', :link => link %>
+  </div>
+  <!-- #vod-faq -->
+  <div id="faq_intro" class="clearfix">
+    <div id="vod-intro">
+      <div class="cols" id="col1">
+        <%= t '.intro_col1' %>
+        <span>
+          <p>
+            <a href="<%= products_path(:view_mode => :streaming) %>"><%= t('.catalogue') %></a>
+          </p>
+        </span> 
+        <span>
+          <p>
+            <a class="more" id="vod-plus-title-more" href="#"><%= t '.more'%></a>
+          </p>
+        </span>
+      </div>
+      <!-- #col1 -->
+      <div class="cols">
+        <%= t '.intro_col2', :img1 => image_tag("#{I18n.locale}/button_streaming.jpg"), :img2 => image_tag("#{I18n.locale}/button_list.jpg") %>
+        <p><a href="<%= products_path(:view_mode => :streaming) %>"><%= t('.catalogue') %></a></p>
+        <p><a class="more" id="vod-button-title-more" href="#"><%= t '.more'%></a></p>
+      </div>
+      <div class="cols">
+        <h4><%= t '.available_tv' %></h4>
+        <ul>
+          <li id="mac">
+            <p><strong><%= t '.pc' %><br />
+              <a class="more tab1" id="vod-ecran-title-more" href="#"><%= t '.more'%></a></strong></p>
             </li>
             <li id="ipad">
               <p>
-                <%= t '.ipad' %>
+                <%= t '.ipad_link' %>
                 <a class="more tab2" id="vod-ecran-title-more" href="#"><%= t '.more'%></a>
               </p>
             </li>
@@ -51,6 +61,7 @@
         <!-- #col3 -->
       </div>
     </div>
+    <%= render :partial => 'layouts/call_to_action2' if ENV['HOST_OK'] == "1" %>
     <!-- #vod-plus -->
     <div id="vod-info-wrap">
       <%= t '.vod_detail', :link => link_adult %>
@@ -79,35 +90,41 @@
                     <%= t '.any' %>
                     <p align="right"><%= link %></p>
                   </h3>
-                  </h3>
                 </div>
                 <div class="right">
                   <%= t '.speed', :link => sample %>
                 </div>
+                <div class="clearfix"></div>
               </div>
+              
               <div class="carousel-wrap"  id="tab2" style='display:none'>
-                <div class="left ipad" >
+                <h3>
+                  <%= t '.wifi' %>
+                </h3>
+                <h4><%= t '.ipad' %></h4>
+                <div class="left ipad" > </div>
+                <div class="right">
+                  <%= t '.tab2_right_ipad', :itunes_link => DVDPost.itunes_url(I18n.locale) %>
+                </div>
+                <div class="clear"></div>
+                <h4><%= t '.android' %></h4>
+                <div class="left android" > </div>
+                <div class="right">
+                  <%= t '.tab2_right_android' %>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="carousel-wrap"  id="tab3" style='display:none'>
+                <div class="left tv" >
                   <h3>
-                    <%= t '.wifi' %>
-                    <p align="right"><%= link %></p>
-                  </h3>
+                    <%= t '.look', :link => link %>
                   </h3>
                 </div>
                 <div class="right">
-                  <%= t '.appstore', :link_app => link_app, :img1 => img_app1, :img2  => img_app2 %>
+                  <%= t '.connected', :link_connected => link_connected, :link_appletv => link_appletv, :link_ipad => link_ipad, :link_iphone => link_iphone, :link_airplay => link_airplay %>
                 </div>
+                <div class="clearfix"></div>
               </div>
-              <div class="carousel-wrap"  id="tab3" style='display:none'>
-              <div class="left tv" >
-                <h3>
-                  <%= t '.look', :link => link %>
-                </h3>
-                </h3>
-              </div>
-              <div class="right">
-                <%= t '.connected', :link_connected => link_connected, :link_appletv => link_appletv, :link_ipad => link_ipad, :link_iphone => link_iphone, :link_airplay => link_airplay %>
-              </div>
-            </div>
             </div>
           </div>
         </div>

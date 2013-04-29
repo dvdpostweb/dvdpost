@@ -10,17 +10,37 @@
     </table>
   <% end %>
   <div class="clear"></div>
-  <% if @not_rated_product %>
-    <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} %>
-  <% else %>
-  <div id="en-transit">
-    <div><strong><%= t 'home.index.wishlist.lent' %></strong> <%= transit_items.count %> <%= t 'home.index.wishlist.dvd' %></div>
-    <dl>
-      <% transit_items.each do |transit_item| %>
-      <dt><%= link_to truncate(product_assigned_title(transit_item.product), :length => 30), product_assigned_path(transit_item.product) %></dt>
-      <dd><%= transit_item.changed_at.strftime("%d/%m/%Y") %></dd>
-      <% end %>
-    </dl>
+  <% if 1==0 %>
+  <div id="liste">
+    <strong>Profitez vous de la VOD illimitée?</strong>
   </div>
+  <% if current_customer.svod_adult == 0 %>
+   <span class="check-off"><span></span>
+     Oui
+   </span>
+   <span class="check"><span></span>
+    Non
+   </span>
+  <% else %>
+    <span class="check"><span></span>
+       Oui
+    </span>
+    <span class="check-off"><span></span>
+      Non
+    </span>
+    <% if current_customer.svod_adult == 3 || current_customer.svod_adult == 4 %>
+      <p>votre compte sera stopé le <%= current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %>. il est actif jusqu'à cette date</p>
+    <% elsif current_customer.svod_adult == 1 %>
+      <p>ton compte est actif, tu peux dés a présent regarder de la vod illimitée</p>
+    <% elsif current_customer.svod_adult == 2 %>
+      <p>la prochaine date de reconduction est le <%= current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %></p>
+    <% end %>
   <% end %>
+  <% if current_customer.svod_adult == 0 %>
+    <p style="padding-top:5px;"><%= link_to "Découvrez la VOD illimitée", customers_svod_path %></p>
+  <% else %>
+    <p style="padding-top:5px;"><%= link_to "modifier", customers_svod_path %></p>
+  
+  <% end %>
+<% end %>
 </div>

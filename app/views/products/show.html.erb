@@ -1,6 +1,12 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id='fb-root'></div>
-<script src="http://connect.facebook.net/en_US/all.js" type="text/javascript"></script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=254486224617136";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript">
 FB.init({
 				appId : "254486224617136",
@@ -28,6 +34,7 @@ FB.init({
 				FB.ui(obj, callback);
 			}
 </script>
+
 <div id="maincontent">
   <div class="ttl-wrap">
     <div class="ttl osc">
@@ -57,7 +64,10 @@ FB.init({
     <div id="film-img-wrap" class="<%= @product.vod? ? 'vod' : product_media_id(@product.media) %>">
       <%= product_image_tag @product_image, :width => 180, :alt => "#{@product_title} (#{@product.year})" %>
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
-      <span class="osc"><%= @product.vod? ? 'vod' : product_media_id(@product.media) %></span>
+      <span class="osc">
+        <%= @product.vod? ? 'vod' : product_media_id(@product.media) %>
+        <% link_to "Disponible dans l'abonnement SVOD", customers_svod_path if @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
+      </span>
     </div>
     <div id="film-descr">
     <h3>
@@ -97,8 +107,10 @@ FB.init({
           <% if @trailer %>
              <%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source, :response_id => @response_id), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
           <% end %>
-          <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
-          <% if params[:kind] == :adult %>
+          <% if !current_customer || !@product.adult? || (current_customer && current_customer.svod_adult == 0) %>
+            <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
+          <% end %>
+          <% if params[:kind] == :adult && current_customer && current_customer.svod_adult == 0 %>
             <div class="ico">
               <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
             </div>
@@ -151,7 +163,7 @@ FB.init({
     <div id="fb">
       
       <% unless @product.adult? %>
-      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= CGI::escape(@public_url) %>&amp;layout=standard&amp;show_faces=true&amp;width=400&amp;action=recommend&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:80px;" allowTransparency="true"></iframe>
+        <div class="fb-like" data-send="false" data-width="450" data-show-faces="false" data-action="recommend"></div>
       <% end %>
     </div>    
   </div><!-- #film-info -->

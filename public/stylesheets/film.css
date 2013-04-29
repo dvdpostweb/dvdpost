@@ -773,7 +773,7 @@ visibility: hidden;
 #btns-wrap a#about_ppv
 {
   margin: 78px 0 0 -193px;
-  position: absolute;
+  float:left;
   color: #FA6A00;
   background-image: none !important;
   font-weight: normal;
@@ -815,4 +815,10 @@ width: 678px;
 }
 .information_vod {
   padding: 10px 0 0 0;
+}
+#film-img-wrap a {
+  color: #ffffff;
+  text-transform:none;
+  font-size:14px;
+  display:block;
 }

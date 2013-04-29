@@ -1,11 +1,10 @@
 #faq-intro-wrap {
-	background:url(../images/bg_faq.jpg) no-repeat;
-	height:407px;
+  background: url("../images/bg_faq.jpg") no-repeat scroll -44px 74px transparent ;
+  height: 407px;
 }
 #faq-intro-wrap h2 {
 	color: #85B91A;
 	font-size: 27px;
-	text-transform:uppercase;
 	padding-top: 14px;
 }
 .adult #faq-intro-wrap h2 {
@@ -58,6 +57,10 @@
 	padding-left: 24px;
 	background: url(../images/plus_moins.png) no-repeat scroll 0 -16px transparent;
 	
+}
+#vod-intro #col1 span p {
+    background: none !important;
+  
 }
 #faq h3.close, #vod-info-wrap h3.close {
 	background: url(../images/plus_moins.png) no-repeat scroll 0 0 transparent;
@@ -160,8 +163,12 @@ padding-top:8px;
 #vod-ecran #selection-tab1 {
     border: 1px solid #36404E;
     height: 272px;
+    border: 0px!important;
 }
-
+#vod-ecran #selection-tab1 #tab1, #vod-ecran #selection-tab1 #tab2, #vod-ecran #selection-tab1 #tab3 {
+border: 1px solid #36404E;
+padding: 10px 0px;
+}
 
 #vod-ecran .left {
     height: 185px;
@@ -174,9 +181,12 @@ padding-top:8px;
 }
 
 #vod-ecran .left.ipad {
-    background: url("../images/bg_ipad.jpg") no-repeat scroll 0px 28px transparent;
-	   height: 193px;
-
+  background: url(../images/bg_ipad.jpg)no-repeat scroll  30px 17px transparent;
+  height: 193px;
+}
+#vod-ecran .left.android {
+    background: url(../images/bg_android.jpg)no-repeat scroll 30px 0 transparent;
+    height: 193px;
 }
 
 
@@ -192,10 +202,10 @@ padding-top:8px;
 }
 
 #vod-ecran .right {
-    float: right;
-    padding-right: 39px;
-    padding-top: 8px;
-    width: 378px;
+  float: right;
+  padding-right: 15px;
+  padding-top: 0;
+  width: 445px;
 }
 #vod-ecran li#systeme {
     background: url("../images/systeme-icon.jpg") no-repeat scroll -8px 0px transparent;
@@ -282,15 +292,44 @@ color: #BD1F83;
 }
 
 #faq_intro h4 {
-    border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 	font-size:15px;
-		text-transform:uppercase;
-		    color: #36404E;
-
-	
-    
+	text-transform:uppercase;
+  color: #36404E;
+}
+#faq-content-wrap #subscribe-wrap {
+    background: url("../images/green-bg-rc.gif") repeat-y scroll 100% 0 #AECB3B;
+    height: 95px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+#vod-ecran #selection-tab1 #tab2 h3 {
+    background: none repeat scroll 0 0 transparent;
+    color: #85B91A;
+    font-size: 15px;
+    padding-top: 15px;
+    text-align: left;
+    text-transform: uppercase;
+	padding-left: 15px!important;
 }
 
+
+#vod-ecran #selection-tab1 h3 span {
+    color: #36404E;
+    font-weight: lighter;
+}
+#vod-ecran #selection-tab1 h4 {
+    background: url("../images/square.gif") no-repeat scroll 15px 8px transparent;
+    color: #36404E;
+    font-size: 16px;
+    padding-left: 36px;
+    padding-top: 5px;
+}
+#col1 a{
+padding-top:20px;
+
+
+}
 #vod-intro #col1 p{
 background: url(../images/little_cross.png) no-repeat scroll 0 0 transparent;
 padding-left: 30px;
@@ -351,3 +390,74 @@ font-size:16px;
     width: 130px;
 	padding-left: 0px;
 }
+#subscribe-wrap #subscribe {
+width: 230px;
+padding: 10px 32px 10px 8px;
+}
+#faq-content-wrap #subscribe-wrap .wrap {
+  background: #88BD32 -moz-linear-gradient(center top , #ACD341, #88BD32) !important;
+  background: #88BD32 -webkit-gradient(linear,center top , center bottom, from(#ACD341), to(#88BD32)) repeat-x !important;
+}
+.adult #faq-content-wrap #subscribe-wrap .wrap,.adult  #faq-content-wrap #subscribe-wrap {
+  background: #da2698!important; /* Old browsers */
+  background: -moz-linear-gradient(top, #da2698 0%, #bd1f83 99%)/* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#da2698), color-stop(99%,#bd1f83))!important;/* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #da2698 0%,#bd1f83 99%)!important;/* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #da2698 0%,#bd1f83 99%)!important; /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #da2698 0%,#bd1f83 99%)!important; /* IE10+ */
+  background: linear-gradient(to bottom, #da2698 0%,#bd1f83 99%)!important;/* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', endColorstr='#bd1f83',GradientType=0 )!important; /* IE6-9 */
+}
+
+#faq-content-wrap #subscribe-wrap #subscribe
+{
+  background: transparent;
+}
+#faq-content-wrap #subscribe-wrap
+{
+  background: #88BD32 -moz-linear-gradient(center top , #ACD341, #88BD32) !important;
+  background: #88BD32 -webkit-gradient(linear,center top , center bottom, from(#ACD341), to(#88BD32)) repeat-x !important;
+}
+.normal #faq-content-wrap #subscribe-wrap #subscribe a.btn {
+  background: #EE8419 -webkit-gradient(linear,center top , center bottom, from(#EE8419), to(#E26417)) repeat-x !important;
+  background: #EE8419 -moz-linear-gradient(center top , #EE8419, #E26417) repeat-x !important;
+  border: 1px solid #D55023;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  font-size: 25px;
+  width: 220px;
+  height: 30px;
+  line-height: 30px;
+  padding: 5px;
+  text-shadow: 0 -1px 0 #D83C14;
+}
+.adult #faq-content-wrap #subscribe-wrap #subscribe a.btn
+{
+      background: #576774!important; /* Old browsers */
+
+  background: -moz-linear-gradient(top,  #576774 0%, #2d3942 99%); /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#576774), color-stop(99%,#2d3942))!important; /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top,  #576774 0%,#2d3942 99%)!important; /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top,  #576774 0%,#2d3942 99%)!important; /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top,  #576774 0%,#2d3942 99%)!important; /* IE10+ */
+
+  background: linear-gradient(to bottom,  #576774 0%,#2d3942 99%)!important; /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#576774', endColorstr='#2d3942',GradientType=0 )!important;/* IE6-9 */
+
+      border: 1px solid #2d3942;
+      border-radius: 4px 4px 4px 4px;
+      box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+      color: #FFFFFF;
+      font-size: 25px;
+      height: 30px;
+      line-height: 30px;
+      padding: 5px;
+      text-shadow: 0 -1px 0 #1a2126;
+      width: 220px;
+  }
