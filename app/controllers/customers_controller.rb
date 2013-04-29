@@ -137,22 +137,4 @@ class CustomersController < ApplicationController
 
   def unsubscribe
   end
-
-  def svod_adult
-    @customer = current_customer
-    if @customer.svod_afult == 0 && params[:abo] == "1"
-      @customer.customer_attribute.update_attribute(:svod_adult, 1)
-      customers_svod = @customer.customers_svod || @customer.customers_svod.build(:product_abo_id => 1, :validity_period => 'M', '19.95')
-      customers_svod.update_attributes(:validity_to => 1.month.from_now)
-    elsif @customer.svod_afult != 0 && params[:abo] == "0"
-      @customer.customer_attribute.update_attribute(:svod_adult, 3)
-    end  
-    respond_to do |format|
-      format.html do
-        redirect_to customer_path(:id => current_customer.to_param)
-      end
-      format.js {render :partial => 'customers/show/only_vod', :locals => {:only_vod => @customer.customer_attribute.only_vod}}
-    end
-  end
-
 end
