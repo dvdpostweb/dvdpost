@@ -13,7 +13,7 @@
     </div>
   </div>
   <% else %>
-  <% if @product.adult? && current_customer.svod? %>
+  <% if @product.adult? && current_customer.svod? && current_customer.svod_adult == 0 %>
     <%= t('.svod_adult') %>
   <% else %>
     <% if (@vod_create_token == "1" && @vod_disable == "1") || Rails.env == "pre_production" %>
@@ -34,9 +34,12 @@
               <% if @streaming.is_ppv %>
                 <%= t '.ppv', :price => @streaming.ppv_price %>
               <% else %>
-                <%= "#{t '.intro', :credits => nb_credit}<br /><br />" unless @streaming_free[:status] == true || current_customer.svod? || (current_customer.credits < @streaming.credits) %>
+                <%= "#{t '.intro', :credits => nb_credit}<br /><br />" unless @streaming_free[:status] == true || current_customer.svod? || (current_customer.credits < @streaming.credits) || current_customer.svod_adult > 0  %>
               <% end %>
-            	<% if current_customer.abo_active == 0 && !@streaming_free[:status] %>
+              <% if @product.adult? && current_customer.svod_adult > 0 %> 
+                <%= 'vod ilimité' %>
+                 <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id, :source => params[:source], :response_id => params[:response_id]), :id => 'add_to_vod' %></p>
+            	<% elsif current_customer.abo_active == 0 && !@streaming_free[:status] %>
             	  <% if current_customer.beta_test %>
             	    <div id='abo_not_active'><%= t '.abo_not_active_beta_test', :link => info_path(:page_name => :promotion) %></div>
             	  <% else %>

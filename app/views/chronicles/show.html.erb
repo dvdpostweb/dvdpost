@@ -1,3 +1,11 @@
+<div id='fb-root'></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=254486224617136";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <% url = "http://public.dvdpost.com/#{I18n.locale}/chronicles/#{params[:id]}" %>
 <% content = Rails.env == 'production' ? @chronicle.contents.by_language(I18n.locale).private.first : @chronicle.contents.by_language(I18n.locale).beta.first %>
 <% if content %>
@@ -42,14 +50,7 @@
       <meta property="og:description" content="<%= content.description.gsub(/<\/?.*?>/, "") %>">
   <% end %>
 <% end %>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=254486224617136";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
 <% content_for :title do %>
   <%= "#{t('layouts.chronicles.title')} : #{title}" %>
 <% end %>

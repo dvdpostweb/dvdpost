@@ -106,7 +106,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 
 #bienvenue #liste {
   padding: 4px 20px;
-  margin: 0 -20px 10px;
+  margin: 10px -20px;
   background: #bd1f83;
   color: #fff;
   font-size: 1.25em;
@@ -586,7 +586,7 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
 }
 .rotation_dvd .dvd
 {
-  margin-left:162px;
+  margin-left: 180px;
 }
 .rotation_dvd .dvd img
 {
