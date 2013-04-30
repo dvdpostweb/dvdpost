@@ -2,15 +2,15 @@ module CustomersSvodHelper
   def svod_title(user)
     case user.svod_adult
       when 0
-        'activate'
+        '.activate'
       when 1
-        'deactivate'
+        '.deactivate'
       when 2
-        'deactivate'
+        '.deactivate'
       when 3
-        'reprendre votre abo'
+        '.break'
       when 4
-        'reprendre votre abo'
+        '.break'
     end
       
   end
