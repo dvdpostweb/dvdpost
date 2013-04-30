@@ -1,0 +1,117 @@
+#faqsvod h2 {
+color:#bd1f83;
+font-size:36px;
+font-family: 'Open Sans Condensed',sans-serif;
+line-height:44px;
+padding-bottom:10px;
+
+}
+
+
+#faqsvod {    text-shadow: none;
+padding:30px;
+
+}
+
+#faqsvod h2 span {
+font-size:48px;
+font-weight:bold;
+
+
+}
+
+#faqsvod h3 {
+color:#212a31;
+font-size:28px;
+font-family: 'Open Sans Condensed',sans-serif;
+
+font-weight:bold;
+padding-bottom:5px;
+padding-top:10px;
+
+}
+
+
+#faqsvod h4 {
+color:#212a31;
+font-size:16px;
+
+
+font-weight:bold;
+
+}
+#faqsvod li {
+    background: url("../images/square_adult.gif") no-repeat scroll 0 16px transparent;
+    font-size: 13px;
+    padding-left: 20px;
+    padding-top: 16px;
+}
+
+
+#faqsvod .faq .studios {
+ border:1px solid #9EABB5;
+  float: left;
+  margin:5px;
+
+}
+
+#faqsvod .faq {
+padding-top:30px;
+padding-bottom:30px;
+}
+#faqsvod .faq p {
+text-align:justify;
+}
+
+
+#faqsvod .abosvod {
+padding-top:20px;
+}
+#faqsvod .abosvod a {
+    font-size: 20px;
+    padding-left: 3px;
+}
+
+#faqsvod .abosvod .check-off span {
+    border: 1px solid #BD1F83;
+    display: inline-block;
+    height: 18px;
+    margin-top: -5px;
+    vertical-align: middle;
+    width: 18px;
+}
+#faqsvod .abosvod .check span {
+    border: 1px solid #BD1F83;
+    background: #BD1F83;
+    display: inline-block;
+    height: 18px;
+    margin-top: -5px;
+    vertical-align: middle;
+    width: 18px;
+}
+#faqsvod .button {
+    background: #da2698; /* Old browsers */
+
+background: -moz-linear-gradient(top,  #da2698 0%, #bd1f83 100%); /* FF3.6+ */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#da2698), color-stop(100%,#bd1f83)); /* Chrome,Safari4+ */
+
+background: -webkit-linear-gradient(top,  #da2698 0%,#bd1f83 100%); /* Chrome10+,Safari5.1+ */
+
+background: -o-linear-gradient(top,  #da2698 0%,#bd1f83 100%); /* Opera 11.10+ */
+
+background: -ms-linear-gradient(top,  #da2698 0%,#bd1f83 100%); /* IE10+ */
+
+background: linear-gradient(to bottom,  #da2698 0%,#bd1f83 100%); /* W3C */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', endColorstr='#bd1f83',GradientType=0 ); /* IE6-9 */
+
+
+    border: 1px solid #BD1F83;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 40px;
+    text-shadow: 0 -1px 0 #891B61;
+}

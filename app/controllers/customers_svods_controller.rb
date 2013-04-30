@@ -3,6 +3,13 @@ class CustomersSvodsController < ApplicationController
     
   end
 
+  def edit
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
+  end
+
   def update
     case current_customer.svod_adult
       when 0

@@ -152,7 +152,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resource 'shop', :controller => :shops, :only => [:show]
     localized.resources 'shopping_carts'
     localized.resources 'shopping_orders', :only => [:show]
-    localized.resource 'customers_svod', :only => [:show, :update]
+    localized.resource 'customers_svod', :only => [:show, :update, :edit]
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.mail_copy 'mail_copy', :controller => :customers, :action => :mail_copy, :only => [:update]
