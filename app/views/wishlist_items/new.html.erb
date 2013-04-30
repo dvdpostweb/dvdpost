@@ -17,6 +17,7 @@
         <div class="clear"></div>
       </div>
       <% if streaming_access? %>
+      <% Rails.logger.debug { "@@@#{StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id).count}" }%>
         <% if product.streaming?(params[:kind], session[:country_id]) %>
           <div id="vod"> 
             <span class="col1">VOD</span>
@@ -29,19 +30,7 @@
             </span>
             <div class="clear"></div>
           </div>
-          <% if StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id).count > 0 %>
-            <div id="vod"> 
-              <span class="col1">VOD</span>
-              <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, true) %></ul></span>
-              <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, true) %></ul></span>
-              <span class="col4"></span> 
-              <span class="col5">
-                <% @force_reserve = true %>
-                <%= render :partial => 'products/vod_list', :locals => {:product => product, :source => params[:source], :response_id => params[:response_id]} %>
-              </span>
-              <div class="clear"></div>
-            </div>
-          <% end %>
+          
         <% elsif product.in_streaming_or_soon?(params[:kind], session[:country_id]) %>
           <div id="vod"> 
             <span class="col1">VOD</span>
@@ -53,6 +42,19 @@
             </span>
             <div class="clear"></div>
           </div>
+        <% end %>
+        <% if StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id).count > 0 %>
+            <div id="vod"> 
+              <span class="col1">VOD</span>
+              <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, true) %></ul></span>
+              <span class="col3"><ul class="lang"><%= streaming_subtitle_bublles(product, true) %></ul></span>
+              <span class="col4"></span> 
+              <span class="col5">
+                <% @force_reserve = true %>
+                <%= render :partial => 'products/vod_list', :locals => {:product => product, :source => params[:source], :response_id => params[:response_id]} %>
+              </span>
+              <div class="clear"></div>
+            </div>
         <% end %>
       <% end %>
       <% @products.collect do |product| %>
