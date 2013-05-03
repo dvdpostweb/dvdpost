@@ -182,7 +182,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       
       format.html do
-        if  params[:response_id]
+        if params[:response_id]
           Customer.send_evidence('RecClick', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
         end
         Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
