@@ -27,10 +27,12 @@
     <span class="check-off"><span></span>
       <%= t '.no' %>
     </span>
-    <% if current_customer.svod_adult == 3 || current_customer.svod_adult == 4 %>
+    <% if current_customer.svod_adult == 3 %>
+      <%= t '.stop', :date => (current_customer.customers_svod.validityto + 1.month).strftime('%d/%m/%Y') %>
+    <% elsif current_customer.svod_adult == 4 %>
       <%= t '.stop', :date => current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %>
     <% elsif current_customer.svod_adult == 1 %>
-      <%= t '.start' %>
+       <%= t '.active', :date => (current_customer.customers_svod.validityto + 1.month).strftime('%d/%m/%Y') %>
     <% elsif current_customer.svod_adult == 2 %>
       <%= t '.active', :date => current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %>
     <% end %>
