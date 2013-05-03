@@ -1,7 +1,7 @@
 <div id="faqsvod">
   <div style="float:left;"><%= image_tag 'women.jpg' %></div>
-  <div style="float:right; width:395px;">
-    <h2><span><%= t '.new' %></h2>
+  <div style="float:right; width: 425px">
+    <h2><%= t '.new' %></h2>
       <div><%= t '.description' %></div>
       <h3><%= t '.h3' %></h3>
       <ul>
@@ -11,12 +11,12 @@
         <li><%= t '.d4' %> (<%= link_to t('.info'), streaming_products_faq_path() %>) </li>
       </ul>
       <div class="abosvod">
-        <span class="<%= current_customer.svod_adult > 0 ? 'check' : 'check-off' %>"><span></span>
+        <span class="<%= current_customer && current_customer.svod_adult > 0 ? 'check' : 'check-off' %>"><span></span>
         <%= link_to t('.price'), edit_customers_svod_path, :class => 'launch_popup' %>
       </span>
     </div>
     <div align="center" style="padding-top:30px;">
-      <%= link_to  current_customer.svod_adult > 0 ? t('.stop') : t('.start'), edit_customers_svod_path, :class => 'launch_popup button ' %>
+      <%= link_to current_customer && current_customer.svod_adult > 0 ? t('.stop') : t('.start'), edit_customers_svod_path, :class => 'launch_popup button ' %>
     </div>
 
 
@@ -34,7 +34,7 @@
       <h4><%= t '.q3' %></h4>
       <p><%= t '.r3' %></p>
       <h4><%= t '.q4' %></h4>
-      <p><%= t '.r4', :link => current_customer.is_freetest? ? edit_customer_reconduction_path(:customer_id => current_customer.to_param) : edit_customer_subscription_path(:customer_id => current_customer.to_param) %></p>
+      <p><%= t '.r4', :link => price_link(current_customer) %></p>
     </div>
     <div style="float:right; width:348px; background-color:#C3D1DB; padding:10px; margin-top:10px;">
       <div class="studios"> 

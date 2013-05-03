@@ -12,6 +12,13 @@ module CustomersSvodHelper
       when 4
         '.break'
     end
-      
+  end
+
+  def price_link(user)
+    if user
+      user.is_freetest? ? edit_customer_reconduction_path(:customer_id => user.to_param) : edit_customer_subscription_path(:customer_id => user.to_param)
+    else
+      info_path(:page_name => :price)
+    end
   end
 end
