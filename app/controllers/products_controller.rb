@@ -183,9 +183,9 @@ class ProductsController < ApplicationController
       
       format.html do
         if  params[:response_id]
-          Customer.send_evidence('RecClick', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
+          Customer.send_evidence('RecClick', @product.to_param, current_customer, request, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
         end
-        Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
+        Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
       end
       format.js {
         if params[:reviews_page] || params[:sort]
@@ -202,7 +202,7 @@ class ProductsController < ApplicationController
       delimiter_present = params[:delimiter_present] || 0
       delimiter_present = delimiter_present.to_i
       @product.uninterested_customers << current_customer
-      Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
+      Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
       expiration_recommendation_cache()
     end
     respond_to do |format|
@@ -215,7 +215,7 @@ class ProductsController < ApplicationController
     @product.seen_customers << current_customer
     delimiter_present = params[:delimiter_present] || 0
     delimiter_present = delimiter_present.to_i
-    Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
+    Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
     expiration_recommendation_cache()
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param, :source => @source)}
@@ -245,7 +245,7 @@ class ProductsController < ApplicationController
         trailers = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
       end
     end
-    Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request.remote_ip, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
+    Customer.send_evidence('ViewTrailer', @product.to_param, current_customer, request, {:response_id => params[:response_id], :segment1 => @source, :formFactor => format_text(@browser), :rule => @source})
     respond_to do |format|
       format.js   {
         if trailer.class.name == 'StreamingTrailer'
