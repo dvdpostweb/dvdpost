@@ -237,14 +237,24 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def self.send_evidence(type, product_id, customer, ip, params = nil , args = nil)
+  def self.send_evidence(type, product_id, customer, request, params = nil , args = nil)
     begin
+      ip = request.remote_ip
       product_id = product_id.to_s.gsub(/-.*/,'')
       if params[:response_id]
         params[:responseid] = params[:response_id]
         params.delete :response_id
       end
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
+      recipient = 'gs@dvdpost.be'
+      subject = 'thefilter evidence'
+      message = "user #{customer.id}" if customer
+      message += "url #{url} "
+      message += " params #{params.inspect}"
+      message += " request #{request.fullpath}"
+      message += " request #{request.referer}" if request.referer
+      
+      Emailer.deliver_send(recipient, subject, message)
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
     end
