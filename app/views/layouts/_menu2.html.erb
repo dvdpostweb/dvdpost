@@ -2,7 +2,7 @@
 <ul id="nav" class="osc">
   
   <li><%= link_to t('layouts.header.home'), root_path(:promo => session[:promo]), {:id => 'nav1', :class => (( id == 'hp') ? 'active': '')} %></li>
-  <li><%= link_to t('layouts.header.explore'), products_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
+  <li><%= link_to t('layouts.header.explore'), streaming_access? ? products_path(:view_mode => :vod_recent, :filter => :vod) : products_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
   <% if ENV['HOST_OK'] == "0" %>
     <li>
     <% if streaming_access? %>  
