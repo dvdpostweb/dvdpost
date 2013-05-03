@@ -8,9 +8,9 @@ padding-bottom:10px;
 }
 
 
-#faqsvod {    text-shadow: none;
-padding:30px;
-
+#faqsvod {    
+  text-shadow: none;
+  padding:20px;
 }
 
 #faqsvod h2 span {
@@ -90,6 +90,65 @@ padding-top:20px;
     width: 18px;
 }
 #faqsvod .button {
+    background: #da2698; /* Old browsers */
+
+background: -moz-linear-gradient(top,  #da2698 0%, #bd1f83 100%); /* FF3.6+ */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#da2698), color-stop(100%,#bd1f83)); /* Chrome,Safari4+ */
+
+background: -webkit-linear-gradient(top,  #da2698 0%,#bd1f83 100%); /* Chrome10+,Safari5.1+ */
+
+background: -o-linear-gradient(top,  #da2698 0%,#bd1f83 100%); /* Opera 11.10+ */
+
+background: -ms-linear-gradient(top,  #da2698 0%,#bd1f83 100%); /* IE10+ */
+
+background: linear-gradient(to bottom,  #da2698 0%,#bd1f83 100%); /* W3C */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', endColorstr='#bd1f83',GradientType=0 ); /* IE6-9 */
+
+
+    border: 1px solid #BD1F83;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 40px;
+    text-shadow: 0 -1px 0 #891B61;
+}
+.abosvodadult {
+    margin: 10px auto;
+    padding: 13px;
+    width: 580px;
+	color:#212A31;
+}
+.abosvodadult .title
+{
+  font-size:16px;
+  margin:10px 0;
+}
+.abosvodadult #errorExplanation
+{
+  border: red 2px solid;
+  padding: 5px;
+  margin: 16px 0;
+  width: 120px;
+}
+.abosvodadult .fieldWithErrors
+{
+  display:inline;
+}
+
+
+    
+.abosvodadult h3 {
+   font-size: 24px;
+
+
+}
+
+
+
+.abosvodadult .button {
     background: #da2698; /* Old browsers */
 
 background: -moz-linear-gradient(top,  #da2698 0%, #bd1f83 100%); /* FF3.6+ */

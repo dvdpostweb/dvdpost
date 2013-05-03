@@ -1,4 +1,9 @@
-<%= t svod_title(current_customer) %>
-<% form_for :svod, :url => customers_svod_path(), :html => {:method => :put, :id => "form_svod"} do |f| %>
-  <%= submit_tag t('.confirm'),:id => "submit_svod" %>
-<% end %>
+<div class="abosvodadult">
+  <%= t svod_title(current_customer) %>
+  <% form_for :svod, :url => customers_svod_path(), :html => {:method => :put, :id => "form_svod"} do |f| %>
+    <div align="center" style="padding-top:20px;">
+      <%= submit_tag t('.confirm'),:id => "submit_svod", :class => :button %>
+    </div>
+    
+  <% end %>
+</div>

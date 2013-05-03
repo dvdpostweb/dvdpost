@@ -561,5 +561,19 @@ module DVDPost
     def streaming_url
       "vod.dvdpost.be"
     end
+
+    def svod_adult_product
+      HashWithIndifferentAccess.new.merge({
+        :development => 130129,
+        :test => 130129,
+        :staging => 130129,
+        :pre_production => 130129,
+        :production => 130129,
+      })
+    end
+
+    def svod_adult_price
+      14.95
+    end
   end
 end
