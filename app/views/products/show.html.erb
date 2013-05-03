@@ -8,7 +8,9 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript">
-FB.init({
+window.fbAsyncInit=function() {
+
+  FB.init({
 				appId : "254486224617136",
 				status : true,
 				cookie : true
@@ -33,6 +35,7 @@ FB.init({
 
 				FB.ui(obj, callback);
 			}
+}
 </script>
 
 <div id="maincontent">
@@ -66,7 +69,7 @@ FB.init({
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
       <span class="osc">
         <%= @product.vod? ? 'vod' : product_media_id(@product.media) %>
-        <% link_to "Disponible dans l'abonnement SVOD", customers_svod_path if @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
+        <% link_to t('.svod_adult'), customers_svod_path if @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
       </span>
     </div>
     <div id="film-descr">
@@ -153,6 +156,11 @@ FB.init({
       <% end %>
     </div>
     </div>
+    <div id="fb">
+      <% unless @product.adult? %>
+        <div class="fb-like" data-send="false" data-width="450" data-show-faces="false" data-action="recommend"></div>
+      <% end %>
+    </div>    
     
     <div id="thumbs-wrap">
       <h3><%= t '.photo' %></h3>
@@ -160,12 +168,6 @@ FB.init({
         <%= render :partial => 'products/preview', :locals => {:product => @product, :type => params[:kind], :source => @source, :response_id => @response_id} %>
       </div>
     </div>
-    <div id="fb">
-      
-      <% unless @product.adult? %>
-        <div class="fb-like" data-send="false" data-width="450" data-show-faces="false" data-action="recommend"></div>
-      <% end %>
-    </div>    
   </div><!-- #film-info -->
   <div id="formats">
     <table border="0">
