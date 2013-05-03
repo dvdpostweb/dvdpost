@@ -248,12 +248,12 @@ class Customer < ActiveRecord::Base
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
       recipient = 'gs@dvdpost.be'
       subject = 'thefilter evidence'
-      message = "user #{customer.id}" if customer
-      message += "url #{url} "
+      message = ""
+      message += " user #{customer.id}" if customer
+      message += " url #{url}"
       message += " params #{params.inspect}"
       message += " request #{request.fullpath}"
       message += " request #{request.referer}" if request.referer
-      
       Emailer.deliver_send(recipient, subject, message)
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
