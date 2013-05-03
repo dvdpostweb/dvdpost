@@ -191,9 +191,9 @@ module ApplicationHelper
   def product_assigned_path(product)
     if product
       if product.adult?
-        product_path(:kind => :adult, :id => product.to_param)
+        product_path(:kind => :adult, :id => product.to_param, :source => @wishlist_source[:wishlist_dvd])
       else
-        product_path(:kind => :normal, :id => product.to_param)
+        product_path(:kind => :normal, :id => product.to_param, :source => @wishlist_source[:wishlist_dvd])
       end
     end
   end
