@@ -254,9 +254,13 @@ class Customer < ActiveRecord::Base
       message += " params #{params.inspect}"
       message += " request #{request.host}#{request.fullpath}"
       message += " referer #{request.referer}" if request.referer
-      message += " user agent #{request.env['HTTP_USER_AGENT']}" if request.env['HTTP_USER_AGENT']
+      message += " user agent #{request.env['HTTP_USER_AGENT']}\n\r" if request.env['HTTP_USER_AGENT']
       
-      Emailer.deliver_send(recipient, subject, message)
+      target  = "log/check_thefilter.log"
+
+      File.open(target, "w+") do |f|
+        f.write(message)
+      end
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
     end
