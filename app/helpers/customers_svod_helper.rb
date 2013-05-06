@@ -14,6 +14,20 @@ module CustomersSvodHelper
     end
   end
 
+  def svod_btn(user)
+    case user.svod_adult
+      when 0
+        '.activate_btn'
+      when 1
+        '.deactivate_btn'
+      when 2
+        '.deactivate_btn'
+      when 3
+        '.break_btn'
+      when 4
+        '.break_btn'
+    end
+  end
   def price_link(user)
     if user
       user.is_freetest? ? edit_customer_reconduction_path(:customer_id => user.to_param) : edit_customer_subscription_path(:customer_id => user.to_param)
