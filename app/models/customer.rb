@@ -254,6 +254,8 @@ class Customer < ActiveRecord::Base
       message += " params #{params.inspect}"
       message += " request #{request.host}#{request.fullpath}"
       message += " referer #{request.referer}" if request.referer
+      message += " user agent #{request.env['HTTP_USER_AGENT']}" if request.env['HTTP_USER_AGENT']
+      
       Emailer.deliver_send(recipient, subject, message)
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
