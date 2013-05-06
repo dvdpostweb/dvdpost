@@ -251,6 +251,7 @@ class Customer < ActiveRecord::Base
       message = ""
       message += " user #{customer.id}" if customer
       message += " url #{url}"
+      message += " date #{Time.now.strftime("%Y-%m-%d %H:%M") }"
       message += " params #{params.inspect}"
       message += " request #{request.host}#{request.fullpath}"
       message += " referer #{request.referer}" if request.referer
@@ -258,7 +259,7 @@ class Customer < ActiveRecord::Base
       
       target  = "log/check_thefilter.log"
 
-      File.open(target, "w+") do |f|
+      File.open(target, "a+") do |f|
         f.write(message)
       end
     rescue => e
