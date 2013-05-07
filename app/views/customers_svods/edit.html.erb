@@ -1,8 +1,8 @@
 <div class="abosvodadult">
-  <%= t svod_title(current_customer) %>
+  <%= t(svod_title(current_customer), :next_reconduction_at => next_reconduction_at(current_customer)) %>
   <% form_for :svod, :url => customers_svod_path(), :html => {:method => :put, :id => "form_svod"} do |f| %>
     <div align="center" style="padding-top:20px;">
-      <%= submit_tag t svod_btn(current_customer),:id => "submit_svod", :class => :button %>
+      <%= submit_tag t(svod_btn(current_customer)), :id => "submit_svod", :class => :button %>
     </div>
     
   <% end %>

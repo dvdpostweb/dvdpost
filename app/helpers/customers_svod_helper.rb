@@ -35,4 +35,21 @@ module CustomersSvodHelper
       info_path(:page_name => :price)
     end
   end
+  def self.next_reconduction_at(user)
+    if user
+      if user.svod_adult == 1 || user.svod_adult == 3
+        (user.customers_svod.validityto + 1.month).strftime('%d/%m/%Y') 
+      elsif user.svod_adult == 2 || user.svod_adult == 4
+        user.customers_svod.validityto.strftime('%d/%m/%Y')
+      else
+        nil
+      end
+    else
+      nil
+    end
+  end
+
+  def next_reconduction_at(user)
+    CustomersSvodHelper.next_reconduction_at(user)
+  end
 end

@@ -118,7 +118,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', end
 .abosvodadult {
     margin: 10px auto;
     padding: 13px;
-    width: 580px;
+    width: 690px;
 	color:#212A31;
 }
 .abosvodadult .title
@@ -142,7 +142,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', end
     
 .abosvodadult h3 {
    font-size: 24px;
-
+   margin: 0 0 10px 0;
 
 }
 
