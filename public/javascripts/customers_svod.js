@@ -13,7 +13,7 @@ $(function() {
   });
   $("#submit_svod").live("click", function() {
     $('#form_svod').submit()
-    $(this).parent().html("<img src='/images/ajax-loader.gif' />");
+    $(this).parent().html("<img src='/images/ajax-loader.gif' />loading...");
   });
   
   

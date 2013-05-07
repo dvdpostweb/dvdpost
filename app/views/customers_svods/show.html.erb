@@ -16,7 +16,7 @@
       </span>
     </div>
     <div align="center" style="padding-top:30px;">
-      <%= link_to current_customer && current_customer.svod_adult > 0 ? t('.stop') : t('.start'), edit_customers_svod_path, :class => 'launch_popup button ' %>
+      <%= link_to current_customer ? t(".btn_#{current_customer.svod_adult}") : t('.start'), edit_customers_svod_path, :class => 'launch_popup button ' %>
     </div>
 
 

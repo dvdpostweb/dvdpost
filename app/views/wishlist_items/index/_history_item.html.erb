@@ -1,7 +1,7 @@
 <% if history_item.product %>
 <div class="<%= product_media_id(history_item.product.media) %> clearfix">
   <div class="title">
-      <%= link_to truncate(product_assigned_title(history_item.product), :length => 50), product_path(:id => history_item.product.to_param) %>
+      <%= link_to truncate(product_assigned_title(history_item.product), :length => 50), product_path(:id => history_item.product.to_param, :source => @wishlist_source[:wishlist_dvd]) %>
   </div>
   <div class="status">
     <% product_dvd = history_item.order_product.product_dvd %>

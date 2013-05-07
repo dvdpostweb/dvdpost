@@ -27,20 +27,8 @@
     <span class="check-off"><span></span>
       <%= t '.no' %>
     </span>
-    <% if current_customer.svod_adult == 3 %>
-      <%= t '.stop', :date => (current_customer.customers_svod.validityto + 1.month).strftime('%d/%m/%Y') %>
-    <% elsif current_customer.svod_adult == 4 %>
-      <%= t '.stop', :date => current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %>
-    <% elsif current_customer.svod_adult == 1 %>
-       <%= t '.active', :date => (current_customer.customers_svod.validityto + 1.month).strftime('%d/%m/%Y') %>
-    <% elsif current_customer.svod_adult == 2 %>
-      <%= t '.active', :date => current_customer.customers_svod.validityto.strftime('%d/%m/%Y') %>
-    <% end %>
+    <p>
+    <%= t ".svod_adult_status_#{current_customer.svod_adult}", :next_reconduction_at => next_reconduction_at(current_customer) %></p>
   <% end %>
-  <% if current_customer.svod_adult == 0 %>
-    <p style="padding-top:5px;"><%= link_to t('.discover'), customers_svod_path %></p>
-  <% else %>
-    <p style="padding-top:5px;"><%= link_to t('.modify'), customers_svod_path %></p>
-  
-  <% end %>
+    <p style="padding-top:5px;"><%= link_to t(".svod_adult_btn_#{current_customer.svod_adult}"), customers_svod_path %></p>
 </div>
