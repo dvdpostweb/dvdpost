@@ -576,5 +576,14 @@ module DVDPost
     def svod_adult_price
       14.95
     end
+
+    def code_promo_faq
+      HashWithIndifferentAccess.new.merge({
+        :fr    => 'PGVODF',
+        :nl    => 'PGVODN',
+        :en    => 'PGVODE'
+      })
+    end
+    
   end
 end

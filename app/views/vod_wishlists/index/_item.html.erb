@@ -29,6 +29,8 @@
       <% form_for(:vod_wishlists, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete, :id => "form_#{item.to_param}", :class => 'remvove_from_wishlist_form'}) do |f|%>
           <%= hidden_field_tag :list, 2 %>
           <%= hidden_field_tag :div, "div_#{item.to_param}" %>
+          <%= hidden_field_tag :source,  @wishlist_source[:wishlist_vod] %>
+          
         <span id ="<%= "p_#{item.to_param}" %>">
           <%= submit_tag "trash: #{product_title}", :id => "sub_#{item.to_param}", :class => 'remvove_from_wishlist wishlist_remove' %>
         </span>

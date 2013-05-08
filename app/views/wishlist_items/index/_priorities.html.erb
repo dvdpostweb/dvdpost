@@ -1,5 +1,6 @@
 <% form_for( :wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => { :method => :put, :id => "form_#{wishlist_item.to_param}"}) do |f|%>
   <% [1,2,3].collect do |priority| %>
+  <%= hidden_field_tag :source,  @wishlist_source[:wishlist_dvd] %>
   <li>
     <%= f.radio_button :priority, priority, :checked => (wishlist_item.priority == priority), :class => 'wishlist_item_priority' %>
     <%= t "wishlist_items.index.wishlist.#{DVDPost.wishlist_priorities.invert[priority]}" %>

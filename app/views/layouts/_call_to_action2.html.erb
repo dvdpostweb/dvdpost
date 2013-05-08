@@ -4,7 +4,7 @@
     <div id="promo"><%= t 'layouts.call_to_action.huge_catalog' %></span></div>
   </div>
   <div id="subscribe">
-    <a class="btn" href="<%= php_path 'step1.php' %>"><%= t 'layouts.call_to_action.signup_short' %></a>
+    <a class="btn" href="<%= php_path "step1.php?activation_code=#{DVDPost.code_promo_faq[I18n.locale]}" %>"><%= t 'layouts.call_to_action.signup_short' %></a>
     <p><a id="codePromo" href="<%= edit_public_promotion_path() %>"><%= t 'layouts.call_to_action.code_promo' %></a></p>
   </div>
 </div>
