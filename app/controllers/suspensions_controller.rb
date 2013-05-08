@@ -21,7 +21,7 @@ class SuspensionsController < ApplicationController
       path = "http://www.dvdpost.com/#{DVDPost.url_suspension}?language=#{I18n.locale}";
       if !current_customer.suspended? && suspension_count_current_year < 3
        duration = params[:suspensions][:duration].to_i
-
+        Rails.logger.debug { "@@@#{current_customer.to_param} , #{duration}, #{path}" }
         res = DVDPost.send_suspension(current_customer.to_param,duration,path)
         status = res[:status]
         if status == false
