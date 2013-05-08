@@ -22,7 +22,9 @@ class SuspensionsController < ApplicationController
       if !current_customer.suspended? && suspension_count_current_year < 3
        duration = params[:suspensions][:duration].to_i
 
-        status = DVDPost.send_suspension(current_customer.to_param,duration,path)
+        res = DVDPost.send_suspension(current_customer.to_param,duration,path)
+        status = res[:status]
+        notify(res[:error], res[:url])
         if status == false
           @error = true
         else
@@ -50,6 +52,16 @@ class SuspensionsController < ApplicationController
   end
 
   private
+  def notify(error, url)
+    Rails.logger.debug { "error #{error} url #{url}" }
+    begin
+      Airbrake.notify(:error_message => "suspension problem : #{to_param} error #{error} url #{url}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+    rescue => e
+      logger.error("suspension problem : #{to_param} error #{error} url #{url}")
+      logger.error(e.backtrace)
+    end
+  end
+
   def expiration_holdays_date
     if suspension = Suspension.holidays.find_all_by_customer_id(current_customer.to_param).last
       suspension.date_end

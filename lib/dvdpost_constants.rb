@@ -260,9 +260,9 @@ module DVDPost
       status = (doc/'root').each do|st|
         error = (st/'error').inner_html
         status = (st/'status').inner_html
-        return status
+        return {:url => xml, :status => status, :error => error}
       end
-      return status
+      return {:url => res[:url], :status => res[:status], :error => res[:error]}
     end
 
     def cinopsis_critics(imdb_id)
