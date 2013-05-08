@@ -567,7 +567,7 @@ module DVDPost
       HashWithIndifferentAccess.new.merge({
         :fr    => 'PGVODF',
         :nl    => 'PGVODN',
-        :en    => 'PGVOD'
+        :en    => 'PGVODE'
       })
     end
     
