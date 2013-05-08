@@ -257,12 +257,13 @@ module DVDPost
     def send_suspension(customer_id,duration,host)
       xml = "#{host}&customer_id=#{customer_id}&type=HOLIDAYS&duration=#{duration}&user_id=55"
       doc = Hpricot(open(xml))
-      status = (doc/'root').each do|st|
+      res = (doc/'root').each do|st|
         error = (st/'error').inner_html
         status = (st/'status').inner_html
-        return status
+        return {:url => xml, :status => status, :error => error}
       end
-      return status
+      return {:url => res[:url], :status => res[:status], :error => res[:error]}
+      
     end
 
     def cinopsis_critics(imdb_id)
