@@ -562,5 +562,14 @@ module DVDPost
     def streaming_url
       "vod.dvdpost.be"
     end
+
+    def code_promo_faq
+      HashWithIndifferentAccess.new.merge({
+        :fr    => 'PGVODF',
+        :nl    => 'PGVODN',
+        :en    => 'PGVOD'
+      })
+    end
+    
   end
 end

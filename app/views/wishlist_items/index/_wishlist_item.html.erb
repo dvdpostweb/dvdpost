@@ -38,6 +38,8 @@
     <% form_for(:wishlist_item, :url => wishlist_item_path(:id => wishlist_item.to_param), :html => {:method => :delete, :id => "form_#{wishlist_item.product.to_param}", :class => 'remvove_from_wishlist_form'}) do |f|%>
         <%= hidden_field_tag :list, 2 %>
         <%= hidden_field_tag :div, "div_#{wishlist_item.product.to_param}" %>
+        <%= hidden_field_tag :source,  @wishlist_source[:wishlist_dvd] %>
+        
       <span id ="<%= "p_#{wishlist_item.product.to_param}" %>">
         <%= submit_tag "trash: #{product_title}", :id => "sub_#{wishlist_item.product.to_param}", :class => 'remvove_from_wishlist wishlist_remove' %>
       </span>
