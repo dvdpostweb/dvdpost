@@ -17,11 +17,10 @@ class SuspensionsController < ApplicationController
   end
 
   def create
-    #begin
+    begin
       path = "http://www.dvdpost.be/#{DVDPost.url_suspension}?language=#{I18n.locale}";
       if !current_customer.suspended? && suspension_count_current_year < 3
        duration = params[:suspensions][:duration].to_i
-        Rails.logger.debug { "@@@#{current_customer.to_param} , #{duration}, #{path}" }
         res = DVDPost.send_suspension(current_customer.to_param,duration,path)
         status = res[:status]
         if status == false
@@ -42,13 +41,13 @@ class SuspensionsController < ApplicationController
           }
         end
       end
-    #rescue => e
-    #  @error = true
-    #  respond_to do |format|
-    #    format.html
-    #    format.js {render :layout => false, :status => false}
-    #  end
-    #end
+    rescue => e
+      @error = true
+      respond_to do |format|
+        format.html
+        format.js {render :layout => false, :status => false}
+      end
+    end
   end
 
   private
