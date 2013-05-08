@@ -246,21 +246,21 @@ class Customer < ActiveRecord::Base
         params.delete :response_id
       end
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
-      recipient = 'gs@dvdpost.be'
-      subject = 'thefilter evidence'
-      message = ""
-      message += " user #{customer.id}" if customer
-      message += " url #{url}"
-      message += " date #{Time.now.strftime("%Y-%m-%d %H:%M") }"
-      message += " params #{params.inspect}"
-      message += " request #{request.host}#{request.fullpath}"
-      message += " referer #{request.referer}" if request.referer
-      message += " user agent #{request.env['HTTP_USER_AGENT']}\n\r" if request.env['HTTP_USER_AGENT']
-      
-      target  = "log/check_thefilter.log"
-
-      File.open(target, "a+") do |f|
-        f.write(message)
+      if !(request.env['HTTP_USER_AGENT'] =~ /googlebot/i)
+        recipient = 'gs@dvdpost.be'
+        subject = 'thefilter evidence'
+        message = ""
+        message += " user #{customer.id}" if customer
+        message += " url #{url}"
+        message += " date #{Time.now.strftime("%Y-%m-%d %H:%M") }"
+        message += " params #{params.inspect}"
+        message += " request #{request.host}#{request.fullpath}"
+        message += " referer #{request.referer}" if request.referer
+        message += " user agent #{request.env['HTTP_USER_AGENT']}\n\r" if request.env['HTTP_USER_AGENT']
+        target  = "log/check_thefilter.log"
+        File.open(target, "a+") do |f|
+          f.write(message)
+        end
       end
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
