@@ -5,6 +5,8 @@
 }
 .account {
   margin: 20px 40px;
+  color:#4A5863;
+  text-shadow: none;
 }
 
 #maincontent .end, #one-col #maincontent .end {
@@ -40,11 +42,12 @@
 
 #content_gauche {
   background-color:#FFF;
-  border:#505050 solid 1px;
   font-size:13px;
   font-family:Arial, Helvetica, sans-serif;
-  color:#505050;
   padding:5px;
+  border: 1px solid #4A5863;
+  color:#4A5863;
+  margin-bottom:30px;
 }
 
 #gauche {
@@ -56,11 +59,12 @@
 
 #content_droite {
   background-color:#FFF;
-  border:#505050 solid 1px;
   font-size:13px;
   font-family:Arial, Helvetica, sans-serif;
-  color:#505050;
   padding:5px;
+  border: 1px solid #4A5863;
+  color:#4A5863;
+  margin-bottom:20px;
 }
 
 #droite {
@@ -75,9 +79,10 @@
 }
 
 .modif, .modification_account, .modification_address { 
+  color:  #A3C41B;
   font-size:14px;
-  font-family:Arial, Helvetica, sans-serif;
-  color:#ff4b00;
+  font-weight:bold;
+  font-family:'Open Sans Condensed', sans-serif;
 }
 
 .suppendre { 
@@ -85,16 +90,20 @@
   color:#acacac;
   float:right;
 }
+.adult .svod a {
+     color:  #BD1F83!important;
+	font-weight:bold;
+  font-family:'Open Sans Condensed', sans-serif!important;
+   text-decoration: underline;
+  
+}
 
 ul, ol, dl, dt, dd {
   list-style:none outside none;
 }	
 
 li.links a.modification_account, li.links a.modification_address{
-  background: url(../images/crayon.gif) no-repeat scroll 0 0 transparent;
-  padding-left:19px;
-  text-decoration:underline;
-  margin:0 6px;
+  text-decoration: underline;
 }
 
 li.links a {
@@ -102,19 +111,44 @@ li.links a {
 }
 
 .ligne {
-  background-color:#f6f6f6;
+  background-color: #f7f7f7;
   height:5px;
 }
 
 .rotation { background-color:#ffe809;
   text-align:center;
   padding:3px;
+   background-color: #A3C41B!important;
+	color:#FFFFFF;
+  
 }
-
+.adult .rotation {
+    background-color: #BD1F83!important;
+	color:#FFFFFF;
+   
+}
 .adulte_text {
-  color:#e84e98;
+  color:  #BD1F83
+}
+#moncompte td, #moncompte tr {
+    padding: 3px!important;
+}
+.adult .rotation_dvd .title {
+  position:absolute;
+  width:210px;
+}
+.abo_credit {
+    background-color: #C7D4DD;
+    line-height: 21px;
+    padding: 5px;
 }
 
+
+.adult .svod input[type="checkbox"] {
+    margin-right: 6px;
+	   margin-leftpu: 6px;
+    vertical-align: middle;
+}
 .adresse {
   padding-top:10px !important;
 }
@@ -204,19 +238,37 @@ li.links a {
     margin: -5px 0 0;
 }
 #info_abo .title {
-    border-bottom: 1px solid #D9D9D9;
     margin-bottom: 12px;
     padding-bottom: 5px;
+	  text-align:left;
 }
 
 
 #info_abo {
-padding-top:10px;
 text-align:left;
-color: #201F20;
+color: #212A31;
+padding-top:0 ;
+
+}
+#info_abo h3 {
+    font-size: 2em;
+    color: #A3C41B;
+  font-family:'Open Sans Condensed', sans-serif;
 
 }
 
+.adult #info_abo h3 {
+    font-size: 2em;
+    color: #BD1F83;
+  font-family:'Open Sans Condensed', sans-serif;
+
+}
+.account #title {
+  color:#212A31!important;
+	font-family:'Open Sans Condensed', sans-serif!important;
+  font-size:20px!important;
+  text-transform:none!important;
+}
 #info_abo p {
 line-height: 16px;
 
@@ -235,11 +287,12 @@ padding-left:119px;
 
 
 #info_abo h4 {
-    border-bottom: 1px dotted #A3A4A7;
-    color: #fa3c16;
-    font-size: 1.17em;
-    margin-bottom: 12px;
-    padding: 0 15px 8px 0;
+ font-family:'Open Sans Condensed', sans-serif;
+ color: #212A31;
+ font-size: 1.30em;
+ margin-bottom:  0 ;
+ padding: 0 ;
+ border:none ;
 }
 
 
@@ -283,4 +336,10 @@ a.renew{
   display: inline-block;
   padding: 2px 4px 0 4px;
   text-align: center;
+}
+.link_payment, .link_payment a {
+    color: #A3C41B!important;
+	font-weight:bold;
+  font-family:'Open Sans Condensed', sans-serif!important;
+   text-decoration: underline;
 }

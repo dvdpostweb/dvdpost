@@ -174,3 +174,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', end
     padding: 10px 40px;
     text-shadow: 0 -1px 0 #891B61;
 }
+#loading
+{
+  text-align:center;
+  margin:10px 0;
+}

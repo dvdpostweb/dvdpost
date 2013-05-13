@@ -18,13 +18,13 @@ class SuspensionsController < ApplicationController
 
   def create
     begin
-      path = "http://www.dvdpost.com/#{DVDPost.url_suspension}?language=#{I18n.locale}";
+      path = "http://www.dvdpost.be/#{DVDPost.url_suspension}?language=#{I18n.locale}";
       if !current_customer.suspended? && suspension_count_current_year < 3
-        duration = params[:suspensions][:duration].to_i
+       duration = params[:suspensions][:duration].to_i
         res = DVDPost.send_suspension(current_customer.to_param,duration,path)
         status = res[:status]
-        notify(res[:error], res[:url])
         if status == false
+          notify(res[:error], res[:url])
           @error = true
         else
           @error = false
@@ -51,7 +51,6 @@ class SuspensionsController < ApplicationController
   end
 
   private
-
   def notify(error, url)
     Rails.logger.debug { "error #{error} url #{url}" }
     begin
