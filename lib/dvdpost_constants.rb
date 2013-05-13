@@ -263,7 +263,6 @@ module DVDPost
         return {:url => xml, :status => status, :error => error}
       end
       return {:url => res[:url], :status => res[:status], :error => res[:error]}
-      
     end
 
     def cinopsis_critics(imdb_id)
