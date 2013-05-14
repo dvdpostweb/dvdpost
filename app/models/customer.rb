@@ -246,9 +246,7 @@ class Customer < ActiveRecord::Base
         params.delete :response_id
       end
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
-      if !(request.env['HTTP_USER_AGENT'] =~ /googlebot/i)
-        recipient = 'gs@dvdpost.be'
-        subject = 'thefilter evidence'
+      unless @bot
         message = ""
         message += " user #{customer.id}" if customer
         message += " url #{url}"
@@ -754,7 +752,7 @@ class Customer < ActiveRecord::Base
     end
     price.to_f
   end
-  
+
   def promo_date
     type = activation_discount_code_type
     if type == 'A'

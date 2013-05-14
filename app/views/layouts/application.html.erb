@@ -103,6 +103,7 @@
     <% if cookies[:nb_pages_views].to_i == 3 and params[:controller] != 'public_newsletters' %>
       <div id='newsletters' style='display:none' class='action_face'><%= new_public_newsletter_path %></div>
     <% end %>
-    
+    <div style="display:none" id="bot"><%= @bot ? 1 : 0 %></div>
+    <div style="display:none" id="env"><%= Rails.env %></div>
   </body>
 </html>

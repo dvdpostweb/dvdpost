@@ -4,7 +4,7 @@
   </div>
   
   <div id="content_droite">
-    <table cellpadding="1" cellspacing="0" border="0" width="327">
+    <table cellpadding="1" cellspacing="0" border="0" width="352">
       <% if customer.new_price? %>
         <%= render :partial => 'customers/show/new_pricing' %>
       <% else %>
@@ -29,14 +29,18 @@
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
       <tr>
-        <td align="right"><strong><%= t '.count_dvd' %></strong></td>
-        <td align="left"><%= "#{@wishlist_size}" %></td>
+        <td colspan="2" id="info_abo"><h4><%= t '.count_wishlist_classic' %> : <%= @wishlist_size %></h4></td>
       </tr>
+      <% if params[:kind] == :adult %>
+      <tr>
+        <td colspan="2" id="info_abo"><h4><%= t '.count_wishlist_adult' %> : <%= @wishlist_adult_size %></h4></td>
+      </tr>
+      <% end %>
       <tr>
         <td colspan="2">
         <table>
           <tr>
-            <td align="right" width='270'><strong><%= t '.only_vod' %></strong></td>
+            <td align="left" width='270'><%= t '.only_vod' %></td>
             <td align="left">
               <div>
               <%= render :partial => 'customers/show/only_vod', :locals => {:only_vod => customer.customer_attribute.only_vod} %>
@@ -48,7 +52,6 @@
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
-      <%= render :partial => 'customers/show/rotation', :locals => {:customer => customer} if params[:kind] == :adult %>
       <tr>
         <td colspan="2" height="10"></td>
       </tr>
@@ -129,6 +132,73 @@
       </tr>
     </table>
   </div>
+<% if params[:kind] == :adult %>
+  <div id="content_droite">
+    <table cellpadding="0" cellspacing="0" border="0" width="352" class="adult">
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <div id="info_abo">
+            <h3><%= t '.adult_title' %></h3>
+            <h4><%= t '.rotation_title' %>Rotation de films:</h4>
+            <%= render :partial => 'customers/show/rotation', :locals => {:customer => customer} if params[:kind] == :adult %>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2"><div class="ligne"></div></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" id="info_abo"><h4><%= t('.svod_adult') %> :</h4></td>
+      </tr>
+
+
+      <tr>
+        <td colspan="2">
+          <table cellspacing="0" cellpadding="0" class="svod">
+          <tbody>
+            <tr>
+              <td width="270">
+                <strong><%= t '.svod_question' %></strong>
+              </td>
+              <td width="170" valign="top">
+                <% if current_customer.svod_adult == 0 %>
+                 <span class="check-off"><span></span>
+                   <%= t '.yes' %>
+                 </span>
+                 <span class="check"><span></span>
+                  <%= t '.no' %>
+                 </span>
+                <% else %>
+                  <span class="check"><span></span>
+                     <%= t '.yes' %>
+                  </span>
+                  <span class="check-off"><span></span>
+                    <%= t '.no' %>
+                  </span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <%= link_to t("home.index.wishlist_adult.svod_adult_btn_#{current_customer.svod_adult}"), customers_svod_path %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"><%= t "home.index.wishlist_adult.svod_adult_status_#{current_customer.svod_adult}", :next_reconduction_at => next_reconduction_at(current_customer) %></td>
+
+            </tr>
+
+
+          </tbody></table></td>
+        </tr>
+
+      </tbody></table>
+    </div>
+<% end %>
+  
   <p><%= image_tag "#{DVDPost.images_language_path[I18n.locale]}/telephone.gif", :width => 375 %></p>
 </div>
 <div class="end"></div>

@@ -36,6 +36,7 @@ class CustomersSvodsController < ApplicationController
         name = 'break'
     end
     flash[:notice] = t("customers_svods.update.status_#{name}", :next_reconduction_at => CustomersSvodHelper.next_reconduction_at(current_customer))
-    redirect_to root_path()
+    redirect_to customer_path(:id => current_customer.to_param)
   end
+  
 end
