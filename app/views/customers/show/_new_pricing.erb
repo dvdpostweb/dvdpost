@@ -7,9 +7,10 @@
           <span><%= abo_type(current_customer, true, true) %></span>
         <% end %>
       </h4>
+      <div class="abo_credit">
       <% unless current_customer.svod? %>
-        <p><%= t '.credits_used', :credits => used_credits(current_customer) %></p>
-        <p><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></p>
+        <div><%= t '.credits_used', :credits => used_credits(current_customer) %></div>
+        <div><strong><%= t '.credits_left' %> : </strong> <br /><%= current_credits(current_customer) %></div>
       <% end %>
     </div>
   </td>

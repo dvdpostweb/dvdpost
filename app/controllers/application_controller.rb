@@ -135,6 +135,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_country
+    user_agent = request.env['HTTP_USER_AGENT'].downcase
+    @bot = [ 'msnbot', 'yahoo! slurp', 'googlebot', 'baidu', 'majestic', 'rambler', 'abachobot', 'accoona', 'aspseek', 'croccrawler', 'dumbot', 'fast-webcrawler'].detect { |bot| user_agent.include? bot }
     if params[:debug_country_id]
       session[:country_id] = params[:debug_country_id].to_i
     else
@@ -277,6 +279,7 @@ class ApplicationController < ActionController::Base
     end
 
     def redirect_to_mobile_if_applicable
+      
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
       if params[:mobile_site]
         redirect_to request.protocol + "m." + request.host_with_port and return
