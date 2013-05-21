@@ -45,7 +45,7 @@
                 </p>
             </div>
             <p class="intro_vod">
-              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] if !current_customer.svod_adult == 0 %>
+              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] if current_customer && !current_customer.svod_adult == 0 %>
             </p>
             <% end %>
           <% end %>
