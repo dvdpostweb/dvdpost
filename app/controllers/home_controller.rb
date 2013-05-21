@@ -196,7 +196,7 @@ class HomeController < ApplicationController
           @theme_month = false
         end
         expiration_recommendation_cache()
-        @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s]})
+        @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s], :no_filter => true})
       end
     end
   end

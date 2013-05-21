@@ -313,7 +313,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    (credits == 0 || (new_price? && customers_abo_dvd_remain == 0 && customers_abo_dvd_credit <= 2 && customer_attribute.only_vod == false)) && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
+    (credits == 0 || (new_price? && customers_abo_dvd_remain == 0 && customers_abo_dvd_credit <= 3 && customer_attribute.only_vod == false)) && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
   end
 
   def new_price?

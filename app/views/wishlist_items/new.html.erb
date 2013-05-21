@@ -17,7 +17,6 @@
         <div class="clear"></div>
       </div>
       <% if streaming_access? %>
-      <% Rails.logger.debug { "@@@#{StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id).count}" }%>
         <% if product.streaming?(params[:kind], session[:country_id]) %>
           <div id="vod"> 
             <span class="col1">VOD</span>
