@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
 
   def fragment_name_by_customer()
     if current_customer
-      "#{I18n.locale.to_s}/home/recommendations/customers_v2/#{current_customer.to_param}"
+      "#{I18n.locale.to_s}/home/recommendations/customers_v3/#{current_customer.to_param}"
     else
       "#{I18n.locale.to_s}/home/recommendations/public_v10"
     end
@@ -200,9 +200,9 @@ class ApplicationController < ActionController::Base
       recommendation_items = Marshal.load(recommendation_items_serialize)
     else
       recommendation_items = if current_customer
-        current_customer.recommendations(get_current_filter(options),options.merge(:country_id => session[:country_id]))
+        current_customer.recommendations(get_current_filter(options[:no_filter].nil? ? options : nil),options.merge(:country_id => session[:country_id]))
       else
-       recommendation_public(options)
+       recommendation_public(options[:no_filter].nil? ? options : nil)
       end
       expire_fragment(fragment_name_by_customer)
     end

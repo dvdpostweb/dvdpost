@@ -31,6 +31,13 @@ class WishlistItem < ActiveRecord::Base
   named_scope :limit, lambda {|limit| {:limit => limit}}
 
   def self.wishlist_source(params, wishlist_source)
+    if wishlist_source.nil?
+      wishlist_source = {}
+      wl_source = WishlistSource.find(:all)
+      wl_source.each do |item|
+        wishlist_source[item.name.downcase.to_sym] = item.to_param
+      end
+    end
     if params[:view_mode] == 'recommended'
       source = wishlist_source[:recommendation]
     elsif params[:ppv] == "1"
@@ -99,7 +106,7 @@ class WishlistItem < ActiveRecord::Base
   end
 
   def self.good_size?(current_customer, qty)
-    if current_customer.customer_attribute.only_vod || current_customer.subscription_type.qty_dvd_max == 0
+    if current_customer.customer_attribute.only_vod || current_customer.subscription_type && current_customer.subscription_type.qty_dvd_max == 0
       return false
     else
       if current_customer.credit_per_month == 2 or current_customer.credit_per_month == 4
