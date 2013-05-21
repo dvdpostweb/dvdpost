@@ -35,7 +35,7 @@
             
             <%= render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered, :source => params[:source], :response_id => params[:response_id]} %>
             <p class="intro_vod">
-              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] %>
+              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] if current_customer && !current_customer.svod_adult == 0 %>
             </p>
             <% end %>
           <% end %>
