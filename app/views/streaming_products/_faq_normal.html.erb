@@ -12,7 +12,7 @@
 <% link_ipad = link_to "iPad", DVDPost.ipad_url[I18n.locale] %>
 <% link_airplay = link_to "AirPlay", DVDPost.airplay_url[I18n.locale] %>
 <div id="faq-content-wrap">
-  <div id="faq-intro-wrap">
+  <div id="faq-intro-wrap" class="<%= I18n.locale %>">
     <%= t '.intro', :link => link %>
   </div>
   <!-- #vod-faq -->
