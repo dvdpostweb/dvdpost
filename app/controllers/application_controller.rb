@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_special_page?
-    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && (request.parameters['action'] == 'index' || request.parameters['action'] == 'show')) || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles' || request.parameters['controller'] == 'public_newsletters' || request.parameters['controller'] == 'public_promotions')
+    test = ENV['HOST_OK'] == "1" && (request.parameters['page_name'] == 'get_connected' ||  request.parameters['page_name'] == 'promo' || ( request.parameters['controller'] == 'streaming_products') || ( request.parameters['controller'] == 'search_filters') || (request.parameters['controller'] == 'products' ) || (request.parameters['controller'] == 'home' ) || request.parameters['controller'] == 'themes_events' || request.parameters['controller'] == 'newsletters' || request.parameters['action'] == 'unsubscribe' || (request.parameters['controller'] == 'phone_requests') || ( request.parameters['controller'] == 'messages' && request.parameters['action'] == 'faq') || ( request.parameters['controller'] == 'reviews' && (request.parameters['action'] == 'index' || request.parameters['action'] == 'show')) || request.parameters['controller'] == 'info' || request.parameters['controller'] == 'categories' || request.parameters['controller'] == 'studios' || (request.parameters['controller'] == 'home' && request.parameters['action'] == 'validation') || request.parameters['controller'] == 'actors' || request.parameters['controller'] == 'chronicles' || request.parameters['controller'] == 'public_newsletters' || request.parameters['controller'] == 'public_promotions' || request.parameters['controller'] == 'customers_svods')
   end
 
   def set_locale_from_params
@@ -135,6 +135,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_country
+    user_agent = request.env['HTTP_USER_AGENT'].downcase
+    @bot = [ 'msnbot', 'yahoo! slurp', 'googlebot', 'baidu', 'majestic', 'rambler', 'abachobot', 'accoona', 'aspseek', 'croccrawler', 'dumbot', 'fast-webcrawler'].detect { |bot| user_agent.include? bot }
     if params[:debug_country_id]
       session[:country_id] = params[:debug_country_id].to_i
     else
@@ -172,7 +174,7 @@ class ApplicationController < ActionController::Base
 
   def fragment_name_by_customer()
     if current_customer
-      "#{I18n.locale.to_s}/home/recommendations/customers_v2/#{current_customer.to_param}"
+      "#{I18n.locale.to_s}/home/recommendations/customers_v3/#{current_customer.to_param}"
     else
       "#{I18n.locale.to_s}/home/recommendations/public_v10"
     end
@@ -198,9 +200,9 @@ class ApplicationController < ActionController::Base
       recommendation_items = Marshal.load(recommendation_items_serialize)
     else
       recommendation_items = if current_customer
-        current_customer.recommendations(get_current_filter(options),options.merge(:country_id => session[:country_id]))
+        current_customer.recommendations(get_current_filter(options[:no_filter].nil? ? options : nil),options.merge(:country_id => session[:country_id]))
       else
-       recommendation_public(options)
+       recommendation_public(options[:no_filter].nil? ? options : nil)
       end
       expire_fragment(fragment_name_by_customer)
     end
@@ -277,6 +279,7 @@ class ApplicationController < ActionController::Base
     end
 
     def redirect_to_mobile_if_applicable
+      
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
       if params[:mobile_site]
         redirect_to request.protocol + "m." + request.host_with_port and return

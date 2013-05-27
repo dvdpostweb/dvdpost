@@ -194,33 +194,39 @@ $(document).ajaxSend(function(event, request, settings) {
 });
 function set_page(url)
 {
-  recommendation = getParameterByName('recommendation')
-  url = url.replace('http://private.dvdpost.dev','')
-  url = url.replace('http://public.dvdpost.dev','')
-  url = url.replace('http://staging.private.dvdpost.com','')
-  url = url.replace('http://staging.public.dvdpost.com','')
-  url = url.replace('http://beta.dvdpost.com','')
-  url = url.replace('http://beta.public.dvdpost.com','')
-  url = url.replace('http://private.dvdpost.com','')
-  url = url.replace('http://public.dvdpost.com','')
-  if (recommendation.length > 0)
+  if($('#env').html() == 'production')
   {
-    url = url + (url.indexOf('?') != -1 ? "&recommendation="+recommendation : "?recommendation="+recommendation);
+    recommendation = getParameterByName('recommendation')
+    url = url.replace('http://private.dvdpost.dev','')
+    url = url.replace('http://public.dvdpost.dev','')
+    url = url.replace('http://staging.private.dvdpost.com','')
+    url = url.replace('http://staging.public.dvdpost.com','')
+    url = url.replace('http://beta.dvdpost.com','')
+    url = url.replace('http://beta.public.dvdpost.com','')
+    url = url.replace('http://private.dvdpost.com','')
+    url = url.replace('http://public.dvdpost.com','')
+    if (recommendation.length > 0)
+    {
+      url = url + (url.indexOf('?') != -1 ? "&recommendation="+recommendation : "?recommendation="+recommendation);
+    }
+    _gaq.push(['._trackPageview', url]); 
+    _gaq.push(['b._trackPageview', url]);
   }
-  _gaq.push(['._trackPageview', url]); 
-  _gaq.push(['b._trackPageview', url]); 
 }
 function send_event(category, action,label,value)
 {
-  if(value == '')
+  if($("#bot").html()==0 && $('#env').html() == 'production')
   {
-    _gaq.push(['._trackEvent', category, action, label])
-    _gaq.push(['b._trackEvent', category, action, label])
-  }
-  else
-  {
-    _gaq.push(['._trackEvent', category, action, label+value])
-    _gaq.push(['b._trackEvent', category, action, label+value])
+    if(value == '')
+    {
+      _gaq.push(['._trackEvent', category, action, label])
+      _gaq.push(['b._trackEvent', category, action, label])
+    }
+    else
+    {
+      _gaq.push(['._trackEvent', category, action, label+value])
+      _gaq.push(['b._trackEvent', category, action, label+value])
+    }
   }
 }
 function getParameterByName(name)

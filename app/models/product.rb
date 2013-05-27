@@ -317,9 +317,9 @@ class Product < ActiveRecord::Base
         products = products.by_studio(options[:studio_id]) 
       end
     end
-    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal
-    products = products.by_country(filter.country_id) if filter.country_id?
-    if options[:filter]
+    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience? && options[:kind] == :normal && options[:no_filter].nil?
+    products = products.by_country(filter.country_id) if filter.country_id? && options[:no_filter].nil?
+    if options[:filter] && options[:no_filter].nil?
       if options[:filter] && options[:filter] == "vod"
         media_i = [2,4,5]
       elsif options[:filter] && options[:filter] == "dvd"
@@ -332,7 +332,7 @@ class Product < ActiveRecord::Base
       products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i) if media_i
     end
     
-    if filter.media? && options[:view_mode] != "streaming" && options[:filter] != "vod"
+    if filter.media? && options[:view_mode] != "streaming" && options[:filter] != "vod" && options[:no_filter].nil?
       
       medias = filter.media.dup
       media_i = Array.new
@@ -364,18 +364,18 @@ class Product < ActiveRecord::Base
     end
     products = products.by_not_special_media_lux(8) if options[:country_id] == 131
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
-    products = products.by_period(filter.year_min, filter.year_max) if filter.year?
-    if filter.audio?
+    products = products.by_period(filter.year_min, filter.year_max) if filter.year? && options[:no_filter].nil?
+    if filter.audio? && options[:no_filter].nil?
       products = products.with_languages(filter.audio)
     else
       products = products.with_languages(options[:audio]) if options[:audio] 
     end
-    if filter.subtitles?
+    if filter.subtitles? && options[:no_filter].nil?
       products = products.with_subtitles(filter.subtitles) 
     else
       products = products.with_subtitles(options[:subtitles]) if options[:subtitles] 
     end
-    products = products.dvdpost_choice if filter.dvdpost_choice?
+    products = products.dvdpost_choice if filter.dvdpost_choice? && options[:no_filter].nil?
     if options[:not_soon]
       products = options[:country_id] == 131 ? products.not_soon_lux : products.not_soon
     end

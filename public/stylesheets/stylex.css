@@ -112,12 +112,12 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   font-size: 1.25em;
 }
 
-#bienvenue .check {
+#droite .check, #bienvenue .check {
   margin-left: 5px;
   font-weight: bold;
 }
 
-#bienvenue .check span {
+#droite .check span, #bienvenue .check span {
   display: inline-block;
   width: 9px;
   height: 9px;
@@ -125,11 +125,11 @@ h1.miso, h2.miso, h3.miso, h4.miso, h5.miso, .miso strong {
   vertical-align: middle;
 }
 
-#bienvenue .check-off {
+#droite .check-off, #bienvenue .check-off {
   margin-left: 5px;
 }
 
-#bienvenue .check-off span {
+#droite .check-off span, #bienvenue .check-off span {
   display: inline-block;
   width: 8px;
   height: 8px;

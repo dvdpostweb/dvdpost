@@ -257,7 +257,7 @@ module DVDPost
     def send_suspension(customer_id,duration,host)
       xml = "#{host}&customer_id=#{customer_id}&type=HOLIDAYS&duration=#{duration}&user_id=55"
       doc = Hpricot(open(xml))
-      status = (doc/'root').each do|st|
+      res = (doc/'root').each do|st|
         error = (st/'error').inner_html
         status = (st/'status').inner_html
         return {:url => xml, :status => status, :error => error}
@@ -561,6 +561,20 @@ module DVDPost
     
     def streaming_url
       "vod.dvdpost.be"
+    end
+
+    def svod_adult_product
+      HashWithIndifferentAccess.new.merge({
+        :development => 130129,
+        :test => 130129,
+        :staging => 130129,
+        :pre_production => 130129,
+        :production => 130129,
+      })
+    end
+
+    def svod_adult_price
+      14.95
     end
 
     def code_promo_faq

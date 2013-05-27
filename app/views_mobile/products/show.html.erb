@@ -23,8 +23,10 @@
          <% if @product.trailer? %>
             <br /><%= link_to(t('.trailer'), product_trailer_path(:product_id => @product.to_param, :source => @source), {:class => 'trailer', :id => 'trailer', :target => :_blank}) %>
          <% end %>
-         <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
-         <% if params[:kind] == :adult %>
+         <% if !current_customer || !@product.adult? || (current_customer && current_customer.svod_adult == 0) %>
+          <%= render :partial => 'products/credit_vod', :locals => {:product => @product, :credits => credits} if credits && credits > 1 %>
+         <% end %>  
+         <% if params[:kind] == :adult && current_customer && current_customer.svod_adult == 0 %>
            <div class="ico">
              <%= image_tag "icon12h.gif", :align => 'absmiddle' %> <%= t '.vod_duration' %>
            </div>
@@ -41,9 +43,10 @@
 </div>
 </div>
 </div>
-
 <div style="clear: both;"></div>
 <div id="film-descr">
+  <%= link_to t('.svod_adult'), customers_svod_path, :id => :svod_adult if @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
+  
   <h2>
     <%= t '.synopsis' %>
   </h2>
