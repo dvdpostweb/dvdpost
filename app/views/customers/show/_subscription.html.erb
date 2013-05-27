@@ -186,11 +186,12 @@
                 <%= link_to t("home.index.wishlist_adult.svod_adult_btn_#{current_customer.svod_adult}"), customers_svod_path %>
               </td>
             </tr>
-            <tr>
-              <td colspan="2"><%= t "home.index.wishlist_adult.svod_adult_status_#{current_customer.svod_adult}", :next_reconduction_at => next_reconduction_at(current_customer) %></td>
+            <% if current_customer.svod_adult > 0 %>
+              <tr>
+                <td colspan="2"><%= t "home.index.wishlist_adult.svod_adult_status_#{current_customer.svod_adult}", :next_reconduction_at => next_reconduction_at(current_customer) %></td>
 
-            </tr>
-
+              </tr>
+            <% end %>
 
           </tbody></table></td>
         </tr>
