@@ -128,3 +128,13 @@ width:100%;
 {
   list-style: none;
 }
+#creditdorcel, .ico
+{
+  font-size:12px;
+}
+#svod_adult
+{
+  color: #BD1F83;
+  font-weight: bold;
+  font-size:12px;
+}

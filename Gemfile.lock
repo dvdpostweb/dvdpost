@@ -46,13 +46,14 @@ GEM
     addressable (2.2.6)
     after_commit (1.0.8)
       activerecord (< 3.0.0)
-    airbrake (3.1.2)
+    airbrake (3.1.12)
       activesupport
       builder
+      json
     babosa (0.3.4)
     blankslate (2.1.2.4)
     browser (0.1.6)
-    builder (3.0.0)
+    builder (3.2.0)
     bullet (2.0.1)
       uniform_notifier (~> 1.0.0)
     capistrano (2.13.5)
@@ -129,7 +130,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 3.1.2)
+  airbrake (~> 3.1.12)
   browser (~> 0.1.6)
   bullet
   capistrano (= 2.13.5)

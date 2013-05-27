@@ -246,9 +246,7 @@ class Customer < ActiveRecord::Base
         params.delete :response_id
       end
       url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
-      if !(request.env['HTTP_USER_AGENT'] =~ /googlebot/i)
-        recipient = 'gs@dvdpost.be'
-        subject = 'thefilter evidence'
+      unless @bot
         message = ""
         message += " user #{customer.id}" if customer
         message += " url #{url}"
@@ -315,7 +313,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    (credits == 0 || (new_price? && customers_abo_dvd_remain == 0 && customers_abo_dvd_credit <= 2 && customer_attribute.only_vod == false)) && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
+    (credits == 0 || (new_price? && customers_abo_dvd_remain == 0 && customers_abo_dvd_credit <= 3 && customer_attribute.only_vod == false)) && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date && abo_active?
   end
 
   def new_price?
@@ -754,7 +752,7 @@ class Customer < ActiveRecord::Base
     end
     price.to_f
   end
-  
+
   def promo_date
     type = activation_discount_code_type
     if type == 'A'

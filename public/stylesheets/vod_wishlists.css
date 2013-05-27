@@ -63,3 +63,9 @@ background-position: -352px -32px;
 width:69px;
 padding-left:26px;
 }
+a.louer
+{
+  width: 107px;
+  background: url(../images/sprite.png) -493px -256px;
+  margin:2px 0 0 0
+}

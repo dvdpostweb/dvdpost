@@ -1,5 +1,5 @@
 <div class="content">
-<% if @product.adult? && current_customer && current_customer.svod? %>
+<% if @product.adult? && current_customer && current_customer.svod? && current_customer.svod_adult == 0 %>
   <%= t('tokens.new.svod_adult') %>
 <% else %>
   <div  <%= @code && @code.white_label ? 'id="maincontent_no_border"' : 'id="maincontent"' %> >
@@ -17,14 +17,14 @@
         </div>
         <div id='flow'>
         </div>
-        <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv) %>
+        <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv && current_customer.svod_adult == 0) %>
 
         <% if @streaming_free == true %>
           <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
         <% end %>
         <% if ENV['HOST_OK'] == "1" || !current_customer.payment_suspended? %>
         <% code_public = StreamingCode.find_by_name(params[:code]) %>
-          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) %>
+          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) || (current_customer && current_customer.svod_adult > 0)  %>
             <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
             <p class="attention">
               <%= t('.attention', :url => streaming_products_sample_path) %>
