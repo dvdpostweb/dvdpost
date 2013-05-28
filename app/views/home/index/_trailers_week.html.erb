@@ -1,4 +1,6 @@
-<% trailers.collect do |p| %>
+<% nb = trailers.count - 1 %>
+<% for i in 1..nb %>
+<% p = trailers[i] %>
 <div class="trailer-week"> 
   <a href="<%= product_path(:id => p.id) %>">
     <span><%= t '.trailer_week' %><strong><%= p.title %></strong></span> 
