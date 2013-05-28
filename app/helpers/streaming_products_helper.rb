@@ -16,6 +16,13 @@ module StreamingProductsHelper
             window.location.href ='#{url}'
           script
         end
+      elsif 1==1
+        script = <<-script
+            if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
+              $("#player").html('<object id="ViewRightControl" classid="CLSID:059BFDA3-0AAB-419F-9F69-AF9BBE3A4668" width="640" height="360"></object>');
+            else
+              $("#player").html('<object id="ViewRightControl" type="application/x-viewright-m3u8" width="640" height="360"></object>');
+        script
       else
         script = <<-script
         $("#player").html("<object width='696' height='389'><param name='movie' value='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf'></param><param name='flashvars' value='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></embed></object>")
