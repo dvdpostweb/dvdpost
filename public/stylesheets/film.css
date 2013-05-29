@@ -87,7 +87,6 @@
 #film-info {
   padding: 20px 15px 20px 20px;
   background: #fff url(../images/film-info-bg.gif) 0 0 repeat-x;
-  overflow: hidden;
   color: #5f6f7b;
   font-size: 14px;
 }
