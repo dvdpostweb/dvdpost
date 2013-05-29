@@ -85,5 +85,6 @@
       <div id='warning' style='display:none'><%= new_product_token_path(:product_id => @product.to_param, :imdb_id => @product.imdb_id, :btn => :hide) %></div>
     <% end %>
   </div>
+  <div style="display:none" id="returnStatus"></div>
   <div style="display:none" id ="product_id"><%= @product.id %></di>
 <% end %>
