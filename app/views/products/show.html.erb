@@ -69,7 +69,7 @@ window.fbAsyncInit=function() {
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
       <span class="osc">
         <%= @product.vod? ? 'vod' : product_media_id(@product.media) %>
-        <%= link_to t('.svod_adult'), customers_svod_path if @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>
+        <%= link_to t('.svod_adult'), customers_svod_path if @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? && @product.streaming_products.first.studio_id == 147 %>
       </span>
     </div>
     <div id="film-descr">
