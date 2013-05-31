@@ -24,7 +24,7 @@
   <% link = link_to t('.catalogue'), products_path(:view_mode => :streaming) %>
   <% link2 = link_to t('.about'), streaming_products_faq_path %>
     <div id="faq-content-wrap">
-      <div id="faq-intro-wrap">
+      <div id="faq-intro-wrap" class="<%= I18n.locale %>">
         <%= t '.intro', :link => link, :link2 => link2 %>
       </div>
     </div>
