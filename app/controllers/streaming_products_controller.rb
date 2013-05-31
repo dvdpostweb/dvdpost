@@ -72,7 +72,7 @@ class StreamingProductsController < ApplicationController
       format.js do
         if streaming_access?
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
-          if ENV['HOST_OK'] == "1" || (!current_customer.suspended? )
+          if ENV['HOST_OK'] == "1" || (!current_customer.suspended? && !Token.dvdpost_ip?(request.remote_ip) && !current_customer.super_user? && !(/^192(.*)/.match(request.remote_ip)))
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token || status == Token.status[:expired]
