@@ -493,7 +493,7 @@ class Customer < ActiveRecord::Base
         end
     end
     
-    if credits >= file.credits || (product.adult? && svod_adult > 0)
+    if credits >= file.credits || (product.adult? && svod_adult > 0 && file.studio_id == 147)
       abo_process = AboProcess.today.last
       if abo_process 
         customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
@@ -518,7 +518,7 @@ class Customer < ActiveRecord::Base
               :credits     => file.credits,
               :kind        => kind
             )
-            result_credit = (product.adult? && svod_adult > 0) ? true : remove_credit(file.credits, 12)
+            result_credit = (product.adult? && svod_adult > 0 && file.studio_id == 147) ? true : remove_credit(file.credits, 12)
             if token.id.blank? || result_credit == false
               error = Token.error[:query_rollback]
               raise ActiveRecord::Rollback
