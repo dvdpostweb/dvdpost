@@ -12,7 +12,7 @@
           <%= subscription_description(current_customer, true) %><br />
           <% unless current_customer.svod? %>
             <span class="formula_nomination"><%= abo_type(current_customer, false, true, true) %> </td>
-            <td align="right"><%= image_tag "pricing#{current_customer.credit_per_month}.png", :align => "absmiddle" %> </td>
+            <td align="right" style="font-size:30px"><%= current_customer.price_per_month %> &euro; </td>
           <% end %>
           <td width="20"></td>
         </tr>
