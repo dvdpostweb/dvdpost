@@ -4,7 +4,7 @@
     <div id="promo"><%= t '.huge_catalog' %></span></div>
   </div>
   <div id="subscribe">
-    <a class="btn" href="<%= php_path !params[:code].nil? ? 'step1.php?activation_code=' + params[:code]  : 'step1.php' %>"><%= t '.signup_short' %></a>
+    <a class="btn" href="<%= php_path !session[:code].nil? ? 'step1.php?activation_code=' + session[:code]  : 'step1.php' %>"><%= t '.signup_short' %></a>
     <p><a id="codePromo" href="<%= edit_public_promotion_path() %>"><%= t '.code_promo' %></a></p>
   </div>
 </div>
