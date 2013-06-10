@@ -228,6 +228,9 @@ class ApplicationController < ActionController::Base
     def public_behaviour
       if !params[:promo].nil?
         session[:promo] = params[:promo]
+      end
+      if !params[:code].nil?
+        session[:code] = params[:code]
       end  
       if !params[:later].nil?
         session[:later] = "later"
