@@ -67,7 +67,7 @@
       <li><%= t '.too2' %></li>
     </ul>
   </div>
-  <div id="subscribe"> <a href="<%= php_path("step1.php") %>" class="btn"><%= t '.try' %></a>
+  <div id="subscribe"> <a href="<%= php_path !session[:code].nil? ? 'step1.php?activation_code=' + session[:code]  : 'step1.php' %>" class="btn"><%= t '.try' %></a>
     <p><%= t('.promo', :url => edit_public_promotion_path()) %></p>
   </div>
 </div>
