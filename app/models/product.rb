@@ -101,7 +101,6 @@ class Product < ActiveRecord::Base
     has collections(:themes_id),    :as => :collection_id
     has director(:directors_id),    :as => :director_id
     has studio(:studio_id),         :as => :studio_id
-    has studio(:vod_lux),           :as => :vod_lux
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
     has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST" and language_id = 1 and product_id = products.products_id limit 1)', :as => :highlight_best_fr, :type => :integer
@@ -122,52 +121,55 @@ class Product < ActiveRecord::Base
     
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has "concat(GROUP_CONCAT(DISTINCT IFNULL(`products_languages`.`languages_id`, '0') SEPARATOR ','),',', GROUP_CONCAT(DISTINCT IFNULL(`products_undertitles`.`undertitles_id`, '0') SEPARATOR ','))", :type => :multi, :as => :speaker
-    has "(select 
-    if((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month))),1,0) s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month)))) limit 1)", :type => :integer, :as => :new_vod
+    indexes "(select 
+    group_concat(distinct `country` SEPARATOR ',') from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month)))))", :type => :multi, :as => :new_vod
+    #to do
     has "(select (ifnull(replace(available_from,'-',''),replace(available_backcatalogue_from, '-',''))) date_order from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 and ((date(now())  >= date(available_backcatalogue_from) and date(now()) <= date(date_add(available_backcatalogue_from, interval 3 month)))or(date(now())  >= date(available_from) and date(now()) <= date(date_add(available_from, interval 3 month)))) limit 1)", :type => :integer, :as => :available_order
-    has "(select available_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :available_from
-    has "(select expire_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_from asc limit 1)", :type => :datetime, :as => :expire_at
-    has "(select available_backcatalogue_from s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id asc limit 1)", :type => :datetime, :as => :available_bc_from
-    has "(select expire_backcatalogue_at  from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by available_backcatalogue_from asc limit 1)", :type => :datetime, :as => :expire_bc_at
     has "(select studio_id from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at asc limit 1)", :type => :integer, :as => :streaming_studio_id
-    has "(select vod_lux from streaming_products join studio on streaming_products.studio_id = studio.studio_id where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by expire_backcatalogue_at asc limit 1)", :type => :boolean, :as => :streaming_vod_lux
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 MONTH) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed
     has 'cast((SELECT count(*) FROM `wishlist_assigned` wa WHERE wa.products_id = products.products_id and date_assigned > date_sub(now(), INTERVAL 1 YEAR) group by wa.products_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
-    
-    has "(select created_at s from streaming_products where imdb_id = products.imdb_id and status = 'online_test_ok' and available = 1 order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
   
     has "(select products_name AS products_name_ord from products_description pd where  language_id = 1 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr, :sortable => true
     has "(select products_name AS products_name_ord from products_description pd where  language_id = 2 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_nl, :sortable => true
     has "(select products_name AS products_name_ord from products_description pd where  language_id = 3 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en, :sortable => true
 
     has "(select case 
-        when (products_media = 'DVD' and streaming_products.imdb_id is not null) or (products_media = 'DVD' and vod_next = 1) then 2
-        when (products_media = 'VOD' and streaming_products.imdb_id is not null) or (products_media = 'VOD' and vod_next = 1) then 5
-        when products_media = 'DVD' then 1 
-        when (products_media = 'blueray' and streaming_products.imdb_id is not null) or (products_media = 'blueray' and vod_next = 1) then 4 
-        when products_media = 'blueray' then 3
-        when products_media = 'bluray3d' then 6
-        when products_media = 'bluray3d2d' then 7
-        else 8 end from products p 
-        left join streaming_products on streaming_products.imdb_id = p.imdb_id
-        where  (( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media
+            when (products_media = 'DVD' and streaming_products.imdb_id is not null) or (products_media = 'DVD' and vod_next = 1) then 2
+            when (products_media = 'VOD' and streaming_products.imdb_id is not null) or (products_media = 'VOD' and vod_next = 1) then 5
+            when products_media = 'DVD' then 1 
+            when (products_media = 'blueray' and streaming_products.imdb_id is not null) or (products_media = 'blueray' and vod_next = 1) then 4 
+            when products_media = 'blueray' then 3
+            when products_media = 'bluray3d' then 6
+            when products_media = 'bluray3d2d' then 7
+            else 8 end from products p 
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='BE' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
+            where  p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_be
     has "(select case 
-        when (products_media = 'DVD' and streaming_products.imdb_id is not null and vod_lux = 1) or (products_media = 'DVD' and vod_next_lux = 1) then 2
-        when (products_media = 'VOD' and streaming_products.imdb_id is not null and vod_lux = 1) or (products_media = 'VOD' and vod_next_lux = 1) then 5
-        when products_media = 'DVD' then 1 
-        when (products_media = 'blueray' and streaming_products.imdb_id is not null and vod_lux = 1) or (products_media = 'blueray' and vod_next_lux = 1) then 4 
-        when products_media = 'blueray' then 3
-        when products_media = 'bluray3d' then 6
-        when products_media = 'bluray3d2d' then 7
-        else 8 end 
-        from products p
-        left join streaming_products on streaming_products.imdb_id = p.imdb_id
-        left join studio on studio.studio_id = streaming_products.studio_id
-        where  (( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next_lux=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_lux
-    has "(select 1 from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1 limit 1)", :type => :integer, :as => :streaming_available
-    has "case 
-    when  (streaming_products.available_from < now() and streaming_products.expire_at > now()) or (streaming_products.available_backcatalogue_from < now() and streaming_products.expire_backcatalogue_at > now()) then 1
-    else 0 end", :type => :integer, :as => :streaming_available_test
+            when (products_media = 'DVD' and streaming_products.imdb_id is not null ) or (products_media = 'DVD' and vod_next_lux = 1) then 2
+            when (products_media = 'VOD' and streaming_products.imdb_id is not null ) or (products_media = 'VOD' and vod_next_lux = 1) then 5
+            when products_media = 'DVD' then 1 
+            when (products_media = 'blueray' and streaming_products.imdb_id is not null ) or (products_media = 'blueray' and vod_next_lux = 1) then 4 
+            when products_media = 'blueray' then 3
+            when products_media = 'bluray3d' then 6
+            when products_media = 'bluray3d2d' then 7
+            else 8 end 
+            from products p
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='LU' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
+            where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_lu
+    has "(select case 
+            when (products_media = 'DVD' and streaming_products.imdb_id is not null ) then 2
+            when (products_media = 'VOD' and streaming_products.imdb_id is not null ) then 5
+            when products_media = 'DVD' then 1 
+            when (products_media = 'blueray' and streaming_products.imdb_id is not null ) then 4 
+            when products_media = 'blueray' then 3
+            when products_media = 'bluray3d' then 6
+            when products_media = 'bluray3d2d' then 7
+            else 8 end 
+            from products p
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='NL' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
+            where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_nl
+    
+    indexes "(select group_concat(distinct country) from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1 limit 1)", :type => :multi, :as => :streaming_available
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 31))", :type => :integer, :as => :count_tokens_month
     has "case
@@ -176,7 +178,15 @@ class Product < ActiveRecord::Base
     else 0 end", :type => :integer, :as => :popular
     has 'concat(if(products_quantity>0 or products_media = "vod" or (  select count(*) > 0 from products p
           join streaming_products on streaming_products.imdb_id = p.imdb_id
-          where  (( streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
+          where  ((country="BE" and streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order_be
+    has 'concat(if(products_quantity>0  or (  select count(*) > 0 from products p
+          join streaming_products on streaming_products.imdb_id = p.imdb_id
+          where  ((country="LU" and streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next_lux=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order_lu
+
+    has 'concat(if(products_quantity>0 or (  select count(*) > 0 from products p
+          join streaming_products on streaming_products.imdb_id = p.imdb_id
+          where  ((country="NL" and streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order_nl
+
     has "case 
     when  products_status = -1 then 99
     else products_status end", :type => :integer, :as => :status
@@ -192,72 +202,67 @@ class Product < ActiveRecord::Base
 
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
-  sphinx_scope(:by_products_id)     {|products_id|      {:with =>       {:id => products_id}}}
-  sphinx_scope(:exclude_products_id){|products_id|      {:without =>    {:id => products_id}}}
-  sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
-  sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
-  sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
-  sphinx_scope(:by_collection)      {|collection|       {:with =>       {:collection_id => collection.to_param}}}
-  sphinx_scope(:hetero)             {{:without =>       {:category_id => [76, 72]}}}
-  sphinx_scope(:gay)                {{:with =>          {:category_id => [76, 72]}}}
-  sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
-  sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
-  sphinx_scope(:by_studio)          {|studio|           {:with =>       {:studio_id => studio.to_param}}}
-  sphinx_scope(:by_streaming_studio){|studio|           {:with =>       {:streaming_studio_id => studio.to_param}}}
-  sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
-  sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
-  sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media}}}
-  sphinx_scope(:by_special_media)   {|media|            {:with =>       {:special_media => media}}}
-  sphinx_scope(:by_special_media_lux)   {|media|            {:with =>       {:special_media_lux => media}}}
-  sphinx_scope(:by_not_special_media_lux)   {|media|            {:without =>       {:special_media_lux => media}}}
-  sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
-  sphinx_scope(:by_products_list)   {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
-  sphinx_scope(:by_ratings)         {|min, max|         {:with =>       {:rating => min..max}}}
-  sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
-  sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
-  sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
-  sphinx_scope(:with_speaker)       {|speaker_ids|      {:with =>       {:speaker => speaker_ids}}}
-  sphinx_scope(:available)          {{:without =>       {:status => [99]}}}
-  sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
-  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
-  sphinx_scope(:new_vod)            {{:with =>          {:new_vod => 1}}}
-  sphinx_scope(:vod_fresh)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_bc_from => xf, :streaming_available => 1 }}}
-  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1}}}
-  sphinx_scope(:dvd_soon)           {{:with =>          {:in_cinema_now => 0, :next => 1}}}
-  sphinx_scope(:vod_soon)           {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
-  sphinx_scope(:not_soon)           {{:with =>          {:vod_next => 0}}}
-  sphinx_scope(:vod_soon_lux)       {{:with =>          {:in_cinema_now => 0, :vod_next_lux => 1}}}
-  sphinx_scope(:not_soon_lux)       {{:with =>          {:vod_next_lux => 0}}}
-  sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
-  sphinx_scope(:streaming2)         {{:with =>          {:streaming_available => 1}}}
-  sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
-  sphinx_scope(:random)             {{:order =>         '@random'}}
-  sphinx_scope(:popular_new)        {{:with =>          {:popular => 1}}}
-  sphinx_scope(:highlight_best_fr)          {{:with =>           {:highlight_best_fr => 1..100}}}
-  sphinx_scope(:highlight_best_nl)          {{:with =>           {:highlight_best_nl => 1..100}}}
-  sphinx_scope(:highlight_best_en)      {{:with =>           {:highlight_best_en => 1..100}}}
-  sphinx_scope(:highlight_best_vod_be_fr)   {{:with =>           {:highlight_best_vod_be_fr => 1..100}}}
-  sphinx_scope(:highlight_best_vod_be_nl)   {{:with =>           {:highlight_best_vod_be_nl => 1..100}}}
-  sphinx_scope(:highlight_best_vod_be_en)   {{:with =>           {:highlight_best_vod_be_en => 1..100}}}
-  sphinx_scope(:highlight_best_vod_lu_fr)   {{:with =>           {:highlight_best_vod_lu_fr => 1..100}}}
-  sphinx_scope(:highlight_best_vod_lu_nl)   {{:with =>           {:highlight_best_vod_lu_nl => 1..100}}}
-  sphinx_scope(:highlight_best_vod_lu_en)   {{:with =>           {:highlight_best_vod_lu_en => 1..100}}}
-  sphinx_scope(:weekly_streaming)   {{:without =>       {:streaming_imdb_id => 0}, :with => {:available_from => 7.days.ago..Time.now.end_of_day, :streaming_available => 1 }}}
-  
-  sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
-  sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
-  sphinx_scope(:not_recent)         {{:with =>          {:next => 0}}}
-  sphinx_scope(:by_serie)           {|serie_id|         {:with => {:series_id => serie_id}}}
-  sphinx_scope(:ppv)                {{:with =>          {:is_ppv => 1}}}
-  sphinx_scope(:vod_lux)            {{:with =>          {:vod_lux => true}}}
-  sphinx_scope(:streaming_vod_lux)  {{:with =>          {:streaming_vod_lux => true}}}
-  sphinx_scope(:by_new)             {{:with =>          {:year => 2.years.ago.year..Date.today.year, :next => 0, :available_at => 3.months.ago..Time.now.end_of_day}}}
-  sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
-  sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
-
-  sphinx_scope(:limit)              {|limit|            {:limit => limit}}
+  sphinx_scope(:by_products_id)           {|products_id|      {:with =>       {:id => products_id}}}
+  sphinx_scope(:exclude_products_id)      {|products_id|      {:without =>    {:id => products_id}}}
+  sphinx_scope(:by_actor)                 {|actor|            {:with =>       {:actors_id => actor.to_param}}}
+  sphinx_scope(:by_audience)              {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
+  sphinx_scope(:by_category)              {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:by_collection)            {|collection|       {:with =>       {:collection_id => collection.to_param}}}
+  sphinx_scope(:hetero)                   {{:without =>       {:category_id => [76, 72]}}}
+  sphinx_scope(:gay)                      {{:with =>          {:category_id => [76, 72]}}}
+  sphinx_scope(:by_country)               {|country|          {:with =>       {:country_id => country.to_param}}}
+  sphinx_scope(:by_director)              {|director|         {:with =>       {:director_id => director.to_param}}}
+  sphinx_scope(:by_studio)                {|studio|           {:with =>       {:studio_id => studio.to_param}}}
+  sphinx_scope(:by_streaming_studio)      {|studio|           {:with =>       {:streaming_studio_id => studio.to_param}}}
+  sphinx_scope(:by_imdb_id)               {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
+  sphinx_scope(:by_language)              {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
+  sphinx_scope(:by_kind)                  {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  sphinx_scope(:by_media)                 {|media|            {:conditions => {:products_media => media}}}
+  sphinx_scope(:by_special_media_be)      {|media|            {:with =>       {:special_media_be => media}}}
+  sphinx_scope(:by_special_media_lu)      {|media|            {:with =>       {:special_media_lu => media}}}
+  sphinx_scope(:by_special_media_nl)      {|media|            {:with =>       {:special_media_nl => media}}}
+  sphinx_scope(:remove_wrong_be)          {|media|            {:without =>    {:special_media_be => media}}}
+  sphinx_scope(:remove_wrong_lu)          {|media|            {:without =>    {:special_media_lu => media}}}
+  sphinx_scope(:remove_wrong_nl)          {|media|            {:without =>    {:special_media_nl => media}}}
+  sphinx_scope(:by_period)                {|min, max|         {:with =>       {:year => min..max}}}
+  sphinx_scope(:by_products_list)         {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
+  sphinx_scope(:by_ratings)               {|min, max|         {:with =>       {:rating => min..max}}}
+  sphinx_scope(:by_recommended_ids)       {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
+  sphinx_scope(:with_languages)           {|language_ids|     {:with =>       {:language_ids => language_ids}}}
+  sphinx_scope(:with_subtitles)           {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
+  sphinx_scope(:with_speaker)             {|speaker_ids|      {:with =>       {:speaker => speaker_ids}}}
+  sphinx_scope(:available)                {{:without =>       {:status => [99]}}}
+  sphinx_scope(:dvdpost_choice)           {{:with =>          {:dvdpost_choice => 1}}}
+  sphinx_scope(:recent)                   {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now.end_of_day, :next => 0}}}
+  sphinx_scope(:new_vod)                  {|country|          {:conditions =>    {:new_vod => country}}}
+  sphinx_scope(:cinema)                   {{:with =>          {:in_cinema_now => 1, :next => 1}}}
+  sphinx_scope(:soon)                     {{:with =>          {:in_cinema_now => 0, :next => 1}}}
+  sphinx_scope(:dvd_soon)                 {{:with =>          {:in_cinema_now => 0, :next => 1}}}
+  sphinx_scope(:vod_soon)                 {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
+  sphinx_scope(:not_soon)                 {{:with =>          {:vod_next => 0}}}
+  sphinx_scope(:vod_soon_lux)             {{:with =>          {:in_cinema_now => 0, :vod_next_lux => 1}}}
+  sphinx_scope(:not_soon_lux)             {{:with =>          {:vod_next_lux => 0}}}
+  sphinx_scope(:streaming)                {|country|          {:without =>       {:streaming_imdb_id => 0}, :country => {:streaming_available => country}}}
+  sphinx_scope(:random)                   {{:order =>         '@random'}}
+  sphinx_scope(:popular_new)              {{:with =>          {:popular => 1}}}
+  sphinx_scope(:highlight_best_fr)        {{:with =>          {:highlight_best_fr => 1..100}}}
+  sphinx_scope(:highlight_best_nl)        {{:with =>          {:highlight_best_nl => 1..100}}}
+  sphinx_scope(:highlight_best_en)        {{:with =>          {:highlight_best_en => 1..100}}}
+  sphinx_scope(:highlight_best_vod_be_fr) {{:with =>          {:highlight_best_vod_be_fr => 1..100}}}
+  sphinx_scope(:highlight_best_vod_be_nl) {{:with =>          {:highlight_best_vod_be_nl => 1..100}}}
+  sphinx_scope(:highlight_best_vod_be_en) {{:with =>          {:highlight_best_vod_be_en => 1..100}}}
+  sphinx_scope(:highlight_best_vod_lu_fr) {{:with =>          {:highlight_best_vod_lu_fr => 1..100}}}
+  sphinx_scope(:highlight_best_vod_lu_nl) {{:with =>          {:highlight_best_vod_lu_nl => 1..100}}}
+  sphinx_scope(:highlight_best_vod_lu_en) {{:with =>          {:highlight_best_vod_lu_en => 1..100}}}
+  sphinx_scope(:popular)                  {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
+  sphinx_scope(:not_recent)               {{:with =>          {:next => 0}}}
+  sphinx_scope(:by_serie)                 {|serie_id|         {:with => {:series_id => serie_id}}}
+  sphinx_scope(:ppv)                      {{:with =>          {:is_ppv => 1}}}
+  sphinx_scope(:by_new)                   {{:with =>          {:year => 2.years.ago.year..Date.today.year, :next => 0, :available_at => 3.months.ago..Time.now.end_of_day}}}
+  sphinx_scope(:order)                    {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
+  sphinx_scope(:group)                    {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
+                                          
+  sphinx_scope(:limit)                    {|limit|            {:limit => limit}}
 
   def self.list_sort
      sort = OrderedHash.new
@@ -275,6 +280,16 @@ class Product < ActiveRecord::Base
   
   
   def self.filter(filter, options={}, exact=nil)
+    if options[:country_id] == 131
+      country = 'LU'
+      default = 'default_order_lu'
+    elsif options[:country_id] == 124
+      country = 'NL'
+      default = 'default_order_nl'
+    else
+      country = 'BE'
+      default = 'default_order_be'
+    end
     if options[:exact]
       products = search_clean_exact(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
     else
@@ -289,7 +304,7 @@ class Product < ActiveRecord::Base
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
     products = products.ppv if options[:ppv]
-    products = options[:kind] == :normal ? products.streaming_vod_lux : products.vod_lux if options[:country_id] == 131 && ( options[:view_mode] == "streaming" || options[:filter] == "vod")
+    products = products.streaming(country) if options[:view_mode] == "streaming" || options[:filter] == "vod"
     if options[:highlight_best]
       case options[:locale]
         when 'fr'
@@ -329,7 +344,9 @@ class Product < ActiveRecord::Base
       elsif options[:filter] && options[:filter] == "bluray3d"
         media_i = [6,7]
       end
-      products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i) if media_i
+      if media_i
+        products = Product.media_select(products, country, media_i)
+      end
     end
     
     if filter.media? && options[:view_mode] != "streaming" && options[:filter] != "vod" && options[:no_filter].nil?
@@ -360,9 +377,16 @@ class Product < ActiveRecord::Base
       if medias.include?(:bluray3d)
         media_i.push([6,7])
       end
-      products = options[:country_id] == 131 ? products.by_special_media_lux(media_i) : products.by_special_media(media_i)
+      products = Product.media_select(products, country, media_i)
     end
-    products = products.by_not_special_media_lux(8) if options[:country_id] == 131
+    case country
+      when 'BE'
+        products = products.remove_wrong_be(8)
+      when 'LU'
+        products = products.remove_wrong_lu(8)
+      when 'NL'
+        products = products.remove_wrong_nl(8)
+    end
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year? && options[:no_filter].nil?
     if filter.audio? && options[:no_filter].nil?
@@ -380,7 +404,7 @@ class Product < ActiveRecord::Base
       products = options[:country_id] == 131 ? products.not_soon_lux : products.not_soon
     end
     if options[:sort] == 'production_year_vod'
-      products = products.streaming.by_period(2.years.ago.year, Date.today.year).new_vod
+      products = products.streaming(country).by_period(2.years.ago.year, Date.today.year).new_vod(country)
     elsif options[:sort] == 'production_year_all'
       products = products.by_new
     else
@@ -391,7 +415,7 @@ class Product < ActiveRecord::Base
       when :recent
         products.recent
       when :vod_recent
-        products.new_vod
+        products.new_vod(country)
       when :soon
         products.soon
       when :vod_soon
@@ -399,11 +423,9 @@ class Product < ActiveRecord::Base
       when :cinema
         products.cinema
       when :streaming
-        products = options[:country_id] == 131 ? products.by_special_media_lux([2,4,5]) : products.by_special_media([2,4,5])
-      when :weekly_streaming
-        products.weekly_streaming
+        products = Product.media_select(products, country, [2,4,5])
       when :popular_streaming
-          products.streaming.limit(10)
+          products.streaming(country).limit(10)
       when :recommended
         recom = products.by_recommended_ids(filter.recommended_ids).with_speaker(options[:language]).limit(50)
         recom
@@ -429,7 +451,7 @@ class Product < ActiveRecord::Base
     elsif options[:highlight_best_vod]
       sort = sort_by("highlight_best_vod_#{options[:country_id] == 131 ? 'lu' : 'be'}_#{options[:locale]} asc", options)
     elsif options[:search] && !options[:search].blank?
-      sort = sort_by("default_order desc, in_stock DESC", options)
+      sort = sort_by("#{default} desc, in_stock DESC", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
       sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
@@ -440,17 +462,17 @@ class Product < ActiveRecord::Base
       sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular
       sort = sort_by("available_at DESC, rating desc", options)
-    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :weekly_streaming || options[:view_mode].to_sym == :soon)
+    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :soon)
       sort = sort_by("available_at desc, imdb_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :cinema
       sort = sort_by("created_at desc", options)
     elsif options[:filter] && options[:filter].to_sym == :vod
       sort = sort_by("streaming_id desc", options)
     else
-      sort = sort_by("default_order desc, in_stock DESC", options)
+      sort = sort_by("#{default} desc, in_stock DESC", options)
     end
     if sort !=""
-      if (options[:group]) || (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming)) || (options[:filter] && options[:filter].to_sym == :vod)
+      if (options[:group]) || (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming)) || (options[:filter] && options[:filter].to_sym == :vod)
         products = products.group('imdb_id', sort)
       else
         products = products.order(sort, :extended)
@@ -746,11 +768,11 @@ class Product < ActiveRecord::Base
       elsif options[:sort] == 'new'
         "available_at DESC, rating desc"
       elsif options[:sort] == 'recent1'
-        "default_order desc"
+        "#{default} desc"
       elsif options[:sort] == 'recent2'
         "in_stock desc"
       elsif options[:sort] == 'recent3'
-        "default_order desc, in_stock desc"
+        "#{default} desc, in_stock desc"
       else
         default
       end
@@ -809,7 +831,7 @@ class Product < ActiveRecord::Base
         jacket_mode = :streaming
       end
     end
-    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming || params[:view_mode].to_sym == :weekly_streaming )) || (params[:filter] && params[:filter].to_sym == :vod)
+    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming )) || (params[:filter] && params[:filter].to_sym == :vod)
       jacket_mode = :streaming
     end
     if jacket_mode.nil?
@@ -850,10 +872,21 @@ class Product < ActiveRecord::Base
 
   def self.get_top_view(kind, limit, sexuality,country_id)
     products = Product.by_kind(kind)
-    products = country_id == 131 ? products.by_special_media_lux([2,4,5]) : products.by_special_media([2,4,5])
+    products = Product.media_select(products, country, [2,4,5])
     products = products.available
     products = products.hetero if sexuality != 1
     products = products.limit(limit).order('count_tokens desc', :extended)
+  end
+
+  def self.media_select(products, country, media)
+    case country
+      when 'BE'
+        products.by_special_media_be(media)
+      when 'LU'
+        products.by_special_media_lu(media)
+      when 'NL'
+        products.by_special_media_nl(media)
+    end
   end
 
   def adult?
