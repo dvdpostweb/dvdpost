@@ -696,13 +696,11 @@ class Product < ActiveRecord::Base
 
   def streaming?(kind =  :normal, country_id = 21)
     sql = streaming_products
+    Rails.logger.debug { "@@@country_id#{country_id}" }
     unless Rails.env == "pre_production"
-      sql = sql.available
+      sql = sql.available.country('BE')
     end
     sql = sql.first
-    if country_id == 131 && sql
-      sql = sql.by_studio_lux(kind)
-    end
     sql
   end
 
@@ -939,4 +937,14 @@ class Product < ActiveRecord::Base
     ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0) && tokens_trailers.available.first )
   end
   
+  def self.country_short_name(country_id)
+    case country_id
+      when 131
+        'LU'
+      when 161
+        'NL'
+      else
+        'BE'
+    end
+  end
 end

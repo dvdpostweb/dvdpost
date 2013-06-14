@@ -148,6 +148,7 @@ class ApplicationController < ActionController::Base
         if c.country_code == 0 && Rails.env == "production" && ! /^192(.*)/.match(my_ip) && ! /^172(.*)/.match(my_ip) && ! /^10(.*)/.match(my_ip) && ! /^127(.*)/.match(my_ip)
           notify_hoptoad("country code is empty ip : #{my_ip}") 
         end
+        Rails.logger.debug { "@@@ip #{my_ip} #{c.country_code}" }
         session[:country_id] = c.country_code
       end
     end
