@@ -18,14 +18,14 @@
         </div>
         <a id='player'>
         </a>
-        <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv && current_customer.svod_adult == 0) %>
+        <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv && current_customer.svod_adult == 0 && @streaming.studio_id == 147) %>
 
         <% if @streaming_free == true %>
           <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
         <% end %>
         <% if ENV['HOST_OK'] == "1" || !current_customer.suspended? %>
         <% code_public = StreamingCode.find_by_name(params[:code]) %>
-          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) || (current_customer && current_customer.svod_adult > 0) %>
+          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) || (current_customer && current_customer.svod_adult > 0  && @streaming.studio_id == 147) %>
             <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
               <div class="choice_language">
                 <h3><%= t('.version_title') %></h3>
@@ -45,7 +45,7 @@
                 </p>
             </div>
             <p class="intro_vod">
-              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] if current_customer && !current_customer.svod_adult == 0 %>
+              <%= t 'streaming_products.show.kinds_alpha.reminder', :hours => DVDPost.hours[params[:kind]] if current_customer && !(current_customer.svod_adult > 0  && @streaming.studio_id == 147) %>
             </p>
             <% end %>
           <% end %>
@@ -81,7 +81,7 @@
       <%= t('.no_flash', :link => DVDPost.flash_player_link) %>
     </div>
   
-    <% if params[:warning].to_i == 1 && (@token.nil? || !@token_valid ) && (current_customer && !current_customer.svod? && current_customer.svod_adult == 0) %>
+    <% if params[:warning].to_i == 1 && (@token.nil? || !@token_valid ) && (current_customer && !current_customer.svod? && !(current_customer.svod_adult > 0 && @streaming.studio_id == 147)) %>
       <div id='warning' style='display:none'><%= new_product_token_path(:product_id => @product.to_param, :imdb_id => @product.imdb_id, :btn => :hide) %></div>
     <% end %>
   </div>
