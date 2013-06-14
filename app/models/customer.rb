@@ -482,7 +482,7 @@ class Customer < ActiveRecord::Base
         end
         
         if token_string
-          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price, :source_id => source, :country => file.country, :credits => file.credits) : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :source_id => source, :country => file.country, :credits => file.credits)
+          token = file.is_ppv ? Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :is_ppv => true, :ppv_price => file.ppv_price, :source_id => source, :country => file.country, :credits => file.credits, :kind => 'PPV') : Token.create(:customer_id => id, :imdb_id => imdb_id, :token => token_string, :source_id => source, :country => file.country, :credits => file.credits)
           if token.id.blank?
             return {:token => nil, :error => Token.error[:query_rollback]}
           else
@@ -493,7 +493,7 @@ class Customer < ActiveRecord::Base
         end
     end
     
-    if credits >= file.credits || (product.adult? && svod_adult > 0)
+    if credits >= file.credits || (product.adult? && svod_adult > 0 && file.studio_id == 147)
       abo_process = AboProcess.today.last
       if abo_process 
         customer_abo_process = customer_abo_process_stats.find_by_aboprocess_id(abo_process.to_param)
@@ -506,6 +506,8 @@ class Customer < ActiveRecord::Base
           token_string = false
         end
         if token_string
+          kind = (svod_adult > 0 && file.studio_id == 147) ? "SVOD_ADULT" : "NORMAL"
+          
           Token.transaction do
             token = Token.create(          
               :customer_id => id,          
@@ -513,9 +515,10 @@ class Customer < ActiveRecord::Base
               :token       => token_string,
               :source_id   => source,
               :country     => file.country,
-              :credits     => file.credits
+              :credits     => file.credits,
+              :kind        => kind
             )
-            result_credit = (product.adult? && svod_adult > 0) ? true : remove_credit(file.credits, 12)
+            result_credit = (product.adult? && svod_adult > 0 && file.studio_id == 147) ? true : remove_credit(file.credits, 12)
             if token.id.blank? || result_credit == false
               error = Token.error[:query_rollback]
               raise ActiveRecord::Rollback

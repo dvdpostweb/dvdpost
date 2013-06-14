@@ -1,5 +1,5 @@
 <div id="maincontent">
-  <% if params[:filter].nil? %>
+  <% if !(params[:filter] && params[:filter].to_sym == :vod) %>
     <h2 class="ttl"><%= t('products.left_column.studio') %></h2>
     <% if params[:kind] == :adult %>
       <%= render :partial => "/actors/menu_#{params[:kind]}" %>
