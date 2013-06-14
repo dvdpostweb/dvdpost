@@ -248,7 +248,6 @@ module ProductsHelper
     return t('.recommendation') if params[:view_mode] == 'recommended'
     return t('.streaming_title') if params[:view_mode] == 'streaming'
     return t('.popular_streaming_title') if params[:view_mode] == 'popular_streaming'
-    return t('.weekly_streaming_title') if params[:view_mode] == 'weekly_streaming'
     return t('.most_rent_vod') if params[:sort] == 'token_month' && params[:filter] == 'vod'
     return t('.ppv') if params[:ppv] == '1'
     return t(".index_rating#{params[:filter]}") if params[:highlight_best_vod] == '1' || params[:highlight_best] == '1' || (params[:limit] == "50")
