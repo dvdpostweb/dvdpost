@@ -20,22 +20,15 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :prefered_subtitle, lambda {|subtitle_id| {:conditions => ['subtitle_id = ? and language_id <> ?', subtitle_id, subtitle_id ]}}
   named_scope :not_prefered, lambda {|language_id| {:conditions => ["language_id != :language_id and (subtitle_id != :language_id or subtitle_id is null)",{:language_id => language_id}]}}
   named_scope :alpha, :conditions => {:source => 'ALPHANETWORKS'}
+  named_scope :country, lambda {|country| {:conditions => {:country => country }}}
   
   named_scope :group_by_version, :group => 'language_id, subtitle_id'
   named_scope :group_by_language, :group => 'language_id'
   named_scope :ordered, :order => 'quality asc'
 
-  default_scope :conditions => ["country = ?",'BE']
+  #default_scope :conditions => ["country = ?",'BE']
   
-  def by_studio_lux(kind)
-    if kind == :normal
-      studio.vod_lux if studio
-    else
-      if product_studio = products.first.studio
-        product_studio.vod_lux
-      end
-    end
-  end
+  
   def self.get_prefered_streaming_by_imdb_id(imdb_id, local)
     if Rails.env == "production"
       streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
