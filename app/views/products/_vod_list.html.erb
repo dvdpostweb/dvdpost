@@ -24,7 +24,7 @@
       
       <%= submit_tag text, :class => "#{class_name} streaming_add_list", :id => "add-to-vod", :style => 'border:0px;cursor:pointer' %>
     <% end %>
-    <%= "#{t 'wishlist_items.new.available'} #{StreamingProduct.date_available(product.imdb_id)}" if @force_reserve %>
+    <%= "#{t 'wishlist_items.new.available'} #{StreamingProduct.date_available(product.imdb_id, Product.country_short_name(session[:country_id]))}" if @force_reserve %>
     
   <% end %>
 </div>

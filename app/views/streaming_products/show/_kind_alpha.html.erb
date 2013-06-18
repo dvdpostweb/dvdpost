@@ -8,7 +8,7 @@
 		<td align="center">
 			<table cellpadding="0" cellspacing="0">
         <tr>
-					<% sub = Rails.env == 'production' ? 	StreamingProduct.by_language(kind_alpha.language_id).available.alpha.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) :					StreamingProduct.by_language(kind_alpha.language_id).available_beta.alpha.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) %>
+					<% sub = Rails.env == 'production' ? 	StreamingProduct.country(Product.country_short_name(session[:country_id])).by_language(kind_alpha.language_id).available.alpha.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) :					StreamingProduct.country(Product.country_short_name(session[:country_id])).by_language(kind_alpha.language_id).available_beta.alpha.ordered.find_all_by_imdb_id(kind_alpha.imdb_id) %>
           <% sub.collect do | sub | %>
           <td align="center"> 
             <div class="quality_vod">

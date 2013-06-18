@@ -3,8 +3,16 @@ class StudiosController < ApplicationController
      @filter = get_current_filter({})
       @countries = ProductCountry.visible.order
     if params[:filter] && params[:filter].to_sym == :vod
-      @studios = Studio.by_kind(params[:kind]).vod.ordered
-      @studios = @studios.vod_lux if session[:country_id] == 131
+      @studios = Studio.by_kind(params[:kind]).ordered
+      case session[:country_id]
+        when 131
+          @studios = @studios.vod_lux
+        when 161
+          @studios = @studios.vod_nl
+        else
+          @studios = @studios.vod_be
+      end
+      
     else
       query = Studio.by_kind(params[:kind])
       if !params[:letter]
