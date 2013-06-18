@@ -87,6 +87,7 @@ class Product < ActiveRecord::Base
     has products_next,              :as => :next
     has "CAST(vod_next AS SIGNED)", :type => :integer, :as => :vod_next
     has "CAST(vod_next_lux AS SIGNED)", :type => :integer, :as => :vod_next_lux
+    has "CAST(vod_next_nl AS SIGNED)", :type => :integer, :as => :vod_next_nl
     has "if(products_next = 1,1,if(vod_next=1,1,0))", :type => :integer, :as => :all_next
     
     has products_public,            :as => :audience
@@ -112,6 +113,9 @@ class Product < ActiveRecord::Base
     has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_LU" and language_id = 1 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_lu_fr, :type => :integer
     has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_LU" and language_id = 2 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_lu_nl, :type => :integer
     has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_LU" and language_id = 3 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_lu_en, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_NL" and language_id = 1 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_nl_fr, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_NL" and language_id = 2 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_nl_nl, :type => :integer
+    has '(select ifnull(rank,0) rank from `highlight_products` where day=0 and kind="BEST_VOD_NL" and language_id = 3 and product_id = products.products_id limit 1)', :as => :highlight_best_vod_nl_en, :type => :integer
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
@@ -157,10 +161,10 @@ class Product < ActiveRecord::Base
             left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='LU' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
             where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_lu
     has "(select case 
-            when (products_media = 'DVD' and streaming_products.imdb_id is not null ) then 2
-            when (products_media = 'VOD' and streaming_products.imdb_id is not null ) then 5
+            when (products_media = 'DVD' and streaming_products.imdb_id is not null ) or (products_media = 'DVD' and vod_next_nl = 1) then 2
+            when (products_media = 'VOD' and streaming_products.imdb_id is not null ) or (products_media = 'VOD' and vod_next_nl = 1) then 5
             when products_media = 'DVD' then 1 
-            when (products_media = 'blueray' and streaming_products.imdb_id is not null ) then 4 
+            when (products_media = 'blueray' and streaming_products.imdb_id is not null ) or (products_media = 'blueray' and vod_next_nl = 1) then 4 
             when products_media = 'blueray' then 3
             when products_media = 'bluray3d' then 6
             when products_media = 'bluray3d2d' then 7
@@ -185,7 +189,7 @@ class Product < ActiveRecord::Base
 
     has 'concat(if(products_quantity>0 or (  select count(*) > 0 from products p
           join streaming_products on streaming_products.imdb_id = p.imdb_id
-          where  ((country="NL" and streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order_nl
+          where  ((country="NL" and streaming_products.status = "online_test_ok" and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1) or p.vod_next_nl=1 or streaming_products.imdb_id is null)  and p.products_id =  products.products_id),1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order_nl
 
     has "case 
     when  products_status = -1 then 99
@@ -242,6 +246,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:not_soon)                 {{:with =>          {:vod_next => 0}}}
   sphinx_scope(:vod_soon_lux)             {{:with =>          {:in_cinema_now => 0, :vod_next_lux => 1}}}
   sphinx_scope(:not_soon_lux)             {{:with =>          {:vod_next_lux => 0}}}
+  sphinx_scope(:vod_soon_nl)              {{:with =>          {:in_cinema_now => 0, :vod_next_nl => 1}}}
+  sphinx_scope(:not_soon_nl)              {{:with =>          {:vod_next_nl => 0}}}
   sphinx_scope(:streaming)                {|country|          {:without =>       {:streaming_imdb_id => 0}, :country => {:streaming_available => country}}}
   sphinx_scope(:random)                   {{:order =>         '@random'}}
   sphinx_scope(:popular_new)              {{:with =>          {:popular => 1}}}
@@ -254,6 +260,9 @@ class Product < ActiveRecord::Base
   sphinx_scope(:highlight_best_vod_lu_fr) {{:with =>          {:highlight_best_vod_lu_fr => 1..100}}}
   sphinx_scope(:highlight_best_vod_lu_nl) {{:with =>          {:highlight_best_vod_lu_nl => 1..100}}}
   sphinx_scope(:highlight_best_vod_lu_en) {{:with =>          {:highlight_best_vod_lu_en => 1..100}}}
+  sphinx_scope(:highlight_best_vod_nl_fr) {{:with =>          {:highlight_best_vod_nl_fr => 1..100}}}
+  sphinx_scope(:highlight_best_vod_nl_nl) {{:with =>          {:highlight_best_vod_nl_nl => 1..100}}}
+  sphinx_scope(:highlight_best_vod_nl_en) {{:with =>          {:highlight_best_vod_nl_en => 1..100}}}
   sphinx_scope(:popular)                  {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:not_recent)               {{:with =>          {:next => 0}}}
   sphinx_scope(:by_serie)                 {|serie_id|         {:with => {:series_id => serie_id}}}
@@ -283,7 +292,7 @@ class Product < ActiveRecord::Base
     if options[:country_id] == 131
       country = 'LU'
       default = 'default_order_lu'
-    elsif options[:country_id] == 124
+    elsif options[:country_id] == 161
       country = 'NL'
       default = 'default_order_nl'
     else
@@ -318,11 +327,33 @@ class Product < ActiveRecord::Base
     if options[:highlight_best_vod]
       case options[:locale]
         when 'fr'
-          products = options[:country_id] == 131 ? products.highlight_best_vod_lu_fr : products.highlight_best_vod_be_fr
+          products = 
+          case options[:country_id]
+            when 131
+              products.highlight_best_vod_lu_fr
+            when 161
+              products.highlight_best_vod_nl_fr
+            else
+              products.highlight_best_vod_be_fr
+          end
         when 'nl'
-          products = options[:country_id] == 131 ? products.highlight_best_vod_lu_nl : products.highlight_best_vod_be_nl
+          case options[:country_id]
+            when 131
+              products.highlight_best_vod_lu_nl
+            when 161
+              products.highlight_best_vod_nl_nl
+            else
+              products.highlight_best_vod_be_nl
+          end
         when 'en'
-          products = options[:country_id] == 131 ? products.highlight_best_vod_lu_en : products.highlight_best_vod_be_en
+          case options[:country_id]
+            when 131
+              products.highlight_best_vod_lu_en
+            when 161
+              products.highlight_best_vod_nl_en
+            else
+              products.highlight_best_vod_be_en
+          end
       end
     end
     if options[:studio_id]
@@ -401,7 +432,15 @@ class Product < ActiveRecord::Base
     end
     products = products.dvdpost_choice if filter.dvdpost_choice? && options[:no_filter].nil?
     if options[:not_soon]
-      products = options[:country_id] == 131 ? products.not_soon_lux : products.not_soon
+      products = 
+      case options[:country_id]
+        when 131 
+          products.not_soon_lux
+        when 161
+          products.not_soon_nl
+        else
+          products.not_soon
+      end
     end
     if options[:sort] == 'production_year_vod'
       products = products.streaming(country).by_period(2.years.ago.year, Date.today.year).new_vod(country)
@@ -419,7 +458,14 @@ class Product < ActiveRecord::Base
       when :soon
         products.soon
       when :vod_soon
-        options[:country_id] == 131 ? products.vod_soon_lux : products.vod_soon
+        case options[:country_id]
+          when 131
+            products.vod_soon_lux
+          when 161
+            products.vod_soon_nl
+          else
+            products.vod_soon
+        end
       when :cinema
         products.cinema
       when :streaming

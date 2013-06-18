@@ -42,7 +42,7 @@
             <div class="clear"></div>
           </div>
         <% end %>
-        <% if StreamingProduct.not_yet_available.find_all_by_imdb_id(product.imdb_id).count > 0 %>
+        <% if StreamingProduct.country(Product.country_short_name(session[:country_id])).not_yet_available.find_all_by_imdb_id(product.imdb_id).count > 0 %>
             <div id="vod"> 
               <span class="col1">VOD</span>
               <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, true) %></ul></span>
