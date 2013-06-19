@@ -916,6 +916,14 @@ class Product < ActiveRecord::Base
 
   def self.get_top_view(kind, limit, sexuality,country_id)
     products = Product.by_kind(kind)
+    country = case country 
+    when 131
+      'LU'
+    when 161
+      'NL'
+    else
+      'BE'
+    end
     products = Product.media_select(products, country, [2,4,5])
     products = products.available
     products = products.hetero if sexuality != 1
