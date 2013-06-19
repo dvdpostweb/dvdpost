@@ -288,6 +288,7 @@ module DVDPost
           url += "%20AND%20subTitleLanguage%20eq%20Dutch"
         end
       end
+      url += "&rule=4"
       data = open url
       hp = Hpricot(data)
       dvd_id = hp.search('//item').collect{|dvd| dvd.attributes['id'].to_i}
