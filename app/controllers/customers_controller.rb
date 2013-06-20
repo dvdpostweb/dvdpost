@@ -137,5 +137,16 @@ class CustomersController < ApplicationController
   end
 
   def unsubscribe
+    if params[:type] == 'profile_part'
+      customer = Customer.find_by_email(params[:email])
+      if customer
+        customer.update_attribute(:newsletter_parnter, value)
+      end
+      vision = EmailVisionCustomer.find_by_email(params[:email])
+      if customer
+        vision.update_attribute(:newsletters_parnters, value)
+      end
+      
+    end
   end
 end
