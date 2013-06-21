@@ -4,6 +4,7 @@ development:
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
   max_matches: 100000
+  mem_limit: 128M
 test:
   port: 8444
   pid_file: log/searchd.pid
@@ -11,6 +12,7 @@ test:
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
   max_matches: 100000
+  mem_limit: 128M
 staging:
   port: 7444
   pid_file: log/searchd.pid
@@ -18,6 +20,7 @@ staging:
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
   max_matches: 100000
+  mem_limit: 128M
 pre_production:
   port: 6444
   pid_file: log/searchd.pid
@@ -25,6 +28,7 @@ pre_production:
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
   max_matches: 100000
+  mem_limit: 128M
 production:
   port: 5444
   pid_file: log/searchd.pid
@@ -32,3 +36,5 @@ production:
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
   max_matches: 100000
+  mem_limit: 128M
+  

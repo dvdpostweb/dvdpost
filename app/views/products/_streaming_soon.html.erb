@@ -1,5 +1,5 @@
 <% if current_customer %>
     <div class="streaming_soon_btn"><%= t '.soon' %></div>
  <% else %>
-  <%= link_to t('.soon'), php_path('step1.php'), :class => "streaming_soon_btn" %>
+  <%= link_to t('.soon'), php_path(!session[:code].nil? ? 'step1.php?activation_code=' + session[:code]  : 'step1.php'), :class => "streaming_soon_btn" %>
 <% end %>

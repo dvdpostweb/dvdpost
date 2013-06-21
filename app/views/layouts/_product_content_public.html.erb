@@ -1,7 +1,6 @@
 <div class="content_step">
   <div id="catalogue">
     <h3><%= t '.discover' %></h3>
-       <!--<div id="banners_imu"><a href="<%= php_path('step1.php') %>"><img src="<%= "#{DVDPost.images_path}/250X250terre_#{I18n.locale}.jpg"%>" /></a></div>-->
     <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
     <div style="clear:both;"></div>
     <% if params[:kibd] == :normal %>

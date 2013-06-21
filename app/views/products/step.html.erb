@@ -17,7 +17,7 @@
     <ul class="osc">
       <%= t('.desc') %>
     </ul>
-    <a href="<%= php_path('step1.php') %>" class="btn osc"><strong><%= t '.go' %></strong></a>
+    <a href="<%= php_path !session[:code].nil? ? 'step1.php?activation_code=' + session[:code]  : 'step1.php' %>" class="btn osc"><strong><%= t '.go' %></strong></a>
   </div>
   <div class="<%= media.downcase %>" id="film-img-wrap">
     <%= product_image_tag @product_image, :width => 196, :alt => "#{@product_title} (#{@product.year})" %>
