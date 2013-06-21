@@ -140,11 +140,11 @@ class CustomersController < ApplicationController
     if params[:type] == 'profile_part'
       customer = Customer.find_by_email(params[:email])
       if customer
-        customer.update_attribute(:newsletter_parnter, value)
+        customer.update_attribute(:newsletter_parnter, false)
       end
       vision = EmailVisionCustomer.find_by_email(params[:email])
-      if customer
-        vision.update_attribute(:newsletters_parnters, value)
+      if vision
+        vision.update_attribute(:newsletters_partners, false)
       end
       
     end
