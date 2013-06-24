@@ -1241,6 +1241,7 @@ a.btn_price:hover
   position: relative;
   top: -35px;
 }
+
 .icon_populaire.fr
 {
   background: url("../images/fr/pluspopulaire.png") no-repeat scroll 0 0 transparent;
@@ -1557,4 +1558,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#576774', end
 .adult .faq-container a
 {
   color: #BD1F83;
+}
+.prices-container .change_formula
+{
+  margin: 15px 0 0 0;
+}
+.prices-container .change_formula a {
+  color: #222B33;
+	padding-left:15px;
+  text-decoration: underline;
+}
+.formula.dvd  ul {
+    padding-left: 85px;
 }
