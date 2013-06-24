@@ -742,7 +742,6 @@ class Product < ActiveRecord::Base
 
   def streaming?(kind =  :normal, country_id = 21)
     sql = streaming_products
-    Rails.logger.debug { "@@@country_id#{country_id}" }
     unless Rails.env == "pre_production"
       sql = sql.available.country('BE')
     end

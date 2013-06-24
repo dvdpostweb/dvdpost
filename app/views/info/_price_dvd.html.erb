@@ -1,0 +1,200 @@
+<% if !mobile_request? %>
+<div class="container desktop clearfix">
+  <div id="prices">
+    <h1><%= t 'info.price.title_abo' %></h1>
+    <div class="all-container">
+      <div class="prices-container" align="left">
+        <h3><%= t 'info.price.select' %></h3>
+  
+        <ul id="formule_tab">
+          <li class="formule active" id ="f1">
+            <h4><%= t 'info.price.active' %></h4>
+            <a  href="">
+              <%= image_tag 'actif.jpg', :size => '185x122', :alt => 'actif' %>
+            </a>
+            <p><%= t 'info.price.active_desc' %></p>
+            <a class="button" href="#"><%= t 'info.price.discover' %></a> </li>
+          <li class="formule" id ="f2">
+            <h4><%= t 'info.price.cine' %></h4>
+            <a  href="">
+              <%= image_tag 'cinephile.jpg', :size => '185x122', :alt => 'cinephile' %>
+            </a>
+            <p><%= t 'info.price.cine_desc' %></p>
+            <a class="button " href="#"><%= t 'info.price.discover' %></a> </li>
+          <li class="formule" id ="f3">
+            <h4><%= t 'info.price.family' %></h4>
+            <a  href="">
+              <%= image_tag 'membredefamille.jpg', :size => '185x122', :alt => 'membredefamille' %>
+            </a>
+            <p><%= t 'info.price.family_desc' %></p>
+            <a class="button" href="#"><%= t 'info.price.discover' %></a> </li>
+        </ul>
+    
+        <div class="clearfix"></div>
+        <!--  Formules Actifs-->
+        <div class="formula dvd active" id='f1_content'>
+          <ul>
+            <li class="prices">
+              <h2>2 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 1) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>6.45 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD2') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+            <li class="prices populaire size">
+            <div class="icon_populaire <%= I18n.locale %>"></div>
+              <h2>4 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 2) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>11.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD4") %>"><%= t 'info.price.signup' %></a></div>
+            </li>
+            <li class="prices">
+              <h2>6 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 2) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>16.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD6') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="change_formula"><%= link_to(t('info.price.link_mix'), info_path(:page_name => :price)) %></div>
+          
+        </div>
+        <!--  Formules cinéphiles-->
+        <div class="formula" id='f2_content' style="display:none">
+          <ul class="clearfix">
+            <li class="prices">
+              <h2>8 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 2) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>20.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD8') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+            <li class="prices">
+              <h2>10 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 2) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>24.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD10") %>"><%= t 'info.price.signup' %></a></div>
+            </li>
+            <li class="prices populaire size">
+              <div class="icon_populaire <%= I18n.locale %>"></div>
+              <h2>12 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 4) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>28.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD12') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="change_formula"><%= link_to(t('info.price.link_mix'), info_path(:page_name => :price)) %></div>
+          
+        </div>
+        <!--  Formules familles-->
+        <div class="formula" id='f3_content' style="display:none">
+          <ul class="clearfix">
+            <li class="prices">
+              <h2>14 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 4) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>31.45 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD14') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+            <li class="prices populaire size">
+            <div class="icon_populaire <%= I18n.locale %>"></div>
+              <h2>16 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 4) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>34.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD16") %>"><%= t 'info.price.signup' %></a></div>
+            </li>
+            <li class="prices">
+              <h2>18 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 4) %></p>
+              <p><%= t('info.price.formats') %></p>
+              <h4>37.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD18') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="change_formula"><%= link_to(t('info.price.link_mix'), info_path(:page_name => :price)) %></div>
+          
+        </div>
+        <h3><%= t 'info.price.how' %></h3>
+        <p align="justify"><%= t 'info.price.how1' %></p>
+        <p align="justify"><%= t 'info.price.how2' %></p>
+        <p align="justify"><%= t 'info.price.how3' %></p>
+        <div id="subscribe-wrap" class="osc fr">
+          <div class="wrap">
+            <h3><%= t 'info.price.sub' %></h3>
+          </div>
+          <div id="subscribe"> <a href="<%= php_path("step1.php?activation_code=#{@promo_code}") %>" class="btn"><%= t 'info.price.signup_short' %></a>
+            <p><a href="<%= edit_public_promotion_path() %>" id="codePromo"><%= t('info.price.code_promo')%></a></p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id='aste'>* <%= t 'info.price.send' %></div>
+      </div>
+    </div>
+    <div class="faq-container">
+      <h3><%= t 'info.price.faq' %></h3>
+      <% 1..@n.times do |n| %>
+      <div class="faq-info-wrap">
+        <h4 id='faq_<%= n %>'>
+          <span class="button <%= n == 0 ? 'open' : 'close' %>"></span>
+          <div class='question'><%= t("info.price.question_#{n}")%></div>
+        </h4>
+        <div style="display: <%= n == 0 ? 'block' : 'none' %>;" class="clearfix q" id="faq_<%= n %>_r">
+          <p align="left"><%= t("info.price.response_#{n}", :vod_link => streaming_products_faq_path, :dvd_link => info_path(:page_name => :dvd))%>
+          </p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<% else %>
+
+<div id="prices">
+  <% unless mobile_request? %><h2><%= t 'info.price.title' %></h2><% end %>
+  <div class="all-container">
+    <div class="prices-container" align="left">
+      <h3><%= t 'info.price.subtitle' %></h3>
+      <ul>
+        <%= t 'info.price.li' %>
+      </ul>
+      <table align="center">
+        <%= render :partial => 'reconductions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => nil, :selected_abo => nil} %>
+      </table>
+      <%= link_to t('info.price.register'), php_path('step1.php'), :class => "btn #{I18n.locale}" if !mobile_request?  %>
+    </div>
+    <% if !mobile_request? %>
+      <div id="promo_area2">
+        <h4><%= t 'info.price.title_code' %> <a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t('info.price.here') %></a></h4>
+      </div>
+      <div class="clearfix"></div>
+    <% end %>
+  </div>
+  <div id='aste'>* <%= t('info.price.send') %></div>  
+</div>
+<% end %>
