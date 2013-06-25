@@ -31,6 +31,7 @@
           </div>
           
         <% elsif product.in_streaming_or_soon?(params[:kind], session[:country_id]) %>
+        
           <div id="vod"> 
             <span class="col1">VOD</span>
             <span class="col2"><ul class="lang"><%= streaming_audio_bublles(product, true) %></ul></span>
