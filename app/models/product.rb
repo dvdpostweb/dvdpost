@@ -737,7 +737,16 @@ class Product < ActiveRecord::Base
   end
 
   def in_streaming_or_soon?(kind =  :normal, country_id = 21)
-    streaming?(kind, country_id) || vod_next
+    
+    streaming_next = case country_id
+      when 131
+        vod_next_lux
+      when 161
+        vod_next_nl
+      else
+        vod_next
+    end
+    streaming?(kind, country_id) || streaming_next
   end
 
   def streaming?(kind =  :normal, country_id = 21)
