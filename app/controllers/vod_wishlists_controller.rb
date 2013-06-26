@@ -8,9 +8,9 @@ class VodWishlistsController < ApplicationController
       @token_list = current_customer.get_all_tokens(params[:kind])
     end
     @list = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available = 1 and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type and ((available_from <= :now and expire_at >= :now) or (available_backcatalogue_from <= :now and expire_backcatalogue_at >= :now)) and country = :country", {:type => DVDPost.product_kinds[params[:kind]], :now => Time.now().localtime.to_s(:db), :country => Product.country_short_name(session[:country_id])}])
-    if session[:country_id] = 161
+    if session[:country_id] == 161
       country_filter = "vod_next_nl = 1 and"
-    elsif session[:country_id] = 131
+    elsif session[:country_id] == 131
       country_filter = "vod_next_lux = 1 and"
     else
       country_filter = "vod_next = 1 and"
