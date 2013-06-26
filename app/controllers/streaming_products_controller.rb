@@ -1,7 +1,5 @@
 class StreamingProductsController < ApplicationController
   #before_filter :ppv_ready?, :only => [:show]
-  #to do
-  before_filter :vod_lux?, :only => [:show]
 
   def show
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
@@ -227,6 +225,7 @@ class StreamingProductsController < ApplicationController
   def show_error(error, code)
     if code.nil?
       flash[:error] = error
+      notify_country_error(current_customer.to_param, session[:country_id], params[:id])
       redirect_to root_path
     else
       render :partial => '/streaming_products/show/error', :layout => true, :locals => {:error => error}
@@ -240,10 +239,12 @@ class StreamingProductsController < ApplicationController
       redirect_to root_path
     end
   end
-  
-  def vod_lux?
-    if params[:id] && Product.find_by_imdb_id(params[:id]) && !Product.find_by_imdb_id(params[:id]).streaming?(params[:kind], session[:country_id])
-      redirect_to root_path
+  def notify_country_error(customer_id, country_id, imdb_id)
+    begin
+      Airbrake.notify(:error_message => "customer have a problem with VOD customer_id : #{customer_id} country_id: #{country_id} imdb_id: #{imdb_id}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+    rescue => e
+      logger.error("customer have a problem with VOD customer_id : #{customer_id} country_id: #{country_id} imdb_id: #{imdb_id}")
+      logger.error(e.backtrace)
     end
   end
   
