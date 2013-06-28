@@ -843,3 +843,6 @@ overflow: visible;
 .fb-like span { z-index: 9999 !important; width:500px !important;
 overflow: visible;
 }
+#fb{
+  clear:both;
+}
