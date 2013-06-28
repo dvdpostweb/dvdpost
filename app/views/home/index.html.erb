@@ -12,9 +12,9 @@
       <% else %>
         <%= render :partial => '/home/index/wishlist_adult', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
       <% end %>
-      <div class="trailer-week">
+      <!--<div class="trailer-week">
         <%= link_to image_tag("#{I18n.locale}/banner-illimite-adult.jpg"), customers_svod_path %>
-      </div>
+      </div>-->
       <%= render :partial => '/home/index/trailers_week', :locals => {:trailers => @trailers_week}%>
       <!-- selection of the week-->
       <div style='clear:both'></div>
