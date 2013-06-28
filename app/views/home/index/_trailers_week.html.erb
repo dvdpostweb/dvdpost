@@ -1,6 +1,7 @@
-<% nb = trailers.count %>
-<% for i in 1..nb %>
+<% nb = trailers.count -1 %>
+<% for i in 0..nb %>
 <% p = trailers[i] %>
+<% Rails.logger.debug { "@@@#{p.inspect}" }%>
 <div class="trailer-week"> 
   <a href="<%= product_path(:id => p.id) %>">
     <span><%= t '.trailer_week' %><strong><%= p.title %></strong></span> 
