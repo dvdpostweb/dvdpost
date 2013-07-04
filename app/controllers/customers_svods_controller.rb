@@ -1,6 +1,7 @@
 class CustomersSvodsController < ApplicationController
   def show
-    
+    flash[:error] = t("customers_svods.show.suspended")
+    redirect_to root_path
   end
 
   def edit
