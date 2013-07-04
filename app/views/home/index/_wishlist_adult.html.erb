@@ -10,6 +10,7 @@
     </table>
   <% end %>
   <div class="clear"></div>
+  <% if 1==0 #to do %>
   <div id="liste">
     <strong><%= t '.svod_adult' %></strong>
   </div>
@@ -31,4 +32,5 @@
     <%= t ".svod_adult_status_#{current_customer.svod_adult}", :next_reconduction_at => next_reconduction_at(current_customer) %></p>
   <% end %>
     <p style="padding-top:5px;"><%= link_to t(".svod_adult_btn_#{current_customer.svod_adult}"), customers_svod_path %></p>
+  <% end %>
 </div>
