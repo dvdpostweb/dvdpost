@@ -503,7 +503,7 @@ class Product < ActiveRecord::Base
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
       sort = sort_by("available_order desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :vod_soon
-      sort = sort_by("streaming_id desc", options)
+      sort = sort_by("available_at desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
       sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular
