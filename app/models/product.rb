@@ -242,11 +242,11 @@ class Product < ActiveRecord::Base
   sphinx_scope(:cinema)                   {{:with =>          {:in_cinema_now => 1, :next => 1}}}
   sphinx_scope(:soon)                     {{:with =>          {:in_cinema_now => 0, :next => 1}}}
   sphinx_scope(:dvd_soon)                 {{:with =>          {:in_cinema_now => 0, :next => 1}}}
-  sphinx_scope(:vod_soon)                 {{:with =>          {:in_cinema_now => 0, :vod_next => 1}}}
+  sphinx_scope(:vod_soon)                 {{:with =>          {:vod_next => 1}}}
   sphinx_scope(:not_soon)                 {{:with =>          {:vod_next => 0}}}
-  sphinx_scope(:vod_soon_lux)             {{:with =>          {:in_cinema_now => 0, :vod_next_lux => 1}}}
+  sphinx_scope(:vod_soon_lux)             {{:with =>          {:vod_next_lux => 1}}}
   sphinx_scope(:not_soon_lux)             {{:with =>          {:vod_next_lux => 0}}}
-  sphinx_scope(:vod_soon_nl)              {{:with =>          {:in_cinema_now => 0, :vod_next_nl => 1}}}
+  sphinx_scope(:vod_soon_nl)              {{:with =>          {:vod_next_nl => 1}}}
   sphinx_scope(:not_soon_nl)              {{:with =>          {:vod_next_nl => 0}}}
   sphinx_scope(:streaming)                {|country|          {:without =>       {:streaming_imdb_id => 0}, :country => {:streaming_available => country}}}
   sphinx_scope(:random)                   {{:order =>         '@random'}}
