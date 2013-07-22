@@ -313,7 +313,7 @@ class Product < ActiveRecord::Base
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
     products = products.ppv if options[:ppv]
-    products = products.streaming(country) if options[:view_mode] == "streaming" || options[:filter] == "vod"
+    products = products.streaming(country) if options[:view_mode] == "streaming" || (options[:filter] == "vod" and options[:view_mode] != 'vod_soon')
     if options[:highlight_best]
       case options[:locale]
         when 'fr'
