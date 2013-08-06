@@ -146,7 +146,7 @@ class Product < ActiveRecord::Base
             when products_media = 'bluray3d' then 6
             when products_media = 'bluray3d2d' then 7
             else 8 end from products p 
-            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='BE' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='BE' and ( streaming_products.status = 'online_test_ok' and streaming_products.expire_backcatalogue_at >= date(now()) and available = 1)
             where  p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_be
     has "(select case 
             when (products_media = 'DVD' and streaming_products.imdb_id is not null ) or (products_media = 'DVD' and vod_next_lux = 1) then 2
@@ -158,7 +158,7 @@ class Product < ActiveRecord::Base
             when products_media = 'bluray3d2d' then 7
             else 8 end 
             from products p
-            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='LU' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='LU' and ( streaming_products.status = 'online_test_ok' and streaming_products.expire_backcatalogue_at >= date(now()) and available = 1)
             where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_lu
     has "(select case 
             when (products_media = 'DVD' and streaming_products.imdb_id is not null ) or (products_media = 'DVD' and vod_next_nl = 1) then 2
@@ -170,7 +170,7 @@ class Product < ActiveRecord::Base
             when products_media = 'bluray3d2d' then 7
             else 8 end 
             from products p
-            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='NL' and ( streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1)
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='NL' and ( streaming_products.status = 'online_test_ok' and streaming_products.expire_backcatalogue_at >= date(now()) and available = 1)
             where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_nl
     
     indexes "(select group_concat(distinct country) from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1 limit 1)", :type => :multi, :as => :streaming_available
