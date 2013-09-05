@@ -1,7 +1,7 @@
 <div id="bg_anticipation" class="<%= I18n.locale %>">
   <% if @reconduction_earlier %>
   <div id="left_content">
-   <%= t('reconduction.reconduction_earlier_already') %>
+    <%= t('reconduction.reconduction_earlier_already') %>
   </div>
   <% else %>
     <% form_for(:customer, :url => customer_reconduction_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
@@ -25,7 +25,7 @@
                       <span class="formula_nomination"><%= abo_type(current_customer, true, true, true, true) %></span> 
                     </td>
                     <td align="right">
-                      <%= image_tag "pricing#{current_customer.next_credit_per_month}.png", :align => "absmiddle" %>
+                      <%= image_tag "pricing#{current_customer.next_credit_per_month}#{current_customer.next_credit_per_month == current_customer.next_dvd_per_month ? 'dvd': ''}.png", :align => "absmiddle" %>
                     </td>
                     <td width="10"></td>
                   </tr>

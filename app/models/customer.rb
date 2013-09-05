@@ -683,6 +683,15 @@ class Customer < ActiveRecord::Base
     end
   end
   
+  def next_dvd_per_month
+    if next_subscription_type
+      next_subscription_type.qty_dvd_max
+    else
+      notify_hoptoad()
+      '0'
+    end
+  end
+  
   def next_price_per_month 
     if next_subscription_type
       next_subscription_type.product.price
