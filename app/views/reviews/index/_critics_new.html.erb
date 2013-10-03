@@ -13,11 +13,11 @@
         <%= customer_rating.value == 1 ? t('reviews.index.review.relevant') : t('reviews.index.review.not_relevant') %>
       <% else %>
         <%= t 'reviews.index.review.is_relevant' %>
-        <%= link_to image_tag('smiley_yes.png', :class => 'smiley', :width => 16 ), review_review_rating_path(:review_id => review, :rate => 1, :all => 1), :class => 'yes', :review_id => review.reviews_id %>
-        <%= link_to t('reviews.index.review.agree'), review_review_rating_path(:review_id => review, :rate => 1, :all => 1), :class => 'yes', :review_id => review.reviews_id %>
+        <%= link_to image_tag('smiley_yes.png', :class => 'smiley', :width => 16 ), review_review_rating_path(:review_id => review, :rate => 1, :all => 1), :class => 'yes', :review_id => review.id %>
+        <%= link_to t('reviews.index.review.agree'), review_review_rating_path(:review_id => review, :rate => 1, :all => 1), :class => 'yes', :review_id => review.id %>
         |
-        <%= link_to image_tag('smiley_no.png', :class => 'smiley', :width => 16), review_review_rating_path(:review_id => review, :rate => 0, :all => 1), :class => 'no', :review_id => review.reviews_id %>
-        <%= link_to t('reviews.index.review.disagree'), review_review_rating_path(:review_id => review, :rate => 0, :all => 1), :class => 'no', :review_id => review.reviews_id %>
+        <%= link_to image_tag('smiley_no.png', :class => 'smiley', :width => 16), review_review_rating_path(:review_id => review, :rate => 0, :all => 1), :class => 'no', :review_id => review.id %>
+        <%= link_to t('reviews.index.review.disagree'), review_review_rating_path(:review_id => review, :rate => 0, :all => 1), :class => 'no', :review_id => review.id %>
       <% end %>
     </p>
   <% end %>

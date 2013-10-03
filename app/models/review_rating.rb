@@ -1,4 +1,5 @@
 class ReviewRating < ActiveRecord::Base
+  establish_connection "common_#{Rails.env}"
   set_table_name :reviews_rating
 
   alias_attribute :value, :reviews_interesting

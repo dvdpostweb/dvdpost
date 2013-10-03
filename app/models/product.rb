@@ -6,7 +6,9 @@ class Product < ActiveRecord::Base
   @@per_page = 20
 
   set_primary_key :products_id
-  
+  def self.table_name_prefix
+    Rails.env == 'production' ? 'dvdpost_be_prod.' : 'dvdpost_test.'
+  end
   alias_attribute :availability,    :products_availability
   alias_attribute :available_at,    :products_date_available
   alias_attribute :created_at,      :products_date_added
@@ -33,7 +35,7 @@ class Product < ActiveRecord::Base
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
   has_many :ratings, :foreign_key => :products_id
   has_many :ratings_imdb, :class_name => 'Rating', :foreign_key => :imdb_id, :primary_key => :imdb_id
-  has_many :reviews, :foreign_key => :products_id
+  has_many :reviews, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_many :trailers, :foreign_key => :products_id
   has_many :uninteresteds, :foreign_key => :products_id
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true

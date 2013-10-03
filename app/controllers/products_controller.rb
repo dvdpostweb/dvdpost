@@ -154,7 +154,7 @@ class ProductsController < ApplicationController
         end
       else
         if sort != Review.sort2[:interesting]
-          @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all, :include => [:product, :customer, :customer_attribute]).paginate(:page => params[:reviews_page], :per_page => 3)
+          @reviews = Review.by_imdb_id(@product.imdb_id).approved.ordered(sort).by_language(I18n.locale).find(:all).paginate(:page => params[:reviews_page], :per_page => 3)
         else
           @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :include => [:product, :customer, :customer_attribute]).paginate(:page => params[:reviews_page], :per_page => 3)
         end

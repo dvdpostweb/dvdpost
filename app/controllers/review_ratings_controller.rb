@@ -9,7 +9,7 @@ class ReviewRatingsController < ApplicationController
       @review.update_attribute(:dislike_count, (@review.dislike_count + 1))
     end
 
-    review_rating = ReviewRating.create(:reviews_id => @review.to_param, 
+    review_rating = ReviewRating.create(:review_id => @review.to_param, 
                            :customers_id => current_customer.to_param,
                            :value => rate)
     respond_to do |format|
