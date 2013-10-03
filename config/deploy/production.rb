@@ -50,6 +50,14 @@ namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
     db_config = <<-EOF
+    common_production:
+      adapter: mysql
+      encoding: utf8
+      database: common_production
+      username: webuser
+      password: 3gallfir-
+      host: matadi
+      port: 3306
     production:
       adapter: mysql
       encoding: utf8
