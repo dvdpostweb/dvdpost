@@ -3,9 +3,9 @@ class WishlistItemsController < ApplicationController
     @tokens = current_customer.get_all_tokens_id(params[:kind])
     kind = params[:kind] || :normal
     @vod_count = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available = 1 and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type", {:time => Time.now, :type => DVDPost.product_kinds[params[:kind]]}]).count
-    @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(kind).ordered.find(:all, :include => :product, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
-    @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(kind).ordered.find(:all, :include => :product, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
-    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(kind).ordered.find(:all, :include => :product, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
+    @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
+    @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
+    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
     
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
