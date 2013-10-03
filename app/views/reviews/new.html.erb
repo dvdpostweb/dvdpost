@@ -1,6 +1,6 @@
 <div class="content">
   <div id="critical_title"><%= "#{@product.title} (#{@product.year})"%></div>
-  <% form_for @review, :url => product_reviews_path(:product_id => @review.products_id) do |f| %>
+  <% form_for @review, :url => product_reviews_path(:product_id => @review.imdb_id) do |f| %>
   <fieldset>
 		<p class="critical_explain"> 
 	    <%= f.label t('.review_note') %> : 

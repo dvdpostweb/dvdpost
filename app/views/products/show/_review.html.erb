@@ -1,14 +1,18 @@
 <% if params[:kind] == :adult %>
-  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}).count %>
+  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_status => [-2,0,1]}}, :group => 'reviews.id').count %>
 <% else %>
-  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}).count %>
+  <% reviews_count = review.customer.reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => DVDPost.product_kinds[params[:kind]], :products_status => [-2,0,1]}}, :group => 'reviews.id').count %>
 <% end %>
 <div class="movie-ttl">
   	<h3>
-  	  <% if !mobile_request? %>
-        <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>"><%= review.customer_attribute.nickname %></a>
-      <% else %>
-        <%= review.customer_attribute.nickname %>
+  	  <% if review.source == 'PLUSH' %>
+  	    <%= review.customers_name %>
+  	  <% else %>
+    	  <% if !mobile_request? %>
+          <a href="<%= customer_reviews_path(:customer_id => review.customers_id) %>"><%= review.customer_attribute.nickname %></a>
+        <% else %>
+          <%= review.customer_attribute.nickname %>
+        <% end %>
       <% end %>
       <span class="publish">
         <%= "#{t '.published_on'} #{review.created_at.strftime("%d/%m/%Y")}" %>
@@ -24,7 +28,7 @@
       <% unless mobile_request? %>
       <div class="name">
         <%= customer_awards(review.customer, review.customer_attribute.points) %> (<%= reviews_count %> <%= review_title(reviews_count) %>) <br />
-        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics  %>
+        <%= link_to t('.all_critics'), customer_reviews_path(:customer_id => review.customers_id), :class => :all_critics if review.source != 'PLUSH' %>
       </div>
       <% end %>
       <strong style="clear: both;"><%= t '.rating' %> :</strong> 

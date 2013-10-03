@@ -34,7 +34,7 @@ class ReviewsController < ApplicationController
 
   def new
     @product = Product.both_available.find(params[:product_id])
-    @review = Review.new(:products_id => params[:product_id])
+    @review = Review.new(:imdb_id => @product.imdb_id)
     respond_to do |format|
       format.html
       format.js {render :layout => false}
