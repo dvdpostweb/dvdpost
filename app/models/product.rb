@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
 
   set_primary_key :products_id
   def self.table_name_prefix
-    Rails.env == 'production' ? 'dvdpost_be_prod.' : 'dvdpost_test.'
+    Rails.env == 'production' || Rails.env == 'pre_production' ? 'dvdpost_be_prod.' : 'dvdpost_test.'
   end
   alias_attribute :availability,    :products_availability
   alias_attribute :available_at,    :products_date_available
