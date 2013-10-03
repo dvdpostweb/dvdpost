@@ -165,19 +165,23 @@ class ProductsController < ApplicationController
       #product_recommendations = @product.recommendations(params[:kind])
       customer_id = current_customer ? current_customer.id : 0
       r_type = params[:r_type].to_i || 1
-      @recommendation_page = params[:recommendation_page].to_i
-      @recommendation_page = 1 if @recommendation_page == 0
-      data = @product.recommendations(params[:kind])
-      if data
-        product_recommendations = data[:products]
-        @recommendation_response_id = data[:response_id]
-      else
-        product_recommendations = nil
-      end
-      if product_recommendations
-      @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5)
-      @recommendation_nb_page = @recommendations.total_pages
-      end
+      #@recommendation_page = params[:recommendation_page].to_i
+      #@recommendation_page = 1 if @recommendation_page == 0
+      #data = @product.recommendations(params[:kind])
+      #if data
+      #  product_recommendations = data[:products]
+      #  @recommendation_response_id = data[:response_id]
+      #else
+      #  product_recommendations = nil
+      #end
+      #if product_recommendations
+      #@recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 5)
+      #@recommendation_nb_page = @recommendations.total_pages
+      #end
+      
+      @recommendations = nil
+      @recommendation_nb_page = 0
+      
     end
     respond_to do |format|
       
