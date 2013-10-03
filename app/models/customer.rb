@@ -238,31 +238,31 @@ class Customer < ActiveRecord::Base
   end
 
   def self.send_evidence(type, product_id, customer, request, params = nil , args = nil)
-    begin
-      ip = request.remote_ip
-      product_id = product_id.to_s.gsub(/-.*/,'')
-      if params[:response_id]
-        params[:responseid] = params[:response_id]
-        params.delete :response_id
-      end
-      url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
-      unless @bot
-        message = ""
-        message += " user #{customer.id}" if customer
-        message += " url #{url}"
-        message += " date #{Time.now.strftime("%Y-%m-%d %H:%M") }"
-        message += " params #{params.inspect}"
-        message += " request #{request.host}#{request.fullpath}"
-        message += " referer #{request.referer}" if request.referer
-        message += " user agent #{request.env['HTTP_USER_AGENT']}\n\r" if request.env['HTTP_USER_AGENT']
-        target  = "log/check_thefilter.log"
-        File.open(target, "a+") do |f|
-          f.write(message)
-        end
-      end
-    rescue => e
-      logger.error("Failed to send evidence: #{e.message}")
-    end
+    #begin
+    #  ip = request.remote_ip
+    #  product_id = product_id.to_s.gsub(/-.*/,'')
+    #  if params[:response_id]
+    #    params[:responseid] = params[:response_id]
+    #    params.delete :response_id
+    #  end
+    #  url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
+    #  unless @bot
+    #    message = ""
+    #    message += " user #{customer.id}" if customer
+    #    message += " url #{url}"
+    #    message += " date #{Time.now.strftime("%Y-%m-%d %H:%M") }"
+    #    message += " params #{params.inspect}"
+    #    message += " request #{request.host}#{request.fullpath}"
+    #    message += " referer #{request.referer}" if request.referer
+    #    message += " user agent #{request.env['HTTP_USER_AGENT']}\n\r" if request.env['HTTP_USER_AGENT']
+    #    target  = "log/check_thefilter.log"
+    #    File.open(target, "a+") do |f|
+    #      f.write(message)
+    #    end
+    #  end
+    #rescue => e
+    #  logger.error("Failed to send evidence: #{e.message}")
+    #end
   end
 
   def popular(filter, options={})
