@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+    before_filter :http_authenticate, :if => :staging?
     helper_method :current_customer, :unless => :is_it_xml?
     before_filter :save_attempted_path, :unless => :is_it_xml?
     before_filter :check_host
@@ -38,7 +39,9 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
-  
+  def staging?
+    Rails.env == 'staging' || Rails.env == 'pre_production'
+  end
   # Force all mobile users to login
   def mobile_request?
     return request.subdomains.first == "m"
