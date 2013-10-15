@@ -107,6 +107,9 @@ class ProductsController < ApplicationController
         end
       
       }
+      format.json {
+        
+      }
     end  
   end
 
@@ -167,7 +170,7 @@ class ProductsController < ApplicationController
       r_type = params[:r_type].to_i || 1
       @recommendation_page = params[:recommendation_page].to_i
       @recommendation_page = 1 if @recommendation_page == 0
-      data = @product.recommendations(params[:kind])
+      data = @product.recommendations(params[:kind], current_customer)
       if data
         product_recommendations = data[:products]
         @recommendation_response_id = data[:response_id]

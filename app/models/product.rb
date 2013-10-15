@@ -308,6 +308,7 @@ class Product < ActiveRecord::Base
     end
     products = products.exclude_products_id([exact.collect(&:products_id)]) if exact
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
+    products = products.by_products_id(options[:products_id].split(',')) if options[:products_id] && !options[:products_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
     products = products.by_collection(options[:collection_id]) if options[:collection_id]
@@ -537,10 +538,10 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
-  def recommendations(kind)
+  def recommendations(kind, customer)
     begin
       # external service call can't be allowed to crash the app
-      data  = DVDPost.product_linked_recommendations(self, kind, I18n.locale)
+      data  = DVDPost.product_linked_recommendations(self, kind, I18n.locale, customer ? customer.to_param : nil )
       recommendation_ids = data[:dvd_id]
       response_id = data[:response_id]
       url = data[:url]
@@ -754,10 +755,26 @@ class Product < ActiveRecord::Base
   def streaming?(kind =  :normal, country_id = 21)
     sql = streaming_products
     unless Rails.env == "pre_production"
-      sql = sql.available.country('BE')
+      country = case country_id
+        when 131
+          'LU'
+        when 161
+          'NL'
+        else
+          'BE'
+        end
+        sql = sql.available.country(country)
     end
     sql = sql.first
     sql
+  end
+
+  def in_streaming?(kind =  :normal, country_id = 21)
+    if streaming?(kind =  :normal, country_id = 21).nil?
+      false
+    else
+      true
+    end
   end
 
   def good_language?(language)

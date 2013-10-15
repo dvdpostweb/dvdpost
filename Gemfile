@@ -33,3 +33,5 @@ gem 'geoip'
 gem 'useragent'
 gem 'browser', "~> 0.1.6"
 gem 'memcache-client'
+gem 'rabl'
+gem 'oj'

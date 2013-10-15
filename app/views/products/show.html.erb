@@ -98,6 +98,7 @@ window.fbAsyncInit=function() {
     </div>
     <% end %>
     <div id="btns-wrap" class="osc">
+      <% Rails.logger.debug { "@@@" }%>
       <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
         <% if @product.streaming?(params[:kind], session[:country_id]) %>
           <%= render :partial => 'products/streaming',  :locals => {:product => @product, :source => @source, :response_id => @response_id} %>
