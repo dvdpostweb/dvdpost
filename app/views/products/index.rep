@@ -1,3 +1,0 @@
-r.list_of :products, @products do
-  r.element :products_title
-end
