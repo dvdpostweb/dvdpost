@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
     before_filter :public_behaviour, :if => :public_page?
-    
+    before_filter :allow_cross_domain_access
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
     render :file => "#{Rails.root}/public/404.html", :status => 404
@@ -334,4 +334,10 @@ class ApplicationController < ActionController::Base
     end
     return result
   end
+
+  def allow_cross_domain_access
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "*"
+  end
+
 end
