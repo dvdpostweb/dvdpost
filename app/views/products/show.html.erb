@@ -1,5 +1,5 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div id='fb-root'></div>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -7,36 +7,7 @@
   js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=254486224617136";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<script type="text/javascript">
-window.fbAsyncInit=function() {
 
-  FB.init({
-				appId : "254486224617136",
-				status : true,
-				cookie : true
-			});
-
-			function postToFeed(text, image, locale, id, name, caption) {
-
-				// calling the API ...
-				var obj = {
-					method : 'feed',
-					link : 'http://public.dvdpost.com/'+locale+'/products/'+id,
-					picture : image,
-					name : name,
-					caption : caption,
-					description : text,
-				};
-
-				function callback(response) {
-					/*alert("Post ID: " + response['post_id']);*/
-				}
-
-
-				FB.ui(obj, callback);
-			}
-}
-</script>
 
 <div id="maincontent">
   <div class="ttl-wrap">
@@ -98,7 +69,6 @@ window.fbAsyncInit=function() {
     </div>
     <% end %>
     <div id="btns-wrap" class="osc">
-      <% Rails.logger.debug { "@@@" }%>
       <% if @product.in_streaming_or_soon?(params[:kind], session[:country_id]) and streaming_access? %>
         <% if @product.streaming?(params[:kind], session[:country_id]) %>
           <%= render :partial => 'products/streaming',  :locals => {:product => @product, :source => @source, :response_id => @response_id} %>
@@ -159,7 +129,7 @@ window.fbAsyncInit=function() {
     </div>
     <div id="fb">
       <% unless @product.adult? %>
-        <div class="fb-like" data-send="false" data-width="450" data-show-faces="false" data-action="recommend"></div>
+        <div class="fb-like" data-href="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>" data-width="400" data-height="100" data-colorscheme="light" data-layout="standard" data-action="recommend" data-show-faces="true" data-send="false"></div>
       <% end %>
     </div>    
     
