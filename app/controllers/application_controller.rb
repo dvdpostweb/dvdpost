@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     before_filter :validation_adult, :if => :is_it_html?
     before_filter :sexuality?
     before_filter :public_behaviour, :if => :public_page?
-    
+    before_filter :allow_cross_domain_access
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
     render :file => "#{Rails.root}/public/404.html", :status => 404
@@ -148,12 +148,28 @@ class ApplicationController < ActionController::Base
         my_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
         my_ip = request.remote_ip if my_ip.nil?
         c = GeoIP.new('GeoIP.dat').country(my_ip)
+        session[:my_ip] = my_ip
         if c.country_code == 0 && Rails.env == "production" && ! /^192(.*)/.match(my_ip) && ! /^172(.*)/.match(my_ip) && ! /^10(.*)/.match(my_ip) && ! /^127(.*)/.match(my_ip)
           notify_hoptoad("country code is empty ip : #{my_ip}") 
         end
         session[:country_id] = c.country_code
       end
     end
+    if current_customer && (current_customer.id == 127092 || current_customer.id == 206183)
+      begin
+        ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
+        my_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
+        my_ip = request.remote_ip if my_ip.nil?
+        c = GeoIP.new('GeoIP.dat').country(my_ip)
+        message = "session country #{session[:country_id]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code}"
+        Rails.logger.debug { "@@@#{message}" }
+        Airbrake.notify(:error_message => message, :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+      rescue => e
+        logger.error("GeoIP error: ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]}")
+        logger.error(e.backtrace)
+      end
+    end
+    
     #session[:country_id] = 0
   end
   
@@ -334,4 +350,10 @@ class ApplicationController < ActionController::Base
     end
     return result
   end
+
+  def allow_cross_domain_access
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "*"
+  end
+
 end
