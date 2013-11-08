@@ -163,7 +163,9 @@ class ApplicationController < ActionController::Base
         c = GeoIP.new('GeoIP.dat').country(my_ip)
         message = "session country #{session[:country_id]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code}"
         Rails.logger.debug { "@@@#{message}" }
-        Airbrake.notify(:error_message => message, :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+        recipient = 'gs@dvdpost.be'
+        subject = 'country ip'
+        Emailer.deliver_send(recipient, subject, message)
       rescue => e
         logger.error("GeoIP error: ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]}")
         logger.error(e.backtrace)
