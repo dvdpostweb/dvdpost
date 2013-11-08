@@ -225,7 +225,7 @@ class StreamingProductsController < ApplicationController
   def show_error(error, code)
     if code.nil?
       flash[:error] = error
-      notify_country_error(current_customer.id, session[:country_id], params[:id], error)
+      notify_country_error(current_customer.id, session[:country_id], params[:id], error, session[:my_ip])
       redirect_to root_path
     else
       render :partial => '/streaming_products/show/error', :layout => true, :locals => {:error => error}
@@ -239,11 +239,11 @@ class StreamingProductsController < ApplicationController
       redirect_to root_path
     end
   end
-  def notify_country_error(customer_id, country_id, imdb_id, error)
+  def notify_country_error(customer_id, country_id, imdb_id, error, ip)
     begin
-      Airbrake.notify(:error_message => "customer have a problem with VOD customer_id : #{customer_id} country_id: #{country_id} imdb_id: #{imdb_id}, error #{error}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+      Airbrake.notify(:error_message => "customer have a problem with VOD customer_id : #{customer_id} country_id: #{country_id} imdb_id: #{imdb_id}, error #{error} ip in session: #{ip} forwarded: #{request.env["HTTP_X_FORWARDED_FOR"]} remote: #{request.remote_ip}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
     rescue => e
-      logger.error("customer have a problem with VOD customer_id : #{customer_id} country_id: #{country_id} imdb_id: #{imdb_id} error #{error}")
+      logger.error("customer have a problem with VOD customer_id : #{customer_id} country_id: #{country_id} imdb_id: #{imdb_id} error #{error} ip in session: #{ip} forwarded: #{request.env["HTTP_X_FORWARDED_FOR"]} remote: #{request.remote_ip}")
       logger.error(e.backtrace)
     end
   end
