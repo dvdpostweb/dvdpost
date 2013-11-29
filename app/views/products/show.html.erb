@@ -118,6 +118,11 @@
       
       
       <div class="clearfix"></div>
+      <% if @product.streaming?(params[:kind], session[:country_id]) && @product.streaming_products.first.drm == true %>
+        <div class="verimatrix">
+          <%= t('.viewright', :link => info_path(:page_name => :viewright)) %>
+        </div>
+      <% end %>
       <% if @product.availability == -1 %>
       <div class="clearfix"></div>
       <div id="not_available" class="<%= I18n.locale %>">
@@ -132,7 +137,6 @@
         <div class="fb-like" data-href="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>" data-width="400" data-height="100" data-colorscheme="light" data-layout="standard" data-action="recommend" data-show-faces="true" data-send="false"></div>
       <% end %>
     </div>    
-    
     <div id="thumbs-wrap">
       <h3><%= t '.photo' %></h3>
       <div>
