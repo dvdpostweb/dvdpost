@@ -89,20 +89,23 @@ $(function() {
       success: function(data) {
         if(/.m3u8$/.test(data))
         {
+          $('#presentation').html('')
+          $('.qualityvod').show()
           if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
+          {
             $("#player").html('<object id="ViewRightControl" classid="CLSID:059BFDA3-0AAB-419F-9F69-AF9BBE3A4668" width="696" height="389"></object><button type="button" id="play" style="display:none">Play</button><button type="button" id="pause">Pause</button><button id="fullscreenon_off" type="button">Fullscreen</button>');
+          }
           else
+          {
             $("#player").html('<object id="ViewRightControl" type="application/x-viewright-m3u8" width="696" height="389"></object><button type="button" id="play" style="display:none">Play</button><button type="button" id="pause">Pause</button><button id="fullscreenon_off" type="button">Fullscreen</button>');
+          }
           Open($.trim(data))
-          
         }
         else
         {
           $('#flow').html(data);
         }        
         
-        $('#presentation').html('')
-        $('.qualityvod').show()
       },
       error: function() {
         $('#presentation').html(content);
