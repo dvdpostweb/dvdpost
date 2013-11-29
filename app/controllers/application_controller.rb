@@ -160,14 +160,13 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    if current_customer && current_customer.id == 127092
+    if current_customer && current_customer.id == 1066916
       begin
         ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
         my_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
         my_ip = request.remote_ip if my_ip.nil?
         c = GeoIP.new('GeoIP.dat').country(my_ip)
         message = "#{request.session_options[:id]} session country #{session[:country_id]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code}"
-        Rails.logger.debug { "@@@#{message}" }
         recipient = 'gs@dvdpost.be'
         subject = 'country ip'
         Emailer.deliver_send(recipient, subject, message)
