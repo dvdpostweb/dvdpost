@@ -162,7 +162,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    if current_customer && (current_customer.id == 1066916 || current_customer.id == 206183)
+    if current_customer && (current_customer.id == 1066916 || current_customer.id == 20618)
       begin
         ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
         my_forwarded_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10\.(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
