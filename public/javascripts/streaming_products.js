@@ -89,6 +89,7 @@ $(function() {
       success: function(data) {
         if(/.m3u8$/.test(data))
         {
+          alert(data)
           $('#presentation').html('')
           $('.qualityvod').show()
           if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
@@ -102,7 +103,9 @@ $(function() {
           Open($.trim(data))
         }
         else
-        {
+        { 
+          $('#presentation').html('')
+          $('.qualityvod').show()
           $('#flow').html(data);
         }        
         

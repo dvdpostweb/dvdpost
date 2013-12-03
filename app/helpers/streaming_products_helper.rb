@@ -1,6 +1,5 @@
 module StreamingProductsHelper
   def flowplayer(source_file, source, streaming, token_name, browser)
-    Rails.logger.debug { "@@@#{streaming.drm}" }
     if browser.iphone? || browser.ipad? || mobile_request? || browser.tablet?
       audio = streaming.languages.by_language(:fr).first.short_alpha
       sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
