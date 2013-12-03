@@ -144,29 +144,31 @@ class ApplicationController < ActionController::Base
       session[:country_id] = params[:debug_country_id].to_i
     else
       my_ip = request.remote_ip
-      if session[:country_id].nil? || session[:country_id] == 20 || session[:my_ip] != my_ip
+      if session[:country_id].nil? || session[:country_id] == 77 || session[:my_ip] != my_ip
         ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
-        my_forwarded_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
+        my_forwarded_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10\.(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
         cf = GeoIP.new('GeoIP.dat').country(my_forwarded_ip) if my_forwarded_ip
         c = GeoIP.new('GeoIP.dat').country(my_ip)
-        session[:my_ip] = my_ip
+        
         if c.country_code == 0 && Rails.env == "production" && ! /^192(.*)/.match(my_ip) && ! /^172(.*)/.match(my_ip) && ! /^10(.*)/.match(my_ip) && ! /^127(.*)/.match(my_ip)
           notify_hoptoad("country code is empty ip : #{my_ip}") 
         end
         if cf && (cf.country_code == 22 || cf.country_code == 161 || cf.country_code == 131)
           session[:country_id] = cf.country_code
+          session[:my_ip] = my_forwarded_ip
         else
           session[:country_id] = c.country_code
+          session[:my_ip] = my_ip
         end
       end
     end
     if current_customer && (current_customer.id == 1066916 || current_customer.id == 206183)
       begin
         ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
-        my_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
-        my_ip = request.remote_ip if my_ip.nil?
-        c = GeoIP.new('GeoIP.dat').country(my_ip)
-        message = "#{request.session_options[:id]} session country #{session[:country_id]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code}"
+        my_forwarded_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10\.(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
+        cf = GeoIP.new('GeoIP.dat').country(my_forwarded_ip) if my_forwarded_ip
+        c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
+        message = "#{request.session_options[:id]} session country #{session[:country_id]} session ip #{session[:my_ip]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code} country code fowarded #{cf ? cf.country_code : ''}"
         recipient = 'gs@dvdpost.be'
         subject = "audit geolocalisation for customer id #{current_customer.id}"
         Emailer.deliver_send(recipient, subject, message)

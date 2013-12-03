@@ -5,11 +5,12 @@ class ProductCountry < ActiveRecord::Base
 
   set_primary_key :countries_id
 
-  alias_attribute :name, :countries_name
-
   has_many :products, :foreign_key => :products_countries_id
 
   named_scope :visible, :conditions => {:inprod => 1}
   named_scope :order, :order => 'countries_name asc'
-  
+
+  def name
+    self[I18n.locale]
+  end
 end
