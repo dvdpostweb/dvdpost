@@ -88,7 +88,7 @@ class OgonesController < ApplicationController
         "\\$\\$\\$final_price\\$\\$\\$" => price,
         "\\$\\$\\$abo_price\\$\\$\\$" => price,
         "\\$\\$\\general_conditions\\$\\$\\$" => t('info.conditions.info'),
-        "\\$\\$\\subscription\\$\\$\\$" => customer.subscription_type.description;
+        "\\$\\$\\subscription\\$\\$\\$" => customer.subscription_type.description
         }
       send_message(DVDPost.email[:welcome], options)
       if current_customer.site == 'lavenir'
