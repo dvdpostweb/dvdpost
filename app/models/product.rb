@@ -855,12 +855,14 @@ class Product < ActiveRecord::Base
   def self.search_clean(query_string, options={})
     qs = []
     if query_string
+      query_string = query_string.gsub(' et ',' ')
       qs = query_string.split.collect do |word|
-        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$!^]/, '').gsub(' et ',' ')
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$!^]/, '')
       end
     end
     query_string = qs.join(' ')
     query_string = "@descriptions_title #{query_string}" if !query_string.empty?
+    Rails.logger.debug { "@@@#{query_string}" }
     page = options[:page] || 1
     limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = options[:per_page] || self.per_page
