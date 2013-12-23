@@ -85,7 +85,10 @@ class OgonesController < ApplicationController
         "\\$\\$\\$email\\$\\$\\$" => "#{current_customer.email}",
         "\\$\\$\\$gender_simple\\$\\$\\$" => gender,
         "\\$\\$\\$promotion\\$\\$\\$" => promotion(current_customer)[:promo],
-        "\\$\\$\\$final_price\\$\\$\\$" => price
+        "\\$\\$\\$final_price\\$\\$\\$" => price,
+        "\\$\\$\\$abo_price\\$\\$\\$" => price,
+        "\\$\\$\\general_conditions\\$\\$\\$" => t('info.conditions.info'),
+        "\\$\\$\\subscription\\$\\$\\$" => customer.subscription_type.description;
         }
       send_message(DVDPost.email[:welcome], options)
       if current_customer.site == 'lavenir'
