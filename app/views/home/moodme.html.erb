@@ -1,0 +1,442 @@
+<%= stylesheet 'newplay' %>
+<%= javascript 'products' %>
+<link href='http://fonts.googleapis.com/css?family=Alef:400' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+<script src="http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js" type="text/javascript"></script>
+<div id="content">
+    Laissez-vous guider par vos humeurs
+    <div id="moodmovie">
+        <center>
+        <div id="moodmovie_question">
+            <div class="actuelle">
+                <div class="question">
+                    <img class="loading" src="/images/moodme/images/jeu/loading.gif"/>
+                    <img class="recommencer" src="/images/moodme/images/jeu/replay.png"/>
+                    <!-- Javascript :
+                    <div class="conteneur grande_image">
+                        <h1 class="titre_question">{{Dynamique}}</h1>
+                        <img src="{{Dynamique}}" />
+                    </div>
+                    -->
+                </div>
+                
+                <div class="boutons">
+                    <div id="moodmovie_boutons">
+                        <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width: 180px;"></td>
+                            <td style="width: 100px; height: 100px;" align="center" valign="middle">
+                                <span id="moodmovie_non">
+                                    <img src="/images/moodme/images/jeu/button/no.png"
+                                        onMouseOver="this.src='/images/moodme/images/jeu/button/no-push.png'"
+                                        onMouseOut="this.src='/images/moodme/images/jeu/button/no.png'"
+                                        style="width:75px; height: 79px;" />
+                                </span>
+                            </td>
+                            <td style="width: 74px; height: 100px;" align="center" valign="middle">
+                                <span id="moodmovie_passer">
+                                    <img src="/images/moodme/images/jeu/button/reload.png"
+                                        onMouseOver="this.src='/images/moodme/images/jeu/button/reload-push.png'"
+                                        onMouseOut="this.src='/images/moodme/images/jeu/button/reload.png'"
+                                        style="width:56px; height: 58px;" />
+                                </span>
+                            </td>
+                            <td style="width: 100px; height: 100px;" align="center" valign="middle">
+                                <span id="moodmovie_oui">
+                                    <img src="/images/moodme/images/jeu/button/yes.png"
+                                        onMouseOver="this.src='/images/moodme/images/jeu/button/yes-push.png'"
+                                        onMouseOut="this.src='/images/moodme/images/jeu/button/yes.png'"
+                                        style="width:75px; height: 79px;" />
+                                </span>
+                            </td>
+                            <td style="width: 160px;"></td>
+                        </tr>
+                        </table>
+                    </div>
+                    <div id="moodmovie_attente">
+                        En attente du serveur...
+                    </div>
+                <div class="boutons_resultats">
+                        <a href="http://www.moodmovie.net">
+                            <img src="http://moodmovie.net/images/title.png"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="precedentes">
+                <img class="prev" src="/images/moodme/images/jeu/button/arrow_up.png"/>
+                <h2>
+                    Vos envies...
+                </h2>
+                <div class="scrollable vertical">
+                    <div class="items">
+                        <!-- Javascript :
+                        <div class="conteneur petite_image">
+                            <h1 class="titre_question">{{Dynamique}}</h1>
+                            <img src="{{Dynamique}}" />
+                        </div>
+                        <div class="conteneur petite_image">
+                            <h1 class="titre_question">{{Dynamique}}</h1>
+                            <img src="{{Dynamique}}" />
+                        </div>
+                        -->
+                    </div>
+                </div>
+                <img class="next" src="/images/moodme/images/jeu/button/arrow_down.png"/>
+            </div>
+        </div>
+        <div id="boutons_test">
+            <ul>
+                <li><button id="bouton_jouer">Jouer !</button></li>
+                <li><button id="bouton_test_api">Tester les requêtes.</button></li>
+                <li><button id="bouton_test_design_question">Tester une question.</button></li>
+                <li><button id="bouton_test_question_manquante">Tester une question manquante.</button></li>
+                <li><button id="bouton_test_design_resultats">Tester les résultats.</button></li>
+            </ul>
+        </div>
+        </center>
+        <div id="moodmovie_resultats">
+            <h2>Résultats</h2>
+            <div class="attente">
+                En attente du serveur dvdpost...
+            </div>
+            <div class="erreur">
+                Erreur lors de la requête DVDPost.
+            </div>
+            <div class="resultats">
+                <!-- Javascript
+                <div class="resultat [selected]">
+                    <img src="" class="affiche" /><br/>
+                    <h2>Broken</h2>
+                    <img class="fleche_selection" src="/images/moodme/images/jeu/select.png" />
+                </div>
+                -->
+            </div>
+            <div class="result_info">
+                <h2>Synopsis</h2>
+                <p style="display:inline-block; width: 80%">Inséparables depuis le premier âge, Lil et Roz vivent en parfaite osmose avec leurs deux enfants, deux jeunes garçons à la grâce singulière et qui semblent des prolongements d'elles-mêmes. Les maris sont absents. Inexplicablement, et pourtant comme à l'évidence, chaque femme se rapproche du fils de l'autre, nouant avec lui une relation passionnelle. A l'abri des regards, dans un Eden balnéaire presque surnaturel, le quatuor va vivre une histoire hors norme...</p>
+                <div style="display:inline-block">
+                    <a class="add_to_wishlist_button add"><img src="/images/moodme/images/jeu/button/add.png" /></a>
+                    <br /><a class="watch"><img src="/images/moodme/images/jeu/button/watch.png" /></a>
+                    <br /><a class="bande-annonce trailer"><img src="/images/moodme/images/jeu/button/ba.png" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    var root = $('#moodmovie');
+    var rootQuestion = $('#moodmovie_question');
+    var rootResultats = $('#moodmovie_resultats');
+
+    var URL_BASE = "http://www.moodmovie.net/"
+    URL_BASE = "http://megaz.alwaysdata.net/"
+    var URL_IMAGE = URL_BASE + "static/moodme/images/"
+    var URL_CRITERES = URL_IMAGE + "criteres_grand/"
+    
+    var idPartie = undefined;
+
+    function changeQuestion(save) {
+        var question = rootQuestion.find(".question");
+        var conteneur = question.find(".conteneur.grande_image");
+        var precedentes = question.find(".precedentes");
+        
+        conteneur.remove()
+        
+        if(conteneur.length && save) {
+            //precedentes.find(".items").append(conteneur)
+            $(".scrollable").data("scrollable").addItem(conteneur);
+            conteneur.removeClass("grande_image").addClass("petite_image")
+        }
+    }
+    
+    function questionMode(data) {
+        root.attr('class', "mode_question")
+        
+        idPartie = data.partie
+        
+        $(rootQuestion).find(".question")
+        .append(
+            $("<div>",{
+                class: "conteneur grande_image"
+            })
+            .append(
+                $("<img>",{
+                    src: URL_CRITERES + data.image
+                })
+            )
+            .append(
+                $("<h1>",{
+                    class: "titre_question",
+                    text: data.question
+                })
+            )
+        )
+        
+    }
+
+    function resultatsMode(data) {
+        root.attr('class', "mode_resultats")
+        window.location.hash = 'moodmovie_resultats'
+        
+        rootResultats
+        .find('.attente')
+            .show()
+        .end()
+        .find('.erreur')
+            .hide()
+        .end()
+        .find('.resultats')
+            .empty()
+        .end()
+        .find('.result_info')
+            .hide()
+        .end()
+        
+        $.ajax({
+            url: (
+                'http://staging.private.dvdpost.com/fr/products.json?products_id='
+                + $.map(
+                    data.resultats,
+                    function(res) { return res.iddvdpost }
+                ).join(',')
+            ),
+            dataType: 'json'
+        })
+        .always(function(){
+            rootResultats.find('.attente').hide()
+        })
+        .fail(function(a,b,c){
+            console.log(a,b,c)
+            rootResultats.find('.erreur').show()
+        })
+        .done( function(jdvdpost) {
+            window.location.hash = 'moodmovie_resultats'
+        
+            rootResultats.find('.resultats').append(
+                $.map(jdvdpost, function(infodvd, i) {
+                    function selectMe()
+                    {
+                        rootResultats.find('.resultat').removeClass('selected')
+                        self.addClass('selected')
+                        
+                        var result_info = rootResultats.find('.result_info')
+                        .show()
+                        .find('p')
+                            .html(
+                                infodvd.product.product_description.text
+                            )
+                        .end()
+                        .find('a.add')
+                            .attr('href', 'http://staging.private.dvdpost.com'
+                                + infodvd.product.add_url)
+                        .end()
+                        .find('a.watch')
+                            .attr('href', 'http://staging.private.dvdpost.com'
+                                + infodvd.product.url)
+                        .end()
+                        .find('a.bande-annonce')
+                            .attr('href', 'http://staging.private.dvdpost.com'
+                                + infodvd.product.trailer_url)
+                            .css('display', infodvd.product.trailer_url == undefined ? 'none' : '')
+                        .end()
+                        
+                        
+                    }
+                    
+                    var self = (
+                        $("<div>", {
+                            class: 'resultat'
+                        })
+                        .on('click', selectMe)
+                        .append(
+                            $("<img/>", {
+                                class: 'affiche',
+                                src: (
+                                    'http://www.dvdpost.be/images/'
+                                    + infodvd.product.product_description.image
+                                )
+                            })
+                        )
+                        .append(
+                            $("<h2>", {
+                                text: infodvd.product.product_description.title
+                            })
+                        )
+                        .append(
+                            $("<img/>", {
+                                class: 'fleche_selection',
+                                src: '/images/moodme/images/jeu/select.png'
+                            })
+                        )
+                        /*.append(
+                            $("<a>", {
+                                text: res.nom,
+                                href:"http://staging.private.dvdpost.com/fr/products/" + res.iddvdpost
+                            })
+                        )*/
+                    )
+                    
+                    if(i == 0)
+                        selectMe()
+                    
+                    return self
+                })
+            )
+        })
+    }
+
+    function waitingMode() {
+        root.attr('class', "mode_attente")
+    }
+
+    function testMode() {
+        root.attr('class', "mode_test")
+    }
+
+    function dataReceived(data) {
+        if(data.fin)
+            resultatsMode(data)
+        else
+            questionMode(data)
+    }
+
+    function callAPI(relativeURL) {
+        waitingMode()
+        
+        $.ajax({
+            url: URL_BASE + "moodme/" + relativeURL,
+            dataType: 'json'
+        })
+        .done(
+            relativeURL != "testjson" ?
+            dataReceived :
+            function(json) {
+                $("#boutons_test").append(
+                    $("<div>")
+                    .html(
+                        "Resultat à obtenir : false 1234 <br/>"
+                        + "Resultat obtenu : " + json.boolean + " " + json.numero
+                    )
+                )
+                testMode()
+            }
+        )
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            alert("ajax fail: status : " + jqXHR.status + " " + textStatus)
+            testMode()
+        })
+    }
+
+    $("#moodmovie_oui").on('click', function() {
+        changeQuestion(true)
+        if(idPartie)
+            callAPI("continuegame?output=json&partie=" + idPartie + "&reponse=1")
+    })
+
+    $("#moodmovie_non").on('click', function() {
+        changeQuestion(false)
+        if(idPartie)
+            callAPI("continuegame?output=json&partie=" + idPartie + "&reponse=0")
+    })
+
+    $('#moodmovie_passer').on('click', function() {
+        changeQuestion(false)
+        if(idPartie)
+            callAPI("skipquestion?output=json&partie=" + idPartie + "&reponse=1")
+    })
+
+    $("#bouton_jouer").on('click', function() {
+        callAPI("startgame?output=json&database=dvdpost")
+    })
+
+    $("#bouton_test_api").on('click', function() {
+        callAPI("testjson")
+    })
+
+    $("#bouton_test_design_question").on('click', function() {
+        $.each([
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            ["Vraiment beaucoup d'humour fou?","humour2.png"],
+            ["Vraiment beaucoup de folle violence?","violence.png"],
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            ["Vraiment beaucoup d'amour fou?","amour.png"]
+        ],
+        function(i, d) {
+            changeQuestion(true)
+            questionMode({"fin":false, "question":d[0], "image":d[1]})
+        })
+    })
+
+    $("#bouton_test_question_manquante").on('click', function() {
+        $.each([
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            //["Vraiment beaucoup d'humour fou?","humour2.png"],
+            ["Noninone Noninone Noninone Noninone Noninone Noninone NONE","none"]
+        ],
+        function(i, d) {
+            changeQuestion(true);
+            questionMode({
+                fin: false,
+                question: d[0],
+                image: d[1]
+            })
+        })
+    })
+    
+    $(".recommencer").on('click', function() {
+        document.location.reload(true)
+    })
+
+    $("#bouton_test_design_resultats").on('click', function() {
+        $.each([
+            ["Vraiment beaucoup d'amour fou?","amour.png"],
+            ["Vraiment beaucoup d'humour fou?","humour2.png"]
+        ],
+        function(i,d) {
+            changeQuestion(true);
+            questionMode({
+                fin: false,
+                question: d[0],
+                image: d[1]
+            })
+        })
+        
+        changeQuestion(true);
+        resultatsMode({
+            fin: true,
+            resultats:[
+                {
+                    iddvdpost: 6708,
+                    nom: "A Lot Like Love"
+                },
+                {
+                    iddvdpost: 108822,
+                    nom: "Mamma Mia"
+                },
+                {
+                    iddvdpost: 108380,
+                    nom: "Le Premier Jour du Reste de ta Vie"
+                },
+                {
+                    iddvdpost: 5843,
+                    nom: "A Cinderella Story"
+                }
+            ]
+        })
+    })
+
+    testMode()
+    $("#bouton_jouer").trigger('click')
+    
+    $(".scrollable").scrollable({
+        vertical: true,
+        mousewheel: false
+    })
+})
+</script>

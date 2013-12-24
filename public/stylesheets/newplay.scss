@@ -1,0 +1,366 @@
+body {
+    width: 1089px;
+    margin: auto;
+    margin-top: 30px;
+    padding-top: 0px;
+    background-color: #232b2d;
+    background-image: url("static/moodme/images/jeu/bg.jpg");
+    background-repeat: repeat-x-y;
+}
+
+
+#wrap {
+    width: 960px;
+    box-shadow: 0px 0px 28px #000000;
+    margin-bottom: 20px;
+}
+
+#head {
+    width: 960px;
+    height: 86px;
+    background-image: url("static/moodme/images/jeu/head.png");
+    background-repeat: none;
+}
+
+#content {
+    width: 920px;
+    background-color: #1a1a1a;
+    padding: 20px;
+    
+    font-family: 'Alef';
+    font-size: 25px;
+    color: #ffffff;
+}
+
+#moodmovie_attente {
+    font-size: 20px;
+    height: 100%;
+    line-height: 92px;
+}
+
+#moodmovie_question {
+    width: 870px;
+    height: 550px;
+    background-color: #171717;
+    border-radius: 3px;
+    margin-top: 30px;
+    border-radius: 4px;
+    border: 1px solid #232323;
+    
+    box-shadow: inset 0px 0px 3px 0px #000000;
+    
+    .actuelle {
+        display: inline-block;
+        width: 640px;
+    }
+
+    .precedentes  {
+        display: inline-block;
+        width: 220px;
+        vertical-align: top;
+        
+        border-radius: 0px 4px 4px 0px;
+    }
+
+    /* required settings */
+    .precedentes .scrollable {
+        position: relative;
+        overflow: hidden;
+        height: 420px;
+        .items {
+            position:absolute;
+            width: 100%;
+        }
+    }
+}
+
+.prev {
+    margin-top: 15px;
+}
+
+.prev, .next {
+    opacity: .5;
+    
+    -moz-transition: opacity .2s ease-in;
+    -webkit-transition: opacity .2s ease-in;
+    -o-transition: opacity .2s ease-in;
+    transition: opacity .2s ease-in;
+    
+    &:hover {
+        opacity: 1.0;
+    }
+    
+    &.disabled, &.disabled:hover {
+        opacity: .1;
+    }
+}
+
+.actuelle {
+    box-shadow: 12px 0px 5px -5px #000000;
+    
+    .question {
+        width: 640px;
+        height: 455px;
+        /* On peut rajouter une image de fond */
+        
+        .loading {
+            width: 454px;
+            height: 454px;
+        }
+        
+        .recommencer {
+            height: 454px;
+        }
+    }
+    
+    .boutons {
+        width: 640px;
+        height: 92px;
+        background-color: #202020;
+        background: linear-gradient(to bottom, #232323, #181818);
+        border-radius: 0px 0px 0px 4px;
+        
+        box-shadow: 3px 0px 5px -5px #000000;
+        
+        .boutons_resultats {
+            display: none;
+        }
+        
+        .mode_resultats & .boutons_resultats {
+            display: block;
+        }
+    }
+}
+
+.conteneur.grande_image img  {
+    border-radius: 4px 0px 0px 0px;
+    padding: 2px 0px 0px 1px;
+    width: 640px;
+    height: 454px;
+}
+
+.precedentes h2 {
+    font-size: 15px;
+    color: #7c7c7c;
+    padding: 0;
+    margin: 10px 0 10px 0;
+}
+
+.conteneur {
+    position: relative;
+    display: inline-block;
+}
+
+
+.titre_question {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    margin: 0;
+    text-align:center;
+    
+    font-family: 'Roboto';
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000000;
+
+    .conteneur.grande_image & {
+        font-size: 30px;
+        bottom: 5%;
+    }
+    
+    .conteneur.petite_image & {
+        font-size: 12px;
+        bottom: 10%;
+    }
+}
+
+.conteneur.petite_image {
+    
+    .titre_question  {
+        opacity: 0;
+        transition: opacity .2s ease-in;
+    }
+    
+    &:hover .titre_question  {
+        opacity: 1;
+    }
+    
+    img  {
+        width:180px; 
+        height:128px; 
+        border-radius: 15px;
+        opacity: .5;
+        padding-top: 5px;
+        
+        transition: opacity .2s ease-in;
+    }
+    
+    &:hover img {
+        opacity: 1;
+    }
+}
+
+.question .loading {
+    display: none;
+    
+    .mode_attente & {
+        display: block;
+    }
+}
+
+.question .recommencer {
+    display: none;
+    
+    .mode_resultats & {
+        display: block;
+    }
+}
+
+
+#moodmovie_resultats {
+
+    .resultats {
+        text-align: center;
+    }
+
+    .resultat {
+        display: inline-block;
+        width: 220px;
+        height: 210px;
+        
+        .affiche {
+            width: 100px;
+            border-right: 1px solid #8e8e8e;
+            border-bottom: 1px solid #8e8e8e;
+            box-shadow: 0px 0px 14px -4px black;
+        }
+
+        &.selected .affiche  {
+            border-right: 1px solid #8e8e8e;
+            border-bottom: 1px solid #8e8e8e;
+            box-shadow: 0px 0px 25px 0px #666;
+        }
+        
+        h2 {
+            font-size: 16px;
+        }
+        
+        &.selected h2 {
+            color: #a1c419;
+        }
+        
+        .fleche_selection {
+            visibility: hidden;
+            width: 25px;
+        }
+        
+        &.selected .fleche_selection {
+            visibility: visible;
+        }
+    }
+
+    .result_info  {
+        width: 890px;
+        min-height: 50px;
+        background-color: #e5e5e5;
+        border-radius: 10px;
+        margin-top: -10px;
+        padding: 15px;
+        text-align: left;
+        
+        font-size: 15px;
+        color: #1a1a1a;
+    }
+}
+
+#moodmovie.mode_question {
+
+    #moodmovie_question {
+        
+    }
+
+    #moodmovie_resultats {
+        display: none;
+    }
+
+    #moodmovie_attente {
+        display: none;
+    }
+
+    #moodmovie_boutons {
+        
+    }
+    
+    #boutons_test {
+        display: none;
+    }
+}
+
+#moodmovie.mode_resultats {
+
+    #moodmovie_question {
+        /* display: none; */
+    }
+
+    #moodmovie_resultats {
+        
+    }
+
+    #moodmovie_attente {
+        display: none;
+    }
+
+    #moodmovie_boutons {
+        display: none;
+    }
+    
+    #boutons_test {
+        display: none;
+    }
+}
+
+#moodmovie.mode_attente {
+
+    #moodmovie_question {
+        
+    }
+
+    #moodmovie_resultats {
+        display: none;
+    }
+
+    #moodmovie_attente {
+        
+    }
+
+    #moodmovie_boutons {
+        display: none;
+    }
+
+    #boutons_test {
+        display: none;
+    }
+}
+
+#moodmovie.mode_test {
+    #moodmovie_question {
+        display: none;
+    }
+
+    #moodmovie_resultats {
+        display: none;
+    }
+
+    #moodmovie_attente {
+        display: none;
+    }
+
+    #moodmovie_boutons {
+        display: none;
+    }
+
+    #boutons_test {
+        
+    }
+}
+

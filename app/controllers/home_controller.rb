@@ -66,6 +66,9 @@ class HomeController < ApplicationController
     redirect_to root_path()
   end
 
+  def moodme
+  end
+
   private
   def get_reviews_data(review_kind, page, precision)
     @review_kind = review_kind
