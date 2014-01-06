@@ -11,7 +11,7 @@
 <% unless Rails.cache.exist? name_path %>
   <% product.update_attributes(:cached_at => Time.now.to_s(:db)) %>
 <% end %>
-<%= "#{product.year}@#{product.imdb_id}" if Rails.env == "pre_production" %>
+<%= "#{product.year}@#{product.imdb_id}<br />#{product.year}__#{product.imdb_id}" if Rails.env == "pre_production" %>
 <% data = product.description_data(true) %>
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
