@@ -142,6 +142,9 @@ class ApplicationController < ActionController::Base
     @bot = [ 'msnbot', 'yahoo! slurp', 'googlebot', 'baidu', 'majestic', 'rambler', 'abachobot', 'accoona', 'aspseek', 'croccrawler', 'dumbot', 'fast-webcrawler'].detect { |bot| user_agent.include? bot }
     if params[:debug_country_id]
       session[:country_id] = params[:debug_country_id].to_i
+    elsif current_customer && current_customer.id == 1086213
+      session[:country_id] = 22
+      session[:my_ip] = request.remote_ip
     else
       my_ip = request.remote_ip
       if session[:country_id].nil? || session[:country_id] == 77 || session[:my_ip] != my_ip
