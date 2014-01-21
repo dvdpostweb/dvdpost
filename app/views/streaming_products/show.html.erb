@@ -18,6 +18,9 @@
         </div>
         <a id='player'>
         </a>
+        <button id="resume-btn">Resume</button>
+  			<button id="pause-btn">Pause</button>
+  			<button id="enable-fullscreen-btn">fullscreen</button>
         <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv && current_customer.svod_adult == 0 && @streaming.studio_id == 147) %>
 
         <% if @streaming_free == true %>
@@ -92,4 +95,6 @@
   </div>
   <div style="display:none" id="returnStatus"></div>
   <div style="display:none" id ="product_id"><%= @product.id %></di>
+  <div id='log'>logssssssssss</div>
+  <div id='debug-info'>debugssssssssssss</div>
 <% end %>
