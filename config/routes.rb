@@ -35,12 +35,14 @@ ActionController::Routing::Routes.draw do |map|
     end
     localized.resources :steps, :only => [:show, :update]
     localized.resource :ogone, :only => [:show]
+    localized.resources :domiciliations, :only => [:new]
     localized.resources :public_newsletters, :only => [:new, :create]
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :reviews, :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :tokens, :only => [:new, :create]
+      
       product.drop_cached 'drop_cached',  :controller => :products, :action => :drop_cached, :conditions => {:method => :get} 
       product.step 'step',  :controller => :products, :action => :step, :conditions => {:method => :get} 
       
