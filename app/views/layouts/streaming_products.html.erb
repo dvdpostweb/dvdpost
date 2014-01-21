@@ -1,4 +1,5 @@
 <%= javascript '/flowplayer/flowplayer-3.2.4.min.js','/flowplayer/flowplayer.ipad-3.2.1.js' %>
+<%= javascript 'md5.js', 'viewrightplayer.js','viewrightplayer_control.js' if @streaming && @streaming.drm %>
 <%= javascript 'streaming_products' %>
 <%= stylesheet 'streaming_products', :media => :all %>
 <%= stylesheet 'white', :media => :all if @code && @code.white_label %>

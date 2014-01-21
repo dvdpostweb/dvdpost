@@ -35,3 +35,4 @@ gem 'browser', "~> 0.1.6"
 gem 'memcache-client'
 gem 'rabl'
 gem 'oj'
+gem "prawn", "~> 0.12.0"

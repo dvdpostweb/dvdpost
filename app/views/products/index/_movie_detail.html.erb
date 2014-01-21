@@ -17,7 +17,7 @@
 <% product_image = data[:image] %>
 <% product_description = data[:description] %>
 <% media = jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %>
-<% target = cookies[:endless] == 'active' ? '_blank' : '_self' %>
+<% target = cookies[:endless] == 'deactive' ? '_self' : '_blank' %>
 <div class="movie-wrap">
 	<div class="movie-ttl">
   	<h3><%= link_to product_title, path, :target => target %> <%= image_tag "3d_icon.png" if product.bluray3d? %> <%= image_tag "3d2d_icon.png" if product.bluray3d2d? %></h3>
