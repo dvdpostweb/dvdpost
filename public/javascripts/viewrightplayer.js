@@ -259,8 +259,6 @@ window.ViewRightPlayer = (function() {
 		}
 
 		this._player = $('#view-right-control')[0];
-		alert($('#view-right-control')+'+'+$('#view-right-control')[0])
-		self._monitorState(); 
     try
     {
       self._monitorState();
