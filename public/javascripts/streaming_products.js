@@ -102,6 +102,7 @@ $(function() {
           Open($.trim(data))*/
           /*$('#view-right-control').attr('height', 389)*/
           
+          $('#player').show()
           var player = new ViewRightPlayer();
           player.get_player('#player')
           player.open($.trim(data))
