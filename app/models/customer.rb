@@ -67,7 +67,7 @@ class Customer < ActiveRecord::Base
   has_one :cable_order
   has_one :customer_attribute
   has_one :customers_svod
-  has_one :customers_edd, :foreign_key => :customers_id
+  #has_one :customers_edd, :foreign_key => :customers_id
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
