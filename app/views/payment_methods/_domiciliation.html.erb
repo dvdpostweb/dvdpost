@@ -27,9 +27,9 @@
             </tr>
             <tr>
               <td width='80'><img src="/images/pdf.png"></td>
-              <td><p><%= t '.document', :link_document => new_domiciliation_path(:format => :pdf) %></p></td>
+              <td><p><%= t '.document', :link_document => "http://www.dvdpost.be/images/pdf_dom70/domiciliation_#{I18n.locale == :nl ? 'nl' : 'fr'}.pdf" %></p></td>
             </tr>
-            
+            <!-- new_domiciliation_path(:format => :pdf)-- >
           </tbody>
         </table>
         

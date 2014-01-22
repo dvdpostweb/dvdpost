@@ -32,16 +32,20 @@ player.log = function() {
 	$('#log')
 		.append('<div class="log-info">' + arguments[0] + '</div>')
 		.scrollTop($('#log')[0].scrollHeight);
-
+  if (window.console && window.console.log)
+	{
 	window.console.log.apply(window.console, arguments);
+	}
 };
 
 player.error = function() {
 	$('#log')
 		.append('<div class="log-error">' + arguments[0] + '</div>')
 		.scrollTop($('#log')[0].scrollHeight);
-
-	window.console.error.apply(window.console, arguments);
+  if (window.console && window.console.error)
+	{
+	  window.console.error.apply(window.console, arguments);
+	}
 };
 
 player.onPositionChanged = function() {
