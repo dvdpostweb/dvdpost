@@ -50,7 +50,7 @@ if (!player.isProvisioned()) {
 	window.location.href = 'http://hls.estpak.ee/vm/order.php?id=' + player.getClientId();
 }
 
-var actions = {
+/*var actions = {
 		'#play-nasa-btn': function() {
 			player.open('http://www.nasa.gov/multimedia/nasatv/NTV-Public-IPS.m3u8');
 		},
@@ -84,7 +84,7 @@ var actions = {
 		'#mute-btn': function() {
 			player.mute();
 		},
-		'#unmute-btn': function() {
+		/*'#unmute-btn': function() {
 			player.unmute();
 		},
 		'#toggle-mute-btn': function() {
@@ -130,9 +130,11 @@ for (selector in actions) {
 	$(selector).click(function() {
 		this.action.apply(this.action, arguments);
 	}.bind({ action: actions[selector] }));
-}
-
+}*/
 window.setInterval(showDebugInfo, 100);
 }
+$('#resume-btn').live("click", function() {
+	player.resume();
+})
 
 })
