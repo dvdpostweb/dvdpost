@@ -49,6 +49,7 @@ player.onPositionChanged = function() {
 };
 
 return_res = player.init('#player');
+alert(return_res)
 if(return_res != false){
 if (!player.isProvisioned()) {
 	window.location.href = 'http://hls.estpak.ee/vm/order.php?id=' + player.getClientId();
