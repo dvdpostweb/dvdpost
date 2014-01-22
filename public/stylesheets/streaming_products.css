@@ -601,3 +601,7 @@ a#vod_title_id:hover
   text-decoration:underline;
   display: inline;
 }
+#player-verimatrix button
+{
+  border:1px solid #333;
+}
