@@ -136,5 +136,10 @@ window.setInterval(showDebugInfo, 100);
 $('#resume-btn').live("click", function() {
 	player.resume();
 })
-
+$('#pause-btn').live("click", function() {
+	player.pause();
+})
+$('#enable-fullscreen-btn').live("click", function() {
+	player.enableFullscreen();
+})
 })
