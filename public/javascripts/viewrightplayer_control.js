@@ -48,8 +48,8 @@ player.onPositionChanged = function() {
 	$('#playback-indicator > DIV > DIV').width(player.getPlaybackPercentage() + '%');
 };
 
-player.init('#player');
-
+return_res = player.init('#player');
+if(return_res != false){
 if (!player.isProvisioned()) {
 	window.location.href = 'http://hls.estpak.ee/vm/order.php?id=' + player.getClientId();
 }
@@ -137,5 +137,6 @@ for (selector in actions) {
 }
 
 window.setInterval(showDebugInfo, 100);
+}
 
 })
