@@ -11,8 +11,9 @@
         <% end %>
         <div class="clear"></div>
         <div id="presentation">
+          
           <%= "<div class='prices'>#{t '.ppv', :price => @streaming.ppv_price}</div>" if @streaming.is_ppv %>
-          <div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div>
+          <% unless @streaming && @streaming.drm %><div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div> <% end %>
         </div>
         <div id='flow'>
         </div>
