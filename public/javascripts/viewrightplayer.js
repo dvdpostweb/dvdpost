@@ -102,7 +102,7 @@ window.ViewRightPlayer = (function() {
 			return;
 		}
 
-		window.console.log.apply(window.console, arguments);
+		/*window.console.log.apply(window.console, arguments);*/
 	};
 
 	/**
