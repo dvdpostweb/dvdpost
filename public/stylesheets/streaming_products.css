@@ -79,11 +79,14 @@
     width: 696px;
 }
 #player {
-    height: 365px;
     /*left: 127px;
     position: absolute;
     top: 95px;*/
     display:block;
+}
+#player.drm
+{
+  height: 365px;
 }
 #player_api {
     height: 389px;

@@ -16,7 +16,7 @@
         </div>
         <div id='flow'>
         </div>
-        <a id='player'>
+        <a id='player' class='<%= @streaming && @streaming.drm ? 'drm' : 'normal' %>'>
         </a>
         <% if @streaming && @streaming.drm %>
         <p align='center' id='player-verimatrix'>
