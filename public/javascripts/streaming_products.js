@@ -67,7 +67,12 @@ $(function() {
     
     Pause()
   })
-  
+  function launch()
+  {
+    var player = new ViewRightPlayer();
+    player.get_player('#player')
+    player.open($.trim(data))
+  }
   $('.qualityvod').live("click", function() {
     url = $(this).attr('href')
     var regex = new RegExp(".*/products/([0-9]*).*");
@@ -101,9 +106,7 @@ $(function() {
           }
           Open($.trim(data))*/
           $('#view-right-control').attr('height', 389)
-          var player = new ViewRightPlayer();
-          player.get_player('#player')
-          player.open($.trim(data))
+          setTimeout(launch,1000)
         }
         else
         { 
