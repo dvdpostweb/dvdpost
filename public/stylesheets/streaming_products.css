@@ -83,6 +83,7 @@
     /*left: 127px;
     position: absolute;
     top: 95px;*/
+    display:block;
 }
 #player_api {
     height: 389px;
