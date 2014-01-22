@@ -100,7 +100,8 @@
   <div style="display:none" id="returnStatus"></div>
   <div style="display:none" id ="product_id"><%= @product.id %></div>
   <div style="display:none" id ="drm"><%= @streaming && @streaming.drm ? 1 : 0 %></div>
-  
-  <div id='log'></div>
-  <div id='debug-info'></div>
+  <% if @streaming && @streaming.drm %>
+  <div id='log' style='display=<%= Rails.env == 'production' ? 'none': 'block' %>'></div>
+  <div id='debug-info' style='display=<%= Rails.env == 'production' ? 'none': 'block' %>'>></div>
+  <% end %>
 <% end %>
