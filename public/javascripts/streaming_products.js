@@ -80,7 +80,7 @@ $(function() {
     $('.error').html('');
     if($('#drm').html() == "1")
     {
-      $('#player').css( "display", "none")
+      
     }
     else
     {
