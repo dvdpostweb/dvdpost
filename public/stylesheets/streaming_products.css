@@ -74,16 +74,16 @@
     width: 960px;
 }
 #presentation, #player {
-    height: 365px;
     margin: 0 auto;
     text-align: center;
     width: 696px;
 }
 #player {
+    height: 365px;
     /*left: 127px;
     position: absolute;
     top: 95px;*/
-    display:block;
+    display:none;
 }
 #player_api {
     height: 389px;
