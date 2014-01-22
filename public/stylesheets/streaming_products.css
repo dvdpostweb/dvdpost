@@ -74,7 +74,7 @@
     width: 960px;
 }
 #presentation, #player {
-    /*height: 365px;*/
+    height: 365px;
     margin: 0 auto;
     text-align: center;
     width: 696px;
