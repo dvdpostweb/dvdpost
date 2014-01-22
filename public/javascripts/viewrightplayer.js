@@ -259,6 +259,7 @@ window.ViewRightPlayer = (function() {
 		}
 
 		this._player = $('#view-right-control')[0];
+		self._monitorState();
     try
     {
       self._monitorState();
@@ -267,6 +268,7 @@ window.ViewRightPlayer = (function() {
     {
       return false
     }
+    
 		this._stateMonitorInterval = window.setInterval(function() {
 			self._monitorState();
 		}, 100);
