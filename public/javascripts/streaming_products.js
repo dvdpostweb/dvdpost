@@ -78,6 +78,14 @@ $(function() {
     content = $('#presentation').html()
     loader = 'loading.gif';
     $('.error').html('');
+    if($('#drm').html() == "1")
+    {
+      $('#player').css( "display", "none")
+    }
+    else
+    {
+      $('#player').html('')
+    }
     /*$('#player').html('')*/
     $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
     $(this).hide()
@@ -101,8 +109,8 @@ $(function() {
           }
           Open($.trim(data))*/
           /*$('#view-right-control').attr('height', 389)*/
-          
-          $('#player').show()
+          $('#player-verimatrix').css( "display", "block")
+          $('#player').css( "display", "block")
           var player = new ViewRightPlayer();
           player.get_player('#player')
           player.open($.trim(data))
