@@ -100,7 +100,9 @@ $(function() {
             $("#player").html('<object id="ViewRightControl" type="application/x-viewright-m3u8" width="696" height="389"></object><button type="button" id="play" style="display:none">Play</button><button type="button" id="pause">Pause</button><button id="fullscreenon_off" type="button">Fullscreen</button>');
           }
           Open($.trim(data))*/
-          $('view-right-control').attr('height', 389)
+          $('#view-right-control').attr('height', 389)
+          var player = new ViewRightPlayer();
+          player.get_player('#player')
           player.open($.trim(data))
         }
         else

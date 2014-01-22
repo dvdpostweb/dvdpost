@@ -215,6 +215,29 @@ window.ViewRightPlayer = (function() {
 	 * @param {String|DOMElement} container Player container element or selector
 	 * @return {Player} Self
 	 */
+	ViewRightPlayer.prototype.get_player = function(container) {
+ 		this.log('Initializing player');
+
+ 		var self = this,
+ 			wrap = $(container)
+
+ 		this._player = $('#view-right-control')[0];
+
+ 		this._stateMonitorInterval = window.setInterval(function() {
+ 			self._monitorState();
+ 		}, 100);
+
+ 		this._playbackMonitorInterval = window.setInterval(function() {
+ 			self._monitorPlayback();
+ 		}, 1000);
+
+ 		this.onPositionChanged(0, 0);
+
+ 		this._initialized = true;
+
+ 		return this;
+ 	};
+ 	
 	ViewRightPlayer.prototype.init = function(container) {
 		this.log('Initializing player');
 
@@ -236,16 +259,23 @@ window.ViewRightPlayer = (function() {
 		}
 
 		this._player = $('#view-right-control')[0];
-
+    try
+    {
+      self._monitorState();
+    }
+    catch(err)
+    {
+      return false
+    }
 		this._stateMonitorInterval = window.setInterval(function() {
 			self._monitorState();
 		}, 100);
-
+    /*
 		this._playbackMonitorInterval = window.setInterval(function() {
 			self._monitorPlayback();
 		}, 1000);
 
-		this.onPositionChanged(0, 0);
+		this.onPositionChanged(0, 0);*/
 
 		this._initialized = true;
 
