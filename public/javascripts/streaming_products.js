@@ -85,9 +85,9 @@ $(function() {
     else
     {
       $('#player').html('')
+      $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
     }
-    /*$('#player').html('')*/
-    $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
+    
     $(this).hide()
     $.ajax({
       dataType: 'html',
