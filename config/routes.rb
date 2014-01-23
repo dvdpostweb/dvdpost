@@ -115,7 +115,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :quizzes, :only => [:show, :index]
     
     localized.validation 'validation', :controller => :home, :action => :validation, :conditions => {:method => :get}
-    localized.validation 'moodme', :controller => :home, :action => :moodme, :conditions => {:method => :get}
+    localized.moodme 'moodme', :controller => :home, :action => :moodme, :conditions => {:method => :get}
     
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
