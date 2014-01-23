@@ -21,7 +21,7 @@ gem 'truncate_html'
 gem 'orderedhash'
 gem 'will_paginate', '~> 2.3.12'
 gem 'timed_fragment_cache'
-gem "whenever", "~> 0.7.0"
+gem "whenever", "~> 0.9.0"
 gem 'i18n', '0.5.0'
 gem 'thinking-sphinx'
 gem 'paperclip'
