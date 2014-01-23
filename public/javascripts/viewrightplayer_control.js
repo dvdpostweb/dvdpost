@@ -131,7 +131,7 @@ for (selector in actions) {
 		this.action.apply(this.action, arguments);
 	}.bind({ action: actions[selector] }));
 }*/
-window.setInterval(showDebugInfo, 100);
+window.setInterval(showDebugInfo, 1000);
 }
 $('#resume-btn').live("click", function() {
 	player.resume();

@@ -109,7 +109,6 @@ $(function() {
           }
           Open($.trim(data))*/
           /*$('#view-right-control').attr('height', 389)*/
-          $('#player').css( "display", "block")
           var player = new ViewRightPlayer();
           player.get_player('#player')
           player.open($.trim(data))
