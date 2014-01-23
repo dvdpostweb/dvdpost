@@ -608,3 +608,23 @@ a#vod_title_id:hover
 {
   border:1px solid #333;
 }
+#playback-indicator {
+	width: 690px;
+	height: 4px;
+	padding: 2px;
+	background-color: #000;
+}
+#playback-indicator > DIV {
+	padding: 0;
+	margin: 0;
+	height: 4px;
+	line-height: 4px;
+	background-color: #666;
+	cursor: pointer;
+}
+#playback-indicator > DIV > DIV {
+	height: 4px;
+	background-color: #900;
+	width: 0;
+	cursor: pointer;
+}
