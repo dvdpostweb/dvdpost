@@ -1,6 +1,5 @@
 <li class="jcarousel-item jcarousel-item-horizontal">
     <h3><%= news_item.title %></h3>
-    <%= image_tag news_item.enclosure.url, :width => 100, :alt => news_item.title if I18n.locale == :en && news_item.enclosure  %>
     <p>
       <%= news_item.description.gsub('<a ', '<a target="_blank" ').gsub('</a>','').gsub('</p>','</a></p>') %>
     </p>
