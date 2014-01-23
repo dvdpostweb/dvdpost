@@ -20,6 +20,7 @@
         <a id='player' class='<%= @streaming && @streaming.drm ? 'drm' : 'normal' %>'>
         </a>
         <% if @streaming && @streaming.drm %>
+        <div id="playback-indicator"><div><div></div></div></div>
         <p align='center' id='player-verimatrix'>
           <button id="resume-btn"><%= t('.resume') %></button>
   			  <button id="pause-btn"><%= t('.pause') %></button>
