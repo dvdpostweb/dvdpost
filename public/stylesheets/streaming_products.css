@@ -609,10 +609,11 @@ a#vod_title_id:hover
   border:1px solid #333;
 }
 #playback-indicator {
-	width: 690px;
-	height: 4px;
-	padding: 2px;
-	background-color: #000;
+  width: 692px;
+  height: 4px;
+  padding: 2px;
+  background-color: black;
+  margin: 0 auto;
 }
 #playback-indicator > DIV {
 	padding: 0;
