@@ -505,6 +505,9 @@ margin: -6px 0 0 0;
   float: none;
   display: block;
   margin: 0 0 5px 0;
+}
+#actualites-wrap ul.en li img
+{
   width:182px;
 }
 #actualites-wrap h2 {
