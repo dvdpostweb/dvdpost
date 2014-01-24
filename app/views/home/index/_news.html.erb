@@ -1,6 +1,6 @@
 <div id="actualites-wrap">
 	<h2><%= t('.news') %></h2>
-	<ul class="jc jcarousel-skin-tango">
+	<ul class="jc jcarousel-skin-tango <%= I18n.locale %>">
 	  <%= render :partial => '/home/index/news_item', :collection => news_items if news_items %>
   </ul>
   <div class="pagination arrow_left">
