@@ -6,6 +6,11 @@
         <h2>
           <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)<span>
         </h2>
+        <% if @streaming.drm == true %>
+        <div id="verimatrix_area">
+        	<div class="verimatrix"><%= t('.viewright', :link => info_path(:page_name => :viewright)) %></div>
+        </div>
+        <% end %>
         <% if @token and @token_valid %>
           <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token, params[:kind]) %></strong></div></div>
         <% end %>
@@ -37,11 +42,7 @@
           <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) || (current_customer && current_customer.svod_adult > 0  && @streaming.studio_id == 147) %>
             <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
               <div class="choice_language">
-                <% if @streaming.drm == true %>
-                <div id="verimatrix_area">
-                	<div class="verimatrix"><%= t('.viewright', :link => info_path(:page_name => :viewright)) %></div>
-                </div>
-                <% end %>
+                
                 <h3><%= t('.version_title') %></h3>
                 <div id="choice_new">
                   <div id="step1" class="step" style="width:696px;height:120px">
@@ -103,7 +104,7 @@
   <div style="display:none" id ="product_id"><%= @product.id %></div>
   <div style="display:none" id ="drm"><%= @streaming && @streaming.drm ? 1 : 0 %></div>
   <% if @streaming && @streaming.drm %>
-  <div id='log' style='display:<%= Rails.env == 'production' ? 'none': 'block' %>'></div>
-  <div id='debug-info' style='display:<%= Rails.env == 'production' ? 'none': 'block' %>'>></div>
+  <div id='log' style='display:<%= Rails.env == 'production' && params[:debug].nil? ? 'none': 'block' %>'></div>
+  <div id='debug-info' style='display:<%= Rails.env == 'production' && params[:debug].nil? ? 'none': 'block' %>'>></div>
   <% end %>
 <% end %>
