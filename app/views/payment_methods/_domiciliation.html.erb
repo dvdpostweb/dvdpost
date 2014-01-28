@@ -1,52 +1,28 @@
 <div class="switch_dom" id="switch_dom">
   <div id="title"><%= t '.title' %></div>
   <div style="margin-left: 20px; width: 800px;">
-    <form method="get">
-    <div style="width: 800px;" > 
+    <div style="width: 800px;"> 
       <%= t '.description'%>
-      
-      <div style="width: 800px;" class="payment">
+      <div style="width: 800px;" class="payment2">
         <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
           <tbody>
-            <tr>
-              <td colspan='2'><h3> <%= t '.option' %> 1</h3></td>
-            </tr>
-            <tr>
-              <td width='80'><img src="/images/dom.png"></td>
-              <td><p><%= t '.pc_banking', :customer_id => current_customer.to_param %> </p></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <br>
-      <div style="width: 800px;" class="payment ">
-        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
-          <tbody>
-            <tr>
-              <td colspan='2'><h3><%= t '.option' %> 2</h3></td>
-            </tr>
             <tr>
               <td width='80'><img src="/images/pdf.png"></td>
-              <td><p><%= t '.document', :link_document => "http://www.dvdpost.be/images/pdf_dom70/domiciliation_#{I18n.locale == :nl ? 'nl' : 'fr'}.pdf" %></p></td>
+              <td><p><%= t '.document', :link_document => new_domiciliation_path(:format => :pdf) %></p></td>
             </tr>
-            <!-- new_domiciliation_path(:format => :pdf)-- >
-          </tbody>
-        </table>
-        
-      </div>
-      <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
-        <tr>
-          <td>
-            <div id ="small_asterisk">* <%= t '.asterisk' %></div>
-          </td>
-          <td align='right' colspan='2'>
-            <%= link_to t('.back'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param), :class => :back%>
-          </td>
-        </tr>
-      </table>
-      <br />
-      
-    </div>
-    
+            </tbody>
+          </table>
 
-</div>
+        </div>
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
+          <tr>
+            <td align='right' colspan='2'>
+              <%= link_to t('.back'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param), :class => :back %>
+            </td>
+          </tr>
+        </table>
+        <br />
+
+      </div>
+    </div>
+  </div>
