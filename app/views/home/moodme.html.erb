@@ -86,7 +86,7 @@
                 <img class="next" src="/images/moodme/images/jeu/button/arrow_down.png"/>
             </div>
         </div>
-        <div id="boutons_test">
+        <div id="boutons_test" style='display:none'>
             <ul>
                 <li><button id="bouton_jouer">Jouer !</button></li>
                 <li><button id="bouton_test_api">Tester les requêtes.</button></li>
@@ -325,7 +325,7 @@ $(document).ready(function(){
             }
         )
         .fail(function(jqXHR, textStatus, errorThrown) {
-            alert("ajax fail: status : " + jqXHR.status + " " + textStatus)
+            /*alert("ajax fail: status : " + jqXHR.status + " " + textStatus)*/
             testMode()
         })
     }
