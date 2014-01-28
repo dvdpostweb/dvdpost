@@ -14,16 +14,16 @@ class DomiciliationsController < ApplicationController
         
         filename = "#{RAILS_ROOT}/public/mandate_standard__core__fr.pdf"
         pdf = Prawn::Document.new(:template => filename) do
-          go_to_page(1)
+          go_to_page(2)
           character_spacing(5.7) do
               text_box mandate_id, :at => [54, 501], :size => 12, :kerning => true
           end
-          #go_to_page(3)
-          #character_spacing(5.7) do
-          #    text_box mandate_id, :at => [54, 501], :size => 12, :kerning => true
-          #end
+          go_to_page(3)
+          character_spacing(5.7) do
+              text_box mandate_id, :at => [54, 501], :size => 12, :kerning => true
+          end
         end
-        send_data pdf.render
+        send_data pdf.render, :filename => 'dvdpost_european_domiciliation.pdf'
       end
     end
   end

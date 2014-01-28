@@ -35,6 +35,12 @@ element.style {
 
     width: 735px;
 }
+.payment2 {
+    margin: 5px;
+    padding: 10px 20px 20px 10px;
+
+    width: 735px;
+}
 
 .rose {
     background: none repeat scroll 0 0 #ddf5fc;
