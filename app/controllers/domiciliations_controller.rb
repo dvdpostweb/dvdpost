@@ -12,15 +12,23 @@ class DomiciliationsController < ApplicationController
           current_customer.abo_history(35, current_customer.next_abo_type_id)
         end
         
-        filename = "#{RAILS_ROOT}/public/mandate_standard__core__fr.pdf"
+        filename = "#{RAILS_ROOT}/public/mandate_standard__core__#{I18n.locale}.pdf"
+        at = case I18n.locale
+          when :fr
+            [54, 501]
+          when :nl
+            [54, 516]
+          else
+            [54, 516]
+        end
         pdf = Prawn::Document.new(:template => filename) do
           go_to_page(2)
           character_spacing(5.7) do
-              text_box mandate_id, :at => [54, 501], :size => 12, :kerning => true
+              text_box mandate_id, :at => at, :size => 12, :kerning => true
           end
           go_to_page(3)
           character_spacing(5.7) do
-              text_box mandate_id, :at => [54, 501], :size => 12, :kerning => true
+              text_box mandate_id, :at => at, :size => 12, :kerning => true
           end
         end
         send_data pdf.render, :filename => 'dvdpost_european_domiciliation.pdf'
