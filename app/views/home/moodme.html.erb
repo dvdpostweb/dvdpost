@@ -197,7 +197,7 @@ $(document).ready(function(){
         
         $.ajax({
             url: (
-                'http://staging.private.dvdpost.com/fr/products.json?products_id='
+                'http://<%= request.host_with_port %>/fr/products.json?products_id='
                 + $.map(
                     data.resultats,
                     function(res) { return res.iddvdpost }
@@ -230,15 +230,15 @@ $(document).ready(function(){
                             )
                         .end()
                         .find('a.add')
-                            .attr('href', 'http://staging.private.dvdpost.com'
+                            .attr('href', 'http://<%= request.host_with_port %>'
                                 + infodvd.product.add_url)
                         .end()
                         .find('a.watch')
-                            .attr('href', 'http://staging.private.dvdpost.com'
+                            .attr('href', 'http://<%= request.host_with_port %>'
                                 + infodvd.product.url)
                         .end()
                         .find('a.bande-annonce')
-                            .attr('href', 'http://staging.private.dvdpost.com'
+                            .attr('href', 'http://<%= request.host_with_port %>'
                                 + infodvd.product.trailer_url)
                             .css('display', infodvd.product.trailer_url == undefined ? 'none' : '')
                         .end()
@@ -349,7 +349,7 @@ $(document).ready(function(){
     })
 
     $("#bouton_jouer").on('click', function() {
-        callAPI("startgame?output=json&database=dvdpost")
+        callAPI("startgame?output=json&database=dvdpost" + "&dummy=" + Math.random())
     })
 
     $("#bouton_test_api").on('click', function() {
