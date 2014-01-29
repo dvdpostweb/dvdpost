@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     #unless request.format.js?
       item_per_page = mobile_request? ? 5 : 20
       if params[:search] && !params[:search].empty?
-        @exact_products = Product.filter(@filter, params.merge(:exact => 1, :countr_id => session[:country_id]))
+        @exact_products = Product.filter(@filter, params.merge(:exact => 1, :country_id => session[:country_id]))
         @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
         @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
         kind = params[:kind]
