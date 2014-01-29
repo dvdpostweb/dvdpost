@@ -269,7 +269,7 @@ class Customer < ActiveRecord::Base
   def popular(filter, options={})
     #options.merge!(:subtitles => [2]) if I18n.locale == :nl
     #options.merge!(:audio => [1]) if I18n.locale == :fr
-    popular = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.find(:all, :include => :product).paginate(:per_page => 9, :page => 1)
+    popular = HighlightProduct.day(0).by_kind('best').by_language(DVDPost.product_languages[I18n.locale]).ordered.find(:all, :include => :product).paginate(:per_page => 50, :page => 1)
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular - hidden_products
   end

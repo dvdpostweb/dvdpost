@@ -10,5 +10,5 @@
     <%= product_image_tag popular_product_item.image, :width => 76, :height => 118, :alt => "#{popular_product_item.title} (#{popular_product_item.year})" %>
   <% end %>
   <%= render :partial => 'products/wishlist_start', :locals => {:product => popular_product_item, :text => :short} %>
-  <%= link_to popular_product_item.title, path, :class => 'more' %>
+  <%= link_to popular_product_item.title, path, :class => 'more', :target => '_blank' %>
 </li>
