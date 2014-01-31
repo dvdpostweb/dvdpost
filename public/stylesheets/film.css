@@ -406,6 +406,29 @@ padding: 2px 5px;
 font-size: 12px;
 margin: 2px 7px;
 }
+
+#no_stock.fr {
+height: 62px;
+}
+#no_stock {
+border: 1px solid #FA6A00;
+height: 77px;
+margin: 14px 0 5px;
+font-family: Arial, Helvetica, sans-serif;
+width:395px;
+}
+#no_stock_title {
+background: none repeat scroll 0 0 #FA6A00;
+color: white;
+display: block;
+padding: 2px 5px;
+}
+#no_stock #no_stock_description {
+font-size: 12px;
+margin: 2px 7px;
+}
+
+
 #film-img-wrap .new {
   background: url(../images/big_banner_new.png) 0 0 no-repeat;
   display: block;

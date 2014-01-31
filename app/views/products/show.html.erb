@@ -130,6 +130,13 @@
         <div id='not_available_description'><%= t '.not_available_description' %></div>
       </div>
       <% end %>
+      <% if @product.availability == 0 %>
+      <div class="clearfix"></div>
+      <div id="no_stock" class="<%= I18n.locale %>">
+        <div id='no_stock_title'><%= t '.no_stock' %></div>
+        <div id='no_stock_description'><%= t '.no_stock_description' %></div>
+      </div>
+      <% end %>
     </div>
     </div>
     <div id="fb">
