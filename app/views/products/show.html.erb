@@ -130,7 +130,7 @@
         <div id='not_available_description'><%= t '.not_available_description' %></div>
       </div>
       <% end %>
-      <% if 1==0  && @product.availability == 0 %>
+      <% if @product.availability == 0 %>
       <div class="clearfix"></div>
       <div id="no_stock" class="<%= I18n.locale %>">
         <div id='no_stock_title'><%= t '.no_stock' %></div>
