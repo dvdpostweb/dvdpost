@@ -547,7 +547,7 @@ module DVDPost
     end
 
     def verimatrix_url(token, audio, sub)
-      "http://multiscreen.alphanetworks.be/Content/HLS/VOD/Token/#{token}_#{audio}_#{sub}.m3u8"
+      "http://94.139.62.205/Content/HLS/VOD/Token/#{token}_#{audio}_#{sub}.m3u8"
     end
 
     def favorite_dvd
