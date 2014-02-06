@@ -526,7 +526,6 @@ class Product < ActiveRecord::Base
       if (options[:group]) || (options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming)) || (options[:filter] && options[:filter].to_sym == :vod)
         products = products.group('imdb_id', sort)
       else
-        Rails.logger.debug { "sort" }
         products = products.order(sort, :extended)
       end
     else

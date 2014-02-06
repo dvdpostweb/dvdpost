@@ -21,7 +21,7 @@ class Token < ActiveRecord::Base
   named_scope :ordered_old, :order => 'updated_at desc'
 
   def self.regen
-    Token.recent(2.days.ago.localtime, Time.now).each do |token|
+    Token.recent(2.days.ago.localtime, Time.now).all(:include => :streaming_products, :conditions => {:streaming_products => {:studio_id => 750}}).each do |token|
       filename = token.streaming_products.alpha.first.filename
       puts filename
       token_string = DVDPost.generate_token_from_alpha(filename, :normal, true)
