@@ -118,8 +118,10 @@ class StreamingProductsController < ApplicationController
           else
             if current_customer.payment_suspended?
               error = Token.error[:user_suspended]
-            else
+            elsif current_customer.holidays_suspended?
               error = Token.error[:user_holidays_suspended]
+            else
+              error = 'error'
             end
           end
           if params[:subtitle_id]
