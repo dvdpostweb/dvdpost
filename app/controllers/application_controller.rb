@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-    before_filter :http_authenticate, :if => :staging?
+    #before_filter :http_authenticate, :if => :staging?
     helper_method :current_customer, :unless => :is_it_xml?
     before_filter :save_attempted_path, :unless => :is_it_xml?
     before_filter :check_host
