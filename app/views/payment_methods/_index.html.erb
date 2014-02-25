@@ -4,6 +4,7 @@
     <p><%= t '.choose' %></p>
     <% form_for(:payment_method, :url => edit_customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :get }) do |f| %>
     <%= hidden_field_tag(:type, 'credit_card') %>
+    <% if current_customer.payment_method != 1 %>
       <div style="width: 800px;" id="payment_ogone" class="payment rose">
         <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
           <tbody>
@@ -20,29 +21,32 @@
           </tbody>
         </table>
       </div>
-      <% unless current_user.address.nederlands? %>
-      <br>
-      <div style="width: 800px;" id="payment_domiciliation" class="payment ">
-        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
-          <tbody>
-            <tr>
-              <td  width="6%"><div class="check" id='domiciliation'>
-                  <!--<input type="radio" id="payment_domiciliation_radio" name="payment" value="domiciliation">-->
-                </div></td>
-              <td width="89%"><h3><%= t '.dom' %></h3></td>
+    <% end %>
+      <% if current_customer.payment_method != 2 %>
+        <% unless current_user.address.nederlands? %>
+        <br>
+        <div style="width: 800px;" id="payment_domiciliation" class="payment ">
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-left: 10px;">
+            <tbody>
+              <tr>
+                <td  width="6%"><div class="check" id='domiciliation'>
+                    <!--<input type="radio" id="payment_domiciliation_radio" name="payment" value="domiciliation">-->
+                  </div></td>
+                <td width="89%"><h3><%= t '.dom' %></h3></td>
             
-            </tr>
-            <tr>
+              </tr>
+              <tr>
             
-              <td colspan="3"><img src="/images/dom.png" style="float: left; padding-right: 10px;"><p><%= t '.dom_description' %></p></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                <td colspan="3"><img src="/images/dom.png" style="float: left; padding-right: 10px;"><p><%= t '.dom_description' %></p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <% end %>
+        <div align="right" style="padding-right: 8px;"><br>
+          <button type="submit" class="button_confirm_switch"><%= t '.follow' %></button>
+        </div>
       <% end %>
-      <div align="right" style="padding-right: 8px;"><br>
-        <button type="submit" class="button_confirm_switch"><%= t '.follow' %></button>
-      </div>
     <% end %>
   </div>
 </div>
