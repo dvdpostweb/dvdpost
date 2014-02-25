@@ -106,15 +106,21 @@ class Token < ActiveRecord::Base
       token_string = false
     end
     if token_string
-      token = Token.create(          
-        :code => code,          
-        :imdb_id     => imdb_id,          
-        :token       => token_string,
-        :source_id   => source,
-        :country => file.country,
-        :credits => file.credits
-      )
-      if token.id.blank?
+      begin
+        ActiveRecord::Base.connection.execute("call sp_token_insert(NULL,'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', '#{code}', #{source})")
+        token = Token.find_by_token(token_string)
+      rescue  => e
+        token_create = false
+      end
+      #token = Token.create(          
+      #  :code => code,          
+      #  :imdb_id     => imdb_id,          
+      #  :token       => token_string,
+      #  :source_id   => source,
+      #  :country => file.country,
+      #  :credits => file.credits
+      #)
+      if token_create == false
         return {:token => nil, :error => Token.error[:query_rollback]}
       else
         StreamingCode.find_by_name(code).update_attribute(:used_at, Time.now.localtime)
