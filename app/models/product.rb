@@ -33,6 +33,10 @@ class Product < ActiveRecord::Base
   belongs_to :serie, :foreign_key => :products_series_id
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
+  has_many :descriptions_fr, :class_name => 'ProductDescription', :foreign_key => :products_id, :conditions => {:language_id => 1}
+  has_many :descriptions_nl, :class_name => 'ProductDescription', :foreign_key => :products_id, :conditions => {:language_id => 2}
+  has_many :descriptions_en, :class_name => 'ProductDescription', :foreign_key => :products_id, :conditions => {:language_id => 3}
+  
   has_many :ratings, :foreign_key => :products_id
   has_many :ratings_imdb, :class_name => 'Rating', :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_many :reviews, :foreign_key => :imdb_id, :primary_key => :imdb_id
@@ -601,7 +605,15 @@ class Product < ActiveRecord::Base
   end
 
   def description
-    descriptions.by_language(I18n.locale).first
+    case I18n.locale
+      when :nl
+        descriptions_nl.first
+      when :en
+        descriptions_en.first
+      else
+        descriptions_fr.first
+      end
+        
   end
 
   def to_param
