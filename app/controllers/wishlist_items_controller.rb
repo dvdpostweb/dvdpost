@@ -4,17 +4,17 @@ class WishlistItemsController < ApplicationController
     kind = params[:kind] || :normal
     @vod_count = current_customer.vod_wishlists.find(:all, :joins => [{:products => :descriptions}, :streaming_products], :group => 'vod_wishlists.imdb_id', :order =>'products_description.products_name', :conditions => ["streaming_products.available = 1 and streaming_products.status = 'online_test_ok' and products_status != -1 and products_type = :type and ((available_from <= :now and expire_at >= :now) or (available_backcatalogue_from <= :now and expire_backcatalogue_at >= :now)) and country = :country", {:type => DVDPost.product_kinds[params[:kind]], :now => Time.now().localtime.to_s(:db), :country => Product.country_short_name(session[:country_id])}]).count
     
-    @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
-    @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
-    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(kind).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
+    @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(kind).ordered.find(:all, :include => {:product => "descriptions_#{I18n.locale}"}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
+    @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(kind).ordered.find(:all, :include => {:product => "descriptions_#{I18n.locale}"}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
+    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(kind).ordered.find(:all, :include => {:product => "descriptions_#{I18n.locale}"}, :conditions => {:products_description => { :language_id => DVDPost.product_languages[I18n.locale.to_s]}})
     
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
-      @history_items = current_customer.orders(:include => [:status, :product]).in_history.ordered.paginate(:page => params['history_page'], :per_page => 20)
+      @history_items = current_customer.orders.in_history.ordered.find(:all, :include => [:status, {:product => "descriptions_#{I18n.locale}"}, :order_product]).paginate(:page => params['history_page'], :per_page => params[:per_page] || 20)
       @count = current_customer.orders.in_history.count
       locals = {:transit_items => nil, :history_items => @history_items, :history_count => @count}
     else
-      @transit_items = current_customer.orders.in_transit.ordered.all(:include => [:product, :status])
+      @transit_items = current_customer.orders.in_transit.ordered.find(:all, :include => [:status, {:product => "descriptions_#{I18n.locale}"}])
       locals = {:transit_items => @transit_items, :history_items => nil, :history_count => nil}
     end
     respond_to do |format|
