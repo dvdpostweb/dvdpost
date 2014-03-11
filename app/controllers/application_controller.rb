@@ -165,7 +165,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    if current_customer && (current_customer.id == 20618 || current_customer.id == 20618)
+    if current_customer && (current_customer.id == 96823 || current_customer.id == 20618)
       begin
         ip_regex = /^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/
         my_forwarded_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10\.(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
@@ -173,7 +173,7 @@ class ApplicationController < ActionController::Base
         c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
         message = "#{request.session_options[:id]} session country #{session[:country_id]} session ip #{session[:my_ip]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code} country code fowarded #{cf ? cf.country_code : ''}"
         recipient = 'gs@dvdpost.be'
-        subject = "audit geolocalisation for customer id #{current_customer.id}"
+        subject = "audit geolocalisation for customer id  mars 04 #{current_customer.id}"
         Emailer.deliver_send(recipient, subject, message)
       rescue => e
         logger.error("GeoIP error: ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]}")
