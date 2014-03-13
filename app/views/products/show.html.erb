@@ -30,7 +30,7 @@
         <div class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
           <%= render :partial => 'products/rating', :locals => {:product => @product, :background => @rating_color, :size => :long, :source => @source, :response_id => @response_id} %>
         </div>
-        <div id="uninterested">ici<%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :source => @source, :response_id => @response_id} if ENV['HOST_OK'] == "0" %></div>
+        <div id="uninterested"><%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product, :source => @source, :response_id => @response_id} if ENV['HOST_OK'] == "0" %></div>
       </div>
     </div><!-- #votes-wrap -->
   </div><!-- .ttl-wrap -->
