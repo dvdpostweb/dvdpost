@@ -82,6 +82,7 @@ class StreamingProductsController < ApplicationController
               else
                 creation = nil
               end
+              Rails.logger.debug { "@@@@#{creation}" }
               if creation
                 @token = creation[:token]
                 error = creation[:error]
@@ -138,6 +139,7 @@ class StreamingProductsController < ApplicationController
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request, {:responseid => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser) , :rule => params[:source]}) if current_customer
           else
+            Rails.logger.debug { "@@@#{error}" }
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end
         else

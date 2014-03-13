@@ -489,7 +489,6 @@ class Customer < ActiveRecord::Base
           rescue  => e
             token_create = false
           end
-          
           if token_create == false
             return {:token => nil, :error => Token.error[:query_rollback]}
           else
@@ -516,19 +515,23 @@ class Customer < ActiveRecord::Base
           kind = (svod_adult > 0 && file.studio_id == 147) ? "SVOD_ADULT" : "NORMAL"
           Token.transaction do
             begin
-              ActiveRecord::Base.connection.execute("call sp_token_insert(#{id},'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', NULL, #{source})")
+              test = ActiveRecord::Base.connection.execute("call sp_token_insert(#{id},'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', NULL, #{source})")
               token = Token.find_by_token(token_string)
+              
             rescue  => e
+              notify_hoptoad_token("call sp_token_insert(#{id},'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', NULL, #{source})", e.to_s)
               token_create = false
             end
+            
             result_credit = (product.adult? && svod_adult > 0 && file.studio_id == 147) ? true : remove_credit(file.credits, 12)
             if token_create == false || result_credit == false
               error = Token.error[:query_rollback]
               raise ActiveRecord::Rollback
               return {:token => nil, :error => Token.error[:query_rollback]}
             end
-            {:token => token, :error => nil}
+            return {:token => token, :error => nil}
           end
+          return {:token => nil, :error => Token.error[:query_rollback]}
         else
           return {:token => nil, :error => Token.error[:generation_token_failed]}
         end
@@ -794,6 +797,14 @@ class Customer < ActiveRecord::Base
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
 
+  def notify_hoptoad_token(data, response)
+     begin
+        Airbrake.notify(:error_message => "c #{to_param} t #{response} #{data}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+      rescue => e
+        logger.error("customer: #{to_param} token #{response} #{data}")
+        logger.error(e.backtrace)
+      end
+  end
   def notify_hoptoad()
     begin
       Airbrake.notify(:error_message => "customer dont abo abo_type : #{to_param}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
