@@ -82,7 +82,6 @@ class StreamingProductsController < ApplicationController
               else
                 creation = nil
               end
-              Rails.logger.debug { "@@@@#{creation}" }
               if creation
                 @token = creation[:token]
                 error = creation[:error]
