@@ -107,6 +107,9 @@ class Token < ActiveRecord::Base
     end
     if token_string
       begin
+        if source.nil? || source.empty?
+          source = 7
+        end
         ActiveRecord::Base.connection.execute("call sp_token_insert(NULL,'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', '#{code}', #{source})")
         token = Token.find_by_token(token_string)
       rescue  => e
