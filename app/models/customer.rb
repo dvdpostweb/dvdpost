@@ -484,6 +484,9 @@ class Customer < ActiveRecord::Base
         
         if token_string
           begin
+             if source.nil? || source.empty?
+              source = 7
+            end
             ActiveRecord::Base.connection.execute("call sp_token_insert(#{id},'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', NULL, #{source})")
             token = Token.find_by_token(token_string)
           rescue  => e
@@ -515,6 +518,9 @@ class Customer < ActiveRecord::Base
           kind = (svod_adult > 0 && file.studio_id == 147) ? "SVOD_ADULT" : "NORMAL"
           Token.transaction do
             begin
+              if source.nil? || source.empty?
+                source = 7
+              end
               test = ActiveRecord::Base.connection.execute("call sp_token_insert(#{id},'#{token_string}', #{imdb_id}, '#{current_ip}', '#{file.country}', NULL, #{source})")
               token = Token.find_by_token(token_string)
               

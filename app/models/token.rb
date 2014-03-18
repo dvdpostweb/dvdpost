@@ -115,7 +115,6 @@ class Token < ActiveRecord::Base
       rescue  => e
         token_create = false
       end
-      Rails.logger.debug { "@@@#{token_create}" }
       #token = Token.create(          
       #  :code => code,          
       #  :imdb_id     => imdb_id,          
