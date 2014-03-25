@@ -26,7 +26,7 @@ $(function() {
     value = $(this).val()
     var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
     res = regex.exec(url)
-    send_event('Movie', 'RemoveFromWishlist', res[1],'')
+    /*send_event('Movie', 'RemoveFromWishlist', res[1],'')*/
     loader = 'ajax-loader.gif';
     title = $(this).parent().parent().parent().parent().children('.title').children().html();
     i=1
