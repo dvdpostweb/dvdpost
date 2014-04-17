@@ -38,6 +38,7 @@
     <div id="film-img-wrap" class="<%= @product.vod? ? 'vod' : product_media_id(@product.media) %>">
       <%= product_image_tag @product_image, :width => 180, :alt => "#{@product_title} (#{@product.year})" %>
       <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
+      <%= "<span class='hd'></span>".html_safe if @product.hd?(session[:country_id]) %>
       <span class="osc">
         <%= @product.vod? ? 'vod' : product_media_id(@product.media) %>
         <%= link_to t('.svod_adult'), customers_svod_path if 1==0 && @product.adult? && @product.streaming?(params[:kind], session[:country_id]) and streaming_access? && @product.streaming_products.first.studio_id == 147 %>

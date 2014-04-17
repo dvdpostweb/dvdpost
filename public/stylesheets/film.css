@@ -883,3 +883,12 @@ overflow: visible;
   text-decoration:underline;
   display: inline;
 }
+.hd {
+  background: url("../images/icon_hd.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 26px;
+  left: 132px;
+  position: absolute;
+  top: 244px;
+  width: 48px;
+}
