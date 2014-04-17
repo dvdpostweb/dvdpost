@@ -636,3 +636,13 @@ width: 678px;
 .information_vod {
   padding: 10px 0 0 0;
 }
+.hd {
+  background: url("../images/icon_hd_little.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 26px;
+  left: 42px;
+  float: left;
+  top: 91px;
+  width: 48px;
+  position: absolute;
+}

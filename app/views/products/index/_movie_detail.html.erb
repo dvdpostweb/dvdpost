@@ -30,6 +30,7 @@
       	  <p><%= truncate_html(product_description.text, :length => 300) %></p>
       	  <%= link_to(t('.more'), path, :target => target, :class => 'osc') %>
           <div class="thumb-wrap">
+            <%= "<span class='hd'></span>".html_safe if product.hd?(session[:country_id]) %>
             <% link_to path, :target => target, :class => :cover, :alt => product_title do %>
               <%= product_image_tag product_image, :width => 72 %>
             <% end %>
