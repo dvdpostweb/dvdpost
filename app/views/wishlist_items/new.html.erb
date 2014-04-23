@@ -129,9 +129,9 @@
                   <%= f.submit title_add_to_wishlist(:short, type_button, media), :class => 'item', :title => title_add_to_wishlist(:long, type_button, media) %>
                   <%= f.submit title_add_all_to_wishlist(type_button), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if product.series? %>
                   <% if product.availability == -1 %>
-                    <div id="nosupplier"><%= t('.no_supply', :format => t("products.index.filters.#{media}")) %> </div>
+                    <div id="nosupplier"><%= t('.no_supply', :type => t("products.index.filters.#{media}")) %> </div>
                   <% elsif product.availability == 0 %>
-                    <div id="nostock"><%= t('no_stock', :format => t("products.index.filters.#{media}")) %></div>
+                    <div id="nostock"><%= t('.no_stock', :type => t("products.index.filters.#{media}")) %></div>
                   <% end %>
                 </span>
                 <div class="clear"></div>
