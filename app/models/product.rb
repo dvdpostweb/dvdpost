@@ -322,7 +322,6 @@ class Product < ActiveRecord::Base
     products = products.ppv if options[:ppv]
     products = products.streaming(country) if options[:view_mode] == "streaming" || (options[:filter] == "vod" and options[:view_mode] != 'vod_soon')
     if options[:highlight_best]
-      Rails.logger.debug { "@@@ici" }
       case options[:locale]
         when 'fr'
           products = products.highlight_best_fr
