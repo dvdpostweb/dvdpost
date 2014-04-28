@@ -532,19 +532,24 @@ class Customer < ActiveRecord::Base
             result_credit = (product.adult? && svod_adult > 0 && file.studio_id == 147) ? true : remove_credit(file.credits, 12)
             if token_create == false || result_credit == false
               error = Token.error[:query_rollback]
+              notify_error_token(Token.error[:query_rollback])
               raise ActiveRecord::Rollback
               return {:token => nil, :error => Token.error[:query_rollback]}
             end
             return {:token => token, :error => nil}
           end
+          notify_error_token(Token.error[:query_rollback])
           return {:token => nil, :error => Token.error[:query_rollback]}
         else
+          notify_error_token(Token.error[:generation_token_failed])
           return {:token => nil, :error => Token.error[:generation_token_failed]}
         end
       else
+        notify_error_token(Token.error[:abo_process_error])
         return {:token => nil, :error => Token.error[:abo_process_error]}
       end
     else
+      notify_error_token(Token.error[:not_enough_credit])
       return {:token => nil, :error => Token.error[:not_enough_credit]}
     end
   end
@@ -802,14 +807,21 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
-
+  def notify_error_token(error)
+    begin
+      Airbrake.notify(:error_message => "c #{to_param}  #{error}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+    rescue => e
+      logger.error("customer: #{to_param} #{error}")
+      logger.error(e.backtrace)
+    end
+  end
   def notify_hoptoad_token(data, response)
-     begin
-        Airbrake.notify(:error_message => "c #{to_param} t #{response} #{data}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
-      rescue => e
-        logger.error("customer: #{to_param} token #{response} #{data}")
-        logger.error(e.backtrace)
-      end
+    begin
+      Airbrake.notify(:error_message => "c #{to_param} t #{response} #{data}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
+    rescue => e
+      logger.error("customer: #{to_param} token #{response} #{data}")
+      logger.error(e.backtrace)
+    end
   end
   def notify_hoptoad()
     begin
