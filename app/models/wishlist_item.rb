@@ -38,9 +38,7 @@ class WishlistItem < ActiveRecord::Base
         wishlist_source[item.name.downcase.to_sym] = item.to_param
       end
     end
-    if params[:view_mode] == 'recommended'
-      source = wishlist_source[:recommendation]
-    elsif params[:ppv] == "1"
+    if params[:ppv] == "1"
       source = wishlist_source[:ppv]
     elsif params[:sort] == 'most_viewed' && params[:limit].to_i == 40
       source = wishlist_source[:most_viewed]

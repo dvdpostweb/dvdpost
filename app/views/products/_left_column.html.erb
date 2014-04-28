@@ -8,7 +8,6 @@
     <% if params[:kind] == :normal %>
       <ul class="btns osc">
         <li><%= link_to t('.collection'), themes_path() %></li>
-        <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended) %></li>
       </ul>
     <% end %>
     <% if streaming_access? %>

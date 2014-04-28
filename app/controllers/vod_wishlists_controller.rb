@@ -41,7 +41,6 @@ class VodWishlistsController < ApplicationController
       current_customer.vod_wishlists.create(:imdb_id => params[:vod_wishlist][:imdb_id], :source_id => params[:source])
     end
     
-    Customer.send_evidence('addToWishlistVOD', @product.to_param, current_customer, request, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
     respond_to do |format|
       format.html {redirect_back_or  wishlist_path}
       format.js   do
