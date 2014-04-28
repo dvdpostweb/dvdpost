@@ -1,17 +1,5 @@
 $(function() {
   // Ajax history, only works on the product.reviews for now
-  if($('#film-details').length != 0)
-  {
-    url = document.location.href
-    var regex = new RegExp(".*/products/([0-9]*).*");
-    res = regex.exec(url)
-    send_event('Movie', 'ViewItemPage', res[1],'')
-    response_id = getParameterByName('response_id')
-    if(response_id)
-    {
-      send_event('Movie', 'RecClick', res[1],'')
-    }
-  }
   var options_review = {
     success: show_review,
     dataType: 'html'
@@ -29,21 +17,6 @@ $(function() {
   img.src = $('#image_1').attr('src');
   }
   
-  $('#uninterested a').click(function() {
-    url = $(this).attr('href')
-     var regex = new RegExp('.*/products/([0-9]*)/([^?]*)');
-    res = regex.exec(url)
-    
-    if(res[2]=='seen')
-    {
-      action = 'AlreadySeen'
-    }
-    else
-    {
-      action = 'NotInterestedItem'
-    }
-    send_event('Movie', action, res[1],'')
-  });
   function show_review(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){
       item = html_item.html(responseText);
@@ -188,8 +161,6 @@ $(function() {
     html_item.html("<div style='height:19px'><img src='/images/"+loader+"'/></div>");
     set_page(url)
     var regex = new RegExp(".*/products/([0-9]*).*value=([0-9])");
-    res = regex.exec(url)
-    send_event('Movie', 'ItemRated', res[1], res[2])
     
     $.ajax({dataType: 'html',
       url: url,
@@ -518,9 +489,6 @@ $(function() {
           { 
             set_page(url)
             var regex = new RegExp(".*/products/([0-9]*).*");
-            res = regex.exec(url)
-            send_event('Movie', 'ViewTrailer', res[1],'')
-
             jQuery.facebox(data); 
           }
         });
@@ -573,9 +541,6 @@ $(function() {
     product_id = $(this).parents('.new_wishlist_item').children('#wishlist_item_product_id').val()
     set_page($(this).parents('.new_wishlist_item').attr('action')+ "/products/" + product_id +"?recommendation="+$(this).parents('.new_wishlist_item').children('#wishlist_item_wishlist_source_id').val())
     radio_value = $(this).parent().parent().children('.col4').children('input:checked').val()
-    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
-    res = regex.exec(url);
-    send_event('Movie', 'AddToWishlist', res[1], radio_value);
     $(this).parents('.new_wishlist_item').ajaxSubmit(options);
     $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>");
     return false; // prevent default behaviour
@@ -585,9 +550,6 @@ $(function() {
     
     url = $(this).parents('.remvove_from_wishlist_form').attr('action')
     value = $(this).val()
-    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
-    res = regex.exec(url)
-    send_event('Movie', 'RemoveFromWishlist', res[1],'')
     
     loader = 'ajax-loader.gif';
     if ($(this).parent().parent().children('#load_color').attr('value') == 'black'){

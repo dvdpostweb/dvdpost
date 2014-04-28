@@ -213,59 +213,6 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def recommendations(filter, options)
-    begin
-      # external service call can't be allowed to crash the app
-      #recommendation_ids = DVDPost.home_page_recommendations_new(self.to_param, options[:kind])
-      data = DVDPost.home_page_recommendations(self.to_param, I18n.locale)
-      recommendation_ids = data[:dvd_id]
-      response_id = data[:response_id]
-      url = data[:url]
-      results = if recommendation_ids
-        hidden_ids = (rated_products + seen_products + wishlist_products + uninterested_products).uniq.collect(&:id)
-        result_ids = recommendation_ids - hidden_ids
-        #result_ids = recommendation_ids
-        filter.update_attributes(:recommended_ids => result_ids)
-        options.merge!(:subtitles => [2]) if I18n.locale == :nl
-        options.merge!(:audio => [1]) if I18n.locale == :fr
-        {:recommendation => Product.filter(filter, options.merge(:view_mode => :recommended)), :response_id => response_id}
-      else
-        []
-      end
-    rescue => e
-      logger.error("Failed to retrieve recommendations: #{e.message}")
-      {:recommendation => false, :response_id => false}
-    end
-  end
-
-  def self.send_evidence(type, product_id, customer, request, params = nil , args = nil)
-    begin
-      ip = request.remote_ip
-      product_id = product_id.to_s.gsub(/-.*/,'')
-      if params[:response_id]
-        params[:responseid] = params[:response_id]
-        params.delete :response_id
-      end
-      url = DVDPost.send_evidence_recommendations(type, product_id, customer, ip, params, args)
-      unless @bot
-        message = ""
-        message += " user #{customer.id}" if customer
-        message += " url #{url}"
-        message += " date #{Time.now.strftime("%Y-%m-%d %H:%M") }"
-        message += " params #{params.inspect}"
-        message += " request #{request.host}#{request.fullpath}"
-        message += " referer #{request.referer}" if request.referer
-        message += " user agent #{request.env['HTTP_USER_AGENT']}\n\r" if request.env['HTTP_USER_AGENT']
-        target  = "log/check_thefilter.log"
-        File.open(target, "a+") do |f|
-          f.write(message)
-        end
-      end
-    rescue => e
-      logger.error("Failed to send evidence: #{e.message}")
-    end
-  end
-
   def popular(filter, options={})
     #options.merge!(:subtitles => [2]) if I18n.locale == :nl
     #options.merge!(:audio => [1]) if I18n.locale == :fr
@@ -590,7 +537,6 @@ class Customer < ActiveRecord::Base
     unless wl.blank?
       wl.each do |item|
         item.destroy()
-        Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
       end
     end
     if vod_wishlists && vod_wishlists.find_by_imdb_id(imdb_id)

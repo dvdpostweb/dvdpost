@@ -198,8 +198,6 @@ class HomeController < ApplicationController
           @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered_rand.first
           @theme_month = false
         end
-        expiration_recommendation_cache()
-        @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s], :no_filter => true})
       end
     end
   end

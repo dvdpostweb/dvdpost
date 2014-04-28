@@ -73,9 +73,6 @@ class WishlistItemsController < ApplicationController
       end
       
       @load_color = params[:load_color].to_sym if params[:load_color]
-      if @source.to_i == 3
-        expiration_recommendation_cache
-      end
     end
     
     if params[:wishlist_item][:wishlist_source_id].to_i == 0
@@ -148,7 +145,6 @@ class WishlistItemsController < ApplicationController
     begin
       @wishlist_item = WishlistItem.find(params[:id])
       @wishlist_item.update_attributes(params[:wishlist_item])
-      Customer.send_evidence('UpdateWishlistItem', params[:id], current_customer, request, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]}, {:priority => params[:wishlist_item][:priority]}) if params[:wishlist_item]
       respond_to do |format|
         format.js {
           @form_id = "form_#{params[:id]}"
@@ -159,7 +155,6 @@ class WishlistItemsController < ApplicationController
 
   def destroy
       @wishlist_item = WishlistItem.destroy(params[:id])
-      Customer.send_evidence('RemoveFromWishlist', params[:id], current_customer, request, {:response_id => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser), :rule => params[:source]})
       respond_to do |format|
         format.html {redirect_back_or  wishlist_path}
         format.js   do
@@ -210,7 +205,6 @@ class WishlistItemsController < ApplicationController
     wishlist_item = WishlistItem.new(params)
     wishlist_item.customer = current_customer
     wishlist_item.save
-    Customer.send_evidence('AddToWishlist', params[:product_id], current_customer, request, {:responseid => response_id, :segment1 => params[:wishlist_source_id], :formFactor => format_text(@browser) , :rule => params[:wishlist_source_id]}, {:priority => params[:priority]})
     wishlist_item
   end
 

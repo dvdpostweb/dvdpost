@@ -600,21 +600,6 @@ class Product < ActiveRecord::Base
     end    
   end
 
-  def get_recommendations(kind)
-    recommendation_ids = recommendations.collect(&:recommendation_id)
-    if recommendation_ids && !recommendation_ids.empty?
-      if kind == :normal
-        Product.search(:max_matches => 200, :per_page => 8, :page => pa).available.by_products_id(recommendation_ids).with_speaker(DVDPost.product_languages[I18n.locale.to_s])
-      else
-        if categories.find_by_categories_id([76,72])
-          Product.available.gay.by_products_id(recommendation_ids)
-        else
-          Product.available.hetero.by_products_id(recommendation_ids)
-        end
-      end
-    end
-  end
-
   def description
     case I18n.locale
       when :nl

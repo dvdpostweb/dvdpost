@@ -100,7 +100,6 @@ class StreamingProductsController < ApplicationController
                   end
                     movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
                     vod_selection = DVDPost.mail_vod_selection(current_customer.to_param, params[:kind])
-                    recommendation_dvd_to_dvd = DVDPost.mail_recommendation_dvd_to_dvd(current_customer.to_param, @product.id)
                     options = 
                     {
                       "\\$\\$\\$customers_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
@@ -108,7 +107,7 @@ class StreamingProductsController < ApplicationController
                       "\\$\\$\\$movie_details\\$\\$\\$" => movie_detail,
                       "\\$\\$\\$selection_vod\\$\\$\\$" => vod_selection,
                       "\\$\\$\\$date\\$\\$\\$" => Time.now.strftime('%d/%m/%Y'),
-                      "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => recommendation_dvd_to_dvd,
+                      "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => '',
                     }
                     send_message(mail_id, options)
                 
@@ -132,11 +131,9 @@ class StreamingProductsController < ApplicationController
           if @token
             current_customer.remove_product_from_wishlist(params[:id], request.remote_ip) if current_customer
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id], :token_id => @token.to_param, :ip => request.remote_ip)
-            Customer.send_evidence('PlayStart', @product.to_param, current_customer, request, {:responseid => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser) , :rule => params[:source]}) if current_customer
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip) || (current_customer && current_customer.super_user?) || (/^192(.*)/.match(request.remote_ip))
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename, :source => streaming_version.source, :streaming => streaming_version, :browser => @browser }, :layout => false
-            Customer.send_evidence('PlayStart', @product.to_param, current_customer, request, {:responseid => params[:response_id], :segment1 => params[:source], :formFactor => format_text(@browser) , :rule => params[:source]}) if current_customer
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end

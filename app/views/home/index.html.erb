@@ -38,7 +38,7 @@
     <% if ENV['HOST_OK'] == "1" %>
       <%= render :partial => '/home/index/services' %>
     <% else %>
-      <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :recommendations => @recommendations, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
+      <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available, :review_count => @review_count, :rating_count => @rating_count, :not_rated_product => @not_rated_product, :offline_request => @offline_request, :theme => @theme} %>
     <% end %>
     <!--   ==============   MAIN CONTENT   ==============   -->
     <div id="maincontent" >
@@ -52,7 +52,6 @@
     </div>
     <div id="rightcolumn" >
       <%= render :partial => '/home/index/newsletters', :locals => {:news => @news} %>
-   	  <%= link_to image_tag("#{I18n.locale.to_s}/vod-banner.jpg", :size => "320x254"), streaming_products_faq_path() %>
    	  <%= render :partial => '/home/index/chronicle', :locals => {:chronicles => @chronicles} if I18n.locale != :en %>
     <!--   ==============   END RIGHT COLUMN   ==============   -->
     

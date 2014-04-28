@@ -213,22 +213,6 @@ function set_page(url)
     _gaq.push(['b._trackPageview', url]);
   }
 }
-function send_event(category, action,label,value)
-{
-  if($("#bot").html()==0 && $('#env').html() == 'production')
-  {
-    if(value == '')
-    {
-      _gaq.push(['._trackEvent', category, action, label])
-      _gaq.push(['b._trackEvent', category, action, label])
-    }
-    else
-    {
-      _gaq.push(['._trackEvent', category, action, label+value])
-      _gaq.push(['b._trackEvent', category, action, label+value])
-    }
-  }
-}
 function getParameterByName(name)
 {
   name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
