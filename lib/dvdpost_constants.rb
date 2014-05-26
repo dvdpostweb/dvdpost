@@ -574,6 +574,32 @@ module DVDPost
         :en    => 'PGVODE'
       })
     end
-    
+
+    def ogone_pspid
+      HashWithIndifferentAccess.new.merge({
+        :development => 'dvdpostogonetest',
+        :staging => 'dvdpostogonetest',
+        :pre_production => 'dvdpost',
+        :production => 'dvdpost'
+      })
+    end
+
+    def ogone_pass
+      HashWithIndifferentAccess.new.merge({
+        :development => 'KILLBILL1$metropolis',
+        :staging => 'KILLBILL1$metropolis',
+        :pre_production => 'KILLBILL',
+        :production => 'KILLBILL'
+      })
+    end
+
+    def ogone_url
+      HashWithIndifferentAccess.new.merge({
+        :development => 'test',
+        :staging => 'test',
+        :pre_production => 'prod',
+        :production => 'prod'
+      })
+    end    
   end
 end
