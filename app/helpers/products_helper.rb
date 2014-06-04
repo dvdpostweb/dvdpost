@@ -430,7 +430,7 @@ module ProductsHelper
 
   def abo_details(abo, free_upgrade=0)
     if abo.qty_dvd_max == 0
-      details = "<strong>#{pluralize(abo.credits, t('.in_vod'), t('.in_vods'))}</strong>"
+      details = "<strong>#{pluralize(abo.credits, t('.in_vod'), t('.in_vods'))} #{t('.only_vod')}</strong>"
     else
       details =""
       details = "<strong>#{abo.qty_dvd_max} #{t '.films'}</strong> #{t '.all_formats'}"
