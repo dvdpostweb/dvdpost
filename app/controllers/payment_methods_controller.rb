@@ -37,11 +37,9 @@ class PaymentMethodsController < ApplicationController
     list = list.merge(:PM => 'CreditCard', :BRAND => @brand) if !@brand.nil?
     list = list.sort_by {|k,v| k.to_s}
     string = list.map { |k,v| "#{k.to_s.upcase}=#{v}#{DVDPost.ogone_pass[Rails.env]}" }.join()
-    Rails.logger.debug { "@@@#{string}" }
     if Rails.env == 'production'
       @hash = Digest::SHA1.hexdigest("#{@order_id}#{@price}EUR#{DVDPost.ogone_pspid[Rails.env]}#{current_customer.to_param}#{@com}#{DVDPost.ogone_pass[Rails.env]}")
     else
-      Rails.logger.debug { "@@@iciii" }
       @hash = Digest::SHA1.hexdigest(string)
     end
   end
