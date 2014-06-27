@@ -1,5 +1,14 @@
+<style>
+td
+{
+	padding:2px 5px;
+}
+</style>
 <div class='text_size'>
-<table>
+<%= link_to 'new', new_landing_path %>
+<table style='margin:40px' >
+  <tr><td>name</td><td>reference_id</td><td>fr</td><td>nl</td><td>en</td><td>kind</td><td>login</td><td>action</td></td>
   <%= render :partial => 'landings/index/item', :collection => @landings %>
 </table>
+<%= will_paginate @landings %>
 </div>

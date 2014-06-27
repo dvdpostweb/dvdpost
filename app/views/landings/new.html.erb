@@ -1,8 +1,6 @@
 <div style="margin:40px">
-<% if params[:landing_id] %>
-<h2><%= @title %></h2>
 <div class="text_size">
-<% form_for :texts, :url => landing_texts_path(params[:landing_id]), :html => {:method => :put, :multipart => true} do |f| %>
+<% form_for @landing, :url => landings_path(), :html => {:method => :post, :multipart => true} do |f| %>
 web<br />
 <img src='<%= @landing.image %>?id=<%= rand(26) %>' height='145' /><br />
 <br /><%= file_field_tag "file_web" %><br /><br />
@@ -13,17 +11,17 @@ iphone<br />
 <img src='<%= @landing.image_iphone %>?id=<%= rand(26) %>' height='145' /><br />
 <br /><%= file_field_tag "file_iphone" %><br /><br />
 <h5>title</h5>
-fr :<%= text_field_tag :title_fr, @title_fr.text %>
-nl :<%= text_field_tag :title_nl, @title_nl.text %>
-en :<%= text_field_tag :title_en, @title_en.text %><br />
+fr :<%= text_field_tag :title_fr %>
+nl :<%= text_field_tag :title_nl %>
+en :<%= text_field_tag :title_en %><br />
 <h5>description</h5>
-fr :<%= text_area_tag :name_fr,@name_fr.text, :size => '90x4' %><br />
-nl :<%= text_area_tag :name_nl,@name_nl.text, :size => '90x4' %><br />
-en :<%= text_area_tag :name_en,@name_en.text, :size => '90x4' %><br />
+fr :<%= text_area_tag :name_fr, '',:size => '90x4' %><br />
+nl :<%= text_area_tag :name_nl, '',:size => '90x4' %><br />
+en :<%= text_area_tag :name_en, '', :size => '90x4' %><br />
 <h5>link</h5>
-fr :<%= text_field_tag :link_fr, @link_fr.text %>
-nl :<%= text_field_tag :link_nl, @link_nl.text %>
-en :<%= text_field_tag :link_en, @link_en.text %><br />
+fr :<%= text_field_tag :link_fr %>
+nl :<%= text_field_tag :link_nl %>
+en :<%= text_field_tag :link_en %><br />
 <br />
 reference_id :<br />
 <input name='reference_id' value ='<%= @landing.reference_id %>' />
@@ -54,23 +52,8 @@ type<br />
 	<option <%= @landing.login == 'ADULT' ?  'selected' : '' %> <%= %>>ADULT</option>
 </select><br />
 <br />
-<input type="submit" value ="change">  - <%= link_to 'landings list', landings_path()%>
+<input type="submit" value ="create">  - <%= link_to 'landings list', landings_path()%>
 <br />
 <br />
-<% end %>
-</div>
-<% else %>
-<h2><%= @title %></h2>
-<div class="text_size">
-<% form_for :texts, :url => theme_texts_path(params[:theme_id]), :html => {:method => :put} do |f| %>
-<h5>title</h5>
-fr :<%= text_field_tag :title_fr, @title_fr.text %>
-nl :<%= text_field_tag :title_nl, @title_nl.text %>
-en :<%= text_field_tag :title_en, @title_en.text %><br />
-<br />
-<input type="submit" value ="change">  - <%= link_to 'theme list', themes_path(:locale => nil)%>
-<br />
-<br />
-<% end %>
 </div>
 <% end %>
