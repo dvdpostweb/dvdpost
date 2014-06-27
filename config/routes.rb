@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     oauth.oauth_callback 'oauth/callback', :action => :callback, :conditions => {:method => :get}
     oauth.sign_out 'sign_out', :action => :sign_out, :conditions => {:method => :get}
   end
-  map.resources :landings, :only => [:index] do |landing|
+  map.resources :landings, :only => [:index, :new, :create] do |landing|
     landing.resource :texts
   end
   map.resources :themes, :controller => "themes_events", :only => [:index] do |theme|
