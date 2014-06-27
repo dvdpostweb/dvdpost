@@ -36,6 +36,14 @@ module DVDPost
       "#{images_path}/landings"
     end
 
+    def images_carousel_iphone_path
+      "#{images_path}/landingsiphone"
+    end
+
+    def images_carousel_ipad_path
+      "#{images_path}/landingsipad"
+    end
+
     def images_carousel_adult_path
       "#{imagesx_path}/landings"
     end

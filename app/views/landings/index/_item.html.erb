@@ -1,13 +1,25 @@
-<tr>
+<tr style=''>
     <% if Translation.find_all_by_tr_key("title_#{item.to_param}").count > 0 %>
       <td>
       <%= link_to item.name, landing_texts_path(:landing_id => item.to_param) %>
       </td>
+      <td><%= item.reference_id %></td>
+      <td style='background:<%= color(item.actif_french) %>'><%= item.actif_french %></td>
+      <td style='background:<%= color(item.actif_dutch) %>'><%= item.actif_dutch %></td>
+      <td style='background:<%= color(item.actif_english) %>'><%= item.actif_english %></td>
+      <td><%= item.kind %></td>
+      <td><%= item.login %></td>
       <td>
       <%= link_to 'edit', edit_landing_texts_path(:landing_id => item.to_param) %>
       </td>
       <% else %>
-  <td><%= item.name %></td>
-  <td><%= link_to 'new', new_landing_texts_path(:landing_id => item.to_param) %></td>
+      <td><%= item.name %></td>
+      <td><%= item.reference_id %></td>
+      <td style='background:<%= color(item.actif_french) %>'><%= item.actif_french %></td>
+      <td style='background:<%= color(item.actif_dutch) %>'><%= item.actif_dutch %></td>
+      <td style='background:<%= color(item.actif_english) %>'><%= item.actif_english %></td>
+      <td><%= item.kind %></td>
+      <td><%= item.login %></td>
+      <td><%= link_to 'new', new_landing_texts_path(:landing_id => item.to_param) %></td>
 <% end %>
 </tr> 
