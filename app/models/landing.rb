@@ -19,6 +19,14 @@ class Landing < ActiveRecord::Base
     File.join(DVDPost.images_carousel_path, id.to_s+'.jpg')
   end
 
+  def image_ipad
+    File.join(DVDPost.images_carousel_ipad_path, id.to_s+'.jpg')
+  end
+
+  def image_iphone
+    File.join(DVDPost.images_carousel_iphone_path, id.to_s+'.jpg')
+  end
+
   def image_public
     File.join(DVDPost.images_carousel_path, id.to_s+'.jpg')
   end

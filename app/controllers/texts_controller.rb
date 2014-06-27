@@ -1,3 +1,4 @@
+require 'net/sftp'
 class TextsController < ApplicationController
   before_filter :get_data
   before_filter :http_authenticate
@@ -33,15 +34,37 @@ class TextsController < ApplicationController
       @name_en.update_attribute(:text, params[:name_en])
       @link_fr.update_attribute(:text, params[:link_fr])
       @link_nl.update_attribute(:text, params[:link_nl])
-      @link_en.update_attribute(:text, params[:link_en]) 
+      @link_en.update_attribute(:text, params[:link_en])
+
+    if params[:file_web] || params[:file_iphone] || params[:file_ipad]
+      Net::SFTP.start('192.168.100.205', 'dvdpost', :password => '(:melissa:)') do |sftp|
+        sftp.upload!(params[:file_web] , '/data/sites/benelux/images/landings/'+@landing.id.to_s+'.jpg') if params[:file_web]
+        sftp.upload!(params[:file_ipad] , '/data/sites/benelux/images/landingsipad/'+@landing.id.to_s+'.jpg') if params[:file_ipad]
+        sftp.upload!(params[:file_iphone] , '/data/sites/benelux/images/landingsiphone/'+@landing.id.to_s+'.jpg') if params[:file_iphone]
+      end
+    end
+    @landing.update_attributes(:reference_id => params[:reference_id], :actif_french => params[:actif_french], :actif_dutch => params[:actif_dutch], :actif_english => params[:actif_english], :login => params[:login] ) 
     else
       @title_fr.update_attribute(:text, params[:title_fr])
       @title_nl.update_attribute(:text, params[:title_nl])
       @title_en.update_attribute(:text, params[:title_en])
     end
+    [1,2,3].each do |locale_id| 
+    
+      locale = Locale.find(locale_id)
+      raise "wrong locale" unless locale
+      locale.short_will_change! # any field in fact, we just need to bump the updated_at attribute
+      locale.save!
+      
+      Locale.uncached do
+        locale = Locale.find(locale_id)
+        Rails.cache.write("locale_versions/#{locale.short}", locale.updated_at)
+      end
+    end 
   end
   def get_data
     if params[:landing_id]
+      @landing = Landing.find(params[:landing_id])
       @title = Landing.find(params[:landing_id]).name
       @title_fr = Locale.find(2).translations.find_by_tr_key("title_#{params[:landing_id]}")
       @title_nl = Locale.find(3).translations.find_by_tr_key("title_#{params[:landing_id]}")

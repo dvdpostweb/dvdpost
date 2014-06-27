@@ -28,7 +28,17 @@ module ApplicationHelper
       else 'high'
     end
   end
-
+  def color(status)
+    case status
+    when 'YES'
+      'green'
+    when 'NO'
+      'red'
+    else
+      'orange'
+  end
+      
+  end
   def redirect_after_registration(path = nil)
     #if current_customer
     #  if current_customer.customers_registration_step.to_i == 31
