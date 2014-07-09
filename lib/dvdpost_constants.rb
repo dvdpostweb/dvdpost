@@ -86,8 +86,8 @@ module DVDPost
 
     def news_url
       HashWithIndifferentAccess.new.merge({
-        :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
-        :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
+        :fr => 'http://www.cinenews.be/fr/cinema/feed/rss',
+        :nl => 'http://www.cinenews.be/nl/cinema/feed/rss',
         :en => 'http://www.cinemablend.com/rss.php'
       })
     end
