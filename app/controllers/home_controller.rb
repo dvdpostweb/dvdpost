@@ -214,7 +214,7 @@ class HomeController < ApplicationController
   end
   def retrieve_news(news_page)
     fragment_name = "#{I18n.locale.to_s}/home/news"
-    news_items = when_fragment_expired fragment_name, 2.hour.from_now do
+    news_items = when_fragment_expired fragment_name, 2.hours.from_now do
       begin
         DVDPost.home_page_news
       rescue => e

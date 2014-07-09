@@ -1,6 +1,6 @@
 <li class="jcarousel-item jcarousel-item-horizontal">
     <h3><%= news_item.title %></h3>
     <p>
-      <%= news_item.description.gsub('<a ', '<a target="_blank" ').gsub('</a>','').gsub('</p>','</a></p>') %>
+      <%= news_item.description.gsub('<a ', '<a target="_blank" ').gsub('</a>','').gsub('</p>','</a></p>').gsub('width="60"', 'width="150"') %>
     </p>
 </li>
