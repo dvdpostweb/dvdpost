@@ -47,9 +47,10 @@ en<br />
 type<br />
 <select name='login'>
 	<option <%= @landing.login == 'PUBLIC' ?  'selected' : '' %>>PUBLIC</option>
-	<option <%= @landing.login == 'PRIVATE' ?  'selected' : '' %> <%= %>>PRIVATE</option>
-	<option <%= @landing.login == 'BOTH' ?  'selected' : '' %> <%= %>>BOTH</option>
-	<option <%= @landing.login == 'ADULT' ?  'selected' : '' %> <%= %>>ADULT</option>
+	<option <%= @landing.login == 'PRIVATE' ?  'selected' : '' %>>PRIVATE</option>
+	<option <%= @landing.login == 'BOTH' ?  'selected' : '' %>>BOTH</option>
+	<option <%= @landing.login == 'ADULT' ?  'selected' : '' %>>ADULT</option>
+	<option <%= @landing.login == 'PUBLIC_TEST' ?  'selected' : '' %>>PUBLIC_TEST</option>
 </select><br />
 <br />
 <input type="submit" value ="create">  - <%= link_to 'landings list', landings_path()%>
