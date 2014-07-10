@@ -10,6 +10,7 @@ class LandingsController < ApplicationController
   end
 
   def create
+    @landing = Landing.create(:name => params[:title_fr], :reference_id => params[:reference_id], :actif_french => params[:actif_french], :actif_dutch => params[:actif_dutch], :actif_english => params[:actif_english], :login => params[:login] ) 
     if params[:file_web] || params[:file_iphone] || params[:file_ipad]
       Net::SFTP.start('pekin', 'dvdpost', :password => '(:melissa:)') do |sftp|
         sftp.upload!(params[:file_web] , '/data/sites/benelux/images/landings/'+@landing.id.to_s+'.jpg') if params[:file_web]
@@ -17,7 +18,6 @@ class LandingsController < ApplicationController
         sftp.upload!(params[:file_iphone] , '/data/sites/benelux/images/landingsiphone/'+@landing.id.to_s+'.jpg') if params[:file_iphone]
       end
     end
-    @landing = Landing.create(:name => params[:title_fr], :reference_id => params[:reference_id], :actif_french => params[:actif_french], :actif_dutch => params[:actif_dutch], :actif_english => params[:actif_english], :login => params[:login] ) 
     [1,2,3].each do |i|
       locale = case i
       when 2
