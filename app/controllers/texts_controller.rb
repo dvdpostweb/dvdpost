@@ -37,7 +37,7 @@ class TextsController < ApplicationController
       @link_en.update_attribute(:text, params[:link_en])
 
     if params[:file_web] || params[:file_iphone] || params[:file_ipad]
-      Net::SFTP.start('192.168.100.205', 'dvdpost', :password => '(:melissa:)') do |sftp|
+      Net::SFTP.start('pekin', 'dvdpost', :password => '(:melissa:)') do |sftp|
         sftp.upload!(params[:file_web] , '/data/sites/benelux/images/landings/'+@landing.id.to_s+'.jpg') if params[:file_web]
         sftp.upload!(params[:file_ipad] , '/data/sites/benelux/images/landingsipad/'+@landing.id.to_s+'.jpg') if params[:file_ipad]
         sftp.upload!(params[:file_iphone] , '/data/sites/benelux/images/landingsiphone/'+@landing.id.to_s+'.jpg') if params[:file_iphone]
