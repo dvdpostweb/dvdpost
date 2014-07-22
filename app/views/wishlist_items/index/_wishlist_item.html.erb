@@ -12,10 +12,14 @@
       <%= t '.warning_text' %>
     </div>
   <% else %>
-    <div class="tooltips_item">&nbsp;</div>
+    <div class="tooltips_item">&nbsp;
+    </div>
   <% end %>
+
   <% if wishlist_item.product.streaming?(params[:kind], session[:country_id]) and streaming_access? %>  
     <div class="availability streaming">
+      <%= image_tag('eye.png', :class => 'eye') if wishlist_item.already_rented == 'YES' %>
+        
         <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product, :source => @wishlist_source[:wishlist_dvd], :response_id => nil} %>
     </div>
   <% else %>  
@@ -25,7 +29,7 @@
       <% if wishlist_item.product.next == 1 && wishlist_item.product.available_at %> 
         <% wishlist_item.product.available_at.strftime("%d/%m/%Y") %>
       <% elsif wishlist_item.already_rented == 'YES' %>
-        <span class="deja-vu"><%= t '.already_seen' %></span>
+        <%= image_tag('eye.png') %>
       <% else %>
         &nbsp;
       <% end %>
