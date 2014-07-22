@@ -1482,3 +1482,11 @@ font-size: 1em;
     padding-top: 7px;
     width: 165px;
 }
+#addwishlist_already_seen
+{
+  background: white;
+  width: 200px;
+  padding: 3px 6px;
+  margin: 0 auto;
+  line-height: 24px;
+}

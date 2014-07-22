@@ -7,6 +7,11 @@
     <div id="addwishlist_explain">
       <%= t '.new_intro' %>
     </div>
+    <% if current_customer.assigned_products.include?(product) %>
+    <div id='addwishlist_already_seen'>
+      <%= "#{image_tag('eye.png')} #{t('products.show.seen_uninterested.already_seen')}" %>
+    </div>
+    <% end %>
     <div class="table">
       <div class="legende"> 
         <span class="col1"><%= t '.format' %></span>
