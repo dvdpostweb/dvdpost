@@ -194,7 +194,7 @@ class HomeController < ApplicationController
         @theme = ThemesEvent.selected.hp.by_kind(params[:kind]).ordered.first
         @theme_month = true
         @theme = ThemesEvent.selected.hp.by_kind(params[:kind]).first
-        if @theme.too_old
+        if @theme && @theme.too_old
           @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered_rand.first
           @theme_month = false
         end
