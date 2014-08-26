@@ -39,7 +39,7 @@
         <% end %>
         <% if ENV['HOST_OK'] == "1" || !current_customer.suspended? %>
         <% code_public = StreamingCode.find_by_name(params[:code]) %>
-          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) || (current_customer && current_customer.svod_adult > 0  && @streaming.studio_id == 147) %>
+          <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits && !@streaming.is_ppv) || (code_public && code_public.available?) || (@streaming.is_ppv && current_customer.ppv_status_id == 1) || (current_customer && current_customer.svod_adult > 0  && @streaming.studio_id == 147) %>
             <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
               <div class="choice_language">
                 

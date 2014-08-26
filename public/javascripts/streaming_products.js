@@ -175,7 +175,7 @@ $(function() {
         url: url,
         dataType: 'html',
         type: 'GET',
-        success: function(data) { jQuery.facebox(data); }
+        success: function(data) { jQuery.facebox(data);}
       });
     });
     
