@@ -1,14 +1,34 @@
 <div class="switch_dom" id="switch_dom">
   <div id="title"><%= t '.title' %></div>
   <div style="margin-left: 20px; width: 800px;">
-   <% form_for(:customer, :url => customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :put }) do |f| %>
+   <% form_for(:customer, :url => customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :put, :id => :credit_card }) do |f| %>
     <div style="width: 800px;" > <img src="/images/card.png" style="float: left; padding-right: 10px;">
       <p>
       <h3><%= t '.credit_card' %></h3>
       </p>
       <p><%= t '.credit_card_redirect' %></p>
     </div>
-    <div align="right" style="padding-right: 8px;">
+    <table class="brand">
+      <tbody>
+        <tr height="50">
+          <td width="22"><input id="visa" name="brand" value="VISA" type="radio"></td>
+          <td width="71"><%= image_tag 'visa_icon.png', :alt => 'visa' %></td>
+          <td width="22"><input id="master" name="brand" value="Mastercard" type="radio"></td>
+          <td width="71"><%= image_tag 'master_card_icon.png', :alt => 'master_card_icon' %></td>
+          <td width="22"><input id="amex" name="brand" value="American Express" type="radio"></td>
+          <td width="71"><%= image_tag 'american-express_icon.png', :alt => 'american-express_icon' %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td width="71">Visa</td>
+          <td></td>
+          <td width="71">Eurocard Mastercard</td>
+          <td></td>
+          <td width="71">American Express</td>          
+        </tr>
+      </tbody>
+    </table>
+    <div class="brand" style="padding-right: 8px;">
     <table cellspacing="0" cellpadding="0">
 
       <tr>
@@ -25,5 +45,7 @@
     </div>
     <% end %>
   </div>
-
+  <div style="display:none" id="error">
+    <%= t '.error' %>
+  </div>
 </div>

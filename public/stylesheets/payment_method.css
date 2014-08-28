@@ -47,30 +47,64 @@ element.style {
 }
 
 
-#switch_dom  #title{
-  color: #303030;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 18px;
+#switch_dom #title {
+    color: #212a31;
+    font-family: 'Open Sans Condensed',sans-serif!important; 
+    font-size: 28px!important; 
+    font-weight: normal;
     padding-left: 15px;
     padding-right: 15px;
     text-align: left;
+    text-transform: none;
 }
 
-#switch_dom  a {   color: ##454545;
-      font-family: Arial,Helvetica,sans-serif;
-    font-size: 12px;
+#switch_dom  a {   
+  color: ##454545;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
 	text-decoration:underline;
-	} 
+} 
 
-#switch_dom  h3 {
-    color: #ff3300;
-     font-family: Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: left;
-	text-transform: uppercase;
+#switch_dom h3 {
+  font-weight: bold;
+  color: #85ba17!important; 
+  font-size: 15px!important;
+  text-align: left;
+  text-transform: none!important; 
+  font-family: 'Open Sans Condensed',sans-serif!important; 
+  text-shadow: none;
 }
-
+#switch_dom .choice {
+    float: left;
+    font-size: 11px;
+    line-height: 28px;
+    padding-bottom: 20px;
+    text-align: center;
+    width: 337px;
+    margin: 20px 0 0 0px;
+}
+.button_confirm_switch {
+background: #acd341; /* Old browsers */
+background: -moz-linear-gradient(top,  #acd341 0%, #88bd32 100%)!important;  /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#acd341), color-stop(100%,#88bd32))!important;  /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #acd341 0%,#88bd32 100%)!important;  /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #acd341 0%,#88bd32 100%)!important;  /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #acd341 0%,#88bd32 100%)!important;  /* IE10+ */
+background: linear-gradient(to bottom,  #acd341 0%,#88bd32 100%)!important;  /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#acd341', endColorstr='#88bd32',GradientType=0 )!important;  /* IE6-9 */
+    border: 1px solid #7ea613!important; 
+    border-radius: 4px!important; 
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset!important; 
+    color: #ffffff!important; 
+    font-size: 15px!important; 
+    padding: 5px!important; 
+    text-shadow: 0 -1px 0 #72942a!important; 
+    width: 200px!important; 
+    height: 34px!important; 
+}
+#switch_dom p {
+    margin: 0;
+}
 .checkalive {
     background: url("../images/check.png") no-repeat scroll 0 -25px transparent;
     height: 26px;
@@ -88,4 +122,7 @@ element.style {
 }
 #small_asterisk{
   font-size:0.9em;
+}
+.brand {
+  margin: 10px 0 0 82px;
 }
