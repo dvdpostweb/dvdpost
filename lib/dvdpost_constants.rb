@@ -86,8 +86,8 @@ module DVDPost
 
     def news_url
       HashWithIndifferentAccess.new.merge({
-        :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
-        :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
+        :fr => 'http://www.cinenews.be/fr/cinema/feed/rss',
+        :nl => 'http://www.cinenews.be/nl/cinema/feed/rss',
         :en => 'http://www.cinemablend.com/rss.php'
       })
     end
@@ -336,21 +336,6 @@ module DVDPost
       {:dvd_id => dvd_id, :response_id => response_id, :url => url}
     end
 
-    def send_evidence_recommendations(type, product_id, customer, ip, params = nil, args = nil)
-      #url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
-      url = Rails.env == "production" ? "http://api181.thefilter.com/dvdpost/live/video(#{product_id})/Event/#{type}" : "http://api181.thefilter.com/dvdpost/sandbox/video(#{product_id})/Event/#{type}"
-      url = "#{url}#{args.collect{|key,value| "/#{value}"}}" if args
-      if customer
-        url = "#{url}?extUserId=#{customer.to_param}" 
-      else 
-        url = "#{url}?"
-      end
-      url = "#{url}#{params.collect{|key,value| "&#{key}=#{value}" if !value.nil? && !value.empty?}}" if params
-      #url
-      open(url)
-      return url
-    end
-
     def product_dvd_statuses
       statuses = OrderedHash.new
       statuses.push(:unreadable, {:message => 3, :message_category => 1, :product_status => 2, :compensation => true})
@@ -461,8 +446,7 @@ module DVDPost
     end
 
     def mail_recommendation_dvd_to_dvd(customer_id, product_id, limit = 7)
-      data = open("http://www.dvdpost.com/webservice/recommendations_dvd_to_dvd.php?product_id=#{product_id}&limit=#{limit}&customer_id=#{customer_id}").read
-      Iconv.conv('utf-8','ISO-8859-1',  data)
+      ""
     end
 
     def mail_movie_detail(customer_id, product_id, type = 'vod')
@@ -598,6 +582,32 @@ module DVDPost
         :en    => 'PGVODE'
       })
     end
-    
+
+    def ogone_pspid
+      HashWithIndifferentAccess.new.merge({
+        :development => 'dvdpostogonetest',
+        :staging => 'dvdpostogonetest',
+        :pre_production => 'dvdpost',
+        :production => 'dvdpost'
+      })
+    end
+
+    def ogone_pass
+      HashWithIndifferentAccess.new.merge({
+        :development => 'KILLBILL1$metropolis',
+        :staging => 'KILLBILL1$metropolis',
+        :pre_production => 'KILLBILL',
+        :production => 'KILLBILL'
+      })
+    end
+
+    def ogone_url
+      HashWithIndifferentAccess.new.merge({
+        :development => 'test',
+        :staging => 'test',
+        :pre_production => 'prod',
+        :production => 'prod'
+      })
+    end    
   end
 end

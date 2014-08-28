@@ -51,14 +51,14 @@
 				<dt><%= t '.date_end_abo' %></dt>
 				<dd><%= current_customer.subscription_expiration_date.strftime("%d/%m/%Y") if current_customer.subscription_expiration_date %></dd>
 				<% if offline_request.count > 0 %>
-        <dt>
-          <%= t '.offline', :link => messages_urgent_path, :class => :alert %> 
-        </dt>
+        <dt><%= t '.offline', :link => messages_urgent_path, :class => :alert %></dt>
         <% end %>
 			</dl>
 			<%= link_to t(".account"), customer_path(:id => current_customer), :class => :osc %>
 		</div>
-		<%= render :partial => '/home/index/recommendation_box', :locals => {:recommendations => recommendations, :not_rated_product => not_rated_product} if recommendations %>
+		<%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
+  	
 	</div>
-	<%= render :partial => '/home/index/theme_of_week', :locals => { :theme => theme } %>
+	<%= link_to image_tag("#{I18n.locale.to_s}/vod-banner.jpg", :size => "320x254"), streaming_products_faq_path() %>
+  
 </div>

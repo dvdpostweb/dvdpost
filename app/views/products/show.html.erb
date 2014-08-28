@@ -182,7 +182,6 @@
     </div>
   </div><!-- #formats -->
    <div id="rented-wrap">
-    <%= render :partial => 'products/show/recommendations', :locals => { :rating_color => @rating_color, :products => @recommendations, :recommendation_nb_page => @recommendation_nb_page, :recommendation_page => @recommendation_page, :recommendation_response_id => @recommendation_response_id } if @recommendations && @recommendations.size > 0 %>
     <%= render :partial => 'products/show/critics', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews, :review_sort => @review_sort, :product_title => @product_title, :chronicle => @chronicle, :source => @source, :response_id => @response_id} %>
   </div><!-- #rented-wrap-->
 </div>
