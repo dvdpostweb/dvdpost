@@ -17,11 +17,10 @@ $(function() {
   })
   $("#checkout_confirmation").submit();
   
-  $('#ppv .button_confirm_switch').click(function(){
-    
-    if($('#brand').size())
+  $('#ppv .button_confirm_switch, #credit_card .button_confirm_switch, #credit_card_modification .button_confirm_switch').click(function(){
+    if($('.brand').size())
     {
-      if($("#ppv input[type='radio']:checked").val() == undefined)
+      if($("input[type='radio']:checked").val() == undefined)
       {
       alert($('#error').html())
       return false;

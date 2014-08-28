@@ -224,7 +224,7 @@ class StreamingProductsController < ApplicationController
   def show_error(error, code)
     if code.nil?
       flash[:error] = error
-      notify_country_error(current_customer.id, session[:country_id], params[:id], error, session[:my_ip])
+      notify_country_error(current_customer ? current_customer.id : 0, session[:country_id], params[:id], error, session[:my_ip])
       redirect_to root_path
     else
       render :partial => '/streaming_products/show/error', :layout => true, :locals => {:error => error}
