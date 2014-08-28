@@ -193,13 +193,10 @@ class HomeController < ApplicationController
         @transit_items = current_customer.orders.in_transit.all
         @theme = ThemesEvent.selected.hp.by_kind(params[:kind]).ordered.first
         @theme_month = true
-        @theme = ThemesEvent.selected.hp.by_kind(params[:kind]).first
-        if @theme.too_old
+        if @theme.nil? || @theme.too_old
           @theme = ThemesEvent.old.hp.by_kind(params[:kind]).ordered_rand.first
           @theme_month = false
         end
-        expiration_recommendation_cache()
-        @recommendations = retrieve_recommendations(params[:recommendation_page],{:per_page => 8, :kind => params[:kind], :language => DVDPost.product_languages[I18n.locale.to_s], :no_filter => true})
       end
     end
   end
@@ -216,7 +213,7 @@ class HomeController < ApplicationController
   end
   def retrieve_news(news_page)
     fragment_name = "#{I18n.locale.to_s}/home/news"
-    news_items = when_fragment_expired fragment_name, 2.hour.from_now do
+    news_items = when_fragment_expired fragment_name, 2.hours.from_now do
       begin
         DVDPost.home_page_news
       rescue => e

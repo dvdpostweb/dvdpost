@@ -5,9 +5,6 @@ $(function() {
   $(".wishlist_item_priority").live("click", function() {
     url = $(this).parent().parent().attr('action')
     value = $(this).val()
-    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
-    res = regex.exec(url)
-    send_event('Movie', 'UpdateWishlistItem', res[1],value)
     
     loader = 'ajax-loader.gif';
     $(this).parent().parent().ajaxSubmit(options_change_priority);
@@ -24,9 +21,6 @@ $(function() {
   $('.remvove_from_wishlist').live("click", function(){
     url = $(this).parent().parent().attr('action')
     value = $(this).val()
-    var regex = new RegExp(".*/wishlist_items/([0-9]*).*");
-    res = regex.exec(url)
-    /*send_event('Movie', 'RemoveFromWishlist', res[1],'')*/
     loader = 'ajax-loader.gif';
     title = $(this).parent().parent().parent().parent().children('.title').children().html();
     i=1

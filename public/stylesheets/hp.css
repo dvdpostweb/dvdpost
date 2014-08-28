@@ -28,7 +28,6 @@ width: 640px;
 #user-info-wrap {
   background: #f0f3f5 url(../images/user-info-bg.gif) 100% 0 repeat-y;
   overflow: hidden;
-  padding-bottom: 15px;
 }
 #user-info-wrap h3 {
   font-weight: normal;
@@ -106,10 +105,9 @@ width: 640px;
 
 }
 #week-theme {
-   width: 290px;
-   padding: 20px 0 0 30px;
-   float: right;
-   background: url(../images/week-theme-bg.gif) 0 0 no-repeat;
+  width: 278px;
+  padding: 10px 0 0 0px;
+  float: left;
 }
 #week-theme img {
   margin-bottom: 17px;

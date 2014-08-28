@@ -197,58 +197,6 @@ class ApplicationController < ActionController::Base
     options.keys.include?(:locale) ? options : options.merge(:locale => I18n.locale)
   end
 
-  def expiration_recommendation_cache()
-    fragment_name = fragment_name_by_customer
-    expire_fragment(fragment_name)
-  end
-
-  def fragment_name_by_customer()
-    if current_customer
-      "#{I18n.locale.to_s}/home/recommendations/customers_v3/#{current_customer.to_param}"
-    else
-      "#{I18n.locale.to_s}/home/recommendations/public_v10"
-    end
-  end
-
-  def retrieve_recommendations(page, options = {})
-    fragment_name = fragment_name_by_customer
-    Product.search()
-    recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
-      begin
-        if current_customer
-          Marshal.dump(current_customer.recommendations(get_current_filter({}),options.merge(:country_id => session[:country_id])))
-        else
-          Marshal.dump(recommendation_public(options))
-        end
-      rescue => e
-        logger.error "Homepage recommendations unavailable: #{e.message}"
-        expire_fragment(fragment_name)
-        false
-      end        
-    end
-    if recommendation_items_serialize
-      recommendation_items = Marshal.load(recommendation_items_serialize)
-    else
-      recommendation_items = if current_customer
-        current_customer.recommendations(get_current_filter(options[:no_filter].nil? ? options : nil),options.merge(:country_id => session[:country_id]))
-      else
-       recommendation_public(options[:no_filter].nil? ? options : nil)
-      end
-      expire_fragment(fragment_name_by_customer)
-    end
-    if recommendation_items[:recommendation]
-      @response_id = recommendation_items[:response_id]
-      data = recommendation_items[:recommendation].paginate(:per_page => options[:per_page], :page => page)
-      page = params[:recommendation_page].to_i
-      while data.size == 0 && page > 1
-        page = page - 1
-        data = recommendation_items.paginate(:per_page => options[:per_page], :page => page)
-      end
-      data
-    else
-      nil
-    end
-  end
 
   private
     def public_page?
@@ -345,23 +293,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def recommendation_public(options)
-    filter = get_current_filter({})
-    data = DVDPost.home_page_recommendations(999999999, I18n.locale)
-    recommendation_ids  = data[:dvd_id]
-    response_id = data[:response_id]
-    result = if recommendation_ids
-      filter.update_attributes(:recommended_ids => recommendation_ids)
-      options.merge!(:subtitles => [2]) if I18n.locale == :nl
-      options.merge!(:audio => [1]) if I18n.locale == :fr
-      {:recommendation => Product.filter(filter, options.merge(:view_mode => :recommended, :country_id => session[:country_id])), :response_id => response_id}
-      
-    else
-      {:recommendation => false, :response_id => false}
-    end
-    return result
-  end
-
   def allow_cross_domain_access
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "*"

@@ -23,6 +23,13 @@
           <div id="addwishlist_explain">
             <% if @streaming.is_ppv && current_customer.ppv_status_id != 1 %>
               <% if current_customer.ppv_status_id == 0 %>
+                <% logger.debug { "@@@#{params[:btn]}" }%>
+                <% if params[:btn] == 'hide' %>
+                <script >
+                  $('.close').hide()
+                  $(document).unbind('keydown.facebox')
+                </script>
+                <% end %>
                 <%= t '.update_cc_for_ppv' %><br /><br /><%= t '.price', :price => @streaming.ppv_price %><br /><br />
                 <%= link_to t('.click_here'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :credit_card_for_ppv) %>
               <% else %>

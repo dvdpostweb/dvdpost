@@ -152,7 +152,7 @@ class Product < ActiveRecord::Base
             when products_media = 'bluray3d' then 6
             when products_media = 'bluray3d2d' then 7
             else 8 end from products p 
-            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='BE' and ( streaming_products.status = 'online_test_ok' and streaming_products.expire_backcatalogue_at >= date(now()) and available = 1)
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='BE' and ( streaming_products.status = 'online_test_ok' and (streaming_products.expire_backcatalogue_at >= date(now()) or streaming_products.expire_backcatalogue_at is null) and available = 1)
             where  p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_be
     has "(select case 
             when (products_media = 'DVD' and streaming_products.imdb_id is not null ) or (products_media = 'DVD' and vod_next_lux = 1) then 2
@@ -164,7 +164,7 @@ class Product < ActiveRecord::Base
             when products_media = 'bluray3d2d' then 7
             else 8 end 
             from products p
-            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='LU' and ( streaming_products.status = 'online_test_ok' and streaming_products.expire_backcatalogue_at >= date(now()) and available = 1)
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='LU' and ( streaming_products.status = 'online_test_ok' and (streaming_products.expire_backcatalogue_at >= date(now()) or streaming_products.expire_backcatalogue_at is null) and available = 1)
             where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_lu
     has "(select case 
             when (products_media = 'DVD' and streaming_products.imdb_id is not null ) or (products_media = 'DVD' and vod_next_nl = 1) then 2
@@ -176,7 +176,7 @@ class Product < ActiveRecord::Base
             when products_media = 'bluray3d2d' then 7
             else 8 end 
             from products p
-            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='NL' and ( streaming_products.status = 'online_test_ok' and streaming_products.expire_backcatalogue_at >= date(now()) and available = 1)
+            left join streaming_products on streaming_products.imdb_id = p.imdb_id and country ='NL' and ( streaming_products.status = 'online_test_ok' and (streaming_products.expire_backcatalogue_at >= date(now()) or streaming_products.expire_backcatalogue_at is null) and available = 1)
             where p.products_id =  products.products_id limit 1)", :type  => :integer, :as => :special_media_nl
     
     indexes "(select group_concat(distinct country) from streaming_products where imdb_id = products.imdb_id and streaming_products.status = 'online_test_ok' and ((streaming_products.available_from <= date(now()) and streaming_products.expire_at >= date(now())) or (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and available = 1 limit 1)", :type => :multi, :as => :streaming_available
@@ -322,7 +322,6 @@ class Product < ActiveRecord::Base
     products = products.ppv if options[:ppv]
     products = products.streaming(country) if options[:view_mode] == "streaming" || (options[:filter] == "vod" and options[:view_mode] != 'vod_soon')
     if options[:highlight_best]
-      Rails.logger.debug { "@@@ici" }
       case options[:locale]
         when 'fr'
           products = products.highlight_best_fr
@@ -599,21 +598,6 @@ class Product < ActiveRecord::Base
         end
       end
     end    
-  end
-
-  def get_recommendations(kind)
-    recommendation_ids = recommendations.collect(&:recommendation_id)
-    if recommendation_ids && !recommendation_ids.empty?
-      if kind == :normal
-        Product.search(:max_matches => 200, :per_page => 8, :page => pa).available.by_products_id(recommendation_ids).with_speaker(DVDPost.product_languages[I18n.locale.to_s])
-      else
-        if categories.find_by_categories_id([76,72])
-          Product.available.gay.by_products_id(recommendation_ids)
-        else
-          Product.available.hetero.by_products_id(recommendation_ids)
-        end
-      end
-    end
   end
 
   def description

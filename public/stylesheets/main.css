@@ -1463,3 +1463,30 @@ font-size: 1em;
     padding: 2px 25px 4px 13px;
     width: 82px;
 }
+#nostock {
+    background: url("../images/icon_nostock.png") no-repeat scroll 0 4px transparent;
+    font-size: 11px;
+    height: 35px;
+    line-height: 13px;
+    padding-left: 34px;
+    padding-top: 7px;
+    width: 165px;
+}
+
+#nosupplier {
+    background: url("../images/icon_nosupplier.png") no-repeat scroll 0 4px transparent;
+    font-size: 11px;
+    height: 35px;
+    line-height: 13px;
+    padding-left: 34px;
+    padding-top: 7px;
+    width: 165px;
+}
+#addwishlist_already_seen
+{
+  background: white;
+  width: 200px;
+  padding: 3px 6px;
+  margin: 0 auto;
+  line-height: 24px;
+}

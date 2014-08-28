@@ -1095,7 +1095,7 @@ font-size: 0.92em;
 .dvd .title, .bluray .title, .xbox .title, .wii .title, .vod .title, .bluray3d .title {
   background: url(../images/icon-dvd.png) 23px 0 no-repeat;
   padding-left: 62px;
-  width: 426px;
+  width: 407px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -4460,4 +4460,9 @@ background: url("../images/ajoutervod-btn.png") no-repeat scroll 0 2px transpare
 
 #mywhishlist a.regarder {
 display:inline-block !important;
+}
+#mywhishlist .eye
+{
+  position: absolute;
+  margin: 0 0 0 -36px;
 }
