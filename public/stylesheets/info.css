@@ -992,6 +992,47 @@ a.btn_price:hover
   border-radius: 4px 4px 4px 4px;
   margin: 0 8px;
 }
+.formule_dvd {
+  float:left;
+  width:216px;
+    height:84px;
+      border:solid 1px #c9c4c4;
+      text-align:center;
+  
+  }
+
+.formule_dvd.active, .formule_mixte.active{
+
+    background:#c9c4c4;
+  
+  }
+
+.formule_mixte {
+    float:right;
+    width:216px;
+    height:84px;
+    border:solid 1px #c9c4c4;
+    text-align:center;
+  
+  }
+  
+.formula_choice h4  {
+   font-size: 20px;}
+.formula_choice {
+    width: 445px;
+}
+
+/* info.CSS changement  */
+#formule_tab {
+ 
+    padding-top: 12px!important;
+
+}
+
+.prices-container h3 {
+background: url("../images/square.gif") no-repeat scroll 0 26px transparent!important;
+padding-top: 15px!important;
+}
 
 .prices {
   border: 1px solid #C4D1DA;
@@ -1639,3 +1680,48 @@ a.btn_price:hover
   color:#212A31;
 }
 
+.formule_dvd {
+  float:right;
+  width:216px;
+    height:84px;
+      border:solid 1px #c9c4c4;
+      text-align:center;
+  
+  }
+
+.formule_dvd.active, .formule_mixte.active{
+
+    background:#c9c4c4;
+  
+  }
+
+.formule_mixte {
+    float:left;
+    width:216px;
+    height:84px;
+    border:solid 1px #c9c4c4;
+    text-align:center;
+  
+  }
+  
+.formula_choice h4  {
+   font-size: 20px;}
+.formula_choice {
+    width: 445px;
+}
+
+/* info.CSS changement  */
+#formule_tab {
+ 
+    padding-top: 12px!important;
+
+}
+
+.prices-container h3 {
+background: url("../images/square.gif") no-repeat scroll 0 26px transparent!important;
+padding-top: 15px!important;
+}
+.formula_choice a
+{
+  color: #212A31;
+}

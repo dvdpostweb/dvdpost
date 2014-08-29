@@ -1,0 +1,13 @@
+<h3><%= t('.select') %></h3>
+        <div class="formula_choice">
+          <div class="formule_mixte <%= params[:page_name] == 'price' ? 'active' : '' %>">
+            <%= link_to image_tag("icon_formula_mixte.png"), info_path(:page_name => :price) %>
+            <h4><%= link_to "Blu-Ray + DVD + VOD", info_path(:page_name => :price) %></h4>
+          </div> 
+          <div class="formule_dvd <%= params[:page_name] == 'price_dvd' ? 'active' : '' %>">
+            <%= link_to image_tag("icon_formula_dvdbluray.png"), info_path(:page_name => :price_dvd) %>
+            <h4><%= link_to "Blu-Ray + DVD", info_path(:page_name => :price_dvd) %></h4>
+          </div>
+          
+        </div>                    
+        <div class="clearfix"></div> 
