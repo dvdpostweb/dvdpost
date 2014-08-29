@@ -23,7 +23,6 @@
           <div id="addwishlist_explain">
             <% if @streaming.is_ppv && current_customer.ppv_status_id != 1 %>
               <% if current_customer.ppv_status_id == 0 %>
-                <% logger.debug { "@@@#{params[:btn]}" }%>
                 <% if params[:btn] == 'hide' %>
                 <script >
                   $('.close').hide()

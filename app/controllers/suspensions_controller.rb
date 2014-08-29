@@ -52,7 +52,6 @@ class SuspensionsController < ApplicationController
 
   private
   def notify(error, url)
-    Rails.logger.debug { "error #{error} url #{url}" }
     begin
       Airbrake.notify(:error_message => "suspension problem : #{to_param} error #{error} url #{url}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
     rescue => e
