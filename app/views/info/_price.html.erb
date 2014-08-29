@@ -4,8 +4,9 @@
     <h1><%= t '.title_abo' %></h1>
     <div class="all-container">
       <div class="prices-container" align="left">
+        <%= render :partial => "info/price_menu" %>
         <h3><%= t '.select' %></h3>
-  
+    
         <ul id="formule_tab">
           <li class="formule active" id ="f1">
             <h4><%= t '.active' %></h4>
@@ -73,7 +74,6 @@
             </li>
           </ul>
           <div class="clearfix"></div>
-          <div class="change_formula"><%= link_to(t('info.price.link_dvd'), info_path(:page_name => :price_dvd)) %></div>
         </div>
         <!--  Formules cinéphiles-->
         <div class="formula" id='f2_content' style="display:none">
