@@ -92,11 +92,18 @@ class ShoppingCartsController < ApplicationController
                   @ogone_language = 'en_US';
                   @template_ogone = 'Template_freetrial2EN.htm'
         end
+        @alias = current_customer.to_param
         @com= t '.shopping_carts.paiement'
         internal_com = 'dvdsale'
+        @url_ok = php_path 'catalog.php'
         @url_back = url_for(:controller => 'payment_methods', :action => :edit, :customer_id => current_customer.to_param, :type => 'credit_card_modification', :only_path => false, :protocol => 'http')
         OgoneCheck.create(:orderid => @order_id, :amount => @price, :customers_id => current_customer.to_param, :context => internal_com, :site => 1)
-        @hash = Digest::SHA1.hexdigest("#{@order_id}#{@price}EURdvdpost#{current_customer.to_param}#{@com}KILLBILL")
+        list = {:ACCEPTURL => @url_back, :ALIAS => @alias, :AMOUNT => @price, :CURRENCY => 'EUR', :LANGUAGE => @ogone_language, :ORDERID => @order_id, :PSPID => DVDPost.ogone_pspid[Rails.env], :CN => current_customer.name, :ALIASUSAGE => @com, :DECLINEURL => @url_back, :EXCEPTIONURL => @url_back, :CANCELURL => @url_back, :CATALOGURL => @url_ok, :COM => @com, :TP => php_path(@template_ogone)}
+        list = list.merge(:PM => 'CreditCard', :BRAND => @brand) if !@brand.nil?
+        list = list.sort_by {|k,v| k.to_s}
+        string = list.map { |k,v| "#{k.to_s.upcase}=#{v}#{DVDPost.ogone_pass[Rails.env]}" }.join()
+        @hash = Digest::SHA1.hexdigest(string)
+        #@hash = Digest::SHA1.hexdigest("#{@order_id}#{@price}EURdvdpost#{current_customer.to_param}#{@com}KILLBILL")
       else
         @items = current_customer.shopping_carts.all
         @count = current_customer.shopping_carts.sum(:quantity)
