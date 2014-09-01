@@ -1182,12 +1182,11 @@ padding-top: 15px!important;
 }
 
 .faq-container {
-
-  background-color: #C4D1DA;
-  background-image: -moz-linear-gradient(center top , #D9E0E4, #C4D1DA);
+  background-color: #c4d1da;
+  background-image: -moz-linear-gradient(center top , #d9e0e4, #c4d1da);
+  margin: 15px 0 0 675px;
   padding: 10px;
   position: absolute;
-  margin: 71px 0 0 675px;
   width: 245px;
 }
 
@@ -1206,26 +1205,25 @@ padding-top: 15px!important;
 }
 
 .prices-container #subscribe-wrap h3 {
-  color: #3A450A !important;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  color: #3a450a !important;
   float: left;
   font-family: 'Open Sans Condensed',sans-serif;
   font-size: 25px !important;
   font-weight: normal !important;
-  line-height: 36px;
+  line-height: 28px;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-top: 0;
   width: 405px;
-  background:none;
-  padding-bottom:0px;
-  padding-left:0px;
-  padding-top:0px;
 }
 
 .prices-container #subscribe-wrap .wrap {
-  background: #88BD32 -moz-linear-gradient(center top , #ACD341, #88BD32) !important;
+  background: -moz-linear-gradient(center top , #acd341, #88bd32) repeat scroll 0 0 #88bd32 !important;
   background: #88BD32 -webkit-gradient(linear,center top , center bottom, from(#ACD341), to(#88BD32)) repeat-x !important;
-
   float: left;
   overflow: hidden;
-  padding: 12px;
+  padding: 0 12px 24px;
   width: 369px;
 }
 
@@ -1432,7 +1430,7 @@ padding-top: 15px!important;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da2698', endColorstr='#bd1f83',GradientType=0 )!important; /* IE6-9 */
   float: left;
   overflow: hidden;
-  padding: 12px;
+  padding: 0 12px 24px;
   width: 360px!important;
 }
 
@@ -1483,13 +1481,13 @@ padding-top: 15px!important;
 
 
 .adult .prices-container #subscribe-wrap h3 {
-  background: none repeat scroll 0 0 transparent;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   color: #2e3a43 !important;
   float: left;
   font-family: 'Open Sans Condensed',sans-serif;
   font-size: 25px !important;
   font-weight: normal !important;
-  line-height: 36px;
+  line-height: 28px;
   padding-bottom: 0;
   padding-left: 0;
   padding-top: 0;
