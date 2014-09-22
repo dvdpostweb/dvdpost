@@ -13,6 +13,7 @@
 			<%= t '.phone.title' %>
 		</h4>
 		<%= t '.phone.text' %>
+		<%= "<div id='alert_cust'>#{t('.alert_cust')}</div>".html_safe if @alert == true %>
 	</li>
 	<li id="fax">
 		<h4>

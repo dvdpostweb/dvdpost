@@ -1,13 +1,15 @@
-<div id="actualites-wrap">
-	<h2><%= t('.news') %></h2>
-	<ul class="jc jcarousel-skin-tango <%= I18n.locale %>">
-	  <%= render :partial => '/home/index/news_item', :collection => news_items if news_items %>
-  </ul>
-  <div class="pagination arrow_left">
-    <%= will_paginate news_items, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :news_page %>
-  </div>
-  <span class="jc-items"><%= "#{news_page}/#{news_nb_page}" %></span>
-  <div class="pagination arrow_right">
-    <%= will_paginate news_items, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :news_page %>
-  </div>
-</div><!-- #actualites-wrap -->
+<% if !news_items.nil? %>
+  <div id="actualites-wrap">
+  	<h2><%= t('.news') %></h2>
+  	<ul class="jc jcarousel-skin-tango <%= I18n.locale %>">
+  	  <%= render :partial => '/home/index/news_item', :collection => news_items %>
+    </ul>
+    <div class="pagination arrow_left">
+      <%= will_paginate news_items, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :news_page %>
+    </div>
+    <span class="jc-items"><%= "#{news_page}/#{news_nb_page}" %></span>
+    <div class="pagination arrow_right">
+      <%= will_paginate news_items, :previous_label => '', :next_label => '', :page_links => false, :container => false, :param_name => :news_page %>
+    </div>
+  </div><!-- #actualites-wrap -->
+<% end %>
