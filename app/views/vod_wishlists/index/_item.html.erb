@@ -1,4 +1,7 @@
-<% expire = item.streaming_products.available.first.expire_at if item.streaming_products.available.count > 0 %>
+<% if item.streaming_products.available.count > 0 %>
+  <% expire = item.streaming_products.available.first.expire_at %>
+  <% available_backcatalogue_from = item.streaming_products.available.first.available_backcatalogue_from %>
+<% end %>
 <% product = item.products.both_available.first %>
 <% if product %>
 <% image_tag(product.image)+"<br />" if display_vod == 1 %>
@@ -16,7 +19,7 @@
 			  <span class="time-remaining"><%= t('.time_left') unless mobile_request? %> <%= time_left(item, :normal)%></span>
         <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short, :source => @wishlist_source[:wishlist_vod], :response_id => nil} %>
 			<% elsif type == :list %>
-			  <%= "<strong class='alert'>#{t '.available'} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && expire > Date.today && 2.weeks.from_now.localtime > expire %>
+			  <%= "<strong class='alert'>#{t '.available'} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && expire != available_backcatalogue_from && expire > Date.today && 2.weeks.from_now.localtime > expire %>
         <%= render :partial => 'products/streaming', :locals => {:product => product, :text => :short, :source => @wishlist_source[:wishlist_vod], :response_id => nil} %>
 			<% end %>
 		<% if type == :history %>
