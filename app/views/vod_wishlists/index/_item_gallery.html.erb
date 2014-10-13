@@ -1,5 +1,8 @@
 <% item = item_gallery %>
-<% expire = item.streaming_products.available.first.expire_at if item.streaming_products.available.count > 0 %>
+<% if item.streaming_products.available.count > 0 %>
+  <% expire = item.streaming_products.available.first.expire_at %>
+  <% available_backcatalogue_from = item.streaming_products.available.first.available_backcatalogue_from %>
+<% end %>
 <% product = item.products.both_available.first %>
 <% if product %>
   <% product_title = product.title %> 
@@ -9,7 +12,7 @@
   		  <% if type == :token %>
   			  <span class="alert"><%= time_left(item, :normal)%></span>
   			<% end %>
-  		  <%= "<strong class='alert'>#{t ".till"} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && 2.weeks.from_now.localtime > expire && type != :token && type != :history%>
+  		  <%= "<strong class='alert'>#{t ".till"} #{expire.strftime("%d/%m/%Y")}</strong>" if expire && expire != available_backcatalogue_from && expire > Date.today && 2.weeks.from_now.localtime > expire && type != :token && type != :history%>
   		  <% if type != :token && type != :history%>
     			<span class="trash">
             <% form_for(:vod_wishlists, :url => vod_wishlist_path(:id => item.to_param), :html => {:method => :delete, :id => "form_#{item.to_param}", :class => 'remvove_from_wishlist_form'}) do |f|%>
