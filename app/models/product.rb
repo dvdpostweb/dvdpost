@@ -45,7 +45,7 @@ class Product < ActiveRecord::Base
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
   has_many :wishlist_items
   has_many :product_views
-  has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
+  has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1, :season_id => 0}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_many :recommendations_products, :through => :recommendations, :source => :product
   has_many :highlight_products
