@@ -1,6 +1,31 @@
 <% if trailer.class.name == 'StreamingTrailer' %>
 <div id='content_trailer'>
-  <video id='my_video_1' class='video-js vjs-default-skin' width='290' height='132'  src='<%= DVDPost.hls_url(trailer.tokens_trailer.token, trailer.languages.by_language(:fr).first.short_alpha, trailer.subtitles.count > 0 ? trailer.subtitles.by_language(:fr).first.short_alpha : 'non') %>' controls='controls' data-setup='{}'></video>
+      <% audio = trailer.languages.by_language(:fr).first.short_alpha %>
+      <% sub = trailer.subtitles.count > 0 ? trailer.subtitles.by_language(:fr).first.short_alpha : 'non' %>
+    <% url = DVDPost.akamai_hls_trailer_url(trailer.imdb_id, audio, sub)%>
+    <div id="player"></div>
+    <script type="text/javascript">
+        var flashvars = {
+            src: "<%= url %>"
+            , autoPlay: 'true'
+            , verbose: true
+            , controlBarAutoHide: true
+            , controlBarPosition:'bottom'
+            , plugin_hls: '/HLSProviderOSMF.swf'
+        };
+        var params = {
+            allowFullScreen: true
+            , allowScriptAccess: "always"
+            , bgcolor: "#000000"
+        };
+        var attrs = {
+            name: "player"
+        };
+
+        swfobject.embedSWF("/GrindPlayer.swf", "player", "696", "389", "10.2", null, flashvars, params, attrs);
+    </script>
+    
+    <%= render :partial => 'products/show/versions', :locals => {:versions => trailers, :current_trailer => trailer} if trailers.count > 1 %>
 </div>
 <% else %>
 
