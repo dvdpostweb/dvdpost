@@ -1,7 +1,6 @@
 <div id="faq">
   <ul id="faq-nav">
     <% @faqs.each_with_index do |faq, i| %>
-      <% unless nederlands? && i == 1 %>
         <li>
           <a href="#" class='menu_faq'>
             <%= t(".cat_#{faq.to_param}") %>
@@ -14,7 +13,7 @@
               <% end %>
           </ul>
         </li>
-      <% end %>
+      
     <% end %>
   </ul>
   <% @faqs.each do |faq| %>
