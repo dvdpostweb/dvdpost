@@ -18,4 +18,8 @@ class ProductAbo < ActiveRecord::Base
   def only_vod
     qty_dvd_max == 0
   end
+
+  def only_dvd
+    qty_dvd_max == credits
+  end
 end

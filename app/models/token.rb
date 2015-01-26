@@ -102,6 +102,7 @@ class Token < ActiveRecord::Base
     file = StreamingProduct.find(streaming_product_id)
     begin
       token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
+      #token_string = 'none'
     rescue => e
       token_string = false
     end

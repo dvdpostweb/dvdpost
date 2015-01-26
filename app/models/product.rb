@@ -45,7 +45,7 @@ class Product < ActiveRecord::Base
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
   has_many :wishlist_items
   has_many :product_views
-  has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
+  has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1, :season_id => 0}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_many :recommendations_products, :through => :recommendations, :source => :product
   has_many :highlight_products
@@ -298,7 +298,7 @@ class Product < ActiveRecord::Base
     if options[:country_id] == 131
       country = 'LU'
       default = 'default_order_lu'
-    elsif options[:country_id] == 161
+    elsif options[:country_id] == 161 || options[:country_id] == 0
       country = 'NL'
       default = 'default_order_nl'
     else
@@ -423,7 +423,7 @@ class Product < ActiveRecord::Base
       when 'LU'
         products = products.remove_wrong_lu(8)
       when 'NL'
-        products = products.remove_wrong_nl(8)
+        products = products.remove_wrong_nl([8, 5])
     end
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year? && options[:no_filter].nil?
@@ -974,6 +974,7 @@ class Product < ActiveRecord::Base
       when 'LU'
         products.by_special_media_lu(media)
       when 'NL'
+        media.delete(5)
         products.by_special_media_nl(media)
     end
   end

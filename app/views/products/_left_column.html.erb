@@ -5,32 +5,21 @@
         <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
         <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <% end %>
-    <% if params[:kind] == :normal %>
-      <ul class="btns osc">
-        <li><%= link_to t('.collection'), themes_path() %></li>
-      </ul>
-    <% end %>
     <% if streaming_access? %>
-    <h3 class="ttl"><%= t('.streaming') %></h3>
-    <ul class="nav osc">
-      <%= left_column_vod(params) %>
-    </ul>
-    <% end %>
-    <h3 class="ttl"><%= t('products.left_column.all_medias') %></h3>
-    <ul class="nav osc">
-    <%= left_column(params) %>
-    </ul>
-    <% if params[:kind] == :normal %>
-    <h3 id="vod-adulte"><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming) if streaming_access? %></h3>
-    <% if current_customer %>
-      <%= link_to image_tag("#{I18n.locale}/vente-flash-banner.png"), shop_path %>
-    <% end %>
-    <% if I18n.locale != :en %>
-      <div id="nina-wrap" class="<%= I18n.locale %>">
-        <p><%= t '.details' %></p>        
-        <%= link_to t('home.index.chronicle.all'), chronicles_path, :class => 'more osc' %>
-      </div>
-    <% end %>
+      <h3 class="ttl"><%= t('.streaming') %></h3>
+      <ul class="nav osc">
+        <%= left_column_vod(params) %>
+      </ul>
+      <% end %>
+      <h3 class="ttl"><%= t_nl('products.left_column.all_medias') %></h3>
+      <ul class="nav osc">
+      <%= left_column(params) %>
+      </ul>
+      <% if params[:kind] == :normal && !nederlands? %>
+      <h3 id="vod-adulte"><%= link_to t('.vod_adult'), products_path(:kind => :adult, :view_mode => :streaming) if streaming_access? %></h3>
+      <% if current_customer %>
+        <%= link_to image_tag("#{I18n.locale}/vente-flash-banner.png"), shop_path %>
+      <% end %>
     <% end %>
     <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if (params[:action] == 'index' && params[:controller] != 'studios') %>
   <% end %>
