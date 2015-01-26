@@ -4,7 +4,7 @@ class SubscriptionsController < ApplicationController
       flash[:notice] = t('subscriptions.edit.freetrial')
       redirect_to root_path
     end
-    @list_abo = current_customer.get_list_abo(6)
+    @list_abo = nederlands? ? ProductAbo.get_list(10) :current_customer.get_list_abo(6)
     @showing_abo = 10
     @all_style=true
     abo_max_order = ProductAbo.maximum(:ordered)

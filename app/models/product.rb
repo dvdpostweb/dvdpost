@@ -298,7 +298,7 @@ class Product < ActiveRecord::Base
     if options[:country_id] == 131
       country = 'LU'
       default = 'default_order_lu'
-    elsif options[:country_id] == 161
+    elsif options[:country_id] == 161 || options[:country_id] == 0
       country = 'NL'
       default = 'default_order_nl'
     else
@@ -423,7 +423,7 @@ class Product < ActiveRecord::Base
       when 'LU'
         products = products.remove_wrong_lu(8)
       when 'NL'
-        products = products.remove_wrong_nl(8)
+        products = products.remove_wrong_nl([8, 5])
     end
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year? && options[:no_filter].nil?
@@ -974,6 +974,7 @@ class Product < ActiveRecord::Base
       when 'LU'
         products.by_special_media_lu(media)
       when 'NL'
+        media.delete(5)
         products.by_special_media_nl(media)
     end
   end

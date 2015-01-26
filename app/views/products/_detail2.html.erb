@@ -1,0 +1,22 @@
+<% product = detail2 %>
+<% data = product.description_data(true) %>
+<% product_title = data[:title] %>
+<% product_image = data[:image] %>
+<% div_id = "#{product.id}411"%>
+<% if product %>
+<div class="ca-item ca-item-<%= detail2_counter + 1 %>">
+  <div class="content">
+    <% cache(product.id, :expires_in => 2.hour) do %>
+      <%= "<span class='hd'></span>".html_safe if product.hd?(session[:country_id]) %>
+    <% end %>
+    <%= link_to image_tag(product.image, :width => 145, :height => 217), root_path, :class => :cover %>
+    <div class="tooltips" style="display:none">
+      <p class="tooltips_title"><%= product_title %> (<%= product.year %>)</p>
+      <p class="tooltips_description"><%= truncate_html(data[:description].text, :length => 500) %> </p>
+      <div class="tooltips_other" id='<%= div_id %>'>loading</div>
+    </div>
+    
+  </div>
+  
+</div>
+<% end %>

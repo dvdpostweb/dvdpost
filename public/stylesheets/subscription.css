@@ -230,3 +230,16 @@ float:left;
     text-align: justify;
     width: 440px;
 }
+.price
+{
+    font-size: 26px;
+    
+}
+.integer
+{
+    font-size:24px;
+}
+.decimal
+{
+    font-size: 18px;
+}

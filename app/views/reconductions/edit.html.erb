@@ -25,7 +25,7 @@
                       <span class="formula_nomination"><%= abo_type(current_customer, true, true, true, true) %></span> 
                     </td>
                     <td align="right">
-                      <%= image_tag "pricing#{current_customer.next_credit_per_month}#{current_customer.next_credit_per_month == current_customer.next_dvd_per_month ? 'dvd': ''}.png", :align => "absmiddle" %>
+                      <div class='price'><%= price_format(current_customer.next_price_per_month) %> &euro;</div>
                     </td>
                     <td width="10"></td>
                   </tr>

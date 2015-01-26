@@ -12,7 +12,7 @@
     </td>
     
     <td align="right" class="prices">
-      <%= !mobile_request? ? image_tag("pricing#{abo.credits}.png") : "<b>#{abo.product.price} &euro;</b>" %>
+      <div class='price_small'><%= "#{price_format abo.product.price} &euro;" %></div>
     </td>
   </tr>  
 <% end %>
