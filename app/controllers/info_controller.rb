@@ -10,7 +10,7 @@ class InfoController < ApplicationController
       params[:page_name] = 'get_connected'
       params[:order] = 1 
     end
-
+    params[:page_name] = 'price_dvd' if params[:page_name] == 'price' && nederlands?
     if params[:page_name] == 'get_connected' || params[:page_name] == 'new_website'
       @locale = true
     else
