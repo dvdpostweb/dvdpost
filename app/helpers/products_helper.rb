@@ -170,7 +170,7 @@ module ProductsHelper
     bluray = product.media_alternative_all(:blueray)
     bluray3d = product.media_alternative_all(:bluray3d)
     dvd = product.media_alternative_all(:dvd)
-    vod = product.streaming?(params[:kind], session[:country_id])
+    vod = nederlands? ? false : product.streaming?(params[:kind], session[:country_id])
     content = ''
     if bluray
       content << "#{t('products.index.filters.bluray')}#{limiter}"
@@ -433,8 +433,8 @@ module ProductsHelper
       details = "<strong>#{pluralize(abo.credits, t('.in_vod'), t('.in_vods'))} #{t('.only_vod')}</strong>"
     else
       details =""
-      details = "<strong>#{abo.qty_dvd_max} #{t '.films'}</strong> #{t '.all_formats'}"
-      details += "<strong> + #{pluralize(abo.credits - abo.qty_dvd_max, t('.in_vod'), t('.in_vods'))}</strong>"
+      details = "<strong>#{abo.qty_dvd_max} #{t '.films'}</strong> #{t_nl '.all_formats'}"
+      details += "<strong> + #{pluralize(abo.credits - abo.qty_dvd_max, t('.in_vod'), t('.in_vods'))}</strong>" if (abo.credits - abo.qty_dvd_max) > 0
       details += "<br /> #{image_tag "freeupgradelogo.gif"}" if abo.ordered == free_upgrade 
     end
     details

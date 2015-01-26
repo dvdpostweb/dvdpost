@@ -15,7 +15,6 @@ class OauthController < ApplicationController
         url = "http://#{request.host+request.fullpath}"
         url = url.gsub(/private./, 'public.')
         url = url.gsub(/beta./, 'beta.public.')
-        
       else
         locale = $1 if request.path.match /\/(#{available_locales.join('|')})(\/.*|)/
         url = oauth_callback_url(:locale => locale)

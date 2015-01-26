@@ -4,9 +4,9 @@
   <tr style="display: table-row;" class="new_abo<%= " free_upgrade" if abo.ordered == @free_upgrade %>"><td width="92"><div class="check" id ='<%= abo.id %>'></div></td>
     <td width="305" align="left"<b><span class="title_pricing"><%= abo.credits %> <%= t '.films' %></span></b> <span class="month"><%= t '.per_month' %> </span>* </td>
     <td width="30"></td>
-    <td width="600" align="left">
+    <td width="350" align="left">
       <%= abo_details(abo, @free_upgrade)%>
     </td>
-    <td align="right"><%= image_tag "pricing#{abo.credits}.png" %></td>
+    <td align="right" width="100" class='price'><%= "#{price_format(abo.product.price)} &euro;" %></td>
   </tr>
 <% end %>

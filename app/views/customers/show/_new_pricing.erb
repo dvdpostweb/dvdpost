@@ -3,7 +3,7 @@
     <div id="info_abo">
       <h4>
         <%= subscription_description(current_customer) %> <br />
-        <% unless current_customer.svod? %>
+        <% unless current_customer.svod? || nederlands? %>
           <span><%= abo_type(current_customer, true, true) %></span>
         <% end %>
       </h4>

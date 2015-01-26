@@ -1,8 +1,7 @@
 <% id = yield :body_id %>
 <ul id="nav" class="osc">
   
-  <li><%= link_to t('layouts.header.home'), root_path(:promo => session[:promo]), {:id => 'nav1', :class => (( id == 'hp') ? 'active': '')} %></li>
-  <li><%= link_to t('layouts.header.explore'), products_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
+  <li><%= link_to t('layouts.header.explore'), root_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
   <% if ENV['HOST_OK'] == "0" %>
     <li>
     <% if streaming_access? %>  
@@ -25,7 +24,7 @@
       <li><%= link_to t('layouts.header.normal_mobile'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
     <% end %>
   <% else %>
-    <li><%= link_to t('layouts.header.price'), info_path(:page_name => 'price'), {:id => 'nav5', :class => (( params[:page_name] == 'price') ? 'active': '') }  %></li>
+    <li><%= link_to t('layouts.header.price'), info_path(:page_name => nederlands? ? 'price_dvd' : 'price'), {:id => 'nav5', :class => (( params[:page_name] == 'price') ? 'active': '') }  %></li>
     <% unless mobile_request? %>
       <li><%= link_to t('layouts.menu.contact'), new_phone_request_path(), {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
     <% end %>

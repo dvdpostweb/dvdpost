@@ -1,0 +1,7 @@
+<div id="ca-container" class="ca-container">
+  <div class="title"><%= t(".title_#{title}")%><%= link_to t(".more"), root_path(), :class => :small if !type.nil? %>
+  </div>
+  <div class="ca-wrapper">
+    <%= render :partial => 'products/detail2', :collection => data, :locals => {:source => source } %>
+  </div>
+</div>

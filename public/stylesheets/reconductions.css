@@ -203,4 +203,30 @@ tr.abo {
 {
   font-size:13px;
 }
+.price
+{
+  font-size: 30px;
+    
+}
+.price .integer
+{
+  font-size:28px;
+}
+.price .decimal
+{
+  font-size: 24px;
+}
+.price_small
+{
+  font-size: 26px;
+    
+}
+.price_small .integer
+{
+  font-size:24px;
+}
+.price_small .decimal
+{
+  font-size: 20px;
+}
 /****/

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => :home, :action => :index, :conditions => {:method => :get}
+  map.root :controller => :products, :action => :index, :conditions => {:method => :get}
   map.resources :locales, :except => [:show], :member => {:reload => :post} do |locale|
     locale.resources :translations, :except => [:show], :member => {:update_in_place => :post}
   end
@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options :path_prefix => '/:locale/:kind' do |localized|
     localized.filter "kind"
-    localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
+    localized.root :controller => :products, :action => :index, :conditions => {:method => :get}
 
     localized.with_options :controller => :home do |home|
       home.indicator_close 'home/indicator_close', :action => :indicator_close, :conditions => {:method => :get}
