@@ -194,9 +194,9 @@ module ApplicationHelper
   def production_path(country_id=nil)
     if current_customer
       if country_id.to_i == 150 || nederlands?
-        'http://www.dvdpost.lu/'
-      elsif country_id.to_i == 124
         'http://www.dvdpost.nl/'
+      elsif country_id.to_i == 124
+        'http://www.dvdpost.lu/'
       else
         'http://www.dvdpost.be/'
       end
