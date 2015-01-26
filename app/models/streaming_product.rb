@@ -30,6 +30,9 @@ class StreamingProduct < ActiveRecord::Base
 
   #default_scope :conditions => ["country = ?",'BE']
   
+  def hd?
+    quality == '720p' || quality == '1080p'
+  end
   
   def self.get_prefered_streaming_by_imdb_id(imdb_id, local)
     if Rails.env == "production"

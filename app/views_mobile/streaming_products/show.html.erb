@@ -22,9 +22,6 @@
         <% if @streaming_free == true %>
           <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
         <% end %>
-        <% if @streaming.drm == true %>
-          <p align="center"><%= t('.drm_forbidden_mobile') %></p>
-        <% else %>
           <% if ENV['HOST_OK'] == "1" || !current_customer.payment_suspended? %>
           <% code_public = StreamingCode.find_by_name(params[:code]) %>
             <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits) || (code_public && code_public.available?) || (@streaming.is_ppv) || (current_customer && current_customer.svod_adult > 0)  %>
@@ -42,8 +39,6 @@
               </p>
               <% end %>
             <% end %>
-        
-          <% end %>
         <% end %>
   </div>
 <% end %>

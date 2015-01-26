@@ -119,11 +119,6 @@
       
       
       <div class="clearfix"></div>
-      <% if @product.streaming?(params[:kind], session[:country_id]) && @product.streaming_products.first.drm == true %>
-        <div class="verimatrix">
-          <%= t('.viewright', :link => info_path(:page_name => :viewright)) %>
-        </div>
-      <% end %>
       <% if @product.availability == -1 %>
       <div class="clearfix"></div>
       <div id="not_available" class="<%= I18n.locale %>">

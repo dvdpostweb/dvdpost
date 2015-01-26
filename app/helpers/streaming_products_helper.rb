@@ -1,9 +1,10 @@
 module StreamingProductsHelper
   def flowplayer(source_file, source, streaming, token_name, browser)
+    audio = streaming.languages.by_language(:fr).first.short_alpha
+    sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
+    hd = streaming.hd? ? true : false
+    url = DVDPost.akamai_hls_url(streaming.imdb_id, audio, sub, hd)
     if browser.iphone? || browser.ipad? || mobile_request? || browser.tablet?
-      audio = streaming.languages.by_language(:fr).first.short_alpha
-      sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
-      url = DVDPost.hls_url(token_name, audio, sub)
       if mobile_request?
         #$("#presentation").html("<video id='my_video_1' class='video-js vjs-default-skin' controls width='290' height='132' data-setup='{}'><source src='#{url}' type='application/vnd.apple.mpegurl'></video><a href='#{url}'>#{url}</a>")
           script = "<video id='my_video_1' class='video-js vjs-default-skin' width='290' height='132'  src='#{url}' controls='controls' data-setup='{}'></video>"
@@ -16,19 +17,47 @@ module StreamingProductsHelper
           window.location.href ='#{url}'
         script
       end
-    elsif streaming.drm == true
-      audio = streaming.languages.by_language(:fr).first.short_alpha
-      sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
-      url = DVDPost.verimatrix_url(token_name, audio, sub)
-      script = url
+    elsif 1==1
+      script = <<-script
+      $("#player").html("<object width='696' height='389'><param name='movie' value='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf'></param><param name='flashvars' value='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></embed></object>")
+      script
+    elsif 1==1 #!code.nil?
+            script = <<-script
+            $('#player').html("<div id='player_hls'></div>")
+            var parameters = {
+                src: "#{url}",
+                autoPlay: "true",
+                verbose: true,
+                controlBarAutoHide: "true",
+                controlBarPosition: "bottom",
+                plugin_hls: "/HLSProviderOSMF.swf"
+            };
+
+
+            // Embed the player SWF:              
+            swfobject.embedSWF(
+        "/GrindPlayer.swf"
+        , "player_hls"
+        , 696
+        , 389
+        , "10.1.0"
+        , "expressInstall.swf"
+        , parameters
+        , {
+                  allowFullScreen: "true",
+                  wmode: "direct"
+              }
+        , {
+                  name: "StrobeMediaPlayback"
+              }
+      );
+      script
     else
       script = <<-script
       $("#player").html("<object width='696' height='389'><param name='movie' value='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf'></param><param name='flashvars' value='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://#{DVDPost.streaming_url}/StrobeMediaPlayback.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='696' height='389' flashvars='src=http://#{DVDPost.streaming_url}/#{token_name}_#{streaming.languages.by_language(:fr).first.short_alpha}_#{streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'}.f4m&loop=false&autoPlay=true&streamType=recorded&verbose=true&initialBufferTime=5&expandedBufferTime=30'></embed></object>")
       script
     end
     if mobile_request?
-      script
-    elsif streaming.drm == true
       script
     else
       javascript_tag script

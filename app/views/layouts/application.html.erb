@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" >
 <head>
   <title>
-    <%= h yield(:title).blank? ? t('.title') : yield(:title) %>
+    <%= h yield(:title).blank? ? t_nl('.title') : yield(:title) %>
   </title>
   <%= render :partial => 'layouts/meta' %>
   <link rel="SHORTCUT ICON" href="/images/favicon_<%= params[:kind] %>.ico" />
@@ -27,6 +27,7 @@
   <%= javascript_include_tag 'jquery.cycle.all.min' %>
   <%= javascript_include_tag 'jquery.form' %>
   <%= javascript_include_tag 'facebox' %>
+  <%= javascript_include_tag 'swfobject.js' %>
 
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   <!--[if IE 6]>

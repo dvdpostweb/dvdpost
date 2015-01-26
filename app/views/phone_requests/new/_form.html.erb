@@ -18,7 +18,7 @@
         <%= f.radio_button :reason, code, :checked => (phone_request.reason == code || (!phone_request.reason && params[:reason].to_i == code)) ? true : false %>
         <%= f.label :reason, t(".reason_label_#{code}"), :class => :reason_label %>
         <br />
-        <%= t(".reason_description_#{code}") %>
+        <%= t_nl(".reason_description_#{code}") %>
       </p>
       <% end %>
       <% else %>

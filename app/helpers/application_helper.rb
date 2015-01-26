@@ -82,6 +82,10 @@ module ApplicationHelper
     end
   end
 
+  def nederlands?
+    request.host_with_port.include?('dvdpost.nl')
+  end
+
   def localized_image_tag(source, options={})
     image_tag File.join(I18n.locale.to_s, source), options
   end
@@ -110,6 +114,7 @@ module ApplicationHelper
 
   def oauth_client
     params = OAUTH.clone
+    #params[:site] = 'https://sso.dvdpost.be' #to do put in nl
     client_id = params.delete(:client_id)
     client_secret = params.delete(:client_secret)
     @client ||= OAuth2::Client.new(
@@ -125,13 +130,21 @@ module ApplicationHelper
     prefix = mobile_request? ? "http://m." : "http://"
     case Rails.env
       when "production"
-        "#{prefix}public.dvdpost.com/#{I18n.locale}"
+        if request.host_with_port.include?('dvdpost.nl')
+          "#{prefix}private.dvdpost.nl/#{I18n.locale}"
+        else
+          "#{prefix}public.dvdpost.com/#{I18n.locale}"
+        end
       when "pre_production"
         "#{prefix}beta.public.dvdpost.com/#{I18n.locale}"
       when "staging"
         "#{prefix}staging.public.dvdpost.com/#{I18n.locale}"
       when "development"
-        "#{prefix}public.dvdpost.dev/#{I18n.locale}"
+        if request.host_with_port.include?('dvdpost.nl')
+          "#{prefix}private.dvdpost.nl/#{I18n.locale}"
+        else
+          "#{prefix}public.dvdpost.dev/#{I18n.locale}"
+        end
     end
   end
 
@@ -159,7 +172,7 @@ module ApplicationHelper
   def php_path(path=nil)
     country_id = current_customer && current_customer.addresses.length > 0  ? current_customer.addresses.first.entry_country_id : nil
     host = case  Rails.env
-      when 'development'
+      when 'development' 
         'http://localhost/'
       when 'staging'
         'http://test/'
@@ -180,17 +193,17 @@ module ApplicationHelper
 
   def production_path(country_id=nil)
     if current_customer
-      if country_id.to_i == 124
+      if country_id.to_i == 150 || nederlands?
         'http://www.dvdpost.lu/'
-      elsif country_id.to_i == 150
+      elsif country_id.to_i == 124
         'http://www.dvdpost.nl/'
       else
         'http://www.dvdpost.be/'
       end
     else
-      if session[:country_code] == 'NL'
+      if session[:country_code] == 'NL' || nederlands?
         'http://www.dvdpost.nl/'
-      elsif session[:country_code] == 'LU'
+      elsif session[:country_code] == 'LU' 
         'http://www.dvdpost.lu/'
       else
         'http://www.dvdpost.be/'
@@ -260,8 +273,9 @@ module ApplicationHelper
     distance_of_time_in_hours((stream.updated_at + hours_left.hours), Time.now.localtime)
   end
 
+  
   def streaming_access?
-    !current_customer || session[:country_id] == 22 || session[:country_id] == 131 || session[:country_id] == 0 || session[:country_id] == 161 || current_customer.super_user?
+    !nederlands? && (!current_customer || session[:country_id] == 22 || session[:country_id] == 131 || session[:country_id] == 0 || current_customer.super_user? ) || session[:country_id] == 161
   end
 
   def set_title(alter_title, replace = true)
@@ -357,7 +371,7 @@ module ApplicationHelper
   def send_message(mail_id, options, customer_default = nil)
     customer = customer_default ? customer_default : current_customer
     mail_object = Email.by_language(I18n.locale).find(mail_id)
-    recipient = Rails.env != 'development' ? customer.email : 'gs@dvdpost.be'
+    recipient = Rails.env != 'development' ? customer.email : 'it@dvdpost.be'
     if customer.customer_attribute.mail_copy || mail_object.force_copy
       mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => customer.to_param, :mail_messages_id => mail_id, :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> customer.email)
       options["\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$"] = mail_history.to_param
@@ -476,15 +490,24 @@ module ApplicationHelper
     prefix = mobile_request? ? "http://m." : "http://"
     path = params[:page_name] == 'error' ? session[:error_path] ? session[:error_path] : root_path : request.fullpath 
     path = path.include?('?') ? "#{path}&login=1" : "#{path}?login=1"
+    
     case Rails.env
       when "production"
-        "#{prefix}private.dvdpost.com#{path}"
+        if request.host_with_port.include?('dvdpost.nl')
+          "#{prefix}private.dvdpost.nl#{path}"
+        else
+          "#{prefix}private.dvdpost.com#{path}"
+        end
       when "pre_production"
         "#{prefix}beta.dvdpost.com#{path}"
       when "staging"
         "#{prefix}staging.private.dvdpost.com#{path}"
       when "development"
-        "#{prefix}private.dvdpost.dev#{path}"
+        if request.host_with_port.include?('dvdpost.nl')
+          "#{prefix}private.dvdpost.nl#{path}"
+        else
+          "#{prefix}private.dvdpost.dev#{path}"
+        end
     end
   end
 
@@ -494,6 +517,10 @@ module ApplicationHelper
     name = name + '_show' if controller.controller_name.to_s == 'products' && controller.action_name.to_s == 'show'
     name = name + '_' + subdomains if subdomains
     name
+  end
+
+  def t_nl(value, options = {})
+    t("#{value}_nl", :default => '').empty? ? t("#{value}", options) :  t("#{value}_nl", options)
   end
 
   def format_text(browser)
@@ -514,5 +541,10 @@ module ApplicationHelper
     else
       "other"
     end
+  end
+
+  def price_format(price)
+    res = price.to_s.match(/([0-9]*).([0-9]*)/)
+    "<span class='integer'>#{res[1]}</span>.<span class='decimal'>#{res[2]}</span>"
   end
 end

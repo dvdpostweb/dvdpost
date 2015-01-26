@@ -1,7 +1,7 @@
 class ReconductionsController < ApplicationController
   def edit
     @reconduction_earlier = current_customer.recondutction_ealier?
-    @list_abo =  current_customer.get_next_list_abo
+    @list_abo =  nederlands? ? ProductAbo.get_list(10) : current_customer.get_next_list_abo
     @showing_abo = 3
     
     if @reconduction_earlier

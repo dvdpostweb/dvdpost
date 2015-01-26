@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
       
     end
   end
-
+  
   def validation_adult
     if params[:kind] == :adult && !session[:adult] && params[:code].nil? && params['action'] != 'validation' && params['action'] != 'authenticate'
       prefix = "http://"
@@ -172,7 +172,7 @@ class ApplicationController < ActionController::Base
         cf = GeoIP.new('GeoIP.dat').country(my_forwarded_ip) if my_forwarded_ip
         c = GeoIP.new('GeoIP.dat').country(request.remote_ip)
         message = "#{request.session_options[:id]} session country #{session[:country_id]} session ip #{session[:my_ip]} ip #{request.remote_ip} forwarded ip #{request.env["HTTP_X_FORWARDED_FOR"]} country code #{c.country_code} country code fowarded #{cf ? cf.country_code : ''}"
-        recipient = 'gs@dvdpost.be'
+        recipient = 'it@dvdpost.be'
         subject = "audit geolocalisation for customer id  mars 04 #{current_customer.id}"
         Emailer.deliver_send(recipient, subject, message)
       rescue => e
