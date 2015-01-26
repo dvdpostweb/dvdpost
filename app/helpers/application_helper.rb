@@ -520,7 +520,11 @@ module ApplicationHelper
   end
 
   def t_nl(value, options = {})
-    !nederlands? && t("#{value}_nl", :default => '').empty? ? t("#{value}", options) :  t("#{value}_nl", options)
+    if nederlands?
+      t("#{value}_nl", :default => '').empty? ? t("#{value}", options) :  t("#{value}_nl", options)
+    else
+      t("#{value}", options)
+    end
   end
 
   def format_text(browser)
