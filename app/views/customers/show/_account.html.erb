@@ -64,12 +64,14 @@
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
+      <% if !nederlands? %>
       <tr>
         <td align="right" class="adresse"><strong><%= t '.sponsorship_points' %></strong></td>
         <td align="left" class="adresse">
           <%= "#{customer.inviation_points} pts" %>
         </td>
       </tr>
+      <% end %>
       <tr>
         <td align="right" class="adresse"><strong><%= t '.cotations' %></strong></td>
         <td align="left" class="adresse"><%= customer.ratings.count %></td>

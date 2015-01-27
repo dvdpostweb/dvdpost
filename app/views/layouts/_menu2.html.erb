@@ -25,6 +25,7 @@
     <% end %>
   <% else %>
     <li><%= link_to t('layouts.header.price'), info_path(:page_name => nederlands? ? 'price_dvd' : 'price'), {:id => 'nav5', :class => (( params[:page_name] == 'price') ? 'active': '') }  %></li>
+
     <% unless mobile_request? %>
       <li><%= link_to t('layouts.menu.contact'), new_phone_request_path(), {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
     <% end %>
@@ -35,6 +36,12 @@
       <li><%= link_to t('layouts.header.normal_mobile', :default => 'cine'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
     <% end %>
   <% end %>
+  <% if !nederlands? %>
+    <li>
+    <%= link_to t('layouts.header.faq', :default => 'multi'), streaming_products_faq_path(:kind => :normal), {:id => 'nav9'} %>
+  </li>
+  <% end %>
+
 </ul>
 <% if !mobile_request? or params[:controller] != 'info' %>
   <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
