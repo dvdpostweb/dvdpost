@@ -13,6 +13,7 @@ class ShopsController < ApplicationController
       @reduce = price_data[:reduce]
       @price_reduced = price_data[:price_reduced]
     else
+      @items = nil
       flash[:error] = t('shops.show.only_belgian_customer')
       redirect_to root_path
     end
