@@ -6,11 +6,11 @@
   </div>
   <!-- Vente Flash -->
   <div id="vente-flash" class="<%= I18n.locale %>">
-    <%= !@items.empty? ? render(:partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @total, :reduce => @reduce}) : '' %>
+    <%= !@items.to_s.empty? ? render(:partial => 'shops/carts', :locals => {:cart_count => @cart_count, :cart => @cart, :shipping => @shipping, :price => @total, :reduce => @reduce}) : '' %>
     
   </div>
   <!-- Products -->
-  <h2><p><%= !@items.empty? ? t('.full') : t('.empty') %></p></h2>
+  <h2><p><%= !@items.to_s.empty? ? t('.full') : t('.empty') %></p></h2>
   <ul id="products-wrap">
     <%= render :partial => 'products/shop', :collection => @items %>      
   </ul>
