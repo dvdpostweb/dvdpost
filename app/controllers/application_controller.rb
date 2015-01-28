@@ -17,9 +17,9 @@ class ApplicationController < ActionController::Base
     before_filter :check_host
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
-    before_filter :set_mobile_preferences
-    before_filter :redirect_to_mobile_if_applicable
-    before_filter :prepend_view_path_if_mobile
+    #before_filter :set_mobile_preferences
+    #before_filter :redirect_to_mobile_if_applicable
+    #before_filter :prepend_view_path_if_mobile
     
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
