@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     before_filter :authenticate!, :unless => :is_special_page?
     before_filter :delegate_locale, :if => :is_it_html?
     #before_filter :set_mobile_preferences
-    #before_filter :redirect_to_mobile_if_applicable
+    before_filter :redirect_to_mobile_if_applicable
     #before_filter :prepend_view_path_if_mobile
     
     before_filter :redirect_after_registration, :unless => :is_it_xml?
@@ -262,13 +262,13 @@ class ApplicationController < ActionController::Base
     def redirect_to_mobile_if_applicable
       
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
-      if params[:mobile_site]
-        redirect_to request.protocol + "m." + request.host_with_port and return
-      else
-        unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browser.tablet?
-          redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
-        end
-      end
+      #if params[:mobile_site]
+      #  redirect_to request.protocol + "m." + request.host_with_port and return
+      #else
+      #  unless mobile_request? || cookies[:prefer_full_site] || !@browser.mobile? || browser.iphone? || browser.ios? || browser.tablet?
+      #    redirect_to request.protocol + "m." + request.host_with_port + request.request_uri and return
+      #  end
+      #end
     end
   def prepend_view_path_if_mobile
     if mobile_request?
