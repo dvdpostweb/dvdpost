@@ -30,13 +30,17 @@ class InfoController < ApplicationController
       if !session[:code].nil?
         @promo_code = session[:code]
       else
-        case I18n.locale 
-          when :fr
-            @promo_code = 'PGPRIX'
-          when :nl
-            @promo_code = 'PGPRIXN'
-          when :en
-            @promo_code = 'PGPRIXE'
+        if nederlands?
+          @promo_code = 'DVDNL'
+        else
+          case I18n.locale 
+            when :fr
+              @promo_code = 'PGPRIX'
+            when :nl
+              @promo_code = 'PGPRIXN'
+            when :en
+              @promo_code = 'PGPRIXE'
+          end
         end
       end
     end
