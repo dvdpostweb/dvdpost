@@ -298,7 +298,7 @@ class Product < ActiveRecord::Base
     if options[:country_id] == 131
       country = 'LU'
       default = 'default_order_lu'
-    elsif options[:country_id] == 161 || options[:country_id] == 0
+    elsif options[:country_id] == 161
       country = 'NL'
       default = 'default_order_nl'
     else
@@ -417,6 +417,7 @@ class Product < ActiveRecord::Base
       end
       products = Product.media_select(products, country, media_i)
     end
+    logger.debug("@@@#{country}")
     case country
       when 'BE'
         products = products.remove_wrong_be(8)
