@@ -23,7 +23,7 @@
   <!--   ==============   HEADER   ==============   -->
   <div id="header" >
     <h1>
-      <%= link_to t('.tagline'), root_path(:logo => 1, :promo => session[:promo]), :class => 'f-btn' %>
+      <%= link_to t('.tagline'), products_path(:logo => 1, :promo => session[:promo]), :class => 'f-btn' %>
     </h1>
     <%= render :partial => 'layouts/menu2' unless @hide_menu %>
   </div>

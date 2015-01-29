@@ -417,7 +417,6 @@ class Product < ActiveRecord::Base
       end
       products = Product.media_select(products, country, media_i)
     end
-    logger.debug("@@@#{country}")
     case country
       when 'BE'
         products = products.remove_wrong_be(8)
