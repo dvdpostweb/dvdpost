@@ -4,6 +4,8 @@ module ApplicationHelper
   def switch_locale_link(locale, options=nil)
     if params['controller'] == "home" && params['action'] == "index"
       link_to locale.to_s.upcase, root_path(params.merge(:locale => locale)), options
+    elsif params['controller'] == "products" && params['action'] == "index"
+      link_to locale.to_s.upcase, products_path(params.merge(:locale => locale)), options
     else
       link_to locale.to_s.upcase, params.merge(:locale => locale), options
     end

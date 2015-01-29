@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => :products, :action => :index, :conditions => {:method => :get}
   map.resources :locales, :except => [:show], :member => {:reload => :post} do |locale|
     locale.resources :translations, :except => [:show], :member => {:update_in_place => :post}
   end
@@ -192,7 +191,8 @@ ActionController::Routing::Routes.draw do |map|
     end
 
   end
-  
+  map.root :controller => :products, :action => :index, :conditions => {:method => :get}
+
   #map.get_authentication 'authentication/api/Authenticate', :controller => :authentication, :action => :ok, :conditions => { :method => :get }
   
   

@@ -25,9 +25,9 @@
       </ul>
     <% end %>
     <% if cookies[:endless] == 'deactive' %>
-      <%= link_to t('.endless_active'), params.merge(:endless => 'active'), :class => "endless" %>
+      <%= link_to t('.endless_active'), products_path(params.merge(:endless => 'active')), :class => "endless" %>
     <% else %>
-      <%= link_to t('.endless_deactive'), params.merge(:endless => 'deactive'), :class => "endless" %>
+      <%= link_to t('.endless_deactive'), products_path(params.merge(:endless => 'deactive')), :class => "endless" %>
     <% end %>
     <% if params[:ppv] == "1" %>
     <div id="about_ppv">

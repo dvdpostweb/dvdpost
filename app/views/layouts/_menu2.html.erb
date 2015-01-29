@@ -1,7 +1,7 @@
 <% id = yield :body_id %>
 <ul id="nav" class="osc">
   
-  <li><%= link_to t('layouts.header.explore'), root_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
+  <li><%= link_to t('layouts.header.explore'), products_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
   <% if ENV['HOST_OK'] == "0" %>
     <li>
     <% if streaming_access? %>  
@@ -18,7 +18,7 @@
       <li><%= link_to t('layouts.menu.contact'), messages_path, {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
     <% end %>
     <% unless params[:kind] == :adult %>
-      <li><%= link_to (mobile_request? ? t('layouts.header.adult_short') : t('layouts.header.adult')), root_path(:kind => :adult), {:id => 'nav7'} %></li>
+      <li><%= link_to (mobile_request? ? t('layouts.header.adult_short') : t('layouts.header.adult')), products_path(:kind => :adult), {:id => 'nav7'} %></li>
     <% end %>
     <% if params[:kind] == :adult && mobile_request? %>
       <li><%= link_to t('layouts.header.normal_mobile'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
@@ -30,7 +30,7 @@
       <li><%= link_to t('layouts.menu.contact'), new_phone_request_path(), {:id => 'nav5', :class => (( id == 'message_body') ? 'active': '') }  %></li>
     <% end %>
     <% unless params[:kind] == :adult || cookies[:adult_hide] == 1 %>
-      <li><%= link_to (mobile_request? ? t('layouts.header.adult_short') : t('layouts.header.adult')), root_path(:kind => :adult), {:id => 'nav7'} %></li>
+      <li><%= link_to (mobile_request? ? t('layouts.header.adult_short') : t('layouts.header.adult')), products_path(:kind => :adult), {:id => 'nav7'} %></li>
     <% end %>
     <% if params[:kind] == :adult && mobile_request? %>
       <li><%= link_to t('layouts.header.normal_mobile', :default => 'cine'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
@@ -54,5 +54,5 @@
   <% end %>
 <% end %>
 <% if params[:kind] == :adult && !mobile_request? %>
-  <div id="back_classic"><%= link_to t('layouts.header.normal'), root_path(:kind => :normal), {:id => 'nav8'} %></div>
+  <div id="back_classic"><%= link_to t('layouts.header.normal'), products_path(:kind => :normal), {:id => 'nav8'} %></div>
 <% end %>
