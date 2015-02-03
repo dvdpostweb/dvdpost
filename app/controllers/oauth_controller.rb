@@ -30,7 +30,7 @@ class OauthController < ApplicationController
   end
 
   def callback
-    #begin
+    begin
       access_token = oauth_client.web_server.get_access_token(params[:code], :redirect_uri => oauth_callback_url)
       
       session[:oauth_token] = access_token.token
@@ -44,13 +44,13 @@ class OauthController < ApplicationController
       end
       attempted_path = session[:attempted_path]
       redirect_to attempted_path || root_path
-    #rescue Exception => e
-    #  logger.warn "*** Invalid authorization code used. ***"
-    #  session.delete(:oauth_token)
-    #  session.delete(:expires_in)
-    #  session.delete(:refresh_token)
-    #  redirect_to session.delete(:attempted_path) || root_path
-    #end
+    rescue Exception => e
+      logger.warn "*** Invalid authorization code used. ***"
+      session.delete(:oauth_token)
+      session.delete(:expires_in)
+      session.delete(:refresh_token)
+      redirect_to session.delete(:attempted_path) || root_path
+    end
   end
 
   def sign_out
