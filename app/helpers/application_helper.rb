@@ -85,7 +85,7 @@ module ApplicationHelper
   end
 
   def nederlands?
-    request.host_with_port.include?('dvdpost.nl')
+    request.host_with_port.include?('dvdpost.nl') 
   end
 
   def localized_image_tag(source, options={})
@@ -363,6 +363,7 @@ module ApplicationHelper
     else
       ENV['HOST_OK'] = "0"
     end
+    params[:host_nl] = nederlands? ? true : false 
     #ENV['HOST_OK'] = "1"
   end
 
