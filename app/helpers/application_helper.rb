@@ -116,6 +116,15 @@ module ApplicationHelper
 
   def oauth_client
     params = OAUTH.clone
+    client_id = params.delete(:client_id)
+    client_secret = params.delete(:client_secret)
+    @client ||= OAuth2::Client.new(
+      client_id, client_secret, params
+    )
+  end
+
+  def oauth_client2
+    params = OAUTH.clone
     if nederlands?
       params[:site] = 'https://sso.dvdpost.nl'
       params[:client_id] = 'dvdpost_nl_rails_client'

@@ -20,7 +20,7 @@ class OauthController < ApplicationController
         url = oauth_callback_url(:locale => locale)
         options = {:redirect_uri => url }
         options.merge!(:locale => locale) if locale
-        url = oauth_client.web_server.authorize_url(options)
+        url = oauth_client2.web_server.authorize_url(options)
       end
     else
       session[:error_path] = request.fullpath
