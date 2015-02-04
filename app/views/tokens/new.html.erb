@@ -76,6 +76,9 @@
             	  <% end %>
               <% else %>
                 <%= t '.credit_empty', :credits => nb_credit, :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
+                <br /><br />
+                <a class="rajouter osc btn" href="<%= edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>"><%= t('.recondtion_btn') %></a>
+                 </div>
               <% end %>
             <% end %>
           </div>
