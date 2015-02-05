@@ -1,14 +1,22 @@
 <% abo = new_abo %>
-<% if ENV['HOST_OK'] == "1" || (current_customer.free_upgrade == 0 && selected_abo != abo.id) || (current_customer.free_upgrade == 1 && selected_abo && selected_abo < abo.id ) %>
-  <% showing = @showing_abo > 0 ? true : false %>
+<% if ENV['HOST_OK'] == "1" || (current_customer.free_upgrade == 0 && selected_abo != abo.id) || ((current_customer.free_upgrade == 1 && selected_abo && selected_abo < abo.id) or nederlands? ) %>
+  <% showing = @showing_abo > 0 || nederlands? ? true : false %>
   <% style = @all_style ? 'table_row' : get_style(current_abo_credit, abo.credits, showing)%>
   <% @showing_abo = @showing_abo - 1 if style == 'table-row' %>
   <tr class="abo" style="display:<%= style %>">
     <%= "<td width='33'><div class='check' id ='#{abo.id}'></div></td>" if ENV['HOST_OK'] == "0" %>
-    <td class="films"><b><span class="title_pricing"><%= abo.credits %> <%= t 'reconductions.edit.films' %></span></b> <br />
-    <span class="month"><%= t 'reconductions.edit.per_month' %></span>*</td>
+    <% if abo.credits > 0 %>
+      <td class="films"><b><span class="title_pricing"><%= abo.credits %> <%= t 'reconductions.edit.films' %></span></b> <br />
+      <span class="month"><%= t 'reconductions.edit.per_month' %></span>*</td>
+    <% else %>
+      <td class="films"><b><span class="title_pricing"><%= t('.unlimited') %></span></td>
+    <% end %>
     <td width="<%= ENV['HOST_OK'] == "1" && !mobile_request? ? 360 : 180 %>" class="description">
-      <%= abo_details(abo,0)%>
+      <% if abo.credits > 0 %>
+        <%= abo_details(abo,0)%>
+      <% else %>
+        <%= t('.unlimited_detail', :qty => abo.qty_at_home) %>
+      <% end %>
     </td>
     
     <td align="right" class="prices">
