@@ -2,7 +2,7 @@
   <!-- BIENVENUE  -->
   <!-- user info -->
   <div id="header_pricing" class="clearfix">
-    <p align="center"> <%= image_tag "#{I18n.locale.to_s}/title_formula.jpg"%> </p>
+    <p align="center"> <%= nederlands? ? '<br />' : image_tag("#{I18n.locale.to_s}/title_formula.jpg") %> </p>
     <div class="new_abo_left">
     <table width="400" cellspacing="0" cellpadding="0" border="0" class="new_table_abo" align="center">
       <tbody>
@@ -36,7 +36,7 @@
         <button type="submit" class="button_confirm_rec"><%= t '.confirm' %></button>
       </div>
      <% end %>
-     <div style="margin:20px 45px; font-size:10px">* <%= t('.send') %></div>
+     <div style="margin:20px 45px; font-size:10px">* <%= t('.send') unless nederlands? %></div>
   </div>
   <div style='display:none'>
     <div id='div_selected'>2</div>

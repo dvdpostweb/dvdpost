@@ -7,7 +7,7 @@
         <% unless nederlands? %>
         <%= render :partial => 'info/price_menu' %>
         <h3><%= t 'info.price.select' %></h3>
-        <% end %>
+       
         <ul id="formule_tab">
           <li class="formule active" id ="f1">
             <h4><%= t 'info.price.active' %></h4>
@@ -31,9 +31,43 @@
             <p><%= t 'info.price.family_desc' %></p>
             <a class="button" href="#"><%= t 'info.price.discover' %></a> </li>
         </ul>
-    
+        <% end %>
         <div class="clearfix"></div>
         <!--  Formules Actifs-->
+        <% if nederlands? %>
+        <div class="formula dvd active" id='f1_content'>
+          <ul>
+            <li class="prices">
+              <h2>2 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 1) %></p>
+              <p><%= t_nl('info.price.formats') %></p>
+              <h4>6.45 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=dvd2') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+            <li class="prices populaire size">
+            <div class="icon_populaire <%= I18n.locale %>"></div>
+              <h2><%= t('.unlimited') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 2) %></p>
+              <p><%= t_nl('info.price.formats') %></p>
+              <h4>14.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=UN2") %>"><%= t 'info.price.signup' %></a></div>
+            </li>
+            <li class="prices">
+              <h2><%= t('.unlimited') %></h2>
+              <p><%= t('info.price.simultanate', :number => 4) %></p>
+              <p><%= t_nl('info.price.formats') %></p>
+              <h4>25.95 €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=UN4') %>"><%= t('info.price.signup') %></a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          
+        </div>
+        <% else %>
         <div class="formula dvd active" id='f1_content'>
           <ul>
             <li class="prices">
@@ -68,6 +102,7 @@
           <div class="clearfix"></div>
           
         </div>
+        <% end %>
         <!--  Formules cinéphiles-->
         <div class="formula dvd" id='f2_content' style="display:none">
           <ul class="clearfix">
@@ -151,7 +186,9 @@
           </div>
         </div>
         <div class="clearfix"></div>
-        <div id='aste'>* <%= t '.send' %></div>
+        <% unless nederlands? %>
+          <div id='aste'>* <%= t '.send' %></div>
+        <% end %>
       </div>
     </div>
     <div class="faq-container">

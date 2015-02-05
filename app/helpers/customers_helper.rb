@@ -8,10 +8,13 @@ module CustomersHelper
       ""
     end
     if customer.subscription_type
-      sub += unless customer.svod?
-        "#{current_customer.credit_per_month} #{t('.films').upcase}"
-      else
+      sub += 
+      if customer.svod?
         t '.vod_unlimited'
+      elsif current_customer.credit_per_month == 0
+        t '.unlimited_title'
+      else
+        "#{current_customer.credit_per_month} #{t('.films').upcase}"
       end
     end
     sub += " <span class='month'>#{t '.per_month'}</span>" if html == 1
@@ -36,7 +39,7 @@ module CustomersHelper
       abo
     else
       if customer.credit_per_month == 0
-        t '.unlimited'
+        t '.unlimited', :qty => sub.qty_at_home
       else
         "#{credits} DVD"
       end
