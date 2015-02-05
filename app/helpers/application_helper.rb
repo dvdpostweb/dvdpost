@@ -85,7 +85,7 @@ module ApplicationHelper
   end
 
   def nederlands?
-    true #request.host_with_port.include?('dvdpost.nl') 
+    request.host_with_port.include?('dvdpost.nl') 
   end
 
   def localized_image_tag(source, options={})
