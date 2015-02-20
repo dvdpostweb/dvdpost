@@ -85,7 +85,7 @@ module ApplicationHelper
   end
 
   def nederlands?
-    request.host_with_port.include?('dvdpost.nl') 
+    request.host_with_port.include?('dvdpost.nl') || Rails.env == 'development' 
   end
 
   def localized_image_tag(source, options={})
