@@ -97,6 +97,14 @@
 			<%= render :partial => 'layouts/call_to_action' if ENV['HOST_OK'] == "1" && (@code.nil? || (@code && !@code.white_label)) && params[:action] != 'unsubscribe' && params[:controller] != 'home' && params[:page_name] != 'promo' && params[:page_name] != 'price' && !(params[:controller] == 'streaming_products' && params[:action] == 'faq') %>
       <%= yield %>
     </div>
+    <% if ENV['HOST_OK'] == "0" && current_customer.alert_price == false %>
+      <div id="warning_price" style="display:none">
+        <%= info_path(:page_name => :new_price) %>
+      </div>
+      <div id="check_alert" style="display:none">
+        <%= t('.accept_condiction') %>
+      </div>
+    <% end %>
 </div>
     <!--   ==============   FOOTER   ==============   -->
     <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} if @code.nil? || (@code && !@code.white_label) %>
