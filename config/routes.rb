@@ -159,6 +159,7 @@ ActionController::Routing::Routes.draw do |map|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.mail_copy 'mail_copy', :controller => :customers, :action => :mail_copy, :only => [:update]
       customer.only_vod 'only_vod', :controller => :customers, :action => :only_vod, :only => [:update]
+      customer.alert_price 'alert_price', :controller => :customers, :action => :alert_price, :only => [:update]
       customer.newsletters_x 'newsletters_x', :controller => :customers, :action => :newsletters_x, :only => [:update]
       customer.newsletter_x 'newsletter_x', :controller => :customers, :action => :newsletter_x, :conditions => {:method => :get}
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]

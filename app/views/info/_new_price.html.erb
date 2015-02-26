@@ -1,0 +1,22 @@
+<div align="justify" style="width:600px"> 
+  <%= current_customer.gender =='m' ? t('mails.gender_male') : t('mails.gender_female') %> <%= current_customer.name %>,<br /><br />
+
+  <%= t('.alert_price').html_safe %>
+
+<p>
+  <input class="Input1" align="top" type="checkbox" value="YES" name="marketing" id="new_price">
+
+  <%= t('.alert_price_check').html_safe %>
+</p>
+<br />
+  <%= link_to(t('.alert_price_btn').html_safe, customer_alert_price_path(:customer_id => current_customer), :method => :put, :class => "rajouter osc btn", :id => "close_dialog") %>
+<br /><br />
+
+</div>
+
+
+
+<script type="text/javascript">
+$('.footer .close').hide();
+$(document).unbind('keydown.facebox')
+</script>
