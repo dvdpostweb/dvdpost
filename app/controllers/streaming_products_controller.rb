@@ -4,7 +4,7 @@ class StreamingProductsController < ApplicationController
   def show
     @vod_create_token = General.find_by_CodeType('VOD_CREATE_TOKEN').value
     @vod_disable = General.find_by_CodeType('VOD_ONLINE').value
-    if Rails.env == 'production' 
+    if Rails.env == 'production'
       @product = Product.both_available.find_by_imdb_id(params[:id])
     else
       @product = Product.find_by_imdb_id(params[:id])
@@ -31,15 +31,15 @@ class StreamingProductsController < ApplicationController
       @streaming_not_prefered = nil
     end
     if params[:code]
-      @code = StreamingCode.find_by_name(params[:code]) 
+      @code = StreamingCode.find_by_name(params[:code])
       if @code.nil? && params[:uniq]
         @code = @streaming.generate_code(params[:code], params[:uniq])
       end
     end
     @streaming_free = streaming_free(@product)
     respond_to do |format|
-      
-      
+
+
       format.html do
         if @product
           if @vod_disable == "1" || Rails.env == "pre_production"
@@ -58,7 +58,7 @@ class StreamingProductsController < ApplicationController
             else
                error = t('streaming_products.no_access.no_access')
                show_error(error, @code)
-            end  
+            end
           else
             error = t('streaming_products.not_available.offline')
             show_error(error, @code)
@@ -85,7 +85,7 @@ class StreamingProductsController < ApplicationController
               if creation
                 @token = creation[:token]
                 error = creation[:error]
-              
+
                 if current_customer && @token
                   if @streaming_free[:status] == true
                     mail_id = DVDPost.email[:streaming_product_free]
@@ -93,14 +93,14 @@ class StreamingProductsController < ApplicationController
                     mail_id = DVDPost.email[:streaming_product]
                   end
                   product_id = @product.id
-                  if current_customer.gender == 'm' 
+                  if current_customer.gender == 'm'
                     gender = t('mails.gender_male')
                   else
                     gender = t('mails.gender_female')
                   end
                     movie_detail = DVDPost.mail_movie_detail(current_customer.to_param, @product.id)
                     vod_selection = DVDPost.mail_vod_selection(current_customer.to_param, params[:kind])
-                    options = 
+                    options =
                     {
                       "\\$\\$\\$customers_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
                       "\\$\\$\\$gender_simple\\$\\$\\$" => gender ,
@@ -110,7 +110,7 @@ class StreamingProductsController < ApplicationController
                       "\\$\\$\\$recommendation_dvd_to_dvd\\$\\$\\$" => '',
                     }
                     send_message(mail_id, options)
-                
+
                 end
               end
             end
@@ -186,11 +186,11 @@ class StreamingProductsController < ApplicationController
     end
     token_valid = token.nil? ? false : token.validate?(request.remote_ip)
     if Rails.env == 'production' && token_valid == false
-      @streaming_prefered = StreamingProduct.available.country(Product.country_short_name(session[:country_id])).find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+      @streaming_prefered = StreamingProduct.available.country(Product.country_short_name(session[:country_id])).find_all_by_imdb_id(params[:streaming_product_id], I18n.locale)
     elsif Rails.env == 'production' && token_valid == true
-      @streaming_prefered = StreamingProduct.available_token.country(Product.country_short_name(session[:country_id])).find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+      @streaming_prefered = StreamingProduct.available_token.country(Product.country_short_name(session[:country_id])).find_all_by_imdb_id(params[:streaming_product_id], I18n.locale)
     else
-      @streaming_prefered = StreamingProduct.available_beta.country(Product.country_short_name(session[:country_id])).alpha.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale) 
+      @streaming_prefered = StreamingProduct.available_beta.country(Product.country_short_name(session[:country_id])).alpha.find_all_by_imdb_id(params[:streaming_product_id], I18n.locale)
     end
     render :partial => '/streaming_products/show/versions', :locals => {:version => @streaming_prefered, :source => params[:source],  :response_id => params[:response_id]}
   end
@@ -246,5 +246,5 @@ class StreamingProductsController < ApplicationController
       logger.error(e.backtrace)
     end
   end
-  
+
 end

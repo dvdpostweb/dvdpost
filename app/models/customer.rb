@@ -423,13 +423,7 @@ class Customer < ActiveRecord::Base
   def create_token(imdb_id, product, current_ip, streaming_product_id, kind, source = 7)
     file = StreamingProduct.find(streaming_product_id)
     if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0 || file.is_ppv
-        begin
-          #token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
-          token_string = 'none'
-        rescue => e
-          token_string = false
-        end
-        
+        token_string = '3/i/'+ imdb_id.to_s
         if token_string
           begin
              if source.nil? || source.empty?
@@ -457,12 +451,7 @@ class Customer < ActiveRecord::Base
       end
       
       if !abo_process || (customer_abo_process || abo_process.finished?)
-        begin
-          #token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
-          token_string = 'none'
-        rescue => e
-          token_string = false
-        end
+          token_string = '3/i/'+ imdb_id.to_s
         if token_string
           kind = (svod_adult > 0 && file.studio_id == 147) ? "SVOD_ADULT" : "NORMAL"
           Token.transaction do

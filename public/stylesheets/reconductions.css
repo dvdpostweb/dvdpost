@@ -105,11 +105,11 @@
 }
 .abo_actu {
   background:url("../images/bg_white.png") no-repeat scroll 0 transparent;
-  
-	padding:14px 0 0 62px;
-  width:250px;
+  padding: 14px 0 0 0;
+  width: 223px;
   margin: 0 auto 5px;
   border-collapse: separate;
+  text-align: center;
 }
 .abo_actu_sub 
 {

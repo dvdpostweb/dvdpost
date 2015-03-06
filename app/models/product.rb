@@ -295,6 +295,8 @@ class Product < ActiveRecord::Base
   
   
   def self.filter(filter, options={}, exact=nil)
+    logger.debug("@@@#{filter.inspect}")
+    logger.debug("@@@#{options.inspect}")
     if options[:country_id] == 131
       country = 'LU'
       default = 'default_order_lu'
@@ -417,13 +419,17 @@ class Product < ActiveRecord::Base
       end
       products = Product.media_select(products, country, media_i)
     end
-    case country
-      when 'BE'
-        products = products.remove_wrong_be(8)
-      when 'LU'
-        products = products.remove_wrong_lu(8)
-      when 'NL'
-        products = products.remove_wrong_nl([8, 5])
+    if options[:host_nl] == true
+      products = products.remove_wrong_nl([8, 5])
+    else
+      case country
+        when 'BE'
+          products = products.remove_wrong_be(8)
+        when 'LU'
+          products = products.remove_wrong_lu(8)
+        when 'NL'
+          products = products.remove_wrong_nl(8)
+      end
     end
     products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year? && options[:no_filter].nil?

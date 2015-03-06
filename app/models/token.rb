@@ -100,12 +100,7 @@ class Token < ActiveRecord::Base
   def self.create_token(imdb_id, product, current_ip, streaming_product_id, kind, code, source = 7)
     #to do valid code
     file = StreamingProduct.find(streaming_product_id)
-    begin
-      #token_string = DVDPost.generate_token_from_alpha(file.filename, kind, false)
-      token_string = 'none'
-    rescue => e
-      token_string = false
-    end
+    token_string = '3/i/'+ imdb_id.to_s
     if token_string
       begin
         if source.nil? || source.empty?

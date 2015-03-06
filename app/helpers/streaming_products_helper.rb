@@ -3,7 +3,7 @@ module StreamingProductsHelper
     audio = streaming.languages.by_language(:fr).first.short_alpha
     sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
     hd = streaming.hd? ? true : false
-    url = DVDPost.akamai_hls_url(streaming.imdb_id, audio, sub, hd)
+    url = DVDPost.akamai_hls_url(streaming.imdb_id, audio, sub, hd, streaming.videoland)
     if browser.iphone? || browser.ipad? || mobile_request? || browser.tablet?
       if mobile_request?
         #$("#presentation").html("<video id='my_video_1' class='video-js vjs-default-skin' controls width='290' height='132' data-setup='{}'><source src='#{url}' type='application/vnd.apple.mpegurl'></video><a href='#{url}'>#{url}</a>")
@@ -119,7 +119,7 @@ module StreamingProductsHelper
   end
   
   def get_style(current_abo_credit, abo_credits, showing)
-    if(current_abo_credit.to_i < abo_credits.to_i)
+    if(current_abo_credit.to_i < abo_credits.to_i || nederlands?)
       if showing
         "table-row"
       else

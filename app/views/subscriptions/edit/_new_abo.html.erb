@@ -2,10 +2,16 @@
 <% if (current_customer.free_upgrade == 0 || current_customer.customers_registration_step.to_i !=100 ) || (current_customer.free_upgrade == 1 && selected_abo < abo.id ) %>
   <% showing = @showing_abo > 0 ? true : false %>
   <tr style="display: table-row;" class="new_abo<%= " free_upgrade" if abo.ordered == @free_upgrade %>"><td width="92"><div class="check" id ='<%= abo.id %>'></div></td>
-    <td width="305" align="left"<b><span class="title_pricing"><%= abo.credits %> <%= t '.films' %></span></b> <span class="month"><%= t '.per_month' %> </span>* </td>
+    <td width="305" align="left"<b>
+      <% if abo.credits == 0 %>
+        <span class="title_pricing"><%= "#{t('.unlimited')}</span> <span>#{t('.send_by', :qty => abo.qty_at_home)}</span>" %>
+      <% else %>
+        <span class="title_pricing"><%= abo.credits %> <%= t '.films' %></span></b> <span class="month"><%= t '.per_month' %> </span> <%= nederlands? ? '' : '*' %> 
+      <% end %>
+    </td>
     <td width="30"></td>
     <td width="350" align="left">
-      <%= abo_details(abo, @free_upgrade)%>
+      <%= abo_details(abo, @free_upgrade) unless nederlands? %>
     </td>
     <td align="right" width="100" class='price'><%= "#{price_format(abo.product.price)} &euro;" %></td>
   </tr>

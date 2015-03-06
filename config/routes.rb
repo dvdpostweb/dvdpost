@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
     theme.resource :texts
   end
   map.resources :trailers, :only => [:show]
-  
+  map.resource :generale, :only => [:edit, :update]
   map.with_options :path_prefix => '/:locale/:kind' do |localized|
     localized.filter "kind"
     localized.root :controller => :products, :action => :index, :conditions => {:method => :get}

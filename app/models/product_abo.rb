@@ -10,9 +10,11 @@ class ProductAbo < ActiveRecord::Base
   
   named_scope :available, lambda {|group| {:conditions => ['allowed_public_group = ? or allowed_private_group = ?', group, group]}}
   named_scope :ordered, :order => "qty_credit ASC"
+  named_scope :ordered_nl, :order => "ordered ASC"
+
   
   def self.get_list(group = 1)
-    available(group).ordered
+    group == 10 ? available(group).ordered_nl :  available(group).ordered
   end
 
   def only_vod
