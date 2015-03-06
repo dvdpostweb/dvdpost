@@ -1,0 +1,5 @@
+<% form_tag "/generale", :method => :put do %>
+  start : <input type='text' name='start' value ='<%= General.find_by_CodeType('OFFLINE_CUST_START').value %>'/>
+  end : <input type='text' name='end' value ='<%= General.find_by_CodeType('OFFLINE_CUST_END').value %>'/>
+  <input type="submit" name="" value="ok" />
+<% end %>
