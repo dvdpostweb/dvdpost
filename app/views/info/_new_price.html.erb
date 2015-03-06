@@ -9,7 +9,9 @@
   <%= t('.alert_price_check').html_safe %>
 </p>
 <br />
-  <%= link_to(t('.alert_price_btn').html_safe, customer_alert_price_path(:customer_id => current_customer), :method => :put, :class => "rajouter osc btn", :id => "close_dialog") %>
+<% form_tag customer_alert_price_path(:customer_id => current_customer), {:method => :put} do %>
+  <input type='submit' name ='' value='<%= t('.alert_price_btn').html_safe %>' class ="rajouter osc btn" id ="close_dialog" />
+<% end %>
 <br /><br />
 
 </div>

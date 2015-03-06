@@ -198,15 +198,15 @@ $(function() {
       );
     });
   }
-});
-$("#close_dialog").live("click", function() {
-  if(!$('#new_price').is(':checked'))
-  {
-    alert($('#check_alert').html())
-    return false  
-  }
-  
+  $("#close_dialog").live("click", function() {
+    if(!$('#new_price').is(':checked'))
+    {
+      alert($('#check_alert').html())
+      return false  
+    }
   })
+});
+
 // Always send the authenticity_token with ajax
 $(document).ajaxSend(function(event, request, settings) {
     if ( settings.type.toLowerCase() == 'post' || settings.type.toLowerCase() == 'delete' ) {
