@@ -1,5 +1,5 @@
 <% if (current_customer.free_upgrade == 0 && selected_abo != abo.id) || ((current_customer.free_upgrade == 1 && selected_abo < abo.id) || nederlands? ) %>
-  <% showing = @showing_abo > 0 || nederlands? ? true : false %>
+  <% showing = @showing_abo > 0 || nederlands? ? true : false %>
   <% style = @all_style ? 'table_row' : get_style(current_abo_credit, abo.credits, showing) %>
   <% @showing_abo = @showing_abo - 1 if style == 'table-row' %>
 
