@@ -629,3 +629,13 @@ a#vod_title_id:hover
 	width: 0;
 	cursor: pointer;
 }
+#vod-wrap h3 {
+font-size: 1.3em;
+text-align: left;
+color: #21282f;
+padding-right: 215px;
+background: url(../images/videoland.png) no-repeat 712px 12px;
+height: 21px;
+padding-top: 15px;
+text-align: right;
+}

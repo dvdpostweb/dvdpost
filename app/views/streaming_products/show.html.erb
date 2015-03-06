@@ -6,12 +6,13 @@
         <h2>
           <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)<span>
         </h2>
+        <%=  "<h3>Powered by</h3>" if @streaming.videoland? %>
         <% if @token and @token_valid %>
           <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token, params[:kind]) %></strong></div></div>
         <% end %>
         <div class="clear"></div>
         <div id="presentation">
-          
+
           <%= "<div class='prices'>#{t '.ppv', :price => @streaming.ppv_price}</div>" if @streaming.is_ppv %>
           <div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div>
         </div>
@@ -29,7 +30,7 @@
           <% if (@token && @token_valid) ||  (@streaming_free[:status] == true && @streaming_free[:available] == true) || (current_customer && current_customer.credits >= @streaming.credits && !@streaming.is_ppv) || (code_public && code_public.available?) || (@streaming.is_ppv && current_customer && current_customer.ppv_status_id == 1) || (current_customer && current_customer.svod_adult > 0  && @streaming.studio_id == 147) %>
             <% if @streaming_prefered.count > 0 || (@streaming_not_prefered && @streaming_not_prefered.count > 0) %>
               <div class="choice_language">
-                
+
                 <h3><%= t('.version_title') %></h3>
                 <div id="choice_new">
                   <div id="step1" class="step" style="width:696px;height:120px">
@@ -51,10 +52,10 @@
             </p>
             <% end %>
           <% end %>
-        
+
         <% end %>
         <div id="all_versions_data">
-        
+
         </div>
         <% if ENV['HOST_OK'] == "0" && current_customer.abo_active == 0 && current_customer.beta_test %>
           <p align ="center"><%= link_to(image_tag("#{DVDPost.images_path}/free_movies/banner_relance_fr.jpg"), info_path(:page_name => :promotion)) %></p>
@@ -71,7 +72,7 @@
               <%= image_tag icon_survey, :align => :absmiddle, :alt => 'icon poll' %>
               <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'><%= t '.poll' %></a><br />
               <%= image_tag icon_problem, :align => :absmiddle, :alt => 'icon problem' %>
-              <%= link_to t('.alert'), new_phone_request_path(:reason => 5), :class => :connect_linkpc %>   
+              <%= link_to t('.alert'), new_phone_request_path(:reason => 5), :class => :connect_linkpc %>
           </div>
           <div class="clear"></div>
         </div>
@@ -82,7 +83,7 @@
     <div id='flash_problem' style='display:none'>
       <%= t('.no_flash', :link => DVDPost.flash_player_link) %>
     </div>
-  
+
     <% if params[:warning].to_i == 1 && (@token.nil? || !@token_valid ) && (current_customer && !current_customer.svod? && !(current_customer.svod_adult > 0 && @streaming.studio_id == 147)) %>
       <div id='warning' style='display:none'><%= new_product_token_path(:product_id => @product.to_param, :imdb_id => @product.imdb_id, :btn => :hide) %></div>
     <% end %>
