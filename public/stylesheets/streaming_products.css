@@ -35,6 +35,7 @@
     text-align: left;
 	color: #21282f;
 	padding-left:112px;
+  float:left;
 }
 #time {
     /*height: 30px;*/
@@ -630,12 +631,11 @@ a#vod_title_id:hover
 	cursor: pointer;
 }
 #vod-wrap h3 {
-  font-size: 1.5em;
-  text-align: left;
+  font-size: 1.2em;
   color: #21282f;
-  padding-right: 251px;
+  padding-right: 216px;
   background: url("../images/videoland.png") no-repeat 712px 12px;
-  height: 21px;
+  height: 24px;
   padding-top: 12px;
   text-align: right;
 }
