@@ -445,7 +445,7 @@ module ProductsHelper
     if params[:kind] == :normal && session[:country_id] != 161
       html_content << content_tag(:li, :class => 'list new') do
         link = link_to t('products.left_column.ppv'), products_path(:filter => :vod, :ppv => 1), :class => params[:filter] == "vod" && params[:ppv] == "1" ? :actived : ''
-        "#{link}<span>#{t('.new_cat')}</span>"
+        "#{link}"
       end
     end
     html_content << content_tag(:li, :class => :list) do
