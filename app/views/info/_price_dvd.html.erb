@@ -42,7 +42,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 1) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>6.45 €<br />
+              <h4><%= Product.find(130199).price %>  €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=dvd2') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -51,7 +51,7 @@
               <h2><%= t('.unlimited') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 2) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>14.95 €<br />
+              <h4><%= Product.find(133671).price %>  €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=UN2") %>"><%= t 'info.price.signup' %></a></div>
             </li>
@@ -59,7 +59,7 @@
               <h2><%= t('.unlimited') %></h2>
               <p><%= t('info.price.simultanate', :number => 4) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>25.95 €<br />
+              <h4><%= Product.find(133672).price %>  €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=UN4') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -75,7 +75,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 1) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>6.45 €<br />
+              <h4><%= Product.find(130199).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD2') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -85,7 +85,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 2) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>11.95 €<br />
+              <h4><%= Product.find(130200).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD4") %>"><%= t 'info.price.signup' %></a></div>
             </li>
@@ -94,7 +94,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 2) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>16.95 €<br />
+              <h4><%= Product.find(130201).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD6') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -111,7 +111,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 2) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>20.95 €<br />
+              <h4><%= Product.find(130202).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD8') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -120,7 +120,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 2) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>24.95 €<br />
+              <h4><%= Product.find(130203).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD10") %>"><%= t 'info.price.signup' %></a></div>
             </li>
@@ -130,7 +130,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 4) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>28.95 €<br />
+              <h4><%= Product.find(130204).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD12') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -146,7 +146,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 4) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>31.45 €<br />
+              <h4><%= Product.find(130205).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD14') %>"><%= t('info.price.signup') %></a></div>
             </li>
@@ -156,7 +156,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 4) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>34.95 €<br />
+              <h4><%= Product.find(130207).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD16") %>"><%= t 'info.price.signup' %></a></div>
             </li>
@@ -165,7 +165,7 @@
                 <span><%= t('info.price.per_month') %></span></h2>
               <p><%= t('info.price.simultanate', :number => 4) %></p>
               <p><%= t_nl('info.price.formats') %></p>
-              <h4>37.95 €<br />
+              <h4><%= Product.find(130208).price %> €<br />
                 <span><%= t('info.price.per_month') %></span></h4>
               <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=DVD18') %>"><%= t('info.price.signup') %></a></div>
             </li>
