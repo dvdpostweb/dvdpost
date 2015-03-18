@@ -6,6 +6,7 @@
         <h2>
           <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)<span>
         </h2>
+        <%=  "<h3>Powered by</h3>".html_safe if @streaming.videoland? %>
         <% if @token and @token_valid %>
           <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token, params[:kind]) %></strong></div></div>
         <% end %>
