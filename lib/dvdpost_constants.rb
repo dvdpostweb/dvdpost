@@ -563,12 +563,7 @@ module DVDPost
       else
         season_name = "S#{season_id}E#{episode_id}_"
       end
-      bitrate =
-      if videoland
-        '6000000'
-      else
-        "800000,2200000#{hd ? ',3000000' : ''}"
-      end
+      bitrate = "800000,2200000#{hd ? ',3000000' : ''}"
       "http://homehlsvod-vh.akamaihd.net/i/#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,#{bitrate},.f4v.csmil/master.m3u8"
     end
 
