@@ -96,6 +96,12 @@ class CustomersController < ApplicationController
       format.js {render :partial => 'customers/show/only_vod', :locals => {:only_vod => @customer.customer_attribute.only_vod}}
     end
   end
+
+  def alert_price
+    @customer = current_customer
+    @customer.update_attribute(:alert_price, 1)
+    redirect_back_or(products_path)
+  end
   
   def newsletters_x
     @customer = current_customer
@@ -148,5 +154,11 @@ class CustomersController < ApplicationController
       end
       
     end
+  end
+  private
+  def redirect_back_or(path)
+    redirect_to :back
+  rescue ::ActionController::RedirectBackError
+    redirect_to path
   end
 end
