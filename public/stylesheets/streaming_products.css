@@ -630,7 +630,7 @@ a#vod_title_id:hover
 	width: 0;
 	cursor: pointer;
 }
-#vod-wrap h3 {
+#vod-wrap h3.vl {
   font-size: 1.2em;
   color: #21282f;
   padding-right: 216px;
