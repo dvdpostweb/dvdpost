@@ -183,7 +183,30 @@ $(function() {
       return false; // prevent default behaviour
     
   });
+  if ($('#warning_price').html()!=undefined){
+  url = $('#warning_price').html();
+    $.facebox.settings.opacity = 0.4
+    $.facebox.settings.modal = true;
+    jQuery.facebox(function() {
+      $.ajax(
+      {
+        url: url,
+        dataType: 'html',
+        type: 'GET',
+        success: function(data) { jQuery.facebox(data);}
+      }
+      );
+    });
+  }
+  $("#close_dialog").live("click", function() {
+    if(!$('#new_price').is(':checked'))
+    {
+      alert($('#check_alert').html())
+      return false  
+    }
+  })
 });
+
 // Always send the authenticity_token with ajax
 $(document).ajaxSend(function(event, request, settings) {
     if ( settings.type.toLowerCase() == 'post' || settings.type.toLowerCase() == 'delete' ) {

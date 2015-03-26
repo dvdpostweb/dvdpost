@@ -20,7 +20,7 @@ set :rails_env, "pre_production"
 #############################################################
 
 set :user, "dvdpostapp"
-set :domain,  "94.139.62.122"
+set :domain,  "94.139.62.123"
 set :domain2, "94.139.62.123"
 set :port, 22012
 role :web, domain, domain2
@@ -118,7 +118,6 @@ namespace :deploy do
  
   end
 end
-
 before 'deploy:create_symlink', 'deploy:stop_ts'
 after 'deploy:create_symlink', 'deploy:update_ts'
 
