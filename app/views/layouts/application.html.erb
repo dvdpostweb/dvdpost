@@ -13,7 +13,7 @@
   <%= stylesheet_link_tag 'main', :media => :all %>
  	<%= stylesheet_link_tag 'facebox', :media => :all %>
 	<%= stylesheet_link_tag 'style', 'all', :media => :all if ((params[:controller] != 'home' && params[:controller] != 'products') && params[:kind] == :normal) || (params[:kind] == :adult && params[:controller] != 'products')  %>
-	
+	<%= stylesheet_link_tag 'chosen' %>
 	<%= stylesheet_link_tag 'stylex', :media => :all if params[:kind] == :adult && params[:controller] != 'newsletters' && !(params[:controller] == 'streaming_products' && params[:action] =='faq') %>
 
 
@@ -28,6 +28,9 @@
   <%= javascript_include_tag 'jquery.form' %>
   <%= javascript_include_tag 'facebox' %>
   <%= javascript_include_tag 'swfobject.js' %>
+  <%= javascript_include_tag  'chosen' %>
+  <%= javascript_include_tag  'history' %>
+
 
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   <!--[if IE 6]>

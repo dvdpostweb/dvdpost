@@ -347,47 +347,91 @@ $(function() {
     $('#tab2_li a').toggleClass('active');
     return false;
   });
-  if($('#filters').html())
+  if($('#online #filters').html())
   {
-    audience_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
-    $("#audience-slider-range").slider({
-      range: true,
-      min: 0,
-      max: 4,
-      values: [audience_slider_values[$("#search_filter_audience_min").val()], audience_slider_values[$("#search_filter_audience_max").val()]],
-      step: 1,
-      slide: function(event, ui) {
-        actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
-        $("#search_filter_audience_min").val(actual_audience_values[ui.values[0]]);
-        $("#search_filter_audience_max").val(actual_audience_values[ui.values[1]]);
-      }
-    });
+    load_form()
+    $('#cl, #film-details, #categories, #studios').delegate('#online #date_filters_year_min, #online  #date_filters_year_max', "change", function(){
+      submit_online()
+    })
+    $('#cl, #film-details, #categories, #studios').delegate('.packages.svod, .packages.tvod', 'click', function(){
+      $('#filter_online_form').attr('action', $(this).attr('href'))
+      $('.packages').removeClass('current')
+      $(this).addClass('current')
+      submit_online()
+      return false;
+    })
+    $('#cl, #film-details, #categories, #studios').delegate(".links", "change", function(){
+      submit_online()
+    })
+    $('#cl, #film-details, #categories, #studios').delegate(".links a", "click", function(){
+        url = $(this).attr('href');
+        html_item = $(this).parent()
+        content =  html_item.html()
+        loader = 'ajax-loader.gif';
+        html_item.html("<img src='/assets/"+loader+"' />");
+        $.ajax({dataType: 'html',
+          url: url,
+          type: 'GET',
+          data: {},
+          success: function(data) {
 
-    year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2020': 8};
-    $("#year-slider-range").slider({
-      range: true,
-      min: 0,
-      max: 8,
-      values: [year_slider_values[$("#search_filter_year_min").val()], year_slider_values[$("#search_filter_year_max").val()]],
-      step: 1,
-      slide: function(event, ui) {
-        actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
-        $("#search_filter_year_min").val(actual_year_values[ui.values[0]]);
-        $("#search_filter_year_max").val(actual_year_values[ui.values[1]]);
-      }
+            $(html_item).html(data);
+          },
+          error: function() {
+            html_item.html(content);
+          }
+        });
+        return false;
+      })
+    /*close thing*/
+    $('#cl, #film-details, #categories, #studios').delegate("#close_audience", "click", function() {
+      $("#online #audience-slider-range").slider("values", [0,4])
     });
-
-    $("#ratings-slider-range").slider({
-      range: true,
-      min: 0,
-      max: 5,
-      values: [$("#search_filter_rating_min").val(),$("#search_filter_rating_max").val()],
-      step: 1,
-      slide: function(event, ui) {
-        $("#search_filter_rating_min").val(ui.values[0]);
-        $("#search_filter_rating_max").val(ui.values[1]);
-      }
+    $('#cl, #film-details').delegate("#close_country", "click", function() {
+      $('#online #filters_country_id').val('').trigger('chosen:updated');
+      submit_online()
     });
+    $('#cl, #film-details, #categories, #studios').delegate("#close_year", "click", function() {
+      $("#online #date_filters_year_min").val($("#online #date_filters_year_min option:first").val());
+      $("#online #date_filters_year_max").val($("#online #date_filters_year_min option:last").val());
+      submit_online()
+    });
+    /*$('#cl').delegate(".links", "click", function() {
+      $('#filters_view_mode').val($(this).attr('data'))
+      submit_online()
+    })*/
+    $('#cl').delegate("#close_ratings", "click", function() {
+      $("#online #ratings-slider-range").slider("values", [0,18])
+    })
+    $('#cl').delegate("#close_audios", "click", function() {
+      $('#online #filters_audio').val('audio...').trigger('chosen:updated');
+      submit_online()
+    })
+    $('#cl').delegate("#close_subtitles", "click", function() {
+      $('#online #filters_subtitles').val('sub...').trigger('chosen:updated');
+      submit_online()
+    })
+    $('#cl').delegate("#close_category", "click", function() {
+      $('#online #filters_category_id').val('').trigger('chosen:updated');
+      submit_online()
+    })
+    $('#cl').delegate("#close_actor", "click", function() {
+      $('#filter_online_form').attr('action', $(this).attr('url'))
+      submit_online()
+    })
+    $('#cl').delegate("#close_director", "click", function() {
+      $('#filter_online_form').attr('action', $(this).attr('url'))
+      submit_online()
+    })
+    $('#cl').delegate("#close_view_mode", "click", function() {
+      $('.links').prop('checked', false);
+      submit_online()
+    })
+    
+    $('#cl').delegate("#pagination.deactive a", "click", function() {
+      ajax_pagination($(this).attr('href'))
+      return false
+    })
   }
   $('#carousel-wrap #next,#carousel-wrap .next_page').live('click',function(){
     url = this.href;
@@ -602,7 +646,72 @@ $(function() {
       return $(window).scroll();
   }
 });
+function submit_online()
+{
+  if($('#cl').length > 0){
+    $('.loading_bar').show();
+    /*$('#filter_online_form').ajaxSubmit({dataType: 'script'});*/
+    if($('#filter_online_form').attr('action').indexOf('?')>0)
+    {
+      history_url = $('#filter_online_form').attr('action')+"&"+$('#filter_online_form').serialize()  
+    }
+    else
+    {
+      history_url = $('#filter_online_form').attr('action')+"?"+$('#filter_online_form').serialize()
+    }
+    console.log('push')
+    History.pushState(null, null, history_url);
+  }
+  else
+  {
+    $('#filter_online_form').submit();
+  }
+}
 
+History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+    // Log the State
+    console.log('here')
+    var State = History.getState(); // Note: We are using History.getState() instead of event.state
+    $('.loading_bar').show()
+    $.ajax({
+      url: State.url,
+      dataType: 'script',
+      type: 'GET',
+      data: {},
+      success: function(data) {},
+      error: function() {}
+    });
+  })
+function load_form()
+{
+  $('.chosen-select').chosen({allow_single_deselect: true}).change(function(){submit_online()});
+  $("#online #ratings-slider-range").slider({
+    range: true,
+    min: 1,
+    max: 5,
+    values: [$("#filters_rating_min").val(),$("#filters_rating_max").val()],
+    step: 1,
+    change: function(event, ui) {
+      $("#online #filters_rating_min").val(ui.values[0]);
+      $("#online #filters_rating_max").val(ui.values[1]);
+       submit_online()
+    }
+  });
+  audience_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
+  $("#online #audience-slider-range").slider({
+    range: true,
+    min: 0,
+    max: 4,
+    values: [audience_slider_values[$("#online #filters_audience_min").val()], audience_slider_values[$("#online #filters_audience_max").val()]],
+    step: 1,
+    change: function(event, ui) {
+      actual_audience_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
+      $("#online #filters_audience_min").val(actual_audience_values[ui.values[0]]);
+      $("#online #filters_audience_max").val(actual_audience_values[ui.values[1]]);
+      submit_online()
+    }
+  });
+}  
 function goToByScroll(id){
   $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
 }

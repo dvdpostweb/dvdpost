@@ -289,14 +289,37 @@ class Product < ActiveRecord::Base
      sort.push(:most_viewed_last_year, 'most_viewed_last_year')
      sort.push(:new, 'new')
      sort.push(:production_year, 'production_year')
-     
      sort
   end
-  
-  
+
+  def self.filter_online(filters, options={}, exact=nil)
+    products = Product.available.by_kind(options[:kind])
+    products = products.exclude_products_id([exact.collect(&:products_id)]) if exact
+    products = products.by_actor(options[:actor_id]) if options[:actor_id]
+    #products = products.by_category(options[:category_id]) if options[:category_id]
+    products = products.hetero if options[:hetero] && (options[:category_id] && (options[:category_id].to_i != 76 && options[:category_id].to_i != 72) )
+    products = products.by_director(options[:director_id]) if options[:director_id]
+    products = products.by_imdb_id(options[:imdb_id]) if options[:imdb_id]
+    products = options[:kind] == :normal ? products.by_streaming_studio(options[:studio_id]) : products.by_studio(options[:studio_id]) if options[:studio_id]
+    #products = products.by_package(Moovies.packages[options[:package]]) if options[:package] && (options[:view_mode] != 'svod_soon' && options[:view_mode] != 'tvod_soon')
+    
+    if options[:filters]
+      products = products.by_audience(options[:filters][:audience_min], options[:filters][:audience_max]) if Product.audience?(options[:filters][:audience_min], options[:filters][:audience_max]) && options[:kind] == :normal
+      products = products.by_countries_id(options[:filters][:country_id].reject(&:empty?)) if Product.countries?(options[:filters][:country_id])
+      products = products.by_ratings(options[:filters][:rating_min].to_f, options[:filters][:rating_max].to_f) if Product.rating?(options[:filters][:rating_min], options[:filters][:rating_max])
+      products = products.by_period(options[:date][:filters][:year_min], options[:date][:filters][:year_max]) if options[:date] && Product.year?(options[:date][:filters][:year_min], options[:date][:filters][:year_max])
+      products = products.with_languages(audio = options[:filters][:audio].reject(&:empty?) ) if Product.audio?(options[:filters][:audio])
+      products = products.with_subtitles(options[:filters][:subtitles].reject(&:empty?)) if Product.subtitle?(options[:filters][:subtitles])
+      products = products.by_category(options[:filters][:category_id]) if !options[:filters][:category_id].nil? && !options[:filters][:category_id].blank?
+    end
+    products = self.get_view_mode(products, options[:view_mode]) if options[:view_mode]
+    sort = get_sort(options)
+    products = products.order(sort, :extended) if sort != ''
+    #products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit], :country_id => options[:country_id], :includes => options[:includes]})
+    
+    products
+  end
   def self.filter(filter, options={}, exact=nil)
-    logger.debug("@@@#{filter.inspect}")
-    logger.debug("@@@#{options.inspect}")
     if options[:country_id] == 131
       country = 'LU'
       default = 'default_order_lu'
@@ -616,6 +639,32 @@ class Product < ActiveRecord::Base
       end
         
   end
+
+
+  def self.year?(year_min, year_max)
+    !(year_min.nil? && year_max.nil?) && !((year_min.to_i == 0 || year_min.to_i == 1910) && year_max.to_i >= Time.now.year)
+  end
+
+  def self.audience?(audience_min, audience_max)
+    !(audience_min.nil? && audience_max.nil?) && !(audience_min.to_i == 0 && audience_max.to_i == 18)
+  end
+
+  def self.rating?(rating_min, rating_max)
+    !(rating_min.nil? && rating_max.nil?) && !(rating_min.to_i == 1 && rating_max.to_i == 5)
+  end
+
+  def self.countries?(countries_id)
+    countries_id.reject(&:empty?).size > 0 if countries_id
+  end
+
+  def self.audio?(audios)
+    audios.reject(&:empty?).size > 0 if audios
+  end
+
+  def self.subtitle?(subtitles)
+    subtitles.reject(&:empty?).size > 0 if subtitles
+  end
+
 
   def to_param
       public_name
@@ -1043,6 +1092,63 @@ class Product < ActiveRecord::Base
         'NL'
       else
         'BE'
+    end
+  end
+  def self.get_sort(options)
+    if !options[:sort].nil? && !options[:sort].empty? && options[:sort] != 'normal'
+      if options[:sort] == 'alpha_az'
+        "descriptions_title_#{I18n.locale} ASC"
+      elsif options[:sort] == 'alpha_za'
+        "descriptions_title_#{I18n.locale} DESC"
+      elsif options[:sort] == 'rating'
+        "rating DESC, year DESC"
+      elsif options[:sort] == 'token'
+        "count_tokens DESC, streaming_id DESC"
+      elsif options[:sort] == 'token_month'
+        "count_tokens_month DESC, streaming_id DESC"
+      elsif options[:sort] == 'most_viewed'
+        "count_tokens DESC"
+      elsif options[:sort] == 'most_viewed_last_year'
+        "count_tokens DESC"
+      elsif options[:sort] == 'new'
+        "year DESC, streaming_available_at_order DESC"
+      else
+        "streaming_available_at_order DESC, rating DESC"
+      end
+    else
+      if options[:list_id] && !options[:list_id].blank?
+        "special_order asc"
+      elsif options[:search] && !options[:search].blank?
+        ''
+      elsif options[:view_mode] && options[:view_mode] == 'svod_last_added'
+        'svod_start DESC, streaming_available_at_order DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'svod_last_chance'
+        'svod_end ASC, streaming_available_at_order DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'svod_soon'
+        'svod_start DESC, streaming_available_at_order DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'tvod_soon'
+        'year DESC, tvod_start_combi ASC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'svod_new'
+        'year DESC, svod_start DESC, streaming_available_at_order DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'tvod_new'
+        'year DESC, streaming_available_at_order DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'tvod_last_added'
+        'tvod_start DESC, streaming_available_at_order DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'tvod_last_chance'
+        'tvod_end ASC, year DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'most_viewed'
+        'count_tokens DESC, year DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'svod_best_rated'
+        'rating DESC, year DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'tvod_best_rated'
+        'rating DESC, year DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'tvod_most_viewed'
+        'count_tokens DESC, year DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode] == 'svod_most_viewed'
+        'count_tokens DESC, year DESC, rating DESC'
+      else
+        "count_tokens DESC"
+      end
     end
   end
 end

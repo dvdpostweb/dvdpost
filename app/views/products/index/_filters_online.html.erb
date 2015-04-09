@@ -1,0 +1,104 @@
+<div id="online">
+
+<% form_tag products_path(:list_id => params[:list_id], :category_id => params[:category_id], :actor_id => params[:actor_id], :director_id => params[:director_id], :studio_id => params[:studio_id]), {:method => 'get', :id => 'filter_online_form'} do %>
+<div id="filters">
+  
+  <fieldset>
+    <ul id="main">
+      <li class="package open">
+        <%= hidden_field_tag :sort, params[:sort] %>
+      </li>
+      <li>
+        <div class="quick_links"><%= t('products.index.filters.link') %></div>
+        <%= radio_button_tag('filters[view_mode]', "last_added", params[:filters] && params[:filters][:view_mode] == 'last_added' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_last_added', t('products.left_column.svod_last_added')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "most_viewed", params[:filters] && params[:filters][:view_mode] == 'most_viewed' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_most_viewed', t('products.left_column.svod_most_viewed')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "last_chance", params[:filters] && params[:filters][:view_mode] == 'last_chance' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_last_chance',  t('products.left_column.svod_last_chance')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "best_rated", params[:filters] && params[:filters][:view_mode] == 'best_rated' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_best_rated',  t('products.left_column.svod_best_rated')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "soon", params[:filters] && params[:filters][:view_mode] == 'soon' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_soon', t('products.left_column.svod_soon')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "new", params[:filters] && params[:filters][:view_mode] == 'new' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_new', t('products.left_column.svod_new')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "hd", params[:filters] && params[:filters][:view_mode] == 'hd' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_hd', t('products.left_column.svod_hd')) %>
+        <br />
+        <%= radio_button_tag('filters[view_mode]', "series", params[:filters] && params[:filters][:view_mode] == 'series' ? true : false, :class => "links") %>
+        <%= label_tag('filters[view_mode]_series', t('products.left_column.series')) %>
+      </li>
+      <li class="audio open">
+        <%= t('products.index.filters.audio', :default => 'audio') %>
+        <div>
+          <%= collection_select(:filters, :audio, Language.by_language(I18n.locale), :id, :name, {:selected => params[:filters] && params[:filters][:audio] ? params[:filters][:audio] : nil, :include_blank => true}, {:multiple => true, :class => 'chosen-select', 'data-placeholder' =>"audio...", 'data-no_results_text' => t('products.index.filters.not_found')}) %>
+        </div>
+      </li>
+      <li class="subtitles open">
+        <%= t('products.index.filters.subtitles', :default => 'subtitles') %>
+        <div>
+          <%= collection_select(:filters, :subtitles, Subtitle.by_language(I18n.locale), :id, :name, {:selected => params[:filters] && params[:filters][:subtitles] ? params[:filters][:subtitles] : nil, :include_blank => true}, {:multiple => true, :class => 'chosen-select', 'data-placeholder' =>"#{t('products.index.filters.subtitles')}...", 'data-no_results_text' => t('products.index.filters.not_found')}) %>
+        </div>
+      </li>
+      <li class="ratings open">
+        <%= t('products.index.filters.ratings', :default => 'ratings') %>
+        <div id="ratings-slider">
+          <%= hidden_field_tag "filters[rating_min]", params[:filters] && params[:filters][:rating_min] ? params[:filters][:rating_min] : 0 %>
+          <%= hidden_field_tag "filters[rating_max]", params[:filters] && params[:filters][:rating_max] ? params[:filters][:rating_max] : 5 %>
+          <ul id="ratings_labels">
+            <% ['1', '2', '3', '4', '5'].collect do |rating| %>
+              <li><%= rating %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div id="ratings-slider-range"></div>
+      </li>
+      <li class="year open">
+        <%= t('products.index.filters.year' , :default => 'year') %>
+        <% max = Time.now.year + 1 %>
+        <% max_year = params[:date] && params[:date][:filters] && params[:date][:filters][:year_max] && params[:date][:filters][:year_max].to_i <= max ? params[:date][:filters][:year_max].to_i : max %>
+        <div class="yeardate">
+          <%= t '.from', :default => 'from' %>
+          <%= select_year (params[:date] && params[:date][:filters] && params[:date][:filters][:year_min] ? params[:date][:filters][:year_min].to_i : 1910 ), :field_name => 'filters[year_min]', :start_year => 1910, :end_year => max %>
+          <%= t '.to', :default => 'to' %>
+          <%= select_year max_year , :field_name => 'filters[year_max]', :start_year => 1910, :end_year => max %>
+        </div>
+      </li>
+      
+      <li class="audience open">
+        <%= t('products.index.filters.public', :default => 'public') %>
+        <div id="audience-slider">
+          <%= hidden_field_tag "filters[audience_min]", params[:filters] && params[:filters][:audience_min] ? params[:filters][:audience_min] :  0 %>
+          <%= hidden_field_tag "filters[audience_max]", params[:filters] && params[:filters][:audience_max] ? params[:filters][:audience_max] : 18 %>
+          <ul id="audience_labels">
+            <% ['ALL', '-10', '-12', '-16', '-18'].collect do |p| %>
+              <li><%= p %></li>
+            <% end %>
+          </ul>
+          
+        </div>
+        <div id="audience-slider-range"></div>
+      </li>
+      <li class="country open">
+        <%= t('products.index.filters.countries', :default => 'country') %>
+        <div>
+          <%= collection_select(:filters, :country_id, @countries, :id, :name, {:selected => params[:filters] && params[:filters][:country_id] ? params[:filters][:country_id] : nil, :include_blank => true}, {:multiple => true, :class => 'chosen-select', 'data-placeholder' =>"#{t('products.index.filters.countries')}...", 'data-no_results_text' => t('products.index.filters.not_found')}) %>
+        </div>
+      </li>
+      <li class="category open">
+        <%= t('products.index.filters.category', :default => 'category') %>
+        <div>
+          <%= collection_select(:filters, :category_id, Category.by_kind(params[:kind]).roots.movies.vod.alphabetic_orderd.all(:joins => :descriptions, :conditions => ['language_id = ?', DVDPost.product_languages[I18n.locale]]) , :id, :name, {:selected => params[:filters] && params[:filters][:category_id] ? params[:filters][:category_id] : nil, :include_blank => true}, {:multiple => true,:class => 'chosen-select', 'data-placeholder' =>"#{t('products.index.filters.category', :default => 'category')}...", 'data-no_results_text' => t('products.index.filters.not_found', :default => 'not found')}) %>
+        </div>
+      </li>
+    </ul>
+  </fieldset>
+</div>
+<% end %>
+</div>

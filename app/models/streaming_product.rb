@@ -19,7 +19,7 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :prefered_audio, lambda {|language_id| {:conditions => {:language_id => language_id }}}
   named_scope :prefered_subtitle, lambda {|subtitle_id| {:conditions => ['subtitle_id = ? and language_id <> ?', subtitle_id, subtitle_id ]}}
   named_scope :not_prefered, lambda {|language_id| {:conditions => ["language_id != :language_id and (subtitle_id != :language_id or subtitle_id is null)",{:language_id => language_id}]}}
-  named_scope :alpha, :conditions => {:source => 'ALPHANETWORKS'}
+  named_scope :alpha, :conditions => {:source => ['ALPHANETWORKS']}
   named_scope :hd, :conditions => {:quality => ['720p', '1080p']}
   
   named_scope :country, lambda {|country| {:conditions => {:country => country }}}

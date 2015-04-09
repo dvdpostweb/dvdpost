@@ -1,0 +1,88 @@
+<% if params[:filters] || params[:date] || params[:View_mode] %>
+  <div id="filtered_content">
+    <div id="filter_title"> <%= t 'layouts.filters.active' %></div>
+
+    <ul id="filtered" class="clearfix">
+      <% if params[:package] %>
+      <li>
+        <strong><%= t 'products.index.type' %></strong>
+        <%= t("products.left_column.#{params[:package]}") %>
+      </li>
+      <% end %>
+      <% if Product.audience?(params[:filters][:audience_min], params[:filters][:audience_max]) && params[:kind] == :normal %>
+        <li>
+          <span class='close' id="close_audience"></span>
+          <strong><%= t 'products.index.public' %></strong>
+          <%= "#{t('.from')} #{params[:filters][:audience_min]} #{t('.to')} #{params[:filters][:audience_max]}".html_safe %>
+        </li>
+      <% end %>
+      <% if !params[:view_mode].nil? %>
+       <li>
+          <span class='close' id="close_view_mode"></span>
+          <strong><%= t 'products.index.view_mode' %></strong>
+          <%= t("products.left_column.#{params[:view_mode]}") %>
+        </li>
+      <% end %>
+      <% if Product.countries?(params[:filters][:country_id]) %>
+        <li>
+          <span class='close' id="close_country"></span>
+          <strong><%= t 'products.index.country' %></strong>
+          <%= selected_countries.collect(&:name).join(', ') %>
+        </li>
+      <% end %>
+      <% if params[:date] && Product.year?(params[:date][:filters][:year_min], params[:date][:filters][:year_max]) %>
+        <li>
+          <span class='close' id="close_year"></span>
+          <strong><%= t 'products.index.year' %></strong>
+          <%= "#{t('.from')}  #{params[:date][:filters][:year_min]} #{t('.to')}  #{params[:date][:filters][:year_max]}".html_safe %>
+        </li>
+      <% end %>
+      <% if Product.rating?(params[:filters][:rating_min], params[:filters][:rating_max]) %>
+        <li>
+          <span class='close' id="close_ratings"></span>
+          <strong><%= t 'products.index.ratings' %></strong>
+          <%= "#{t('.from')} #{params[:filters][:rating_min]} #{t('.to')} #{params[:filters][:rating_max]}".html_safe %>
+        </li>
+      <% end %>
+      <% if languages %>
+        <li>
+          <span class='close' id="close_audios"></span>
+          <strong><%= t 'products.index.audio' %></strong>
+          <%= languages %>
+        </li>
+      <% end %>
+      <% if subtitles %>
+        <li>
+          <span class='close' id="close_subtitles"></span>
+          <strong><%= t 'products.index.subtitles' %></strong>
+          <%= subtitles %>
+        </li>
+      <% end %>
+      <% if !params[:filters][:category_id].nil? && !params[:filters][:category_id].empty? %>
+        <li>
+          <span class='close' id="close_category"></span>
+          <strong><%= t 'products.index.category' %></strong>
+          <%= Category.find(params[:filters][:category_id]).name %>
+        </li>
+      <% end %>
+      <% if params[:actor_id] %>
+        <li>
+          <span class='close' id="close_actor" url='<%= url_for(params.merge(:actor_id => nil, :concerns => nil)) %>'></span>
+          <strong><%= t 'products.index.actor' %></strong>
+          <%= @people.name %>
+        </li>
+      <% end %>
+      <% if params[:director_id] %>
+        <li>
+          <span class='close' id="close_director" url='<%= url_for(params.merge(:director_id => nil, :concerns => nil)) %>'></span>
+          <strong><%= t 'products.index.director' %></strong>
+          <%= @people.name %>
+        </li>
+      <% end %>
+      <li id="close-f">
+        <%= link_to 'Reset', products_path()%>
+      </li>  
+    </ul>
+    
+  </div>
+<% end %>
