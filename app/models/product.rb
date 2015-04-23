@@ -332,7 +332,11 @@ class Product < ActiveRecord::Base
     products = Product.search_clean_online(products, options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
     sort = get_sort(options, default)
     logger.debug("@@@#{sort}")
-    products = products.order(sort, :extended) if sort != ''
+    if options[:filter] == 'vod'
+      products = products.group('imdb_id', sort)
+    else
+      products = products.order(sort, :extended) if sort != ''
+    end
     
     products
   end
