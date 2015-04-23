@@ -1,6 +1,11 @@
 class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show, :step]
   def index
+    params[:filter] = 'disk' if params[:filter].nil? || params[:filter].blank?
+    if params[:category_id] && params[:filters].nil? || (params[:filters] && params[:filters][:category_id].nil?)
+      params[:filters] = Hash.new if params[:filters].nil?
+      params[:filters][:category_id] = params[:category_id]
+    end
     if params[:filters] && params[:filters][:view_mode]
         if params[:filters][:view_mode] == 'soon' and params[:filter] && params[:filter].to_sym == :vod
           params[:view_mode] = 'vod_soon'
@@ -35,12 +40,6 @@ class ProductsController < ApplicationController
         @disk_new =           Product.filter_online(nil, new_params.merge(:view_mode => 'new_vod',  :filter => 'disk'))
 
     else
-      params[:filter] = 'disk' if params[:filter].nil? || params[:filter].blank?
-      if params[:category_id] && params[:filters].nil? || (params[:filters] && params[:filters][:category_id].nil?)
-        params[:filters] = Hash.new if params[:filters].nil?
-        params[:filters][:category_id] = params[:category_id]
-      end
-
       @filter = get_current_filter({})
       if params[:endless]
         cookies.permanent[:endless] = params[:endless]
