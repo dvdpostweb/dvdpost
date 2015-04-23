@@ -1,0 +1,6 @@
+$('#products').append("<%= escape_javascript(render(:partial => 'products/index/movie_detail', :collection => @products, :locals => {:target => @target, :jacket_mode => @jacket_mode, :rating_color => @rating_color}, :formats => [:html])) %>");
+<% if (params[:type] == 'directors' && @directors.next_page) || (params[:type] == 'actors' && @actors.next_page) || ((params[:type] == 'products' || params[:type] == nil) && @products.next_page) %>
+  $('#pagination_content').html('<%= escape_javascript(render(:partial => 'products/index/pagination', :locals => {:item => @products})) %>');
+<% else %>
+  $('#pagination_content').remove();
+<% end %>

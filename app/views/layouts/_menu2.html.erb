@@ -44,10 +44,10 @@
 
 </ul>
 <% if !mobile_request? or params[:controller] != 'info' %>
-  <% form_for :search_filter, @filter, {:url => search_filters_path(), :html => {:id => 'search'}} do |f| %>
+  <% form_for :search_filter, @filter, {:url => search_index_path(), :html => {:id => 'search', :method => 'get'}} do |f| %>
     <%= "<div align='center' class='search'>" if mobile_request? %>
       <%= text_field_tag :search, (params[:search] || t('layouts.menu_adult.search')), {:id => 'search-field', :class => "search-field"} %>
-      <%= submit_tag 'search', :id => 'search-btn' %>
+      <%= submit_tag 'search', :id => 'search-btn', :name => '' %>
       <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
     <%= "</div>" if mobile_request? %>
   

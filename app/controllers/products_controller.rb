@@ -1,135 +1,146 @@
 class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer, :show, :step]
   def index
-    if 1== 0 && params.count <= 5
+    if params[:filters] && params[:filters][:view_mode]
+        if params[:filters][:view_mode] == 'soon' and params[:filter] && params[:filter].to_sym == :vod
+          params[:view_mode] = 'vod_soon'
+        elsif params[:filters][:view_mode] == 'new' and params[:filter] && params[:filter].to_sym == :vod
+          params[:view_mode] = 'new_vod'
+        elsif params[:filters][:view_mode] == 'recent' and params[:filter] && params[:filter].to_sym == :vod
+          params[:view_mode] = 'vod_recent'
+        else
+          params[:view_mode] = params[:filters][:view_mode]
+        end
+      end
+    if session[:sexuality] == 0
+      new_params = params.merge(:hetero => 1,  :country_id => session[:country_id]) 
+    else
+      new_params = params.merge( :country_id => session[:country_id])
+    end
+
+    if params[:filter].nil? && (params[:category_id].nil? && params[:director_id].nil? && params[:actor_id].nil? && params[:studio_id].nil?)
         @filter = get_current_filter({})
         @countries = ProductCountry.visible.order
-        @top =                Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @tvod_last =          Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @tvod_best_rating =  Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @tvod_most_view =    Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @tvod_last_chance =  Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @svod_last =         Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @svod_best_rating =  Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
-        @svod_most_view =    Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
+        @top =               Product.normal_available.all( :conditions => ['products_id > ?', 51 ], :limit => 10)
+        @vod_last =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_recent',  :filter => 'vod'))
+        @vod_best_rating =   Product.filter_online(nil, new_params.merge(:view_mode => 'best_rated',  :filter => 'vod'))
+        @vod_most_view =     Product.filter_online(nil, new_params.merge(:view_mode => 'most_viewed',  :filter => 'vod'))
+        @vod_soon =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_soon',  :filter => 'vod'))
+        @vod_new =           Product.filter_online(nil, new_params.merge(:view_mode => 'new_vod',  :filter => 'vod'))
+
+        @disk_last =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_recent',  :filter => 'disk'))
+        @disk_best_rating =   Product.filter_online(nil, new_params.merge(:view_mode => 'best_rated',  :filter => 'disk'))
+        @disk_most_view =     Product.filter_online(nil, new_params.merge(:view_mode => 'most_viewed',  :filter => 'disk'))
+        @disk_soon =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_soon',  :filter => 'disk'))
+        @disk_new =           Product.filter_online(nil, new_params.merge(:view_mode => 'new_vod',  :filter => 'disk'))
+
     else
+      params[:filter] = 'disk' if params[:filter].nil? || params[:filter].blank?
       if params[:category_id] && params[:filters].nil? || (params[:filters] && params[:filters][:category_id].nil?)
         params[:filters] = Hash.new if params[:filters].nil?
         params[:filters][:category_id] = params[:category_id]
       end
-      if params[:package] == t('routes.product.params.package.unlimited')
-        params[:package] = Moovies.packages.invert[1]
+
+      @filter = get_current_filter({})
+      if params[:endless]
+        cookies.permanent[:endless] = params[:endless]
       end
-      if params[:package] == t('routes.product.params.package.tvod')
-        params[:package] = Moovies.packages.invert[2]
+      if params[:search] == t('products.left_column.search')
+        params.delete(:search)
+      else
+        if params[:search]
+          sub_str = params[:search].to_s
+          params[:search] = sub_str.gsub(/\//,'').gsub(/"/,' ').gsub(/\(/,' ').gsub(/\)/,' ')
+        end
       end
-      if params[:package] and !['unlimited', 'tvod', 'adult_unlimited', 'adult_tvod'].include?(params[:package])
-        params[:package] = Moovies.packages.invert[1]
+      if params['actor_id']
+        @actor = Actor.find(params['actor_id'])
+        params['actor_id'] = @actor.id
       end
-        @filter = get_current_filter({})
-        if params[:endless]
-          cookies.permanent[:endless] = params[:endless]
-        end
-        if params[:search] == t('products.left_column.search')
-          params.delete(:search)
-        else
-          if params[:search]
-            sub_str = params[:search].to_s
-            params[:search] = sub_str.gsub(/\//,'').gsub(/"/,' ').gsub(/\(/,' ').gsub(/\)/,' ')
-          end
-        end
-        if params['actor_id']
-          @actor = Actor.find(params['actor_id'])
-          params['actor_id'] = @actor.id
-        end
-        if params['director_id']
-          @director = Director.find(params['director_id'])
-          params['director_id'] = @director.id
-        end
-        @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
-        params[:view_mode] = nil if params[:view_mode] == 'recommended'
-        if params[:category_id]
-          filter = get_current_filter
-          if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
-            if current_customer
-              @popular = current_customer.streaming(filter, {:category_id => params[:category_id], :country_id => session[:country_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
-              @papular_page = params[:popular_streaming_page] || 1
-              @papular_nb_page = @popular.total_pages
-            else
-              @popular = nil
-            end
+      if params['director_id']
+        @director = Director.find(params['director_id'])
+        params['director_id'] = @director.id
+      end
+      @tokens = current_customer.get_all_tokens_id(params[:kind]) if current_customer
+      params[:view_mode] = nil if params[:view_mode] == 'recommended'
+      if params[:category_id]
+        filter = get_current_filter
+        if params[:category_id] && streaming_access? && (params[:view_mode] != "streaming" && params[:filter] != "vod")
+          if current_customer
+            @popular = current_customer.streaming(filter, {:category_id => params[:category_id], :country_id => session[:country_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
+            @papular_page = params[:popular_streaming_page] || 1
+            @papular_nb_page = @popular.total_pages
           else
             @popular = nil
-          end      
-          if params[:category_id].to_i == 76 && current_customer
-            current_customer.customer_attribute.update_attribute(:sexuality, 1)
-            session[:sexuality] = 1
           end
+        else
+          @popular = nil
         end
-        if params[:sort].nil?
-          params[:sort] = 'normal'
+        if params[:category_id].to_i == 76 && current_customer
+          current_customer.customer_attribute.update_attribute(:sexuality, 1)
+          session[:sexuality] = 1
         end
-        @rating_color = params[:kind] == :adult ? :pink : :white
-        @countries = ProductCountry.visible.order
-        @collections = Category.by_size.random
-        #unless request.format.js?
-          item_per_page = mobile_request? ? 5 : 20
-          if params[:search] && !params[:search].empty?
-            @exact_products = Product.filter(@filter, params.merge(:exact => 1, :country_id => session[:country_id]))
-            @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
-            @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
-            kind = params[:kind]
-            Search.create(:name => params[:search], :kind => DVDPost.search_kinds[kind])
-          end
-          
-          if session[:sexuality] == 0
-            new_params = params.merge(:hetero => 1) 
-          else
-            new_params = params
-          end
-          new_params = new_params.merge(:per_page => item_per_page, :country_id => session[:country_id])
-          #@products = 
-          #if @exact_products && @exact_products.size > 0
-          #  Product.filter(@filter, new_params, @exact_products)
-          #else
-          #  Product.filter(@filter, new_params)
-          #end
-          @products = Product.filter_online(nil, new_params)
-          if params[:filters]
-            @selected_countries = ProductCountry.all(:conditions => {:countries_id => params[:filters][:country_id]})
-            @languages = Language.by_language(I18n.locale).find(params[:filters][:audio].reject(&:empty?)).collect(&:name).join(', ') if Product.audio?(params[:filters][:audio])
-            @subtitles = Subtitle.by_language(I18n.locale).find(params[:filters][:subtitles].reject(&:empty?)).collect(&:name).join(', ') if Product.subtitle?(params[:filters][:subtitles])
-          end
-          @products_count = @products ? @products.count : 0
-          if params[:search] && !params[:search].empty?
-            if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
-              if @actors_count > 0
-                params[:type] = 'actors'
-              elsif @directors_count > 0
-                 params[:type] = 'directors'
-              end
-            end
-            if params[:type] == 'actors'
-              @actors = Actor.search_clean(params[:search], params[:kind], params[:actors_page], false)
-            elsif params[:type] == 'directors'
-              @directors = Director.search_clean(params[:search], params[:directors_page], false)
-            end
-          end
-        @source = WishlistItem.wishlist_source(params, @wishlist_source)
-        @jacket_mode = Product.get_jacket_mode(params)
-      #end
-      respond_to do |format|
-        format.html
-        format.js {
-          logger.debug "@@@@"
-          if params[:popular_streaming_page]
-            render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page}
-          end
-        }
-        format.json {
-        }
       end
+      if params[:sort].nil?
+        params[:sort] = 'normal'
+      end
+      @rating_color = params[:kind] == :adult ? :pink : :white
+      @countries = ProductCountry.visible.order
+      @collections = Category.by_size.random
+      #unless request.format.js?
+        item_per_page = mobile_request? ? 5 : 20
+        if params[:search] && !params[:search].empty?
+          @exact_products = Product.filter(@filter, params.merge(:exact => 1, :country_id => session[:country_id]))
+          @directors_count = params[:kind] == :normal ?  Director.search_clean(params[:search], 0, true) : 0
+          @actors_count = Actor.search_clean(params[:search], params[:kind], 0, true)
+          kind = params[:kind]
+          Search.create(:name => params[:search], :kind => DVDPost.search_kinds[kind])
+        end
+
+        
+        new_params = new_params.merge(:per_page => item_per_page, :country_id => session[:country_id])
+        #@products = 
+        #if @exact_products && @exact_products.size > 0
+        #  Product.filter(@filter, new_params, @exact_products)
+        #else
+        #  Product.filter(@filter, new_params)
+        #end
+        @products = Product.filter_online(nil, new_params)
+        if params[:filters]
+          @selected_countries = ProductCountry.all(:conditions => {:countries_id => params[:filters][:country_id]})
+          @languages = Language.by_language(I18n.locale).find(params[:filters][:audio].reject(&:empty?)).collect(&:name).join(', ') if Product.audio?(params[:filters][:audio])
+          @subtitles = Subtitle.by_language(I18n.locale).find(params[:filters][:subtitles].reject(&:empty?)).collect(&:name).join(', ') if Product.subtitle?(params[:filters][:subtitles])
+          @categories = Category.find(params[:filters][:category_id].reject(&:empty?)).collect(&:name).join(', ') if Product.categories?(params[:filters][:category_id])
+        end
+        @products_count = @products ? @products.count : 0
+        if params[:search] && !params[:search].empty?
+          if params[:type].nil? &&  @products_count == 0 && @exact_products.count == 0
+            if @actors_count > 0
+              params[:type] = 'actors'
+            elsif @directors_count > 0
+               params[:type] = 'directors'
+            end
+          end
+          if params[:type] == 'actors'
+            @actors = Actor.search_clean(params[:search], params[:kind], params[:actors_page], false)
+          elsif params[:type] == 'directors'
+            @directors = Director.search_clean(params[:search], params[:directors_page], false)
+          end
+        end
+      @source = WishlistItem.wishlist_source(params, @wishlist_source)
+      @jacket_mode = Product.get_jacket_mode(params)
+    #end
+    respond_to do |format|
+      format.html
+      format.js {
+        if params[:popular_streaming_page]
+          render :partial => 'products/index/streaming', :locals => {:products => @popular, :product_page => @papular_page, :product_nb_page => @papular_nb_page}
+        end
+      }
+      format.json {
+      }
     end
+  end
   
   end
 
@@ -137,6 +148,7 @@ class ProductsController < ApplicationController
     user_agent = UserAgent.parse(request.user_agent)
     @tokens = current_customer.get_all_tokens_id(params[:kind], @product.imdb_id) if current_customer
     @filter = get_current_filter({})
+     @countries = ProductCountry.visible.order
     unless request.format.js?
       @trailer =  @product.trailer?
       @shop_list = ProductList.shop.status.by_language(DVDPost.product_languages[I18n.locale]).first
@@ -241,7 +253,6 @@ class ProductsController < ApplicationController
         trailers = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
       end
     end
-    logger.debug("@@@#{trailer.inspect}")
     respond_to do |format|
       format.js   {
         if trailer.class.name == 'StreamingTrailer'

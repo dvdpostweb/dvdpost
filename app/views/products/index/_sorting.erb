@@ -1,7 +1,7 @@
 <div class="bysort">
   <div class="bysort_title"><%= t '.title'%> : </div>
   <div class="bysort_choice">
-    <% var = params[:sort].to_sym %>
+    <% var = !params[:sort].blank? ? params[:sort].to_sym : nil %>
     <% form_for(:product, :url => request.fullpath, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
       <% request.query_parameters.each do |key,value| %>
         

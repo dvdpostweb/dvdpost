@@ -1,17 +1,14 @@
 <%= javascript 'products','reviews' %>
 <% if params[:action] == 'index' %>
-  <%= stylesheet 'products2','etabs','smoothness/jquery-ui-1.8.custom','jquery_custom', :media => :all %>
-  <%= javascript 'jquery-ui-1.8.1.custom.min','jquery.contentcarousel' %>
-  <% content_for :body_id do %>cl<% end %>
+  <%= stylesheet 'products2','etabs','smoothness/jquery-ui-1.8.custom','jquery_custom', 'search', :media => :all %>
+  <%= javascript 'jquery-ui-1.8.1.custom.min' %>
+  <% content_for :body_id do %>search_index<% end %>
   
 <% else %>
   <%= stylesheet 'film','etabs-film','jcarousel-film', :media => :all %>
   <% content_for :body_id do %>film-details<% end %>
   <% content_for :description do %><%= t('layouts.meta.meta_description_products', :title => @product_title) %><% end %>
   <% content_for :title do %><%= t('layouts.application.title_products', :title => @product_title) %><% end %>
-  <%= stylesheet 'smoothness/jquery-ui-1.8.custom','jquery_custom', :media => :all %>
-  
-  <%= javascript 'jquery-ui-1.8.1.custom.min' %>
 <% end %>
 <% if mobile_request? && params[:action] == 'trailer' %>
   <%= stylesheet 'video-js.min', :media => :all %>

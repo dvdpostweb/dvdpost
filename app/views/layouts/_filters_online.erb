@@ -1,14 +1,16 @@
-<% if params[:filters] || params[:date] || params[:View_mode] %>
+<% if params[:filters] || params[:date] || params[:View_mode] || params[:filter] %>
   <div id="filtered_content">
     <div id="filter_title"> <%= t 'layouts.filters.active' %></div>
 
     <ul id="filtered" class="clearfix">
-      <% if params[:package] %>
       <li>
-        <strong><%= t 'products.index.type' %></strong>
-        <%= t("products.left_column.#{params[:package]}") %>
-      </li>
+        Films
+      <% if params[:filter] == 'vod' %>
+        <%= params[:filter] %>
+      <% else %>
+        <%= 'dvd/bluray'%>
       <% end %>
+      </li>
       <% if Product.audience?(params[:filters][:audience_min], params[:filters][:audience_max]) && params[:kind] == :normal %>
         <li>
           <span class='close' id="close_audience"></span>
@@ -58,11 +60,11 @@
           <%= subtitles %>
         </li>
       <% end %>
-      <% if !params[:filters][:category_id].nil? && !params[:filters][:category_id].empty? %>
+      <% if categories %>
         <li>
           <span class='close' id="close_category"></span>
           <strong><%= t 'products.index.category' %></strong>
-          <%= Category.find(params[:filters][:category_id]).name %>
+          <%= categories %>
         </li>
       <% end %>
       <% if params[:actor_id] %>

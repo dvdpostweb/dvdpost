@@ -18,6 +18,7 @@ module ApplicationHelper
       when 'bluray3d'                  then 'bluray3d'
       when 'bluray3d2d'                  then 'bluray3d'
       when 'XBOX 360'                 then 'xbox'
+      when 'VOD' then 'vod'
       else ''
     end
   end

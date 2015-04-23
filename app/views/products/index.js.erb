@@ -1,5 +1,4 @@
-<% logger.debug("@@@#{params.count}") %>
-<% if params.count <= 5 %>
+<% if !@top.nil? %>
    $('#all').html("<%= escape_javascript(render(:partial => 'products/index/hp', :formats => [:html])) %>");
   $('.loading_bar').hide();
   endscroll()
@@ -15,8 +14,6 @@
       $('#pagination_content').html('');
     <% end %>
   <% else %>
-  <% logger.debug("@@@all ") %>
-
     $('#all').html("<%= escape_javascript(render(:partial => 'products/index/all', :formats => [:html])) %>");
     load_form()
   <% end %>

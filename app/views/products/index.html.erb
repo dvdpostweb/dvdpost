@@ -1,10 +1,9 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-  <% if 1==0 && params.count <= 5 %>
+<% logger.debug("@@@ top #{@top.inspect}") %>
+  <% if !@top.nil? %>
     <div id="all">
       <%= render :partial => 'products/index/hp' %>
     </div>
-    <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
-    hp
   <% else %>
    <div id="all">  
     <%= render :partial => 'products/index/all' %>

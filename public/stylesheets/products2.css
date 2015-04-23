@@ -646,3 +646,120 @@ width: 678px;
   width: 48px;
   position: absolute;
 }
+
+/*********/
+/** new **/
+
+
+#products_index #products {
+  clear: none;
+}
+.ca-container {
+  height: 197px;
+  margin: 10px 0 40px;
+  position: relative;
+  width: 664px;
+}
+.ca-nav span {
+  background: url(../images/arrow_hp.png) no-repeat scroll left top transparent;
+  cursor: pointer;
+  height: 38px;
+  left: 0;
+  margin-top: -19px;
+  opacity: 0.7;
+  position: absolute;
+  text-indent: -9000px;
+  top: 70%;
+  width: 17px;
+  z-index: 100;
+}
+.ca-nav span.ca-nav-next {
+  background-position: right top;
+  left: auto;
+  right: -25px;
+}
+.title {
+  color: #212a31;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 15px;
+  padding-left: 24px;
+  width: 512px;
+}
+.title .small {
+  font-size: 20px;
+  margin: 0 0 0 10px;
+  text-decoration: underline;
+}
+.ca-wrapper {
+  height: 150px;
+  margin-left: 27px;
+  margin-right: 27px;
+  padding-top: 28px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.ca-item
+{
+  width: 133px;
+}
+.ca-wrapper .content .hd {
+  background: url("http://www.plush.be/assets/icon_hd_little-81d08e2d8bfccf3b5b37ecf2ce0df734.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 17px;
+  left: 71px;
+  position: absolute;
+  top: 120px;
+  width: 30px;
+}
+#cl #products .ca-item .cover img, #film-details .ca-item .cover img {
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 4px #000000;
+  height: 136px;
+  width: 100px;
+}
+#cl #products .vod h2 {
+-moz-box-shadow:inset 0px 1px 0px 0px #a4e271;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #a4e271;
+  box-shadow:inset 0px 1px 0px 0px #a4e271;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #89c403), color-stop(1, #77a809));
+  background:-moz-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-webkit-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-o-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-ms-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c403', endColorstr='#77a809', GradientType=0);
+  background-color:#89c403; color: #ffffff;
+  padding: 5px 24px;
+  text-align: left;
+  font-size:30px;
+}
+#cl #products .dvd h2 {
+  -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+  box-shadow:inset 0px 1px 0px 0px #97c4fe;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0));
+  background:-moz-linear-gradient(top, #3d94f6 5%, #1e62d0 100%);
+  background:-webkit-linear-gradient(top, #3d94f6 5%, #1e62d0 100%);
+  background:-o-linear-gradient(top, #3d94f6 5%, #1e62d0 100%);
+  background:-ms-linear-gradient(top, #3d94f6 5%, #1e62d0 100%);
+  background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0', GradientType=0);
+  background-color:#3d94f6;
+  color: #ffffff;
+  padding: 5px 24px;
+  text-align: left;
+  font-size:30px;
+}
+h3.vod-adult a, h3.dvd a, h3.vod a {
+  color: #212a31;
+  text-decoration:none;
+  padding: 5px 24px;
+  text-align: left;
+  font-size:30px;
+}
+h3.vod-adult.current a, h3.dvd.current a, h3.vod.current a {
+  color: #ffffff;
+}

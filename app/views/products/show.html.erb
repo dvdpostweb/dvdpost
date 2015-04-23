@@ -181,7 +181,7 @@
   </div><!-- #rented-wrap-->
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
-<%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
+<%= render :partial => 'products/index/filters_online', :locals => { :countries => @countries} %>
 <% if params[:add].to_i == 1 %>
   <% submit_id = "p_#{@product.to_param}_#{rand(10)}"%>
   <div id='add_p' style='display:none' class='action_face'><%= new_product_wishlist_item_path(:product_id => @product.to_param, :source => @source, :submit_id => submit_id, :text => :long, :load_color => :normal) %></div>

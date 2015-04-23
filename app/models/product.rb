@@ -217,10 +217,12 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_actor)                 {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:by_audience)              {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:by_category)              {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:by_categories)            {|categories|       {:with =>       {:category_id => categories}}}
   sphinx_scope(:by_collection)            {|collection|       {:with =>       {:collection_id => collection.to_param}}}
   sphinx_scope(:hetero)                   {{:without =>       {:category_id => [76, 72]}}}
   sphinx_scope(:gay)                      {{:with =>          {:category_id => [76, 72]}}}
   sphinx_scope(:by_country)               {|country|          {:with =>       {:country_id => country.to_param}}}
+  sphinx_scope(:by_countries_id)          {|countries_id|     {:with =>       {:country_id => countries_id}}}
   sphinx_scope(:by_director)              {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:by_studio)                {|studio|           {:with =>       {:studio_id => studio.to_param}}}
   sphinx_scope(:by_streaming_studio)      {|studio|           {:with =>       {:streaming_studio_id => studio.to_param}}}
@@ -274,9 +276,11 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_serie)                 {|serie_id|         {:with => {:series_id => serie_id}}}
   sphinx_scope(:ppv)                      {{:with =>          {:is_ppv => 1}}}
   sphinx_scope(:by_new)                   {{:with =>          {:year => 2.years.ago.year..Date.today.year, :next => 0, :available_at => 3.months.ago..Time.now.end_of_day}}}
+  sphinx_scope(:by_new_vod)                   {{:with =>          {:year => 2.years.ago.year..Date.today.year}}}
   sphinx_scope(:order)                    {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)                    {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
-                                          
+  sphinx_scope(:most_viewed)              {{:with =>          {:count_tokens => 1..1000000}}}
+  sphinx_scope(:best_rated)               {{:with =>          {:rating => 3.0..5.0}}}
   sphinx_scope(:limit)                    {|limit|            {:limit => limit}}
 
   def self.list_sort
@@ -293,6 +297,17 @@ class Product < ActiveRecord::Base
   end
 
   def self.filter_online(filters, options={}, exact=nil)
+    logger.debug "@@@#{options.inspect}"
+    if options[:country_id] == 131
+      country = 'LU'
+      default = 'default_order_lu'
+    elsif options[:country_id] == 161
+      country = 'NL'
+      default = 'default_order_nl'
+    else
+      country = 'BE'
+      default = 'default_order_be'
+    end
     products = Product.available.by_kind(options[:kind])
     products = products.exclude_products_id([exact.collect(&:products_id)]) if exact
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
@@ -310,12 +325,14 @@ class Product < ActiveRecord::Base
       products = products.by_period(options[:date][:filters][:year_min], options[:date][:filters][:year_max]) if options[:date] && Product.year?(options[:date][:filters][:year_min], options[:date][:filters][:year_max])
       products = products.with_languages(audio = options[:filters][:audio].reject(&:empty?) ) if Product.audio?(options[:filters][:audio])
       products = products.with_subtitles(options[:filters][:subtitles].reject(&:empty?)) if Product.subtitle?(options[:filters][:subtitles])
-      products = products.by_category(options[:filters][:category_id]) if !options[:filters][:category_id].nil? && !options[:filters][:category_id].blank?
+      products = products.by_categories(options[:filters][:category_id]) if !options[:filters][:category_id].nil? && !options[:filters][:category_id].blank?
     end
-    products = self.get_view_mode(products, options[:view_mode]) if options[:view_mode]
-    sort = get_sort(options)
+    products = self.get_view_mode(products, options[:view_mode], country) if options[:view_mode]
+    products = self.get_media(products, options[:filter], country)
+    products = Product.search_clean_online(products, options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
+    sort = get_sort(options, default)
+    logger.debug("@@@#{sort}")
     products = products.order(sort, :extended) if sort != ''
-    #products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit], :country_id => options[:country_id], :includes => options[:includes]})
     
     products
   end
@@ -665,6 +682,10 @@ class Product < ActiveRecord::Base
     subtitles.reject(&:empty?).size > 0 if subtitles
   end
 
+  def self.categories?(categories)
+    categories.reject(&:empty?).size > 0 if categories
+  end
+
 
   def to_param
       public_name
@@ -876,9 +897,79 @@ class Product < ActiveRecord::Base
       self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).limit(1).first
     end
   end
-
+  def self.get_sort(options, default)
+    if !options[:sort].nil? && !options[:sort].empty? && options[:sort] != 'normal'
+      sort =
+      if options[:sort] == 'alpha_az'
+        "descriptions_title_#{I18n.locale} asc"
+      elsif options[:sort] == 'alpha_za'
+        "descriptions_title_#{I18n.locale} desc"
+      elsif options[:sort] == 'rating'
+        "rating desc, in_stock DESC"
+      elsif options[:sort] == 'production_year'
+        "year desc, in_stock DESC"
+      elsif options[:sort] == 'production_year_vod'
+        "year desc, available_order desc"
+      elsif options[:sort] == 'production_year_all'
+        "year desc, available_at desc"
+      elsif options[:sort] == 'token'
+        "count_tokens desc, streaming_id desc"
+      elsif options[:sort] == 'token_month'
+        "count_tokens_month desc, streaming_id desc"
+      elsif options[:sort] == 'most_viewed'
+        "most_viewed desc"
+      elsif options[:sort] == 'most_viewed_last_year'
+        "most_viewed_last_year desc"
+      elsif options[:sort] == 'new'
+        "available_at DESC, rating desc"
+      elsif options[:sort] == 'recent1'
+        "#{default} desc"
+      elsif options[:sort] == 'recent2'
+        "in_stock desc"
+      elsif options[:sort] == 'recent3'
+        "#{default} desc, in_stock desc"
+      end
+    else
+      if options[:list_id] && !options[:list_id].blank?
+      sort = sort_by("special_order asc", options)
+      elsif options[:highlight_best] && !options[:highlight_best].blank?
+        sort = sort_by("highlight_best_#{options[:locale]} asc", options)
+      elsif options[:highlight_best_vod]
+        sort = sort_by("highlight_best_vod_#{options[:country_id] == 131 ? 'lu' : 'be'}_#{options[:locale]} asc", options)
+      elsif options[:search] && !options[:search].blank?
+        sort = sort_by("#{default} desc, in_stock DESC", options)
+      elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
+        sort = sort_by("streaming_id desc", options)
+      elsif options[:view_mode] && options[:view_mode].to_sym == :vod_recent
+        sort = "available_order desc"
+      elsif options[:view_mode] && options[:view_mode].to_sym == :best_rated
+        sort = 'rating DESC, year DESC'
+      elsif options[:view_mode] && options[:view_mode].to_sym == :most_viewed
+        sort = 'count_tokens DESC, year DESC, rating DESC'
+      elsif options[:view_mode] && options[:view_mode].to_sym == :vod_soon
+        sort = sort_by("available_at asc", options)
+      elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
+        sort = sort_by("count_tokens desc, streaming_id desc", options)
+      elsif options[:view_mode] && options[:view_mode].to_sym == :new_vod
+          sort = "year desc, available_order desc"
+      elsif options[:view_mode] && options[:view_mode].to_sym == :new
+          sort = "year desc, available_at desc"
+      elsif options[:view_mode] && options[:view_mode].to_sym == :popular
+        sort = sort_by("available_at DESC, rating desc", options)
+      elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :soon)
+        sort = sort_by("available_at desc, imdb_id desc", options)
+      elsif options[:view_mode] && options[:view_mode].to_sym == :cinema
+        sort = sort_by("created_at desc", options)
+      elsif !options[:filter].blank? && options[:filter].to_sym == :vod
+        sort = sort_by("streaming_id desc", options)
+      else
+        sort = sort_by("#{default} desc, in_stock DESC", options)
+      end
+    end
+    sort
+  end
   def self.sort_by(default, options={})
-    if options[:sort]
+    if !options[:sort].nil? && !options[:sort].empty? && options[:sort] != 'normal'
       type =
       if options[:sort] == 'alpha_az'
         "descriptions_title_#{I18n.locale} asc"
@@ -915,7 +1006,21 @@ class Product < ActiveRecord::Base
       default
     end
   end
-
+   def self.search_clean_online(products, query_string, options={})
+    qs = []
+    if query_string
+      query_string = query_string.gsub(' et ',' ')
+      qs = query_string.split.collect do |word|
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ').gsub(/[$!^]/, '')
+      end
+    end
+    query_string = qs.join(' ')
+    query_string = "@descriptions_title #{query_string}" if !query_string.empty?
+    page = options[:page] || 1
+    limit = options[:limit] ? options[:limit].to_s : "100_000"
+    per_page = options[:per_page] || self.per_page
+    products.search(query_string, :max_matches => limit, :per_page => per_page, :page => page)
+  end
   def self.search_clean(query_string, options={})
     qs = []
     if query_string
@@ -929,6 +1034,7 @@ class Product < ActiveRecord::Base
     page = options[:page] || 1
     limit = options[:limit] ? options[:limit].to_s : "100_000"
     per_page = options[:per_page] || self.per_page
+    logger.debug "@@@#{per_page} #{limit} #{}"
     self.search(query_string, :max_matches => limit, :per_page => per_page, :page => page)
   end
 
@@ -967,7 +1073,7 @@ class Product < ActiveRecord::Base
         jacket_mode = :streaming
       end
     end
-    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming )) || (params[:filter] && params[:filter].to_sym == :vod)
+    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming )) || (!params[:filter].blank? && params[:filter].to_sym == :vod)
       jacket_mode = :streaming
     end
     if jacket_mode.nil?
@@ -1094,61 +1200,44 @@ class Product < ActiveRecord::Base
         'BE'
     end
   end
-  def self.get_sort(options)
-    if !options[:sort].nil? && !options[:sort].empty? && options[:sort] != 'normal'
-      if options[:sort] == 'alpha_az'
-        "descriptions_title_#{I18n.locale} ASC"
-      elsif options[:sort] == 'alpha_za'
-        "descriptions_title_#{I18n.locale} DESC"
-      elsif options[:sort] == 'rating'
-        "rating DESC, year DESC"
-      elsif options[:sort] == 'token'
-        "count_tokens DESC, streaming_id DESC"
-      elsif options[:sort] == 'token_month'
-        "count_tokens_month DESC, streaming_id DESC"
-      elsif options[:sort] == 'most_viewed'
-        "count_tokens DESC"
-      elsif options[:sort] == 'most_viewed_last_year'
-        "count_tokens DESC"
-      elsif options[:sort] == 'new'
-        "year DESC, streaming_available_at_order DESC"
-      else
-        "streaming_available_at_order DESC, rating DESC"
-      end
+
+  def self.get_media(products, filter, country)
+    case filter
+    when 'vod'
+      media = [2,4,5]
     else
-      if options[:list_id] && !options[:list_id].blank?
-        "special_order asc"
-      elsif options[:search] && !options[:search].blank?
-        ''
-      elsif options[:view_mode] && options[:view_mode] == 'svod_last_added'
-        'svod_start DESC, streaming_available_at_order DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'svod_last_chance'
-        'svod_end ASC, streaming_available_at_order DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'svod_soon'
-        'svod_start DESC, streaming_available_at_order DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'tvod_soon'
-        'year DESC, tvod_start_combi ASC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'svod_new'
-        'year DESC, svod_start DESC, streaming_available_at_order DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'tvod_new'
-        'year DESC, streaming_available_at_order DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'tvod_last_added'
-        'tvod_start DESC, streaming_available_at_order DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'tvod_last_chance'
-        'tvod_end ASC, year DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'most_viewed'
-        'count_tokens DESC, year DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'svod_best_rated'
-        'rating DESC, year DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'tvod_best_rated'
-        'rating DESC, year DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'tvod_most_viewed'
-        'count_tokens DESC, year DESC, rating DESC'
-      elsif options[:view_mode] && options[:view_mode] == 'svod_most_viewed'
-        'count_tokens DESC, year DESC, rating DESC'
-      else
-        "count_tokens DESC"
-      end
+      media = [1,2,3,4,6,7]
+    end
+    Product.media_select(products, country, media)
+  end
+  def self.get_view_mode(products, view_mode, country)
+    logger.debug("@@@v mode #{view_mode}")
+    case view_mode.to_sym
+    when :hd
+        products.hd
+    when :recent
+      products.recent
+    when :vod_recent
+      products.new_vod(country)
+    when :new
+      products.by_new
+    when :new_vod
+      products.by_new_vod
+    when :soon
+      products.soon
+    when :last_added
+      products.last_added
+    when :most_viewed
+      products.most_viewed
+    when :best_rated
+      products.best_rated
+    when :most_viewed
+      products.most_viewed
+    when :series
+      products.series
+    else
+      products
     end
   end
+
 end

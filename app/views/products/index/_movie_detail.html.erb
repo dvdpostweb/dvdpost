@@ -16,7 +16,7 @@
 <% product_title = data[:title] %>
 <% product_image = data[:image] %>
 <% product_description = data[:description] %>
-<% media = jacket_mode == :streaming || product.vod? ? 'vod' : product_media_id(product.media) %>
+<% media = jacket_mode == :streaming ? 'vod' : product_media_id(product.media) %>
 <% target = cookies[:endless] == 'deactive' ? '_self' : '_blank' %>
 <div class="movie-wrap">
 	<div class="movie-ttl">

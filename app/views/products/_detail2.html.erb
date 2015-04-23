@@ -9,7 +9,7 @@
     <% cache(product.id, :expires_in => 2.hour) do %>
       <%= "<span class='hd'></span>".html_safe if product.hd?(session[:country_id]) %>
     <% end %>
-    <%= link_to image_tag(product.image, :width => 145, :height => 217), root_path, :class => :cover %>
+    <%= link_to image_tag(product.image, :width => 145, :height => 217), product_path(:id => product.to_param), :class => :cover %>
     <div class="tooltips" style="display:none">
       <p class="tooltips_title"><%= product_title %> (<%= product.year %>)</p>
       <p class="tooltips_description"><%= truncate_html(data[:description].text, :length => 500) %> </p>

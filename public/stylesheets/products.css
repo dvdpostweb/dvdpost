@@ -2,10 +2,7 @@
 /* CSS Document */
 
 body {text-shadow: none !important;}
-#online
-{
-  float:left;
-}
+
 #titles-wrap, #detail-wrap {
     background: none !important;
 	    padding: 0 15px 5px 0 !important;

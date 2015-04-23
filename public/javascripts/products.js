@@ -3,7 +3,12 @@ $(function() {
   var options_review = {
     success: show_review,
     dataType: 'html'
-  }  
+  }
+  if($('.ca-container').length > 0)
+  {
+    $('.ca-container').contentcarousel({sliderSpeed: 500,sliderEasing: 'easeOutExpo',itemSpeed: 500,itemEasing: 'easeOutExpo', scroll: 5});  
+  }
+  
   if(($('#image_5').attr('src')!=undefined))
   {
   var img = new Image();
@@ -325,11 +330,11 @@ $(function() {
     return false; // prevent default behaviour
   });
 
-  $("#filters ul li a").live("click", function() {
+  /*$("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
     $(this).parent().find("div").toggle(1);
     return false;
-  });
+  });*/
 
   $("#top10").ready(function() {
     $("#top10 a.t-arrow").toggleClass('open');
@@ -350,16 +355,19 @@ $(function() {
   if($('#online #filters').html())
   {
     load_form()
-    $('#cl, #film-details, #categories, #studios').delegate('#online #date_filters_year_min, #online  #date_filters_year_max', "change", function(){
-      submit_online()
-    })
-    $('#cl, #film-details, #categories, #studios').delegate('.packages.svod, .packages.tvod', 'click', function(){
-      $('#filter_online_form').attr('action', $(this).attr('href'))
+    $('body').delegate('.packages.online', 'click', function(){
+      /*$('#filter_online_form').attr('action', $(this).attr('href'))*/
+      filter = $(this).attr('href').match(/filter=(.*)&?/)[1]
+      $('input#filter').val(filter)
       $('.packages').removeClass('current')
       $(this).addClass('current')
       submit_online()
       return false;
     })
+    $('#cl, #film-details, #categories, #studios').delegate('#online #date_filters_year_min, #online  #date_filters_year_max', "change", function(){
+      submit_online()
+    })
+    
     $('#cl, #film-details, #categories, #studios').delegate(".links", "change", function(){
       submit_online()
     })
@@ -625,10 +633,10 @@ $(function() {
   $('#toTop').live('click', function(){
     goToByScroll('top')
   });
-  if ($('#cl #pagination.active').length) {
+  if ($('#cl #pagination.active, #search_index #pagination.active').length) {
       $(window).scroll(function() {
         var url;
-        url = $('#cl #pagination .next_page').attr('href');
+        url = $('#pagination .next_page').attr('href');
         if ($(window).scrollTop() < 500)
         {
           $('#toTop').fadeOut('slow')
@@ -651,9 +659,10 @@ function submit_online()
   if($('#cl').length > 0){
     $('.loading_bar').show();
     /*$('#filter_online_form').ajaxSubmit({dataType: 'script'});*/
+    console.log($('#filter_online_form').serialize())
     if($('#filter_online_form').attr('action').indexOf('?')>0)
     {
-      history_url = $('#filter_online_form').attr('action')+"&"+$('#filter_online_form').serialize()  
+      history_url = $('#filter_online_form').attr('action')+"&"+$('#filter_online_form').serialize()
     }
     else
     {
@@ -715,3 +724,42 @@ function load_form()
 function goToByScroll(id){
   $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
 }
+function endscroll()
+{
+  $('#toTop').on('click', function(){
+     goToByScroll('top')
+   });
+  if ($('#products_index #pagination.active').length) {
+    $(window).scroll(function() {
+       var path;
+       path = $('#products_index #pagination .next_page').attr('href');
+       
+       if ($(window).scrollTop() < 500)
+       {
+         $('#toTop').fadeOut('slow')
+       }
+       else
+       {
+         $('#toTop').fadeIn('slow')
+       }
+       if (path && $(window).scrollTop() > $(document).height() - $(window).height() - 1200) {
+         set_page(path)
+         $('#pagination').html("<img src='/assets/loading.gif' />");
+         return $.ajax({url: path, dataType: 'script'});
+       }
+    });
+  }
+}
+function getUrlParameter(url, sParam)
+{
+    var sPageURL = url;
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}    

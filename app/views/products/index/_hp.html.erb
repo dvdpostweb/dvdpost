@@ -2,19 +2,24 @@
 <div id="maincontent" >
   <div id='filter_layout'></div>
   <div id="products">
-     <div class="tvod"><h2><%= t('.alacarte') %> :</h2>
-       <%= render :partial => 'products/index/hp_list', :locals => {:data => @top, :title => :top, :type => nil, :view_mode => nil, :source => 64} if @top.size > 5 && params[:kind] != :adult%>
+     <div class="vod">
+      <h2><%= t('.vod') %></h2>
+       <% render :partial => 'products/index/hp_list', :locals => {:data => @top, :title => :top, :type => nil, :view_mode => nil, :source => 64} if @top.size > 5 && params[:kind] != :adult%>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @vod_last, :title => :last, :type => :tvod, :view_mode => :last_added, :source => 65} if @vod_last.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @vod_best_rating, :title => :best_rating, :type => :tvod, :view_mode => :best_rated, :source => 66} if @vod_best_rating.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @vod_most_view, :title => :most_view, :type => :tvod, :view_mode => :most_viewed, :source => 67} if @vod_most_view.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @vod_soon, :title => :soon, :type => :tvod, :view_mode => :soon, :source => 68} if @vod_soon.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @vod_new, :title => :soon, :type => :tvod, :view_mode => :new, :source => 68} if @vod_new.size > 5 %>
 
-       <%= render :partial => 'products/index/hp_list', :locals => {:data => @tvod_last, :title => :tvod_last, :type => :tvod, :view_mode => :last_added, :source => 65} if @tvod_last.size > 5 %>
-       <%= render :partial => 'products/index/hp_list', :locals => {:data => @tvod_best_rating, :title => :tvod_best_rating, :type => :tvod, :view_mode => :best_rated, :source => 66} if @tvod_best_rating.size > 5 %>
-       <%= render :partial => 'products/index/hp_list', :locals => {:data => @tvod_most_view, :title => :tvod_most_view, :type => :tvod, :view_mode => :most_viewed, :source => 67} if @tvod_most_view.size > 5 %>
-       <%= render :partial => 'products/index/hp_list', :locals => {:data => @tvod_last_chance, :title => :tvod_last_chance, :type => :tvod, :view_mode => :last_chance, :source => 68} if @tvod_last_chance.size > 5 %>
-    </div> 
-    <div class="svod"><h2><%= t('.unlimited') %> :</h2>
-      <%= render :partial => 'products/index/hp_list', :locals => {:data => @svod_last, :title => :svod_last, :type => :svod, :view_mode => :last_added, :source => 65} if @svod_last.size > 5 %>
-      <%= render :partial => 'products/index/hp_list', :locals => {:data => @svod_best_rating, :title => :svod_best_rating, :type => :tvod, :view_mode => :best_rated, :source => 66} if @svod_best_rating.size > 5%>
-      <%= render :partial => 'products/index/hp_list', :locals => {:data => @svod_most_view, :title => :svod_most_view, :type => :svod, :view_mode => :most_viewed, :source => 67} if @svod_most_view.size > 5 %>
-   </div> 
+    </div>
+    <div class="dvd"><h2><%= t('.dvd') %></h2>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @disk_last, :title => :last, :type => :tvod, :view_mode => :last_added, :source => 65} if @disk_last.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @disk_best_rating, :title => :best_rating, :type => :tvod, :view_mode => :best_rated, :source => 66} if @disk_best_rating.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @disk_most_view, :title => :most_view, :type => :tvod, :view_mode => :most_viewed, :source => 67} if @disk_most_view.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @disk_soon, :title => :soon, :type => :tvod, :view_mode => :soon, :source => 68} if @disk_soon.size > 5 %>
+       <%= render :partial => 'products/index/hp_list', :locals => {:data => @disk_new, :title => :soon, :type => :tvod, :view_mode => :new, :source => 68} if @disk_new.size > 5 %>
+   </div>
   </div>
 </div>
 <div id='pagination_content'></div>
+<%= render :partial => 'products/index/filters_online', :locals => { :countries => @countries} %>

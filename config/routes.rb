@@ -149,6 +149,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     localized.resource 'public_promotion', :only => [:edit, :update]
     localized.info '/info/:page_name' , :controller => :info
+    localized.resources 'search', :controller => :search, :only => [:index]
     #localized.themes '/themes/:page_name' , :controller => :themes
     localized.resources 'themes', :controller => :themes_events, :only => [:index, :show]
     localized.resource 'shop', :controller => :shops, :only => [:show]
@@ -175,8 +176,7 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'promotion', :only => [:show, :edit]
       customer.resource :payment_methods, :only => [:edit, :update, :show]
       customer.resources :reviews, :only => [:index]
-      
-      
+
     end
     localized.resources :vod_wishlists
     localized.unsubscribe 'unsubscribe', :controller => :customers, :action => :unsubscribe, :conditions => {:method => :get}

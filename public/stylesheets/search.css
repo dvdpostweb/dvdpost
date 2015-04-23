@@ -1,0 +1,38 @@
+
+#search_index #maincontent
+{
+  display: inline;
+  float: right;
+  position: relative;
+  width: 960px;
+}
+#search_index .bysort {
+    margin: 0 0 0 742px;
+    padding: 0 0 11px;
+    width: 230px;
+}
+
+#search_index .movie-descr {
+width: 470px;
+padding: 0 8px 0 120px;
+}
+
+#search_index #products {
+  clear: none;
+  border-top: 1px solid #212A31;
+  padding-top:12px;
+}
+
+.grid
+{
+  clear:both;
+}
+#search_index .endless {
+    float: left;
+    margin: 9px 0 0 392px;
+}
+#search_index .not_found
+{
+  font-size: 18px;
+  margin: 10px 0;
+}
