@@ -6,11 +6,11 @@ class ProductsController < ApplicationController
       params[:filters][:category_id] = params[:category_id]
     end
     if params[:filters] && params[:filters][:view_mode]
-        if params[:filters][:view_mode] == 'soon' and !params[:filter].nil? && params[:filter].to_sym == :vod
+        if params[:filters][:view_mode] == 'soon' and !params[:filter].nil? && !params[:filter].blank? && params[:filter].to_sym == :vod
           params[:view_mode] = 'vod_soon'
-        elsif params[:filters][:view_mode] == 'new' and !params[:filter].nil?  && params[:filter].to_sym == :vod
+        elsif params[:filters][:view_mode] == 'new' and !params[:filter].nil?  && !params[:filter].blank? && params[:filter].to_sym == :vod
           params[:view_mode] = 'new_vod'
-        elsif params[:filters][:view_mode] == 'recent' and !params[:filter].nil?  && params[:filter].to_sym == :vod
+        elsif params[:filters][:view_mode] == 'recent' and !params[:filter].nil?  && !params[:filter].blank? && params[:filter].to_sym == :vod
           params[:view_mode] = 'vod_recent'
         else
           params[:view_mode] = params[:filters][:view_mode]
