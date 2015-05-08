@@ -32,11 +32,11 @@ class ProductsController < ApplicationController
         @vod_soon =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_soon',  :filter => 'vod'))
         @vod_new =           Product.filter_online(nil, new_params.merge(:view_mode => 'new_vod',  :filter => 'vod'))
 
-        @disk_last =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_recent',  :filter => 'disk'))
-        @disk_best_rating =   Product.filter_online(nil, new_params.merge(:view_mode => 'best_rated',  :filter => 'disk'))
-        @disk_most_view =     Product.filter_online(nil, new_params.merge(:view_mode => 'most_viewed',  :filter => 'disk'))
-        @disk_soon =          Product.filter_online(nil, new_params.merge(:view_mode => 'vod_soon',  :filter => 'disk'))
-        @disk_new =           Product.filter_online(nil, new_params.merge(:view_mode => 'new_vod',  :filter => 'disk'))
+        @disk_last =          Product.filter_online(nil, new_params.merge(:view_mode => 'recent',  :filter => 'disk', :group => '1'))
+        @disk_best_rating =   Product.filter_online(nil, new_params.merge(:view_mode => 'best_rated',  :filter => 'disk', :group => '1'))
+        @disk_most_view =     Product.filter_online(nil, new_params.merge(:view_mode => 'most_viewed',  :filter => 'disk', :group => '1'))
+        @disk_soon =          Product.filter_online(nil, new_params.merge(:view_mode => 'soon',  :filter => 'disk', :group => '1'))
+        @disk_new =           Product.filter_online(nil, new_params.merge(:view_mode => 'new_vod',  :filter => 'disk', :group => '1'))
 
     else
       if params[:filter].nil? || params[:filter].blank?

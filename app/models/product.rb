@@ -332,7 +332,7 @@ class Product < ActiveRecord::Base
     products = Product.search_clean_online(products, options[:search], {:page => options[:page], :per_page => options[:per_page], :limit => options[:limit]})
     sort = get_sort(options, default)
     logger.debug("@@@#{sort}")
-    if options[:filter] == 'vod'
+    if options[:filter] == 'vod' || options[:group] == '1'
       products = products.group('imdb_id', sort)
     else
       products = products.order(sort, :extended) if sort != ''
@@ -1215,7 +1215,6 @@ class Product < ActiveRecord::Base
     Product.media_select(products, country, media)
   end
   def self.get_view_mode(products, view_mode, country)
-    logger.debug("@@@v mode #{view_mode}")
     case view_mode.to_sym
     when :hd
         products.hd
