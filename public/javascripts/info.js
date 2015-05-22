@@ -1,4 +1,26 @@
 $(function() {
+  $('#more').on('click', function(){
+    $('#pricing').show();
+    return false
+  })
+
+  $('.abo .check, .new_abo .check').live('click',function(){
+    $('.abo .check, .new_abo .check').removeClass('active');
+    $('.abo, .new_abo').removeClass('active');
+    $(this).addClass('active');
+    $(this).parent().parent().addClass('active');
+    id = $(this).attr('id')
+    $('#customer_next_abo_type_id').attr('value',id);
+
+  });
+
+
+  $(".button_confirm_rec").live("click", function() {
+    if (!$('#customer_next_abo_type_id').val()) {
+      /*alert($('#error_cat').html())*/
+      return false
+    }
+  })
   $('#out_hdmi').live('click', function(){
     menu1_selected($(this))
     show(1,1,1,1,0,0,1)
