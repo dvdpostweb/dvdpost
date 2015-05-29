@@ -7,16 +7,16 @@
     width: 800px;
 }
 .table_abo_upgrade {
-	/*background: url("/images/bg_upgrade.gif") no-repeat scroll 0 0 transparent;*/
-	padding: 10px 20px;
-	width:540px;
-	height:463px;
+    /*background: url("/images/bg_upgrade.gif") no-repeat scroll 0 0 transparent;*/
+    padding: 10px 20px;
+    width:540px;
+    height:463px;
 }
 .title_formule {
-	color: #454545;
-	font-size:17px;
-	font-weight:bold;
-	padding:5px 0;
+    color: #454545;
+    font-size:17px;
+    font-weight:bold;
+    padding:5px 0;
 }
 .abo_freeupgrade {
   background-color:#97dfeb;
@@ -30,7 +30,7 @@
   height:1px;
 }
 .upgrade_fevr {
-	  background: url("/images/special_abo/bg_upgrade.jpg") #d39810 no-repeat scroll 0 0 ;
+      background: url("/images/special_abo/bg_upgrade.jpg") #d39810 no-repeat scroll 0 0 ;
     margin: 20px auto;
     padding:10px 0;
     width: 800px;
@@ -83,13 +83,13 @@ background-color:#97dfeb;
 }
 
 .upgrade_fevr .button_confirm:hover {
-	background:url("/images/special_abo/button-upgrade.png") no-repeat scroll 0 -84px transparent;
-	border:medium none;
-	color:white;
-	font-weight:bold;
-	  height: 88px;
-	text-shadow:1px 1px 1px #333333;
-	 width: 280px;
+    background:url("/images/special_abo/button-upgrade.png") no-repeat scroll 0 -84px transparent;
+    border:medium none;
+    color:white;
+    font-weight:bold;
+      height: 88px;
+    text-shadow:1px 1px 1px #333333;
+     width: 280px;
 }
 
 
@@ -129,9 +129,11 @@ background-color:#97dfeb;
 }
 
 .new_abo_actuel{
-font-size:18px;
+
 padding-bottom:20px;
-color: #201F20;
+   color: #212a31;
+    font-size: 26px;
+    font-family:
 
 
 
@@ -144,7 +146,7 @@ color: #201F20;
 
 .formula_nomination {
     font-size: 14px;
-	
+    
   
 }
 
@@ -154,10 +156,10 @@ font-size:18px;
 }
 
 .check {
-	cursor: pointer;
-	height: 24px;
-	background: url(/images/check.png) no-repeat scroll 0 2px transparent;
-	
+    cursor: pointer;
+    height: 24px;
+    background: url(/images/check.png) no-repeat scroll 0 2px transparent;
+    
 }
 
 #pricing {
@@ -168,7 +170,7 @@ padding-bottom:30px;
 
 tr.new_abo_actuel {
     background-color: #FFFFFF;
-    border: 5px solid #FF3300;
+   border: 1px solid #c4d1da;
     height: 90px;
 }
 
@@ -202,14 +204,34 @@ button {
 }
 
 h2#formula {
-    color: #FA3216;
-    font-size: 2em;
-    height: 34px;
-    padding: 10px 0 10px 40px;
+  
+background: url("http://public.dvdpost.com/images/square.gif") no-repeat scroll 0 26px transparent!important;
+  font-size: 24px;
+  padding-left: 20px;
+  padding-top: 15px;
+  text-transform: uppercase;
+  padding-bottom:15px;
+  font-family: open sans condensed;
+  margin-left: 40px;
 }
 
+
 #header_pricing {
-    background: url(/images/user-info-bg.gif) repeat-x scroll 0 100% #F2F2F2;
+background: #c4d1da; /* Old browsers */
+
+background: -moz-linear-gradient(top,  #e8e8e8 0%, #c4d1da  100%); /* FF3.6+ */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c4d1da), color-stop(100%,#e8e8e8)); /* Chrome,Safari4+ */
+
+background: -webkit-linear-gradient(top,  #e8e8e8 0%, #c4d1da  100%); /* Chrome10+,Safari5.1+ */
+
+background: -o-linear-gradient(top,  #e8e8e8 0%, #c4d1da  100%); /* Opera 11.10+ */
+
+background: -ms-linear-gradient(top,  #e8e8e8 0%, #c4d1da  100%); /* IE10+ */
+
+background: linear-gradient(to bottom,  #e8e8e8 0%, #c4d1da  100%); /* W3C */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4d1da', endColorstr='#e8e8e8',GradientType=0 ); /* IE6-9 */
     padding: 0 0 18px;
     overflow: hidden;
 }
@@ -223,12 +245,13 @@ float:left;
 }
 
 .new_abo_right {
-    color: #201F20;
+    color: #3a4853;
     float: right;
     font-size: 12px;
     padding-right: 50px;
     text-align: justify;
     width: 440px;
+     text-shadow: none;
 }
 .price
 {
@@ -242,4 +265,22 @@ float:left;
 .decimal
 {
     font-size: 18px;
+}
+
+#header_pricing h3 {
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align:center;
+      font-size: 38px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Open Sans Condensed",sans-serif;
+     text-shadow: none;
+     color: #212a31;
+
+}
+
+#header_pricing h3 span{
+    color: #89c403;
+
 }
