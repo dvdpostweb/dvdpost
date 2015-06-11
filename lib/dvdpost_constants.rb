@@ -574,7 +574,7 @@ module DVDPost
         season_name = "S#{season_id}E#{episode_id}_"
       end
       bitrate = "800000,2200000,3000000"
-      "http://homehlsvod-vh.akamaihd.net/i/trailer_#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,#{bitrate},.f4v.csmil/master.m3u8"
+      "http://homehlsvod-vh.akamaihd.net/i/trailers/trailer_#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,#{bitrate},.f4v.csmil/master.m3u8"
     end
 
     def streaming_url
