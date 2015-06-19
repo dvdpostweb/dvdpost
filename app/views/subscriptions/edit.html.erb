@@ -47,32 +47,32 @@
               <h2>4 <%= t('.films') %></h2>
               <p align="center"><%= t('info.price.max_dvd', :number => 2) %></p>
 
-              <h4><%= Product.find(130200).price %> €<br />
+              <h4><%= Product.find(127763).price %> €<br />
                 <span><%= t('.per_month') %></span>
               </h4>
               <div align="center">
-                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 130200), :method => :put, :class => :button %>
+                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 127763), :method => :put, :class => :button %>
 
               </div>
             </li>
             <li class="prices">
               <h2>6 <%= t('.films') %></h2>
               <p align="center"><%= t('info.price.max_dvd', :number => 4) %></p>
-              <h4><%= Product.find(130201).price %> €<br />
+              <h4><%= Product.find(127765).price %> €<br />
                 <span><%= t('.per_month') %></span>
               </h4>
               <div align="center">
-                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 130201), :method => :put, :class => :button %>
+                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 127765), :method => :put, :class => :button %>
               </div>
             </li>
             <li class="prices">
               <h2>8 <%= t('.films') %></h2>
               <p align="center"><%= t('info.price.max_dvd', :number => 6) %></p>
-              <h4><%= Product.find(130202).price %> €<br />
+              <h4><%= Product.find(127766).price %> €<br />
                 <span><%= t('.per_month') %></span>
               </h4>
               <div align="center">
-                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 130202), :method => :put, :class => :button %>
+                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 127766), :method => :put, :class => :button %>
               </div>
             </li>
           </ul>
@@ -109,14 +109,14 @@
                     <td width="150" align="right" class="price"><span class="integer"><%= price_format(Product.find(127762).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="130200" class="check"></div></td> 
+                    <td width="40"><div id="127763" class="check"></div></td> 
                     <td width="120" align="left" <b="">
                       <span class="title_pricing">4 <%= t('.films') %></span> 
                     </td> 
                     <td width="200" align="left">
                       <%= t('info.price.max_dvd', :number => 2) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(130200).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(127763).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
                     <td width="40"><div id="127764" class="check"></div></td> 
@@ -129,7 +129,7 @@
                     <td width="150" align="right" class="price"><%= price_format(Product.find(127764).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="130201" class="check"></div></td> 
+                    <td width="40"><div id="127765" class="check"></div></td> 
                     <td width="120" align="left" <b="">
                       <span class="title_pricing">6 <%= t('.films') %></span>
 
@@ -137,10 +137,10 @@
                     <td width="200" align="left">
                       <%= t('info.price.max_dvd', :number => 4) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(130201).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(127765).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="130202" class="check"></div></td> 
+                    <td width="40"><div id="127766" class="check"></div></td> 
                     <td width="120" align="left" <b="">
                       <span class="title_pricing">8 <%= t('.films') %></span>
 
@@ -148,7 +148,7 @@
                     <td width="200" align="left">
                       <%= t('info.price.max_dvd', :number => 6) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(130202).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(127766).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
                     <td width="40"><div id="127767" class="check"></div></div></td> 
@@ -310,7 +310,7 @@
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('info.price.simultanate', :number => 4) %>
+                      <%= t('info.price.simultanate', :number => 2) %>
                     </td> 
                     <td width="150" align="right" class="price"><%= price_format(Product.find(130201).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
@@ -321,7 +321,7 @@
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('info.price.simultanate', :number => 4) %>
+                      <%= t('info.price.simultanate', :number => 2) %>
                     </td> 
                     <td width="150" align="right" class="price"><%= price_format(Product.find(130202).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
                   </tr>
