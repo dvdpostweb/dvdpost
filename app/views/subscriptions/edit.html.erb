@@ -28,10 +28,48 @@
   <div id="prices">
     <div class="all-container">
       <div class="prices-container" align="left">
-        <%= render :partial => "info/price_menu2" %>
+        <%= render :partial => "info/price_menu2" if !nederlands? %>
         <div class="clearfix"></div> 
         <!--  Formules Actifs-->
         <div class="formula dvd active" id='f1_content'>
+          <% if nederlands? %>
+          <ul>
+            <li class="prices">
+              <h2>2 <%= t('.films') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 1) %><br /></p>
+               <h4><%= Product.find(130199).price %>€<br />
+                <span><%= t('.per_month') %></span>
+              </h4>
+              <div align="center">
+                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 130199), :method => :put, :class => :button %>
+              </div>
+            </li>
+            <li class="prices size">
+              <h2><%= t('customers.show.old_pricing.unlimited') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 2) %></p>
+
+              <h4><%= Product.find(133671).price %> €<br />
+                <span><%= t('.per_month') %></span>
+              </h4>
+              <div align="center">
+                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 133671), :method => :put, :class => :button %>
+
+              </div>
+            </li>
+            
+            <li class="prices">
+              <h2><%= t('customers.show.old_pricing.unlimited') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 4) %></p>
+              <h4><%= Product.find(133672).price %> €<br />
+                <span><%= t('.per_month') %></span>
+              </h4>
+              <div align="center">
+                <%= link_to t('suspensions.new.confirm'), customer_subscription_path(:customer_id => current_customer.to_param, :customer_next_abo_type_id => 133672), :method => :put, :class => :button %>
+              </div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          <% else %>
           <ul>
             <li class="prices">
               <h2>2 <%= t('.films') %></h2>
@@ -225,6 +263,7 @@
           </div>
            <div style="margin:20px 45px; font-size:10px"><%= t '.send' %></div>
         </div>
+        <% end %>
          <div class="formula dvd active" id='f2_content' style='display:none'>
           <ul>
             <li class="prices">
