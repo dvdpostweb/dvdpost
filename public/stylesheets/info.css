@@ -98,7 +98,10 @@ table.new_table_abo {
   border-radius: 4px 4px 4px 4px;
   margin-top: 12px;
 }
-
+#moncompte .button_confirm_rec
+{
+    margin-left: 380px;
+}
 
 #header #logout {
   display:block;
@@ -864,6 +867,11 @@ body#ipad {
 {
   background: url("../images/formats-bg.gif") repeat-x scroll 0 0 #C3D1DB;
 }
+#moncompte .all-container
+{
+  background: none;
+}
+
 
 .description {
   text-align:left;
