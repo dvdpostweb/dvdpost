@@ -35,11 +35,11 @@ class InfoController < ApplicationController
         else
           case I18n.locale 
             when :fr
-              @promo_code = 'PGPRIX'
+              @promo_code = 'univers'
             when :nl
-              @promo_code = 'PGPRIXN'
+              @promo_code = 'univers'
             when :en
-              @promo_code = 'PGPRIXE'
+              @promo_code = 'univers'
           end
         end
       end

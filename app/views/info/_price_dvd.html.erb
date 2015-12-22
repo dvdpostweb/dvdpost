@@ -198,7 +198,7 @@
 
         <h3><%= t 'info.price.how' %></h3>
         <p align="justify"><%= t 'info.price.how1' %></p>
-        <p align="justify"><%= t_nl 'info.price.how2' %></p>
+        <p align="justify"><% t_nl 'info.price.how2' %></p>
         <p align="justify"><%= t 'info.price.how3' %></p>
         <div id="subscribe-wrap" class="osc fr">
           <div class="wrap">
@@ -217,6 +217,7 @@
     <div class="faq-container">
       <h3><%= t 'info.price.faq' %></h3>
       <% 1..@n.times do |n| %>
+      <% if n != 0 && n != 1 %>
       <% unless nederlands? && (n == 3 || n == 6) %>
       <div class="faq-info-wrap">
         <h4 id='faq_<%= n %>'>
@@ -228,6 +229,7 @@
           </p>
         </div>
       </div>
+      <% end %>
       <% end %>
       <% end %>
     </div>

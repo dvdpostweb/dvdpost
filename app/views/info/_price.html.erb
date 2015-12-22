@@ -24,7 +24,7 @@
               <h4><%= Product.find(127763).price %> €<br />
                 <span><%= t('.per_month') %></span>
               </h4>
-              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=#{@promo_code}") %>"><%= t('.try') %></a></div>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=ABO4") %>"><%= t('.signup') %></a></div>
             </li>
             <li class="prices">
               <h2>6 <%= t('.films') %></h2>
@@ -187,7 +187,7 @@
 
         <h3><%= t '.how' %></h3>
         <p align="justify"><%= t '.how1' %></p>
-        <p align="justify"><%= t '.how2' %></p>
+        <p align="justify"><% t '.how2' %></p>
         <p align="justify"><%= t '.how3' %></p>
         <div id="subscribe-wrap" class="osc fr">
           <div class="wrap">
@@ -204,6 +204,7 @@
     <div class="faq-container">
       <h3><%= t '.faq' %></h3>
       <% 1..6.times do |n| %>
+      <% if n != 0 && n != 1 %>
       <div class="faq-info-wrap">
         <h4 id='faq_<%= n %>'>
           <span class="button <%= n == 0 ? 'open' : 'close' %>"></span>
@@ -214,6 +215,7 @@
           </p>
         </div>
       </div>
+      <% end %>
       <% end %>
     </div>
     <div class="clearfix"></div>
