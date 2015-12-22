@@ -599,9 +599,9 @@ module DVDPost
 
     def code_promo_faq
       HashWithIndifferentAccess.new.merge({
-        :fr    => 'PGVODF',
-        :nl    => 'PGVODN',
-        :en    => 'PGVODE'
+        :fr    => 'univers',
+        :nl    => 'univers',
+        :en    => 'univers'
       })
     end
 
