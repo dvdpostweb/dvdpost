@@ -78,7 +78,7 @@
           <div class="more_formula" align="right"><a class="button" href="" id="more"><%= t('info.price.more') %></a></div>
           <div id="pricing" style="display:none">
             <h4 class="maven" id="formula"><%= t('subscriptions.edit.all_formula') %></h4>
-            <form method="get" action="<%= php_path('step1.php') %>">
+            <form method="get" action="<%= php_path('step1.php') %>" id='form_account2'>
               <input type="hidden" name="activation_code" id="customer_next_abo_type_id">
               <input type="hidden" name="language" value="<%= I18n.locale %>">
               <table width="550" cellspacing="0" cellpadding="0" border="0" align="left" class="new_table_abo">
