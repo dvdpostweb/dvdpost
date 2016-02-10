@@ -1,223 +1,263 @@
+<% if !mobile_request? %>
 <div class="container desktop clearfix">
   <div id="prices">
-    <h1><%= t '.title_abo' %></h1>
+    <h1><%= t 'info.price.title_abo' %></h1>
     <div class="all-container">
       <div class="prices-container" align="left">
-        <%= render :partial => "info/price_menu" %>
-        <div class="clearfix"></div> 
-        <!--  Formules Actifs-->
-        <div class="formula dvd active" id='f1_content'>
+        <% unless nederlands? %>
+        <%= render :partial => 'info/price_menu' %>
+        <% end %>
+        <% if nederlands? %>
+        <div class="formula dvd active nl" id='f1_content'>
           <ul>
             <li class="prices">
-              <h2>2 <%= t('.films') %></h2>
-              <p align="center"><%= t '.only_vod' %><br /><br /></p>
-               <h4><%= Product.find(127761).price %>€<br />
-                <span><%= t('.per_month') %></span>
-              </h4>
-              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=ABO2") %>"><%= t('.signup') %></a></div>
+              <h2>2 <%= t('info.price.films') %>*<br />
+                <span><%= t('info.price.per_month') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 1) %></p>
+              <h4><%= Product.find(130199).price %>  €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=dvd2') %>"><%= t('info.price.signup') %></a></div>
             </li>
             <li class="prices populaire size">
-              <div class="icon_populaire fr"></div>
-              <h2>4 <%= t('.films') %></h2>
-              <p align="center"><%= t('.max_dvd', :number => 2) %></p>
-
-              <h4><%= Product.find(127763).price %> €<br />
-                <span><%= t('.per_month') %></span>
-              </h4>
-              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=ABO4") %>"><%= t('.signup') %></a></div>
+            <div class="icon_populaire <%= I18n.locale %>"></div>
+              <h2><%= t('info.price.unlimited') %></span></h2>
+              <p><%= t('info.price.simultanate', :number => 2) %></p>
+              <h4><%= Product.find(133671).price %>  €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=UN2") %>"><%= t 'info.price.signup' %></a></div>
             </li>
             <li class="prices">
-              <h2>6 <%= t('.films') %></h2>
-              <p align="center"><%= t('.max_dvd', :number => 4) %></p>
-              <h4><%= Product.find(127765).price %> €<br />
-                <span><%= t('.per_month') %></span>
-              </h4>
-              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=ABO6") %>"><%= t '.signup' %></a></div>
-            </li>
-            <li class="prices">
-              <h2>8 <%= t('.films') %></h2>
-              <p align="center"><%= t('.max_dvd', :number => 6) %></p>
-              <h4><%= Product.find(127766).price %> €<br />
-                <span><%= t('.per_month') %></span>
-              </h4>
-              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=ABO8") %>"><%= t('.signup') %></a></div>
+              <h2><%= t('info.price.unlimited') %></h2>
+              <p><%= t('info.price.simultanate', :number => 4) %></p>
+              <h4><%= Product.find(133672).price %>  €<br />
+                <span><%= t('info.price.per_month') %></span></h4>
+              <div align="center"><a class="button" href="<%= php_path('step1.php?activation_code=UN4') %>"><%= t('info.price.signup') %></a></div>
             </li>
           </ul>
           <div class="clearfix"></div>
-          <div class="more_formula" align="right"><a class="button" href="" id="more"><%= t('.more') %></a></div>
+        </div>
+        <% else %>
+<div class="formula dvd active" id='f1_content'>
+          <ul>
+            <li class="prices">
+              <h2>2 <%= t('info.price.films') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 1) %></p>
+               <h4><%= Product.find(130199).price %>€<br />
+                <span><%= t('info.price.per_month') %></span>
+              </h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD2") %>"><%= t('info.price.signup') %></a></div>
+            </li>
+            <li class="prices populaire size">
+              <div class="icon_populaire fr"></div>
+              <h2>4 <%= t('info.price.films') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 2) %></p>
+
+              <h4><%= Product.find(130200).price %> €<br />
+                <span><%= t('info.price.per_month') %></span>
+              </h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD4") %>"><%= t('info.price.signup') %></a></div>
+            </li>
+            <li class="prices">
+              <h2>6 <%= t('info.price.films') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 2) %></p>
+              <h4><%= Product.find(130201).price %> €<br />
+                <span><%= t('info.price.per_month') %></span>
+              </h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD6") %>"><%= t 'info.price.signup' %></a></div>
+            </li>
+            <li class="prices">
+              <h2>8 <%= t('info.price.films') %></h2>
+              <p align="center"><%= t('info.price.simultanate', :number => 2) %></p>
+              <h4><%= Product.find(130202).price %> €<br />
+                <span><%= t('info.price.per_month') %></span>
+              </h4>
+              <div align="center"><a class="button" href="<%= php_path("step1.php?activation_code=DVD8") %>"><%= t('info.price.signup') %></a></div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="more_formula" align="right"><a class="button" href="" id="more"><%= t('info.price.more') %></a></div>
           <div id="pricing" style="display:none">
             <h4 class="maven" id="formula"><%= t('subscriptions.edit.all_formula') %></h4>
-            <form method="get" action="<%= php_path('step1.php') %>" id ='form_account'>
+            <form method="get" action="<%= php_path('step1.php') %>" id='form_account2'>
               <input type="hidden" name="activation_code" id="customer_next_abo_type_id">
               <input type="hidden" name="language" value="<%= I18n.locale %>">
-
               <table width="550" cellspacing="0" cellpadding="0" border="0" align="left" class="new_table_abo">
                 <tbody>
                   <tr class="new_abo" style="display: table-row;">
                     <td width="40">
-                      <div id="ABO2" class="check">
+                      <div id="DVD2" class="check">
                       </div>
                     </td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">2 <%= t('.films') %></span> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">2 <%= t('info.price.films') %></span> 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.only_vod') %>
+                      <%= t('info.price.simultanate', :number => 1) %>
                     </td>
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127761).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130199).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO3" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">3 <%= t('.films') %></span>
-                    </td>
-                    <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 2) %>
-                    </td> 
-                    <td width="150" align="right" class="price"><span class="integer"><%= price_format(Product.find(127762).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
-                  </tr>
-                  <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO5" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">5 <%= t('.films') %></span> 
+                    <td width="40"><div id="DVD4" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">4 <%= t('info.price.films') %></span> 
                     </td> 
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 3) %>
+                      <%= t('info.price.simultanate', :number => 2) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127764).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130200).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO6" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">6 <%= t('.films') %></span>
+                    <td width="40"><div id="DVD6" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">6 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 4) %>
+                      <%= t('info.price.simultanate', :number => 2) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127765).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130201).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO8" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">8 <%= t('.films') %></span>
+                    <td width="40"><div id="DVD8" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">8 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 6) %>
+                      <%= t('info.price.simultanate', :number => 2) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127766).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130202).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO11" class="check"></div></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">11 <%= t('.films') %></span>
+                    <td width="40"><div id="DVD10" class="check"></div></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">10 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 8) %>
+                      <%= t('info.price.simultanate', :number => 4) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127767).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130203).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO13" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">13 <%= t('.films') %></span>
+                    <td width="40"><div id="DVD12" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">12 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 10) %>
+                      <%= t('info.price.simultanate', :number => 4) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127768).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130204).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO15" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">15 <%= t('.films') %></span>
+                    <td width="40"><div id="DVD14" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">14 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 12) %>
+                      <%= t('info.price.simultanate', :number => 4) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127769).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130205).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO18" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">18 <%= t('.films') %></span>
+                    <td width="40"><div id="DVD16" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">16 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 14) %>
+                      <%= t('info.price.simultanate', :number => 4) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127770).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130207).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                   <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO20" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">20 <%= t('.films') %></span> 
+                    <td width="40"><div id="DVD18" class="check"></div></td> 
+                    <td width="140" align="left">
+                      <span class="title_pricing">18 <%= t('info.price.films') %></span>
 
                     </td>
                     <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 16) %>
+                      <%= t('info.price.simultanate', :number => 4) %>
                     </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127771).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
-                  </tr>
-                  <tr class="new_abo" style="display: table-row;">
-                    <td width="40"><div id="ABO22" class="check"></div></td> 
-                    <td width="140" align="left" <b="">
-                      <span class="title_pricing">22 <%= t('.films') %></span>
-
-                    </td>
-                    <td width="200" align="left">
-                      <%= t('.max_dvd', :number => 18) %>
-                    </td> 
-                    <td width="150" align="right" class="price"><%= price_format(Product.find(127772).price) %> € <span class="month"><%= t('.per_month') %> </span></td>
+                    <td width="150" align="right" class="price"><%= price_format(Product.find(130208).price) %> € <span class="month"><%= t('info.price.per_month') %> </span></td>
                   </tr>
                 </tbody>
               </table>
               <div align="center">
-                <button class="button_confirm_rec" type="submit"><%= t('.signup') %></button>
+                <button class="button_confirm_rec" type="submit"><%= t('info.price.signup') %></button>
               </div>
             </form>
-            <div style="margin:20px 45px; font-size:10px"><%= t '.send' %></div>
+            <div style="margin:20px 45px; font-size:10px"><%= t 'info.price.send' %></div>
           </div>
         </div>
 
+        <% end %>
+        <!--  Formules cinéphiles-->
 
-        <h3><%= t '.how' %></h3>
-        <p align="justify"><%= t '.how1' %></p>
-        <p align="justify"><% t '.how2' %></p>
-        <p align="justify"><%= t '.how3' %></p>
+        <h3><%= t 'info.price.how' %></h3>
+        <p align="justify"><%= t 'info.price.how1' %></p>
+        <p align="justify"><% t_nl 'info.price.how2' %></p>
+        <p align="justify"><%= t 'info.price.how3' %></p>
         <div id="subscribe-wrap" class="osc fr">
           <div class="wrap">
-            <h3><%= t '.sub' %></h3>
+            <h3><%= t 'info.price.sub' %></h3>
           </div>
-          <div id="subscribe"> <a href="<%= php_path("step1.php?activation_code=#{@promo_code}") %>" class="btn"><%= t '.signup_short' %></a>
-            <p><a href="<%= edit_public_promotion_path() %>" id="codePromo"><%= t('.code_promo')%></a></p>
+          <div id="subscribe"> <a href="<%= php_path("step1.php?activation_code=#{@promo_code}") %>" class="btn"><%= t 'info.price.signup_short' %></a>
+            <p><a href="<%= edit_public_promotion_path() %>" id="codePromo"><%= t('info.price.code_promo')%></a></p>
           </div>
         </div>
         <div class="clearfix"></div>
-        <div id='aste'>* <%= t '.send' %></div>
+        <% unless nederlands? %>
+          <div id='aste'>* <%= t 'info.price.send' %></div>
+        <% end %>
       </div>
     </div>
     <div class="faq-container">
-      <h3><%= t '.faq' %></h3>
-      <% 1..6.times do |n| %>
+      <h3><%= t 'info.price.faq' %></h3>
+      <% 1..@n.times do |n| %>
       <% if n != 0 && n != 1 %>
+      <% unless nederlands? && (n == 3 || n == 6) %>
       <div class="faq-info-wrap">
         <h4 id='faq_<%= n %>'>
           <span class="button <%= n == 0 ? 'open' : 'close' %>"></span>
-          <div class='question'><%= t(".question_#{n}")%></div>
+          <div class='question'><%= t("info.price.question_#{n}")%></div>
         </h4>
         <div style="display: <%= n == 0 ? 'block' : 'none' %>;" class="clearfix q" id="faq_<%= n %>_r">
-          <p align="left"><%= t(".response_#{n}", :vod_link => streaming_products_faq_path, :dvd_link => info_path(:page_name => :dvd))%>
+          <p align="left"><%= t_nl("info.price.response_#{n}", :vod_link => streaming_products_faq_path, :dvd_link => info_path(:page_name => :dvd))%>
           </p>
         </div>
       </div>
       <% end %>
       <% end %>
+      <% end %>
     </div>
     <div class="clearfix"></div>
-
   </div>
+</div>
+<% else %>
+
+<div id="prices">
+  <% unless mobile_request? %><h2><%= t 'info.price.title' %></h2><% end %>
+  <div class="all-container">
+    <div class="prices-container" align="left">
+      <h3><%= t 'info.price.subtitle' %></h3>
+      <ul>
+        <%= t 'info.price.li' %>
+      </ul>
+      <table align="center">
+        <%= render :partial => 'reconductions/edit/new_abo', :collection => @list_abo, :locals => {:current_abo_credit => nil, :selected_abo => nil} %>
+      </table>
+      <%= link_to t('info.price.register'), php_path('step1.php'), :class => "btn #{I18n.locale}" if !mobile_request?  %>
+    </div>
+    <% if !mobile_request? %>
+      <div id="promo_area2">
+        <h4><%= t 'info.price.title_code' %> <a href="<%= info_path(:page_name => 'promo') %>" id="codePromo"><%= t('info.price.here') %></a></h4>
+      </div>
+      <div class="clearfix"></div>
+    <% end %>
+  </div>
+  <div id='aste'>* <%= t('info.price.send') %></div>  
+</div>
+<% end %>

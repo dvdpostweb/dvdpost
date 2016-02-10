@@ -24,9 +24,15 @@ set :user, "dvdpostapp"
 #set :domain2, "94.139.62.123"
 #set :port, 22012
 
-set :domain,  "192.168.102.12"
-set :domain2, "94.139.62.123"
-set :port, 22
+set :domain,  "217.112.190.50:23051"
+#set :port, 23051
+
+set :domain2, "217.112.190.50:32051"
+#set :port, 23051
+
+#server '217.112.190.50', port: 23051, user: 'dvdpostapp', roles: %w{web app}
+#server '217.112.190.50', port: 23051, user: 'dvdpostapp', roles: %w{web app}
+
 role :web,  domain2
 role :app,  domain2
 role :db, domain2, :primary => true
