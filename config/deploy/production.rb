@@ -27,9 +27,9 @@ set :user, "dvdpostapp"
 set :domain,  "192.168.102.12"
 set :domain2, "94.139.62.123"
 set :port, 22
-role :web, domain#, domain2
-role :app, domain#, domain2
-role :db, domain, :primary => true
+role :web,  domain2
+role :app,  domain2
+role :db, domain2, :primary => true
 
 #############################################################
 #	Git

@@ -564,7 +564,7 @@ module ApplicationHelper
   end
 
   def price_format(price)
-    res = number_to_currency(price).to_s.match(/([0-9]*).([0-9]*)/)
+    res = number_to_currency(price, :locale => 'fr').to_s.match(/([0-9]*).([0-9]*)/)
     "<span class='integer'>#{res[1]}</span>.<span class='decimal'>#{res[2]}</span>"
   end
 end
