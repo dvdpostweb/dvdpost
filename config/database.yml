@@ -1,0 +1,70 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: dvdpost_test
+  username: root
+  password: root
+  host: localhost
+  port: 3306
+  
+common_development:
+  adapter: mysql
+  encoding: utf8
+  database: common_staging
+  username: root
+  password: root
+  host: localhost
+  port: 3306
+
+staging:
+  adapter: mysql
+  encoding: utf8
+  database: dvdpost_test
+  username: root
+  password: (:melissa:)
+  host: 192.168.100.204
+  port: 3306
+  
+common_staging:
+  adapter: mysql
+  encoding: utf8
+  database: common_staging
+  username: root
+  password: (:melissa:)
+  host: 192.168.100.204
+  port: 3306
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: dvdpost_be_prod
+  username: webuser
+  password: 3gallfir-
+  host: 192.168.100.204
+  port: 3306
+  slave01:
+    adapter: mysql
+    encoding: utf8
+    database: dvdpost_be_prod
+    username: webuser
+    password: 3gallfir-
+    host: 192.168.100.204
+    port: 3306
+  slave02:
+    adapter: mysql
+    encoding: utf8
+    database: dvdpost_be_prod
+    username: webuser
+    password: 3gallfir-
+    host: 192.168.100.204
+    port: 3306
+
+common_production:
+  adapter: mysql
+  encoding: utf8
+  database: common_production
+  username: webuser
+  password: 3gallfir-
+  host: matadi
+  port: 3306
+
