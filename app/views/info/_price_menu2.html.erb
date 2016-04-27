@@ -1,12 +1,18 @@
 <h3><%= t('info.price.select')[2, t('info.price.select').length] %></h3>
         <div class="formula_choice sub">
           <div class="formule_mixte active">
-            <%= link_to image_tag("icon_formula_mixte.png"), edit_customer_subscription_path(:customer_id => current_customer.to_param), :class => 'vod' %>
-            <h4><%= link_to "Blu-Ray + DVD + VOD", edit_customer_subscription_path(:customer_id => current_customer.to_param) %></h4>
-          </div>
-          <div class="formule_dvd">
             <%= link_to image_tag("icon_formula_dvdbluray.png"), edit_customer_subscription_path(:customer_id => current_customer.to_param), :class => 'vod' %>
             <h4><%= link_to "Blu-Ray + DVD", edit_customer_subscription_path(:customer_id => current_customer.to_param) %></h4>
+            <!--
+            <#%= link_to image_tag("icon_formula_mixte.png"), edit_customer_subscription_path(:customer_id => current_customer.to_param), :class => 'vod' %>
+            <h4><#%= link_to "Blu-Ray + DVD + VOD", edit_customer_subscription_path(:customer_id => current_customer.to_param) %></h4>
+            -->
           </div>
+          <!--
+          <div class="formule_dvd">
+            <#%= link_to image_tag("icon_formula_dvdbluray.png"), edit_customer_subscription_path(:customer_id => current_customer.to_param), :class => 'vod' %>
+            <h4><#%= link_to "Blu-Ray + DVD", edit_customer_subscription_path(:customer_id => current_customer.to_param) %></h4>
+          </div>
+          -->
         </div>
         <div class="clearfix"></div> 

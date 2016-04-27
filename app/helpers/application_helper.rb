@@ -188,7 +188,7 @@ module ApplicationHelper
     country_id = current_customer && current_customer.addresses.length > 0  ? current_customer.addresses.first.entry_country_id : nil
     host = case  Rails.env
       when 'development' 
-        'http://localhost/'
+        'http://dvdpost.dev/'
       when 'staging'
         'http://test/'
       else
