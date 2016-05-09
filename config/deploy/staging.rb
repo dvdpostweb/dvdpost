@@ -31,7 +31,7 @@ role :db, domain, :primary => true
 #############################################################
 
 set :scm, :git
-set :branch, "production"
+set :branch, "Blue2Print_Improvements_2"
 set :scm_user, 'dvdpost'
 set :scm_passphrase, "[y'|\E7U158]9*"
 set :repository, "git@github.com:dvdpost/dvdpost.git"
