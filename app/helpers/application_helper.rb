@@ -188,7 +188,7 @@ module ApplicationHelper
     country_id = current_customer && current_customer.addresses.length > 0  ? current_customer.addresses.first.entry_country_id : nil
     host = case  Rails.env
       when 'development' 
-        'http://localhost/'
+        'http://dvdpost.dev/'
       when 'staging'
         'http://test/'
       else
@@ -564,7 +564,7 @@ module ApplicationHelper
   end
 
   def price_format(price)
-    res = price.to_s.match(/([0-9]*).([0-9]*)/)
+    res = number_to_currency(price, :locale => 'fr').to_s.match(/([0-9]*).([0-9]*)/)
     "<span class='integer'>#{res[1]}</span>.<span class='decimal'>#{res[2]}</span>"
   end
 end

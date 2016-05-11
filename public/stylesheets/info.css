@@ -1,6 +1,108 @@
 @charset "UTF-8";
 /* CSS Document */
 
+
+
+
+
+
+
+.formula_choice h4  {
+ font-size: 20px;}
+ .formula_choice {
+  width: 445px;
+}
+
+/* info.CSS changement  */
+#formule_tab {
+
+  padding-top: 12px!important;
+
+}
+
+.prices-container h3 {
+  background: url("http://public.dvdpost.com/images/square.gif") no-repeat scroll 0 26px transparent!important;
+  padding-top: 15px!important;
+}
+
+h4.maven {
+  font-size: 24px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+}
+
+
+
+.price {
+  font-size: 26px;
+  padding-right: 12px;
+}
+
+.check {
+  background: url(../images/check.png) no-repeat scroll 0 2px transparent;
+  cursor: pointer;
+  height: 24px;
+}
+
+tr.new_abo {
+  border-bottom: solid 1px #3a4853; 
+}
+.new_abo {
+  color: #201f20;
+  font-size: 14px;
+}
+table.new_table_abo {
+  border-collapse: collapse;
+  margin-left: 40px;
+}
+
+.free_upgrade {
+  -moz-box-shadow:inset 0px 1px 0px 0px #a4e271;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #a4e271;
+  box-shadow:inset 0px 1px 0px 0px #a4e271;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #89c403), color-stop(1, #77a809));
+  background:-moz-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-webkit-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-o-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-ms-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c403', endColorstr='#77a809', GradientType=0);
+  background-color:#89c403;
+  color: #ffffff;
+  
+}
+
+
+.free_upgrade .price .month {
+ color: #ffffff!important;
+}
+
+.free_upgrade .title_pricing {
+ color: #ffffff!important;
+}
+
+.active .yes .check, .abo .check.active, .new_abo .check.active {
+ background: url(../images/check2.png) no-repeat scroll 0 -21px transparent;
+}
+
+.button_confirm_rec {
+  background-color: #EE8419;
+  background-image: -moz-linear-gradient(center top , #EE8419, #E26417);
+  background-repeat: repeat-x;
+  border: 1px solid #D55023;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #D83C14;
+  padding: 5px;
+  font-size:18px;
+  border-radius: 4px 4px 4px 4px;
+  margin-top: 12px;
+}
+#moncompte .button_confirm_rec
+{
+    margin-left: 380px;
+}
+
 #header #logout {
   display:block;
   font-size:1.2em;
@@ -382,123 +484,126 @@ p.cable_name {
 #billi_adresse p{
   font-size: 15px;
   font-weight:bold;
-  margin: 10px 0 10px;}
+  margin: 10px 0 10px;
+}
 
-  #billi_adresse input{
-    height:20px;
+#billi_adresse input{
+  height:20px;
 
-    width:250px;}
-
-
-    #billi_adresse .little_input input{
-      height:20px;
-      display:block;
-      width:100px;}
-
-      #billi_adresse li{
-        float:left;
-
-      }
-
-      #billi_adresse ul{
-
-        margin-left:-20px;
-      }
-
-      @charset "ISO-8859-1";
-      /* CSS Document */
-
-      #facebox .body_billi {
-        background: none repeat scroll 0 0 #FFFFFF;
-        width: 370px;
-        color:#20272f;
-        font-size:14px;
-      }
-      .content_right {
-        float:right;
-        padding-left: 40px;
-        width: 380px;
-      }
-      .content_left {
-        float: left;
-        padding-left: 40px;
-        width: 380px;
-      }
-
-      .content_left a{
-        color:#20272f;
-        text-decoration:underline;
-      }
-      .body_billi h1 {
-        text-transform:uppercase;
-        font-size:18px;
-      }
-      .number {font-size:20px;
-        font-weight:bold;
-
-      }
-
-      .body_billi li{
-        padding-top:10px;
-        padding-bottom:10px;
+  width:250px;
+}
 
 
-      }
-      .billi_point { padding-left:18px;}
+#billi_adresse .little_input input{
+  height:20px;
+  display:block;
+  width:100px;
+}
 
-      .body_billi .content_left li{
-        display : list-item;
-        list-style-image:url(../images/billi_modal/carre.gif);
+#billi_adresse li{
+  float:left;
+
+}
+
+#billi_adresse ul{
+
+  margin-left:-20px;
+}
+
+@charset "ISO-8859-1";
+/* CSS Document */
+
+#facebox .body_billi {
+  background: none repeat scroll 0 0 #FFFFFF;
+  width: 370px;
+  color:#20272f;
+  font-size:14px;
+}
+.content_right {
+  float:right;
+  padding-left: 40px;
+  width: 380px;
+}
+.content_left {
+  float: left;
+  padding-left: 40px;
+  width: 380px;
+}
+
+.content_left a{
+  color:#20272f;
+  text-decoration:underline;
+}
+.body_billi h1 {
+  text-transform:uppercase;
+  font-size:18px;
+}
+.number {font-size:20px;
+  font-weight:bold;
+
+}
+
+.body_billi li{
+  padding-top:10px;
+  padding-bottom:10px;
 
 
-      }
+}
+.billi_point { padding-left:18px;}
 
-      .body_billi .content_right .number4 {
-        display : list-item;
-        list-style-image:url(../images/billi_modal/number_4.gif);
-
-
-      }
-
-      .body_billi .content_right .number1 {
-        display : list-item;
-        list-style-image:url(../images/billi_modal/number_1.gif);
+.body_billi .content_left li{
+  display : list-item;
+  list-style-image:url(../images/billi_modal/carre.gif);
 
 
-      }
+}
 
-      .body_billi .content_right .number2 {
-        display : list-item;
-        list-style-image:url(../images/billi_modal/number_2.gif);
-
-
-      }
-
-      .body_billi .content_right .number3 {
-        display : list-item;
-        list-style-image:url(../images/billi_modal/number_3.gif);
+.body_billi .content_right .number4 {
+  display : list-item;
+  list-style-image:url(../images/billi_modal/number_4.gif);
 
 
-      }
+}
+
+.body_billi .content_right .number1 {
+  display : list-item;
+  list-style-image:url(../images/billi_modal/number_1.gif);
+
+
+}
+
+.body_billi .content_right .number2 {
+  display : list-item;
+  list-style-image:url(../images/billi_modal/number_2.gif);
+
+
+}
+
+.body_billi .content_right .number3 {
+  display : list-item;
+  list-style-image:url(../images/billi_modal/number_3.gif);
+
+
+}
 
 
 /*free movies*/
 
 
-.content_item	li {
+.content_item li {
   display: block;
   float: right;
   padding-top: 10px;
   text-align: center;
   width: 237px;
 }
-.content_item	ul
+.content_item ul
 {   
   margin: 0;
   padding: 0;
 }
 
-.content_item	a {
+.content_item a {
 
   color: #454545;
 
@@ -508,7 +613,7 @@ p.cable_name {
 
 
 
-.content_item	a:hover {
+.content_item a:hover {
 
   text-decoration: underline;
 
@@ -612,13 +717,13 @@ body#ipad {
 }
 .freeribbon.fr {
   background: url("../images/fr/ribbon_free.png") no-repeat scroll 0 0 transparent;
-}	
+} 
 .freeribbon.en {
   background: url("../images/en/ribbon_free.png") no-repeat scroll 0 0 transparent;
-}	
+} 
 .freeribbon.nl {
   background: url("../images/nl/ribbon_free.png") no-repeat scroll 0 0 transparent;
-}	
+} 
 
 .list_function {
   font-size: 14px;
@@ -728,9 +833,8 @@ body#ipad {
 
 #prices .title_pricing{
   color: #212A31;
-  font-size: 20px;
+  font-size: 26px;
   line-height: 1;
-  font-family:'Open Sans Condensed',sans-serif;
 }
 
 #prices .month{
@@ -750,7 +854,7 @@ body#ipad {
 }
 
 
-#prices h2, #prices h1 {
+#prices h1 {
   background: none repeat scroll 0 0 #FFFFFF;
   font-size: 45px;
   padding: 0 20px;
@@ -763,6 +867,11 @@ body#ipad {
 {
   background: url("../images/formats-bg.gif") repeat-x scroll 0 0 #C3D1DB;
 }
+#moncompte .all-container
+{
+  background: none;
+}
+
 
 .description {
   text-align:left;
@@ -915,7 +1024,7 @@ a.btn_price:hover
   text-transform: uppercase;
   padding-bottom:15px;
 }
-#prices h2, #prices h1 {
+#prices h1 {
   font-size: 28px;
   font-weight: bold;
   text-transform: uppercase;
@@ -992,53 +1101,94 @@ a.btn_price:hover
   border-radius: 4px 4px 4px 4px;
   margin: 0 8px;
 }
-.formule_dvd {
-  float:left;
-  width:216px;
-    height:84px;
-      border:solid 1px #c9c4c4;
-      text-align:center;
-  
-  }
+.formule_dvd, .formule_mixte {
+  float: right;
+  width: 288px;
+  height: 90px;
+  text-align: center;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9));
+  background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9',GradientType=0);
+  background-color:#f9f9f9;
+  -moz-border-radius:6px 6px 0 0;
+  -webkit-border-radius:6px 6px 0 0;
+  border-radius:6px 6px 0 0;
+  border:1px solid #dcdcdc;
+}
 
+.formule_dvd:hover, .formule_mixte:hover {
+  float: right;
+  width: 288px;
+  height: 90px;
+  text-align: center;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -moz-border-radius:6px 6px 0 0;
+  -webkit-border-radius:6px 6px 0 0;
+  border-radius:6px 6px 0 0;
+  border:1px solid #dcdcdc;
+
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9));
+  background:-moz-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:-webkit-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:-o-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:-ms-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
+  background-color:#e9e9e9;
+}
+
+.formule_mixte, .formule_mixte:hover
+{
+  float: left;
+}
+
+
+ 
 .formule_dvd.active, .formule_mixte.active{
+ width: 288px;
+ height: 90px;
+ border:solid 1px #C4D1DA;
+ text-align:center;
 
-    background:#c9c4c4;
-  
-  }
+ -moz-border-radius:6px 6px 0 0;
+ -webkit-border-radius:6px 6px 0 0;
+ border-radius:6px 6px 0 0;
+ background: #c4d1da;
+}
 
-.formule_mixte {
-    float:right;
-    width:216px;
-    height:84px;
-    border:solid 1px #c9c4c4;
-    text-align:center;
-  
-  }
-  
+
 .formula_choice h4  {
-   font-size: 20px;}
-.formula_choice {
-    width: 445px;
+ font-size: 20px;}
+ .formula_choice {
+  width: 445px;
 }
 
 /* info.CSS changement  */
 #formule_tab {
- 
-    padding-top: 12px!important;
+
+  padding-top: 12px!important;
 
 }
 
 .prices-container h3 {
-background: url("../images/square.gif") no-repeat scroll 0 26px transparent!important;
-padding-top: 15px!important;
+  background: url("../images/square.gif") no-repeat scroll 0 26px transparent!important;
+  padding-top: 15px!important;
 }
 
 .prices {
   border: 1px solid #C4D1DA;
   border-radius: 4px 4px 4px 4px;
   float: left;
-  height: 275px;
+  height: 210px;
   margin-left: 13px;
   margin-top: 20px;
   padding: 10px 5px;
@@ -1047,11 +1197,20 @@ padding-top: 15px!important;
 }
 
 
-.prices.populaire {
+.prices.populaire{
 
-  background-color: #88BD32;
-  background-image: -moz-linear-gradient(center top , #ACD341, #88BD32);
-  height: 306px;
+  -moz-box-shadow:inset 0px 1px 0px 0px #a4e271;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #a4e271;
+  box-shadow:inset 0px 1px 0px 0px #a4e271;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #89c403), color-stop(1, #77a809));
+  background:-moz-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-webkit-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-o-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:-ms-linear-gradient(top, #89c403 5%, #77a809 100%);
+  background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c403', endColorstr='#77a809', GradientType=0);
+  background-color:#89c403;
+  height: 224px;
   margin-top: 6px;
 }
 
@@ -1073,11 +1232,12 @@ padding-top: 15px!important;
 
 
 .prices h2 {
-  font-size: 28px;
-  font-weight: bold;
+
   padding-bottom: 30px;
-  text-transform: uppercase;
   text-align:center;
+  color: #212a31;
+  font-size: 26px;
+  font-family:Arial, Helvetica, sans-serif;
 
 }
 
@@ -1089,30 +1249,24 @@ padding-top: 15px!important;
 
 }
 
-.prices p {
-  background: url("../images/check_prices.png") no-repeat scroll 0 0 transparent;
 
-  padding-left: 27px;
-}
 
 
 .prices h4 {
-  font-size: 44px;
-  font-weight: bold;
+  font-size: 26px;
   padding-bottom: 30px;
-  text-transform: uppercase;
   text-align:center;
-  width: 126px;
+  font-family:Arial, Helvetica, sans-serif;
+
   margin: 0;
 }
 .prices.populaire h2 {
-  color: #3A450A;
+  color: #ffffff;
 
 }
 .prices.populaire h4 {
 
-  color:#3a450a;
-
+ color: #ffffff;
 }
 .desktop #prices h2 {
   padding:0;
@@ -1128,15 +1282,16 @@ padding-top: 15px!important;
 }
 .prices.populaire p {
 
-  color:#3a450a;
+ color: #ffffff;
 
-}	 
+}  
 
 .prices h4 span {
-  font-size: 19px;
+
+  font-family: "Open Sans Condensed",sans-serif;
+  font-size: 16px;
   font-weight: normal;
-  line-height: 12px;
-  text-transform: none;
+
 
 }
 
@@ -1154,6 +1309,54 @@ padding-top: 15px!important;
   font-size:18px;
   border-radius: 4px 4px 4px 4px;
 }
+
+
+
+
+
+
+.more_formula .button  {
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9));
+  background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+  background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9',GradientType=0);
+  background-color:#f9f9f9;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  cursor:pointer;
+  color:#666666;
+  font-family:arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ffffff;
+  margin:15px 10px;
+}
+
+.more_formula .button:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9));
+  background:-moz-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:-webkit-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:-o-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:-ms-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+  background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
+  background-color:#e9e9e9;
+}
+
+
+
+
 
 .faq-info-wrap h4
 {
@@ -1209,7 +1412,7 @@ padding-top: 15px!important;
   color: #3a450a !important;
   float: left;
   font-family: 'Open Sans Condensed',sans-serif;
-  font-size: 25px !important;
+  font-size: 22px !important;
   font-weight: normal !important;
   line-height: 28px;
   padding-bottom: 0;
@@ -1268,9 +1471,29 @@ padding-top: 15px!important;
 
 .formula.active {
   padding-top: 28px;
-  padding-bottom: 20px;
-  background-color: #C9C4C4;
+  padding-bottom: 8px; 
+  border:solid 1px #C4D1DA;
+  margin-top: -1px;
+  background: #c4d1da; /* Old browsers */
+
+  background: -moz-linear-gradient(top,  #c4d1da 0%, #e8e8e8 100%); /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c4d1da), color-stop(100%,#e8e8e8)); /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top,  #c4d1da 0%,#e8e8e8 100%); /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top,  #c4d1da 0%,#e8e8e8 100%); /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top,  #c4d1da 0%,#e8e8e8 100%); /* IE10+ */
+
+  background: linear-gradient(to bottom,  #c4d1da 0%,#e8e8e8 100%); /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4d1da', endColorstr='#e8e8e8',GradientType=0 ); /* IE6-9 */
+
+
 }
+
+
 
 .icon_populaire {
   display: block;
@@ -1603,9 +1826,7 @@ padding-top: 15px!important;
   padding-left:15px;
   text-decoration: underline;
 }
-.formula.dvd  ul {
-  padding-left: 85px;
-}
+
 /*verimatrix*/
 
 /* CSS Document */
@@ -1678,48 +1899,34 @@ padding-top: 15px!important;
   color:#212A31;
 }
 
-.formule_dvd {
-  float:right;
-  width:216px;
-    height:84px;
-      border:solid 1px #c9c4c4;
-      text-align:center;
-  
-  }
 
-.formule_dvd.active, .formule_mixte.active{
 
-    background:#c9c4c4;
-  
-  }
 
-.formule_mixte {
-    float:left;
-    width:216px;
-    height:84px;
-    border:solid 1px #c9c4c4;
-    text-align:center;
-  
-  }
-  
+
+
 .formula_choice h4  {
-   font-size: 20px;}
-.formula_choice {
-    width: 445px;
+ font-size: 20px;}
+ .formula_choice {
+  width: 600px;
 }
 
 /* info.CSS changement  */
 #formule_tab {
- 
-    padding-top: 12px!important;
+
+  padding-top: 12px!important;
 
 }
 
 .prices-container h3 {
-background: url("../images/square.gif") no-repeat scroll 0 26px transparent!important;
-padding-top: 15px!important;
+  background: url("http://public.dvdpost.com/images/square.gif") no-repeat scroll 0 26px transparent!important;
+  padding-top: 15px!important;
 }
 .formula_choice a
 {
   color: #212A31;
+}
+
+.formula.nl ul
+{
+  margin-left: 80px;
 }

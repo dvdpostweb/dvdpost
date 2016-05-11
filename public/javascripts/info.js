@@ -1,4 +1,49 @@
 $(function() {
+  $('#more').on('click', function(){
+    $('#pricing').show();
+    return false
+  })
+   $('#more2').on('click', function(){
+    $('#pricing2').show();
+    return false
+  })
+
+  $('.sub .formule_mixte a').on('click', function(){
+    console.log($(this).closest('.formule_mixte'))
+    $('.formule_mixte').addClass('active')
+    $('.formule_dvd').removeClass('active')
+    $('#f1_content').show()
+    $('#f2_content').hide()
+    return false
+
+  })
+  $('.sub .formule_dvd a').on('click', function(){
+    console.log($(this).closest('.formule_dvd'))
+    $('.formule_mixte').removeClass('active')
+    $('.formule_dvd').addClass('active')
+    $('#f1_content').hide()
+    $('#f2_content').show()
+    return false
+  })
+  $('.abo .check, .new_abo .check').live('click',function(){
+    $('.abo .check, .new_abo .check').removeClass('active');
+    $('.abo, .new_abo').removeClass('active');
+    $(this).addClass('active');
+    $(this).parent().parent().addClass('active');
+    id = $(this).attr('id')
+    $('#form_account #customer_next_abo_type_id').attr('value',id);
+    $('#form_account2 #customer_next_abo_type_id').attr('value',id);
+
+
+  });
+
+
+  $(".button_confirm_rec").live("click", function() {
+    if (!$('#customer_next_abo_type_id').val()) {
+      /*alert($('#error_cat').html())*/
+      return false
+    }
+  })
   $('#out_hdmi').live('click', function(){
     menu1_selected($(this))
     show(1,1,1,1,0,0,1)

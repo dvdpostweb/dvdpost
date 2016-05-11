@@ -1028,11 +1028,11 @@ class Product < ActiveRecord::Base
   end
 
   def trailer?
-    trailer || ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0) && tokens_trailers.available.first )
+    trailer || ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0))
   end
   
   def trailer_streaming?
-    ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0) && tokens_trailers.available.first )
+    ((Rails.env == "production" ? streaming_trailers.available.count > 0 : streaming_trailers.available_beta.count > 0))
   end
   
   def self.country_short_name(country_id)

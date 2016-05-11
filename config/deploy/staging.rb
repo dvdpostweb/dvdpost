@@ -20,11 +20,10 @@ set :rails_env, "staging"
 #############################################################
 
 set :user, "dvdpostapp"
-set :domain,  "94.139.62.122"
-set :domain2, "94.139.62.123"
-set :port, 22012
-role :web, domain, domain2
-role :app, domain, domain2
+set :domain,  "217.112.190.50"
+set :port, 23051
+role :web, domain
+role :app, domain
 role :db, domain, :primary => true
 
 #############################################################
@@ -32,7 +31,7 @@ role :db, domain, :primary => true
 #############################################################
 
 set :scm, :git
-set :branch, "master"
+set :branch, "production"
 set :scm_user, 'dvdpost'
 set :scm_passphrase, "[y'|\E7U158]9*"
 set :repository, "git@github.com:dvdpost/dvdpost.git"

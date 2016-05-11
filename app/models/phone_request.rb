@@ -25,8 +25,6 @@ class PhoneRequest < ActiveRecord::Base
     slots.push("14h30 - 15h00", 14)
     slots.push("15h00 - 15h30", 15)
     slots.push("15h30 - 16h00", 16)
-    slots.push("16h00 - 16h30", 17)
-    slots.push("16h30 - 17h00", 18)
     slots
   end
 

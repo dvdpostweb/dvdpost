@@ -557,28 +557,26 @@ module DVDPost
       })
     end
 
-    def akamai_hls_url(imdb_id, audio, sub, hd, videoland, season_id = 0, episode_id = 0)
+    def akamai_hls_url(imdb_id, audio, sub, hd, videoland, folder, season_id = 0, episode_id = 0)
       if 1 == 1 # && season_id == '0'
         season_name = ''
       else
         season_name = "S#{season_id}E#{episode_id}_"
       end
-      bitrate =
-      if videoland
-        '6000000'
-      else
-        "800000,2200000#{hd ? ',3000000' : ''}"
-      end
-      "http://homehlsvod-vh.akamaihd.net/i/#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,#{bitrate},.f4v.csmil/master.m3u8"
+      bitrate = "800000,2200000#{hd ? ',3000000' : ''}"
+      folder_path = folder.present? ? "#{folder}/" : ''
+      "http://homehlsvod-vh.akamaihd.net/i/#{folder_path}#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,#{bitrate},.f4v.csmil/master.m3u8"
     end
 
-    def akamai_hls_trailer_url(imdb_id, audio, sub, season_id = '0', episode_id = 0)
+    def akamai_hls_trailer_url(imdb_id, audio, sub, videoland, folder, season_id = '0', episode_id = 0)
       if season_id == '0'
         season_name = ''
       else
         season_name = "S#{season_id}E#{episode_id}_"
       end
-      "http://homehlsvod-vh.akamaihd.net/i/trailer_#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,800000,2200000,3000000,.f4v.csmil/master.m3u8"
+      bitrate = "800000,2200000,3000000"
+      folder_path = folder.present? ? "#{folder}/" : ''
+      "http://homehlsvod-vh.akamaihd.net/i/trailers/#{folder_path}trailer_#{season_name}#{imdb_id}_A#{audio}_S#{sub}_,#{bitrate},.f4v.csmil/master.m3u8"
     end
 
     def streaming_url
@@ -601,9 +599,9 @@ module DVDPost
 
     def code_promo_faq
       HashWithIndifferentAccess.new.merge({
-        :fr    => 'PGVODF',
-        :nl    => 'PGVODN',
-        :en    => 'PGVODE'
+        :fr    => 'univers',
+        :nl    => 'univers',
+        :en    => 'univers'
       })
     end
 

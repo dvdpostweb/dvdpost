@@ -6,13 +6,12 @@
         <h2>
           <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)<span>
         </h2>
-        <%=  "<h3>Powered by</h3>" if @streaming.videoland? %>
+        <%=  "<h3 class='vl'>Powered by</h3>".html_safe if @streaming.videoland? %>
         <% if @token and @token_valid %>
           <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token, params[:kind]) %></strong></div></div>
         <% end %>
         <div class="clear"></div>
         <div id="presentation">
-
           <%= "<div class='prices'>#{t '.ppv', :price => @streaming.ppv_price}</div>" if @streaming.is_ppv %>
           <div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div>
         </div>

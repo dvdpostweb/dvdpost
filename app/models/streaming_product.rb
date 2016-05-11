@@ -58,6 +58,7 @@ class StreamingProduct < ActiveRecord::Base
     source = OrderedHash.new
     source.push(:softlayer, 'SOFTLAYER')
     source.push(:alphanetworks, 'ALPHANETWORKS')
+    source.push(:videoland, 'VIDEOLAND')
     source
   end
 

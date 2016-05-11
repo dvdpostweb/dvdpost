@@ -224,6 +224,7 @@ class ProductsController < ApplicationController
         trailers = @product.trailers.mobile.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
       end
     end
+    logger.debug("@@@#{trailer.inspect}")
     respond_to do |format|
       format.js   {
         if trailer.class.name == 'StreamingTrailer'
