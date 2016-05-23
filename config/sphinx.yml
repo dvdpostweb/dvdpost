@@ -1,5 +1,5 @@
 development:
-  port: 9306
+  port: 9312
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
