@@ -21,36 +21,6 @@
   <link rel="SHORTCUT ICON" href="/favicon.ico" />
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<% if params[:kind] == :adult %>
-		<script type="text/javascript">
-		try {
-		var pageTracker = _gat._getTracker("UA-8475379-1"); //adult
-		pageTracker._trackPageview();
-		} catch(err) {}</script>
-	<% else %>
-	  <script type="text/javascript">
-
-	    var _gaq = _gaq || [];
-	    _gaq.push(['_setAccount', 'UA-7319107-1']);
-	    _gaq.push(['_trackPageview']);
-
-	    (function() {
-	      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	    })();
-	    //privé
-	  </script>
-	<% end %>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-1121531-1"); //all
-	pageTracker._trackPageview();
-	} catch(err) {}</script>
 </head>
 <body>
   <div id="fb-root"></div>

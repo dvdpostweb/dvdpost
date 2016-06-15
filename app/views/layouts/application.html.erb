@@ -35,37 +35,20 @@
   <![endif]-->
 	<%= yield :facebook %>
   <%= yield :head %>
-  <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(
-      ['_setAccount', '<%= DVDPost.analytics_code[:all] %>'],
-      ['_trackPageview'],
-      <% if ENV['HOST_OK'] == "1" %>
-      ['b._setAccount', '<%= DVDPost.analytics_code[:public] %>'],
-      ['b._trackPageview']
-      <% else %>
-        <% if params[:kind] == :normal %>
-          ['b._setAccount', '<%= DVDPost.analytics_code[:private] %>'],
-          ['b._trackPageview']
-        <% else %>
-          ['b._setAccount', '<%= DVDPost.analytics_code[:adult] %>'],
-          ['b._trackPageview']
-        <% end %>
-      <% end %>
-      
-    );
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      /*ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';*/
-      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-  </script>
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
+<script>
+  dataLayer = [];
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PMD4QF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMD4QF');</script>
+<!-- End Google Tag Manager -->
     <!--   ==============   HEADER   ==============   -->
 		<% if @code.nil? || (@code && !@code.white_label) %>
 			<%= render(:partial => 'layouts/banner_promo') if ENV['HOST_OK'] == "1" && cookies['url_promo'] %>
