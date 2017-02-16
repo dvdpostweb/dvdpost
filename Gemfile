@@ -36,3 +36,4 @@ gem 'memcache-client'
 gem 'rabl'
 gem 'oj'
 gem "prawn", "~> 0.12.0"
+gem 'rails-footnotes', '~> 3.6', '>= 3.6.7'

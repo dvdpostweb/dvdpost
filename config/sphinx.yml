@@ -1,5 +1,5 @@
 development:
-  port: 8444
+  port: 9312
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
@@ -37,4 +37,3 @@ production:
   pid_file: "log/searchd.pid"
   max_matches: 100000
   mem_limit: 128M
-  

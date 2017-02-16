@@ -13,19 +13,19 @@ module ProductsHelper
 
   def audio_bubbles(product, additional_bubble = 0, content = :li)
     audio_count=0
-    total_bubble = 3 + additional_bubble 
+    total_bubble = 3 + additional_bubble
     preferred_audio = product.languages.preferred
     audio = Array.new
     unless preferred_audio.count == 0
-      audio = preferred_audio.collect{|language| 
+      audio = preferred_audio.collect{|language|
         audio_count +=1
         content_tag(content, language.short.upcase, :class => "left red osc", :alt => language.name, :title => language.name)
       }
     end
-  
+
     not_preferred_audio = product.languages.not_preferred
     unless not_preferred_audio.count == 0
-      audio << not_preferred_audio.collect{|language| 
+      audio << not_preferred_audio.collect{|language|
         audio_count +=1
         display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
@@ -43,15 +43,15 @@ module ProductsHelper
     end
     {:audio => audio, :hide => hide}
   end
-  
+
 
   def subtitle_bubbles(product, additional_bubble, content = :li)
     subtitle_count=0
-    total_bubble = 3 + additional_bubble 
+    total_bubble = 3 + additional_bubble
     preferred_subtitle = product.subtitles.preferred
     sub = Array.new
     unless preferred_subtitle.count == 0
-      sub = preferred_subtitle.preferred.collect{|subtitle| 
+      sub = preferred_subtitle.preferred.collect{|subtitle|
         subtitle_count += 1
         content_tag(content, subtitle.short.upcase, :class => "left gray osc", :alt => subtitle.name, :title => subtitle.name)
       }
@@ -59,9 +59,9 @@ module ProductsHelper
     if subtitle_count < total_bubble
        not_preferred_sub = product.subtitles.not_preferred
        unless not_preferred_sub.count == 0
-         sub << not_preferred_sub.collect{|subtitle| 
+         sub << not_preferred_sub.collect{|subtitle|
           subtitle_count += 1
-          display = subtitle_count > total_bubble ? 'subtitle_hide' : '' 
+          display = subtitle_count > total_bubble ? 'subtitle_hide' : ''
           if subtitle.short
             if subtitle.short.include?('_m')
               subtitle.short = subtitle.short.slice(0..1)
@@ -105,7 +105,7 @@ module ProductsHelper
 
   def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil, response_id = nil, source = nil)
    if product
-     rating_data = product.rating(current_customer) 
+     rating_data = product.rating(current_customer)
      rating = rating_data[:rating]
      rated = rating_data[:customer]
      links = []
@@ -159,7 +159,7 @@ module ProductsHelper
     end
     s = size == :long || size == 'long' ? '19x19' : '12x12'
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.id}_#{value}", :name => image_name, :size => s)
-    
+
     if current_customer && class_name == 'star' && !mobile_request?
       link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation, :response_id => response_id, :source => source))
     else
@@ -190,7 +190,7 @@ module ProductsHelper
   def available_on_other_language(product, recommendation)
     if product.products_other_language.to_i > 0
       path = recommendation.to_i > 0 ? product_path(:id => product.products_other_language, :recommendation => recommendation) : product_path(:id => product.products_other_language)
-      
+
       if product.languages.preferred.include?(Language.find(1))
         link_to(t('.dispo_nl'), path, :id => 'dispo-btn', :class => 'dispo-btn')
       else
@@ -263,7 +263,7 @@ module ProductsHelper
     return t(".soon") if params[:view_mode] == 'soon'
     return t(".vod_soon") if params[:view_mode] == 'vod_soon'
     return t(".most_viewed") if params[:sort] == 'most_viewed'
-    
+
     list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
     return (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
     return t('products.left_column.all')
@@ -282,7 +282,7 @@ module ProductsHelper
       else
         t('products.wishlist.add', :media => t("products.index.filters.#{media}"))
       end
-    end  
+    end
   end
 
   def title_add_all_to_wishlist(type_button)
@@ -290,7 +290,7 @@ module ProductsHelper
       t('.reserve_serie')
     else
       t('.add_serie')
-    end  
+    end
   end
 
   def title_remove_from_wishlist(type_text, media)
@@ -346,7 +346,7 @@ module ProductsHelper
         name = lang.name
         if !country.include?(short)
           country << short
-          content_tag(:li, short.upcase, :class => "left red osc", :alt => name, :title => name) 
+          content_tag(:li, short.upcase, :class => "left red osc", :alt => name, :title => name)
         end
       end
     }
@@ -363,7 +363,7 @@ module ProductsHelper
         lang = product.subtitle.by_language(I18n.locale).first
         short = lang.short
         name = lang.name
-        
+
         if !country.include?(short)
           country << short
           if short.include?('_m')
@@ -435,7 +435,7 @@ module ProductsHelper
       details =""
       details = "<strong>#{abo.qty_dvd_max} #{t '.films'}</strong> #{t_nl '.all_formats'}"
       details += "<strong> + #{pluralize(abo.credits - abo.qty_dvd_max, t('.in_vod'), t('.in_vods'))}</strong>" if (abo.credits - abo.qty_dvd_max) > 0
-      details += "<br /> #{image_tag "freeupgradelogo.gif"}" if abo.ordered == free_upgrade 
+      details += "<br /> #{image_tag "freeupgradelogo.gif"}" if abo.ordered == free_upgrade
     end
     details
   end
@@ -485,15 +485,15 @@ module ProductsHelper
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.studio'), studios_path(:filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] != 804 ? :actived : ''
     end
-    if params[:kind] == :normal
-      html_content << content_tag(:li, :class => :list) do
-        link_to t('products.left_column.univercine'), studio_products_path(:studio_id => 804, :filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] == 804 ? "actived" : ''
-      end
-    end
+#    if params[:kind] == :normal
+#      html_content << content_tag(:li, :class => :list) do
+#        link_to t('products.left_column.univercine'), studio_products_path(:studio_id => 804, :filter => :vod), :class => params[:controller] == "studios" && params[:filter] == "vod" && params[:id] == 804 ? "actived" : ''
+#      end
+#    end
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.all_catalogue'), products_path(:view_mode => :streaming), :class => params[:view_mode] == "streaming"  ? :actived : ''
     end
-    
+
   end
 
   def left_column(params)
@@ -518,7 +518,7 @@ module ProductsHelper
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.new'), products_path(:sort => :production_year_all), :class => params[:sort] == 'production_year_all' ? :actived : ''
     end
-    
+
     html_content << content_tag(:li, :class => :list) do
       link_to t('products.left_column.fresh'), products_path(:view_mode => :recent), :class => params[:filter] != "vod" && params[:view_mode] == "recent" ? :actived : ''
     end
@@ -562,7 +562,7 @@ module ProductsHelper
     if cat
       cat.name
     else
-      if product.adult?  
+      if product.adult?
         product.categories.first.name unless product.categories.empty?
       else
         product.categories.active.first.name unless product.categories.active.empty?
