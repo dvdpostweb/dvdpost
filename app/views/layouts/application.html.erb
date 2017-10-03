@@ -13,7 +13,7 @@
   <%= stylesheet_link_tag 'main', :media => :all %>
  	<%= stylesheet_link_tag 'facebox', :media => :all %>
 	<%= stylesheet_link_tag 'style', 'all', :media => :all if ((params[:controller] != 'home' && params[:controller] != 'products') && params[:kind] == :normal) || (params[:kind] == :adult && params[:controller] != 'products')  %>
-	
+
 	<%= stylesheet_link_tag 'stylex', :media => :all if params[:kind] == :adult && params[:controller] != 'newsletters' && !(params[:controller] == 'streaming_products' && params[:action] =='faq') %>
 
 
@@ -21,7 +21,7 @@
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
   <%= javascript_include_tag 'application' %>
-	
+
   <%= javascript_include_tag 'jquery.ba-url.min' %>
   <%= javascript_include_tag 'jquery.query-2.1.7' %>
   <%= javascript_include_tag 'jquery.cycle.all.min' %>
@@ -53,7 +53,7 @@
           ['b._trackPageview']
         <% end %>
       <% end %>
-      
+
     );
 
     (function() {
@@ -64,6 +64,7 @@
     })();
 
   </script>
+  <script src="https://content.jwplatform.com/libraries/D6L08XhR.js"></script>
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
 <!-- Google Tag Manager -->

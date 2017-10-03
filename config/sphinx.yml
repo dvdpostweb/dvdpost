@@ -1,8 +1,8 @@
 development:
   port: 9312
-  searchd_log_file: "log/searchd.log"
-  query_log_file: "log/searchd_query.log"
-  pid_file: "log/searchd.pid"
+  searchd_log_file: "/var/log/sphinxsearch/searchd.log"
+  query_log_file: "/var/log/sphinxsearch/query.log"
+  pid_file: "/var/run/sphinxsearch/searchd.pid"
   max_matches: 100000
   mem_limit: 128M
 test:
@@ -37,4 +37,3 @@ production:
   pid_file: "log/searchd.pid"
   max_matches: 100000
   mem_limit: 128M
-  

@@ -1,88 +1,14 @@
-<% if trailer.class.name == 'StreamingTrailer' %>
 <div id='content_trailer'>
       <% audio = trailer.languages.by_language(:fr).first.short_alpha %>
       <% sub = trailer.subtitles.count > 0 ? trailer.subtitles.by_language(:fr).first.short_alpha : 'non' %>
       <% url = DVDPost.akamai_hls_trailer_url(trailer.imdb_id, audio, sub, trailer.videoland, trailer.akamai_folder) %>
-    <div id="player"></div>
-    <script type="text/javascript">
-        var flashvars = {
-            src: "<%= url %>"
-            , autoPlay: 'true'
-            , verbose: true
-            , controlBarAutoHide: true
-            , controlBarPosition:'bottom'
-            , plugin_hls: '/HLSProviderOSMF.swf'
-        };
-        var params = {
-            allowFullScreen: true
-            , allowScriptAccess: "always"
-            , bgcolor: "#000000"
-        };
-        var attrs = {
-            name: "player"
-        };
 
-        swfobject.embedSWF("/GrindPlayer.swf", "player", "696", "389", "10.2", null, flashvars, params, attrs);
-    </script>
-    
+      <div id="player">Loading the player...</div>
+      <script>
+          jwplayer('player').setup({
+              file: "<%= url %>"
+          });
+      </script>
+
     <%= render :partial => 'products/show/versions', :locals => {:versions => trailers, :current_trailer => trailer} if trailers.count > 1 %>
 </div>
-<% else %>
-<div id='content_trailer'>
-<p <%= trailers ? 'align="center' : '' %>"><% if trailer.youtube? %>
-<object width="855" height="505"><param name="movie" value="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="855" height="505"></embed></object>
-<% elsif trailer.dailymotion? %>
-<object width="855" height="505"><param name="movie" value="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation" width="855" height="505" allowfullscreen="true" allowscriptaccess="always"></embed></object>
-<% elsif trailer.film1? || trailer.commeaucinema? || trailer.cinenews? || trailer.imineo? || trailer.dorcel_mp4? %>
-<object width="855" height="505" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf?rand=<%= (1..1000).to_a.sample %>" name="player_api" id="player_api">
-  <param value="true" name="allowfullscreen">
-  <param value="always" name="allowscriptaccess">
-  <param value="high" name="quality">
-  <param value="#000000" name="bgcolor">
-  <param value="config={&quot;key&quot;:&quot;#$dcba96641dab5d22c24&quot;,&quot;plugins&quot;:{&quot;content&quot;:{&quot;url&quot;:&quot;flowplayer.content-3.2.0.swf&quot;,&quot;height&quot;:220,&quot;padding&quot;:30,&quot;backgroundColor&quot;:&quot;#112233&quot;,&quot;opacity&quot;:0.0,&quot;backgroundGradient&quot;:[0.1,0.1,1],&quot;html&quot;:&quot;
-	&lt;p&gt;&lt;/p&gt;
-&quot;,&quot;style&quot;:{&quot;p&quot;:{&quot;fontSize&quot;:40}}},&quot;controls&quot;:{&quot;url&quot;:&quot;flowplayer.controls-tube-3.2.5.swf&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;clip&quot;:{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;},&quot;playlist&quot;:[{&quot;url&quot;:&quot;<%= trailer.remote_id %>&quot;}]}" name="flashvars">
-</object>
-<% elsif trailer.allocine? %>
-  <object type="application/x-shockwave-flash" id="V6_player" data="http://images.allocine.fr/commons/player/AcV3/AcPlayer_v3.0.swf" width="855px" height="505px" style="visibility: visible; display: block; ">
-  <param name="menu" value="false"/>
-  <param name="wmode" value="window"/>
-  <param name="scale" value="noScale"/>
-  <param name="allowFullscreen" value="true"/>
-  <param name="allowScriptAccess" value="always"/>
-  <param name="bgcolor" value="#000000"/>
-  <param name="flashvars" value="<%= trailer.remote_id %>"/>
-  </object>
-<% elsif trailer.cinemovies? || trailer.vimeo? %>
-  	<%= trailer.remote_id %>
-<% elsif trailer.aamreviews? %>
-  <object type="application/x-shockwave-flash" width="450" height="300"wmode="transparent" data="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/<%= trailer.remote_id %>&autostart=true&showfsbutton=true">
-                  <param name="movie" value="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/3372.flv&autostart=true&showfsbutton=true" />
-                  <param name="wmode" value="transparent" />
-                  <param name="allowScriptAccess" value="sameDomain" />
-                  <embed src="http://www.aamreviews.com/flvplayer.swf?file=http://www.aamreviews.com/flvideo/<%= trailer.remote_id %>&autostart=true&showfsbutton=true" loop="False" width="330" height="220" allowscriptaccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-                  </embed>
-  </object>
-<% elsif trailer.dorcel? %>
-  <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=,0,0,0" id="AnimationFlash" width="855" height="505" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
-  <param name="allowScriptAccess" value="always"/>
-  <param name="movie" value="<%= trailer.remote_id %>"/>
-  <param name="swLiveConnect" value="TRUE"/>
-  <param name="quality" value="high"/>
-  <param name="bgcolor" value=""/>
-  <param name="wmode" value="opaque"/>
-  <embed id="AnimationFlash" allowscriptaccess="always" width="855" height="505" src="<%= trailer.remote_id %>" swliveconnect="TRUE" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" bgcolor="" wmode="opaque" type="application/x-shockwave-flash"/>
-  </object>
-<% elsif trailer.ecranlarge? %>
-  <object width="855" height="505"><param name="movie" value="http://www.ecranlarge.com/v/<%= trailer.remote_id %>"></param><param name="wmode" value="transparent"></param><embed src="http://www.ecranlarge.com/v/<%= trailer.remote_id %>" type="application/x-shockwave-flash" wmode="transparent" width="855" height="505"></embed></object>
-<% elsif trailer.imdb? %>
-<embed width="855" height="505" flashvars="file=<%= trailer.remote_id %>&amp;width=854&amp;height=480&amp;autostart=true&amp;backcolor=0x000000&amp;frontcolor=0xCCCCCC&amp;lightcolor=0xFFFFCC&amp;shuffle=false&amp;repeat=list&amp;linktarget=_top&amp;enablejs=true&amp;image=http://ia.media-imdb.com/images/M/MV5BMTA0NTQ4NTU2ODNeQTJeQWpwZ15BbWU3MDk4Mzk3MTM@._V1_.jpg" wmode="transparent" allowscriptaccess="always" allowfullscreen="true" quality="high" bgcolor="#FFFFFF" name="flash-1331722037243" id="flash-1331722037243" style="undefined" src="http://video-http.media-imdb.com/mediaplayer.swf?Expires=1331754435&amp;Signature=tZ9ewm~RLrL9L7d1sd9nhuQVWjripMPJM3~c607NUdS1HdEIe3frIJPnenfybHTuuXkwj1AqR~s4SxBmi59V2wp-BVqG4FrU2jIemA9NGMFeJE1afxEbJ0wbcTBdlhfkMszZSDH3UpAae5S8xSw5WSGw6LInkr1WXhuVYfoXj24_&amp;Key-Pair-Id=APKAILW5I44IHKUN2DYA" type="application/x-shockwave-flash">
-<% else %>
-  <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
-<% end %>
-<div id='pagination'>
-<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '«', :next_label => '»', :param_name => 'trailer_page', :id => 'trailer_pagination' if trailers %>
-</div>
-</p>
-</div>
-<% end %>
