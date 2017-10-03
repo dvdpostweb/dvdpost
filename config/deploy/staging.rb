@@ -13,7 +13,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :use_sudo, false
 set :scm_verbose, true
-set :rails_env, "staging" 
+set :rails_env, "staging"
 
 #############################################################
 #	Servers
@@ -31,7 +31,7 @@ role :db, domain, :primary => true
 #############################################################
 
 set :scm, :git
-set :branch, "production"
+set :branch, "master"
 set :scm_user, 'dvdpost'
 set :scm_passphrase, "[y'|\E7U158]9*"
 set :repository, "git@github.com:dvdpost/dvdpost.git"
@@ -80,13 +80,13 @@ namespace :deploy do
     EOF
     put db_config, "#{release_path}/config/database.yml"
   end
-  
+
   # Restart passenger on deploy
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => {:no_release => true} do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
+
   [:start, :stop].each do |t|
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
