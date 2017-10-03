@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-    before_filter :http_authenticate, :if => :staging?
+    #before_filter :http_authenticate, :if => :staging?
     helper_method :current_customer, :unless => :is_it_xml?
     before_filter :save_attempted_path, :unless => :is_it_xml?
     before_filter :check_host
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     #before_filter :set_mobile_preferences
     before_filter :redirect_to_mobile_if_applicable
     #before_filter :prepend_view_path_if_mobile
-    
+
     before_filter :redirect_after_registration, :unless => :is_it_xml?
     before_filter :set_locale_from_params
     before_filter :set_country, :unless => :is_it_xml?
@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
     if ENV['HOST_OK'] == "1" && params[:all]
       cookies[:adult_hide] = { :value => 1, :expires => 1.year.from_now, :domain => request.domain }
     end
-    
+
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if ENV['HOST_OK'] == "0" && current_customer
     set_locale(locale || :fr)
@@ -100,10 +100,10 @@ class ApplicationController < ActionController::Base
         current_customer.last_login(:adult)
         session[:last_login_adult] = true
       end
-      
+
     end
   end
-  
+
   def validation_adult
     if params[:kind] == :adult && !session[:adult] && params[:code].nil? && params['action'] != 'validation' && params['action'] != 'authenticate'
       prefix = "http://"
@@ -152,9 +152,9 @@ class ApplicationController < ActionController::Base
         my_forwarded_ip = request.env["HTTP_X_FORWARDED_FOR"] if !ip_regex.match(request.env["HTTP_X_FORWARDED_FOR"]).nil? && ! /^192(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^172(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"]) && ! /^10\.(.*)/.match(request.env["HTTP_X_FORWARDED_FOR"])
         cf = GeoIP.new('GeoIP.dat').country(my_forwarded_ip) if my_forwarded_ip
         c = GeoIP.new('GeoIP.dat').country(my_ip)
-        
+
         if c.country_code == 0 && Rails.env == "production" && ! /^192(.*)/.match(my_ip) && ! /^172(.*)/.match(my_ip) && ! /^10(.*)/.match(my_ip) && ! /^127(.*)/.match(my_ip)
-          notify_hoptoad("country code is empty ip : #{my_ip}") 
+          notify_hoptoad("country code is empty ip : #{my_ip}")
         end
         if cf && (cf.country_code == 22 || cf.country_code == 161 || cf.country_code == 131)
           session[:country_id] = cf.country_code
@@ -180,10 +180,10 @@ class ApplicationController < ActionController::Base
         logger.error(e.backtrace)
       end
     end
-    
+
     #session[:country_id] = 0
   end
-  
+
   def available_locales
     AVAILABLE_LOCALES
   end
@@ -209,7 +209,7 @@ class ApplicationController < ActionController::Base
       end
       if !params[:code].nil?
         session[:code] = params[:code]
-      end  
+      end
       if !params[:later].nil?
         session[:later] = "later"
         cookies[:nb_pages_views] =  { :value => 0, :expires => 3.months.from_now }
@@ -253,14 +253,14 @@ class ApplicationController < ActionController::Base
         redirect_to_full_site if mobile_request?
       end
     end
-    
+
     def redirect_to_full_site
       redirect_to request.protocol + request.host_with_port.gsub(/^m\./, '') +
                   request.request_uri  and return
     end
 
     def redirect_to_mobile_if_applicable
-      
+
       @browser = Browser.new(:ua => request.user_agent, :accept_language => "en-us")
       #if params[:mobile_site]
       #  redirect_to request.protocol + "m." + request.host_with_port and return
@@ -273,7 +273,7 @@ class ApplicationController < ActionController::Base
   def prepend_view_path_if_mobile
     if mobile_request?
       mobile_path = Rails.root.join("app", "views_mobile").to_s
-      prepend_view_path(mobile_path) 
+      prepend_view_path(mobile_path)
     end
   end
 
@@ -283,7 +283,7 @@ class ApplicationController < ActionController::Base
     end
     warden.custom_failure! if performed?
   end
-  
+
   def notify_hoptoad(message)
     begin
       Airbrake.notify(:error_message => "GeoIP error : #{message}", :backtrace => $@, :environment_name => ENV['RAILS_ENV'])
@@ -292,7 +292,7 @@ class ApplicationController < ActionController::Base
       logger.error(e.backtrace)
     end
   end
-  
+
   def allow_cross_domain_access
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "*"
