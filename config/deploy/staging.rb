@@ -48,7 +48,7 @@ namespace :deploy do
     common_staging:
      adapter: mysql
      encoding: utf8
-     database: common_staging
+     database: common_production
      username: webuser
      password: 3gallfir-
      host: matadi
@@ -56,7 +56,7 @@ namespace :deploy do
     staging:
       adapter: mysql
       encoding: utf8
-      database: dvdpost_test
+      database: dvdpost_be_prod
       username: webuser
       password: 3gallfir-
       host: 192.168.100.204
@@ -64,7 +64,7 @@ namespace :deploy do
       slave01:
         adapter: mysql
         encoding: utf8
-        database: dvdpost_test
+        database: dvdpost_be_prod
         username: webuser
         password: 3gallfir-
         host: 192.168.100.204
@@ -72,7 +72,7 @@ namespace :deploy do
       slave02:
         adapter: mysql
         encoding: utf8
-        database: dvdpost_test
+        database: dvdpost_be_prod
         username: webuser
         password: 3gallfir-
         host: 192.168.100.204
