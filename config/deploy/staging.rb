@@ -172,7 +172,7 @@ namespace :deploy do
       source product_core_0
       {
         type = mysql
-        sql_host = localhost
+        sql_host = 192.168.100.204
         sql_user = webuser
         sql_pass = 3gallfir-
         sql_db = dvdpost_be_prod
