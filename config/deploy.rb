@@ -83,7 +83,7 @@ namespace :deploy do
 
   task :update_ts do
     symlink_sphinx_indexes
-    #thinking_sphinx.configure
+    thinking_sphinx.configure
     thinking_sphinx.start
   end
 end
