@@ -21,8 +21,7 @@
 set :output, './log/cron.log'
 
 every :reboot do
-  rake "thinking_sphinx:start"
-  rake "thinking_sphinx:reindex"  
+  rake "thinking_sphinx:start"  
 end
 
 every 1.day, :at => '11:59 am' do
