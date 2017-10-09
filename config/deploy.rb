@@ -78,12 +78,12 @@ namespace :deploy do
   task :symlink_sphinx_indexes, :roles => [:app] do
     run "ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx"
     run "ln -nfs /data/geoip/GeoIP.dat #{current_path}/GeoIP.dat"
-    
+
   end
 
   task :update_ts do
     symlink_sphinx_indexes
-    thinking_sphinx.configure
+    #thinking_sphinx.configure
     thinking_sphinx.start
   end
 end
