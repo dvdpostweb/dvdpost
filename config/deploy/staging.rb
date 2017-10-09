@@ -269,8 +269,9 @@ namespace :deploy do
         local = product_core
       }
       EOF
-      put db_config, "#{release_path}/config/staging.sphinx.conf"
+      put db_config, "#{release_path}/config/database.yml"
     end
+  end
 
   # Restart passenger on deploy
   desc "Restarting mod_rails with restart.txt"
