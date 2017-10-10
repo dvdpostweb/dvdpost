@@ -17,8 +17,8 @@
         </div>
         <div id='flow'>
         </div>
-        <a id='player' class='normal'>
-        </a>
+        <!--<a id='player' class='normal'>
+        </a>-->
         <%= message_streaming(@token, @streaming_free, @streaming) if (ENV['HOST_OK'] == "0" && !current_customer.svod? && !@streaming.is_ppv && current_customer.svod_adult == 0 && @streaming.studio_id == 147) %>
 
         <% if @streaming_free == true %>

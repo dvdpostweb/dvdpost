@@ -1,8 +1,11 @@
 <% if token %>
   <% token_code = token.token %>
-<% else %> 
+<% else %>
   <% if Token.dvdpost_ip?(request.remote_ip) || (current_customer && current_customer.super_user?) || (/^192(.*)/.match(request.remote_ip)) %>
       <% token_code = '3/i/'+ streaming.imdb_id.to_s #DVDPost.generate_token_from_alpha(filename, params[:kind], true) %>
   <% end %>
 <% end %>
-<%= flowplayer(filename, source, streaming, token_code, browser) %>
+<!--<#%= flowplayer(filename, source, streaming, token_code, browser) %>-->
+
+<%= jwplayer(filename, source, streaming, token_code, browser) %>
+<div id='player'>Loading the player...</div>

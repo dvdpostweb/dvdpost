@@ -1,4 +1,22 @@
 module StreamingProductsHelper
+
+  def jwplayer(source_file, source, streaming, token_name, browser, code = nil, season_id ='0', episode_id = '0')
+    audio = streaming.languages.by_language(:fr).first.short_alpha
+    sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
+    hd = streaming.hd? ? true : false
+    url = DVDPost.akamai_hls_url(streaming.imdb_id, audio, sub, hd, streaming.videoland, streaming.akamai_folder)
+
+    script = <<-script
+      var movieUrl = '#{url}'
+      jwplayer('player').setup({
+        file: movieUrl,
+        "height": 389,
+        "width": 696
+        });
+    script
+    javascript_tag script
+  end
+
   def flowplayer(source_file, source, streaming, token_name, browser)
     audio = streaming.languages.by_language(:fr).first.short_alpha
     sub = streaming.subtitles.count > 0 ? streaming.subtitles.by_language(:fr).first.short_alpha : 'non'
@@ -34,7 +52,7 @@ module StreamingProductsHelper
             };
 
 
-            // Embed the player SWF:              
+            // Embed the player SWF:
             swfobject.embedSWF(
         "/GrindPlayer.swf"
         , "player_hls"
@@ -92,12 +110,12 @@ module StreamingProductsHelper
       end
     end
   end
-      
+
 
   def validation(imdb_id, remote_ip, vlavla)
-    {:token => nil, :status => Token.status[:FAILED]} 
+    {:token => nil, :status => Token.status[:FAILED]}
   end
-      
+
 
   def message_error(error)
     case error
@@ -117,7 +135,7 @@ module StreamingProductsHelper
         t('.rollback')
     end
   end
-  
+
   def get_style(current_abo_credit, abo_credits, showing)
     if(current_abo_credit.to_i < abo_credits.to_i || nederlands?)
       if showing
