@@ -24,18 +24,18 @@ set :user, "dvdpostapp"
 #set :domain2, "94.139.62.123"
 #set :port, 22012
 
-set :domain,  "217.112.190.50:23051"
-#set :port, 23051
+set :domain,  "217.112.190.50"
+set :port, 23051
 
-set :domain2, "217.112.190.50:32051"
+#set :domain2, "217.112.190.50:32051"
 #set :port, 23051
 
 #server '217.112.190.50', port: 23051, user: 'dvdpostapp', roles: %w{web app}
 #server '217.112.190.50', port: 23051, user: 'dvdpostapp', roles: %w{web app}
 
-role :web,  domain2
-role :app,  domain2
-role :db, domain2, :primary => true
+role :web,  domain
+role :app,  domain
+role :db, domain, :primary => true
 
 #############################################################
 #	Git
@@ -95,13 +95,13 @@ namespace :deploy do
     EOF
     put db_config, "#{release_path}/config/database.yml"
   end
-  
+
   # Restart passenger on deploy
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => {:no_release => true} do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
+
   [:start, :stop].each do |t|
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
@@ -146,12 +146,12 @@ after "deploy:restart" do
 
 end
 
-   
-#namespace :deploy do  
-#  desc "Update the crontab file"  
-#  task :update_crontab, :roles => :db do  
-#    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"  
-#  end  
+
+#namespace :deploy do
+#  desc "Update the crontab file"
+#  task :update_crontab, :roles => :db do
+#    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+#  end
 #end
 
 before 'deploy:create_symlink', 'deploy:stop_ts'
