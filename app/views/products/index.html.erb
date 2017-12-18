@@ -20,8 +20,8 @@
     <% if params[:search] && !params[:search].empty? %>
       <ul class="etabs osc content-tabs">
         <%= "<li class='tab'>#{link_to t('.films')  , url_for(params.merge(:type => nil, :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type].nil? ? 'active' : '')}</li>" if @products_count > 0 || (@exact_products && @exact_products.size > 0) %>
-        <%= "<li class='tab'>#{link_to t('.directors'), url_for(params.merge(:type => 'directors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %> 
-        <%= "<li class='tab'>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %> 
+        <%= "<li class='tab'>#{link_to t('.directors'), url_for(params.merge(:type => 'directors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'directors' ? 'active' : '')}</li>" if @directors_count > 0 %>
+        <%= "<li class='tab'>#{link_to t('.actors'), url_for(params.merge(:type => 'actors', :page => nil, :actors_page => nil, :directors_page => nil)), :class => (params[:type] == 'actors' ? 'br active' : 'br')}</li>" if @actors_count > 0 %>
       </ul>
     <% end %>
     <% if cookies[:endless] == 'deactive' %>
@@ -34,7 +34,7 @@
       <%= t('.ppv_description') %>
     </div>
     <% end %>
-    
+
     <div id="products">
       <%= render :partial => 'products/index/products' %>
     </div>
@@ -45,5 +45,5 @@
   </div>
   <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
   <div id="toTop"><%= t('.back') %></div>
-  <!--   ==============   END MAIN CONTENT   ==============   --> 
+  <!--   ==============   END MAIN CONTENT   ==============   -->
 <% end %>

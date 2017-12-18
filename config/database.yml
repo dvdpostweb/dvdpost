@@ -10,7 +10,7 @@ development:
 common_development:
   adapter: mysql
   encoding: utf8
-  database: common_staging
+  database: common_production
   username: root
   password: root
   host: localhost
