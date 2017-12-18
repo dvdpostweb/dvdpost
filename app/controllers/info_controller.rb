@@ -1,5 +1,5 @@
 class InfoController < ApplicationController
-   
+
   def index
     if params[:page_name] == 'get_connected' || params[:page_name] == 'get_connected_order'
       unless current_customer
@@ -8,7 +8,7 @@ class InfoController < ApplicationController
     end
     if params[:page_name] == 'get_connected_order'
       params[:page_name] = 'get_connected'
-      params[:order] = 1 
+      params[:order] = 1
     end
     params[:page_name] = 'price_dvd' if params[:page_name] == 'price' && nederlands?
     if params[:page_name] == 'get_connected' || params[:page_name] == 'new_website'
@@ -33,7 +33,7 @@ class InfoController < ApplicationController
         if nederlands?
           @promo_code = 'DVDNL'
         else
-          case I18n.locale 
+          case I18n.locale
             when :fr
               @promo_code = 'univers'
             when :nl

@@ -41,11 +41,11 @@ ActionController::Routing::Routes.draw do |map|
       product.resources :reviews, :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :tokens, :only => [:new, :create]
-      
-      product.drop_cached 'drop_cached',  :controller => :products, :action => :drop_cached, :conditions => {:method => :get} 
-      product.step 'step',  :controller => :products, :action => :step, :conditions => {:method => :get} 
-      
-      
+
+      product.drop_cached 'drop_cached',  :controller => :products, :action => :drop_cached, :conditions => {:method => :get}
+      product.step 'step',  :controller => :products, :action => :step, :conditions => {:method => :get}
+
+
       product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.awards 'awards', :controller => :products, :action => :awards
       product.seen 'seen', :controller => :products, :action => :seen
@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
       product.resources :reviews, :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :tokens, :only => [:new, :create]
-      
+
       product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.awards 'awards', :controller => :products, :action => :awards
       product.seen 'seen', :controller => :products, :action => :seen
@@ -67,16 +67,16 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :streaming_products, :only => [:show], :requirements => { :id => /\d+/ } do |stream|
-      stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+      #stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
       stream.language 'language', :controller => :streaming_products, :action => :language, :conditions => {:method => :get}
       stream.subtitle 'subtitle', :controller => :streaming_products, :action => :subtitle, :conditions => {:method => :get}
       stream.versions 'versions', :controller => :streaming_products, :action => :versions, :conditions => {:method => :get}
     end
 
     localized.resource :streaming_products, :only => [] do |stream|
-      stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+      #stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
       stream.sample 'sample', :controller => :streaming_products, :action => :sample, :conditions => {:method => :get}
-      
+
     end
 
     localized.resources :categories, :only => [:index] do |category|
@@ -110,17 +110,17 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :contests, :only => [:index, :show] do |contest|
       contest.resources :customers, :controller => :contests, :only => [:create]
     end
-    
+
     localized.resources :quizzes, :only => [:show, :index]
-    
+
     localized.validation 'validation', :controller => :home, :action => :validation, :conditions => {:method => :get}
     localized.moodmovie 'moodmovie', :controller => :home, :action => :moodmovie, :conditions => {:method => :get}
-    
+
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.bluray_owner 'wishlist/bluray_owner', :controller => :wishlist_items, :action => :bluray_owner, :conditions => {:method => :get}
     localized.display_vod 'vod_wishlists/display_vod', :controller => :vod_wishlists, :action => :display_vod, :conditions => {:method => :get}
-    
+
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}
     localized.wishlist_start 'wishlist_start', :controller => :wishlist_items, :action => :start, :conditions => {:method => :get}
 
@@ -175,8 +175,8 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'promotion', :only => [:show, :edit]
       customer.resource :payment_methods, :only => [:edit, :update, :show]
       customer.resources :reviews, :only => [:index]
-      
-      
+
+
     end
     localized.resources :vod_wishlists
     localized.unsubscribe 'unsubscribe', :controller => :customers, :action => :unsubscribe, :conditions => {:method => :get}
@@ -195,9 +195,8 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => :products, :action => :index, :conditions => {:method => :get}
 
   #map.get_authentication 'authentication/api/Authenticate', :controller => :authentication, :action => :ok, :conditions => { :method => :get }
-  
-  
+
+
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-

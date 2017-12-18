@@ -1,10 +1,10 @@
 <% id = yield :body_id %>
 <ul id="nav" class="osc">
-  
+
   <li><%= link_to t('layouts.header.explore'), products_path, {:id => 'nav2', :class => (( id == 'cl' || id == 'film-details') ? 'active': '')} %></li>
   <% if ENV['HOST_OK'] == "0" %>
     <li>
-    <% if streaming_access? %>  
+    <% if streaming_access? %>
       <%= link_to t('layouts.header.wishlist'), vod_wishlists_path, {:id => 'nav3', :class => (( id == 'mywhishlist') ? 'active': '')} %>
         <ul class="dropdown">
           <li><%= link_to t('.dvd'), wishlist_path %></li>
@@ -36,11 +36,11 @@
       <li><%= link_to t('layouts.header.normal_mobile', :default => 'cine'), root_path(:kind => :normal), {:id => 'nav8'} %></li>
     <% end %>
   <% end %>
-  <% if !nederlands? %>
+  <!--<#% if !nederlands? %>
     <li>
-    <%= link_to t('layouts.header.faq', :default => 'multi'), streaming_products_faq_path(:kind => :normal), {:id => 'nav9'} %>
+    <#%= link_to t('layouts.header.faq', :default => 'multi'), streaming_products_faq_path(:kind => :normal), {:id => 'nav9'} %>
   </li>
-  <% end %>
+  <#% end %>-->
 
 </ul>
 <% if !mobile_request? or params[:controller] != 'info' %>
@@ -50,7 +50,7 @@
       <%= submit_tag 'search', :id => 'search-btn' %>
       <div style="display:none" id ="search_text"><%= t('layouts.menu_adult.search') %></div>
     <%= "</div>" if mobile_request? %>
-  
+
   <% end %>
 <% end %>
 <% if params[:kind] == :adult && !mobile_request? %>
