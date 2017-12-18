@@ -8,6 +8,8 @@ require 'capistrano/ext/multistage'
 
 #require 'hoptoad_notifier/capistrano'
 
+set :ssh_options, { :forward_agent => true }
+
 require 'bundler/capistrano'
 
 

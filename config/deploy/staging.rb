@@ -33,7 +33,7 @@ role :db, domain, :primary => true
 set :scm, :git
 set :branch, "master"
 set :scm_user, 'dvdpost'
-set :scm_passphrase, "3ntr0nic+"
+set :scm_passphrase, "[y'|\E7U158]9*"
 set :repository, "git@github.com:dvdpost/dvdpost.git"
 set :deploy_via, :remote_cache
 
