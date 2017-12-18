@@ -19,7 +19,7 @@ set :rails_env, "staging"
 #	Servers
 #############################################################
 
-set :user, "dvdpostapp"
+set :user, "dvdpost"
 set :domain,  "217.112.190.50"
 set :port, 23051
 role :web, domain
