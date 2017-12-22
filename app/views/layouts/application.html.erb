@@ -67,9 +67,11 @@
   <script src="https://content.jwplatform.com/libraries/D6L08XhR.js"></script>
 </head>
 <body id="<%= yield :body_id %>" class="<%= params[:kind] %>" <%= yield :option %>>
-  <div id="alert">
-    <a class="alert" href="#alert">This is a slide down alert!</a>
-</div>
+  <% unless params[:action] == "validation" %>
+    <div id="alert">
+      <a class="alert" href="#alert">This is a slide down alert!</a>
+    </div>
+  <% end %>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PMD4QF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
