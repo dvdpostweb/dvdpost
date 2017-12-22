@@ -182,6 +182,8 @@ ActionController::Routing::Routes.draw do |map|
     localized.unsubscribe 'unsubscribe', :controller => :customers, :action => :unsubscribe, :conditions => {:method => :get}
     localized.resources :search_filters, :only => [:create, :destroy]
 
+    localized.vod_stop 'vod_stop', :controller => :vod_stop, :action => :index, :conditions => {:method => :get}
+
     localized.resource :sponsorships do |sponsorship|
       sponsorship.gifts 'gifts', :controller => :sponsorships, :action => :gifts, :conditions => {:method => :get}
       sponsorship.promotion 'promotion', :controller => :sponsorships, :action => :promotion, :conditions => {:method => :get}

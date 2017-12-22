@@ -20,4 +20,5 @@ class PublicPromotionsController < ApplicationController
       end
     end
   end
+
 end

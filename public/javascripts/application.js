@@ -47,7 +47,7 @@ $(function() {
     $.getScript($("#close a").attr('href'));
     return false;
   });
-  
+
 
   $(".streaming_action").live("click", function() {
     wishlist_item = $(this);
@@ -60,7 +60,7 @@ $(function() {
         success: function(data) { jQuery.facebox(data); }
       });
     });
-    
+
     return false;
   });
 
@@ -105,7 +105,7 @@ $(function() {
     $('#search_filter_detail').hide()
     $('#search_filter').html($(this).parent().children().children().html())
   });
-  $('#codePromo, #codePromo2').live('click', function(){
+  $('#codePromo, #codePromo2, #codePromoVod').live('click', function(){
     url = $(this).attr('href');
     jQuery.facebox(function() {
       $.ajax({
@@ -125,7 +125,7 @@ $(function() {
   {
     if($('.action_face').attr('id') == 'newsletters')
     {
-      $.facebox.settings.opacity = 0.4; 
+      $.facebox.settings.opacity = 0.4;
       $.facebox.settings.modal = true;
     }
     url = $('.action_face').html()
@@ -148,7 +148,7 @@ $(function() {
   var options_norm = {
     success: show_add_norm,
     dataType: 'html'
-    
+
   }
   function show_add_norm(responseText, statusText){
     if(jQuery.trim(statusText) == "success"){
@@ -166,7 +166,7 @@ $(function() {
       html_item.html(content);
     }
   };
-  
+
   $(".public_promo_btn").live("click", function() {
     if ($("#promotion").val()!=""){
       loader = 'ajax-loader.gif';
@@ -181,7 +181,7 @@ $(function() {
       html_item =  $("#public_promo #status").html('')
     }
       return false; // prevent default behaviour
-    
+
   });
   if ($('#warning_price').html()!=undefined){
   url = $('#warning_price').html();
@@ -202,7 +202,7 @@ $(function() {
     if(!$('#new_price').is(':checked'))
     {
       alert($('#check_alert').html())
-      return false  
+      return false
     }
   })
 });
@@ -232,7 +232,7 @@ function set_page(url)
     {
       url = url + (url.indexOf('?') != -1 ? "&recommendation="+recommendation : "?recommendation="+recommendation);
     }
-    _gaq.push(['._trackPageview', url]); 
+    _gaq.push(['._trackPageview', url]);
     _gaq.push(['b._trackPageview', url]);
   }
 }
@@ -255,4 +255,3 @@ $('.dropdown').live('mouseleave',function(){
 })
 // When I say html I really mean script for rails
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
-
